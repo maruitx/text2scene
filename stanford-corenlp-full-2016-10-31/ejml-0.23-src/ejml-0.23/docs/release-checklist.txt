@@ -1,0 +1,31 @@
+- Update version number in UtilEjml.VERSION
+- Update change.txt
+- Update version in pom.xml
+- check ant build
+  * ant clean
+  * ant
+- commit and tag release
+  svn copy trunk/ tags/VERSION
+- Create .zip of source code
+  - remove .svn
+- Create jar file
+- Update documentation on website
+- Update Maven central repository
+
+-----
+Maven
+
+https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide
+
+- change version in pom.xml
+- rm -rf target
+- mvn package
+- mvn javadoc:jar
+- mvn source:jar
+- mvn gpg:sign-and-deploy-file -Durl=https://oss.sonatype.org/service/local/staging/deploy/maven2/ -DrepositoryId=sonatype-nexus-staging -DpomFile=pom.xml -Dfile=target/ejml-XX.jar
+- mvn gpg:sign-and-deploy-file -Durl=https://oss.sonatype.org/service/local/staging/deploy/maven2/ -DrepositoryId=sonatype-nexus-staging -DpomFile=pom.xml -Dfile=target/ejml-XX-sources.jar -Dclassifier=sources
+- mvn gpg:sign-and-deploy-file -Durl=https://oss.sonatype.org/service/local/staging/deploy/maven2/ -DrepositoryId=sonatype-nexus-staging -DpomFile=pom.xml -Dfile=target/ejml-XX-javadoc.jar -Dclassifier=javadoc
+- Then go to the website  https://oss.sonatype.org/
+  * click close button
+  * double check the files
+  * click release button
