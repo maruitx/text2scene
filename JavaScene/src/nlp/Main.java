@@ -47,6 +47,7 @@ public class Main {
                     //System.out.println(labels.get(i).get() + ": " + govLabel + ", " + s.word(i));
                     result.append(labels.get(i).get() + "@" + govLabel + "@" + s.word(i) + "^");
                 }
+                result.append('|');
             }
             return result.toString();
         }

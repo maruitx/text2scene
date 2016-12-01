@@ -1,14 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="..\app.cpp" />
-    <ClCompile Include="..\main.cpp" />
-    <ClCompile Include="..\mLibSource.cpp" />
+    <ClInclude Include="app.h" />
+    <ClInclude Include="appParams.h" />
+    <ClInclude Include="main.h" />
+    <ClInclude Include="mLibInclude.h" />
+    <ClInclude Include="SELUtil.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\app.h" />
-    <ClInclude Include="..\main.h" />
-    <ClInclude Include="..\appParams.h" />
-    <ClInclude Include="..\mLibInclude.h" />
+    <ClCompile Include="app.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="mLibSource.cpp" />
   </ItemGroup>
 </Project>
