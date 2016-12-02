@@ -15,12 +15,15 @@
     <ClInclude Include="appParams.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="mLibInclude.h" />
+    <ClInclude Include="parsedSentence.h" />
+    <ClInclude Include="sceneEntity.h" />
     <ClInclude Include="SELUtil.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="app.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mLibSource.cpp" />
+    <ClCompile Include="parsedSentence.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{6B05D639-8709-4A31-BF8E-5335B9CC711B}</ProjectGuid>

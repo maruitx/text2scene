@@ -9,5 +9,8 @@
 
 #include "SELUtil.h"
 
+#include "parsedSentence.h"
+#include "sceneEntity.h"
+
 #include "app.h"
 

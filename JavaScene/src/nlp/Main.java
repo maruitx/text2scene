@@ -35,7 +35,7 @@ public class Main {
             for(Sentence s : sentences)
             {
                 result.append(s.text());
-                result.append('|');
+                result.append('#');
 
                 List<Optional<String>> labels = s.incomingDependencyLabels(SemanticGraphFactory.Mode.ENHANCED_PLUS_PLUS);
                 List<Optional<Integer>> governors = s.governors(SemanticGraphFactory.Mode.ENHANCED_PLUS_PLUS);
@@ -45,7 +45,7 @@ public class Main {
                     String govLabel = "ROOT";
                     if(govIndex != -1) govLabel = s.word(govIndex);
                     //System.out.println(labels.get(i).get() + ": " + govLabel + ", " + s.word(i));
-                    result.append(labels.get(i).get() + "@" + govLabel + "@" + s.word(i) + "^");
+                    result.append(labels.get(i).get() + "@" + (govIndex + 1) + "@" + govLabel + "@" + (i + 1) + "@" + s.word(i) + "^");
                 }
                 result.append('|');
             }

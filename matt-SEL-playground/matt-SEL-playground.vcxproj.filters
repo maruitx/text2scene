@@ -6,10 +6,13 @@
     <ClInclude Include="main.h" />
     <ClInclude Include="mLibInclude.h" />
     <ClInclude Include="SELUtil.h" />
+    <ClInclude Include="parsedSentence.h" />
+    <ClInclude Include="sceneEntity.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="app.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mLibSource.cpp" />
+    <ClCompile Include="parsedSentence.cpp" />
   </ItemGroup>
 </Project>
