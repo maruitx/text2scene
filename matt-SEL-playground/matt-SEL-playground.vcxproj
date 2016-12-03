@@ -25,6 +25,9 @@
     <ClCompile Include="mLibSource.cpp" />
     <ClCompile Include="parsedSentence.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="dependency-notes.txt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{6B05D639-8709-4A31-BF8E-5335B9CC711B}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>

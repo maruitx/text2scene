@@ -4,7 +4,7 @@ struct ParseUnit
 	ParseUnit() {}
 	explicit ParseUnit(const string &s)
 	{
-		//nsubj@3@walking@0@Today
+		//nsubj@3@walking@0@Today@pB-tag
 		const vector<string> parts = util::split(s, '@');
 		type = parts[0];
 		
@@ -13,16 +13,34 @@ struct ParseUnit
 
 		pBIndex = convert::toInt(parts[3]);
 		pB = parts[4];
+
+		pBTag = parts[5];
 	}
 	string toString() const
 	{
-		return type + "(" + pA + "-" + to_string(pAIndex) + ", " + pB + "-" + to_string(pBIndex) + ")";
+		return type + "(" + pA + "-" + to_string(pAIndex) + ", " + pB + "-" + to_string(pBIndex) + "~" + pBTag + ")";
 	}
 	string type;
 	string pA;
 	int pAIndex;
 	string pB;
 	int pBIndex;
+
+	string pBTag;
+};
+
+struct Token
+{
+	Token() {}
+	Token(int _index, string _text, string _tag)
+	{
+		index = _index;
+		text = _text;
+		tag = _tag;
+	}
+	int index;
+	string text;
+	string tag;
 };
 
 struct ParsedSentence
@@ -49,7 +67,9 @@ struct ParsedSentence
 		auto partsB = util::split(partsA[1], '^');
 		for (auto &unitDesc : partsB)
 		{
-			units.push_back(ParseUnit(unitDesc));
+			ParseUnit u = ParseUnit(unitDesc);
+			units.push_back(u);
+			tokens.push_back(Token(u.pBIndex, u.pB, u.pBTag));
 		}
 	}
 
@@ -65,4 +85,5 @@ struct ParsedSentence
 
 	string text;
 	vector<ParseUnit> units;
+	vector<Token> tokens;
 };

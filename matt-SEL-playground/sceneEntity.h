@@ -65,8 +65,8 @@ struct SceneEntity
 	// ex. "there are four chairs"
 	EntityCount count;
 
-	// determinant used (ex. "a", "the", etc.)
-	string determinant;
+	// determiner used (ex. "a", "the", etc.)
+	string determiner;
 
 	vector<EntityRelationship> relationships;
 };

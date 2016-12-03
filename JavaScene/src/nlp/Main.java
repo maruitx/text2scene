@@ -34,6 +34,7 @@ public class Main {
             List<Sentence> sentences = d.sentences();
             for(Sentence s : sentences)
             {
+                s.parse();
                 result.append(s.text());
                 result.append('#');
 
@@ -45,7 +46,7 @@ public class Main {
                     String govLabel = "ROOT";
                     if(govIndex != -1) govLabel = s.word(govIndex);
                     //System.out.println(labels.get(i).get() + ": " + govLabel + ", " + s.word(i));
-                    result.append(labels.get(i).get() + "@" + (govIndex + 1) + "@" + govLabel + "@" + (i + 1) + "@" + s.word(i) + "^");
+                    result.append(labels.get(i).get() + "@" + (govIndex + 1) + "@" + govLabel + "@" + (i + 1) + "@" + s.word(i) + "@" + s.posTag(i) + "^");
                 }
                 result.append('|');
             }

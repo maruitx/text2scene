@@ -15,4 +15,7 @@
     <ClCompile Include="mLibSource.cpp" />
     <ClCompile Include="parsedSentence.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="dependency-notes.txt" />
+  </ItemGroup>
 </Project>

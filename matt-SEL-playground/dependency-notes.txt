@@ -1,0 +1,3 @@
+http://universaldependencies.org/en/overview/specific-syntax.html
+http://universaldependencies.org/en/dep/index.html
+http://universaldependencies.org/en/dep/all.html
