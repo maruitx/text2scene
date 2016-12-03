@@ -8,12 +8,14 @@
     <ClInclude Include="SELUtil.h" />
     <ClInclude Include="parsedSentence.h" />
     <ClInclude Include="sceneEntity.h" />
+    <ClInclude Include="SELParser.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="app.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mLibSource.cpp" />
     <ClCompile Include="parsedSentence.cpp" />
+    <ClCompile Include="SELParser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="dependency-notes.txt" />

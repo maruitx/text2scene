@@ -32,11 +32,18 @@ struct EntityCount
 			descriptor = value;
 	}
 
+	string toString() const
+	{
+		if (count == -1) return descriptor;
+		else return to_string(count);
+	}
+
 	// One of the two values will be valid.
 
 	// ex. "many", "some", etc.
 	string descriptor;
 
+	// -1 = invalid count
 	int count;
 };
 
@@ -48,15 +55,55 @@ struct EntityRelationship
 	// the noun and index of sentence token of the referenced object.
 	string referencedNoun;
 	int referencedTokenIndex;
+
+	string toString() const
+	{
+		return type + ":" + referencedNoun + "-" + to_string(referencedTokenIndex);
+	}
 };
 
 struct SceneEntity
 {
+	SceneEntity()
+	{
+		baseNoun = "<invalid>";
+		plural = false;
+		tokenIndex = -1;
+		determiner = "<not specified>";
+	}
+
+	string toString() const
+	{
+		string result;
+		const string pluralDesc = plural ? " (plural)" : "";
+		string adjectiveDesc;
+		for (auto &s : adjectives)
+		{
+			adjectiveDesc += s + ",";
+		}
+		string relationshipDesc;
+		for (auto &s : relationships)
+		{
+			relationshipDesc += s.toString() + ",";
+		}
+
+		result += "entity: " + baseNoun + "-" + to_string(tokenIndex) + pluralDesc + "\n";
+		
+		result += "  adjectives: " + adjectiveDesc + "\n";
+		result += "  count: " + count.toString() + "\n";
+		result += "  determiner: " + determiner + "\n";
+		result += "  relationships: " + relationshipDesc + "\n";
+		return result;
+	}
+
 	// the base nount describing the object. ex. "table", "computer"
 	string baseNoun;
 
 	// the index of baseNoun in the sentence token list.
 	int tokenIndex;
+
+	// whether the noun is plural
+	bool plural;
 
 	// adjectives describing the object. ex. "dining", "wooden"
 	vector<string> adjectives;

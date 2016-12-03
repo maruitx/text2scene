@@ -17,6 +17,7 @@
     <ClInclude Include="mLibInclude.h" />
     <ClInclude Include="parsedSentence.h" />
     <ClInclude Include="sceneEntity.h" />
+    <ClInclude Include="SELParser.h" />
     <ClInclude Include="SELUtil.h" />
   </ItemGroup>
   <ItemGroup>
@@ -24,6 +25,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mLibSource.cpp" />
     <ClCompile Include="parsedSentence.cpp" />
+    <ClCompile Include="SELParser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="dependency-notes.txt" />

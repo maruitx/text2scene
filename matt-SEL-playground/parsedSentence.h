@@ -65,6 +65,7 @@ struct ParsedSentence
 		auto partsA = util::split(s, '#');
 		text = partsA[0];
 		auto partsB = util::split(partsA[1], '^');
+		tokens.push_back(Token(0, "ROOT", "ROOT"));
 		for (auto &unitDesc : partsB)
 		{
 			ParseUnit u = ParseUnit(unitDesc);
@@ -83,7 +84,43 @@ struct ParsedSentence
 		return result;
 	}
 
+	vector<ParseUnit> findUnits(const string &typePrefix) const
+	{
+		vector<ParseUnit> result;
+		for (auto &u : units)
+		{
+			if (util::startsWith(u.type, typePrefix))
+				result.push_back(u);
+		}
+		return result;
+	}
+
+	vector<ParseUnit> findUnits(const string &typePrefix, const string &pATagPrefix, const string &pBTagPrefix) const
+	{
+		vector<ParseUnit> result;
+		for (auto &u : units)
+		{
+			if (util::startsWith(u.type, typePrefix) &&
+				util::startsWith(tokens[u.pAIndex].tag, pATagPrefix) &&
+				util::startsWith(tokens[u.pBIndex].tag, pBTagPrefix))
+				result.push_back(u);
+		}
+		return result;
+	}
+
+	SceneEntity* getEntity(int tokenIndex)
+	{
+		for (auto &e : entities)
+		{
+			if (e.tokenIndex == tokenIndex) return &e;
+		}
+		cout << "(WARNING) Entity not found: " << tokenIndex << endl;
+		return nullptr;
+	}
+
 	string text;
 	vector<ParseUnit> units;
 	vector<Token> tokens;
+
+	vector<SceneEntity> entities;
 };
