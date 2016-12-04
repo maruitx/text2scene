@@ -61,6 +61,31 @@ void SELParser::assignCounts(ParsedSentence &s)
 	}
 }
 
+void SELParser::addAdjective(ParsedSentence &s, int tokenIndex, const string &adjective)
+{
+	auto e = s.getEntity(tokenIndex);
+	if (e != nullptr)
+	{
+		e->adjectives.push_back(adjective);
+	}
+}
+
+void SELParser::addRelationship(ParsedSentence &s, int tokenIndexA, int tokenIndexB, string relationshipType)
+{
+	if (util::contains(relationshipType, ':'))
+		relationshipType = util::split(relationshipType, ':')[1];
+	auto eL = s.getEntity(tokenIndexA);
+	auto eR = s.getEntity(tokenIndexB);
+	if (eL != nullptr && eR != nullptr)
+	{
+		EntityRelationship rel;
+		rel.type = relationshipType;
+		rel.referencedNoun = eR->baseNoun;
+		rel.referencedTokenIndex = eR->tokenIndex;
+		eL->relationships.push_back(rel);
+	}
+}
+
 void SELParser::assignAdjectives(ParsedSentence &s)
 {
 	// Adjectives from nsubj. Here the connecting verb is assumed to be "to be".
@@ -68,21 +93,19 @@ void SELParser::assignAdjectives(ParsedSentence &s)
 	// ex. "The chairs are wooden."
 	for (auto &u : s.findUnits("nsubj", "JJ", "NN"))
 	{
-		auto e = s.getEntity(u.pBIndex);
-		if (e != nullptr)
-		{
-			e->adjectives.push_back(u.pA);
-		}
+		addAdjective(s, u.pBIndex, u.pA);
 	}
 
 	// Adjectives from compounds. ex. "There is a dining table.".
 	for (auto &u : s.findUnits("compound"))
 	{
-		auto e = s.getEntity(u.pAIndex);
-		if (e != nullptr)
-		{
-			e->adjectives.push_back(u.pB);
-		}
+		addAdjective(s, u.pAIndex, u.pB);
+	}
+
+	// Adjectives from amod. ex. "a sleek and white laptop".
+	for (auto &u : s.findUnits("amod"))
+	{
+		addAdjective(s, u.pAIndex, u.pB);
 	}
 }
 
@@ -90,15 +113,31 @@ void SELParser::assignRelationships(ParsedSentence &s)
 {
 	for (auto &u : s.findUnits("nmod:", "NN", "NN"))
 	{
-		auto eL = s.getEntity(u.pAIndex);
-		auto eR = s.getEntity(u.pBIndex);
-		if (eL != nullptr && eR != nullptr)
+		addRelationship(s, u.pAIndex, u.pBIndex, u.type);
+	}
+
+	//On the desk there is a monitor, a keyboard, and a sleek and white laptop.
+	//nmod:on(is-5, desk-3~NN)
+	//nsubj(is-5, monitor-7~NN)
+	//conj:and(monitor-7, keyboard-10~NN)
+	//conj:and(monitor-7, laptop-17~NN)
+	for (auto &vbUnit : s.findUnits("nmod:", "VB", "NN"))
+	{
+		const int verbTokenIndex = vbUnit.pAIndex;
+		for (auto &baseNounUnit : s.findUnits("nsubj", verbTokenIndex, -1))
 		{
-			EntityRelationship rel;
-			rel.type = util::split(u.type, ':')[1];
-			rel.referencedNoun = eR->baseNoun;
-			rel.referencedTokenIndex = eR->tokenIndex;
-			eL->relationships.push_back(rel);
+			vector<int> nounTokens;
+			const int baseNounTokenIndex = baseNounUnit.pBIndex;
+			nounTokens.push_back(baseNounTokenIndex);
+			for (auto &conjNounUnit : s.findUnits("conj:and", baseNounTokenIndex, -1))
+			{
+				nounTokens.push_back(conjNounUnit.pBIndex);
+			}
+
+			for (int nounToken : nounTokens)
+			{
+				addRelationship(s, nounToken, vbUnit.pBIndex, vbUnit.type);
+			}
 		}
 	}
 }

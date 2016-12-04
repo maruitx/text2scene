@@ -14,6 +14,7 @@ struct EntityCount
 		if (x == 8) return "eight";
 		if (x == 9) return "nine";
 		if (x == 10) return "ten";
+		return "error";
 	}
 	EntityCount()
 	{

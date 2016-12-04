@@ -409,7 +409,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="328" y="127" width="1392" height="999" extended-state="0" />
+    <frame x="328" y="127" width="1392" height="999" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />

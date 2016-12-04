@@ -108,6 +108,19 @@ struct ParsedSentence
 		return result;
 	}
 
+	vector<ParseUnit> findUnits(const string &typePrefix, int tokenIndexA, int tokenIndexB) const
+	{
+		vector<ParseUnit> result;
+		for (auto &u : units)
+		{
+			if (util::startsWith(u.type, typePrefix) &&
+				(tokenIndexA == -1 || tokenIndexA == u.pAIndex) &&
+				(tokenIndexB == -1 || tokenIndexB == u.pBIndex))
+				result.push_back(u);
+		}
+		return result;
+	}
+
 	SceneEntity* getEntity(int tokenIndex)
 	{
 		for (auto &e : entities)
