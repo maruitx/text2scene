@@ -22,7 +22,7 @@ struct ParseUnit
 	}
 	string getTypeSuffix() const
 	{
-		return util::split(type, ':')[1];
+		return util::replace(util::split(type, ':')[1], '_', ' ');
 	}
 
 	string type;

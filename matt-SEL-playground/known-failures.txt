@@ -1,3 +1,5 @@
 The soda can is to the right of the laptop.
 -- gets part of speech of "can" wrong
 
+There’s a red patterned rug in the middle of the room surrounded by a grey sofa and two sofa chairs with throw pillows.
+-- parses it as "the room that is surrounded by..." rather than "the rug is surrounded by"

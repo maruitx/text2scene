@@ -21,6 +21,19 @@
   <ItemGroup>
     <Text Include="dependency-notes.txt" />
     <Text Include="known-failures.txt" />
-    <Text Include="spatialNouns.txt" />
+    <Text Include="..\data\SEL\spatialNouns.txt">
+      <Filter>data</Filter>
+    </Text>
+    <Text Include="..\data\SEL\abstractNouns.txt">
+      <Filter>data</Filter>
+    </Text>
+    <Text Include="..\data\SEL\countingAdjectives.txt">
+      <Filter>data</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="data">
+      <UniqueIdentifier>{7cae1a07-c831-4d17-9fd0-aa7f8078563d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

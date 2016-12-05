@@ -32,9 +32,11 @@
     <ClCompile Include="SELParser.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="..\data\SEL\abstractNouns.txt" />
+    <Text Include="..\data\SEL\countingAdjectives.txt" />
+    <Text Include="..\data\SEL\spatialNouns.txt" />
     <Text Include="dependency-notes.txt" />
     <Text Include="known-failures.txt" />
-    <Text Include="spatialNouns.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{6B05D639-8709-4A31-BF8E-5335B9CC711B}</ProjectGuid>

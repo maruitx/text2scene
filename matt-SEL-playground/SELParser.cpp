@@ -20,13 +20,12 @@ void SELParser::extractEntities(ParsedSentence &s)
 		rejectList.insert(u.pBIndex);
 	}
 
-	
-	//auto &params = appParams();
+	auto &params = appParams();
 	// accept all nouns not on the reject list
 	for (auto &t : s.tokens)
 	{
 		if (util::startsWith(t.posTag, "NN") &&
-			appParams().spatialNouns.count(t.text) == 0 &&
+			!appParams().isAbstractOrSpatialNoun(t.text) &&
 			rejectList.count(t.index) == 0)
 		{
 			SceneEntity entity;
@@ -43,6 +42,10 @@ void SELParser::assignDeterminers(ParsedSentence &s)
 	// determiners from det
 	for (auto &u : s.findUnits("det"))
 	{
+		// don't worry about determiners for spatial nouns.
+		if (appParams().spatialNouns.count(u.pA) != 0)
+			continue;
+
 		auto e = s.getEntity(u.pAIndex);
 		if (e != nullptr)
 		{
@@ -69,7 +72,19 @@ void SELParser::addAdjective(ParsedSentence &s, int tokenIndex, const string &ad
 	auto e = s.getEntity(tokenIndex);
 	if (e != nullptr)
 	{
-		e->adjectives.push_back(adjective);
+		if (appParams().isCountingAdjective(adjective))
+		{
+			if (e->count.count != 1 || e->count.descriptor != EntityCount::defaultDescriptor())
+			{
+				cout << "Unexpected count double-assignment" << endl;
+			}
+			e->count.count = -1;
+			e->count.descriptor = adjective;
+		}
+		else
+		{
+			e->adjectives.push_back(adjective);
+		}
 	}
 }
 
@@ -77,6 +92,14 @@ void SELParser::addRelationship(ParsedSentence &s, int tokenIndexA, int tokenInd
 {
 	if (util::contains(relationshipType, ':'))
 		relationshipType = util::split(relationshipType, ':')[1];
+	if (util::contains(relationshipType, '_'))
+		relationshipType = util::replace(relationshipType, '_', ' ');
+
+	// ignore recording spatial noun relationships.
+	if (appParams().isSpatialNoun(s.tokens[tokenIndexA].text) ||
+		appParams().isSpatialNoun(s.tokens[tokenIndexB].text))
+		return;
+
 	auto eL = s.getEntity(tokenIndexA);
 	auto eR = s.getEntity(tokenIndexB);
 	if (eL != nullptr && eR != nullptr)
@@ -99,13 +122,13 @@ void SELParser::assignAdjectives(ParsedSentence &s)
 		addAdjective(s, u.pBIndex, u.pA);
 	}
 
-	// Adjectives from compounds. ex. "There is a dining table.".
-	for (auto &u : s.findUnits("compound"))
+	// Adjectives from compounds. ex. "There is a dining table."
+	for (auto &u : s.findUnits("compound", "NN", ""))
 	{
 		addAdjective(s, u.pAIndex, u.pB);
 	}
 
-	// Adjectives from amod. ex. "a sleek and white laptop".
+	// Adjectives from amod. ex. "a sleek and white laptop"
 	for (auto &u : s.findUnits("amod"))
 	{
 		addAdjective(s, u.pAIndex, u.pB);
@@ -124,24 +147,16 @@ void SELParser::assignRelationships(ParsedSentence &s)
 	//nsubj(is-5, monitor-7~NN)
 	//conj:and(monitor-7, keyboard-10~NN)
 	//conj:and(monitor-7, laptop-17~NN)
-	for (auto &vbUnit : s.findUnits("nmod:", "VB", "NN"))
+	//nmod:on(0-VBZ, 1-NN)
+	//nsubj(0-VBZ, 2-NN)
+	//conj:and(2-NN, 3-NN)
+	for (auto &r : PatternMatcher::match(s, PatternMatchQuery("nmod:on(0-VB, 1-NN)", "nsubj(0-VB, 2-NN)")))
 	{
-		const int verbTokenIndex = vbUnit.pAIndex;
-		for (auto &baseNounUnit : s.findUnits("nsubj", verbTokenIndex, -1))
-		{
-			vector<int> nounTokens;
-			const int baseNounTokenIndex = baseNounUnit.pBIndex;
-			nounTokens.push_back(baseNounTokenIndex);
-			for (auto &conjNounUnit : s.findUnits("conj:and", baseNounTokenIndex, -1))
-			{
-				nounTokens.push_back(conjNounUnit.pBIndex);
-			}
-
-			for (int nounToken : nounTokens)
-			{
-				addRelationship(s, nounToken, vbUnit.pBIndex, vbUnit.type);
-			}
-		}
+		addRelationship(s, r.tokens[2], r.tokens[1], s.units[r.units[0]].getTypeSuffix());
+	}
+	for (auto &r : PatternMatcher::match(s, PatternMatchQuery("nmod:on(0-VB, 1-NN)", "nsubj(0-VB, 2-NN)", "conj:and(2-NN, 3-NN)")))
+	{
+		addRelationship(s, r.tokens[3], r.tokens[1], s.units[r.units[0]].getTypeSuffix());
 	}
 
 	// the soda is to the right of the laptop
@@ -174,5 +189,35 @@ void SELParser::assignRelationships(ParsedSentence &s)
 	for (auto &r : PatternMatcher::match(s, PatternMatchQuery("nsubj(0-NN, 1-NN)", "conj:and(0-NN, 2-NN)", "case(2-NN, 3-IN)")))
 	{
 		addRelationship(s, r.tokens[1], r.tokens[2], s.tokens[r.tokens[3]].text);
+	}
+
+	//There are cream-colored built-in shelves displaying many knick-knacks
+	//acl(shelves-5, displaying-6~VBG)
+	//dobj(displaying-6, knick-knacks-8~NNS)
+	//acl(0-NN, 1-VB)
+	//dobj(1-VB, 2-NN)
+	for (auto &r : PatternMatcher::match(s, PatternMatchQuery("acl(0-NN, 1-VB)", "dobj(1-VB, 2-NN)")))
+	{
+		addRelationship(s, r.tokens[0], r.tokens[2], s.tokens[r.tokens[1]].text);
+	}
+
+	//There’s a red patterned rug in the middle of the room surrounded by a grey sofa and two sofa chairs with throw pillows.
+	//nmod:in(rug-6, middle-9~NN)
+	//nmod:of(middle-9, room-12~NN)
+	//nmod:in(0-NN, 1-NN)
+	//nmod:of(1-NN, 2-NN)
+	for (auto &r : PatternMatcher::match(s, PatternMatchQuery("nmod:in(0-NN, 1-NN)", "nmod:of(1-NN, 2-NN)")))
+	{
+		addRelationship(s, r.tokens[0], r.tokens[2], "in " + s.tokens[r.tokens[1]].text + " of");
+	}
+
+	//There’s a red patterned rug in the middle of the room surrounded by a grey sofa and two sofa chairs with throw pillows.
+	//acl(rug-6, surrounded-7~VBN)
+	//nmod:(surrounded-7, sofa-11~NN)
+	//acl(0-NN, 1-VB)
+	//nmod:(1-VB, 2-NN)
+	for (auto &r : PatternMatcher::match(s, PatternMatchQuery("acl(0-NN, 1-VB)", "nmod:(1-VB, 2-NN)")))
+	{
+		addRelationship(s, r.tokens[0], r.tokens[2], s.tokens[r.tokens[1]].text + " " + s.units[r.units[1]].getTypeSuffix());
 	}
 }

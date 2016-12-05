@@ -18,19 +18,23 @@ struct EntityCount
 	}
 	EntityCount()
 	{
-		descriptor = "*";
+		descriptor = defaultDescriptor();
 		count = 1;
 	}
 	EntityCount(const string &value)
 	{
 		count = -1;
-		descriptor = "*";
+		descriptor = defaultDescriptor();
 
 		for(int i = 0; i <= 10; i++)
 			if (value == describeNumber(i) || value == to_string(i)) count = i;
 
 		if (count != -1)
 			descriptor = value;
+	}
+	static string defaultDescriptor()
+	{
+		return "*";
 	}
 
 	string toString() const

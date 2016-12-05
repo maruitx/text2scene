@@ -28,6 +28,7 @@ public class Main {
 
         public static String processDocument(String text)
         {
+            log("procssing document: " + text);
             StringBuilder result = new StringBuilder();
 
             Document d = new Document(text);
@@ -42,11 +43,18 @@ public class Main {
                 List<Optional<Integer>> governors = s.governors(SemanticGraphFactory.Mode.ENHANCED_PLUS_PLUS);
 
                 for(int i = 0; i < labels.size(); i++) {
-                    int govIndex = governors.get(i).get();
                     String govLabel = "ROOT";
-                    if(govIndex != -1) govLabel = s.word(govIndex);
+                    String labelName = "INVALID";
+                    int govIndex = -2; // debug value for when getting teh governor index fails
+                    try {
+                        govIndex = governors.get(i).get();
+                        labelName = labels.get(i).get();
+                    } catch(Exception ex) {
+                        govLabel = "INVALID";
+                    }
+                    if(govIndex >= 0) govLabel = s.word(govIndex);
                     //System.out.println(labels.get(i).get() + ": " + govLabel + ", " + s.word(i));
-                    result.append(labels.get(i).get() + "@" + (govIndex + 1) + "@" + govLabel + "@" + (i + 1) + "@" + s.word(i) + "@" + s.posTag(i) + "^");
+                    result.append(labelName + "@" + (govIndex + 1) + "@" + govLabel + "@" + (i + 1) + "@" + s.word(i) + "@" + s.posTag(i) + "^");
                 }
                 result.append('|');
             }
@@ -90,7 +98,7 @@ public class Main {
          * Logs a simple message.  In this case we just write the
          * message to the server applications standard output.
          */
-        private void log(String message) {
+        private static void log(String message) {
             System.out.println(message);
         }
     }
