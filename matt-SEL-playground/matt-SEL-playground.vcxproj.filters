@@ -9,6 +9,7 @@
     <ClInclude Include="parsedSentence.h" />
     <ClInclude Include="sceneEntity.h" />
     <ClInclude Include="SELParser.h" />
+    <ClInclude Include="patternMatcher.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="app.cpp" />
@@ -19,5 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="dependency-notes.txt" />
+    <Text Include="known-failures.txt" />
+    <Text Include="spatialNouns.txt" />
   </ItemGroup>
 </Project>

@@ -90,10 +90,18 @@ struct SceneEntity
 
 		result += "entity: " + baseNoun + "-" + to_string(tokenIndex) + pluralDesc + "\n";
 		
-		result += "  adjectives: " + adjectiveDesc + "\n";
-		result += "  count: " + count.toString() + "\n";
-		result += "  determiner: " + determiner + "\n";
-		result += "  relationships: " + relationshipDesc + "\n";
+		if(adjectives.size() > 0)
+			result += "  adjectives: " + adjectiveDesc + "\n";
+
+		if(count.count != 1)
+			result += "  count: " + count.toString() + "\n";
+
+		if(determiner != "<not specified>")
+			result += "  determiner: " + determiner + "\n";
+
+		if(relationships.size() > 0)
+			result += "  relationships: " + relationshipDesc + "\n";
+
 		return result;
 	}
 

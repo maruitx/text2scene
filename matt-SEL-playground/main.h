@@ -11,6 +11,7 @@
 
 #include "sceneEntity.h"
 #include "parsedSentence.h"
+#include "PatternMatcher.h"
 #include "SELParser.h"
 
 #include "app.h"

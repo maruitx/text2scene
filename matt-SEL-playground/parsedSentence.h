@@ -20,6 +20,11 @@ struct ParseUnit
 	{
 		return type + "(" + pA + "-" + to_string(pAIndex) + ", " + pB + "-" + to_string(pBIndex) + "~" + pBTag + ")";
 	}
+	string getTypeSuffix() const
+	{
+		return util::split(type, ':')[1];
+	}
+
 	string type;
 	string pA;
 	int pAIndex;
@@ -32,15 +37,15 @@ struct ParseUnit
 struct Token
 {
 	Token() {}
-	Token(int _index, string _text, string _tag)
+	Token(int _index, string _text, string _posTag)
 	{
 		index = _index;
 		text = _text;
-		tag = _tag;
+		posTag = _posTag;
 	}
 	int index;
 	string text;
-	string tag;
+	string posTag; // part-of-speech tag
 };
 
 struct ParsedSentence
@@ -101,8 +106,8 @@ struct ParsedSentence
 		for (auto &u : units)
 		{
 			if (util::startsWith(u.type, typePrefix) &&
-				util::startsWith(tokens[u.pAIndex].tag, pATagPrefix) &&
-				util::startsWith(tokens[u.pBIndex].tag, pBTagPrefix))
+				util::startsWith(tokens[u.pAIndex].posTag, pATagPrefix) &&
+				util::startsWith(tokens[u.pBIndex].posTag, pBTagPrefix))
 				result.push_back(u);
 		}
 		return result;

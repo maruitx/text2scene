@@ -5,7 +5,10 @@ void App::runTests()
 {
 	//const string debugText = "Today I am walking to the bookstore. There are several red books on the top shelf.";
 	//const string debugText = "There are four chairs around a dining table. The chairs are wooden.";
-	const string debugText = "On the desk there is a monitor, a keyboard, and a sleek and white laptop.";
+	//const string debugText = "On the desk there is a monitor, a keyboard, and a sleek and white laptop.";
+	//const string debugText = "The soda is to the right of the laptop.";
+	//const string debugText = "The power adapter is below the desk.";
+	const string debugText = "The power adapter is below the desk and near the chair.";
 	const string parsedText = SELUtil::processText(debugText);
 	cout << "input: " << debugText << endl;
 	cout << "output: " << parsedText << endl;

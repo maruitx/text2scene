@@ -9,11 +9,20 @@ struct AppParameters
 	AppParameters()
 	{
 		javaSceneDir = R"(C:\Code\text2scene\JavaScene\)";
-		debugDir = R"(C:\speech2speech\debug\run_)";
+		debugDir = R"(TODO)";
+		dataDir = R"(C:\Code\text2scene\data\SEL\)";
+
+		for (auto &s : util::getFileLines(dataDir + "spatialNouns.txt", 2))
+		{
+			spatialNouns.insert(s);
+		}
 	}
 
 	string javaSceneDir;
 	string debugDir;
+	string dataDir;
+
+	set<string> spatialNouns;
 };
 
 extern AppParameters* g_appParams;

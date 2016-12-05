@@ -1,0 +1,3 @@
+The soda can is to the right of the laptop.
+-- gets part of speech of "can" wrong
+

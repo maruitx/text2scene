@@ -16,19 +16,25 @@
     <ClInclude Include="main.h" />
     <ClInclude Include="mLibInclude.h" />
     <ClInclude Include="parsedSentence.h" />
+    <ClInclude Include="patternMatcher.h" />
     <ClInclude Include="sceneEntity.h" />
     <ClInclude Include="SELParser.h" />
     <ClInclude Include="SELUtil.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="app.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="main.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="mLibSource.cpp" />
     <ClCompile Include="parsedSentence.cpp" />
     <ClCompile Include="SELParser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="dependency-notes.txt" />
+    <Text Include="known-failures.txt" />
+    <Text Include="spatialNouns.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{6B05D639-8709-4A31-BF8E-5335B9CC711B}</ProjectGuid>
@@ -72,11 +78,11 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>main.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -86,12 +92,12 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>main.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
