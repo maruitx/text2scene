@@ -20,6 +20,11 @@ void SELParser::extractEntities(ParsedSentence &s)
 		rejectList.insert(u.pBIndex);
 	}
 
+	for (auto &u : s.findUnits("amod"))
+	{
+		rejectList.insert(u.pBIndex);
+	}
+
 	auto &params = appParams();
 	// accept all nouns not on the reject list
 	for (auto &t : s.tokens)
@@ -90,8 +95,6 @@ void SELParser::addAdjective(ParsedSentence &s, int tokenIndex, const string &ad
 
 void SELParser::addRelationship(ParsedSentence &s, int tokenIndexA, int tokenIndexB, string relationshipType)
 {
-	if (util::contains(relationshipType, ':'))
-		relationshipType = util::split(relationshipType, ':')[1];
 	if (util::contains(relationshipType, '_'))
 		relationshipType = util::replace(relationshipType, '_', ' ');
 
@@ -117,7 +120,7 @@ void SELParser::assignAdjectives(ParsedSentence &s)
 	// Adjectives from nsubj. Here the connecting verb is assumed to be "to be".
 	// This may not always be the case; investigate further.
 	// ex. "The chairs are wooden."
-	for (auto &u : s.findUnits("nsubj", "JJ", "NN"))
+	for (auto &u : s.findUnits("nsubj", "JJ|RB", "NN"))
 	{
 		addAdjective(s, u.pBIndex, u.pA);
 	}
@@ -139,7 +142,7 @@ void SELParser::assignRelationships(ParsedSentence &s)
 {
 	for (auto &u : s.findUnits("nmod:", "NN", "NN"))
 	{
-		addRelationship(s, u.pAIndex, u.pBIndex, u.type);
+		addRelationship(s, u.pAIndex, u.pBIndex, u.getTypeSuffix());
 	}
 
 	//On the desk there is a monitor, a keyboard, and a sleek and white laptop.
@@ -150,13 +153,17 @@ void SELParser::assignRelationships(ParsedSentence &s)
 	//nmod:on(0-VBZ, 1-NN)
 	//nsubj(0-VBZ, 2-NN)
 	//conj:and(2-NN, 3-NN)
-	for (auto &r : PatternMatcher::match(s, PatternMatchQuery("nmod:on(0-VB, 1-NN)", "nsubj(0-VB, 2-NN)")))
+	for (auto &r : PatternMatcher::match(s, PatternMatchQuery("nmod:(0-VB, 1-NN)", "nsubj(0-VB, 2-NN)")))
 	{
-		addRelationship(s, r.tokens[2], r.tokens[1], s.units[r.units[0]].getTypeSuffix());
+		string prefix = s.tokens[r.tokens[0]].text + " ";
+		if (prefix == "is ") prefix = "";
+		addRelationship(s, r.tokens[2], r.tokens[1], prefix + s.units[r.units[0]].getTypeSuffix());
 	}
-	for (auto &r : PatternMatcher::match(s, PatternMatchQuery("nmod:on(0-VB, 1-NN)", "nsubj(0-VB, 2-NN)", "conj:and(2-NN, 3-NN)")))
+	for (auto &r : PatternMatcher::match(s, PatternMatchQuery("nmod:(0-VB, 1-NN)", "nsubj(0-VB, 2-NN)", "conj:and(2-NN, 3-NN)")))
 	{
-		addRelationship(s, r.tokens[3], r.tokens[1], s.units[r.units[0]].getTypeSuffix());
+		string prefix = s.tokens[r.tokens[0]].text + " ";
+		if (prefix == "is ") prefix = "";
+		addRelationship(s, r.tokens[3], r.tokens[1], prefix + s.units[r.units[0]].getTypeSuffix());
 	}
 
 	// the soda is to the right of the laptop
@@ -219,5 +226,27 @@ void SELParser::assignRelationships(ParsedSentence &s)
 	for (auto &r : PatternMatcher::match(s, PatternMatchQuery("acl(0-NN, 1-VB)", "nmod:(1-VB, 2-NN)")))
 	{
 		addRelationship(s, r.tokens[0], r.tokens[2], s.tokens[r.tokens[1]].text + " " + s.units[r.units[1]].getTypeSuffix());
+	}
+
+	//The coffee table has two levels
+	//nsubj(has-4, table-3~NN)
+	//dobj(has-4, levels-6~NNS)
+	//nsubj(0-VB, 1-NN)
+	//dobj(0-VB, 2-NN)
+	for (auto &r : PatternMatcher::match(s, PatternMatchQuery("nsubj(0-VB, 1-NN)", "dobj(0-VB, 2-NN)")))
+	{
+		addRelationship(s, r.tokens[1], r.tokens[2], s.tokens[r.tokens[0]].text);
+	}
+
+	//In the center of the room is a large rectangular area rug.
+	//nmod:in(is-7, center-3~NN)
+	//nmod:of(center-3, room-6~NN)
+	//nsubj(is-7, rug-12~NN)
+	//nmod:(0-VB, 1-NN)
+	//nmod:(1-NN, 2-NN)
+	//nsubj(0-VB, 3-NN)
+	for (auto &r : PatternMatcher::match(s, PatternMatchQuery("nmod:(0-VB, 1-NN)", "nmod:(1-NN, 2-NN)", "nsubj(0-VB, 3-NN)")))
+	{
+		addRelationship(s, r.tokens[3], r.tokens[2], s.units[r.units[0]].getTypeSuffix() + " " + s.tokens[r.tokens[1]].text + " " + s.units[r.units[1]].getTypeSuffix());
 	}
 }

@@ -6,3 +6,5 @@ front
 back
 middle
 center
+length
+side

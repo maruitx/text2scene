@@ -100,14 +100,14 @@ struct ParsedSentence
 		return result;
 	}
 
-	vector<ParseUnit> findUnits(const string &typePrefix, const string &pATagPrefix, const string &pBTagPrefix) const
+	vector<ParseUnit> findUnits(const string &typePrefix, const string &pATagPrefixes, const string &pBTagPrefixes) const
 	{
 		vector<ParseUnit> result;
 		for (auto &u : units)
 		{
 			if (util::startsWith(u.type, typePrefix) &&
-				util::startsWith(tokens[u.pAIndex].posTag, pATagPrefix) &&
-				util::startsWith(tokens[u.pBIndex].posTag, pBTagPrefix))
+				SELUtil::partOfSpeechCheck(tokens[u.pAIndex].posTag, pATagPrefixes) &&
+				SELUtil::partOfSpeechCheck(tokens[u.pBIndex].posTag, pBTagPrefixes))
 				result.push_back(u);
 		}
 		return result;

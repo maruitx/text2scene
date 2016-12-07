@@ -2,6 +2,12 @@
 class SELUtil
 {
 public:
+	static string getUnitTypePhrase(const string &s)
+	{
+		if (util::contains(s, ':'))
+			return util::split(s, ':')[1];
+		return s;
+	}
 	static string processText(const string &document)
 	{
 		const string outputFilename = appParams().javaSceneDir + "output.txt";
@@ -28,5 +34,15 @@ public:
 		}
 
 		return lines[0];
+	}
+
+	static bool partOfSpeechCheck(const string &query, const string &prefixList)
+	{
+		auto prefixes = util::split(prefixList, '|');
+		for (const string &prefix : prefixes)
+		{
+			if (util::startsWith(query, prefix)) return true;
+		}
+		return false;
 	}
 };
