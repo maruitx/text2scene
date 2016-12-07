@@ -17,6 +17,7 @@
     <ClInclude Include="mLibInclude.h" />
     <ClInclude Include="parsedSentence.h" />
     <ClInclude Include="patternMatcher.h" />
+    <ClInclude Include="sceneCommand.h" />
     <ClInclude Include="sceneEntity.h" />
     <ClInclude Include="SELParser.h" />
     <ClInclude Include="SELUtil.h" />

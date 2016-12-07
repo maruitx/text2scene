@@ -136,9 +136,20 @@ struct ParsedSentence
 		return nullptr;
 	}
 
+	SceneCommand* getCommand(int tokenIndex)
+	{
+		for (auto &c : commands)
+		{
+			if (c.tokenIndex == tokenIndex) return &c;
+		}
+		cout << "(WARNING) Command not found: " << tokenIndex << endl;
+		return nullptr;
+	}
+
 	string text;
 	vector<ParseUnit> units;
 	vector<Token> tokens;
 
 	vector<SceneEntity> entities;
+	vector<SceneCommand> commands;
 };

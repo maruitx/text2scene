@@ -6,3 +6,9 @@ There’s a red patterned rug in the middle of the room surrounded by a grey sofa 
 
 The shelves are used for display of various decorative items
 -- items on shelves is too indirect
+
+Move the PC on the desk to the floor.
+-- "to floor" binds to desk, not PC. "Move the PC to the floor" will bind correctly.
+
+There are tall, thin, modern speakers flush up against the sides of the center part.
+-- parse error keeps tall and thin from being adjectives of speakers

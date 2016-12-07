@@ -74,7 +74,6 @@ struct SceneEntity
 		baseNoun = "<invalid>";
 		plural = false;
 		tokenIndex = -1;
-		determiner = "<not specified>";
 	}
 
 	string toString() const
@@ -91,6 +90,11 @@ struct SceneEntity
 		{
 			relationshipDesc += s.toString() + ",";
 		}
+		string determinerDesc;
+		for (auto &s : determiners)
+		{
+			determinerDesc += s + ",";
+		}
 
 		result += "entity: " + baseNoun + "-" + to_string(tokenIndex) + pluralDesc + "\n";
 		
@@ -100,8 +104,8 @@ struct SceneEntity
 		if(count.count != 1)
 			result += "  count: " + count.toString() + "\n";
 
-		if(determiner != "<not specified>")
-			result += "  determiner: " + determiner + "\n";
+		if(determiners.size() > 0)
+			result += "  determiners: " + determinerDesc + "\n";
 
 		if(relationships.size() > 0)
 			result += "  relationships: " + relationshipDesc + "\n";
@@ -125,8 +129,8 @@ struct SceneEntity
 	// ex. "there are four chairs"
 	EntityCount count;
 
-	// determiner used (ex. "a", "the", etc.)
-	string determiner;
+	// determiners used (ex. "a", "the", "all", etc.)
+	vector<string> determiners;
 
 	vector<EntityRelationship> relationships;
 };

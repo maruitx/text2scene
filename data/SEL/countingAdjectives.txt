@@ -1,2 +1,4 @@
 several
 many
+all
+some

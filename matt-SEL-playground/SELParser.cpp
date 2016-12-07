@@ -3,11 +3,66 @@
 
 void SELParser::parse(ParsedSentence &s)
 {
+	//
+	// entities
+	//
 	extractEntities(s);
 	assignDeterminers(s);
 	assignCounts(s);
 	assignAdjectives(s);
 	assignRelationships(s);
+
+	//
+	// commands
+	//
+	extractCommands(s);
+	assignAdverbs(s);
+	assignTargets(s);
+}
+
+void SELParser::extractCommands(ParsedSentence &s)
+{
+	set<int> rejectList;
+
+	for (auto &t : s.tokens)
+	{
+		if (//util::startsWith(t.posTag, "VB") &&
+			t.posTag == "VB" &&
+			rejectList.count(t.index) == 0)
+		{
+			SceneCommand command;
+			command.baseVerb = t.text;
+			command.tokenIndex = t.index;
+			s.commands.push_back(command);
+		}
+	}
+}
+
+void SELParser::assignAdverbs(ParsedSentence &s)
+{
+	// Adjectives from advmod. ex. "Move the chairs together."
+	for (auto &u : s.findUnits("advmod", "VB", "RB|JJ"))
+	{
+		addAdverb(s, u.pAIndex, u.pB);
+	}
+
+	// Move the chairs closer together.
+	//advmod(together-5, closer-4~RBR)
+	//advmod(Move-1, together-5~RB)
+	//advmod(0-RB, 1-RB)
+	//advmod(2-VB, 0-RB)
+	for (auto &r : PatternMatcher::match(s, PatternMatchQuery("advmod(0-RB, 1-RB)", "advmod(2-VB, 0-RB)")))
+	{
+		addAdverb(s, r.tokens[2], s.tokens[r.tokens[1]].text);
+	}
+}
+
+void SELParser::assignTargets(ParsedSentence &s)
+{
+	for (auto &u : s.findUnits("dobj", "VB", "NN"))
+	{
+		addTarget(s, u.pAIndex, u.pBIndex, u.type);
+	}
 }
 
 void SELParser::extractEntities(ParsedSentence &s)
@@ -51,10 +106,15 @@ void SELParser::assignDeterminers(ParsedSentence &s)
 		if (appParams().spatialNouns.count(u.pA) != 0)
 			continue;
 
-		auto e = s.getEntity(u.pAIndex);
-		if (e != nullptr)
+		if (appParams().isCountingAdjective(u.pB))
+			addAdjective(s, u.pAIndex, util::toLower(u.pB));
+		else
 		{
-			e->determiner = util::toLower(u.pB);
+			auto e = s.getEntity(u.pAIndex);
+			if (e != nullptr)
+			{
+				e->determiners.push_back(util::toLower(u.pB));
+			}
 		}
 	}
 }
@@ -72,8 +132,37 @@ void SELParser::assignCounts(ParsedSentence &s)
 	}
 }
 
+void SELParser::addAdverb(ParsedSentence &s, int commandToken, const string &adverb)
+{
+	auto c = s.getCommand(commandToken);
+	if (c != nullptr)
+	{
+		c->adverbs.push_back(adverb);
+	}
+}
+
+void SELParser::addTarget(ParsedSentence &s, int commandToken, int entityToken, string type)
+{
+	if (s.tokens[commandToken].posTag != "VB")
+		return;
+
+	auto c = s.getCommand(commandToken);
+	auto e = s.getEntity(entityToken);
+	if (c != nullptr && e != nullptr)
+	{
+		CommandTarget target;
+		target.type = type;
+		target.referencedNoun = e->baseNoun;
+		target.referencedTokenIndex = e->tokenIndex;
+		c->targets.push_back(target);
+	}
+}
+
 void SELParser::addAdjective(ParsedSentence &s, int tokenIndex, const string &adjective)
 {
+	if (appParams().isAbstractOrSpatialNoun(s.tokens[tokenIndex].text))
+		return;
+
 	auto e = s.getEntity(tokenIndex);
 	if (e != nullptr)
 	{
@@ -99,8 +188,8 @@ void SELParser::addRelationship(ParsedSentence &s, int tokenIndexA, int tokenInd
 		relationshipType = util::replace(relationshipType, '_', ' ');
 
 	// ignore recording spatial noun relationships.
-	if (appParams().isSpatialNoun(s.tokens[tokenIndexA].text) ||
-		appParams().isSpatialNoun(s.tokens[tokenIndexB].text))
+	if (appParams().isAbstractOrSpatialNoun(s.tokens[tokenIndexA].text) ||
+		appParams().isAbstractOrSpatialNoun(s.tokens[tokenIndexB].text))
 		return;
 
 	auto eL = s.getEntity(tokenIndexA);
@@ -248,5 +337,15 @@ void SELParser::assignRelationships(ParsedSentence &s)
 	for (auto &r : PatternMatcher::match(s, PatternMatchQuery("nmod:(0-VB, 1-NN)", "nmod:(1-NN, 2-NN)", "nsubj(0-VB, 3-NN)")))
 	{
 		addRelationship(s, r.tokens[3], r.tokens[2], s.units[r.units[0]].getTypeSuffix() + " " + s.tokens[r.tokens[1]].text + " " + s.units[r.units[1]].getTypeSuffix());
+	}
+
+	//Remove the speakers from the desk.
+	//dobj(Remove-1, speakers-3~NNS)
+	//nmod:from(Remove-1, desk-6~NN)
+	//dobj(0-VB, 1-NN)
+	//nmod:(0-VB, 2-NN)
+	for (auto &r : PatternMatcher::match(s, PatternMatchQuery("dobj(0-VB, 1-NN)", "nmod:(0-VB, 2-NN)")))
+	{
+		addRelationship(s, r.tokens[1], r.tokens[2], s.units[r.units[1]].getTypeSuffix());
 	}
 }

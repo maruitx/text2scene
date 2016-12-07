@@ -1,26 +1,55 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="app.h" />
-    <ClInclude Include="appParams.h" />
-    <ClInclude Include="main.h" />
-    <ClInclude Include="mLibInclude.h" />
-    <ClInclude Include="SELUtil.h" />
-    <ClInclude Include="parsedSentence.h" />
-    <ClInclude Include="sceneEntity.h" />
-    <ClInclude Include="SELParser.h" />
-    <ClInclude Include="patternMatcher.h" />
+    <ClInclude Include="app.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="appParams.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="mLibInclude.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="parsedSentence.h">
+      <Filter>SEL</Filter>
+    </ClInclude>
+    <ClInclude Include="patternMatcher.h">
+      <Filter>SEL</Filter>
+    </ClInclude>
+    <ClInclude Include="sceneCommand.h">
+      <Filter>SEL</Filter>
+    </ClInclude>
+    <ClInclude Include="sceneEntity.h">
+      <Filter>SEL</Filter>
+    </ClInclude>
+    <ClInclude Include="SELParser.h">
+      <Filter>SEL</Filter>
+    </ClInclude>
+    <ClInclude Include="SELUtil.h">
+      <Filter>SEL</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="app.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="mLibSource.cpp" />
-    <ClCompile Include="parsedSentence.cpp" />
-    <ClCompile Include="SELParser.cpp" />
+    <ClCompile Include="app.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="mLibSource.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="parsedSentence.cpp">
+      <Filter>SEL</Filter>
+    </ClCompile>
+    <ClCompile Include="SELParser.cpp">
+      <Filter>SEL</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="dependency-notes.txt" />
-    <Text Include="known-failures.txt" />
     <Text Include="..\data\SEL\spatialNouns.txt">
       <Filter>data</Filter>
     </Text>
@@ -30,10 +59,25 @@
     <Text Include="..\data\SEL\countingAdjectives.txt">
       <Filter>data</Filter>
     </Text>
+    <Text Include="known-failures.txt">
+      <Filter>notes</Filter>
+    </Text>
+    <Text Include="dependency-notes.txt">
+      <Filter>notes</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="data">
       <UniqueIdentifier>{7cae1a07-c831-4d17-9fd0-aa7f8078563d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="core">
+      <UniqueIdentifier>{37e88e3b-b785-4d08-9d7a-cfca1c3fcca5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="notes">
+      <UniqueIdentifier>{88328fff-06bc-430c-aeee-4fbfecdd63f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SEL">
+      <UniqueIdentifier>{5f44275c-4bcf-4ab3-a18a-bf20aa75ccef}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
