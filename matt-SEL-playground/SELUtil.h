@@ -2,6 +2,17 @@
 class SELUtil
 {
 public:
+	static string describeList(const vector<string> &list)
+	{
+		string result;
+		for (size_t i = 0; i < list.size(); i++)
+		{
+			result += list[i];
+			if (i != list.size() - 1) result += ",";
+		}
+		return result;
+	}
+
 	static string getUnitTypePhrase(const string &s)
 	{
 		if (util::contains(s, ':'))

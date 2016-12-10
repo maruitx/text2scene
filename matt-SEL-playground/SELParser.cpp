@@ -9,15 +9,34 @@ void SELParser::parse(ParsedSentence &s)
 	extractEntities(s);
 	assignDeterminers(s);
 	assignCounts(s);
-	assignAdjectives(s);
+	assignEntityAttributes(s);
 	assignRelationships(s);
 
 	//
 	// commands
 	//
 	extractCommands(s);
-	assignAdverbs(s);
+	assignCommandAttributes(s);
+	assignCommandAttributeModifiers(s);
 	assignTargets(s);
+
+	applyCommands(s);
+}
+
+void SELParser::applyCommands(ParsedSentence &s)
+{
+	for (auto &c : s.commands)
+	{
+		applyCommand(s, c);
+	}
+}
+
+void SELParser::applyCommand(ParsedSentence &s, const SceneCommand &c)
+{
+	for (auto &t : c.targets)
+	{
+		//c.
+	}
 }
 
 void SELParser::extractCommands(ParsedSentence &s)
@@ -38,12 +57,32 @@ void SELParser::extractCommands(ParsedSentence &s)
 	}
 }
 
-void SELParser::assignAdverbs(ParsedSentence &s)
+void SELParser::assignCommandAttributeModifiers(ParsedSentence &s)
+{
+	// Make the kitchen table and the desk more messy.
+	//advmod(messy-9, more-8~RBR)
+	//xcomp(Make-1, messy-9~JJ)
+	//advmod(0-JJ, 1-RB)
+	//xcomp(2-VB, 0-JJ)
+	for (auto &r : PatternMatcher::match(s, PatternMatchQuery("advmod(0-JJ, 1-RB)", "xcomp(2-VB, 0-JJ)")))
+	{
+		addCommandAttributeModifier(s, r.tokens[2], s.tokens[r.tokens[0]].text, s.tokens[r.tokens[1]].text);
+	}
+}
+
+void SELParser::assignCommandAttributes(ParsedSentence &s)
 {
 	// Adjectives from advmod. ex. "Move the chairs together."
 	for (auto &u : s.findUnits("advmod", "VB", "RB|JJ"))
 	{
-		addAdverb(s, u.pAIndex, u.pB);
+		addCommandAttribute(s, u.pAIndex, u.pB);
+	}
+
+	// Adjectives from xcomp. ex. "Make the kitchen table and the desk more messy."
+	//xcomp(Make-1, messy-9~JJ)
+	for (auto &u : s.findUnits("xcomp", "VB", "JJ"))
+	{
+		addCommandAttribute(s, u.pAIndex, u.pB);
 	}
 
 	// Move the chairs closer together.
@@ -53,7 +92,7 @@ void SELParser::assignAdverbs(ParsedSentence &s)
 	//advmod(2-VB, 0-RB)
 	for (auto &r : PatternMatcher::match(s, PatternMatchQuery("advmod(0-RB, 1-RB)", "advmod(2-VB, 0-RB)")))
 	{
-		addAdverb(s, r.tokens[2], s.tokens[r.tokens[1]].text);
+		addCommandAttribute(s, r.tokens[2], s.tokens[r.tokens[1]].text);
 	}
 }
 
@@ -63,6 +102,17 @@ void SELParser::assignTargets(ParsedSentence &s)
 	{
 		addTarget(s, u.pAIndex, u.pBIndex, u.type);
 	}
+
+	// Make the kitchen table and the desk more messy.
+	//nsubj(messy-9, table-4~NN)
+	//xcomp(Make-1, messy-9~JJ)
+	//nsubj(0-JJ, 1-NN)
+	//xcomp(2-VB, 0-JJ)
+	for (auto &r : PatternMatcher::match(s, PatternMatchQuery("nsubj(0-JJ, 1-NN)", "xcomp(2-VB, 0-JJ)")))
+	{
+		//addAdverb(s, r.tokens[2], s.tokens[r.tokens[1]].text);
+		addTarget(s, r.tokens[2], r.tokens[1], "nsubj");
+	}
 }
 
 void SELParser::extractEntities(ParsedSentence &s)
@@ -70,7 +120,7 @@ void SELParser::extractEntities(ParsedSentence &s)
 	set<int> rejectList;
 
 	// reject nouns that are compounds (ex. "dining" in "dining table").
-	for (auto &u : s.findUnits("compound"))
+	for (auto &u : s.findUnits("compound", "NN", "NN"))
 	{
 		rejectList.insert(u.pBIndex);
 	}
@@ -107,13 +157,13 @@ void SELParser::assignDeterminers(ParsedSentence &s)
 			continue;
 
 		if (appParams().isCountingAdjective(u.pB))
-			addAdjective(s, u.pAIndex, util::toLower(u.pB));
+			addEntityAttribute(s, u.pAIndex, u.pB);
 		else
 		{
 			auto e = s.getEntity(u.pAIndex);
 			if (e != nullptr)
 			{
-				e->determiners.push_back(util::toLower(u.pB));
+				e->determiners.push_back(u.pB);
 			}
 		}
 	}
@@ -132,12 +182,21 @@ void SELParser::assignCounts(ParsedSentence &s)
 	}
 }
 
-void SELParser::addAdverb(ParsedSentence &s, int commandToken, const string &adverb)
+void SELParser::addCommandAttribute(ParsedSentence &s, int commandToken, const string &attribute)
 {
 	auto c = s.getCommand(commandToken);
 	if (c != nullptr)
 	{
-		c->adverbs.push_back(adverb);
+		c->attributes.addAttribute(attribute);
+	}
+}
+
+void SELParser::addCommandAttributeModifier(ParsedSentence &s, int commandToken, const string &attribute, const string &modifier)
+{
+	auto c = s.getCommand(commandToken);
+	if (c != nullptr)
+	{
+		c->attributes.addAttributeModifier(attribute, modifier);
 	}
 }
 
@@ -158,7 +217,7 @@ void SELParser::addTarget(ParsedSentence &s, int commandToken, int entityToken, 
 	}
 }
 
-void SELParser::addAdjective(ParsedSentence &s, int tokenIndex, const string &adjective)
+void SELParser::addEntityAttribute(ParsedSentence &s, int tokenIndex, const string &attribute)
 {
 	if (appParams().isAbstractOrSpatialNoun(s.tokens[tokenIndex].text))
 		return;
@@ -166,19 +225,28 @@ void SELParser::addAdjective(ParsedSentence &s, int tokenIndex, const string &ad
 	auto e = s.getEntity(tokenIndex);
 	if (e != nullptr)
 	{
-		if (appParams().isCountingAdjective(adjective))
+		if (appParams().isCountingAdjective(attribute))
 		{
 			if (e->count.count != 1 || e->count.descriptor != EntityCount::defaultDescriptor())
 			{
 				cout << "Unexpected count double-assignment" << endl;
 			}
 			e->count.count = -1;
-			e->count.descriptor = adjective;
+			e->count.descriptor = attribute;
 		}
 		else
 		{
-			e->adjectives.push_back(adjective);
+			e->attributes.addAttribute(attribute);
 		}
+	}
+}
+
+void SELParser::addEntityAttributeModifier(ParsedSentence &s, int entityToken, const string &attribute, const string &modifier)
+{
+	auto e = s.getEntity(entityToken);
+	if (e != nullptr)
+	{
+		e->attributes.addAttributeModifier(attribute, modifier);
 	}
 }
 
@@ -204,26 +272,26 @@ void SELParser::addRelationship(ParsedSentence &s, int tokenIndexA, int tokenInd
 	}
 }
 
-void SELParser::assignAdjectives(ParsedSentence &s)
+void SELParser::assignEntityAttributes(ParsedSentence &s)
 {
 	// Adjectives from nsubj. Here the connecting verb is assumed to be "to be".
 	// This may not always be the case; investigate further.
 	// ex. "The chairs are wooden."
 	for (auto &u : s.findUnits("nsubj", "JJ|RB", "NN"))
 	{
-		addAdjective(s, u.pBIndex, u.pA);
+		addEntityAttribute(s, u.pBIndex, u.pA);
 	}
 
 	// Adjectives from compounds. ex. "There is a dining table."
 	for (auto &u : s.findUnits("compound", "NN", ""))
 	{
-		addAdjective(s, u.pAIndex, u.pB);
+		addEntityAttribute(s, u.pAIndex, u.pB);
 	}
 
 	// Adjectives from amod. ex. "a sleek and white laptop"
 	for (auto &u : s.findUnits("amod"))
 	{
-		addAdjective(s, u.pAIndex, u.pB);
+		addEntityAttribute(s, u.pAIndex, u.pB);
 	}
 }
 

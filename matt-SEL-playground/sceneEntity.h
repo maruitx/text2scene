@@ -67,6 +67,75 @@ struct EntityRelationship
 	}
 };
 
+struct Attribute
+{
+	Attribute() {
+		name = "<invalid>";
+	}
+	explicit Attribute(const string &_name) {
+		name = _name;
+	}
+	string toString() const
+	{
+		if(modifiers.size() == 0)
+			return name;
+		return name + "(" + SELUtil::describeList(modifiers) + ")";
+	}
+
+	// base name of attribute. ex. "messy", "wooden"
+	string name;
+
+	// modifiers on the attribute. ex. "more", "less"
+	vector<string> modifiers;
+};
+
+struct AttributeList
+{
+	string toString() const
+	{
+		string result;
+		for (auto &s : list)
+		{
+			result += s.toString() + ",";
+		}
+		return result;
+	}
+
+	bool hasAttribute(const string &name) const
+	{
+		for (auto &a : list)
+			if (a.name == name)
+				return true;
+		return false;
+	}
+
+	Attribute& getAttribute(const string &name)
+	{
+		for (auto &a : list)
+			if (a.name == name)
+				return a;
+		cout << "ERROR: Attribute not found: " << name << endl;
+		return list[0];
+	}
+
+	void addAttribute(const string &attribute)
+	{
+		list.push_back(Attribute(attribute));
+	}
+
+	void addAttributeModifier(const string &attribute, const string &attributeModifier)
+	{
+		if (!hasAttribute(attribute))
+		{
+			cout << "Attribute not found: " << attribute << endl;
+			return;
+		}
+		getAttribute(attribute).modifiers.push_back(attributeModifier);
+	}
+
+	vector<Attribute> list;
+};
+
 struct SceneEntity
 {
 	SceneEntity()
@@ -80,11 +149,6 @@ struct SceneEntity
 	{
 		string result;
 		const string pluralDesc = plural ? " (plural)" : "";
-		string adjectiveDesc;
-		for (auto &s : adjectives)
-		{
-			adjectiveDesc += s + ",";
-		}
 		string relationshipDesc;
 		for (auto &s : relationships)
 		{
@@ -98,8 +162,8 @@ struct SceneEntity
 
 		result += "entity: " + baseNoun + "-" + to_string(tokenIndex) + pluralDesc + "\n";
 		
-		if(adjectives.size() > 0)
-			result += "  adjectives: " + adjectiveDesc + "\n";
+		if(attributes.list.size() > 0)
+			result += "  attributes: " + attributes.toString() + "\n";
 
 		if(count.count != 1)
 			result += "  count: " + count.toString() + "\n";
@@ -122,8 +186,8 @@ struct SceneEntity
 	// whether the noun is plural
 	bool plural;
 
-	// adjectives describing the object. ex. "dining", "wooden"
-	vector<string> adjectives;
+	// attributes describing the object. ex. "dining", "wooden"
+	AttributeList attributes;
 
 	// describes the number of objects being referenced
 	// ex. "there are four chairs"

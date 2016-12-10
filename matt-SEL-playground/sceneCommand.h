@@ -21,26 +21,24 @@ struct SceneCommand
 	{
 		baseVerb = "<invalid>";
 		tokenIndex = -1;
+		applied = false;
 	}
 
 	string toString() const
 	{
 		string result;
-		result += "command: " + baseVerb + "-" + to_string(tokenIndex) + "\n";
+
+		const string appliedDesc = applied ? " (applied)" : "";
+		result += "command: " + baseVerb + "-" + to_string(tokenIndex) + appliedDesc + "\n";
 		
-		string adverbDesc;
-		for (auto &s : adverbs)
-		{
-			adverbDesc += s + ",";
-		}
 		string targetDesc;
 		for (auto &t : targets)
 		{
 			targetDesc += t.toString() + ",";
 		}
 
-		if(adverbs.size() > 0)
-			result += "  adverbs: " + adverbDesc + "\n";
+		if(attributes.list.size() > 0)
+			result += "  attributes: " + attributes.toString() + "\n";
 
 		if (targets.size() > 0)
 			result += "  targets: " + targetDesc + "\n";
@@ -51,11 +49,14 @@ struct SceneCommand
 	// the base verb describing the object. ex. "move", "rearrange"
 	string baseVerb;
 
+	// True if the command has been successfully applied to the corresponding entities, making the command largely unimportant.
+	bool applied;
+
 	// the index of baseVerb in the sentence token list.
 	int tokenIndex;
 
-	// adverbs modifying the verb. ex. "closer", "together"
-	vector<string> adverbs;
-
+	// attributes modifying the verb. ex. "closer", "together", "more messy"
+	AttributeList attributes;
+	
 	vector<CommandTarget> targets;
 };

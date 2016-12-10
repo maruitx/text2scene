@@ -9,10 +9,10 @@ struct ParseUnit
 		type = parts[0];
 		
 		pAIndex = convert::toInt(parts[1]);
-		pA = parts[2];
+		pA = util::toLower(parts[2]);
 
 		pBIndex = convert::toInt(parts[3]);
-		pB = parts[4];
+		pB = util::toLower(parts[4]);
 
 		pBTag = parts[5];
 	}
@@ -37,10 +37,10 @@ struct ParseUnit
 struct Token
 {
 	Token() {}
-	Token(int _index, string _text, string _posTag)
+	Token(int _index, const string &_text, const string &_posTag)
 	{
 		index = _index;
-		text = _text;
+		text = util::toLower(_text);
 		posTag = _posTag;
 	}
 	int index;

@@ -23,7 +23,7 @@ void App::runTests()
 	//debugText += "There are tall, thin, modern speakers flush up against the sides of the center part.";
 	//debugText += "Above the entertainment unit, a flat screen TV is mounted on the wall.";
 	//debugText += "A typical living room with a table in the middle of two sofas (one is a large sofa and the other is a single seat sofa) with a flower vase on its top.";
-	debugText += "The shelves on either side of the wall have some showpiece items for aesthetic appeal.";
+	//debugText += "The shelves on either side of the wall have some showpiece items for aesthetic appeal.";
 	//debugText += "The living room has a fireplace in the middle of two built-in shelves and cabinets.";
 	//debugText += "In the center of the room is a large rectangular area rug.";
 	//debugText += "There is a PC on the desk. To the right of the desk, there is a bookshelf with books.";
@@ -37,11 +37,13 @@ void App::runTests()
 	//
 	//debugText += "Move the chairs closer together.";
 	//debugText += "Make the kitchen table messy.";
+	debugText += "Make the kitchen table more messy.";
+	//debugText += "Make the kitchen table and the desk more messy.";
 	//debugText += "Align all the chairs.";
 	//debugText += "Remove the speakers from the desk.";
 	//debugText += "Rearrange the chairs.";
 	//debugText += "Move the PC on the desk to the floor.";
-	debugText += "";
+	//debugText += "Move the PC to the floor.";
 	debugText += "";
 	debugText = util::replace(debugText, ".", ". ");
 	const string parsedText = SELUtil::processText(debugText);
