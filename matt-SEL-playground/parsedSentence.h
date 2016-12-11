@@ -70,7 +70,7 @@ struct ParsedSentence
 		auto partsA = util::split(s, '#');
 		text = partsA[0];
 		auto partsB = util::split(partsA[1], '^');
-		tokens.push_back(Token(0, "ROOT", "ROOT"));
+		tokens.push_back(Token(0, "root", "root"));
 		for (auto &unitDesc : partsB)
 		{
 			ParseUnit u = ParseUnit(unitDesc);

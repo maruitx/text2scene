@@ -10,6 +10,7 @@ void SELParser::parse(ParsedSentence &s)
 	assignDeterminers(s);
 	assignCounts(s);
 	assignEntityAttributes(s);
+	assignEntityAttributeModifiers(s);
 	assignRelationships(s);
 
 	//
@@ -27,7 +28,24 @@ void SELParser::applyCommands(ParsedSentence &s)
 {
 	for (auto &c : s.commands)
 	{
-		applyCommand(s, c);
+		if (appParams().isApplicableVerb(c.baseVerb))
+		{
+			applyCommand(s, c);
+			c.applied = true;
+		}
+		if (c.baseVerb == "make")
+		{
+			for (auto &t : c.targets)
+			{
+				for (auto &a : c.attributes.list)
+				{
+					addEntityAttribute(s, t.referencedTokenIndex, a.name);
+					for(auto &m : a.modifiers)
+						addEntityAttributeModifier(s, t.referencedTokenIndex, a.name, m);
+				}
+			}
+			c.applied = true;
+		}
 	}
 }
 
@@ -35,7 +53,15 @@ void SELParser::applyCommand(ParsedSentence &s, const SceneCommand &c)
 {
 	for (auto &t : c.targets)
 	{
-		//c.
+		if (t.type == "dobj" || t.type == "nsubj")
+		{
+			const string appliedVerb = SELUtil::makeVerbApplied(c.baseVerb);
+			addEntityAttribute(s, t.referencedTokenIndex, appliedVerb);
+			for (auto &a : c.attributes.list)
+			{
+				addEntityAttributeModifier(s, t.referencedTokenIndex, appliedVerb, a.name);
+			}
+		}
 	}
 }
 
@@ -57,19 +83,6 @@ void SELParser::extractCommands(ParsedSentence &s)
 	}
 }
 
-void SELParser::assignCommandAttributeModifiers(ParsedSentence &s)
-{
-	// Make the kitchen table and the desk more messy.
-	//advmod(messy-9, more-8~RBR)
-	//xcomp(Make-1, messy-9~JJ)
-	//advmod(0-JJ, 1-RB)
-	//xcomp(2-VB, 0-JJ)
-	for (auto &r : PatternMatcher::match(s, PatternMatchQuery("advmod(0-JJ, 1-RB)", "xcomp(2-VB, 0-JJ)")))
-	{
-		addCommandAttributeModifier(s, r.tokens[2], s.tokens[r.tokens[0]].text, s.tokens[r.tokens[1]].text);
-	}
-}
-
 void SELParser::assignCommandAttributes(ParsedSentence &s)
 {
 	// Adjectives from advmod. ex. "Move the chairs together."
@@ -84,6 +97,19 @@ void SELParser::assignCommandAttributes(ParsedSentence &s)
 	{
 		addCommandAttribute(s, u.pAIndex, u.pB);
 	}
+}
+
+void SELParser::assignCommandAttributeModifiers(ParsedSentence &s)
+{
+	// Make the kitchen table and the desk more messy.
+	//advmod(messy-9, more-8~RBR)
+	//xcomp(Make-1, messy-9~JJ)
+	//advmod(0-JJ, 1-RB)
+	//xcomp(2-VB, 0-JJ)
+	for (auto &r : PatternMatcher::match(s, PatternMatchQuery("advmod(0-JJ, 1-RB)", "xcomp(2-VB, 0-JJ)")))
+	{
+		addCommandAttributeModifier(s, r.tokens[2], s.tokens[r.tokens[0]].text, s.tokens[r.tokens[1]].text);
+	}
 
 	// Move the chairs closer together.
 	//advmod(together-5, closer-4~RBR)
@@ -92,7 +118,7 @@ void SELParser::assignCommandAttributes(ParsedSentence &s)
 	//advmod(2-VB, 0-RB)
 	for (auto &r : PatternMatcher::match(s, PatternMatchQuery("advmod(0-RB, 1-RB)", "advmod(2-VB, 0-RB)")))
 	{
-		addCommandAttribute(s, r.tokens[2], s.tokens[r.tokens[1]].text);
+		addCommandAttributeModifier(s, r.tokens[2], s.tokens[r.tokens[0]].text, s.tokens[r.tokens[1]].text);
 	}
 }
 
@@ -101,6 +127,11 @@ void SELParser::assignTargets(ParsedSentence &s)
 	for (auto &u : s.findUnits("dobj", "VB", "NN"))
 	{
 		addTarget(s, u.pAIndex, u.pBIndex, u.type);
+	}
+
+	for (auto &u : s.findUnits("nsubj", "NN", "VB"))
+	{
+		addTarget(s, u.pBIndex, u.pAIndex, u.type);
 	}
 
 	// Make the kitchen table and the desk more messy.
@@ -222,6 +253,9 @@ void SELParser::addEntityAttribute(ParsedSentence &s, int tokenIndex, const stri
 	if (appParams().isAbstractOrSpatialNoun(s.tokens[tokenIndex].text))
 		return;
 
+	if (appParams().isStopVerb(attribute))
+		return;
+
 	auto e = s.getEntity(tokenIndex);
 	if (e != nullptr)
 	{
@@ -277,7 +311,7 @@ void SELParser::assignEntityAttributes(ParsedSentence &s)
 	// Adjectives from nsubj. Here the connecting verb is assumed to be "to be".
 	// This may not always be the case; investigate further.
 	// ex. "The chairs are wooden."
-	for (auto &u : s.findUnits("nsubj", "JJ|RB", "NN"))
+	for (auto &u : s.findUnits("nsubj", "JJ|RB|VB", "NN"))
 	{
 		addEntityAttribute(s, u.pBIndex, u.pA);
 	}
@@ -292,6 +326,52 @@ void SELParser::assignEntityAttributes(ParsedSentence &s)
 	for (auto &u : s.findUnits("amod"))
 	{
 		addEntityAttribute(s, u.pAIndex, u.pB);
+	}
+
+	// The chairs are all aligned.
+	//nsubjpass(aligned-5, chairs-2~NNS)
+	//advmod(aligned-5, all-4~DT)
+	//nsubj(0-VB, 1-NN)
+	//advmod(0-VB, 2-DT)
+	for (auto &r : PatternMatcher::match(s, PatternMatchQuery("nsubj(0-VB, 1-NN)", "advmod(0-VB, 2-DT)")))
+	{
+		addEntityAttribute(s, r.tokens[1], s.tokens[r.tokens[2]].text);
+	}
+
+	// Distribute utensils formally on the dining table.
+	// advmod(utensils-2, formally-3~RB)
+	for (auto &u : s.findUnits("advmod", "NN", "RB"))
+	{
+		addEntityAttribute(s, u.pAIndex, u.pB);
+	}
+
+	// Parser failures should be taken as attributes.
+	// Clean the desk.
+	//dep(clean-1, desk-3~NN)
+	for (auto &u : s.findUnits("dep", "JJ", "NN"))
+	{
+		addEntityAttribute(s, u.pBIndex, u.pA);
+	}
+}
+
+void SELParser::assignEntityAttributeModifiers(ParsedSentence &s)
+{
+	// Make the kitchen table more messy.
+	//nsubj(messy-6, table-4~NN)
+	//advmod(messy-6, more-5~RBR)
+	//nsubj(0-JJ, 1-NN)
+	//advmod(0-JJ, 2-RB)
+	for (auto &r : PatternMatcher::match(s, PatternMatchQuery("nsubj(0-JJ, 1-NN)", "advmod(0-JJ, 2-RB)")))
+	{
+		addEntityAttributeModifier(s, r.tokens[1], s.tokens[r.tokens[0]].text, s.tokens[r.tokens[2]].text);
+	}
+
+	// The art is casually distributed on the wall.
+	// nsubjpass(distributed-5, art-2~NN)
+	// advmod(distributed-5, casually-4~RB)
+	for (auto &r : PatternMatcher::match(s, PatternMatchQuery("nsubj(0-VB, 1-NN)", "advmod(0-VB, 2-RB)")))
+	{
+		addEntityAttributeModifier(s, r.tokens[1], s.tokens[r.tokens[0]].text, s.tokens[r.tokens[2]].text);
 	}
 }
 

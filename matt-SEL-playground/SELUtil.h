@@ -2,6 +2,12 @@
 class SELUtil
 {
 public:
+	static string makeVerbApplied(const string &v)
+	{
+		if (v == "put") return v;
+		if (util::endsWith(v, "e")) return v + "d";
+		return v + "ed";
+	}
 	static string describeList(const vector<string> &list)
 	{
 		string result;

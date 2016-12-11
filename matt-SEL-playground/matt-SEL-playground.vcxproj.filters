@@ -65,6 +65,12 @@
     <Text Include="dependency-notes.txt">
       <Filter>notes</Filter>
     </Text>
+    <Text Include="..\data\SEL\applicableVerbs.txt">
+      <Filter>data</Filter>
+    </Text>
+    <Text Include="..\data\SEL\stopVerbs.txt">
+      <Filter>data</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="data">

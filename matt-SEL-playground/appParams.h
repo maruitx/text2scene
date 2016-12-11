@@ -21,10 +21,17 @@ struct AppParameters
 		{
 			abstractNouns.insert(s);
 		}
-
 		for (auto &s : util::getFileLines(dataDir + "countingAdjectives.txt", 2))
 		{
 			countingAdjectives.insert(s);
+		}
+		for (auto &s : util::getFileLines(dataDir + "applicableVerbs.txt", 2))
+		{
+			applicableVerbs.insert(s);
+		}
+		for (auto &s : util::getFileLines(dataDir + "stopVerbs.txt", 2))
+		{
+			stopVerbs.insert(s);
 		}
 	}
 
@@ -48,7 +55,15 @@ struct AppParameters
 	{
 		return (countingAdjectives.count(s) != 0);
 	}
-	set<string> spatialNouns, abstractNouns, countingAdjectives;
+	bool isStopVerb(const string &s) const
+	{
+		return (stopVerbs.count(s) != 0);
+	}
+	bool isApplicableVerb(const string &s) const
+	{
+		return (applicableVerbs.count(s) != 0);
+	}
+	set<string> spatialNouns, abstractNouns, countingAdjectives, applicableVerbs, stopVerbs;
 };
 
 extern AppParameters* g_appParams;

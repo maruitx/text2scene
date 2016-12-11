@@ -79,14 +79,14 @@ struct Attribute
 	{
 		if(modifiers.size() == 0)
 			return name;
-		return name + "(" + SELUtil::describeList(modifiers) + ")";
+		return name + "(" + SELUtil::describeList(util::toStdVector(modifiers)) + ")";
 	}
 
 	// base name of attribute. ex. "messy", "wooden"
 	string name;
 
 	// modifiers on the attribute. ex. "more", "less"
-	vector<string> modifiers;
+	set<string> modifiers;
 };
 
 struct AttributeList
@@ -120,6 +120,7 @@ struct AttributeList
 
 	void addAttribute(const string &attribute)
 	{
+		if (hasAttribute(attribute)) return;
 		list.push_back(Attribute(attribute));
 	}
 
@@ -130,7 +131,7 @@ struct AttributeList
 			cout << "Attribute not found: " << attribute << endl;
 			return;
 		}
-		getAttribute(attribute).modifiers.push_back(attributeModifier);
+		getAttribute(attribute).modifiers.insert(attributeModifier);
 	}
 
 	vector<Attribute> list;

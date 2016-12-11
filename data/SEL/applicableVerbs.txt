@@ -1,0 +1,10 @@
+align
+surround
+stack
+pile
+scatter
+distribute
+clean
+organize
+collect
+put

@@ -11,6 +11,7 @@ private:
 	void assignDeterminers(ParsedSentence &s);
 	void assignCounts(ParsedSentence &s);
 	void assignEntityAttributes(ParsedSentence &s);
+	void assignEntityAttributeModifiers(ParsedSentence &s);
 	void assignRelationships(ParsedSentence &s);
 	void applyCommands(ParsedSentence &s);
 	void applyCommand(ParsedSentence &s, const SceneCommand &c);

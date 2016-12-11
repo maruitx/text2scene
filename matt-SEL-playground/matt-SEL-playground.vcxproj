@@ -34,8 +34,10 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\data\SEL\abstractNouns.txt" />
+    <Text Include="..\data\SEL\applicableVerbs.txt" />
     <Text Include="..\data\SEL\countingAdjectives.txt" />
     <Text Include="..\data\SEL\spatialNouns.txt" />
+    <Text Include="..\data\SEL\stopVerbs.txt" />
     <Text Include="dependency-notes.txt" />
     <Text Include="known-failures.txt" />
   </ItemGroup>
