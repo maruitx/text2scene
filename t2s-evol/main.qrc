@@ -1,0 +1,41 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Shader/Blur.frag.glsl</file>
+        <file>Shader/Blur.vert.glsl</file>
+        <file>Shader/CookTorrance.frag.glsl</file>
+        <file>Shader/CookTorrance.vert.glsl</file>
+        <file>Shader/Default.frag.glsl</file>
+        <file>Shader/Default.vert.glsl</file>
+        <file>Shader/DefaultDepth.frag.glsl</file>
+        <file>Shader/DefaultLight.frag.glsl</file>
+        <file>Shader/DefaultLight.vert.glsl</file>
+        <file>Shader/DefaultLightShadow.frag.glsl</file>
+        <file>Shader/DefaultLightShadow.vert.glsl</file>
+        <file>Shader/Feedback.geom.glsl</file>
+        <file>Shader/Feedback.vert.glsl</file>
+        <file>Shader/GUI.frag.glsl</file>
+        <file>Shader/GUI.vert.glsl</file>
+        <file>Shader/NiceGrid.frag.glsl</file>
+        <file>Shader/NiceGrid.vert.glsl</file>
+        <file>Shader/Noise.frag.glsl</file>
+        <file>Shader/Noise.vert.glsl</file>
+        <file>Shader/Object.frag.glsl</file>
+        <file>Shader/Object.vert.glsl</file>
+        <file>Shader/ObjectDepth.frag.glsl</file>
+        <file>Shader/ObjectDepth.vert.glsl</file>
+        <file>Shader/ObjectLines.frag.glsl</file>
+        <file>Shader/ObjectLines.vert.glsl</file>
+        <file>Shader/SphericalHarmonic.frag.glsl</file>
+        <file>Shader/SphericalHarmonic.vert.glsl</file>
+        <file>Shader/TessInterp.cont.glsl</file>
+        <file>Shader/TessInterp.eval.glsl</file>
+        <file>Shader/TessInterp.frag.glsl</file>
+        <file>Shader/TessInterp.geom.glsl</file>
+        <file>Shader/TessInterp.vert.glsl</file>
+        <file>Shader/TessNormal.cont.glsl</file>
+        <file>Shader/TessNormal.eval.glsl</file>
+        <file>Shader/TessNormal.frag.glsl</file>
+        <file>Shader/TessNormal.geom.glsl</file>
+        <file>Shader/TessNormal.vert.glsl</file>
+    </qresource> 
+</RCC>
