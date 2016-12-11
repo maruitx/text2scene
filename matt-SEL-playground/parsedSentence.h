@@ -63,6 +63,36 @@ struct ParsedSentence
 		return result;
 	}
 
+	static void serializeSentences(const vector<ParsedSentence> &sentences, const string &filenameOut)
+	{
+		ofstream file(filenameOut);
+		file << "scene-editing-language-version:1.0" << endl;
+		file << "sentence-count:" << sentences.size() << endl;
+		for (auto &s : iterate(sentences))
+		{
+			file << "sentence-" << s.index << endl;
+			s.value.writeToStream(file);
+		}
+		file << endl << "*** begin pretty print versions" << endl;
+		for (auto &s : iterate(sentences))
+		{
+			file << "sentence-" << s.index << endl;
+			file << s.value.text << endl;
+			file << "entity count: " << s.value.entities.size() << endl;
+			for (auto &e : iterate(s.value.entities))
+			{
+				file << e.value.toString();
+			}
+
+			if(s.value.commands.size() > 0) file << "command count: " << s.value.commands.size() << endl;
+			for (auto &c : iterate(s.value.commands))
+			{
+				file << c.value.toString();
+			}
+			file << endl;
+		}
+	}
+
 	ParsedSentence() {}
 	explicit ParsedSentence(const string &s)
 	{
@@ -87,6 +117,49 @@ struct ParsedSentence
 			result += u.toString() + "\n";
 		}
 		return result;
+	}
+
+	void writeToStream(ostream &os) const
+	{
+		os << text << endl;
+		
+		os << "entity-count:" << entities.size() << endl;
+		for (auto &e : iterate(entities))
+		{
+			os << "entity-" << e.index << endl;
+			os << "id:" << e.value.baseNoun << "-" << e.value.tokenIndex << endl;
+			os << "plural:" << convert::toString(e.value.plural) << endl;
+			os << "count:" << e.value.count.toString() << endl;
+			os << "determiners:" << SELUtil::describeList(e.value.determiners) << endl;
+			os << "attributes:" << e.value.attributes.list.size() << endl;
+			for (auto &a : e.value.attributes.list)
+			{
+				os << a.toStringSerial() << endl;
+			}
+			os << "relationship-count:" << e.value.relationships.size() << endl;
+			for (auto &r : e.value.relationships)
+			{
+				os << r.toString() << endl;
+			}
+		}
+
+		os << "command-count:" << commands.size() << endl;
+		for (auto &c : iterate(commands))
+		{
+			os << "command-" << c.index << endl;
+			os << "verb:" << c.value.baseVerb << endl;
+			os << "applied:" << convert::toString(c.value.applied) << endl;
+			os << "attribute-count:" << c.value.attributes.list.size() << endl;
+			for (auto &a : c.value.attributes.list)
+			{
+				os << a.toStringSerial() << endl;
+			}
+			os << "target-count:" << c.value.targets.size() << endl;
+			for (auto &t : iterate(c.value.targets))
+			{
+				os << t.value.type << "|" << t.value.referencedNoun << "-" << t.value.referencedTokenIndex << endl;
+			}
+		}
 	}
 
 	vector<ParseUnit> findUnits(const string &typePrefix) const

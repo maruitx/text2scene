@@ -1,0 +1,196 @@
+scene-editing-language-version:1.0
+sentence-count:5
+sentence-0
+There are two sleek, white laptops on the desk.
+entity-count:2
+entity-0
+id:laptops-7
+plural:1
+count:2
+determiners:
+attributes:2
+sleek
+white
+relationship-count:1
+on:desk-10
+entity-1
+id:desk-10
+plural:0
+count:1
+determiners:the
+attributes:0
+relationship-count:0
+command-count:0
+sentence-1
+To the right of the wooden desk, there is a big bookshelf with many books.
+entity-count:3
+entity-0
+id:desk-7
+plural:0
+count:1
+determiners:the
+attributes:1
+wooden
+relationship-count:0
+entity-1
+id:bookshelf-13
+plural:0
+count:1
+determiners:a
+attributes:1
+big
+relationship-count:2
+with:books-16
+to right of:desk-7
+entity-2
+id:books-16
+plural:1
+count:many
+determiners:
+attributes:0
+relationship-count:0
+command-count:0
+sentence-2
+Books are sparsely distributed on the bookshelf.
+entity-count:2
+entity-0
+id:books-1
+plural:1
+count:1
+determiners:
+attributes:1
+distributed|sparsely
+relationship-count:1
+distributed on:bookshelf-7
+entity-1
+id:bookshelf-7
+plural:0
+count:1
+determiners:the
+attributes:0
+relationship-count:0
+command-count:0
+sentence-3
+Move the chairs closer together and clean the desk.
+entity-count:2
+entity-0
+id:chairs-3
+plural:1
+count:1
+determiners:the
+attributes:0
+relationship-count:0
+entity-1
+id:desk-9
+plural:0
+count:1
+determiners:the
+attributes:1
+cleaned
+relationship-count:0
+command-count:2
+command-0
+verb:move
+applied:0
+attribute-count:1
+together|closer
+target-count:1
+dobj|chairs-3
+command-1
+verb:clean
+applied:1
+attribute-count:0
+target-count:1
+dobj|desk-9
+sentence-4
+Make the kitchen table and the desk more messy.
+entity-count:2
+entity-0
+id:table-4
+plural:0
+count:1
+determiners:the
+attributes:2
+messy|more
+kitchen
+relationship-count:0
+entity-1
+id:desk-7
+plural:0
+count:1
+determiners:the
+attributes:1
+messy|more
+relationship-count:0
+command-count:1
+command-0
+verb:make
+applied:1
+attribute-count:1
+messy|more
+target-count:2
+nsubj|table-4
+nsubj|desk-7
+
+*** begin pretty print versions
+sentence-0
+There are two sleek, white laptops on the desk.
+entity count: 2
+entity: laptops-7 (plural)
+  attributes: sleek,white,
+  count: 2
+  relationships: on:desk-10,
+entity: desk-10
+  determiners: the,
+
+sentence-1
+To the right of the wooden desk, there is a big bookshelf with many books.
+entity count: 3
+entity: desk-7
+  attributes: wooden,
+  determiners: the,
+entity: bookshelf-13
+  attributes: big,
+  determiners: a,
+  relationships: with:books-16,to right of:desk-7,
+entity: books-16 (plural)
+  count: many
+
+sentence-2
+Books are sparsely distributed on the bookshelf.
+entity count: 2
+entity: books-1 (plural)
+  attributes: distributed(sparsely),
+  relationships: distributed on:bookshelf-7,
+entity: bookshelf-7
+  determiners: the,
+
+sentence-3
+Move the chairs closer together and clean the desk.
+entity count: 2
+entity: chairs-3 (plural)
+  determiners: the,
+entity: desk-9
+  attributes: cleaned,
+  determiners: the,
+command count: 2
+command: move-1
+  attributes: together(closer),
+  targets: dobj:chairs-3,
+command: clean-7 (applied)
+  targets: dobj:desk-9,
+
+sentence-4
+Make the kitchen table and the desk more messy.
+entity count: 2
+entity: table-4
+  attributes: messy(more),kitchen,
+  determiners: the,
+entity: desk-7
+  attributes: messy(more),
+  determiners: the,
+command count: 1
+command: make-1 (applied)
+  attributes: messy(more),
+  targets: nsubj:table-4,nsubj:desk-7,
+

@@ -81,6 +81,12 @@ struct Attribute
 			return name;
 		return name + "(" + SELUtil::describeList(util::toStdVector(modifiers)) + ")";
 	}
+	string toStringSerial() const
+	{
+		if (modifiers.size() == 0)
+			return name;
+		return name + "|" + SELUtil::describeList(util::toStdVector(modifiers));
+	}
 
 	// base name of attribute. ex. "messy", "wooden"
 	string name;
@@ -194,7 +200,7 @@ struct SceneEntity
 	// ex. "there are four chairs"
 	EntityCount count;
 
-	// determiners used (ex. "a", "the", "all", etc.)
+	// determiners used (ex. "a", "the", etc.)
 	vector<string> determiners;
 
 	vector<EntityRelationship> relationships;

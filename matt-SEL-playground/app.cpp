@@ -27,15 +27,15 @@ void App::runTests()
 	debugText += "The living room has a fireplace in the middle of two built-in shelves and cabinets.";
 	debugText += "In the center of the room is a large rectangular area rug.";
 	debugText += "There is a PC on the desk. To the right of the desk, there is a bookshelf with books.";
-	debugText += "";
-	debugText += "";
+	debugText += "There are two sleek, white laptops on the desk. To the right of the wooden desk, there is a big bookshelf with many books.";
+	debugText += "Books are sparsely distributed on the bookshelf.";
 	debugText += "";
 	debugText += "";
 
 	//
 	// commands
 	//
-	debugText += "Move the chairs closer together.";
+	debugText += "Move the chairs closer together and clean the desk.";
 	debugText += "Make the kitchen table more messy.";
 	debugText += "Make the kitchen table and the desk more messy.";
 	debugText += "Remove the speakers from the desk.";
@@ -81,6 +81,7 @@ void App::runTests()
 			cout << c.value.toString() << endl;
 		}
 	}
+	ParsedSentence::serializeSentences(sentences, "SEL-output-A.txt");
 }
 
 void App::go()

@@ -1,0 +1,2157 @@
+scene-editing-language-version:1.0
+sentence-count:58
+sentence-0
+Today I am walking to the bookstore.
+entity-count:2
+entity-0
+id:today-1
+plural:0
+count:1
+determiners:
+attributes:0
+relationship-count:0
+entity-1
+id:bookstore-7
+plural:0
+count:1
+determiners:the
+attributes:0
+relationship-count:0
+command-count:0
+sentence-1
+There are several red books on the top shelf.
+entity-count:2
+entity-0
+id:books-5
+plural:1
+count:several
+determiners:
+attributes:1
+red
+relationship-count:1
+on:shelf-9
+entity-1
+id:shelf-9
+plural:0
+count:1
+determiners:the
+attributes:1
+top
+relationship-count:0
+command-count:0
+sentence-2
+There are four chairs around a dining table.
+entity-count:2
+entity-0
+id:chairs-4
+plural:1
+count:4
+determiners:
+attributes:0
+relationship-count:1
+around:table-8
+entity-1
+id:table-8
+plural:0
+count:1
+determiners:a
+attributes:1
+dining
+relationship-count:0
+command-count:0
+sentence-3
+The chairs are wooden.
+entity-count:1
+entity-0
+id:chairs-2
+plural:1
+count:1
+determiners:the
+attributes:1
+wooden
+relationship-count:0
+command-count:0
+sentence-4
+On the desk there is a monitor, a keyboard, and a sleek and white laptop.
+entity-count:4
+entity-0
+id:desk-3
+plural:0
+count:1
+determiners:the
+attributes:0
+relationship-count:0
+entity-1
+id:monitor-7
+plural:0
+count:1
+determiners:a
+attributes:0
+relationship-count:1
+on:desk-3
+entity-2
+id:keyboard-10
+plural:0
+count:1
+determiners:a
+attributes:0
+relationship-count:1
+on:desk-3
+entity-3
+id:laptop-17
+plural:0
+count:1
+determiners:a
+attributes:2
+sleek
+white
+relationship-count:1
+on:desk-3
+command-count:0
+sentence-5
+The soda is to the right of the laptop.
+entity-count:2
+entity-0
+id:soda-2
+plural:0
+count:1
+determiners:the
+attributes:0
+relationship-count:1
+right of:laptop-9
+entity-1
+id:laptop-9
+plural:0
+count:1
+determiners:the
+attributes:0
+relationship-count:0
+command-count:0
+sentence-6
+The power adapter is below the desk.
+entity-count:2
+entity-0
+id:adapter-3
+plural:0
+count:1
+determiners:the
+attributes:1
+power
+relationship-count:1
+below:desk-7
+entity-1
+id:desk-7
+plural:0
+count:1
+determiners:the
+attributes:0
+relationship-count:0
+command-count:0
+sentence-7
+The power adapter is below the desk and near the chair.
+entity-count:3
+entity-0
+id:adapter-3
+plural:0
+count:1
+determiners:the
+attributes:1
+power
+relationship-count:2
+below:desk-7
+near:chair-11
+entity-1
+id:desk-7
+plural:0
+count:1
+determiners:the
+attributes:0
+relationship-count:0
+entity-2
+id:chair-11
+plural:0
+count:1
+determiners:the
+attributes:0
+relationship-count:0
+command-count:0
+sentence-8
+The room also has large windows and wooden floors.
+entity-count:3
+entity-0
+id:room-2
+plural:0
+count:1
+determiners:the
+attributes:1
+has|also
+relationship-count:1
+has:windows-6
+entity-1
+id:windows-6
+plural:1
+count:1
+determiners:
+attributes:1
+large
+relationship-count:0
+entity-2
+id:floors-9
+plural:1
+count:1
+determiners:
+attributes:1
+wooden
+relationship-count:0
+command-count:0
+sentence-9
+There are cream-colored built-in shelves displaying many knick-knacks along with a fireplace at the front of the room.
+entity-count:4
+entity-0
+id:shelves-5
+plural:1
+count:1
+determiners:
+attributes:2
+cream-colored
+built-in
+relationship-count:2
+displaying:knick-knacks-8
+displaying with:fireplace-12
+entity-1
+id:knick-knacks-8
+plural:1
+count:many
+determiners:
+attributes:0
+relationship-count:1
+with:fireplace-12
+entity-2
+id:fireplace-12
+plural:0
+count:1
+determiners:a
+attributes:0
+relationship-count:0
+entity-3
+id:room-18
+plural:0
+count:1
+determiners:the
+attributes:0
+relationship-count:0
+command-count:0
+sentence-10
+There�s a red patterned rug in the middle of the room surrounded by a grey sofa and two sofa chairs with throw pillows.
+entity-count:5
+entity-0
+id:rug-6
+plural:0
+count:1
+determiners:a
+attributes:3
+s
+red
+patterned
+relationship-count:1
+in middle of:room-12
+entity-1
+id:room-12
+plural:0
+count:1
+determiners:the
+attributes:0
+relationship-count:2
+surrounded by:sofa-17
+surrounded with:pillows-24
+entity-2
+id:sofa-17
+plural:0
+count:1
+determiners:a
+attributes:1
+grey
+relationship-count:0
+entity-3
+id:chairs-21
+plural:1
+count:2
+determiners:
+attributes:1
+sofa
+relationship-count:0
+entity-4
+id:pillows-24
+plural:1
+count:1
+determiners:
+attributes:1
+throw
+relationship-count:0
+command-count:0
+sentence-11
+There�s a red patterned rug surrounded by a grey sofa and two sofa chairs with throw pillows.
+entity-count:4
+entity-0
+id:rug-6
+plural:0
+count:1
+determiners:a
+attributes:3
+s
+red
+patterned
+relationship-count:2
+surrounded by:sofa-11
+surrounded with:pillows-18
+entity-1
+id:sofa-11
+plural:0
+count:1
+determiners:a
+attributes:1
+grey
+relationship-count:0
+entity-2
+id:chairs-15
+plural:1
+count:2
+determiners:
+attributes:1
+sofa
+relationship-count:0
+entity-3
+id:pillows-18
+plural:1
+count:1
+determiners:
+attributes:1
+throw
+relationship-count:0
+command-count:0
+sentence-12
+In addition, there�s a wooden coffee table on top of the rug in the middle of the seating arrangement, as well as a side table between the two chairs.
+entity-count:5
+entity-0
+id:table-9
+plural:0
+count:1
+determiners:a
+attributes:3
+s
+coffee
+wooden
+relationship-count:1
+on top of:rug-14
+entity-1
+id:rug-14
+plural:0
+count:1
+determiners:the
+attributes:0
+relationship-count:1
+in middle of:arrangement-21
+entity-2
+id:arrangement-21
+plural:0
+count:1
+determiners:the
+attributes:1
+seating
+relationship-count:0
+entity-3
+id:table-28
+plural:0
+count:1
+determiners:a
+attributes:1
+side
+relationship-count:1
+between:chairs-32
+entity-4
+id:chairs-32
+plural:1
+count:2
+determiners:the
+attributes:0
+relationship-count:0
+command-count:0
+sentence-13
+The room also has several flower-related items -- bouquets on the tables and an abstract flowery painting above the fireplace.
+entity-count:6
+entity-0
+id:room-2
+plural:0
+count:1
+determiners:the
+attributes:1
+has|also
+relationship-count:2
+has:items-7
+has:painting-17
+entity-1
+id:items-7
+plural:1
+count:several
+determiners:
+attributes:1
+flower-related
+relationship-count:0
+entity-2
+id:bouquets-9
+plural:1
+count:1
+determiners:
+attributes:0
+relationship-count:1
+on:tables-12
+entity-3
+id:tables-12
+plural:1
+count:1
+determiners:the
+attributes:0
+relationship-count:0
+entity-4
+id:painting-17
+plural:0
+count:1
+determiners:an
+attributes:2
+flowery
+abstract
+relationship-count:1
+above:fireplace-20
+entity-5
+id:fireplace-20
+plural:0
+count:1
+determiners:the
+attributes:0
+relationship-count:0
+command-count:0
+sentence-14
+It�s a fairly busy but warm-looking room.
+entity-count:1
+entity-0
+id:room-8
+plural:0
+count:1
+determiners:a
+attributes:2
+busy
+warm-looking
+relationship-count:0
+command-count:0
+sentence-15
+A dark wood, rectangular coffee table is on top of the rug.
+entity-count:2
+entity-0
+id:table-7
+plural:0
+count:1
+determiners:a
+attributes:4
+wood
+coffee
+dark
+rectangular
+relationship-count:1
+on:rug-13
+entity-1
+id:rug-13
+plural:0
+count:1
+determiners:the
+attributes:0
+relationship-count:0
+command-count:0
+sentence-16
+The coffee table has two levels; there are books on the lower level and some decorative plates on the top level.
+entity-count:6
+entity-0
+id:table-3
+plural:0
+count:1
+determiners:the
+attributes:2
+has
+coffee
+relationship-count:1
+has:levels-6
+entity-1
+id:levels-6
+plural:1
+count:2
+determiners:
+attributes:0
+relationship-count:0
+entity-2
+id:books-10
+plural:1
+count:1
+determiners:
+attributes:0
+relationship-count:1
+on:level-14
+entity-3
+id:level-14
+plural:0
+count:1
+determiners:the
+attributes:1
+lower
+relationship-count:0
+entity-4
+id:plates-18
+plural:1
+count:some
+determiners:
+attributes:1
+decorative
+relationship-count:1
+on:level-22
+entity-5
+id:level-22
+plural:0
+count:1
+determiners:the
+attributes:1
+top
+relationship-count:0
+command-count:0
+sentence-17
+This entertainment unit is long; it runs the entire length of the wall.
+entity-count:2
+entity-0
+id:unit-3
+plural:0
+count:1
+determiners:this
+attributes:2
+long
+entertainment
+relationship-count:0
+entity-1
+id:wall-14
+plural:0
+count:1
+determiners:the
+attributes:0
+relationship-count:0
+command-count:0
+sentence-18
+There are tall, thin, modern speakers flush up against the sides of the center part.
+entity-count:3
+entity-0
+id:speakers-8
+plural:1
+count:1
+determiners:
+attributes:2
+flush
+modern
+relationship-count:2
+flush against:sides-13
+against sides of:part-17
+entity-1
+id:sides-13
+plural:1
+count:1
+determiners:the
+attributes:0
+relationship-count:1
+of:part-17
+entity-2
+id:part-17
+plural:0
+count:1
+determiners:the
+attributes:1
+center
+relationship-count:0
+command-count:0
+sentence-19
+Above the entertainment unit, a flat screen TV is mounted on the wall.
+entity-count:3
+entity-0
+id:unit-4
+plural:0
+count:1
+determiners:the
+attributes:1
+entertainment
+relationship-count:0
+entity-1
+id:tv-9
+plural:0
+count:1
+determiners:a
+attributes:3
+mounted
+screen
+flat
+relationship-count:2
+mounted above:unit-4
+mounted on:wall-14
+entity-2
+id:wall-14
+plural:0
+count:1
+determiners:the
+attributes:0
+relationship-count:0
+command-count:0
+sentence-20
+A typical living room with a table in the middle of two sofas (one is a large sofa and the other is a single seat sofa) with a flower vase on its top.
+entity-count:6
+entity-0
+id:room-4
+plural:0
+count:1
+determiners:a
+attributes:2
+typical
+living
+relationship-count:2
+with:table-7
+of:sofas-13
+entity-1
+id:table-7
+plural:0
+count:1
+determiners:a
+attributes:0
+relationship-count:0
+entity-2
+id:sofas-13
+plural:1
+count:2
+determiners:
+attributes:0
+relationship-count:1
+with:vase-32
+entity-3
+id:sofa-19
+plural:0
+count:1
+determiners:a
+attributes:1
+large
+relationship-count:0
+entity-4
+id:sofa-27
+plural:0
+count:1
+determiners:a
+attributes:2
+seat
+single
+relationship-count:0
+entity-5
+id:vase-32
+plural:0
+count:1
+determiners:a
+attributes:1
+flower
+relationship-count:0
+command-count:0
+sentence-21
+The shelves on either side of the wall have some showpiece items for aesthetic appeal.
+entity-count:3
+entity-0
+id:shelves-2
+plural:1
+count:1
+determiners:the
+attributes:1
+have
+relationship-count:1
+have:items-12
+entity-1
+id:wall-8
+plural:0
+count:1
+determiners:the
+attributes:0
+relationship-count:0
+entity-2
+id:items-12
+plural:1
+count:some
+determiners:
+attributes:1
+showpiece
+relationship-count:0
+command-count:0
+sentence-22
+The living room has a fireplace in the middle of two built-in shelves and cabinets.
+entity-count:4
+entity-0
+id:room-3
+plural:0
+count:1
+determiners:the
+attributes:2
+has
+living
+relationship-count:1
+has:fireplace-6
+entity-1
+id:fireplace-6
+plural:0
+count:1
+determiners:a
+attributes:0
+relationship-count:1
+in middle of:shelves-13
+entity-2
+id:shelves-13
+plural:1
+count:2
+determiners:
+attributes:1
+built-in
+relationship-count:0
+entity-3
+id:cabinets-15
+plural:1
+count:1
+determiners:
+attributes:0
+relationship-count:0
+command-count:0
+sentence-23
+In the center of the room is a large rectangular area rug.
+entity-count:2
+entity-0
+id:room-6
+plural:0
+count:1
+determiners:the
+attributes:0
+relationship-count:0
+entity-1
+id:rug-12
+plural:0
+count:1
+determiners:a
+attributes:3
+area
+large
+rectangular
+relationship-count:1
+in center of:room-6
+command-count:0
+sentence-24
+There is a PC on the desk.
+entity-count:2
+entity-0
+id:pc-4
+plural:0
+count:1
+determiners:a
+attributes:0
+relationship-count:1
+on:desk-7
+entity-1
+id:desk-7
+plural:0
+count:1
+determiners:the
+attributes:0
+relationship-count:0
+command-count:0
+sentence-25
+To the right of the desk, there is a bookshelf with books.
+entity-count:3
+entity-0
+id:desk-6
+plural:0
+count:1
+determiners:the
+attributes:0
+relationship-count:0
+entity-1
+id:bookshelf-11
+plural:0
+count:1
+determiners:a
+attributes:0
+relationship-count:2
+with:books-13
+to right of:desk-6
+entity-2
+id:books-13
+plural:1
+count:1
+determiners:
+attributes:0
+relationship-count:0
+command-count:0
+sentence-26
+There are two sleek, white laptops on the desk.
+entity-count:2
+entity-0
+id:laptops-7
+plural:1
+count:2
+determiners:
+attributes:2
+sleek
+white
+relationship-count:1
+on:desk-10
+entity-1
+id:desk-10
+plural:0
+count:1
+determiners:the
+attributes:0
+relationship-count:0
+command-count:0
+sentence-27
+To the right of the wooden desk, there is a big bookshelf with many books.
+entity-count:3
+entity-0
+id:desk-7
+plural:0
+count:1
+determiners:the
+attributes:1
+wooden
+relationship-count:0
+entity-1
+id:bookshelf-13
+plural:0
+count:1
+determiners:a
+attributes:1
+big
+relationship-count:2
+with:books-16
+to right of:desk-7
+entity-2
+id:books-16
+plural:1
+count:many
+determiners:
+attributes:0
+relationship-count:0
+command-count:0
+sentence-28
+Books are sparsely distributed on the bookshelf.
+entity-count:2
+entity-0
+id:books-1
+plural:1
+count:1
+determiners:
+attributes:1
+distributed|sparsely
+relationship-count:1
+distributed on:bookshelf-7
+entity-1
+id:bookshelf-7
+plural:0
+count:1
+determiners:the
+attributes:0
+relationship-count:0
+command-count:0
+sentence-29
+Move the chairs closer together and clean the desk.
+entity-count:2
+entity-0
+id:chairs-3
+plural:1
+count:1
+determiners:the
+attributes:0
+relationship-count:0
+entity-1
+id:desk-9
+plural:0
+count:1
+determiners:the
+attributes:1
+cleaned
+relationship-count:0
+command-count:2
+command-0
+verb:move
+applied:0
+attribute-count:1
+together|closer
+target-count:1
+dobj|chairs-3
+command-1
+verb:clean
+applied:1
+attribute-count:0
+target-count:1
+dobj|desk-9
+sentence-30
+Make the kitchen table more messy.
+entity-count:1
+entity-0
+id:table-4
+plural:0
+count:1
+determiners:the
+attributes:2
+messy|more
+kitchen
+relationship-count:0
+command-count:1
+command-0
+verb:make
+applied:1
+attribute-count:1
+messy|more
+target-count:1
+nsubj|table-4
+sentence-31
+Make the kitchen table and the desk more messy.
+entity-count:2
+entity-0
+id:table-4
+plural:0
+count:1
+determiners:the
+attributes:2
+messy|more
+kitchen
+relationship-count:0
+entity-1
+id:desk-7
+plural:0
+count:1
+determiners:the
+attributes:1
+messy|more
+relationship-count:0
+command-count:1
+command-0
+verb:make
+applied:1
+attribute-count:1
+messy|more
+target-count:2
+nsubj|table-4
+nsubj|desk-7
+sentence-32
+Remove the speakers from the desk.
+entity-count:2
+entity-0
+id:speakers-3
+plural:1
+count:1
+determiners:the
+attributes:0
+relationship-count:1
+from:desk-6
+entity-1
+id:desk-6
+plural:0
+count:1
+determiners:the
+attributes:0
+relationship-count:0
+command-count:1
+command-0
+verb:remove
+applied:0
+attribute-count:0
+target-count:1
+dobj|speakers-3
+sentence-33
+Rearrange the chairs.
+entity-count:1
+entity-0
+id:chairs-3
+plural:1
+count:1
+determiners:the
+attributes:0
+relationship-count:0
+command-count:1
+command-0
+verb:rearrange
+applied:0
+attribute-count:0
+target-count:1
+dobj|chairs-3
+sentence-34
+Move the PC on the desk to the floor.
+entity-count:3
+entity-0
+id:pc-3
+plural:0
+count:1
+determiners:the
+attributes:0
+relationship-count:1
+on:desk-6
+entity-1
+id:desk-6
+plural:0
+count:1
+determiners:the
+attributes:0
+relationship-count:1
+to:floor-9
+entity-2
+id:floor-9
+plural:0
+count:1
+determiners:the
+attributes:0
+relationship-count:0
+command-count:1
+command-0
+verb:move
+applied:0
+attribute-count:0
+target-count:1
+dobj|pc-3
+sentence-35
+Move the PC to the floor.
+entity-count:2
+entity-0
+id:pc-3
+plural:0
+count:1
+determiners:the
+attributes:0
+relationship-count:1
+to:floor-6
+entity-1
+id:floor-6
+plural:0
+count:1
+determiners:the
+attributes:0
+relationship-count:0
+command-count:1
+command-0
+verb:move
+applied:0
+attribute-count:0
+target-count:1
+dobj|pc-3
+sentence-36
+The table is surrounded with chairs.
+entity-count:2
+entity-0
+id:table-2
+plural:0
+count:1
+determiners:the
+attributes:1
+surrounded
+relationship-count:1
+surrounded with:chairs-6
+entity-1
+id:chairs-6
+plural:1
+count:1
+determiners:
+attributes:0
+relationship-count:0
+command-count:0
+sentence-37
+Surround the table with chairs.
+entity-count:2
+entity-0
+id:table-3
+plural:0
+count:1
+determiners:the
+attributes:1
+surrounded
+relationship-count:1
+with:chairs-5
+entity-1
+id:chairs-5
+plural:1
+count:1
+determiners:
+attributes:0
+relationship-count:0
+command-count:1
+command-0
+verb:surround
+applied:1
+attribute-count:0
+target-count:1
+dobj|table-3
+sentence-38
+The chairs are all aligned.
+entity-count:1
+entity-0
+id:chairs-2
+plural:1
+count:all
+determiners:the
+attributes:1
+aligned
+relationship-count:0
+command-count:0
+sentence-39
+Align all the chairs.
+entity-count:1
+entity-0
+id:chairs-4
+plural:1
+count:all
+determiners:the
+attributes:1
+aligned
+relationship-count:0
+command-count:1
+command-0
+verb:align
+applied:1
+attribute-count:0
+target-count:1
+dobj|chairs-4
+sentence-40
+Stack the books.
+entity-count:1
+entity-0
+id:books-3
+plural:1
+count:1
+determiners:the
+attributes:1
+stacked
+relationship-count:0
+command-count:1
+command-0
+verb:stack
+applied:1
+attribute-count:0
+target-count:1
+dobj|books-3
+sentence-41
+Pile the books.
+entity-count:1
+entity-0
+id:books-3
+plural:1
+count:1
+determiners:the
+attributes:1
+piled
+relationship-count:0
+command-count:1
+command-0
+verb:pile
+applied:1
+attribute-count:0
+target-count:1
+dobj|books-3
+sentence-42
+The books are stacked.
+entity-count:1
+entity-0
+id:books-2
+plural:1
+count:1
+determiners:the
+attributes:1
+stacked
+relationship-count:0
+command-count:0
+sentence-43
+Distribute chairs on the floor.
+entity-count:2
+entity-0
+id:chairs-2
+plural:1
+count:1
+determiners:
+attributes:1
+distributed
+relationship-count:1
+on:floor-5
+entity-1
+id:floor-5
+plural:0
+count:1
+determiners:the
+attributes:0
+relationship-count:0
+command-count:1
+command-0
+verb:distribute
+applied:1
+attribute-count:0
+target-count:1
+nsubj|chairs-2
+sentence-44
+The chairs are scattered on the floor.
+entity-count:2
+entity-0
+id:chairs-2
+plural:1
+count:1
+determiners:the
+attributes:1
+scattered
+relationship-count:1
+scattered on:floor-7
+entity-1
+id:floor-7
+plural:0
+count:1
+determiners:the
+attributes:0
+relationship-count:0
+command-count:0
+sentence-45
+Collect the items on the table.
+entity-count:2
+entity-0
+id:items-3
+plural:1
+count:1
+determiners:the
+attributes:1
+collected
+relationship-count:1
+on:table-6
+entity-1
+id:table-6
+plural:0
+count:1
+determiners:the
+attributes:0
+relationship-count:0
+command-count:1
+command-0
+verb:collect
+applied:1
+attribute-count:0
+target-count:1
+dobj|items-3
+sentence-46
+The items are grouped on the table.
+entity-count:2
+entity-0
+id:items-2
+plural:1
+count:1
+determiners:the
+attributes:1
+grouped
+relationship-count:1
+grouped on:table-7
+entity-1
+id:table-7
+plural:0
+count:1
+determiners:the
+attributes:0
+relationship-count:0
+command-count:0
+sentence-47
+Make the kitchen table messy.
+entity-count:1
+entity-0
+id:table-4
+plural:0
+count:1
+determiners:the
+attributes:2
+kitchen
+messy
+relationship-count:0
+command-count:1
+command-0
+verb:make
+applied:1
+attribute-count:1
+messy
+target-count:1
+dobj|table-4
+sentence-48
+There is a messy kitchen table.
+entity-count:1
+entity-0
+id:table-6
+plural:0
+count:1
+determiners:a
+attributes:2
+kitchen
+messy
+relationship-count:0
+command-count:0
+sentence-49
+Clean the desk.
+entity-count:1
+entity-0
+id:desk-3
+plural:0
+count:1
+determiners:the
+attributes:1
+clean
+relationship-count:0
+command-count:0
+sentence-50
+The desk is clean.
+entity-count:1
+entity-0
+id:desk-2
+plural:0
+count:1
+determiners:the
+attributes:1
+clean
+relationship-count:0
+command-count:0
+sentence-51
+Put utensils formally on the dining table.
+entity-count:2
+entity-0
+id:utensils-2
+plural:1
+count:1
+determiners:
+attributes:2
+formally
+put
+relationship-count:1
+on:table-7
+entity-1
+id:table-7
+plural:0
+count:1
+determiners:the
+attributes:1
+dining
+relationship-count:0
+command-count:1
+command-0
+verb:put
+applied:1
+attribute-count:0
+target-count:1
+nsubj|utensils-2
+sentence-52
+The formal utensils are on the dining table.
+entity-count:2
+entity-0
+id:utensils-3
+plural:1
+count:1
+determiners:the
+attributes:1
+formal
+relationship-count:1
+on:table-8
+entity-1
+id:table-8
+plural:0
+count:1
+determiners:the
+attributes:1
+dining
+relationship-count:0
+command-count:0
+sentence-53
+Put the art casually on the wall.
+entity-count:2
+entity-0
+id:art-3
+plural:0
+count:1
+determiners:the
+attributes:1
+put|casually
+relationship-count:1
+on:wall-7
+entity-1
+id:wall-7
+plural:0
+count:1
+determiners:the
+attributes:0
+relationship-count:0
+command-count:1
+command-0
+verb:put
+applied:1
+attribute-count:1
+casually
+target-count:1
+dobj|art-3
+sentence-54
+The art is casually distributed on the wall.
+entity-count:2
+entity-0
+id:art-2
+plural:0
+count:1
+determiners:the
+attributes:1
+distributed|casually
+relationship-count:1
+distributed on:wall-8
+entity-1
+id:wall-8
+plural:0
+count:1
+determiners:the
+attributes:0
+relationship-count:0
+command-count:0
+sentence-55
+Put books sparsely on the shelf.
+entity-count:2
+entity-0
+id:books-2
+plural:1
+count:1
+determiners:
+attributes:1
+sparsely
+relationship-count:0
+entity-1
+id:shelf-6
+plural:0
+count:1
+determiners:the
+attributes:0
+relationship-count:0
+command-count:1
+command-0
+verb:put
+applied:1
+attribute-count:0
+target-count:0
+sentence-56
+Books are sparsely distributed on the shelf.
+entity-count:2
+entity-0
+id:books-1
+plural:1
+count:1
+determiners:
+attributes:1
+distributed|sparsely
+relationship-count:1
+distributed on:shelf-7
+entity-1
+id:shelf-7
+plural:0
+count:1
+determiners:the
+attributes:0
+relationship-count:0
+command-count:0
+sentence-57
+The meeting room is crowded with chairs.
+entity-count:2
+entity-0
+id:room-3
+plural:0
+count:1
+determiners:the
+attributes:2
+crowded
+meeting
+relationship-count:1
+crowded with:chairs-7
+entity-1
+id:chairs-7
+plural:1
+count:1
+determiners:
+attributes:0
+relationship-count:0
+command-count:0
+
+*** begin pretty print versions
+sentence-0
+Today I am walking to the bookstore.
+entity count: 2
+entity: today-1
+entity: bookstore-7
+  determiners: the,
+
+sentence-1
+There are several red books on the top shelf.
+entity count: 2
+entity: books-5 (plural)
+  attributes: red,
+  count: several
+  relationships: on:shelf-9,
+entity: shelf-9
+  attributes: top,
+  determiners: the,
+
+sentence-2
+There are four chairs around a dining table.
+entity count: 2
+entity: chairs-4 (plural)
+  count: 4
+  relationships: around:table-8,
+entity: table-8
+  attributes: dining,
+  determiners: a,
+
+sentence-3
+The chairs are wooden.
+entity count: 1
+entity: chairs-2 (plural)
+  attributes: wooden,
+  determiners: the,
+
+sentence-4
+On the desk there is a monitor, a keyboard, and a sleek and white laptop.
+entity count: 4
+entity: desk-3
+  determiners: the,
+entity: monitor-7
+  determiners: a,
+  relationships: on:desk-3,
+entity: keyboard-10
+  determiners: a,
+  relationships: on:desk-3,
+entity: laptop-17
+  attributes: sleek,white,
+  determiners: a,
+  relationships: on:desk-3,
+
+sentence-5
+The soda is to the right of the laptop.
+entity count: 2
+entity: soda-2
+  determiners: the,
+  relationships: right of:laptop-9,
+entity: laptop-9
+  determiners: the,
+
+sentence-6
+The power adapter is below the desk.
+entity count: 2
+entity: adapter-3
+  attributes: power,
+  determiners: the,
+  relationships: below:desk-7,
+entity: desk-7
+  determiners: the,
+
+sentence-7
+The power adapter is below the desk and near the chair.
+entity count: 3
+entity: adapter-3
+  attributes: power,
+  determiners: the,
+  relationships: below:desk-7,near:chair-11,
+entity: desk-7
+  determiners: the,
+entity: chair-11
+  determiners: the,
+
+sentence-8
+The room also has large windows and wooden floors.
+entity count: 3
+entity: room-2
+  attributes: has(also),
+  determiners: the,
+  relationships: has:windows-6,
+entity: windows-6 (plural)
+  attributes: large,
+entity: floors-9 (plural)
+  attributes: wooden,
+
+sentence-9
+There are cream-colored built-in shelves displaying many knick-knacks along with a fireplace at the front of the room.
+entity count: 4
+entity: shelves-5 (plural)
+  attributes: cream-colored,built-in,
+  relationships: displaying:knick-knacks-8,displaying with:fireplace-12,
+entity: knick-knacks-8 (plural)
+  count: many
+  relationships: with:fireplace-12,
+entity: fireplace-12
+  determiners: a,
+entity: room-18
+  determiners: the,
+
+sentence-10
+There�s a red patterned rug in the middle of the room surrounded by a grey sofa and two sofa chairs with throw pillows.
+entity count: 5
+entity: rug-6
+  attributes: s,red,patterned,
+  determiners: a,
+  relationships: in middle of:room-12,
+entity: room-12
+  determiners: the,
+  relationships: surrounded by:sofa-17,surrounded with:pillows-24,
+entity: sofa-17
+  attributes: grey,
+  determiners: a,
+entity: chairs-21 (plural)
+  attributes: sofa,
+  count: 2
+entity: pillows-24 (plural)
+  attributes: throw,
+
+sentence-11
+There�s a red patterned rug surrounded by a grey sofa and two sofa chairs with throw pillows.
+entity count: 4
+entity: rug-6
+  attributes: s,red,patterned,
+  determiners: a,
+  relationships: surrounded by:sofa-11,surrounded with:pillows-18,
+entity: sofa-11
+  attributes: grey,
+  determiners: a,
+entity: chairs-15 (plural)
+  attributes: sofa,
+  count: 2
+entity: pillows-18 (plural)
+  attributes: throw,
+
+sentence-12
+In addition, there�s a wooden coffee table on top of the rug in the middle of the seating arrangement, as well as a side table between the two chairs.
+entity count: 5
+entity: table-9
+  attributes: s,coffee,wooden,
+  determiners: a,
+  relationships: on top of:rug-14,
+entity: rug-14
+  determiners: the,
+  relationships: in middle of:arrangement-21,
+entity: arrangement-21
+  attributes: seating,
+  determiners: the,
+entity: table-28
+  attributes: side,
+  determiners: a,
+  relationships: between:chairs-32,
+entity: chairs-32 (plural)
+  count: 2
+  determiners: the,
+
+sentence-13
+The room also has several flower-related items -- bouquets on the tables and an abstract flowery painting above the fireplace.
+entity count: 6
+entity: room-2
+  attributes: has(also),
+  determiners: the,
+  relationships: has:items-7,has:painting-17,
+entity: items-7 (plural)
+  attributes: flower-related,
+  count: several
+entity: bouquets-9 (plural)
+  relationships: on:tables-12,
+entity: tables-12 (plural)
+  determiners: the,
+entity: painting-17
+  attributes: flowery,abstract,
+  determiners: an,
+  relationships: above:fireplace-20,
+entity: fireplace-20
+  determiners: the,
+
+sentence-14
+It�s a fairly busy but warm-looking room.
+entity count: 1
+entity: room-8
+  attributes: busy,warm-looking,
+  determiners: a,
+
+sentence-15
+A dark wood, rectangular coffee table is on top of the rug.
+entity count: 2
+entity: table-7
+  attributes: wood,coffee,dark,rectangular,
+  determiners: a,
+  relationships: on:rug-13,
+entity: rug-13
+  determiners: the,
+
+sentence-16
+The coffee table has two levels; there are books on the lower level and some decorative plates on the top level.
+entity count: 6
+entity: table-3
+  attributes: has,coffee,
+  determiners: the,
+  relationships: has:levels-6,
+entity: levels-6 (plural)
+  count: 2
+entity: books-10 (plural)
+  relationships: on:level-14,
+entity: level-14
+  attributes: lower,
+  determiners: the,
+entity: plates-18 (plural)
+  attributes: decorative,
+  count: some
+  relationships: on:level-22,
+entity: level-22
+  attributes: top,
+  determiners: the,
+
+sentence-17
+This entertainment unit is long; it runs the entire length of the wall.
+entity count: 2
+entity: unit-3
+  attributes: long,entertainment,
+  determiners: this,
+entity: wall-14
+  determiners: the,
+
+sentence-18
+There are tall, thin, modern speakers flush up against the sides of the center part.
+entity count: 3
+entity: speakers-8 (plural)
+  attributes: flush,modern,
+  relationships: flush against:sides-13,against sides of:part-17,
+entity: sides-13 (plural)
+  determiners: the,
+  relationships: of:part-17,
+entity: part-17
+  attributes: center,
+  determiners: the,
+
+sentence-19
+Above the entertainment unit, a flat screen TV is mounted on the wall.
+entity count: 3
+entity: unit-4
+  attributes: entertainment,
+  determiners: the,
+entity: tv-9
+  attributes: mounted,screen,flat,
+  determiners: a,
+  relationships: mounted above:unit-4,mounted on:wall-14,
+entity: wall-14
+  determiners: the,
+
+sentence-20
+A typical living room with a table in the middle of two sofas (one is a large sofa and the other is a single seat sofa) with a flower vase on its top.
+entity count: 6
+entity: room-4
+  attributes: typical,living,
+  determiners: a,
+  relationships: with:table-7,of:sofas-13,
+entity: table-7
+  determiners: a,
+entity: sofas-13 (plural)
+  count: 2
+  relationships: with:vase-32,
+entity: sofa-19
+  attributes: large,
+  determiners: a,
+entity: sofa-27
+  attributes: seat,single,
+  determiners: a,
+entity: vase-32
+  attributes: flower,
+  determiners: a,
+
+sentence-21
+The shelves on either side of the wall have some showpiece items for aesthetic appeal.
+entity count: 3
+entity: shelves-2 (plural)
+  attributes: have,
+  determiners: the,
+  relationships: have:items-12,
+entity: wall-8
+  determiners: the,
+entity: items-12 (plural)
+  attributes: showpiece,
+  count: some
+
+sentence-22
+The living room has a fireplace in the middle of two built-in shelves and cabinets.
+entity count: 4
+entity: room-3
+  attributes: has,living,
+  determiners: the,
+  relationships: has:fireplace-6,
+entity: fireplace-6
+  determiners: a,
+  relationships: in middle of:shelves-13,
+entity: shelves-13 (plural)
+  attributes: built-in,
+  count: 2
+entity: cabinets-15 (plural)
+
+sentence-23
+In the center of the room is a large rectangular area rug.
+entity count: 2
+entity: room-6
+  determiners: the,
+entity: rug-12
+  attributes: area,large,rectangular,
+  determiners: a,
+  relationships: in center of:room-6,
+
+sentence-24
+There is a PC on the desk.
+entity count: 2
+entity: pc-4
+  determiners: a,
+  relationships: on:desk-7,
+entity: desk-7
+  determiners: the,
+
+sentence-25
+To the right of the desk, there is a bookshelf with books.
+entity count: 3
+entity: desk-6
+  determiners: the,
+entity: bookshelf-11
+  determiners: a,
+  relationships: with:books-13,to right of:desk-6,
+entity: books-13 (plural)
+
+sentence-26
+There are two sleek, white laptops on the desk.
+entity count: 2
+entity: laptops-7 (plural)
+  attributes: sleek,white,
+  count: 2
+  relationships: on:desk-10,
+entity: desk-10
+  determiners: the,
+
+sentence-27
+To the right of the wooden desk, there is a big bookshelf with many books.
+entity count: 3
+entity: desk-7
+  attributes: wooden,
+  determiners: the,
+entity: bookshelf-13
+  attributes: big,
+  determiners: a,
+  relationships: with:books-16,to right of:desk-7,
+entity: books-16 (plural)
+  count: many
+
+sentence-28
+Books are sparsely distributed on the bookshelf.
+entity count: 2
+entity: books-1 (plural)
+  attributes: distributed(sparsely),
+  relationships: distributed on:bookshelf-7,
+entity: bookshelf-7
+  determiners: the,
+
+sentence-29
+Move the chairs closer together and clean the desk.
+entity count: 2
+entity: chairs-3 (plural)
+  determiners: the,
+entity: desk-9
+  attributes: cleaned,
+  determiners: the,
+command count: 2
+command: move-1
+  attributes: together(closer),
+  targets: dobj:chairs-3,
+command: clean-7 (applied)
+  targets: dobj:desk-9,
+
+sentence-30
+Make the kitchen table more messy.
+entity count: 1
+entity: table-4
+  attributes: messy(more),kitchen,
+  determiners: the,
+command count: 1
+command: make-1 (applied)
+  attributes: messy(more),
+  targets: nsubj:table-4,
+
+sentence-31
+Make the kitchen table and the desk more messy.
+entity count: 2
+entity: table-4
+  attributes: messy(more),kitchen,
+  determiners: the,
+entity: desk-7
+  attributes: messy(more),
+  determiners: the,
+command count: 1
+command: make-1 (applied)
+  attributes: messy(more),
+  targets: nsubj:table-4,nsubj:desk-7,
+
+sentence-32
+Remove the speakers from the desk.
+entity count: 2
+entity: speakers-3 (plural)
+  determiners: the,
+  relationships: from:desk-6,
+entity: desk-6
+  determiners: the,
+command count: 1
+command: remove-1
+  targets: dobj:speakers-3,
+
+sentence-33
+Rearrange the chairs.
+entity count: 1
+entity: chairs-3 (plural)
+  determiners: the,
+command count: 1
+command: rearrange-1
+  targets: dobj:chairs-3,
+
+sentence-34
+Move the PC on the desk to the floor.
+entity count: 3
+entity: pc-3
+  determiners: the,
+  relationships: on:desk-6,
+entity: desk-6
+  determiners: the,
+  relationships: to:floor-9,
+entity: floor-9
+  determiners: the,
+command count: 1
+command: move-1
+  targets: dobj:pc-3,
+
+sentence-35
+Move the PC to the floor.
+entity count: 2
+entity: pc-3
+  determiners: the,
+  relationships: to:floor-6,
+entity: floor-6
+  determiners: the,
+command count: 1
+command: move-1
+  targets: dobj:pc-3,
+
+sentence-36
+The table is surrounded with chairs.
+entity count: 2
+entity: table-2
+  attributes: surrounded,
+  determiners: the,
+  relationships: surrounded with:chairs-6,
+entity: chairs-6 (plural)
+
+sentence-37
+Surround the table with chairs.
+entity count: 2
+entity: table-3
+  attributes: surrounded,
+  determiners: the,
+  relationships: with:chairs-5,
+entity: chairs-5 (plural)
+command count: 1
+command: surround-1 (applied)
+  targets: dobj:table-3,
+
+sentence-38
+The chairs are all aligned.
+entity count: 1
+entity: chairs-2 (plural)
+  attributes: aligned,
+  count: all
+  determiners: the,
+
+sentence-39
+Align all the chairs.
+entity count: 1
+entity: chairs-4 (plural)
+  attributes: aligned,
+  count: all
+  determiners: the,
+command count: 1
+command: align-1 (applied)
+  targets: dobj:chairs-4,
+
+sentence-40
+Stack the books.
+entity count: 1
+entity: books-3 (plural)
+  attributes: stacked,
+  determiners: the,
+command count: 1
+command: stack-1 (applied)
+  targets: dobj:books-3,
+
+sentence-41
+Pile the books.
+entity count: 1
+entity: books-3 (plural)
+  attributes: piled,
+  determiners: the,
+command count: 1
+command: pile-1 (applied)
+  targets: dobj:books-3,
+
+sentence-42
+The books are stacked.
+entity count: 1
+entity: books-2 (plural)
+  attributes: stacked,
+  determiners: the,
+
+sentence-43
+Distribute chairs on the floor.
+entity count: 2
+entity: chairs-2 (plural)
+  attributes: distributed,
+  relationships: on:floor-5,
+entity: floor-5
+  determiners: the,
+command count: 1
+command: distribute-1 (applied)
+  targets: nsubj:chairs-2,
+
+sentence-44
+The chairs are scattered on the floor.
+entity count: 2
+entity: chairs-2 (plural)
+  attributes: scattered,
+  determiners: the,
+  relationships: scattered on:floor-7,
+entity: floor-7
+  determiners: the,
+
+sentence-45
+Collect the items on the table.
+entity count: 2
+entity: items-3 (plural)
+  attributes: collected,
+  determiners: the,
+  relationships: on:table-6,
+entity: table-6
+  determiners: the,
+command count: 1
+command: collect-1 (applied)
+  targets: dobj:items-3,
+
+sentence-46
+The items are grouped on the table.
+entity count: 2
+entity: items-2 (plural)
+  attributes: grouped,
+  determiners: the,
+  relationships: grouped on:table-7,
+entity: table-7
+  determiners: the,
+
+sentence-47
+Make the kitchen table messy.
+entity count: 1
+entity: table-4
+  attributes: kitchen,messy,
+  determiners: the,
+command count: 1
+command: make-1 (applied)
+  attributes: messy,
+  targets: dobj:table-4,
+
+sentence-48
+There is a messy kitchen table.
+entity count: 1
+entity: table-6
+  attributes: kitchen,messy,
+  determiners: a,
+
+sentence-49
+Clean the desk.
+entity count: 1
+entity: desk-3
+  attributes: clean,
+  determiners: the,
+
+sentence-50
+The desk is clean.
+entity count: 1
+entity: desk-2
+  attributes: clean,
+  determiners: the,
+
+sentence-51
+Put utensils formally on the dining table.
+entity count: 2
+entity: utensils-2 (plural)
+  attributes: formally,put,
+  relationships: on:table-7,
+entity: table-7
+  attributes: dining,
+  determiners: the,
+command count: 1
+command: put-1 (applied)
+  targets: nsubj:utensils-2,
+
+sentence-52
+The formal utensils are on the dining table.
+entity count: 2
+entity: utensils-3 (plural)
+  attributes: formal,
+  determiners: the,
+  relationships: on:table-8,
+entity: table-8
+  attributes: dining,
+  determiners: the,
+
+sentence-53
+Put the art casually on the wall.
+entity count: 2
+entity: art-3
+  attributes: put(casually),
+  determiners: the,
+  relationships: on:wall-7,
+entity: wall-7
+  determiners: the,
+command count: 1
+command: put-1 (applied)
+  attributes: casually,
+  targets: dobj:art-3,
+
+sentence-54
+The art is casually distributed on the wall.
+entity count: 2
+entity: art-2
+  attributes: distributed(casually),
+  determiners: the,
+  relationships: distributed on:wall-8,
+entity: wall-8
+  determiners: the,
+
+sentence-55
+Put books sparsely on the shelf.
+entity count: 2
+entity: books-2 (plural)
+  attributes: sparsely,
+entity: shelf-6
+  determiners: the,
+command count: 1
+command: put-1 (applied)
+
+sentence-56
+Books are sparsely distributed on the shelf.
+entity count: 2
+entity: books-1 (plural)
+  attributes: distributed(sparsely),
+  relationships: distributed on:shelf-7,
+entity: shelf-7
+  determiners: the,
+
+sentence-57
+The meeting room is crowded with chairs.
+entity count: 2
+entity: room-3
+  attributes: crowded,meeting,
+  determiners: the,
+  relationships: crowded with:chairs-7,
+entity: chairs-7 (plural)
+
