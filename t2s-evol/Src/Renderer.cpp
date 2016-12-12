@@ -20,7 +20,8 @@ Renderer::Renderer(Scene *scene, CameraManager *camManager, GUI *gui)
   m_bgMode(0), 
   m_activePreview(0), 
   m_bufferWidth(1280),
-  m_bufferHeight(720)
+  m_bufferHeight(720), 
+  m_frameCount(0)
 {
     init();
 }
@@ -100,25 +101,30 @@ void Renderer::renderIntoPreviewFBOs(Transform &trans)
 {
     for(int i=0; i<m_previewFBOs.size(); ++i)
     {
-        FrameBufferObject *fbo = m_previewFBOs[i].fbo;
+        if (m_frameCount % (i+1) == 0)
+        {
+            FrameBufferObject *fbo = m_previewFBOs[i].fbo;
 
-	    glPushAttrib(GL_ALL_ATTRIB_BITS);
-	    glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);
+            glPushAttrib(GL_ALL_ATTRIB_BITS);
+            glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);
 
-        fbo->bind();
-            
-            glViewport(0, 0, m_bufferWidth, m_bufferHeight);
-            glClearColor(m_bgColor.x, m_bgColor.y, m_bgColor.z, m_bgColor.w);    
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);     
+            fbo->bind();
 
-            m_scene->renderWorld(trans);
-		    m_scene->renderVariation(trans, i);        
+                glViewport(0, 0, m_bufferWidth, m_bufferHeight);
+                glClearColor(m_bgColor.x, m_bgColor.y, m_bgColor.z, m_bgColor.w);
+                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        fbo->release();
+                m_scene->renderWorld(trans);
+                m_scene->renderVariation(trans, i);
 
-	    glPopClientAttrib();
-	    glPopAttrib();
+            fbo->release();
+
+            glPopClientAttrib();
+            glPopAttrib();
+        }
     }
+
+    m_frameCount++;
 }
 
 void Renderer::renderPreviews(Transform &trans)

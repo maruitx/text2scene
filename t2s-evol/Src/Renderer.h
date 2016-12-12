@@ -74,6 +74,7 @@ private:
 
     int m_bufferWidth;
     int m_bufferHeight;
+    int m_frameCount;
 };
 
 #endif
