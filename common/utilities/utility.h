@@ -193,6 +193,87 @@ static std::vector<std::string> PartitionString(const std::string &s, const std:
 	return result;
 }
 
+// string between the protector string will not be partitioned, current support protector length is 1
+// empty part will also be included in the parsing result
+static std::vector<std::string> PartitionString(const std::string &s, const std::string &separator, const std::string &protectorStr)
+{
+	std::vector<std::string> result;
+	std::string curEntry;
+	for (unsigned int outerCharacterIndex = 0; outerCharacterIndex < s.length(); outerCharacterIndex++)
+	{
+		bool isSeperator = true;
+		for (unsigned int innerCharacterIndex = 0; innerCharacterIndex < separator.length() && outerCharacterIndex + innerCharacterIndex < s.length() && isSeperator; innerCharacterIndex++)
+		{
+			if (s[outerCharacterIndex + innerCharacterIndex] != separator[innerCharacterIndex]) {
+				isSeperator = false;
+			}
+		}
+		if (isSeperator) {
+			if (s[outerCharacterIndex + 1] != protectorStr[0])
+			{
+				if (curEntry.length() > 0) 
+				{
+					result.push_back(curEntry);
+					curEntry.clear();
+				}
+
+				// if next character is also separator, push empty to curEntry
+				if (s[outerCharacterIndex + 1] == separator[0])
+				{
+					result.push_back(curEntry);
+					curEntry.clear();			
+				}
+
+				outerCharacterIndex += separator.length() - 1;
+			}
+			else
+			{
+				if (curEntry.length() > 0) 
+				{
+					result.push_back(curEntry);
+					curEntry.clear();
+				}
+				outerCharacterIndex += separator.length() - 1;
+				
+				// add the length of protector string and skip the first protector
+				outerCharacterIndex += 2; 
+				// find another protector string
+				bool isProtector = false;
+				for (int j = outerCharacterIndex; j < s.length(); j++)
+				{					
+					if (s[j] == protectorStr[0])
+					{
+						isProtector = true;
+					}
+
+					if (isProtector)
+					{
+						if (curEntry.length() > 0) 
+						{
+							result.push_back(curEntry);
+							curEntry.clear();
+
+							outerCharacterIndex = j;  // set the index to be the char after the seperator
+							break;  // break out of the loop for finding protector
+						}
+					}
+					else
+					{
+						curEntry.push_back(s[j]);
+					}
+				}
+			}			
+		}
+		else {
+			curEntry.push_back(s[outerCharacterIndex]);
+		}
+	}
+	if (curEntry.length() > 0) {
+		result.push_back(curEntry);
+	}
+	return result;
+}
+
 static int StringToInt(const std::string &s)
 {
 	std::stringstream stream(std::stringstream::in | std::stringstream::out);

@@ -15,6 +15,8 @@ scene_lab_widget::scene_lab_widget(scene_lab *s_lab, QWidget *parent/*=0*/)
 	connect(ui->showOBBCheckBox, SIGNAL(stateChanged(int)), m_scene_lab, SLOT(updateSceneRenderingOptions()));
 	connect(ui->showGraphCheckBox, SIGNAL(stateChanged(int)), m_scene_lab, SLOT(updateSceneRenderingOptions()));
 
+	connect(ui->openModelDBViewerButton, SIGNAL(clicked()), m_scene_lab, SLOT(create_modelDBViewer_widget()));
+
 }
 
 scene_lab_widget::~scene_lab_widget()

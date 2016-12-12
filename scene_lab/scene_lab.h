@@ -5,6 +5,8 @@
 
 class scene_lab_widget;
 class CScene;
+class ModelDatabase;
+class ModelDBViewer_widget;
 
 class scene_lab : public QObject
 {
@@ -24,6 +26,9 @@ public slots:
 
 	void updateSceneRenderingOptions();
 
+	void create_modelDBViewer_widget();
+	void destory_modelDBViewer_widget();
+
 signals:
 	void sceneLoaded();
 	void sceneRenderingUpdated();
@@ -31,6 +36,9 @@ signals:
 private:
 	scene_lab_widget *m_widget;
 	CScene *m_scene;	
+
+	ModelDatabase *m_modelDB;
+	ModelDBViewer_widget *m_modelDBViewer_widget;
 };
 
 #endif // SCENE_LAB_H

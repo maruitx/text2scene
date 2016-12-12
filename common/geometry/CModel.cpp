@@ -79,6 +79,7 @@ bool CModel::loadModel(QString filename, double metric, int loadForRendering, QS
 	}
 
 	computeAABB();
+	buildDisplayList(0, 0);
 
 	// do not compute OBB when load for rendering
 	if (!loadForRendering)

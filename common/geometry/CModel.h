@@ -50,6 +50,9 @@ public:
 	double getModelAABBSize() { return m_AABB.Vol(); };
 	MathLib::Vector3 getModelPosAABB() { return m_AABB.GetBottomCenter(); }; // center of bottom plane
 
+	MathLib::Vector3 getMinVert() { return m_AABB.GetMinV(); };
+	MathLib::Vector3 getMaxVert() { return m_AABB.GetMaxV(); };
+
 	// obb
 	void computeOBB(int fixAxis = -1);
 	int loadOBB(const QString &sPathName = QString());

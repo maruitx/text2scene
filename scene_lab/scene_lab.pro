@@ -19,12 +19,21 @@ TARGET = scene_lab
 DESTDIR = $$PWD/lib/$$CFG
 
 FORMS += \
-	scene_lab_widget.ui 
-
+	scene_lab_widget.ui \
+	modeldbviewer_widget.ui
+	
 HEADERS += \
 	scene_lab.h \
-	scene_lab_widget.h 
+	scene_lab_widget.h \
+	modeldbviewer_widget.h \
+	ModelDBViewer.h \
+	modelDatabase.h \ 
+	category.h
 	
 SOURCES += \
 	scene_lab.cpp \
-	scene_lab_widget.cpp 
+	scene_lab_widget.cpp \
+	modeldbviewer_widget.cpp \
+	ModelDBViewer.cpp \
+	modelDatabase.cpp \
+	category.cpp

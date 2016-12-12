@@ -1,5 +1,7 @@
 #include "scene_lab.h"
 #include "scene_lab_widget.h"
+#include "modelDatabase.h"
+#include "modelDBViewer_widget.h"
 #include "../common/geometry/Scene.h"
 
 scene_lab::scene_lab(QObject *parent)
@@ -7,6 +9,9 @@ scene_lab::scene_lab(QObject *parent)
 {
 	m_widget = NULL;
 	m_scene = NULL;
+
+	m_modelDB = NULL; 
+	m_modelDBViewer_widget = NULL;
 }
 
 scene_lab::~scene_lab()
@@ -70,4 +75,21 @@ void scene_lab::updateSceneRenderingOptions()
 	}
 
 	emit sceneRenderingUpdated();
+}
+
+void scene_lab::create_modelDBViewer_widget()
+{
+	if (m_modelDB == NULL)
+	{
+		m_modelDB = new ModelDatabase();
+		m_modelDB->loadShapeNetSemTxt();
+	}
+
+	m_modelDBViewer_widget = new ModelDBViewer_widget(m_modelDB);
+	m_modelDBViewer_widget->show();
+}
+
+void scene_lab::destory_modelDBViewer_widget()
+{
+
 }
