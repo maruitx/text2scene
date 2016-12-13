@@ -4,11 +4,11 @@
 class CModel;
 class Category;
 
-class CandidateModel
+class MetaModel
 {
 public:
-	CandidateModel();
-	CandidateModel(const QString &s);
+	MetaModel();
+	MetaModel(const QString &s);
 
 	void setCatName(const QString &s) { m_categoryName = s; };
 	QString getCatName() { return m_categoryName; };
@@ -59,7 +59,7 @@ public:
 
 	int getParentCatNum() { return m_parentCatNum; };
 
-	std::map<QString, CandidateModel*> dbCandiModels; // <modelIdStr, CandidateModel>
+	std::map<QString, MetaModel*> dbMetaModels; // <modelIdStr, CandidateModel>
 	std::map<QString, Category*> dbCategories;  // <categoryName, categoryStruct>
 
 

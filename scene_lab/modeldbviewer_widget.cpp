@@ -49,7 +49,7 @@ void ModelDBViewer_widget::setModelIdWidgetForCat(const QString &catName)
 	
 	for (int i = 0; i < instanceNum; i++)
 	{
-		CandidateModel* currModel = currCat->modelInstances[i];
+		MetaModel* currModel = currCat->modelInstances[i];
 		ui.modelIdListWidget->addItem(currModel->getIdStr());
 	}
 
@@ -75,7 +75,7 @@ void ModelDBViewer_widget::update3DModel()
 	}
 
 	m_displayedModel = new CModel();
-	double modelScale = m_modelDB->dbCandiModels[modelIdStr]->getScale();
+	double modelScale = m_modelDB->dbMetaModels[modelIdStr]->getScale();
 
 	// debug some model scale is 0
 	if (modelScale < 1e-8 )

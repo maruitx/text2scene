@@ -41,8 +41,8 @@ void ModelDatabase::loadModelTsv(const QString &modelsTsvFile)
 		auto parts = PartitionString(line, "\t");
 
 		QString modelIdStr = QString(parts[0].c_str());
-		CandidateModel *cm = new CandidateModel(modelIdStr);			
-		dbCandiModels[modelIdStr] = cm;
+		MetaModel *cm = new MetaModel(modelIdStr);			
+		dbMetaModels[modelIdStr] = cm;
 
 		if (parts.size() >= 2 && parts[1].size() > 0)
 		{
@@ -83,9 +83,9 @@ void ModelDatabase::readModelScaleFile(const QString &filename)
 		if (parts.size() >= 2)
 		{
 			QString modelIdStr = QString(parts[0].c_str());
-			if (dbCandiModels.count(modelIdStr) > 0)
+			if (dbMetaModels.count(modelIdStr) > 0)
 			{
-				dbCandiModels[modelIdStr]->setScale(StringToFloat(parts[1]));
+				dbMetaModels[modelIdStr]->setScale(StringToFloat(parts[1]));
 			}
 		}
 	}
@@ -106,8 +106,8 @@ bool ModelDatabase::loadSceneSpecifiedModelFile(const QString &filename, QString
 		QStringList lineparts = currLine.split("_");
 
 		QString modelIdStr = lineparts[lineparts.size() - 1];
-		CandidateModel *cm = new CandidateModel(modelIdStr);
-		dbCandiModels[modelIdStr] = cm;
+		MetaModel *cm = new MetaModel(modelIdStr);
+		dbMetaModels[modelIdStr] = cm;
 
 		QString catName = lineparts[0];
 
@@ -154,7 +154,7 @@ bool ModelDatabase::loadSceneSpecifiedModelFile(const QString &filename, QString
 CModel* ModelDatabase::getModelByCat(const QString &catName)
 {
 	Category* currCat = getCategory(catName);
-	CandidateModel* candiModel = currCat->sampleInstance();
+	MetaModel* candiModel = currCat->sampleInstance();
 
 	QString modelIdStr = candiModel->getIdStr();
 	
@@ -284,7 +284,7 @@ void ModelDatabase::extractScaledAnnoModels()
 
 		foreach(QString s, modelNames)
 		{
-			CandidateModel *m = dbCandiModels[s];
+			MetaModel *m = dbMetaModels[s];
 
 			if (m!=NULL)    // skip those with no category in model_categories.tsv, e.g. room
 			{
@@ -314,7 +314,7 @@ void ModelDatabase::extractScaledAnnoModels()
 
 				if (!modelIdStr.contains("room"))   // do not scale room, since no scale info in scale file
 				{
-					m->loadModel(dbParentPath + "/wss.models/models/" + modelIdStr + ".obj", dbCandiModels[s]->getScale());
+					m->loadModel(dbParentPath + "/wss.models/models/" + modelIdStr + ".obj", dbMetaModels[s]->getScale());
 					m->saveModel(dbParentPath + "/models_scaled/" + modelIdStr + ".obj");
 				}
 			}
@@ -409,12 +409,12 @@ void ModelDatabase::extractModelWithTexture()
 
 int ModelDatabase::getModelNum()
 {
-	return dbCandiModels.size();
+	return dbMetaModels.size();
 }
 
 QString ModelDatabase::getModelIdStr(int id)
 {
-	std::map<QString, CandidateModel*>::iterator it = dbCandiModels.begin();
+	std::map<QString, MetaModel*>::iterator it = dbMetaModels.begin();
 
 	std::advance(it, id);
 
@@ -423,7 +423,7 @@ QString ModelDatabase::getModelIdStr(int id)
 
 QString ModelDatabase::getModelCat(const QString &idStr)
 {
-	CandidateModel *cm = dbCandiModels[idStr];
+	MetaModel *cm = dbMetaModels[idStr];
 	return cm->getCatName();
 }
 
@@ -442,14 +442,14 @@ void ModelDatabase::loadShapeNetSemTxt()
 		
 		modelIdStr.remove("wss.");
 
-		CandidateModel *candiModel = new CandidateModel(modelIdStr);
+		MetaModel *candiModel = new MetaModel(modelIdStr);
 
 		if (parts[6] != "")   // some model's scale is empty
 		{
 			candiModel->setScale(QString(parts[6].c_str()).toDouble());  // the 7-th entry in each line is the unit(scale)
 		}
 		
-		dbCandiModels[modelIdStr] = candiModel;
+		dbMetaModels[modelIdStr] = candiModel;
 		m_modelNum++;
 
 		if (parts.size() >= 2 && parts[1].size() > 0)
@@ -498,14 +498,14 @@ void ModelDatabase::loadShapeNetSemTxt()
 	}
 }
 
-CandidateModel::CandidateModel()
+MetaModel::MetaModel()
 {
 	m_idStr = "";
 	m_categoryName = "";
 	m_scale = 1.0;
 }
 
-CandidateModel::CandidateModel(const QString &s)
+MetaModel::MetaModel(const QString &s)
 {
 	m_idStr = s;
 	m_categoryName = "";
