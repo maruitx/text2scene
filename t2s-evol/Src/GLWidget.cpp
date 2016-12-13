@@ -77,7 +77,7 @@ void GLWidget::initParams()
     p->bufferSize          = vec2(0, 0);
     p->fboSamples          = 4;
     
-    p->renderMesh          = false;
+    p->renderMesh          = true;
     p->renderObjects       = true;
     p->renderTextures      = false;
     p->renderWireframe     = false;

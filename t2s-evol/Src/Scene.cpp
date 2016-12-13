@@ -124,15 +124,15 @@ void Scene::resetSelection()
 
 void Scene::initObjects()
 {
-   Object *obj1 = new Object("Data/Objs/cube1.obj", true, true, true, vec3(), vec3(1.0f));
-   string id1 = "cube1";
+   //Object *obj1 = new Object("Data/Objs/cube1.obj", true, true, true, vec3(), vec3(1.0f));
+   //string id1 = "cube1";
 
-   Object *obj2 = new Object("Data/Objs/cube2.obj", true, true, true, vec3(), vec3(1.0f));
-   string id2 = "cube2";
+   //Object *obj2 = new Object("Data/Objs/cube2.obj", true, true, true, vec3(), vec3(1.0f));
+   //string id2 = "cube2";
 
 
-   m_objects.insert(make_pair(id1, obj1));
-   m_objects.insert(make_pair(id2, obj2));
+   //m_objects.insert(make_pair(id1, obj1));
+   //m_objects.insert(make_pair(id2, obj2));
 }
 
 void Scene::initVariations()

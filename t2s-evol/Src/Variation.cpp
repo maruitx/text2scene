@@ -1,8 +1,9 @@
 #include "Variation.h"
 #include "Object.h"
 
-Variation::Variation(const unordered_map<string, Object*> &objects)
-: m_objects(objects)
+Variation::Variation(unordered_map<string, Object*> &objects)
+: m_objects(objects), 
+  m_modelRepository("Data/Objs/")
 {
     int s = 5;
     float step = 1.0f;
@@ -29,7 +30,7 @@ Variation::Variation(const unordered_map<string, Object*> &objects)
             x += step;
         }
 
-        int r = rand() % m_objects.size();
+        int r = rand() % 3;
 
         MetaData md;
 
@@ -50,17 +51,11 @@ Variation::Variation(const unordered_map<string, Object*> &objects)
             md.fileName = "cube2.obj";
         }
 
-        //if(r == 2)
-        //{
-        //    md.id = "elk";
-        //    md.fileName = "elk.obj";
-        //}
-
-        //if(r == 3)
-        //{
-        //    md.id = "bunny_simple";
-        //    md.fileName = "bunny_simple.obj";
-        //}
+        if(r == 2)
+        {
+            md.id = "bunny_simple";
+            md.fileName = "bunny_simple.obj";
+        }
 
         m_metaData.push_back(md);
     }
@@ -76,24 +71,38 @@ void Variation::render(const Transform &trans, bool applyShadow)
     {
         MetaData &md = m_metaData[i];
 
-        if(m_objects.find(md.id) != m_objects.end())
+        auto &iter = m_objects.find(md.id);
+
+        if(iter != m_objects.end())
         {
-            Object *obj = m_objects.find(md.id)->second;
-            obj->render(trans, md.trans, md.mat, applyShadow);
+            iter->second->render(trans, md.trans, md.mat, applyShadow);
+        }
+        else
+        {
+            Object *obj = new Object(m_modelRepository + QString(md.fileName.c_str()), true, true, true, vec3(), vec3(1.0f));
+            m_objects.insert(make_pair(md.id, obj));
+            obj->start();
         }
     }
 }
 
 void Variation::renderDepth(const Transform &trans)
 {
-    for(int i=0; i<m_metaData.size(); ++i)
+    for (int i = 0; i<m_metaData.size(); ++i)
     {
         MetaData &md = m_metaData[i];
 
-        if(m_objects.find(md.id) != m_objects.end())
+        auto &iter = m_objects.find(md.id);
+
+        if (iter != m_objects.end())
         {
-            Object *obj = m_objects.find(md.id)->second;
-            obj->renderDepth(trans, md.trans);
+            iter->second->renderDepth(trans, md.trans);
+        }
+        else
+        {
+            Object *obj = new Object(m_modelRepository + QString(md.fileName.c_str()), true, true, true, vec3(), vec3(1.0f));
+            m_objects.insert(make_pair(md.id, obj));
+            obj->start();
         }
     }
 }

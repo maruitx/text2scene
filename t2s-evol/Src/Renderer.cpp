@@ -236,6 +236,11 @@ void Renderer::onMouseClick(int mx, int my)
             m_activePreview = i;
         }
     }
+
+    for (int i = 0; i < m_scene->m_lights.size(); ++i)
+    {
+        m_scene->m_lights[0]->m_moved = true;
+    }
 }
 
 void Renderer::onMouseWheel(int delta)

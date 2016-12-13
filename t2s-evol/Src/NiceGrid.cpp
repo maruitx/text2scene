@@ -12,6 +12,7 @@ NiceGrid::NiceGrid(GLfloat size, GLfloat rep)
   m_vbo(nullptr),
   m_position(0.0f, 0.0f, 0.0f)
 {
+    m_material.initTexture();
     buildVBO();
 }
 

@@ -10,14 +10,15 @@ class VertexBufferObject;
 class Material
 {
 public:
-    Material(const vec3 &_Ka, const vec3 &_Kd, const vec3 &_Ks, float _Ns, QString dTexName = QString()) : Ka(_Ka), Kd(_Kd), Ks(_Ks), Ns(_Ns), tex(nullptr)  
+    Material(const vec3 &_Ka, const vec3 &_Kd, const vec3 &_Ks, float _Ns, const QString &dTexName = QString()) : Ka(_Ka), Kd(_Kd), Ks(_Ks), Ns(_Ns), tex(nullptr), texName(dTexName)
     { 
-        if(dTexName.length() > 0)
-        {
-            tex = std::shared_ptr<Texture>(new Texture(dTexName));
-            tex->setEnvMode(GL_REPLACE);
-            tex->setWrapMode(GL_REPEAT);
-        }
+        //if(dTexName.length() > 0)
+        //{
+        //    tex = std::shared_ptr<Texture>(new Texture(dTexName));
+        //    tex->setEnvMode(GL_REPLACE);
+        //    tex->setWrapMode(GL_REPEAT);
+        //    tex->setFilter(GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+        //}
     }
 
     Material() : Ka(0.0f), Kd(0.0f), Ks(0.0f), Ns(0.0f), tex(nullptr)  
@@ -25,9 +26,20 @@ public:
 
     }
 
-    Material(const Material &m) : Ka(m.Ka), Kd(m.Kd), Ks(m.Ks), Ns(m.Ns), tex(m.tex) { }
-    Material &operator = (const Material &m) { Ka = m.Ka; Kd = m.Kd; Ks = m.Ks; Ns = m.Ns; tex = m.tex; }
+    Material(const Material &m) : Ka(m.Ka), Kd(m.Kd), Ks(m.Ks), Ns(m.Ns), tex(m.tex), texName(m.texName) {}
+    Material &operator = (const Material &m) { Ka = m.Ka; Kd = m.Kd; Ks = m.Ks; Ns = m.Ns; tex = m.tex; texName = m.texName; return *this; }
     void initRandom() { Ka = vec3_rnd(0.0f, 0.2f); Kd = vec3_rnd(0.1f, 0.8f); Ks = vec3_rnd(0.0f, 0.5f); Ns = rand(0.0f, 256.0f); }
+
+    void initTexture()
+    {
+        if (texName.length() > 0)
+        {
+            tex = std::shared_ptr<Texture>(new Texture(texName));
+            tex->setEnvMode(GL_REPLACE);
+            tex->setWrapMode(GL_REPEAT);
+            tex->setFilter(GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+        }
+    }
 
     ~Material() 
     {        
@@ -40,6 +52,7 @@ public:
     float Ns;
 
     std::shared_ptr<Texture> tex;
+    QString texName;
 };
 
 

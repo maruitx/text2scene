@@ -172,7 +172,7 @@ Texture::Texture(QString path)
   m_magFilter(GL_LINEAR),
   m_wrap(GL_CLAMP),
   m_envMode(GL_REPLACE),
-  m_createMipMaps(GL_FALSE),
+  m_createMipMaps(GL_TRUE),
   m_maxAnisotropy(16.0f),
   m_manualMipMaps(GL_FALSE), 
   m_isReady(GL_FALSE)

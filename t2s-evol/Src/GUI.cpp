@@ -80,7 +80,7 @@ void GUI::initTab1(Slots slot)
     setupCheckBox(slot, x, y+=45, QString("Misc"), &p->renderMisc);
     setupCheckBox(slot, x+90, y, QString("Shadows"), &p->applyShadow);
     setupCheckBox(slot, x, y+=45, QString("Textures"), &p->renderTextures);
-    setupCheckBox(slot, x+90, y, QString("Mesh"), &p->renderObjects);
+    setupCheckBox(slot, x+90, y, QString("Mesh"), &p->renderMesh);
     setupCheckBox(slot, x, y+=45, QString("Wireframe"), &p->renderWireframe);
     setupCheckBox(slot, x+90, y, QString("Normals"), &p->renderNormals);
 }

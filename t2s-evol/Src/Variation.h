@@ -19,7 +19,7 @@ struct MetaData
 class Variation
 {
 public:
-    Variation(const unordered_map<string, Object*> &objects);
+    Variation(unordered_map<string, Object*> &objects);
     ~Variation();
 
     void render(const Transform &trans, bool applyShadow = true);
@@ -31,7 +31,8 @@ public:
 
 private:
     vector<MetaData> m_metaData;
-    const unordered_map<string, Object*> m_objects;
+    unordered_map<string, Object*> &m_objects;
+    QString m_modelRepository;
 };
 
 #endif
