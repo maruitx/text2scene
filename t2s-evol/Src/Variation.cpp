@@ -40,27 +40,27 @@ Variation::Variation(const unordered_map<string, Object*> &objects)
 
         if(r == 0)
         {
-            md.id = "elephant";
-            md.fileName = "elephant.obj";
+            md.id = "cube1";
+            md.fileName = "cube1.obj";
         }
 
         if(r == 1)
         {
-            md.id = "chair";
-            md.fileName = "chair.obj";
+            md.id = "cube2";
+            md.fileName = "cube2.obj";
         }
 
-        if(r == 2)
-        {
-            md.id = "elk";
-            md.fileName = "elk.obj";
-        }
+        //if(r == 2)
+        //{
+        //    md.id = "elk";
+        //    md.fileName = "elk.obj";
+        //}
 
-        if(r == 3)
-        {
-            md.id = "bunny_simple";
-            md.fileName = "bunny_simple.obj";
-        }
+        //if(r == 3)
+        //{
+        //    md.id = "bunny_simple";
+        //    md.fileName = "bunny_simple.obj";
+        //}
 
         m_metaData.push_back(md);
     }
@@ -70,7 +70,7 @@ Variation::~Variation()
 {
 }
 
-void Variation::render(const Transform &trans)
+void Variation::render(const Transform &trans, bool applyShadow)
 {
     for(int i=0; i<m_metaData.size(); ++i)
     {
@@ -79,7 +79,7 @@ void Variation::render(const Transform &trans)
         if(m_objects.find(md.id) != m_objects.end())
         {
             Object *obj = m_objects.find(md.id)->second;
-            obj->render(trans, md.trans, md.mat);
+            obj->render(trans, md.trans, md.mat, applyShadow);
         }
     }
 }

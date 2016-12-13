@@ -73,6 +73,9 @@ void GLWidget::initParams()
     p->activeLight         = 0;
     
     p->windowSize          = vec2(m_width, m_height);
+    p->previewSize         = vec2(240, 180);
+    p->bufferSize          = vec2(0, 0);
+    p->fboSamples          = 4;
     
     p->renderMesh          = false;
     p->renderObjects       = true;
@@ -85,10 +88,10 @@ void GLWidget::initParams()
     p->ncp                 = 0.0f;
     p->fcp                 = 0.0f;
     p->fov                 = 0.0f;
-    p->lightIntensity      = 1.2f;
+    p->lightIntensity      = 2.2f;
     
-    p->polygonOffsetUnits  = 1.0f;
-    p->polygonOffsetFactor = 0.5f;
+    p->polygonOffsetUnits  = 0.0f;
+    p->polygonOffsetFactor = 0.0f;
     p->depthRangeMax       = 1.0f;
     p->depthRangeMin       = 0.0f;
     
@@ -146,8 +149,6 @@ void GLWidget::initShaders()
 
 void GLWidget::paintGL()
 {   
-	params::inst()->windowSize.x = this->width();
-	params::inst()->windowSize.y = this->height();
     params::inst()->lights = m_scene->m_lights;
     params::inst()->nrActiveVertices = 0;
 
@@ -178,14 +179,26 @@ void GLWidget::resizeGL(int w, int h)
 	m_width = w;
 	m_height = h;
 
+    params::inst()->windowSize = vec2(this->width(), this->height());
+    
+    float px = params::inst()->previewSize.x;
+    float bx = w - px - 10;
+    float by = h;
+
+    float a = bx / h;
+    float py = px / a;
+
+    params::inst()->previewSize = vec2(px, py);
+    params::inst()->bufferSize = vec2(bx, by);
+
 	m_renderer->resize(w, h);
-	m_cameraManager->resize(w, h);
+	m_cameraManager->resize(bx, by);
     m_gui->resize(w, h);
 }
 
 void GLWidget::wheelEvent(QWheelEvent *event)
 {
-    if(!m_altPressed && !m_ctrlPressed && !m_rightButton && !m_shiftPressed)
+    if (!m_altPressed && !m_ctrlPressed && !m_rightButton && !m_shiftPressed && event->x() < m_width - (params::inst()->previewSize.x+10))
     {
 	    m_cameraManager->onMouseWheel(event->delta());
     }
@@ -209,8 +222,8 @@ void GLWidget::wheelEvent(QWheelEvent *event)
 			m_cameraManager->changeRotHeight(1.0f);
 	}
 
-    if(event->x() > m_width - 400 && m_shiftPressed)
-        m_renderer->onMouseWheel(event->delta() > 0 ? 20 : -20);
+    if (event->x() > m_width - (params::inst()->previewSize.x + 10) )
+        m_renderer->onMouseWheel(event->delta() > 0 ? 40 : -40);
 
     event->accept();    
 }

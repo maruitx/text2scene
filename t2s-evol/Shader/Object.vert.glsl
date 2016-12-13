@@ -28,14 +28,14 @@ out vec4 VertShadowCoord[MAX_LIGHTS];
 
 void main()
 {	   
-    VertPosition = Position; 
-    VertNormal   = Normal;
+    VertPosition = matModel * Position; 
+    VertNormal   = matModel * vec4(Normal.xyz, 0);
 	VertColor    = Color;
 	VertTexture  = Texture;
     
     for(int i=0; i<numLights; i++)
     {
-       VertShadowCoord[i] = matLightView[i] * vec4(Position.xyz, 1);
+       VertShadowCoord[i] = matLightView[i] * matModel * vec4(Position.xyz, 1);
     }
 
     vec4 tmpClip = clipPlane;
@@ -43,6 +43,5 @@ void main()
     tmpClip.w = -0.1;
 
     gl_ClipDistance[0] = dot(matModel * Position-vec4(0, -0.25, 0 ,0), tmpClip);	
-
     gl_Position = matProjection * matView * matModel * vec4(Position.xyz, 1);
 }

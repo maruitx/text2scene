@@ -64,6 +64,7 @@ void Object::prepareData(const QString &fileName)
             vec3 Ks = vec3(materials[i].specular[0], materials[i].specular[1], materials[i].specular[2]);
             float Ns = materials[i].shininess;
             QString dTexName = baseName + QString(materials[i].diffuse_texname.c_str());
+            qDebug() << dTexName;
             mats.push_back(Material(Ka, Kd, Ks, Ns, dTexName));
         }
     }
@@ -136,7 +137,7 @@ void Object::prepareData(const QString &fileName)
     }
 }
 
-void Object::render(const Transform &trans, const mat4 &model, const Material &material)
+void Object::render(const Transform &trans, const mat4 &model, const Material &material, bool applyShadow)
 {
     glPushAttrib(GL_ALL_ATTRIB_BITS);
 	glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);
@@ -150,8 +151,8 @@ void Object::render(const Transform &trans, const mat4 &model, const Material &m
 	glEnable(GL_CULL_FACE);
     glEnable(GL_CLIP_DISTANCE0);    
 
-    glEnable(GL_POLYGON_OFFSET_FILL);
-    glPolygonOffset(params::inst()->polygonOffsetFactor, params::inst()->polygonOffsetUnits);
+    //glEnable(GL_POLYGON_OFFSET_FILL);
+    //glPolygonOffset(params::inst()->polygonOffsetFactor, params::inst()->polygonOffsetUnits);
 
     //glDepthFunc(GL_LEQUAL);
     //glDepthRange(params::inst()->depthRangeMin, params::inst()->depthRangeMax);   
@@ -161,7 +162,7 @@ void Object::render(const Transform &trans, const mat4 &model, const Material &m
 
         shader->setMatrices(trans, model, true, true, true, true);       
         shader->set3f("camPos", params::inst()->camPos);    
-        shader->seti("applyShadow", params::inst()->applyShadow);
+        shader->seti("applyShadow", params::inst()->applyShadow && applyShadow);
         shader->setf("shadowIntensity", params::inst()->shadowIntensity);
         shader->seti("isSelected", m_isSelected);       
         shader->set4f("clipPlane", params::inst()->clipPlaneGround);
@@ -171,8 +172,8 @@ void Object::render(const Transform &trans, const mat4 &model, const Material &m
         for(uint i=0; i<m_vbosTriangles.size(); ++i)
         {
             //!!!!!!!!!!!
-            //shader->setMaterial(m_materials[i]);
-            shader->setMaterial(material);
+            shader->setMaterial(m_materials[i]);
+            //shader->setMaterial(material);
             m_vbosTriangles[i]->render();
         }
 
@@ -229,17 +230,17 @@ void Object::renderDepth(const Transform &trans, const mat4 &model)
     glDisable(GL_CULL_FACE);
     glCullFace(GL_FRONT);
 
-    glClearDepth(1.0);
+    //glClearDepth(1.0);
     glEnable(GL_POLYGON_OFFSET_FILL);
-    glDepthFunc(GL_LEQUAL);
+    //glDepthFunc(GL_LEQUAL);
 
-    glDepthRange(params::inst()->depthRangeMin, params::inst()->depthRangeMax);
+    //glDepthRange(params::inst()->depthRangeMin, params::inst()->depthRangeMax);
     glPolygonOffset(params::inst()->polygonOffsetFactor, params::inst()->polygonOffsetUnits);
 
     Shader *shader = shaders::inst()->objectDepth;    
 	shader->bind();  
 
-	    shader->setMatrices(trans, model, true, true, true, true);  
+        shader->setMatrices(trans, model, true, true, true, false);
         shader->set4f("clipPlane", params::inst()->clipPlaneGround);
 
         for(uint i=0; i<m_vbosTriangles.size(); ++i)

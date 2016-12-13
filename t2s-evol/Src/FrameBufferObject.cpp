@@ -522,8 +522,8 @@ FrameBufferObjectMultisample::FrameBufferObjectMultisample(GLuint width, GLuint 
 {
     GLsizei maxSamples = 0;
     glGetIntegerv(GL_MAX_SAMPLES, &maxSamples);
-    std::cout <<"FRAMEBUFFERMULTISAMPLE::Samples: " << samples << std::endl;
-    std::cout <<"FRAMEBUFFERMULTISAMPLE::MaxSamples: " << maxSamples << std::endl;
+    //std::cout <<"FRAMEBUFFERMULTISAMPLE::Samples: " << samples << std::endl;
+    //std::cout <<"FRAMEBUFFERMULTISAMPLE::MaxSamples: " << maxSamples << std::endl;
 
     //Color Renderbuffer
 	glGenRenderbuffers(1, &m_colorRenderBuffer);
@@ -569,7 +569,7 @@ FrameBufferObjectMultisample::FrameBufferObjectMultisample(GLuint width, GLuint 
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_texDepth, 0);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-    std::cout << "FRAMEBUFFERMULTISAMPLE::Size:" << width << "x" << height << std::endl;
+    //std::cout << "FRAMEBUFFERMULTISAMPLE::Size:" << width << "x" << height << std::endl;
 }
 
 FrameBufferObjectMultisample::~FrameBufferObjectMultisample()
@@ -592,7 +592,7 @@ FrameBufferObjectMultisample::~FrameBufferObjectMultisample()
     m_fbo = 0;
     m_fboResolve = 0;
 
-    std::cout << "FRAMEBUFFERMULTISAMPLE::deleted" << std::endl;
+    //std::cout << "FRAMEBUFFERMULTISAMPLE::deleted" << std::endl;
 }
 
 void FrameBufferObjectMultisample::bind()
@@ -627,7 +627,7 @@ void FrameBufferObjectMultisample::blitColor()
 {
 	glBindFramebuffer(GL_READ_FRAMEBUFFER, m_fbo);
 	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_fboResolve);
-	glBlitFramebuffer(0, 0, m_width, m_height,  0, 0, m_width, m_height, GL_COLOR_BUFFER_BIT, m_filterParam);
+	glBlitFramebuffer(0, 0, m_width, m_height,  0, 0, m_width, m_height, GL_COLOR_BUFFER_BIT, GL_LINEAR);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 

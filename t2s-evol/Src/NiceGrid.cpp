@@ -20,7 +20,7 @@ NiceGrid::~NiceGrid()
     delete m_vbo;
 }
 
-void NiceGrid::render(const Transform &trans)
+void NiceGrid::render(const Transform &trans, bool applyShadow)
 {
     glPushAttrib(GL_ALL_ATTRIB_BITS);
     glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);
@@ -34,7 +34,7 @@ void NiceGrid::render(const Transform &trans)
 
         shader->set3f("camPos", params::inst()->camPos);
         shader->setf("alpha", 1.0);
-        shader->seti("applyShadow", params::inst()->applyShadow);
+        shader->seti("applyShadow", params::inst()->applyShadow && applyShadow);
         shader->seti("renderMode", params::inst()->gridRenderMode);
         shader->setf("shadowIntensity", params::inst()->shadowIntensity);
         

@@ -22,10 +22,10 @@ public:
 	void update(float delta);
     void init();
 
-    void renderWorld(const Transform &trans);  
+    void renderWorld(const Transform &trans, bool applyShadow = true);  
     void renderObjects(const Transform &trans);  
     void renderObjectsDepth(const Transform &trans);
-    void renderVariation(const Transform &trans, int var);
+    void renderVariation(const Transform &trans, int var, bool applyShadow = true);
     void renderVariationDepth(const Transform &trans, int var);
 
     void select(const Transform &trans, int sw, int sh, int mx, int my);

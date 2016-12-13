@@ -22,7 +22,7 @@ Scene::~Scene()
 
 void Scene::init()
 {
-    m_lights.push_back(new Light(this, Light::SPOT_LIGHT, vec3(0.9f), vec3(0.0f, 20.0f, 0.1f),  vec3(), vec3(1.2f), vec3(), vec3(0.7f, 0.001f, 0.0001f)));   
+    m_lights.push_back(new Light(this, Light::SPOT_LIGHT, vec3(0.9f), vec3(14.0f, 20.0f, 12.0f),  vec3(), vec3(1.2f), vec3(), vec3(0.7f, 0.001f, 0.0001f)));   
 	m_niceGrid = new NiceGrid(100.0f, 40.0f);      
 
     initObjects();
@@ -32,9 +32,9 @@ void Scene::init()
     stats.record("test2", new Statistics::Item<int>(5));
 }
 
-void Scene::renderWorld(const Transform &trans)
+void Scene::renderWorld(const Transform &trans, bool applyShadow)
 {
-    m_niceGrid->render(trans);
+    m_niceGrid->render(trans, applyShadow);
 
     if(params::inst()->renderMisc)
     {	         
@@ -49,47 +49,20 @@ void Scene::renderWorld(const Transform &trans)
 
 void Scene::renderObjects(const Transform &trans)
 {
- //   mat4 model = mat4::translate(0.0f, 2.0f, 0.0f);
-
- //   if (params::inst()->renderObjects)
- //   {
-	//}
-
- //   Shader *shader = shaders::inst()->default;
- //   shader->bind();
- //       //shader->set3f("lightPos", params::inst()->lightPos);
- //       shader->setMatrices(trans, model, true, true, true);
- //       
- //       //m_vbo->render();    
-
- //   shader->release();	
-
     for(int i=0; i<1; ++i)
     {
         m_variations[i].render(trans);
     }
 }
 
-void Scene::renderVariation(const Transform &trans, int var)
+void Scene::renderVariation(const Transform &trans, int var, bool applyShadow)
 {
-    m_variations[var].render(trans);
+    glEnable(GL_DEPTH_TEST);
+    m_variations[var].render(trans, applyShadow);
 }
 
 void Scene::renderObjectsDepth(const Transform &trans)
 {
-    //mat4 model = mat4::translate(0.0f, 2.0f, 0.0f);
-
-    //if (params::inst()->renderObjects)
-    //{
-    //}
-
-    //Shader *shader = shaders::inst()->default;
-    //shader->bind();
-    //    shader->setMatrices(trans, model, true, true, true);
-    //    
-    //    //m_vbo->render();    
-
-    //shader->release();
 }
 
 void Scene::renderVariationDepth(const Transform &trans, int var)
@@ -151,22 +124,15 @@ void Scene::resetSelection()
 
 void Scene::initObjects()
 {
-   Object *obj1 = new Object("Data/Objs/elephant.obj", true, true, true, vec3(), vec3(1.0f));
-   string id1 = "elephant";
+   Object *obj1 = new Object("Data/Objs/cube1.obj", true, true, true, vec3(), vec3(1.0f));
+   string id1 = "cube1";
 
-   Object *obj2 = new Object("Data/Objs/chair.obj", true, true, true, vec3(), vec3(1.0f));
-   string id2 = "chair";
+   Object *obj2 = new Object("Data/Objs/cube2.obj", true, true, true, vec3(), vec3(1.0f));
+   string id2 = "cube2";
 
-   Object *obj3 = new Object("Data/Objs/elk.obj", true, true, true, vec3(), vec3(1.0f));
-   string id3 = "elk";
-
-   Object *obj4 = new Object("Data/Objs/bunny_simple.obj", true, true, true, vec3(), vec3(1.0f));
-   string id4 = "bunny_simple";
 
    m_objects.insert(make_pair(id1, obj1));
    m_objects.insert(make_pair(id2, obj2));
-   m_objects.insert(make_pair(id3, obj3));
-   m_objects.insert(make_pair(id4, obj4));
 }
 
 void Scene::initVariations()

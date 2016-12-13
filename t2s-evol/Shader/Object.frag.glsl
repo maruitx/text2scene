@@ -36,6 +36,7 @@ uniform int isSelected;
 
 uniform sampler2D tex; 
 uniform sampler2D shadowMap[MAX_LIGHTS];
+uniform sampler2D shadowMapBlurred[MAX_LIGHTS];
 
 in vec4 VertPosition;
 in vec4 VertColor;
@@ -57,34 +58,35 @@ float dualConeSpotlight(vec3 P, vec3 LP, vec3 LD, float outerCone, float innerCo
     return smoothstep(outerCone, innerCone, d);
 }
 
-float VSM(vec4 smcoord, sampler2D sm)
+float VSM(vec4 smcoord, sampler2D sm, sampler2D smb)
 {
-	vec3 coords = smcoord.xyz / smcoord.w ;    
+    vec3 coords = smcoord.xyz / smcoord.w;
 
-    if(smcoord.z < 1)
+    // avoid artifacts
+    float eps = 0.1;
+    if (coords.y > 1 - eps || coords.y < eps || coords.x > 1 - eps || coords.x < eps) 
+        return 1;
+
+    if (smcoord.z < 1)
         return 1;
 
     float depth = coords.z;
-    
-    vec4 depthBlurrred = texture(sm, coords.xy);
+
+    vec4 depthBlurrred = texture(smb, coords.xy);
 
     float depthSM = depthBlurrred.x;
-	float sigma2  = depthBlurrred.y;
+    float sigma2 = depthBlurrred.y;
 
-    float realDepth = texture(sm, coords.xy).x;
+    sigma2 -= depthSM * depthSM;
 
-	sigma2 -= depthSM * depthSM;
+    float bias = 0.000001;
 
-	float bias = 0.0001;
+    float dist = depth - depthSM;
+    float P = sigma2 / (sigma2 + dist * dist );
+    float lit = max(P, (depth - bias) <= depthSM ? 1.0 : 0.0);
+    lit = min(1.0, lit);
 
-	float dist = depth - depthSM;
-	float P = sigma2 / ( sigma2 + dist * dist );
-	float lit = max( P, ( depth - bias ) <= depthSM ? 1.0 : 0.0);
-	lit = min(1.0, lit);   
-
-    return mix(shadowIntensity, 1.0, lit);
-
-    return lit;
+    return mix(shadowIntensity, 1, lit);
 }
 
 vec3 applyLight(Light light, Material material, vec3 P, vec3 N, vec3 V)
@@ -141,7 +143,7 @@ void main()
     {
         for(int i=0; i<numLights; i++)
         {            
-            shadow *= VSM(VertShadowCoord[i], shadowMap[i]); 
+            shadow *= VSM(VertShadowCoord[i], shadowMap[i], shadowMapBlurred[i]);
         }   
     }
 
@@ -149,7 +151,7 @@ void main()
     {
         color.rgb += applyLight(lights[i], material, P, N, V) * shadow;
     }   
-    color.a = alpha;
+    color.a = 1;
 
     FragColor = vec4(color.xyz, 1);	
 }

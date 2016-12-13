@@ -19,9 +19,9 @@ Renderer::Renderer(Scene *scene, CameraManager *camManager, GUI *gui)
   m_samples(16),
   m_bgMode(0), 
   m_activePreview(0), 
-  m_bufferWidth(1280),
-  m_bufferHeight(720), 
-  m_frameCount(0)
+  m_frameCount(0), 
+  m_fbo(nullptr), 
+  m_prevYOffset(0)
 {
     init();
 }
@@ -31,7 +31,7 @@ Renderer::~Renderer()
 }
 
 void Renderer::init()
-{
+{   
     initPreviewFBOs();
 }
 
@@ -46,27 +46,28 @@ void Renderer::render(Transform &trans)
         {
             m_scene->m_lights[i]->setIntensity(params::inst()->lightIntensity);
             m_scene->m_lights[i]->setDirection(m_scene->m_lights[i]->position());
-            m_scene->m_lights[i]->renderLightView(trans.lightViews[i]); 
+            m_scene->m_lights[i]->renderLightView(trans.lightViews[i], m_activePreview);
         }
     }    
     
-    //renderScene(trans);	
+    renderIntoMainFBO(trans);
     renderIntoPreviewFBOs(trans);
 
-    if(params::inst()->renderTextures)
-    {
-        for(int i=0; i<m_scene->m_lights.size(); ++i)
-        {
-            renderTexture(m_scene->m_lights[i]->m_fboLight->texAttachment(GL_COLOR_ATTACHMENT0), 220+i*210, m_height-200, 200, 200);
-        }
-    }
-
     glViewport(0, 0, m_width, m_height);
-    glClearColor(m_bgColor.x, m_bgColor.y, m_bgColor.z, m_bgColor.w);    
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);    
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);     
 
-    renderTexture(m_previewFBOs[m_activePreview].fbo->texAttachment(GL_COLOR_ATTACHMENT0), 0, 0, m_bufferWidth, m_bufferHeight);
+    renderTexture(m_fbo->colorTex(), 0, 0, params::inst()->bufferSize.x, params::inst()->bufferSize.y);
     renderPreviews(trans);
+
+    if (params::inst()->renderTextures)
+    {
+        for (int i = 0; i<m_scene->m_lights.size(); ++i)
+        {
+            renderTexture(m_scene->m_lights[i]->shadowMapId(), 220 + i * 210, m_height - 200, 200, 200);
+            renderTexture(m_scene->m_lights[i]->shadowMapBlurredId(), 220 + 210 + i * 210, m_height - 200, 200, 200);
+        }
+    }
 
     m_gui->render();
 }
@@ -97,30 +98,40 @@ void Renderer::renderScene(const Transform &trans)
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
+void Renderer::renderIntoMainFBO(Transform &trans)
+{
+    m_fbo->bind();
+
+        glViewport(0, 0, params::inst()->bufferSize.x, params::inst()->bufferSize.y);
+        glClearColor(m_bgColor.x, m_bgColor.y, m_bgColor.z, m_bgColor.w);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        m_scene->renderWorld(trans);
+        m_scene->renderVariation(trans, m_activePreview);
+
+    m_fbo->release();
+    m_fbo->blit();
+}
+
 void Renderer::renderIntoPreviewFBOs(Transform &trans)
 {
     for(int i=0; i<m_previewFBOs.size(); ++i)
     {
         if (m_frameCount % (i+1) == 0)
         {
-            FrameBufferObject *fbo = m_previewFBOs[i].fbo;
-
-            glPushAttrib(GL_ALL_ATTRIB_BITS);
-            glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);
+            FrameBufferObjectMultisample *fbo = m_previewFBOs[i].fbo;
 
             fbo->bind();
 
-                glViewport(0, 0, m_bufferWidth, m_bufferHeight);
+                glViewport(0, 0, params::inst()->previewSize.x, params::inst()->previewSize.y);
                 glClearColor(m_bgColor.x, m_bgColor.y, m_bgColor.z, m_bgColor.w);
                 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-                m_scene->renderWorld(trans);
-                m_scene->renderVariation(trans, i);
+                m_scene->renderWorld(trans, false);
+                m_scene->renderVariation(trans, i, false);
 
             fbo->release();
-
-            glPopClientAttrib();
-            glPopAttrib();
+            fbo->blitColor();
         }
     }
 
@@ -129,17 +140,13 @@ void Renderer::renderIntoPreviewFBOs(Transform &trans)
 
 void Renderer::renderPreviews(Transform &trans)
 {
-    int w = 320;
-    int h = w * (m_bufferHeight/(float)m_bufferWidth);
+    int w = params::inst()->previewSize.x;
+    int h = params::inst()->previewSize.y;
     
-    int startX = m_width - w - 20;
-    int startY = 20;
-
     for(int i=0; i<m_previewFBOs.size(); ++i)
     {
         Preview &p = m_previewFBOs[i];
-
-        renderTexture(p.fbo->texAttachment(GL_COLOR_ATTACHMENT0), p.x, p.y, p.w, p.h);
+        renderTexture(p.fbo->colorTex(), p.x, p.y + m_prevYOffset, p.w, p.h, i == m_activePreview ? true : false);
     }
 }
 
@@ -147,6 +154,9 @@ void Renderer::resize(int width, int height)
 {
     m_width = width;
     m_height = height;    
+
+    delete m_fbo;
+    m_fbo = new FrameBufferObjectMultisample(params::inst()->bufferSize.x, params::inst()->bufferSize.y, params::inst()->fboSamples);
 
     initPreviewFBOs();
 }
@@ -178,27 +188,32 @@ void Renderer::toggleBGColor()
 
 void Renderer::initPreviewFBOs()
 {
+    int sx = 5;
+    int sy = 5;
+
     int nrVariations = m_scene->m_variations.size();
 
+    //Delete FBOs
     for(int i=m_previewFBOs.size()-1; i >= 0; --i)
     {
-        FrameBufferObject *fbo = m_previewFBOs[i].fbo;
+        FrameBufferObjectMultisample *fbo = m_previewFBOs[i].fbo;
         delete fbo;
     }
     m_previewFBOs.clear();
 
-    int w = 320;
-    int h = w * (m_bufferHeight/(float)m_bufferWidth);
+    //Make new FBOs
+    int w = params::inst()->previewSize.x;
+    int h = params::inst()->previewSize.y;
     
-    int startX = m_width - w - 20;
-    int startY = 20;
+    int startX = m_width - w - sx;
+    int startY = sy;
 
     for(int i=0; i<nrVariations; ++i)
     {
-        FrameBufferObject *fbo = new FrameBufferObject(m_bufferWidth, m_bufferHeight);
+        FrameBufferObjectMultisample *fbo = new FrameBufferObjectMultisample(params::inst()->previewSize.x, params::inst()->previewSize.y, params::inst()->fboSamples);
         
-        int x = m_width-w-20;
-        int y = 20+i*(10+h);
+        int x = m_width-w-sx;
+        int y = i*(sy+h);
 
         Preview p;
 
@@ -216,7 +231,7 @@ void Renderer::onMouseClick(int mx, int my)
 {
     for(int i=0; i<m_previewFBOs.size(); ++i)
     {
-        if(m_previewFBOs[i].clicked(mx, my))
+        if (m_previewFBOs[i].clicked(mx, my, m_prevYOffset))
         {
             m_activePreview = i;
         }
@@ -225,9 +240,13 @@ void Renderer::onMouseClick(int mx, int my)
 
 void Renderer::onMouseWheel(int delta)
 {
-    for(int i=0; i<m_previewFBOs.size(); ++i)
+    int m = params::inst()->windowSize.y / m_previewFBOs.size();
+    int offY = abs(m_prevYOffset);
+   
+    if (offY < m || delta > 0)
     {
-        Preview &p = m_previewFBOs[i];
-        p.y += delta;       
-    }
+        m_prevYOffset += delta;
+    }    
+
+    m_prevYOffset = min(0, m_prevYOffset);
 }

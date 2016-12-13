@@ -46,7 +46,10 @@ struct GlobalObjectParams
     vec3 camPos;
 	vec2 blur;
     vec2 windowSize;
+    vec2 bufferSize;
+    vec2 previewSize;
     vec4 clipPlaneGround;
+    int fboSamples;
     
     int   gridRenderMode;
     int   polygonMode;
@@ -76,7 +79,7 @@ struct GlobalObjectParams
     int activeLight;
 
     int nrVertices;
-    int nrActiveVertices;    
+    int nrActiveVertices;      
 };
 
 struct Shaders
@@ -110,7 +113,7 @@ void glDisableFixedFunction();
 float cosineInterpolation(float a, double b, double s);
 double hermiteInterpolation(double y0, double y1, double y2, double y3, double mu, double tension, double bias);
 
-void renderTexture(uint texture, uint posX, uint posY, float width, float height);
+void renderTexture(uint texture, int posX, int posY, float width, float height, bool border = false);
 void renderQuad(float size, float r, float g, float b, float a);
 void renderQuad(float width, float height, float r, float g, float b, float a);
 void renderQuad(float posX, float posY, float width, float height);

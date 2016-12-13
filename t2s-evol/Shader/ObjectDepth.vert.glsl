@@ -30,10 +30,10 @@ void main()
 	VertColor    = Color;
 	VertTexture  = Texture;
 
-    vec4 tmpClip = ClipPlane;
-    tmpClip.y = 1.0;
-    tmpClip.w = -0.1;
+    //vec4 tmpClip = ClipPlane;
+    //tmpClip.y = 1.0;
+    //tmpClip.w = -0.1;
 	
     gl_Position = matProjection * matView * matModel * vec4(Position.xyz, 1);
-    gl_ClipDistance[0] = dot(matModel * Position-vec4(0, -0.25, 0 ,0), tmpClip);
+    //gl_ClipDistance[0] = dot(matModel * Position-vec4(0, -0.25, 0 ,0), tmpClip);
 }

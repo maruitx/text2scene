@@ -631,10 +631,10 @@ void Shader::setMaterial(const Material &m, const string &texName)
     this->set3f("material.Kd", m.Kd);
     this->set3f("material.Ks", m.Ks);
     this->setf("material.Ns", m.Ns);
-    
+   
     if(m.tex)
     {
-        this->seti("material.hasTex", 1);
+        this->seti("material.hasTex", 1);        
         setTexture(texName, m.tex->id());    
     }
     else
@@ -658,14 +658,18 @@ void Shader::setLights(vector<Light *> lights)
         this->seti(QString(lstr + "type").toStdString().c_str(), lights[i]->type());
         this->seti("numLights", lights.size());
 
-        QString sstr = QString("shadowMap[%1]").arg(i);
-        this->setTexture(sstr.toStdString().c_str(), lights[i]->shadowMapBlurredId());
+        //QString sstr = QString("shadowMap[%1]").arg(i);
+        //this->setTexture(sstr.toStdString().c_str(), lights[i]->shadowMapId());
+
+        QString sstrb = QString("shadowMapBlurred[%1]").arg(i);
+        this->setTexture(sstrb.toStdString().c_str(), lights[i]->shadowMapBlurredId());
     }
 }
 
 
 void Shader::setTexture(const string &name, GLuint texID)
 {
+    //cout << name << " " << m_texCount << " " << texID << endl;
     glActiveTexture(GL_TEXTURE0 + m_texCount);
     glBindTexture(GL_TEXTURE_2D, texID);    
     this->seti(name.c_str(), m_texCount);    

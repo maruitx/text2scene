@@ -168,11 +168,11 @@ Texture::Texture(QString path)
   m_format(GL_BGRA),
   m_border(0),
   m_type(GL_UNSIGNED_BYTE),
-  m_minFilter(GL_LINEAR_MIPMAP_LINEAR),
+  m_minFilter(GL_LINEAR),
   m_magFilter(GL_LINEAR),
   m_wrap(GL_CLAMP),
   m_envMode(GL_REPLACE),
-  m_createMipMaps(GL_TRUE),
+  m_createMipMaps(GL_FALSE),
   m_maxAnisotropy(16.0f),
   m_manualMipMaps(GL_FALSE), 
   m_isReady(GL_FALSE)
@@ -183,6 +183,7 @@ Texture::Texture(QString path)
     m_height = (GLuint)img.height();  
 
     create((GLvoid *)img.bits());    
+    
 }
 
 Texture::Texture(const Texture &t)

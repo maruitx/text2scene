@@ -14,7 +14,7 @@ public:
    NiceGrid(GLfloat size, GLfloat rep);
    ~NiceGrid();
 
-   void render(const Transform &trans);
+   void render(const Transform &trans, bool applyShadow = true);
 
 private:
     void buildVBO();

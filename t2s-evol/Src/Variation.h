@@ -22,7 +22,7 @@ public:
     Variation(const unordered_map<string, Object*> &objects);
     ~Variation();
 
-    void render(const Transform &trans);
+    void render(const Transform &trans, bool applyShadow = true);
     void renderDepth(const Transform &trans);
 
     void makeExplode(float s);

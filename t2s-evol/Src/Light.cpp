@@ -121,7 +121,7 @@ void Light::blurShadowMap()
     glBindTexture(GL_TEXTURE_2D, 0);            
 }
 
-void Light::renderLightView(mat4 &lightView)
+void Light::renderLightView(mat4 &lightView, int activeScene)
 {
     if(m_moved)
     {
@@ -146,7 +146,7 @@ void Light::renderLightView(mat4 &lightView)
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);     
 
 		    //m_scene->renderObjectsDepth(transLight);        
-            //m_scene->renderVariationDepth(transLight);
+            m_scene->renderVariationDepth(transLight, activeScene);
 
         m_fboLight->release();
 

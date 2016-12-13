@@ -92,8 +92,11 @@ double hermiteInterpolation(double y0, double y1, double y2, double y3, double m
     return(a0*y1+a1*m0+a2*m1+a3*y2);
 }
 
-void renderTexture(uint texture, uint posX, uint posY, float width, float height)
+void renderTexture(uint texture, int posX, int posY, float width, float height, bool border)
 {   
+    glPushAttrib(GL_ALL_ATTRIB_BITS);
+    glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);
+
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -105,8 +108,8 @@ void renderTexture(uint texture, uint posX, uint posY, float width, float height
 
     //glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE); 
 
-    //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); 
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
     glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 
@@ -117,8 +120,7 @@ void renderTexture(uint texture, uint posX, uint posY, float width, float height
 
 
     glDisable(GL_DEPTH_TEST);
-    
-    
+        
     glEnable2D();
     glPushMatrix();            
         glTranslatef(posX, posY, 0.0f);       
@@ -135,13 +137,40 @@ void renderTexture(uint texture, uint posX, uint posY, float width, float height
             glTexCoord2f(0.0f, 0.0f);
             glVertex3f(0.0, height, 0.0f);
         glEnd();
-    glPopMatrix();
-    glDisable2D();
+    glPopMatrix();    
+
+    if (border)
+    {
+        glDisable(GL_TEXTURE_2D);
+            glLineWidth(3.0f);
+            glPushMatrix();
+                glTranslatef(posX, posY, 0.0f);
+                glBegin(GL_LINES);
+                    glColor3f(0.0f, 0.0f, 1.0f);
+
+                    glVertex3f(0.0f-2, 0.0f, 0.0f);
+                    glVertex3f(width+1, 0.0f, 0.0f);
+
+                    glVertex3f(0.0f, 0.0f, 0.0f);
+                    glVertex3f(0.0f, height, 0.0f);
+
+                    glVertex3f(width, 0.0f, 0.0f);
+                    glVertex3f(width, height, 0.0f);
+
+                    glVertex3f(0.0f-2, height, 0.0f);
+                    glVertex3f(width+1, height, 0.0f);
+                glEnd();
+            glPopMatrix();
+        glDisable2D();
+    }
 
     glBindTexture(GL_TEXTURE_2D, 0);
 
     glDisable(GL_TEXTURE_2D);
     glEnable(GL_DEPTH_TEST);   
+
+    glPopClientAttrib();
+    glPopAttrib();
 }
 
 void renderQuad(float size, float r, float g, float b, float a)

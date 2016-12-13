@@ -15,7 +15,7 @@ public:
     Object(const QString &fileName, bool normalize = true, bool buildLineVBO = false, bool buildNormalVBO = false, const vec3 &pos = vec3(), const vec3 &scale = vec3(1, 1, 1), const vec4 &rot = vec4(), const vec4 &color = vec4(1, 1, 1, 1));
     ~Object();
 
-    void render(const Transform &trans, const mat4 &model = mat4::identitiy(), const Material &material = Material());
+    void render(const Transform &trans, const mat4 &model = mat4::identitiy(), const Material &material = Material(), bool applyShadow = true);
     void renderDepth(const Transform &trans, const mat4 &model = mat4::identitiy());
 
     bool m_isSelected;

@@ -11,6 +11,7 @@ class Shader;
 class Scene;
 class VertexBufferObject;
 class Texture;
+class Smaa;
 
 struct Preview
 {
@@ -19,13 +20,13 @@ struct Preview
     int w;
     int h;
 
-    FrameBufferObject *fbo;
+    FrameBufferObjectMultisample *fbo;
 
-    bool clicked(int mx, int my) 
+    bool clicked(int mx, int my, int offset = 0) 
     {
         if(mx > x && mx < x + w)
         {
-            if(my > y && my < y + h)
+            if(my > y+offset && my < y + h + offset)
             {
                 return true;
             }
@@ -55,6 +56,7 @@ private:
     void renderScene(const Transform &trans);
     void renderIntoPreviewFBOs(Transform &trans);
     void renderPreviews(Transform &trans);
+    void renderIntoMainFBO(Transform &trans);
 
 private:
     GUI *m_gui;
@@ -69,12 +71,13 @@ private:
     const GLuint m_samples;
     GLuint m_bgMode;
 
+    FrameBufferObjectMultisample *m_fbo;
     vector<Preview> m_previewFBOs;
     int m_activePreview;
 
-    int m_bufferWidth;
-    int m_bufferHeight;
     int m_frameCount;
+
+    int m_prevYOffset;
 };
 
 #endif

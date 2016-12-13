@@ -25,6 +25,12 @@
         <file>Shader/ObjectDepth.vert.glsl</file>
         <file>Shader/ObjectLines.frag.glsl</file>
         <file>Shader/ObjectLines.vert.glsl</file>
+        <file>Shader/SMAABlendingWeightCalculation40.frag.glsl</file>
+        <file>Shader/SMAABlendingWeightCalculation40.vert.glsl</file>
+        <file>Shader/SMAAEdgeDetection40.frag.glsl</file>
+        <file>Shader/SMAAEdgeDetection40.vert.glsl</file>
+        <file>Shader/SMAANeighberhoodBlending40.frag.glsl</file>
+        <file>Shader/SMAANeighberhoodBlending40.vert.glsl</file>
         <file>Shader/SphericalHarmonic.frag.glsl</file>
         <file>Shader/SphericalHarmonic.vert.glsl</file>
         <file>Shader/TessInterp.cont.glsl</file>

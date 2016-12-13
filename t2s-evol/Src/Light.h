@@ -29,7 +29,7 @@ public:
    ~Light();
     
    void blurShadowMap();
-   void renderLightView(mat4 &lightView);
+   void renderLightView(mat4 &lightView, int activeScene = 0);
 
    void render(const Transform &trans);
 
