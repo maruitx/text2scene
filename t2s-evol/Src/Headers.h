@@ -61,6 +61,8 @@ struct GlobalObjectParams
     bool  renderWireframe;
     bool  renderNormals;
     bool  renderMisc;
+    bool  applyCulling;
+	bool sceneDistances;
 
     vec2 shadowMapSize;
 
@@ -97,6 +99,7 @@ struct Shaders
     Shader *tessellation;
     Shader *cookTorrance;
     Shader *sphericalHarmonic;
+	Shader *difference;
 };
 
 typedef Singleton<GlobalObjectParams> params;
@@ -114,6 +117,7 @@ float cosineInterpolation(float a, double b, double s);
 double hermiteInterpolation(double y0, double y1, double y2, double y3, double mu, double tension, double bias);
 
 void renderTexture(uint texture, int posX, int posY, float width, float height, bool border = false);
+void renderTexturePreview(uint texture, int posX, int posY, float width, float height, bool border = false, float diff = 0.0f);
 void renderQuad(float size, float r, float g, float b, float a);
 void renderQuad(float width, float height, float r, float g, float b, float a);
 void renderQuad(float posX, float posY, float width, float height);

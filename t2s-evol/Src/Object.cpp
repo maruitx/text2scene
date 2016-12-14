@@ -14,7 +14,7 @@ void ObjectThread::load()
     vector<tinyobj::material_t> materials;
     
     string err;
-    bool ret = tinyobj::LoadObj(shapes, materials, err, m_fileName.toStdString().c_str(), baseName.toStdString().c_str(), true);
+	bool ret = tinyobj::LoadObj(shapes, materials, err, m_fileName.toStdString().c_str(), baseName.toStdString().c_str(), true);
 
     if (err.length() > 0)
     {
@@ -84,7 +84,7 @@ void ObjectThread::load()
     if (m_normalize)
     {
         normalizeGeometry(m_allVertices, m_position, m_scale, m_rotation);
-        //normalizeGeometry(allVertices, vec3(0.0f), vec3(1.0f), vec4(0.0f));
+        normalizeGeometry(m_allVertices, vec3(0.0f), vec3(1.0f), vec4(0.0f));
     }
 }
 
@@ -287,7 +287,7 @@ void ObjectThread::normalizeGeometry(vector<vector<Vertex>> &vertices, const vec
 
             mat4 m = mat4::identitiy();
             m *= mat4::translate(translate);
-            m *= mat4::rotate(rotate.x, vec3(rotate.y, rotate.z, rotate.w));
+            m *= mat4::rotate(rotate.w, vec3(rotate.x, rotate.y, rotate.z));
             m *= mat4::scale(scale);
 
             vec4 ta = m * vec4(a);
@@ -538,8 +538,11 @@ void Object::render(const Transform &trans, const mat4 &model, const Material &m
     //    model = mat4::translate(m_position) * mat4::rotateY(m_rotation.y) * mat4::scale(m_scale); 
     //}
 
-	glCullFace(GL_BACK);
-	glEnable(GL_CULL_FACE);
+    if (params::inst()->applyCulling)
+    {
+        glCullFace(GL_BACK);
+        glEnable(GL_CULL_FACE);
+    }
     glEnable(GL_CLIP_DISTANCE0);    
 
     //glEnable(GL_POLYGON_OFFSET_FILL);
@@ -840,7 +843,7 @@ void Object::normalizeGeometry(vector<vector<Vertex>> &vertices, const vec3 &tra
 
 		    mat4 m = mat4::identitiy();
 		    m *= mat4::translate(translate);
-		    m *= mat4::rotate(rotate.x, vec3(rotate.y, rotate.z, rotate.w));
+            m *= mat4::rotate(rotate.w, vec3(rotate.x, rotate.y, rotate.z));
 		    m *= mat4::scale(scale);
 
 		    vec4 ta = m * vec4(a);

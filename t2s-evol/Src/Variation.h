@@ -30,6 +30,9 @@ public:
     void makeScale(float s);
 
 private:
+    void loadObject(const MetaData &md);
+
+private:
     vector<MetaData> m_metaData;
     unordered_map<string, Object*> &m_objects;
     QString m_modelRepository;

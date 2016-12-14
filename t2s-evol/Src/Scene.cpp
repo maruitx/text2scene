@@ -137,7 +137,7 @@ void Scene::initObjects()
 
 void Scene::initVariations()
 {
-    int nrVariations = 4;
+    int nrVariations = 5;
 
     for(int i=0; i<=nrVariations; ++i)
     {
@@ -151,11 +151,9 @@ void Scene::initVariations()
         if(r == 2)
             v.makeScale(0.3f);
 
-        if(r == 3)
-            v.makeBright(0.2);
 
         if(r == 4)
-            v.makeBright(1.5);
+			v.makeScale(0.1f);
 
         m_variations.push_back(v);
     }

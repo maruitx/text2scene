@@ -6,6 +6,7 @@
 #include "GUI.h"
 #include "CameraManager.h"
 #include "Light.h"
+#include "TextDialog.h"
 
 GLWidget::GLWidget(QGLContext *context, int width, int height)
 : QGLWidget(context),
@@ -43,7 +44,9 @@ void GLWidget::initializeGL()
 	m_cameraManager = new CameraManager();
     m_scene = new Scene(m_cameraManager);
 	m_gui = new GUI(m_cameraManager, m_scene);
-	m_renderer = new Renderer(m_scene, m_cameraManager, m_gui);    
+	m_renderer = new Renderer(m_scene, m_cameraManager, m_gui);  
+
+	m_textDialog = new TextDialog(this);
 
     glEnable(GL_DEPTH_TEST);     
     glEnable(GL_MULTISAMPLE);
@@ -64,13 +67,14 @@ void GLWidget::initParams()
 
     p->camPos              = vec3(0.0f, 0.0f, 0.0f);
 	p->blur                = vec2(2.0f, 2.0f);
-    p->shadowMapSize       = vec2(2048, 2048);
+    p->shadowMapSize       = vec2(1024, 1024);
     p->applyShadow         = true;
     p->gridRenderMode      = 0;
     p->shadowIntensity     = 0.4f;
     p->sampleShading       = 1.0f;
     p->polygonMode         = 0;
     p->activeLight         = 0;
+    p->applyCulling        = true;
     
     p->windowSize          = vec2(m_width, m_height);
     p->previewSize         = vec2(240, 180);
@@ -83,7 +87,8 @@ void GLWidget::initParams()
     p->renderWireframe     = false;
     p->renderNormals       = false;
     p->renderMisc          = false;
-    
+	p->sceneDistances      = true;
+
     p->clipPlaneGround     = vec4(0.0f, -1.0f, 0.0f, 4.0f);
     p->ncp                 = 0.0f;
     p->fcp                 = 0.0f;
@@ -144,6 +149,9 @@ void GLWidget::initShaders()
     shaders::inst()->tessellation->attachGeometryShader("Shader/TessInterp.geom.glsl");
     shaders::inst()->tessellation->attachFragmentShader("Shader/TessInterp.frag.glsl");
     shaders::inst()->tessellation->bindAttribLocations();
+
+	shaders::inst()->difference = new Shader("Shader/Difference.vert.glsl", "Shader/Difference.frag.glsl");
+	shaders::inst()->difference->bindAttribLocations();
 
 }
 
@@ -313,8 +321,8 @@ void GLWidget::keyPressEvent(QKeyEvent *event)
             break;
         case Qt::Key_Right:
             break;
-		case Qt::Key_Space:
-			loop(params::inst()->polygonMode, 0, 1, 1);
+		case Qt::Key_Space:			
+			m_textDialog->toggleShow(this->pos().x(), this->pos().y());
 			break;
         case Qt::Key_Plus:
             break;

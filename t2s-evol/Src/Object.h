@@ -27,7 +27,9 @@ class ObjectThread : public QThread
 
     public: 
         ObjectThread(const QString &fileName, const vec3 &pos, const vec3 &scale, const vec4 &rot, bool normalize, vector<ObjectMetaData> &meshData, vector<ObjectMetaData> &lineData, vector<ObjectMetaData> &normalData)
-            : m_fileName(fileName), m_rotation(rot), m_position(pos), m_scale(scale), m_normalize(normalize), m_meshData(meshData), m_lineData(lineData), m_normalData(normalData) {}
+            : m_fileName(fileName), m_rotation(rot), m_position(pos), m_scale(scale), m_normalize(normalize), m_meshData(meshData), m_lineData(lineData), m_normalData(normalData) 
+        {
+        }
         ~ObjectThread() {};
 
         void load();
@@ -40,7 +42,7 @@ class ObjectThread : public QThread
     private:
         QString m_fileName;
         vec3 m_position;
-        vec3 m_rotation;
+        vec4 m_rotation;
         vec3 m_scale;
         BoundingBox m_bb;
 
