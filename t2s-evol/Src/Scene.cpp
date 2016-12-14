@@ -8,6 +8,7 @@
 #include "Object.h"
 #include "Geometry.h"
 #include "TransformFeedback.h"
+#include "TSScene.h"
 
 Scene::Scene(CameraManager *camManager)
 : m_cameraManager(camManager),
@@ -27,6 +28,7 @@ void Scene::init()
 
     initObjects();
     initVariations();
+	initSynScene();
 
     stats.record("test1", new Statistics::Item<float>(1.1f));
     stats.record("test2", new Statistics::Item<int>(5));
@@ -159,4 +161,20 @@ void Scene::initVariations()
 
         m_variations.push_back(v);
     }
+}
+
+void Scene::initSynScene()
+{
+	m_synScene = new TSScene(m_objects);
+
+	QString filename = "./SceneDB/StanfordSceneDB/scenes/scene00003.txt";
+	m_synScene->loadSceneFile(filename);
+
+}
+
+void Scene::renderSynScene(const Transform &trans, bool applyShadow /*= true*/)
+{
+	glEnable(GL_DEPTH_TEST);
+
+	m_synScene->render(trans, applyShadow);
 }

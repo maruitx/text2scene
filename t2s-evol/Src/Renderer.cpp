@@ -107,7 +107,8 @@ void Renderer::renderIntoMainFBO(Transform &trans)
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         m_scene->renderWorld(trans);
-        m_scene->renderVariation(trans, m_activePreview);
+        //m_scene->renderVariation(trans, m_activePreview);
+		m_scene->renderSynScene(trans);
 
     m_fbo->release();
     m_fbo->blit();
