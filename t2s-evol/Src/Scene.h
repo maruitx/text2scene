@@ -4,6 +4,7 @@
 #include "Headers.h"
 #include "Geometry.h"
 #include "Variation.h"
+#include "TSScene.h"
 
 class NiceGrid;
 class Light;
@@ -12,6 +13,7 @@ class Shader;
 class CameraManager;
 class Object;
 class TransformFeedback;
+class TSScene;
 
 class Scene
 {
@@ -27,6 +29,7 @@ public:
     void renderObjectsDepth(const Transform &trans);
     void renderVariation(const Transform &trans, int var, bool applyShadow = true);
     void renderVariationDepth(const Transform &trans, int var);
+	void renderSynScene(const Transform &trans, bool applyShadow = true);
 
     void select(const Transform &trans, int sw, int sh, int mx, int my);
     void move(const Transform &trans, int x, int y);
@@ -35,9 +38,13 @@ public:
     void initObjects();
     void initVariations();
 
+	void initSynScene();
+
 public:
     vector<Light *> m_lights;
     vector<Variation> m_variations;
+
+	TSScene *m_synScene; // main synthesized scene 
 
 private:
 	
