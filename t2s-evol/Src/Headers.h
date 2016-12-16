@@ -62,7 +62,8 @@ struct GlobalObjectParams
     bool  renderNormals;
     bool  renderMisc;
     bool  applyCulling;
-	bool sceneDistances;
+	bool  sceneDistances;
+	bool  renderObjectBB;
 
     vec2 shadowMapSize;
 

@@ -32,7 +32,7 @@ void ObjectThread::load()
             vec3 Kd = vec3(materials[i].diffuse[0], materials[i].diffuse[1], materials[i].diffuse[2]);
             vec3 Ks = vec3(materials[i].specular[0], materials[i].specular[1], materials[i].specular[2]);
             float Ns = materials[i].shininess;
-            QString dTexName = baseName + QString(materials[i].diffuse_texname.c_str());
+            string dTexName = baseName.toStdString() + materials[i].diffuse_texname;
             mats.push_back(Material(Ka, Kd, Ks, Ns, dTexName));
         }
     }
@@ -329,7 +329,7 @@ void ObjectThread::run()
     }
 }
 
-Object::Object(const QString &fileName, bool normalize, bool buildLineVBO, bool buildNormalVBO, const vec3 &pos, const vec3 &scale, const vec4 &rot, const vec4 &color)
+Object::Object(const QString &fileName, bool normalize, bool buildLineVBO, bool buildNormalVBO, const vec3 &pos, const vec3 &scale, const vec4 &rot, const vec4 &color, const mat4 &initTrans)
 : m_fileName(fileName),
   m_position(pos),
   m_scale(scale),
@@ -341,12 +341,14 @@ Object::Object(const QString &fileName, bool normalize, bool buildLineVBO, bool 
   m_normalize(normalize), 
   m_lines(buildLineVBO), 
   m_normals(buildNormalVBO), 
-  m_objectThread(fileName, pos, scale, rot, normalize, m_meshData, m_lineData, m_normalData)
+  m_objectThread(fileName, pos, scale, rot, normalize, m_meshData, m_lineData, m_normalData), 
+  m_vbosBoundingBox(nullptr), 
+  m_initTrans(initTrans)
 {    
-    connect(&m_objectThread, SIGNAL(finished()), this, SLOT(loadingDone()));    
+    //connect(&m_objectThread, SIGNAL(finished()), this, SLOT(loadingDone()));    
 
-    //prepareData(m_fileName);
-    //buildBuffers();
+    prepareData(m_fileName);
+    buildBuffers();
 }
 
 void Object::start()
@@ -382,7 +384,11 @@ void Object::prepareData(const QString &fileName)
     QFileInfo fi(fileName);
     QString fn = fi.fileName();
     QString baseName = fileName;
+
     baseName.replace(fn, "");
+
+	QString texturePath = baseName;
+	texturePath.replace("models/", "");
 
     vector<tinyobj::shape_t> shapes;
     vector<tinyobj::material_t> materials;
@@ -406,7 +412,15 @@ void Object::prepareData(const QString &fileName)
             vec3 Kd = vec3(materials[i].diffuse[0], materials[i].diffuse[1], materials[i].diffuse[2]);
             vec3 Ks = vec3(materials[i].specular[0], materials[i].specular[1], materials[i].specular[2]);
             float Ns = materials[i].shininess;
-            QString dTexName = baseName + QString(materials[i].diffuse_texname.c_str());
+
+			QString texName = QString(materials[i].diffuse_texname.c_str());
+			texName.replace("../", "");
+			string dTexName = texturePath.toStdString() + texName.toStdString();
+			//cout << dTexName << endl;
+
+			if (texName.length() == 0)
+				dTexName = "";
+
             mats.push_back(Material(Ka, Kd, Ks, Ns, dTexName));
         }
     }
@@ -421,14 +435,14 @@ void Object::prepareData(const QString &fileName)
 
         for(size_t v = 0; v < shapes[i].mesh.positions.size() / 3; v++) 
         {
-            p = vec3(shapes[i].mesh.positions[3*v+0], shapes[i].mesh.positions[3*v+1], shapes[i].mesh.positions[3*v+2]);
+			p = vec3(shapes[i].mesh.positions[3 * v + 0], shapes[i].mesh.positions[3 * v + 1], shapes[i].mesh.positions[3 * v + 2]);
 
             int n1 = 3*v+0, n2 = 3*v+1, n3 = 3*v+2;
             int t1 = 2*v+0, t2 = 2*v+1;
 
             if(n1 < shapes[i].mesh.normals.size() && n2 < shapes[i].mesh.normals.size() && n3 < shapes[i].mesh.normals.size())
             {
-                n = vec3(shapes[i].mesh.normals[n1], shapes[i].mesh.normals[n2], shapes[i].mesh.normals[n3]);
+				n = vec3(shapes[i].mesh.normals[n1], shapes[i].mesh.normals[n2], shapes[i].mesh.normals[n3]);
             }
 
             if(t1 < shapes[i].mesh.texcoords.size() && t2 < shapes[i].mesh.texcoords.size())
@@ -455,13 +469,19 @@ void Object::prepareData(const QString &fileName)
         m_allVertices.push_back(vertices);
     }
 
+	for (int i = 0; i < m_materials.size(); ++i)
+	{
+		m_materials[i].initTexture();
+	}
+
     if(m_normalize)
     {
-        normalizeGeometry(m_allVertices, m_position, m_scale, m_rotation);
+        //normalizeGeometry(m_allVertices, m_position, m_scale, m_rotation);
         //normalizeGeometry(allVertices, vec3(0.0f), vec3(1.0f), vec4(0.0f));
     }
 
-
+	computeBoundingBox(m_allVertices);
+	//computeNormals(m_allVertices, m_allIndices);
 }
 
 void Object::buildBuffers()
@@ -480,6 +500,8 @@ void Object::buildBuffers()
             buildVBONormals(m_allVertices[i], m_allIndices[i]);
         }
     }
+
+	bulidVBOBoundingBox(m_bb);
 }
 
 void Object::buildBuffersFromData()
@@ -528,40 +550,36 @@ void Object::buildVBONormalsFromData(ObjectMetaData &meta)
     m_vbosNormals.push_back(vbo);
 }
 
-void Object::render(const Transform &trans, const mat4 &model, const Material &material, bool applyShadow)
+void Object::render(const Transform &trans, const mat4 &initTrans, const vec3 &centerOffset, const Material &material, bool applyShadow)
 {
     glPushAttrib(GL_ALL_ATTRIB_BITS);
 	glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);
 
-    //if(!m_normalize)
-    //{
-    //    model = mat4::translate(m_position) * mat4::rotateY(m_rotation.y) * mat4::scale(m_scale); 
-    //}
+	if (params::inst()->applyCulling)
+	{
+	    glCullFace(GL_BACK);
+	    glEnable(GL_CULL_FACE);
+	}
+	glEnable(GL_CLIP_DISTANCE0);    
 
-    if (params::inst()->applyCulling)
-    {
-        glCullFace(GL_BACK);
-        glEnable(GL_CULL_FACE);
-    }
-    glEnable(GL_CLIP_DISTANCE0);    
+	glEnable(GL_POLYGON_OFFSET_FILL);
+	glPolygonOffset(params::inst()->polygonOffsetFactor, params::inst()->polygonOffsetUnits);
 
-    //glEnable(GL_POLYGON_OFFSET_FILL);
-    //glPolygonOffset(params::inst()->polygonOffsetFactor, params::inst()->polygonOffsetUnits);
-
-    //glDepthFunc(GL_LEQUAL);
-    //glDepthRange(params::inst()->depthRangeMin, params::inst()->depthRangeMax);   
+	mat4 m = mat4::identitiy();
+	m = mat4::scale(vec3(0.1)) * mat4::rotateX(-90) * mat4::translate(centerOffset) * initTrans;
 
     if (params::inst()->renderMesh)
     {
         Shader *shader = shaders::inst()->object;
         shader->bind();
 
-            shader->setMatrices(trans, model, true, true, true, true);
+            shader->setMatrices(trans, m);
             shader->set3f("camPos", params::inst()->camPos);
             shader->seti("applyShadow", params::inst()->applyShadow && applyShadow);
             shader->setf("shadowIntensity", params::inst()->shadowIntensity);
             shader->seti("isSelected", m_isSelected);
             shader->set4f("clipPlane", params::inst()->clipPlaneGround);
+			shader->set3f("centerOffset", centerOffset);
 
             shader->setLights(params::inst()->lights);
 
@@ -579,7 +597,7 @@ void Object::render(const Transform &trans, const mat4 &model, const Material &m
         Shader *shader = shaders::inst()->objectLines;
 	    shader->bind();  
 
-            shader->setMatrices(trans, model, true, true, true, false);
+            shader->setMatrices(trans, m);
 
             for(uint i=0; i<m_vbosLines.size(); ++i)
             {
@@ -594,7 +612,7 @@ void Object::render(const Transform &trans, const mat4 &model, const Material &m
         Shader *shader = shaders::inst()->default;
 	    shader->bind();  
 
-            shader->setMatrices(trans, model, true, true, true, false);
+            shader->setMatrices(trans, m);
 
             for(uint i=0; i<m_vbosNormals.size(); ++i)
             {
@@ -603,6 +621,18 @@ void Object::render(const Transform &trans, const mat4 &model, const Material &m
 
 	    shader->release();
     }
+
+	if (m_vbosBoundingBox && params::inst()->renderObjectBB)
+	{
+		Shader *shader = shaders::inst()->default;
+		shader->bind();
+
+		shader->setMatrices(trans, m);
+
+			m_vbosBoundingBox->render();
+
+		shader->release();
+	}
 
 	glDisable(GL_CULL_FACE);    
 
@@ -661,7 +691,7 @@ void Object::buildVBOMesh(vector<Vertex> &vertices, vector<uint> &indices)
 	for (uint i = 0; i<vertices.size(); ++i)
 	{
 		vec3 v = vertices[i].position;
-		vec3 n = normalize(vertices[i].normal);
+		vec3 n = vertices[i].normal;
 		vec2 t = vertices[i].texture;
 
 		data[i].vx = v.x;
@@ -753,8 +783,8 @@ void Object::buildVBOLines(vector<Vertex> &vertices, vector<uint> &indices)
 
 void Object::buildVBONormals(vector<Vertex> &vertices, vector<uint> &indices)
 {
-    float s = 0.1;
-    vector<vec3> positions;
+    float s = 1;
+    vector<vec3> positions, normals;
 	for (uint i = 0; i<indices.size()-3; i+=3)
 	{
         Vertex &a = vertices[indices[i]];
@@ -764,11 +794,20 @@ void Object::buildVBONormals(vector<Vertex> &vertices, vector<uint> &indices)
         positions.push_back(a.position);
         positions.push_back(a.position + a.normal * s);
 
+		normals.push_back(a.normal);
+		normals.push_back(a.normal);
+
         positions.push_back(b.position);
         positions.push_back(b.position + b.normal * s);
 
+		normals.push_back(b.normal);
+		normals.push_back(b.normal);
+
         positions.push_back(c.position);
         positions.push_back(c.position + c.normal * s);
+
+		normals.push_back(c.normal);
+		normals.push_back(c.normal);
     }    
 
     VertexBufferObject::DATA *data = new VertexBufferObject::DATA[positions.size()];
@@ -776,15 +815,16 @@ void Object::buildVBONormals(vector<Vertex> &vertices, vector<uint> &indices)
 	for (uint i = 0; i<positions.size(); ++i)
 	{
 		vec3 v = positions[i];
+		vec3 n = normals[i];
 
 		data[i].vx = v.x;
 		data[i].vy = v.y;
 		data[i].vz = v.z;
 		data[i].vw = 0.0f;
 
-        data[i].cx = v.x;
-        data[i].cy = v.y;
-        data[i].cz = v.z;
+        data[i].cx = n.x;
+        data[i].cy = n.y;
+        data[i].cz = n.z;
 		data[i].cw = 1.0f;
 			
         data[i].nx = 0.0f;
@@ -804,6 +844,88 @@ void Object::buildVBONormals(vector<Vertex> &vertices, vector<uint> &indices)
     m_vbosNormals.push_back(vbo);
 
 	delete[] data;    
+}
+
+void Object::bulidVBOBoundingBox(const BoundingBox &bb)
+{
+	vector<vec3> vertices;
+
+	//mat4 m = mat4::translate(m_position) * mat4::rotate(m_rotation.w, m_rotation.x, m_rotation.y, m_rotation.z) * mat4::scale(m_scale) * m_initTrans;
+	//mat4 m = mat4::identitiy();// m_initTrans;
+
+	vec3 ma = m_bb.ma();
+	vec3 mi = m_bb.mi();
+
+	vec3 p1 = vec3(mi.x, mi.y, mi.z);
+	vec3 p2 = vec3(ma.x, mi.y, mi.z);
+	vec3 p3 = vec3(ma.x, mi.y, ma.z);
+	vec3 p4 = vec3(mi.x, mi.y, ma.z);
+
+	vec3 p5 = vec3(mi.x, ma.y, mi.z);
+	vec3 p6 = vec3(ma.x, ma.y, mi.z);
+	vec3 p7 = vec3(ma.x, ma.y, ma.z);
+	vec3 p8 = vec3(mi.x, ma.y, ma.z);
+
+	vertices.push_back(p1);
+	vertices.push_back(p2);
+	vertices.push_back(p2);
+	vertices.push_back(p3);
+	vertices.push_back(p3);
+	vertices.push_back(p4);
+	vertices.push_back(p4);
+	vertices.push_back(p1);
+
+	vertices.push_back(p5);
+	vertices.push_back(p6);
+	vertices.push_back(p6);
+	vertices.push_back(p7);
+	vertices.push_back(p7);
+	vertices.push_back(p8);
+	vertices.push_back(p8);
+	vertices.push_back(p5);
+
+	vertices.push_back(p1);
+	vertices.push_back(p5);
+	vertices.push_back(p2);
+	vertices.push_back(p6);
+	vertices.push_back(p3);
+	vertices.push_back(p7);
+	vertices.push_back(p4);
+	vertices.push_back(p8);
+
+
+	VertexBufferObject::DATA *data = new VertexBufferObject::DATA[vertices.size()];
+
+	for (uint i = 0; i<vertices.size(); ++i)
+	{
+		vec3 v = vertices[i];
+
+		data[i].vx = v.x;
+		data[i].vy = v.y;
+		data[i].vz = v.z;
+		data[i].vw = 0.0f;
+
+		data[i].cx = 0.0f;
+		data[i].cy = 0.0f;
+		data[i].cz = 0.0f;
+		data[i].cw = 1.0f;
+
+		data[i].nx = 0.0f;
+		data[i].ny = 0.0f;
+		data[i].nz = 0.0f;
+		data[i].nw = 0.0f;
+
+		data[i].tx = 0.0f;
+		data[i].ty = 0.0f;
+		data[i].tz = 0.0f;
+		data[i].tw = 0.0f;
+	}
+
+	m_vbosBoundingBox = new VertexBufferObject();
+	m_vbosBoundingBox->setData(data, GL_STATIC_DRAW, vertices.size(), GL_LINES);
+	m_vbosBoundingBox->bindDefaultAttribs();
+
+	delete[] data;
 }
 
 void Object::normalizeGeometry(vector<vector<Vertex>> &vertices, const vec3 &translate, const vec3 &scale, const vec4 &rotate)
@@ -851,26 +973,47 @@ void Object::normalizeGeometry(vector<vector<Vertex>> &vertices, const vec3 &tra
         }
 	}
 
-	mi = vec3(math_maxfloat, math_maxfloat, math_maxfloat);
-	ma = vec3(math_minfloat, math_minfloat, math_minfloat);
+	computeBoundingBox(vertices);
+}
+
+void Object::transformGeometry(vector<vector<Vertex>> &vertices, const vec3 &translate, const vec3 &scale, const vec4 &rotate)
+{
+	vec3 mi = vec3(math_maxfloat, math_maxfloat, math_maxfloat);
+	vec3 ma = vec3(math_minfloat, math_minfloat, math_minfloat);
 
 	for (int i = 0; i<vertices.size(); ++i)
 	{
-        for(int j=0; j<vertices[i].size(); ++j)
-        {
-		    vec3 &a = vertices[i][j].position;
+		for (int j = 0; j<vertices[i].size(); ++j)
+		{
+			vec3 &a = vertices[i][j].position;
 
-		    if (a.x > ma.x) ma.x = a.x;
-		    if (a.y > ma.y) ma.y = a.y;
-		    if (a.z > ma.z) ma.z = a.z;
+			mat4 m = mat4::identitiy();
+			m *= mat4::translate(translate);
+			m *= mat4::rotate(rotate.w, vec3(rotate.x, rotate.y, rotate.z));
+			m *= mat4::scale(scale);
 
-		    if (a.x < mi.x) mi.x = a.x;
-		    if (a.y < mi.y) mi.y = a.y;
-		    if (a.z < mi.z) mi.z = a.z;
-        }
-	} 
+			vec4 ta = m * vec4(a);
+			vertices[i][j].position = vec3(ta.x, ta.y, ta.z);
+		}
+	}
 
-    m_bb = BoundingBox(mi, ma);
+	for (int i = 0; i<vertices.size(); ++i)
+	{
+		for (int j = 0; j<vertices[i].size(); ++j)
+		{
+			vec3 &a = vertices[i][j].position;
+
+			if (a.x > ma.x) ma.x = a.x;
+			if (a.y > ma.y) ma.y = a.y;
+			if (a.z > ma.z) ma.z = a.z;
+
+			if (a.x < mi.x) mi.x = a.x;
+			if (a.y < mi.y) mi.y = a.y;
+			if (a.z < mi.z) mi.z = a.z;
+		}
+	}
+
+	m_bb = BoundingBox(mi, ma);
 }
 
 float Object::selected(Picking &pick, const Transform &trans, int sw, int sh, int mx, int my)
@@ -904,8 +1047,91 @@ void Object::loadingDone()
     m_materials = m_objectThread.m_materials;
     for (int i = 0; i < m_materials.size(); ++i)
     {
-        m_materials[i].initTexture();
+       m_materials[i].initTexture();
     }
 
     buildBuffersFromData();
 }
+
+void Object::computeBoundingBox(const vector<vector<Vertex>> &vertices)
+{
+	vec3 mi = vec3(math_maxfloat, math_maxfloat, math_maxfloat);
+	vec3 ma = vec3(math_minfloat, math_minfloat, math_minfloat);
+
+	for (int i = 0; i<vertices.size(); ++i)
+	{
+		for (int j = 0; j<vertices[i].size(); ++j)
+		{
+			const vec3 &a = vertices[i][j].position;
+
+			if (a.x > ma.x) ma.x = a.x;
+			if (a.y > ma.y) ma.y = a.y;
+			if (a.z > ma.z) ma.z = a.z;
+
+			if (a.x < mi.x) mi.x = a.x;
+			if (a.y < mi.y) mi.y = a.y;
+			if (a.z < mi.z) mi.z = a.z;
+		}
+	}
+
+	m_bb = BoundingBox(mi, ma);
+}
+
+void Object::computeNormals(vector<vector<Vertex>> &vertices, vector<vector<uint>> &indices)
+{
+	for (int i = 0; i < vertices.size(); ++i)
+	{
+		vector<Vertex> &vert = vertices[i];
+		vector<uint> &ind = indices[i];
+		unordered_map<string, vector<vec3>> m;
+
+		for (int j = 0; j < ind.size(); j+=3)
+		{
+			uint a = ind[j];
+			uint b = ind[j + 1];
+			uint c = ind[j + 2];
+
+			Vertex &va = vert[a];
+			Vertex &vb = vert[b];
+			Vertex &vc = vert[c];
+
+			vec3 normal = normalize(cross(va.position - vb.position, va.position - vc.position));		
+
+			va.normal = normal;
+			vb.normal = normal;
+			vc.normal = normal;
+
+			string stra = QString(QString::number(va.position.x, 'f', 4) + QString::number(va.position.y, 'f', 4) + QString::number(va.position.z, 'f', 4)).toStdString();
+			string strb = QString(QString::number(vb.position.x, 'f', 4) + QString::number(vb.position.y, 'f', 4) + QString::number(vb.position.z, 'f', 4)).toStdString();
+			string strc = QString(QString::number(vc.position.x, 'f', 4) + QString::number(vc.position.y, 'f', 4) + QString::number(vc.position.z, 'f', 4)).toStdString();
+
+			m[stra].push_back(normal);
+			m[strb].push_back(normal);
+			m[strc].push_back(normal);
+		}
+
+		//for (int j = 0; j < vert.size(); ++j)
+		//{
+		//	Vertex &v = vert[j];
+
+		//	string strv = QString(QString::number(v.position.x, 'f', 4) + QString::number(v.position.y, 'f', 4) + QString::number(v.position.z, 'f', 4)).toStdString();
+
+		//	auto &iter = m.find(strv);
+		//	if (iter != m.end())
+		//	{
+		//		vector<vec3> &normals = iter->second;
+		//		vec3 avgN;
+
+		//		for (int k = 0; k < normals.size(); ++k)
+		//		{
+		//			vec3 n = normals[k];
+		//			avgN += n;
+		//		}
+
+		//		v.normal = normalize(avgN / normals.size());
+		//	}
+		//}
+	}
+}
+
+

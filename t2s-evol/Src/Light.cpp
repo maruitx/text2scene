@@ -146,7 +146,7 @@ void Light::renderLightView(mat4 &lightView, int activeScene)
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);     
 
 		    //m_scene->renderObjectsDepth(transLight);        
-            m_scene->renderVariationDepth(transLight, activeScene);
+            //m_scene->renderVariationDepth(transLight, activeScene);
 
         m_fboLight->release();
 

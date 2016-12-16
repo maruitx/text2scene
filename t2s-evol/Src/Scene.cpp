@@ -167,12 +167,18 @@ void Scene::initSynScene()
 
 	QString filename = "./SceneDB/StanfordSceneDB/scenes/scene00003.txt";
 	m_synScene->loadSceneFile(filename);
-
 }
 
 void Scene::renderSynScene(const Transform &trans, bool applyShadow /*= true*/)
 {
 	glEnable(GL_DEPTH_TEST);
+	
+	if (params::inst()->polygonMode == 1)
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	else
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	m_synScene->render(trans, applyShadow);
+
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }

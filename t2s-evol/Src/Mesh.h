@@ -10,7 +10,7 @@ class VertexBufferObject;
 class Material
 {
 public:
-    Material(const vec3 &_Ka, const vec3 &_Kd, const vec3 &_Ks, float _Ns, const QString &dTexName = QString()) : Ka(_Ka), Kd(_Kd), Ks(_Ks), Ns(_Ns), tex(nullptr), texName(dTexName)
+    Material(const vec3 &_Ka, const vec3 &_Kd, const vec3 &_Ks, float _Ns, const string &dTexName = "") : Ka(_Ka), Kd(_Kd), Ks(_Ks), Ns(_Ns), tex(nullptr), texName(dTexName)
     { 
         //if(dTexName.length() > 0)
         //{
@@ -34,7 +34,7 @@ public:
     {
         if (texName.length() > 0)
         {
-            tex = std::shared_ptr<Texture>(new Texture(texName));
+            tex = std::shared_ptr<Texture>(new Texture(QString(texName.c_str())));
             tex->setEnvMode(GL_REPLACE);
             tex->setWrapMode(GL_REPEAT);
             tex->setFilter(GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
@@ -52,7 +52,7 @@ public:
     float Ns;
 
     std::shared_ptr<Texture> tex;
-    QString texName;
+    string texName;
 };
 
 

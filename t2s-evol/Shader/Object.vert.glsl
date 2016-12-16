@@ -10,10 +10,12 @@
 uniform mat4x4 matModel;
 uniform mat4x4 matView;
 uniform mat4x4 matProjection;
+uniform mat3x3 matNormal;
 
 uniform mat4x4 matLightView[MAX_LIGHTS];
 uniform vec4 clipPlane;
 uniform int numLights;
+uniform vec3 centerOffset;
 
 layout(location = VERT_POSITION) in vec4 Position;
 layout(location = VERT_NORMAL)   in vec4 Normal;
@@ -28,8 +30,9 @@ out vec4 VertShadowCoord[MAX_LIGHTS];
 
 void main()
 {	   
-    VertPosition = matModel * Position; 
-    VertNormal   = matModel * vec4(Normal.xyz, 0);
+	VertPosition = matModel * (Position + vec4(centerOffset, 0));
+	VertNormal = vec4(Normal.xyz, 0);
+	//VertNormal.xyz = matNormal * Normal.xzy;
 	VertColor    = Color;
 	VertTexture  = Texture;
     
@@ -42,6 +45,6 @@ void main()
     tmpClip.y = 1.0;
     tmpClip.w = -0.1;
 
-    gl_ClipDistance[0] = dot(matModel * Position-vec4(0, -0.25, 0 ,0), tmpClip);	
-    gl_Position = matProjection * matView * matModel * vec4(Position.xyz, 1);
+    //gl_ClipDistance[0] = dot(matModel * Position-vec4(0, -0.25, 0 ,0), tmpClip);	
+	gl_Position = matProjection * matView * matModel * vec4(Position.xyz, 1);
 }

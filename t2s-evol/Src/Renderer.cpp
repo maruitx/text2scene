@@ -124,9 +124,12 @@ void Renderer::renderIntoMainFBO(Transform &trans)
 
 void Renderer::renderIntoPreviewFBOs(Transform &trans)
 {
+	int mod = m_frameCount % m_previewFBOs.size();
+	FrameBufferObjectMultisample *fbo = nullptr;
+	
     for(int i=0; i<m_previewFBOs.size(); ++i)
     {
-        if (m_frameCount % (i+1) == 0)
+        if (mod == i)
         {
             FrameBufferObjectMultisample *fbo = m_previewFBOs[i].fbo;
 
@@ -137,7 +140,8 @@ void Renderer::renderIntoPreviewFBOs(Transform &trans)
                 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
                 m_scene->renderWorld(trans, false);
-                m_scene->renderVariation(trans, i, false);
+                //m_scene->renderVariation(trans, i, false);
+				m_scene->renderSynScene(trans);
 
             fbo->release();
             fbo->blitColor();

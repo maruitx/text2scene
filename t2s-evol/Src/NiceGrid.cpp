@@ -40,7 +40,7 @@ void NiceGrid::render(const Transform &trans, bool applyShadow)
         shader->setf("shadowIntensity", params::inst()->shadowIntensity);
         
         shader->setLights(params::inst()->lights);
-        shader->setMatrices(trans, model, false, false, false, true, false, true);
+        shader->setMatrices(trans, model, false, false, false, false, false, false, true);
         shader->setMaterial(m_material);
 
         glEnable(GL_CULL_FACE);    

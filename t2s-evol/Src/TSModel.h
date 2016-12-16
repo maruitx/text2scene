@@ -7,7 +7,10 @@ public:
 	TSModel(Object *obj);
 	~TSModel();
 
-	void setInitTrans(const mat4 &trans) { m_initTrans = trans; }
+	void setInitTrans(const mat4 &trans) 
+	{ 
+		m_initTrans = trans; 
+	}
 
 	void render(const Transform &trans, const Material &material, bool applyShadow);
 

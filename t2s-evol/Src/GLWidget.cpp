@@ -74,7 +74,7 @@ void GLWidget::initParams()
     p->sampleShading       = 1.0f;
     p->polygonMode         = 0;
     p->activeLight         = 0;
-    p->applyCulling        = true;
+    p->applyCulling        = false;
     
     p->windowSize          = vec2(m_width, m_height);
     p->previewSize         = vec2(240, 180);
@@ -85,15 +85,16 @@ void GLWidget::initParams()
     p->renderObjects       = true;
     p->renderTextures      = false;
     p->renderWireframe     = false;
-    p->renderNormals       = false;
-    p->renderMisc          = false;
-	p->sceneDistances      = true;
+    p->renderNormals       = true;
+    p->renderMisc          = true;
+	p->sceneDistances      = false;
+	p->renderObjectBB      = false;
 
     p->clipPlaneGround     = vec4(0.0f, -1.0f, 0.0f, 4.0f);
     p->ncp                 = 0.0f;
     p->fcp                 = 0.0f;
     p->fov                 = 0.0f;
-    p->lightIntensity      = 2.2f;
+    p->lightIntensity      = 1.0f;
     
     p->polygonOffsetUnits  = 0.0f;
     p->polygonOffsetFactor = 0.0f;
@@ -364,6 +365,7 @@ void GLWidget::keyPressEvent(QKeyEvent *event)
             m_scene->m_lights[params::inst()->activeLight]->toggleMode();
             break;
         case Qt::Key_M:
+			loop(params::inst()->polygonMode, 0, 1, 1);
             break;
         case Qt::Key_N:
             stats.print();

@@ -85,6 +85,7 @@ void GUI::initTab1(Slots slot)
     setupCheckBox(slot, x+90, y, QString("Normals"), &p->renderNormals);
     setupCheckBox(slot, x, y+=45, QString("Culling"), &p->applyCulling);
 	setupCheckBox(slot, x+90, y, QString("Distances"), &p->sceneDistances);
+	setupCheckBox(slot, x, y+=45, QString("Object BB"), &p->renderObjectBB);
 }
 
 void GUI::initTab2(Slots slot)

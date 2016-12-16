@@ -6,19 +6,19 @@
 
 class Object;
 
-struct MetaData
-{
-    string fileName;
-    mat4 trans;
-    Material mat;
-    string id;
-    bool visible;
-    vec3 pos;
-};
-
 class Variation
 {
 public:
+	struct MetaData
+	{
+		string fileName;
+		mat4 trans;
+		Material mat;
+		string id;
+		bool visible;
+		vec3 pos;
+	};
+
     Variation(unordered_map<string, Object*> &objects);
     ~Variation();
 

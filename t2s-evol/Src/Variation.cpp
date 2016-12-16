@@ -75,7 +75,7 @@ void Variation::render(const Transform &trans, bool applyShadow)
 
         if(iter != m_objects.end())
         {
-            iter->second->render(trans, md.trans, md.mat, applyShadow);
+            //iter->second->render(trans, md.trans, md.mat, applyShadow);
         }
         else
         {

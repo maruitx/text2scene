@@ -9,7 +9,7 @@ TextDialog::TextDialog(GLWidget *parent)
   m_showState(false)
 {
 	init();
-	toggleShow(m_parent->pos().x(), m_parent->pos().y());
+	//toggleShow(m_parent->pos().x(), m_parent->pos().y());
 }
 
 TextDialog::~TextDialog()
