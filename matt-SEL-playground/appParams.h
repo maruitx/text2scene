@@ -8,10 +8,14 @@ struct AppParameters
 {
 	AppParameters()
 	{
-		javaSceneDir = R"(C:\Code\text2scene\JavaScene\)";
-		debugDir = R"(TODO)";
-		dataDir = R"(C:\Code\text2scene\data\SEL\)";
+		ParameterFile params("SEL-params.txt");
 
+		params.readParameter("gitRoot", gitRoot);
+
+		javaSceneDir = gitRoot + "JavaScene/";
+		dataDir = gitRoot + "data/SEL/";
+		debugDir = R"(TODO)";
+		
 		for (auto &s : util::getFileLines(dataDir + "spatialNouns.txt", 2))
 		{
 			spatialNouns.insert(s);
@@ -34,10 +38,6 @@ struct AppParameters
 			stopVerbs.insert(s);
 		}
 	}
-
-	string javaSceneDir;
-	string debugDir;
-	string dataDir;
 
 	bool isSpatialNoun(const string &s) const 
 	{
@@ -63,6 +63,12 @@ struct AppParameters
 	{
 		return (applicableVerbs.count(s) != 0);
 	}
+
+	string gitRoot;
+	string javaSceneDir;
+	string debugDir;
+	string dataDir;
+
 	set<string> spatialNouns, abstractNouns, countingAdjectives, applicableVerbs, stopVerbs;
 };
 

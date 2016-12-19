@@ -71,6 +71,7 @@
     <Text Include="..\data\SEL\stopVerbs.txt">
       <Filter>data</Filter>
     </Text>
+    <Text Include="SEL-params.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="data">
