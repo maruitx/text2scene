@@ -65,5 +65,7 @@ private:
     GLboolean m_dynamicRendering;   
 };
 
+void initVertexBufferData(VertexBufferObject::DATA &data);
+
 #endif
 

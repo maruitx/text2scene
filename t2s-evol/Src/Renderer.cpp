@@ -77,6 +77,8 @@ void Renderer::render(Transform &trans)
         }
     }
 
+	//renderTexture(params::inst()->textures["88d8fa093e4c36a1"]->id(), 220, m_height - 200, 200, 200);
+
     m_gui->render();
 }
 
@@ -100,7 +102,6 @@ void Renderer::renderScene(const Transform &trans)
     //glDepthRange(0.1, 1.0);
     //glPolygonOffset(-1.0, -10.5);
 		    
-    m_scene->renderObjects(trans);
     m_scene->renderWorld(trans);    
 
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -115,8 +116,7 @@ void Renderer::renderIntoMainFBO(Transform &trans)
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         m_scene->renderWorld(trans);
-        //m_scene->renderVariation(trans, m_activePreview);
-		m_scene->renderSynScene(trans);
+		m_scene->renderSynScene(trans, m_activePreview, true);
 
     m_fbo->release();
     m_fbo->blit();
@@ -124,12 +124,15 @@ void Renderer::renderIntoMainFBO(Transform &trans)
 
 void Renderer::renderIntoPreviewFBOs(Transform &trans)
 {
+	if (m_previewFBOs.size() == 0)
+		return;
+
 	int mod = m_frameCount % m_previewFBOs.size();
 	FrameBufferObjectMultisample *fbo = nullptr;
 	
     for(int i=0; i<m_previewFBOs.size(); ++i)
     {
-        if (mod == i)
+       // if (mod == i)
         {
             FrameBufferObjectMultisample *fbo = m_previewFBOs[i].fbo;
 
@@ -140,8 +143,7 @@ void Renderer::renderIntoPreviewFBOs(Transform &trans)
                 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
                 m_scene->renderWorld(trans, false);
-                //m_scene->renderVariation(trans, i, false);
-				m_scene->renderSynScene(trans);
+				m_scene->renderSynScene(trans, i, false);
 
             fbo->release();
             fbo->blitColor();
@@ -349,7 +351,7 @@ void Renderer::onMouseWheel(int delta)
     int m = params::inst()->windowSize.y / m_previewFBOs.size();
     int offY = abs(m_prevYOffset);
    
-    if (offY < m || delta > 0)
+    //if (offY < m || delta > 0)
     {
         m_prevYOffset += delta;
     }    

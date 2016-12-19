@@ -5,87 +5,106 @@
 
 void ObjectThread::load()
 {
-    QFileInfo fi(m_fileName);
-    QString fn = fi.fileName();
-    QString baseName = m_fileName;
-    baseName.replace(fn, "");
+	QFileInfo fi(m_fileName);
+	QString fn = fi.fileName();
+	QString baseName = m_fileName;
 
-    vector<tinyobj::shape_t> shapes;
-    vector<tinyobj::material_t> materials;
-    
-    string err;
-	bool ret = tinyobj::LoadObj(shapes, materials, err, m_fileName.toStdString().c_str(), baseName.toStdString().c_str(), true);
+	baseName.replace(fn, "");
 
-    if (err.length() > 0)
-    {
-        qDebug() << err.c_str();
-    }
+	QString texturePath = baseName;
+	texturePath.replace("models/", "");
 
-    vector<Material> mats;
-    if (materials.size() > 0)
-    {
-        for (size_t i = 0; i < materials.size(); i++)
-        {
-            materials[i].name;
+	vector<tinyobj::shape_t> shapes;
+	vector<tinyobj::material_t> materials;
 
-            vec3 Ka = vec3(materials[i].ambient[0], materials[i].ambient[1], materials[i].ambient[2]);
-            vec3 Kd = vec3(materials[i].diffuse[0], materials[i].diffuse[1], materials[i].diffuse[2]);
-            vec3 Ks = vec3(materials[i].specular[0], materials[i].specular[1], materials[i].specular[2]);
-            float Ns = materials[i].shininess;
-            string dTexName = baseName.toStdString() + materials[i].diffuse_texname;
-            mats.push_back(Material(Ka, Kd, Ks, Ns, dTexName));
-        }
-    }
+	string err;
+	bool ret = tinyobj::LoadObj(shapes, materials, err, m_fileName.toStdString().c_str(), baseName.toStdString().c_str(), false);
 
-    for (size_t i = 0; i < shapes.size(); i++)
-    {
-        vector<uint> &indices = shapes[i].mesh.indices;
+	if (err.length() > 0)
+	{
+		qDebug() << "Error: " << err.c_str();
+	}
 
-        vec3 p, n;
-        vec2 t;
-        vector<Vertex> vertices;
+	vector<Material> mats;
+	if (materials.size() > 0)
+	{
+		for (size_t i = 0; i < materials.size(); i++)
+		{
+			materials[i].name;
 
-        for (size_t v = 0; v < shapes[i].mesh.positions.size() / 3; v++)
-        {
-            p = vec3(shapes[i].mesh.positions[3 * v + 0], shapes[i].mesh.positions[3 * v + 1], shapes[i].mesh.positions[3 * v + 2]);
+			vec3 Ka = vec3(materials[i].ambient[0], materials[i].ambient[1], materials[i].ambient[2]);
+			vec3 Kd = vec3(materials[i].diffuse[0], materials[i].diffuse[1], materials[i].diffuse[2]);
+			vec3 Ks = vec3(materials[i].specular[0], materials[i].specular[1], materials[i].specular[2]);
+			float Ns = materials[i].shininess;
 
-            int n1 = 3 * v + 0, n2 = 3 * v + 1, n3 = 3 * v + 2;
-            int t1 = 2 * v + 0, t2 = 2 * v + 1;
+			QString texName = QString(materials[i].diffuse_texname.c_str());
+			texName.replace("../", "");
+			string dTexName = texturePath.toStdString() + texName.toStdString();
 
-            if (n1 < shapes[i].mesh.normals.size() && n2 < shapes[i].mesh.normals.size() && n3 < shapes[i].mesh.normals.size())
-            {
-                n = vec3(shapes[i].mesh.normals[n1], shapes[i].mesh.normals[n2], shapes[i].mesh.normals[n3]);
-            }
+			if (texName.length() == 0)
+				dTexName = "";
 
-            if (t1 < shapes[i].mesh.texcoords.size() && t2 < shapes[i].mesh.texcoords.size())
-            {
-                t = vec2(shapes[i].mesh.texcoords[t1], shapes[i].mesh.texcoords[t2]);
-            }
+			mats.push_back(Material(Ka, Kd, Ks, Ns, dTexName));
+		}
+	}
 
-            vertices.push_back(Vertex(p, n, vec4(), t));
-        }
+	for (size_t i = 0; i < shapes.size(); i++)
+	{
+		vector<uint> &indices = shapes[i].mesh.indices;
 
-        Material defMat(vec3(0.0f), vec3(1.0, 0.2, 0.2), vec3(0.2), 10);
+		vec3 p, n;
+		vec2 t;
+		vector<Vertex> vertices;
 
-        if (shapes[i].mesh.material_ids.size() > 0 && shapes[i].mesh.material_ids[0] != -1)
-        {
-            int matId = shapes[i].mesh.material_ids[0];
-            m_materials.push_back(mats[matId]);
-        }
-        else
-        {
-            m_materials.push_back(defMat);
-        }
+		for (size_t v = 0; v < shapes[i].mesh.positions.size() / 3; v++)
+		{
+			p = vec3(shapes[i].mesh.positions[3 * v + 0], shapes[i].mesh.positions[3 * v + 1], shapes[i].mesh.positions[3 * v + 2]);
 
-        m_allIndices.push_back(indices);
-        m_allVertices.push_back(vertices);
-    }
+			int n1 = 3 * v + 0, n2 = 3 * v + 1, n3 = 3 * v + 2;
+			int t1 = 2 * v + 0, t2 = 2 * v + 1;
 
-    if (m_normalize)
-    {
-        normalizeGeometry(m_allVertices, m_position, m_scale, m_rotation);
-        normalizeGeometry(m_allVertices, vec3(0.0f), vec3(1.0f), vec4(0.0f));
-    }
+			if (n1 < shapes[i].mesh.normals.size() && n2 < shapes[i].mesh.normals.size() && n3 < shapes[i].mesh.normals.size())
+			{
+				n = vec3(shapes[i].mesh.normals[n1], shapes[i].mesh.normals[n2], shapes[i].mesh.normals[n3]);
+			}
+
+			if (t1 < shapes[i].mesh.texcoords.size() && t2 < shapes[i].mesh.texcoords.size())
+			{
+				t = vec2(shapes[i].mesh.texcoords[t1], shapes[i].mesh.texcoords[t2]);
+			}
+
+			vertices.push_back(Vertex(p, n, vec4(), t));
+		}
+
+		Material defMat(vec3(0.0f), vec3(1.0, 0.2, 0.2), vec3(0.2), 10);
+
+		if (shapes[i].mesh.material_ids.size() > 0 && shapes[i].mesh.material_ids[0] != -1)
+		{
+			int matId = shapes[i].mesh.material_ids[0];
+			m_materials.push_back(mats[matId]);
+		}
+		else
+		{
+			m_materials.push_back(defMat);
+		}
+
+		m_allIndices.push_back(indices);
+		m_allVertices.push_back(vertices);
+	}
+
+	//for (int i = 0; i < m_materials.size(); ++i)
+	//{
+	//	m_materials[i].initTexture();
+	//}
+
+	if (m_normalize)
+	{
+		//normalizeGeometry(m_allVertices, m_position, m_scale, m_rotation);
+		//normalizeGeometry(allVertices, vec3(0.0f), vec3(1.0f), vec4(0.0f));
+	}
+
+	//computeBoundingBox(m_allVertices);
+	computeNormals(m_allVertices, m_allIndices);
 }
 
 void ObjectThread::buildMeshData(vector<Vertex> &vertices, vector<uint> &indices)
@@ -317,6 +336,41 @@ void ObjectThread::normalizeGeometry(vector<vector<Vertex>> &vertices, const vec
     m_bb = BoundingBox(mi, ma);
 }
 
+void ObjectThread::computeNormals(vector<vector<Vertex>> &vertices, vector<vector<uint>> &indices)
+{
+	for (int i = 0; i < vertices.size(); ++i)
+	{
+		vector<Vertex> &vert = vertices[i];
+		vector<uint> &ind = indices[i];
+		unordered_map<string, vector<vec3>> m;
+
+		for (int j = 0; j < ind.size(); j += 3)
+		{
+			uint a = ind[j];
+			uint b = ind[j + 1];
+			uint c = ind[j + 2];
+
+			Vertex &va = vert[a];
+			Vertex &vb = vert[b];
+			Vertex &vc = vert[c];
+
+			vec3 normal = normalize(cross(va.position - vb.position, va.position - vc.position));
+
+			va.normal = normal;
+			vb.normal = normal;
+			vc.normal = normal;
+
+			string stra = QString(QString::number(va.position.x, 'f', 4) + QString::number(va.position.y, 'f', 4) + QString::number(va.position.z, 'f', 4)).toStdString();
+			string strb = QString(QString::number(vb.position.x, 'f', 4) + QString::number(vb.position.y, 'f', 4) + QString::number(vb.position.z, 'f', 4)).toStdString();
+			string strc = QString(QString::number(vc.position.x, 'f', 4) + QString::number(vc.position.y, 'f', 4) + QString::number(vc.position.z, 'f', 4)).toStdString();
+
+			m[stra].push_back(normal);
+			m[strb].push_back(normal);
+			m[strc].push_back(normal);
+		}
+	}
+}
+
 void ObjectThread::run()
 {
     load();
@@ -328,6 +382,8 @@ void ObjectThread::run()
         buildNormalsData(m_allVertices[i], m_allIndices[i]);
     }
 }
+
+
 
 Object::Object(const QString &fileName, bool normalize, bool buildLineVBO, bool buildNormalVBO, const vec3 &pos, const vec3 &scale, const vec4 &rot, const vec4 &color, const mat4 &initTrans)
 : m_fileName(fileName),
@@ -345,10 +401,10 @@ Object::Object(const QString &fileName, bool normalize, bool buildLineVBO, bool 
   m_vbosBoundingBox(nullptr), 
   m_initTrans(initTrans)
 {    
-    //connect(&m_objectThread, SIGNAL(finished()), this, SLOT(loadingDone()));    
+    connect(&m_objectThread, SIGNAL(finished()), this, SLOT(loadingDone()));    
 
-    prepareData(m_fileName);
-    buildBuffers();
+    //prepareData(m_fileName);
+    //buildBuffers();
 }
 
 void Object::start()
@@ -394,7 +450,7 @@ void Object::prepareData(const QString &fileName)
     vector<tinyobj::material_t> materials;
 
     string err;
-    bool ret = tinyobj::LoadObj(shapes, materials, err, m_fileName.toStdString().c_str(), baseName.toStdString().c_str(), true);
+    bool ret = tinyobj::LoadObj(shapes, materials, err, m_fileName.toStdString().c_str(), baseName.toStdString().c_str(), false);
     
     if(err.length() > 0)
     {
@@ -414,9 +470,8 @@ void Object::prepareData(const QString &fileName)
             float Ns = materials[i].shininess;
 
 			QString texName = QString(materials[i].diffuse_texname.c_str());
-			texName.replace("../", "");
+			texName.replace("../", "");		
 			string dTexName = texturePath.toStdString() + texName.toStdString();
-			//cout << dTexName << endl;
 
 			if (texName.length() == 0)
 				dTexName = "";
@@ -481,7 +536,7 @@ void Object::prepareData(const QString &fileName)
     }
 
 	computeBoundingBox(m_allVertices);
-	//computeNormals(m_allVertices, m_allIndices);
+	computeNormals(m_allVertices, m_allIndices);
 }
 
 void Object::buildBuffers()
@@ -566,7 +621,7 @@ void Object::render(const Transform &trans, const mat4 &initTrans, const vec3 &c
 	glPolygonOffset(params::inst()->polygonOffsetFactor, params::inst()->polygonOffsetUnits);
 
 	mat4 m = mat4::identitiy();
-	m = mat4::scale(vec3(0.1)) * mat4::rotateX(-90) * mat4::translate(centerOffset) * initTrans;
+	m = mat4::scale(vec3(0.1)) * mat4::rotateX(-90) * initTrans;
 
     if (params::inst()->renderMesh)
     {

@@ -23,6 +23,7 @@
 
 class Shader;
 class Light;
+class Texture;
 
 using namespace std;
 
@@ -82,7 +83,13 @@ struct GlobalObjectParams
     int activeLight;
 
     int nrVertices;
-    int nrActiveVertices;      
+    int nrActiveVertices;    
+
+	std::string modelDirectory;
+	std::string textureDirectory;
+	std::string sceneDirectory;
+
+	unordered_map<string, Texture *> textures;
 };
 
 struct Shaders
@@ -101,6 +108,8 @@ struct Shaders
     Shader *cookTorrance;
     Shader *sphericalHarmonic;
 	Shader *difference;
+	Shader *model;
+	Shader *modelDepth;
 };
 
 typedef Singleton<GlobalObjectParams> params;
@@ -146,5 +155,8 @@ static float colorHot[] = { 0.041667f, 0.000000f, 0.000000f, 0.083333f, 0.000000
 
 void colorMap(float x, float * out, float * cm);
 void colorMapBgr(float x, float * out, float * cm);
+
+bool fileExists(const std::string &filename);
+std::vector<std::string> getFileLines(const std::string &filename, unsigned int minLineLength);
 
 #endif

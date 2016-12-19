@@ -471,17 +471,22 @@ updateVertex(std::map<vertex_index, unsigned int> &vertexCache,
   positions.push_back(in_positions[3 * static_cast<size_t>(i.v_idx) + 1]);
   positions.push_back(in_positions[3 * static_cast<size_t>(i.v_idx) + 2]);
 
-  if ((i.vn_idx >= 0) &&
-      (static_cast<size_t>(i.vn_idx * 3 + 2) < in_normals.size())) {
+  //if ((i.vn_idx >= 0) && (static_cast<size_t>(i.vn_idx * 3 + 2) < in_normals.size())) {
+  if(in_normals.size() > 0) {
     normals.push_back(in_normals[3 * static_cast<size_t>(i.vn_idx) + 0]);
     normals.push_back(in_normals[3 * static_cast<size_t>(i.vn_idx) + 1]);
     normals.push_back(in_normals[3 * static_cast<size_t>(i.vn_idx) + 2]);
   }
 
-  if ((i.vt_idx >= 0) &&
-      (static_cast<size_t>(i.vt_idx * 2 + 1) < in_texcoords.size())) {
-    texcoords.push_back(in_texcoords[2 * static_cast<size_t>(i.vt_idx) + 0]);
-    texcoords.push_back(in_texcoords[2 * static_cast<size_t>(i.vt_idx) + 1]);
+  //if ((i.vt_idx >= 0) && (static_cast<size_t>(i.vt_idx * 2 + 1) < in_texcoords.size())) {
+  //texcoords.push_back(in_texcoords[2 * static_cast<size_t>(i.vt_idx) + 0]);
+  //texcoords.push_back(in_texcoords[2 * static_cast<size_t>(i.vt_idx) + 1]);
+  //}
+
+  if(in_texcoords.size() > 0) {
+  //if ((i.vt_idx >= 0) && (static_cast<size_t>(i.vt_idx * 2 + 1) < in_texcoords.size())) {
+    texcoords.push_back(in_texcoords[2 * static_cast<size_t>(i.v_idx) + 0]);
+    texcoords.push_back(in_texcoords[2 * static_cast<size_t>(i.v_idx) + 1]);
   }
 
   unsigned int idx = static_cast<unsigned int>(positions.size() / 3 - 1);
@@ -882,7 +887,8 @@ bool LoadObj(std::vector<shape_t> &shapes,       // [output]
 
   int maxchars = 8192;                                  // Alloc enough size.
   std::vector<char> buf(static_cast<size_t>(maxchars)); // Alloc enough size.
-  while (inStream.peek() != -1) {
+  while (inStream.peek() != -1) 
+  {
     inStream.getline(&buf[0], maxchars);
 
     std::string linebuf(&buf[0]);

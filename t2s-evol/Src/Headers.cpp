@@ -625,3 +625,31 @@ void colorMapBgr(float x, float * out, float * cm)
 	out[0] = cm[idx*3+2]*(1-r) + cm[(idx+1)*3+2]*r;
 }
 
+bool fileExists(const std::string &filename)
+{
+	std::ifstream file(filename);
+	return (!file.fail());
+}
+
+std::vector<std::string> getFileLines(const std::string &filename, unsigned int minLineLength)
+{
+	if (!fileExists(filename))
+	{
+		std::cout << "Required file not found: " << filename << '\n';
+		exit(1);
+	}
+	std::ifstream file(filename);
+	std::vector<std::string> result;
+	std::string curLine;
+	while (!file.fail())
+	{
+		std::getline(file, curLine);
+		if (!file.fail() && curLine.length() >= minLineLength)
+		{
+			if (curLine.at(curLine.length() - 1) == '\r')
+				curLine = curLine.substr(0, curLine.size() - 1);
+			result.push_back(curLine);
+		}
+	}
+	return result;
+}

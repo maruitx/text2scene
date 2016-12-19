@@ -22,7 +22,7 @@ Light::Light(Scene *scene, Type type, const vec3 &color, const vec3 &pos, const 
   m_movement(0.0f),
   m_moved(true),
   m_ncpLight(5.0f),
-  m_fcpLight(100.0f),
+  m_fcpLight(50.0f),
   m_fovLight(90.0f),
   m_bufferWidth(params::inst()->shadowMapSize.x),
   m_bufferHeight(params::inst()->shadowMapSize.y),
@@ -145,8 +145,7 @@ void Light::renderLightView(mat4 &lightView, int activeScene)
             glClearColor(1.0f, 1.0f, 1.0f, 1.0f);    
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);     
 
-		    //m_scene->renderObjectsDepth(transLight);        
-            //m_scene->renderVariationDepth(transLight, activeScene);
+			m_scene->renderSynSceneDepth(transLight, activeScene);
 
         m_fboLight->release();
 

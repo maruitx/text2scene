@@ -21,14 +21,14 @@ public:
         //}
     }
 
-    Material() : Ka(0.0f), Kd(0.0f), Ks(0.0f), Ns(0.0f), tex(nullptr)  
+    Material() : Ka(0.0f), Kd(0.0f), Ks(0.0f), Ns(0.0f), transparency(1.0f), texName(""), tex(nullptr)  
     {
 
     }
 
-    Material(const Material &m) : Ka(m.Ka), Kd(m.Kd), Ks(m.Ks), Ns(m.Ns), tex(m.tex), texName(m.texName) {}
-    Material &operator = (const Material &m) { Ka = m.Ka; Kd = m.Kd; Ks = m.Ks; Ns = m.Ns; tex = m.tex; texName = m.texName; return *this; }
-    void initRandom() { Ka = vec3_rnd(0.0f, 0.2f); Kd = vec3_rnd(0.1f, 0.8f); Ks = vec3_rnd(0.0f, 0.5f); Ns = rand(0.0f, 256.0f); }
+	Material(const Material &m) : Ka(m.Ka), Kd(m.Kd), Ks(m.Ks), Ns(m.Ns), transparency(m.transparency), tex(m.tex), texName(m.texName) {}
+	Material &operator = (const Material &m) { Ka = m.Ka; Kd = m.Kd; Ks = m.Ks; Ns = m.Ns; transparency = m.transparency;  tex = m.tex; texName = m.texName; return *this; }
+	void initRandom() { Ka = vec3_rnd(0.0f, 0.2f); Kd = vec3_rnd(0.1f, 0.8f); Ks = vec3_rnd(0.0f, 0.5f); Ns = rand(0.0f, 256.0f); transparency = 1.0f;  }
 
     void initTexture()
     {
@@ -37,7 +37,8 @@ public:
             tex = std::shared_ptr<Texture>(new Texture(QString(texName.c_str())));
             tex->setEnvMode(GL_REPLACE);
             tex->setWrapMode(GL_REPEAT);
-            tex->setFilter(GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+            //tex->setFilter(GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+			tex->setFilter(GL_LINEAR, GL_LINEAR);
         }
     }
 
@@ -50,6 +51,7 @@ public:
     vec3 Ks;
 
     float Ns;
+	float transparency;
 
     std::shared_ptr<Texture> tex;
     string texName;

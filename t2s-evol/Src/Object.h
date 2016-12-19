@@ -38,6 +38,7 @@ class ObjectThread : public QThread
         void buildMeshData(vector<Vertex> &vertices, vector<uint> &indices);
         void buildLinesData(vector<Vertex> &vertices, vector<uint> &indices);
         void buildNormalsData(vector<Vertex> &vertices, vector<uint> &indices);
+		void computeNormals(vector<vector<Vertex>> &vertices, vector<vector<uint>> &indices);
 
     private:
         QString m_fileName;

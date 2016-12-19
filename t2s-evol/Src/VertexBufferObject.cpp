@@ -187,3 +187,26 @@ void VertexBufferObject::bindDefaultAttribs()
     this->addAttrib(VERTEX_TEXTURE);
     this->bindAttribs();
 }
+
+void initVertexBufferData(VertexBufferObject::DATA &data)
+{
+	data.vx = 0.0f;
+	data.vy = 0.0f;
+	data.vz = 0.0f;
+	data.vw = 0.0f;
+
+	data.cx = 0.0f;
+	data.cy = 0.0f;
+	data.cz = 0.0f;
+	data.cw = 0.0f;
+
+	data.nx = 0.0f;
+	data.ny = 0.0f;
+	data.nz = 0.0f;
+	data.nw = 0.0f;
+
+	data.tx = 0.0f;
+	data.ty = 0.0f;
+	data.tz = 0.0f;
+	data.tw = 0.0f;
+}

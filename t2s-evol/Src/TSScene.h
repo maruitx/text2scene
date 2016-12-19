@@ -5,6 +5,7 @@
 
 class Object;
 class TSModel;
+class Model;
 
 class TSScene
 {
@@ -24,20 +25,18 @@ public:
 			string path;
 	};
 
-	TSScene(unordered_map<string, Object*> &objects);    // init with current loaded object DB
+	TSScene(unordered_map<string, Model*> &models, const QString &fileName);    // init with current loaded object DB
 	~TSScene();
 
 	void loadSceneFile(const QString filename, int obbOnly = false);
-	//Object* searchInObjDB(string modelIdStr, bool &isObjFound);
-
-	void loadObject(const MetaData &md);
 	void render(const Transform &trans, bool applyShadow);
+	void renderDepth(const Transform &trans);
 
+	void makeRandom();
 
 private:
-	unordered_map<string, Object*> &m_objects;   // current loaded object DB
+	unordered_map<string, Model*> &m_models;   // current loaded object DB
 	vector<MetaData> m_modelList;  // models in current scene
-
 
 	// File info
 	QString m_sceneFileName;
@@ -49,5 +48,6 @@ private:
 	BoundingBox m_sceneBB;
 
 	int m_modelNum;
+	int m_frameCount;
 };
 

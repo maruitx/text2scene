@@ -69,7 +69,7 @@ void GLWidget::initParams()
 	p->blur                = vec2(2.0f, 2.0f);
     p->shadowMapSize       = vec2(1024, 1024);
     p->applyShadow         = true;
-    p->gridRenderMode      = 0;
+    p->gridRenderMode      = 2;
     p->shadowIntensity     = 0.4f;
     p->sampleShading       = 1.0f;
     p->polygonMode         = 0;
@@ -85,8 +85,8 @@ void GLWidget::initParams()
     p->renderObjects       = true;
     p->renderTextures      = false;
     p->renderWireframe     = false;
-    p->renderNormals       = true;
-    p->renderMisc          = true;
+    p->renderNormals       = false;
+    p->renderMisc          = false;
 	p->sceneDistances      = false;
 	p->renderObjectBB      = false;
 
@@ -103,6 +103,10 @@ void GLWidget::initParams()
     
     p->nrVertices          = 0;
     p->nrActiveVertices    = 0;
+
+	p->modelDirectory      = "";
+	p->textureDirectory    = "";
+	p->sceneDirectory      = "";
 }
 
 void GLWidget::initShaders()
@@ -153,6 +157,12 @@ void GLWidget::initShaders()
 
 	shaders::inst()->difference = new Shader("Shader/Difference.vert.glsl", "Shader/Difference.frag.glsl");
 	shaders::inst()->difference->bindAttribLocations();
+
+	shaders::inst()->model = new Shader("Shader/Model.vert.glsl", "Shader/Model.frag.glsl");
+	shaders::inst()->model->bindAttribLocations();
+
+	shaders::inst()->modelDepth = new Shader("Shader/Model.vert.glsl", "Shader/ModelDepth.frag.glsl");
+	shaders::inst()->modelDepth->bindAttribLocations();
 
 }
 

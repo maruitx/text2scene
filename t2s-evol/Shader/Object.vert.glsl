@@ -30,9 +30,13 @@ out vec4 VertShadowCoord[MAX_LIGHTS];
 
 void main()
 {	   
-	VertPosition = matModel * (Position + vec4(centerOffset, 0));
-	VertNormal = vec4(Normal.xyz, 0);
-	//VertNormal.xyz = matNormal * Normal.xzy;
+	VertPosition = matModel * Position;
+	
+	
+	VertNormal = matModel * vec4(Normal.xyz, 0);
+	VertNormal.xyz = Normal.xzy;
+	//VertNormal = normalize(matModel * Normal);
+	//VertNormal.xyz = normalize(VertNormal.xyz);
 	VertColor    = Color;
 	VertTexture  = Texture;
     
