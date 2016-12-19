@@ -8,15 +8,15 @@ CameraManager::CameraManager()
   m_mouseSensivity(0.2f),
   m_camSpeed(10.0f),
   m_useCam(false),
-  m_rotate(-20.0f, 40.0f, 0.0f),
+  m_rotate(-20.0f, 20.0f, 0.0f),
   m_translate(0.0f, 0.0f, 0.0f),
-  m_zoom(-20.0),
+  m_zoom(-38.0),
   m_fov(45.0f),
   m_ncp(0.1f),
   m_fcp(1000.0f),
-  m_rotHeight(-1.0f)
+  m_rotHeight(-3.0f)
 {
-	Camera *cam1 = new Camera(vec3(0, 2, 12), 0, 0, 0, m_fov, m_ncp, m_fcp);
+	Camera *cam1 = new Camera(vec3(12, 8, 28), 0, 0, 0, m_fov, m_ncp, m_fcp);
 	cam1->setColor(1.0f, 0.0f, 0.0f);
 	cam1->setSpeed(m_camSpeed);
 	cam1->update();
@@ -54,9 +54,10 @@ void CameraManager::currentPerspective(Transform &trans)
 		mat4 view = mat4::identitiy();
 
 		view = mat4::translate(vec3(0, m_rotHeight, 0));
-		view *= mat4::translate(vec3(0, 0, m_zoom));
+		view *= mat4::translate(vec3(0, 0, m_zoom));		
 		view *= mat4::rotate(m_rotate.x, 1, 0, 0);
 		view *= mat4::rotate(m_rotate.y, 0, 1, 0); 
+		view *= mat4::translate(-12, 0, 12);
 
 		trans.projection = projection;
 		trans.view = view;

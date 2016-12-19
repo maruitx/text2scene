@@ -11,16 +11,21 @@ class Shader;
 class Scene;
 class VertexBufferObject;
 class Texture;
-class Smaa;
 
-struct Preview
+class Preview
 {
+public:
     int x;
     int y;
     int w;
     int h;
 
     FrameBufferObjectMultisample *fbo;
+
+	float distToCurrent;
+
+public:
+	Preview() : x(0), y(0), w(0), h(0), fbo(nullptr), distToCurrent(0.0f) {}
 
     bool clicked(int mx, int my, int offset = 0) 
     {
@@ -58,6 +63,9 @@ private:
     void renderPreviews(Transform &trans);
     void renderIntoMainFBO(Transform &trans);
 
+	float computeFBODifference(GLuint texA, GLuint texB);
+	void renderSceneDifference();
+
 private:
     GUI *m_gui;
     CameraManager *m_cameraManager;
@@ -72,6 +80,9 @@ private:
     GLuint m_bgMode;
 
     FrameBufferObjectMultisample *m_fbo;
+	FrameBufferObject *m_fboDifference;
+	VertexBufferObject *m_vboQuad;
+
     vector<Preview> m_previewFBOs;
     int m_activePreview;
 

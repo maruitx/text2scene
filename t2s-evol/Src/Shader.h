@@ -91,7 +91,7 @@ class Shader : QObject
         void setMatrix(const char* label, const mat3 &mat, bool transpose = false);
         void setMaterial(const Material &m, const string &texName = "tex");
         void setTexture(const string &name, GLuint texID);
-        void setMatrices(const Transform &trans, const mat4 &model, bool p = true, bool v = true, bool m = true, bool lv = false, bool vp = false, bool mvp = false);
+        void setMatrices(const Transform &trans, const mat4 &model, bool p = true, bool v = true, bool m = true, bool n = true, bool lv = false, bool vp = false, bool mvp = false);
         void setLights(vector<Light *> lights);
 
         GLuint id() const;

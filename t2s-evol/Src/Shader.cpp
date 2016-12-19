@@ -666,7 +666,6 @@ void Shader::setLights(vector<Light *> lights)
     }
 }
 
-
 void Shader::setTexture(const string &name, GLuint texID)
 {
     //cout << name << " " << m_texCount << " " << texID << endl;
@@ -677,7 +676,7 @@ void Shader::setTexture(const string &name, GLuint texID)
     m_texCount++;
 }
 
-void Shader::setMatrices(const Transform &trans, const mat4 &model, bool p, bool v, bool m, bool lv, bool vp, bool mvp)
+void Shader::setMatrices(const Transform &trans, const mat4 &model, bool p, bool v, bool m, bool n, bool lv, bool vp, bool mvp)
 {
     if(p)
     {
@@ -695,6 +694,14 @@ void Shader::setMatrices(const Transform &trans, const mat4 &model, bool p, bool
     {
         this->setMatrix("matModel", model, GL_TRUE); 
     }
+
+	if(n)
+	{
+		mat3 normal(model);
+		normal = normal.inverse().transpose();
+
+		this->setMatrix("matNormal", normal, GL_TRUE);
+	}
 
     if(lv)
     {

@@ -11,6 +11,8 @@
         <file>Shader/DefaultLight.vert.glsl</file>
         <file>Shader/DefaultLightShadow.frag.glsl</file>
         <file>Shader/DefaultLightShadow.vert.glsl</file>
+        <file>Shader/Difference.frag.glsl</file>
+        <file>Shader/Difference.vert.glsl</file>
         <file>Shader/Feedback.geom.glsl</file>
         <file>Shader/Feedback.vert.glsl</file>
         <file>Shader/GUI.frag.glsl</file>

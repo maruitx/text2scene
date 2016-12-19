@@ -1,20 +1,23 @@
 #include "TSScene.h"
 #include "Utility.h"
 #include "TSModel.h"
+#include "Model.h"
 
-TSScene::TSScene(unordered_map<string, Object*> &objects)
-: m_objects(objects)
+TSScene::TSScene(unordered_map<string, Model*> &models, const QString &fileName)
+: m_models(models),
+  m_sceneBB(vec3(math_maxfloat), vec3(math_minfloat)), 
+  m_frameCount(0)
 {
-
+	loadSceneFile(fileName);
 }
-
 
 TSScene::~TSScene()
 {
 }
 
-void TSScene::loadSceneFile(const QString filename, int obbOnly /*= false*/ )
+void TSScene::loadSceneFile(const QString filename, int obbOnly /*= false*/)
 {
+	cout << "Loading Scene File ... ";
 	QFile inFile(filename);
 	QTextStream ifs(&inFile);
 
@@ -37,7 +40,6 @@ void TSScene::loadSceneFile(const QString filename, int obbOnly /*= false*/ )
 	if (databaseType == QString("StanfordSceneDatabase"))
 	{
 		int currModelID = -1;
-
 		m_modelRepository = m_sceneDBPath + "/models";
 
 		while (!ifs.atEnd())
@@ -46,73 +48,86 @@ void TSScene::loadSceneFile(const QString filename, int obbOnly /*= false*/ )
 			if (currLine.contains("modelCount "))
 			{
 				m_modelNum = StringToIntegerList(currLine.toStdString(), "modelCount ")[0];
+				m_modelList.resize(m_modelNum);
 			}
 
 			if (currLine.contains("newModel "))
 			{
-				std::vector<std::string> parts = PartitionString(currLine.toStdString(), " ");
+				currModelID++;
+
+				std::vector<std::string> parts = PartitionString(currLine.toStdString(), " ");				
 				int modelIndex = StringToInt(parts[1]);
 
-				bool isObjFound = false;
-
-				Object* currObj = searchInObjDB(parts[2], isObjFound);
-
-				if (isObjFound)
-				{
-					TSModel *newModel = new TSModel(currObj);
-					
-					m_modelList.push_back(newModel);
-				}
-				else
-				{
-					Object* newObj = new Object(m_modelRepository + "/" + QString(parts[2].c_str()) + ".obj", true, true, true, vec3(), vec3(1.0f), vec4(), vec4());
-					TSModel *newModel = new TSModel(newObj);
-
-					m_modelList.push_back(newModel);
-
-					m_objects.insert(make_pair(parts[2], newObj));   // add object to DB
-					newObj->start();
-				}
-		
-				currModelID += 1;
-
+				m_modelList[currModelID].id = modelIndex;
+				m_modelList[currModelID].name = parts[2];
+				m_modelList[currModelID].path = m_modelRepository.toStdString() + "/" + parts[2] + ".obj";
 			}
 
 			if (currLine.contains("transform "))
 			{
 				std::vector<float> transformVec = StringToFloatList(currLine.toStdString(), "transform ");  // transformation vector in stanford scene file is column-wise
 				mat4 transMat(transformVec.data());
-
 				transMat = transMat.transpose();
-
-				m_modelList[currModelID]->setInitTrans(transMat);
+				m_modelList[currModelID].transformation = transMat;
 			}
 		}
 	}
-}
 
-Object* TSScene::searchInObjDB(string modelIdStr, bool &isObjFound)
-{
-	auto &iter = m_objects.find(modelIdStr);
-
-	if (iter != m_objects.end())
-	{
-		isObjFound = true;
-		return iter->second;
-	}
-	else
-	{
-		isObjFound = false;
-		return nullptr;
-	}
+	cout << "done." << endl;
 }
 
 void TSScene::render(const Transform &trans, bool applyShadow)
 {
-	for (int i = 0; i < m_modelNum; i++)
+	int nrLoaded = 0;
+
+	for (int i = 0; i < m_modelList.size(); i++)
 	{
-		Material mt;
-		mt.initRandom();
-		m_modelList[i]->render(trans, mt, applyShadow);
+		MetaData &md = m_modelList[i];
+		auto &iter = m_models.find(md.name);
+
+		if (iter != m_models.end())
+		{
+			iter->second->render(trans, md.transformation, applyShadow);
+		}
+		else if (md.path.size() > 0)
+		{
+			if (nrLoaded == 0 && m_frameCount % 20 == 0)
+			{
+				Model *model = new Model(md.path.c_str());
+				m_models.insert(make_pair(md.name, model));
+			}
+
+			nrLoaded++;
+		}
+	}
+
+	m_frameCount++;
+}
+
+void TSScene::renderDepth(const Transform &trans)
+{
+	int nrLoaded = 0;
+
+	for (int i = 0; i < m_modelList.size(); i++)
+	{
+		MetaData &md = m_modelList[i];
+		auto &iter = m_models.find(md.name);
+
+		if (iter != m_models.end())
+		{
+			iter->second->renderDepth(trans, md.transformation);
+		}
+	}
+}
+
+void TSScene::makeRandom()
+{
+	for (int i = 1; i < m_modelList.size(); i++)
+	{
+		MetaData &md = m_modelList[i];
+		
+		md.transformation.a14 += rand<float>(-10, 10);
+		md.transformation.a24 += rand<float>(-10, 10);
+		md.transformation.a34 += rand<float>(-10, 10);
 	}
 }

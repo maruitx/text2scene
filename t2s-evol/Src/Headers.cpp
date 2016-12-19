@@ -146,7 +146,7 @@ void renderTexture(uint texture, int posX, int posY, float width, float height, 
             glPushMatrix();
                 glTranslatef(posX, posY, 0.0f);
                 glBegin(GL_LINES);
-                    glColor3f(0.0f, 0.0f, 1.0f);
+                    glColor3f(0.0f, 0.0f, 0.0f);
 
                     glVertex3f(0.0f-2, 0.0f, 0.0f);
                     glVertex3f(width+1, 0.0f, 0.0f);
@@ -171,6 +171,107 @@ void renderTexture(uint texture, int posX, int posY, float width, float height, 
 
     glPopClientAttrib();
     glPopAttrib();
+}
+
+void renderTexturePreview(uint texture, int posX, int posY, float width, float height, bool border, float diff)
+{
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
+	glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	glColor4f(0.0, 0.0, 0.0, 1.0f);
+
+	glEnable(GL_TEXTURE_2D);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texture);
+
+	//glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE); 
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+
+	//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+	//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+
+	//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, 16.0f);
+
+
+	glDisable(GL_DEPTH_TEST);
+	glEnable2D();
+
+
+
+	glPushMatrix();
+		glTranslatef(posX, posY, 0.0f);
+		glBegin(GL_QUADS);
+			glTexCoord2f(0.0f, 1.0f);
+			glVertex3f(0.0f, 0.0f, 0.0f);
+
+			glTexCoord2f(1.0f, 1.0f);
+			glVertex3f(width, 0.0f, 0.0f);
+
+			glTexCoord2f(1.0f, 0.0f);
+			glVertex3f(width, height, 0.0f);
+
+			glTexCoord2f(0.0f, 0.0f);
+			glVertex3f(0.0, height, 0.0f);
+		glEnd();
+	glPopMatrix();
+
+	if (params::inst()->sceneDistances)
+	{
+		float color[3];
+		colorMap(1 - diff, color, colorHot);
+		glBindTexture(GL_TEXTURE_2D, 0);
+		glPushMatrix();
+			glTranslatef(posX, posY, 0.0f);
+			glBegin(GL_QUADS);
+				glColor3f(color[0], color[1], color[2]);
+				glVertex3f(0.0f, height - 10, 0.0f);
+				glVertex3f(width, height - 10, 0.0f);
+				glVertex3f(width, height, 0.0f);
+				glVertex3f(0.0, height, 0.0f);
+			glEnd();
+		glPopMatrix();
+	}
+
+	if (border)
+	{
+		glDisable(GL_TEXTURE_2D);
+		glLineWidth(3.0f);
+		glPushMatrix();
+			glTranslatef(posX, posY, 0.0f);
+			glBegin(GL_LINES);
+				glColor3f(0.0f, 0.0f, 0.0f);
+
+				glVertex3f(0.0f - 2, 0.0f, 0.0f);
+				glVertex3f(width + 1, 0.0f, 0.0f);
+
+				glVertex3f(0.0f, 0.0f, 0.0f);
+				glVertex3f(0.0f, height, 0.0f);
+
+				glVertex3f(width, 0.0f, 0.0f);
+				glVertex3f(width, height, 0.0f);
+
+				glVertex3f(0.0f - 2, height, 0.0f);
+				glVertex3f(width + 1, height, 0.0f);
+			glEnd();
+		glPopMatrix();		
+	}
+
+	glDisable2D();
+
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	glDisable(GL_TEXTURE_2D);
+	glEnable(GL_DEPTH_TEST);
+
+	glPopClientAttrib();
+	glPopAttrib();
 }
 
 void renderQuad(float size, float r, float g, float b, float a)
@@ -524,3 +625,31 @@ void colorMapBgr(float x, float * out, float * cm)
 	out[0] = cm[idx*3+2]*(1-r) + cm[(idx+1)*3+2]*r;
 }
 
+bool fileExists(const std::string &filename)
+{
+	std::ifstream file(filename);
+	return (!file.fail());
+}
+
+std::vector<std::string> getFileLines(const std::string &filename, unsigned int minLineLength)
+{
+	if (!fileExists(filename))
+	{
+		std::cout << "Required file not found: " << filename << '\n';
+		exit(1);
+	}
+	std::ifstream file(filename);
+	std::vector<std::string> result;
+	std::string curLine;
+	while (!file.fail())
+	{
+		std::getline(file, curLine);
+		if (!file.fail() && curLine.length() >= minLineLength)
+		{
+			if (curLine.at(curLine.length() - 1) == '\r')
+				curLine = curLine.substr(0, curLine.size() - 1);
+			result.push_back(curLine);
+		}
+	}
+	return result;
+}

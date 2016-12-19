@@ -21,7 +21,9 @@ Renderer::Renderer(Scene *scene, CameraManager *camManager, GUI *gui)
   m_activePreview(0), 
   m_frameCount(0), 
   m_fbo(nullptr), 
-  m_prevYOffset(0)
+  m_fboDifference(nullptr),
+  m_prevYOffset(0), 
+  m_vboQuad(nullptr)
 {
     init();
 }
@@ -53,6 +55,12 @@ void Renderer::render(Transform &trans)
     renderIntoMainFBO(trans);
     renderIntoPreviewFBOs(trans);
 
+	if (params::inst()->sceneDistances)
+	{
+		renderSceneDifference();
+	}
+
+
     glViewport(0, 0, m_width, m_height);
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);    
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);     
@@ -68,6 +76,8 @@ void Renderer::render(Transform &trans)
             renderTexture(m_scene->m_lights[i]->shadowMapBlurredId(), 220 + 210 + i * 210, m_height - 200, 200, 200);
         }
     }
+
+	//renderTexture(params::inst()->textures["88d8fa093e4c36a1"]->id(), 220, m_height - 200, 200, 200);
 
     m_gui->render();
 }
@@ -92,7 +102,6 @@ void Renderer::renderScene(const Transform &trans)
     //glDepthRange(0.1, 1.0);
     //glPolygonOffset(-1.0, -10.5);
 		    
-    m_scene->renderObjects(trans);
     m_scene->renderWorld(trans);    
 
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -107,8 +116,7 @@ void Renderer::renderIntoMainFBO(Transform &trans)
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         m_scene->renderWorld(trans);
-        //m_scene->renderVariation(trans, m_activePreview);
-		m_scene->renderSynScene(trans);
+		m_scene->renderSynScene(trans, m_activePreview, true);
 
     m_fbo->release();
     m_fbo->blit();
@@ -116,9 +124,15 @@ void Renderer::renderIntoMainFBO(Transform &trans)
 
 void Renderer::renderIntoPreviewFBOs(Transform &trans)
 {
+	if (m_previewFBOs.size() == 0)
+		return;
+
+	int mod = m_frameCount % m_previewFBOs.size();
+	FrameBufferObjectMultisample *fbo = nullptr;
+	
     for(int i=0; i<m_previewFBOs.size(); ++i)
     {
-        if (m_frameCount % (i+1) == 0)
+       // if (mod == i)
         {
             FrameBufferObjectMultisample *fbo = m_previewFBOs[i].fbo;
 
@@ -129,7 +143,7 @@ void Renderer::renderIntoPreviewFBOs(Transform &trans)
                 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
                 m_scene->renderWorld(trans, false);
-                m_scene->renderVariation(trans, i, false);
+				m_scene->renderSynScene(trans, i, false);
 
             fbo->release();
             fbo->blitColor();
@@ -141,14 +155,95 @@ void Renderer::renderIntoPreviewFBOs(Transform &trans)
 
 void Renderer::renderPreviews(Transform &trans)
 {
-    int w = params::inst()->previewSize.x;
-    int h = params::inst()->previewSize.y;
-    
     for(int i=0; i<m_previewFBOs.size(); ++i)
     {
         Preview &p = m_previewFBOs[i];
-        renderTexture(p.fbo->colorTex(), p.x, p.y + m_prevYOffset, p.w, p.h, i == m_activePreview ? true : false);
+        renderTexturePreview(p.fbo->colorTex(), p.x, p.y + m_prevYOffset, p.w, p.h, i == m_activePreview ? true : false, p.distToCurrent);
     }
+}
+
+float Renderer::computeFBODifference(GLuint texA, GLuint texB)
+{
+	int w = params::inst()->previewSize.x;
+	int h = params::inst()->previewSize.y;
+
+	float sum = 0.0f;
+	float *data = new float[w*h * 4];
+
+	m_fboDifference->bind();
+
+		glViewport(0, 0, w, h);
+		glClearColor(1, 0, 0, 1);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		mat4 model = mat4::translate(0, 0, 0);
+		mat4 view = mat4::translate(0, 0, -1);
+		mat4 projection = mat4::orthographic(0, w, h, 0, -1, 1);
+
+		Shader *shader = shaders::inst()->difference;
+		shader->bind();
+
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, texA);
+			shader->seti("texA", 0);
+
+			glActiveTexture(GL_TEXTURE1);
+			glBindTexture(GL_TEXTURE_2D, texB);
+			shader->seti("texB", 1);
+
+			shader->setMatrix("matModel", model, GL_TRUE);
+			shader->setMatrix("matView", view, GL_TRUE);
+			shader->setMatrix("matProjection", projection, GL_TRUE);
+
+			m_vboQuad->render();
+
+		shader->release();
+
+		glReadBuffer(GL_COLOR_ATTACHMENT0);
+		glReadPixels(0, 0, w, h, GL_RGBA, GL_FLOAT, data);
+
+	m_fboDifference->release();	
+
+	int idx = 0;
+	for (int y = 0; y < h; ++y)
+	{
+		for (int x = 0; x < w; ++x)
+		{
+			sum += data[idx + 0];
+			idx += 4;
+		}
+	}
+
+	delete[] data;
+
+	return sum;
+}
+
+void Renderer::renderSceneDifference()
+{
+	Preview &p0 = m_previewFBOs[m_activePreview];
+
+	int ma = math_minfloat;
+	for (int i = 0; i < m_previewFBOs.size(); ++i)
+	{
+		Preview &pi = m_previewFBOs[i];
+		float diff = computeFBODifference(p0.fbo->colorTex(), pi.fbo->colorTex());
+
+		if (diff > ma)
+		{
+			ma = diff;
+		}
+
+		pi.distToCurrent = diff;
+	}
+
+	for (int i = 0; i < m_previewFBOs.size(); ++i)
+	{
+		Preview &pi = m_previewFBOs[i];
+
+		if (ma > 0.0f)
+			pi.distToCurrent /= ma;
+	}
 }
 
 void Renderer::resize(int width, int height)
@@ -226,6 +321,13 @@ void Renderer::initPreviewFBOs()
         
         m_previewFBOs.push_back(p);
     }
+
+	//Make difference fbo
+	delete m_fboDifference;
+	delete m_vboQuad;
+
+	m_fboDifference = new FrameBufferObject(params::inst()->previewSize.x, params::inst()->previewSize.y, 1, 0, GL_FALSE);
+	m_vboQuad = Mesh::quad(0, 0, params::inst()->previewSize.x, params::inst()->previewSize.y, vec4(0, 0, 1, 1));
 }
 
 void Renderer::onMouseClick(int mx, int my)
@@ -249,7 +351,7 @@ void Renderer::onMouseWheel(int delta)
     int m = params::inst()->windowSize.y / m_previewFBOs.size();
     int offY = abs(m_prevYOffset);
    
-    if (offY < m || delta > 0)
+    //if (offY < m || delta > 0)
     {
         m_prevYOffset += delta;
     }    

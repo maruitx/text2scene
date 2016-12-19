@@ -23,6 +23,7 @@
 
 class Shader;
 class Light;
+class Texture;
 
 using namespace std;
 
@@ -61,6 +62,9 @@ struct GlobalObjectParams
     bool  renderWireframe;
     bool  renderNormals;
     bool  renderMisc;
+    bool  applyCulling;
+	bool  sceneDistances;
+	bool  renderObjectBB;
 
     vec2 shadowMapSize;
 
@@ -79,7 +83,13 @@ struct GlobalObjectParams
     int activeLight;
 
     int nrVertices;
-    int nrActiveVertices;      
+    int nrActiveVertices;    
+
+	std::string modelDirectory;
+	std::string textureDirectory;
+	std::string sceneDirectory;
+
+	unordered_map<string, Texture *> textures;
 };
 
 struct Shaders
@@ -97,6 +107,9 @@ struct Shaders
     Shader *tessellation;
     Shader *cookTorrance;
     Shader *sphericalHarmonic;
+	Shader *difference;
+	Shader *model;
+	Shader *modelDepth;
 };
 
 typedef Singleton<GlobalObjectParams> params;
@@ -114,6 +127,7 @@ float cosineInterpolation(float a, double b, double s);
 double hermiteInterpolation(double y0, double y1, double y2, double y3, double mu, double tension, double bias);
 
 void renderTexture(uint texture, int posX, int posY, float width, float height, bool border = false);
+void renderTexturePreview(uint texture, int posX, int posY, float width, float height, bool border = false, float diff = 0.0f);
 void renderQuad(float size, float r, float g, float b, float a);
 void renderQuad(float width, float height, float r, float g, float b, float a);
 void renderQuad(float posX, float posY, float width, float height);
@@ -141,5 +155,8 @@ static float colorHot[] = { 0.041667f, 0.000000f, 0.000000f, 0.083333f, 0.000000
 
 void colorMap(float x, float * out, float * cm);
 void colorMapBgr(float x, float * out, float * cm);
+
+bool fileExists(const std::string &filename);
+std::vector<std::string> getFileLines(const std::string &filename, unsigned int minLineLength);
 
 #endif

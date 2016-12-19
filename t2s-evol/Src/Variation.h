@@ -6,19 +6,19 @@
 
 class Object;
 
-struct MetaData
-{
-    string fileName;
-    mat4 trans;
-    Material mat;
-    string id;
-    bool visible;
-    vec3 pos;
-};
-
 class Variation
 {
 public:
+	struct MetaData
+	{
+		string fileName;
+		mat4 trans;
+		Material mat;
+		string id;
+		bool visible;
+		vec3 pos;
+	};
+
     Variation(unordered_map<string, Object*> &objects);
     ~Variation();
 
@@ -28,6 +28,9 @@ public:
     void makeExplode(float s);
     void makeBright(float s);
     void makeScale(float s);
+
+private:
+    void loadObject(const MetaData &md);
 
 private:
     vector<MetaData> m_metaData;

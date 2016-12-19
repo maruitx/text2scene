@@ -25,38 +25,28 @@ public:
     void init();
 
     void renderWorld(const Transform &trans, bool applyShadow = true);  
-    void renderObjects(const Transform &trans);  
-    void renderObjectsDepth(const Transform &trans);
-    void renderVariation(const Transform &trans, int var, bool applyShadow = true);
-    void renderVariationDepth(const Transform &trans, int var);
-	void renderSynScene(const Transform &trans, bool applyShadow = true);
+	void renderSynScene(const Transform &trans, int var, bool applyShadow = true);
+	void renderSynSceneDepth(const Transform &trans, int var);
 
     void select(const Transform &trans, int sw, int sh, int mx, int my);
     void move(const Transform &trans, int x, int y);
     void resetSelection();
 
-    void initObjects();
-    void initVariations();
-
 	void initSynScene();
+	void initTextures();
 
 public:
     vector<Light *> m_lights;
-    vector<Variation> m_variations;
-
-	TSScene *m_synScene; // main synthesized scene 
+    vector<TSScene *> m_variations;
 
 private:
 	
     NiceGrid *m_niceGrid;
     CameraManager *m_cameraManager;
     
-    VertexBufferObject *m_vbo;
-    vector<VertexBufferObject*> m_vbos;
-
     int m_activeIdx;
 
-    unordered_map<string, Object *> m_objects;    
+    unordered_map<string, Model *> m_models;	
 };
 
 #endif

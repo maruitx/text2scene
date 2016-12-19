@@ -9,6 +9,7 @@ class Scene;
 class Renderer;
 class GUI;
 class CameraManager;
+class TextDialog;
 
 class GLWidget : public QGLWidget
 {
@@ -55,6 +56,7 @@ private:
 
     HPTimer m_timer;
 
+	TextDialog *m_textDialog;
 };
 
 #endif

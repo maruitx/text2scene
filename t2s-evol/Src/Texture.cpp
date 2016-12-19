@@ -177,13 +177,21 @@ Texture::Texture(QString path)
   m_manualMipMaps(GL_FALSE), 
   m_isReady(GL_FALSE)
 {
-    QImage img(path);    
+    QImage img = QImage();    
 
-    m_width = (GLuint)img.width();
-    m_height = (GLuint)img.height();  
+	if (img.load(path))
+	{
+		if (img.isGrayscale())
+			img = img.convertToFormat(QImage::Format_ARGB32);
 
-    create((GLvoid *)img.bits());    
-    
+		m_width = (GLuint)img.width();
+		m_height = (GLuint)img.height();
+		create((GLvoid *)img.bits());
+	}
+	else
+	{
+		qDebug() << "Missing Texture: " << path;
+	}    
 }
 
 Texture::Texture(const Texture &t)

@@ -4,6 +4,7 @@
 Variation::Variation(unordered_map<string, Object*> &objects)
 : m_objects(objects), 
   m_modelRepository("Data/Objs/")
+  //m_modelRepository("L:/data/models-OBJ/models/")
 {
     int s = 5;
     float step = 1.0f;
@@ -33,7 +34,6 @@ Variation::Variation(unordered_map<string, Object*> &objects)
         int r = rand() % 3;
 
         MetaData md;
-
         
         md.mat.initRandom();
         md.trans = mat4::translate(x, y, z);
@@ -42,19 +42,19 @@ Variation::Variation(unordered_map<string, Object*> &objects)
         if(r == 0)
         {
             md.id = "cube1";
-            md.fileName = "cube1.obj";
+            md.fileName = md.id + ".obj";
         }
 
         if(r == 1)
         {
             md.id = "cube2";
-            md.fileName = "cube2.obj";
+			md.fileName = md.id + ".obj";
         }
 
         if(r == 2)
         {
             md.id = "bunny_simple";
-            md.fileName = "bunny_simple.obj";
+			md.fileName = md.id + ".obj";
         }
 
         m_metaData.push_back(md);
@@ -75,13 +75,11 @@ void Variation::render(const Transform &trans, bool applyShadow)
 
         if(iter != m_objects.end())
         {
-            iter->second->render(trans, md.trans, md.mat, applyShadow);
+            //iter->second->render(trans, md.trans, md.mat, applyShadow);
         }
         else
         {
-            Object *obj = new Object(m_modelRepository + QString(md.fileName.c_str()), true, true, true, vec3(), vec3(1.0f));
-            m_objects.insert(make_pair(md.id, obj));
-            obj->start();
+            loadObject(md);
         }
     }
 }
@@ -100,11 +98,16 @@ void Variation::renderDepth(const Transform &trans)
         }
         else
         {
-            Object *obj = new Object(m_modelRepository + QString(md.fileName.c_str()), true, true, true, vec3(), vec3(1.0f));
-            m_objects.insert(make_pair(md.id, obj));
-            obj->start();
+            loadObject(md);
         }
     }
+}
+
+void Variation::loadObject(const MetaData &md)
+{
+    Object *obj = new Object(m_modelRepository + QString(md.fileName.c_str()), true, true, true, vec3(), vec3(1.0f), vec4(1, 0, 0, 0));
+    m_objects.insert(make_pair(md.id, obj));
+    obj->start();
 }
 
 void Variation::makeExplode(float s)

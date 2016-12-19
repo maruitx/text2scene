@@ -91,8 +91,8 @@ float VSM(vec4 smcoord, sampler2D sm, sampler2D smb)
 
 vec3 applyLight(Light light, Material material, vec3 P, vec3 N, vec3 V)
 {
-    vec3 texColor = vec3(1, 1, 1);    
-    vec3 ambient =  material.Ka * light.color;
+	vec3 texColor = texture(tex, VertTexture.xy).rgb;
+	vec3 ambient = material.Ka * light.color * light.intensity * texColor.rgb;
     vec3 diffuse = vec3(0);
     vec3 specular = vec3(0);
 
@@ -103,14 +103,15 @@ vec3 applyLight(Light light, Material material, vec3 P, vec3 N, vec3 V)
         texColor = texture(tex, VertTexture.st).rgb;
     }    
 
-    float d = max(dot(N, L), 0);        
+    //float d = max(dot(N, L), 0);        
+	float d = abs(dot(N, L));
     float s = 0;
 
     if(d >= 0)
     {
         vec3 H = normalize(L+V);
         s = pow(max(dot(N, H), 0), material.Ns);
-        specular = material.Ks * light.color * s * 1;
+		specular = material.Ks * light.color * s * light.intensity;
     }
 
     vec3 selecColor = vec3(1);
@@ -119,14 +120,16 @@ vec3 applyLight(Light light, Material material, vec3 P, vec3 N, vec3 V)
         selecColor = vec3(1, 0, 0);
     }
 	
-    diffuse  = material.Kd * selecColor * texColor.rgb * light.color * d;    
+	diffuse = material.Kd * selecColor * texColor.rgb * light.color *light.intensity * d;
 
     float t = dualConeSpotlight(P, light.position, -light.direction, 21.0, 32.0);
     float a = lightAttenuation(P, light.position.xyz-P, light.attenuation, light.intensity.x);
 
-    vec3 color = ambient + (diffuse + specular) * a;
+	vec3 color = ambient;// +(diffuse + specular) * a;
 
-    return color;
+	//return N;
+    //return vec3(d, d, d);
+	return color;
 }
 
 void main()
@@ -153,5 +156,5 @@ void main()
     }   
     color.a = 1;
 
-    FragColor = vec4(color.xyz, 1);	
+	FragColor = vec4(color.xyz, 1);
 }
