@@ -1,3 +1,6 @@
 
 #Matt's git root
 gitRoot=C:\code\text2scene\
+
+inputFile=in.txt
+outputFile=out.txt

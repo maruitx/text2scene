@@ -4,6 +4,10 @@
 void App::runTests()
 {
 	string debugText = "";
+
+	for (auto &s : util::getFileLines(appParams().inputFile))
+		debugText += s + " ";
+
 	//debugText += "Today I am walking to the bookstore. There are several red books on the top shelf.";
 	//debugText += "There are four chairs around a dining table. The chairs are wooden.";
 	//debugText += "On the desk there is a monitor, a keyboard, and a sleek and white laptop.";
@@ -35,7 +39,7 @@ void App::runTests()
 	//
 	// commands
 	//
-	debugText += "Move the chairs closer together and clean the desk.";
+	//debugText += "Move the chairs closer together and clean the desk.";
 	//debugText += "Make the kitchen table more messy.";
 	//debugText += "Make the kitchen table and the desk more messy.";
 	//debugText += "Remove the speakers from the desk.";
@@ -81,7 +85,7 @@ void App::runTests()
 			cout << c.value.toString() << endl;
 		}
 	}
-	ParsedSentence::serializeSentences(sentences, "SEL-output-A.txt");
+	ParsedSentence::serializeSentences(sentences, appParams().outputFile);
 }
 
 void App::go()

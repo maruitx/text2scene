@@ -11,6 +11,9 @@ struct AppParameters
 		ParameterFile params("SEL-params.txt");
 
 		params.readParameter("gitRoot", gitRoot);
+		params.readParameter("inputFile", inputFile);
+		params.readParameter("outputFile", outputFile);
+		
 
 		javaSceneDir = gitRoot + "JavaScene/";
 		dataDir = gitRoot + "data/SEL/";
@@ -68,6 +71,9 @@ struct AppParameters
 	string javaSceneDir;
 	string debugDir;
 	string dataDir;
+
+	string inputFile;
+	string outputFile;
 
 	set<string> spatialNouns, abstractNouns, countingAdjectives, applicableVerbs, stopVerbs;
 };
