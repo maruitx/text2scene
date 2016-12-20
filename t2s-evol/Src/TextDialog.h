@@ -7,6 +7,7 @@
 class GLWidget;
 class QPushButton;
 class QTextEdit;
+class Scene;
 
 class TextDialog : public QDialog
 {
@@ -19,11 +20,13 @@ private:
 	QPushButton *m_buttonProcess;
 	QTextEdit *m_editSentence;
 
+	Scene *m_scene;
+
 public slots:
 	void onButtonProcess();
 
 public:	
-	TextDialog(GLWidget *parent);
+	TextDialog(GLWidget *parent, Scene *s);
 	~TextDialog();
 
 	void init();

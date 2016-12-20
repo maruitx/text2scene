@@ -14,6 +14,7 @@ class CameraManager;
 class Object;
 class TransformFeedback;
 class TSScene;
+class TextSemGraphManager;
 
 class Scene
 {
@@ -35,9 +36,12 @@ public:
 	void initSynScene();
 	void initTextures();
 
+	void runOneEvolutionStep();
+
 public:
     vector<Light *> m_lights;
     vector<TSScene *> m_variations;
+	TextSemGraphManager *m_textSemGraphManager;
 
 private:
 	
@@ -46,7 +50,7 @@ private:
     
     int m_activeIdx;
 
-    unordered_map<string, Model *> m_models;	
+    unordered_map<string, Model *> m_models;
 };
 
 #endif

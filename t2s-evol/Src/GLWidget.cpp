@@ -46,7 +46,7 @@ void GLWidget::initializeGL()
 	m_gui = new GUI(m_cameraManager, m_scene);
 	m_renderer = new Renderer(m_scene, m_cameraManager, m_gui);  
 
-	m_textDialog = new TextDialog(this);
+	m_textDialog = new TextDialog(this, m_scene);
 
     glEnable(GL_DEPTH_TEST);     
     glEnable(GL_MULTISAMPLE);

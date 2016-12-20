@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <sstream>
+#include <QString>
 
 static std::vector<std::string> PartitionString(const std::string &s, const std::string &separator)
 {

@@ -9,6 +9,7 @@
 #include "Geometry.h"
 #include "TransformFeedback.h"
 #include "TSScene.h"
+#include "TextSemGraphManager.h"
 
 Scene::Scene(CameraManager *camManager)
 : m_cameraManager(camManager),
@@ -121,6 +122,8 @@ void Scene::initTextures()
 
 void Scene::initSynScene()
 {
+	m_textSemGraphManager = new TextSemGraphManager();
+
 	const string directory = "./SceneDB/StanfordSceneDB/";
 	//const string directory = "L:/sceneSynthesisDatabase/databaseFull/";
 	const string scene = "scene00003.txt";
@@ -137,7 +140,6 @@ void Scene::initSynScene()
 
 		m_variations.push_back(s);
 	}
-
 }
 
 void Scene::renderSynScene(const Transform &trans, int var, bool applyShadow)
@@ -166,5 +168,17 @@ void Scene::renderSynSceneDepth(const Transform &trans, int var)
 	m_variations[var]->renderDepth(trans);
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+}
+
+void Scene::runOneEvolutionStep()
+{
+	QString filename = "../matt-SEL-playground/out.txt";
+	m_textSemGraphManager->loadSELFromOutput(filename);
+
+	TextSemGraph* activeTextSemGraph = m_textSemGraphManager->getActiveGraph();
+
+
+	m_textSemGraphManager->updateActiveGraphId();
+
 }
 
