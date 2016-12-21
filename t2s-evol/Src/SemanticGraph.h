@@ -16,7 +16,7 @@ public:
 	int nodeId;
 
 	// node id of the other end of in edge
-	// for object node: saves the non-object node (relations, attributes) id to the object node, e.g. table <-- wood,  chair <-- support
+	// for object node: saves the non-object node (relations, attributes) id to the object node, e.g. table <-- dining,  chair <-- support
 	// for relation/attribute node: saves passive object id to relation/attribute node, e.g. support <-- table
 	std::vector<int> inEdgeNodeList;
 

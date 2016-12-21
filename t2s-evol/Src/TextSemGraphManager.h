@@ -78,6 +78,5 @@ private:
 
 	vector<TextSemGraph*> m_textSemGraphs;
 	int m_activeGraphId;
-
 };
 

@@ -15,6 +15,7 @@ class Object;
 class TransformFeedback;
 class TSScene;
 class TextSemGraphManager;
+class SceneSemGraphManager;
 
 class Scene
 {
@@ -42,6 +43,7 @@ public:
     vector<Light *> m_lights;
     vector<TSScene *> m_variations;
 	TextSemGraphManager *m_textSemGraphManager;
+	SceneSemGraphManager *m_sceneSemGraphManager;
 
 private:
 	

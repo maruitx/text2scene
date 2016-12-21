@@ -10,6 +10,8 @@
 #include "TransformFeedback.h"
 #include "TSScene.h"
 #include "TextSemGraphManager.h"
+#include "SceneSemGraphManager.h"
+#include "SceneSemGraph.h"
 
 Scene::Scene(CameraManager *camManager)
 : m_cameraManager(camManager),
@@ -122,21 +124,39 @@ void Scene::initTextures()
 
 void Scene::initSynScene()
 {
+	//const string directory = "./SceneDB/StanfordSceneDB/";  
+	////const string directory = "L:/sceneSynthesisDatabase/databaseFull/";
+	//const string scene = "scene00003.txt";
+
+	//params::inst()->sceneDirectory   = directory + "scenes/";
+	//params::inst()->modelDirectory   = directory + "models/";
+	//params::inst()->textureDirectory = directory + "textures/";
+
+	//for (int i = 0; i < 15; ++i)
+	//{
+	//	TSScene *s = new TSScene(m_models, QString((params::inst()->sceneDirectory + scene).c_str()));
+	//	if (i > 0)
+	//		s->makeRandom();
+
+	//	m_variations.push_back(s);
+	//}
+
+	// SceneDB is just outside of the git-root folder
+	const string mainSceneDBDirectory = "../../SceneDB";
+
 	m_textSemGraphManager = new TextSemGraphManager();
+	m_sceneSemGraphManager = new SceneSemGraphManager(QString(mainSceneDBDirectory.c_str()));
 
-	const string directory = "./SceneDB/StanfordSceneDB/";
-	//const string directory = "L:/sceneSynthesisDatabase/databaseFull/";
-	const string scene = "scene00003.txt";
+	// temporary setting
+	params::inst()->sceneDirectory = mainSceneDBDirectory + "/StanfordSceneDB/scenes/";
+	params::inst()->modelDirectory = mainSceneDBDirectory + "/StanfordSceneDB/models/";
+	params::inst()->textureDirectory = mainSceneDBDirectory + "/StanfordSceneDB/textures/";
 
-	params::inst()->sceneDirectory   = directory + "scenes/";
-	params::inst()->modelDirectory   = directory + "models/";
-	params::inst()->textureDirectory = directory + "textures/";
 
-	for (int i = 0; i < 15; ++i)
+	for (int i = 0; i < 4; ++i)
 	{
-		TSScene *s = new TSScene(m_models, QString((params::inst()->sceneDirectory + scene).c_str()));
-		if (i > 0)
-			s->makeRandom();
+		SceneSemGraph *ssg = m_sceneSemGraphManager->getGraph(i);
+		TSScene *s = ssg->covertToTSScene(m_models);
 
 		m_variations.push_back(s);
 	}

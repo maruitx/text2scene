@@ -1,0 +1,5 @@
+StanfordSceneDatabase 4
+scene00003
+scene00003
+scene00004
+scene00004

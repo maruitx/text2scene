@@ -22,7 +22,7 @@ void TextSemGraphManager::loadSELFromOutput(const QString &filename)
 
 	if (!inFile.open(QIODevice::ReadOnly | QIODevice::Text))
 	{
-		cout << "\nTextSemGraphManager: cannot open SEL output file";
+		cout << "\nTextSemGraphManager: cannot open SEL output file\n";
 		return;
 	}
 
@@ -169,6 +169,7 @@ void TextSemGraphManager::loadSELFromOutput(const QString &filename)
 	} // end of loop for sentence
 
 	inFile.close();
+	cout << "done\n";
 }
 
 void TextSemGraphManager::clearPreviousLoadSEL()
