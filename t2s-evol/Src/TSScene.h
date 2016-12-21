@@ -9,6 +9,7 @@ class Model;
 class TSScene
 {
 public:
+	TSScene(unordered_map<string, Model*> &models); // empty scenes
 	TSScene(unordered_map<string, Model*> &models, MetaScene &ms); // init with current loaded object DB
 	TSScene(unordered_map<string, Model*> &models, const QString &fileName);    // init with current loaded object DB and scene file
 	~TSScene();

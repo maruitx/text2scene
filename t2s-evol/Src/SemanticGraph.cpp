@@ -2,6 +2,7 @@
 #include "Utility.h"
 
 SemanticGraph::SemanticGraph()
+	:m_nodeNum(0), m_edgeNum(0)
 {
 }
 

@@ -12,6 +12,7 @@
 #include "TextSemGraphManager.h"
 #include "SceneSemGraphManager.h"
 #include "SceneSemGraph.h"
+#include "SemGraphMatcher.h"
 
 Scene::Scene(CameraManager *camManager)
 : m_cameraManager(camManager),
@@ -146,17 +147,19 @@ void Scene::initSynScene()
 
 	m_textSemGraphManager = new TextSemGraphManager();
 	m_sceneSemGraphManager = new SceneSemGraphManager(QString(mainSceneDBDirectory.c_str()));
+	m_semanticGraphMatcher = new SemGraphMatcher(m_sceneSemGraphManager);
 
 	// temporary setting
 	params::inst()->sceneDirectory = mainSceneDBDirectory + "/StanfordSceneDB/scenes/";
 	params::inst()->modelDirectory = mainSceneDBDirectory + "/StanfordSceneDB/models/";
 	params::inst()->textureDirectory = mainSceneDBDirectory + "/StanfordSceneDB/textures/";
 
-
-	for (int i = 0; i < 4; ++i)
+	m_previewNum = 5;
+	for (int i = 0; i < m_previewNum; ++i)
 	{
-		SceneSemGraph *ssg = m_sceneSemGraphManager->getGraph(i);
-		TSScene *s = ssg->covertToTSScene(m_models);
+		//SceneSemGraph *ssg = m_sceneSemGraphManager->getGraph(i);
+		//TSScene *s = ssg->covertToTSScene(m_models);
+		TSScene *s = new TSScene(m_models);
 
 		m_variations.push_back(s);
 	}
@@ -196,9 +199,27 @@ void Scene::runOneEvolutionStep()
 	m_textSemGraphManager->loadSELFromOutput(filename);
 
 	TextSemGraph* activeTextSemGraph = m_textSemGraphManager->getActiveGraph();
-
-
 	m_textSemGraphManager->updateActiveGraphId();
 
+	int topSSGNum = m_previewNum;
+
+	m_semanticGraphMatcher->updateCurrentTextSemGraph(activeTextSemGraph);
+	vector<SceneSemGraph*> matchedSSGs = m_semanticGraphMatcher->matchTSGWithSSGs(topSSGNum);
+
+	// clean previous variations
+	for (int i = 0; i < m_variations.size(); i++)
+	{
+		delete m_variations[i];
+	}
+
+	m_variations.clear();
+
+
+
+	for (int i = 0; i < m_previewNum; ++i)
+	{
+		TSScene *s = matchedSSGs[i]->covertToTSScene(m_models);
+		m_variations.push_back(s);
+	}
 }
 

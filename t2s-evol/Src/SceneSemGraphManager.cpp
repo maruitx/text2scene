@@ -44,4 +44,6 @@ void SceneSemGraphManager::loadGraphs()
 			m_sceneSemGraphs.push_back(newSceneSemGraph);
 		}
 	}
+
+	m_ssgNum = m_sceneSemGraphs.size();
 }

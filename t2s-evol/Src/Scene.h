@@ -16,6 +16,7 @@ class TransformFeedback;
 class TSScene;
 class TextSemGraphManager;
 class SceneSemGraphManager;
+class SemGraphMatcher;
 
 class Scene
 {
@@ -44,6 +45,7 @@ public:
     vector<TSScene *> m_variations;
 	TextSemGraphManager *m_textSemGraphManager;
 	SceneSemGraphManager *m_sceneSemGraphManager;
+	SemGraphMatcher *m_semanticGraphMatcher;
 
 private:
 	
@@ -53,6 +55,7 @@ private:
     int m_activeIdx;
 
     unordered_map<string, Model *> m_models;
+	int m_previewNum;
 };
 
 #endif

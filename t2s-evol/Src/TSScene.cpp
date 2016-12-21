@@ -2,6 +2,15 @@
 #include "Utility.h"
 #include "Model.h"
 
+
+TSScene::TSScene(unordered_map<string, Model*> &models)
+	:m_models(models),
+	m_sceneBB(vec3(math_maxfloat), vec3(math_minfloat)),
+	m_frameCount(0)
+{
+
+}
+
 TSScene::TSScene(unordered_map<string, Model*> &models, const QString &fileName)
 : m_models(models),
   m_sceneBB(vec3(math_maxfloat), vec3(math_minfloat)), 
