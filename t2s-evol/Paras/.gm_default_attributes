@@ -1,0 +1,16 @@
+#
+=L=
+l 0 ' d 1 t 0 w 0 i 2 c 2
+=L=
+l 1 ' d 1 t 0 w 0 i 2 c 2
+=L=
+l 2 ' d 2 t 0 0 w 1 1 i 3 c 3
+=L=
+l 3 ' d 1 t 0 w 0 i 2 c 2
+=L=
+l 4 ' d 0 t w i 2 c 2
+=L=
+l 5 ' d 0 t w i 2 c 2
+=T=
+1 , 2 : + 10
+=E=

@@ -99,7 +99,7 @@ void SceneSemGraph::loadGraph(const QString &filename)
 				std::vector<std::string> parts = PartitionString(currLine.toStdString(), ",");
 				addNode(QString(parts[1].c_str()), QString(parts[2].c_str()));
 			}
-		}
+		} 
 
 		// load edges
 		if (currLine.contains("edgeNum "))
@@ -107,13 +107,12 @@ void SceneSemGraph::loadGraph(const QString &filename)
 			int edgeNum = StringToIntegerList(currLine.toStdString(), "edgeNum ")[0];
 			for (int i = 0; i < edgeNum; i++)
 			{
-
+				currLine = ifs.readLine();
+				std::vector<int> parts = StringToIntegerList(currLine.toStdString(), "", ",");
+				addEdge(parts[1], parts[2]);
 			}
 		}
 	}
-
-
-
 	
 	inFile.close();
 }

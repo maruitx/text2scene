@@ -5,6 +5,7 @@
 class SceneSemGraphManager;
 class TextSemGraph;
 class SceneSemGraph;
+class GMTMatcher;
 
 class SemGraphMatcher
 {
@@ -21,7 +22,7 @@ private:
 	SceneSemGraphManager *m_sceneSemGraphManager;
 	TextSemGraph *m_currTextSemGraph;
 
-
+	GMTMatcher *m_gmtMatcher;
 
 };
 

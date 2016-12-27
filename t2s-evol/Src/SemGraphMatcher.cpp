@@ -2,12 +2,13 @@
 #include "SceneSemGraphManager.h"
 #include "SceneSemGraph.h"
 #include "TextSemGraph.h"
+#include "GMTMatcher.h"
 
 
 SemGraphMatcher::SemGraphMatcher(SceneSemGraphManager *ssgManager)
 	:m_sceneSemGraphManager(ssgManager)
 {
-
+	m_gmtMatcher = new GMTMatcher();
 }
 
 
@@ -18,10 +19,13 @@ SemGraphMatcher::~SemGraphMatcher()
 void SemGraphMatcher::updateCurrentTextSemGraph(TextSemGraph *tsg)
 {
 	m_currTextSemGraph = tsg;
+	m_gmtMatcher = new GMTMatcher();
 }
 
 vector<SceneSemGraph*> SemGraphMatcher::matchTSGWithSSGs(int topMacthNum)
 {
+	m_gmtMatcher->test();
+
 	vector<pair<double, SceneSemGraph *>> evaluatedSSGs;
 
 	for (int i = 0; i < m_sceneSemGraphManager->m_ssgNum; i++)
@@ -62,6 +66,8 @@ double SemGraphMatcher::computeSimilarity(TextSemGraph *tsg, SceneSemGraph *ssg)
 			}
 		}
 	}
+
+	
 
 	return simVal;
 }
