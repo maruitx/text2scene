@@ -3,6 +3,7 @@
 
 GMTMatcher::GMTMatcher()
 {
+	m_graphDatabase = new KB();
 }
 
 

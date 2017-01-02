@@ -27,7 +27,7 @@ Email:  messmer@iam.unibe.ch
 #include "MetaGraph.h"
 #include "List.h"
 #include "Token.h"
-#include "assert.h"
+#include "gmt_assert.h"
 
 
 class In_MetaGraph;

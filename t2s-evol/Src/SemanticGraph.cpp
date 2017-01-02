@@ -16,8 +16,6 @@ void SemanticGraph::addNode(const QString &nType, const QString &nName)
 	SemNode newNode = SemNode(nType, nName, m_nodeNum);
 	m_nodes.push_back(newNode);
 
-	
-
 	m_nodeNum++;
 }
 
@@ -32,4 +30,19 @@ void SemanticGraph::addEdge(int s, int t)
 	m_nodes[t].inEdgeNodeList.push_back(s);
 
 	m_edgeNum++;
+}
+
+std::vector<int> SemanticGraph::findNodeWithName(const QString &nName)
+{
+	std::vector<int> nodeIds;
+
+	for (int i = 0; i < m_nodeNum; i++)
+	{
+		if (m_nodes[i].nodeName == nName)
+		{
+			nodeIds.push_back(i);
+		}
+	}
+
+	return nodeIds;
 }

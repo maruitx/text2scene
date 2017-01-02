@@ -50,30 +50,84 @@ newModel 23 1a43be52de26834898d5fc0473d00a1c
 transform 0.000000 -0.879002 0.000000 0.000000 -0.879002 0.000000 0.000000 0.000000 0.000000 -0.000000 -0.879002 0.000000 13.368000 138.059998 123.737999 1.000000
 newModel 24 a124998e1cf5395b924bf081da6f024c
 transform 0.000000 1.185470 0.000000 0.000000 -1.185470 0.000000 0.000000 0.000000 0.000000 0.000000 1.185470 0.000000 66.171501 -15.382600 3.250000 1.000000
-nodeNum 25
-0,object,room,,
-1,object,bed,,
+nodeNum 43
+0,object,room,,25 26 27 28 29 30 31 32 33
+1,object,bed,25,
 2,object,_stanfordscenedbmodels,,
-3,object,_stanfordscenedbmodels,,
-4,object,nightstand,,
-5,object,_stanfordscenedbmodels,,
-6,object,_stanfordscenedbmodels,,
+3,object,_stanfordscenedbmodels,26,
+4,object,nightstand,27,34 35
+5,object,_stanfordscenedbmodels,34,
+6,object,_stanfordscenedbmodels,35,
 7,object,wallart,,
 8,object,stool,,
 9,object,_stanfordscenedbmodels,,
-10,object,dresser,,
-11,object,_stanfordscenedbmodels,,
-12,object,_stanfordscenedbmodels,,
-13,object,_stanfordscenedbmodels,,
-14,object,_stanfordscenedbmodels,,
-15,object,computer,,
-16,object,_stanfordscenedbmodels,,
-17,object,pottedplant,,
-18,object,pottedplant,,
+10,object,dresser,28,36 37 38 39 40 41
+11,object,_stanfordscenedbmodels,36,
+12,object,_stanfordscenedbmodels,37,
+13,object,_stanfordscenedbmodels,38,
+14,object,_stanfordscenedbmodels,39,
+15,object,computer,40,
+16,object,_stanfordscenedbmodels,41,
+17,object,pottedplant,29,
+18,object,pottedplant,30,
 19,object,_stanfordscenedbmodels,,
 20,object,powersocket,,
-21,object,_stanfordscenedbmodels,,
-22,object,book,,
+21,object,_stanfordscenedbmodels,31,42
+22,object,book,32 42,
 23,object,_stanfordscenedbmodels,,
-24,object,_stanfordscenedbmodels,,
-edgeNum 0
+24,object,_stanfordscenedbmodels,33,
+25,pairwise_relationship,vert_support,0,1
+26,pairwise_relationship,vert_support,0,3
+27,pairwise_relationship,vert_support,0,4
+28,pairwise_relationship,vert_support,0,10
+29,pairwise_relationship,vert_support,0,17
+30,pairwise_relationship,vert_support,0,18
+31,pairwise_relationship,vert_support,0,21
+32,pairwise_relationship,vert_support,0,22
+33,pairwise_relationship,vert_support,0,24
+34,pairwise_relationship,vert_support,4,5
+35,pairwise_relationship,vert_support,4,6
+36,pairwise_relationship,vert_support,10,11
+37,pairwise_relationship,vert_support,10,12
+38,pairwise_relationship,vert_support,10,13
+39,pairwise_relationship,vert_support,10,14
+40,pairwise_relationship,vert_support,10,15
+41,pairwise_relationship,vert_support,10,16
+42,pairwise_relationship,vert_support,21,22
+edgeNum 36
+0,0,25
+1,25,1
+2,0,26
+3,26,3
+4,0,27
+5,27,4
+6,0,28
+7,28,10
+8,0,29
+9,29,17
+10,0,30
+11,30,18
+12,0,31
+13,31,21
+14,0,32
+15,32,22
+16,0,33
+17,33,24
+18,4,34
+19,34,5
+20,4,35
+21,35,6
+22,10,36
+23,36,11
+24,10,37
+25,37,12
+26,10,38
+27,38,13
+28,10,39
+29,39,14
+30,10,40
+31,40,15
+32,10,41
+33,41,16
+34,21,42
+35,42,22

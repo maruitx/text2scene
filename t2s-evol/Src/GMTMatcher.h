@@ -85,5 +85,9 @@ public:
 	~GMTMatcher();
 
 	void test();
+
+public:
+	KB *m_graphDatabase;
+	Graph* m_queryGraph;
 };
 

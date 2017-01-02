@@ -62,36 +62,81 @@ newModel 29 39ff4b66e92be2aa528a48aac88ce255
 transform 1.891370 0.000000 0.000000 0.000000 0.000000 1.891370 0.000000 0.000000 0.000000 0.000000 1.891370 0.000000 121.902000 226.212006 76.862602 1.000000
 newModel 30 391e6f3a92a48417cc4cd6c58bd35c0c
 transform -0.585183 -0.000000 0.000000 0.000000 0.000000 -0.585183 0.000000 0.000000 0.000000 0.000000 0.585183 0.000000 201.757004 248.796997 46.691898 1.000000
-nodeNum 31
-0,object,room,,
-1,object,lamp,,
+nodeNum 46
+0,object,room,,31 32
+1,object,lamp,31,
 2,object,wallart,,
-3,object,pottedplant,,
-4,object,dresserwithmirror,,
-5,object,horse,,
+3,object,pottedplant,32,
+4,object,dresserwithmirror,,33 34 35 36 37 38 39 40 41 42 43 44 45
+5,object,horse,33,
 6,object,_stanfordscenedbmodels,,
-7,object,pottedplant,,
+7,object,pottedplant,34,
 8,object,plant,,
-9,object,videogamecontroller,,
-10,object,_stanfordscenedbmodels,,
-11,object,_stanfordscenedbmodels,,
+9,object,videogamecontroller,35,
+10,object,_stanfordscenedbmodels,36,
+11,object,_stanfordscenedbmodels,37,
 12,object,book,,
 13,object,book,,
 14,object,_stanfordscenedbmodels,,
-15,object,potrack,,
-16,object,_stanfordscenedbmodels,,
+15,object,potrack,38,
+16,object,_stanfordscenedbmodels,39,
 17,object,vase,,
 18,object,_stanfordscenedbmodels,,
-19,object,_stanfordscenedbmodels,,
-20,object,_stanfordscenedbmodels,,
-21,object,toyfigure,,
-22,object,purse,,
+19,object,_stanfordscenedbmodels,40,
+20,object,_stanfordscenedbmodels,41,
+21,object,toyfigure,42,
+22,object,purse,43,
 23,object,purse,,
 24,object,_stanfordscenedbmodels,,
 25,object,purse,,
-26,object,_stanfordscenedbmodels,,
+26,object,_stanfordscenedbmodels,44,
 27,object,_stanfordscenedbmodels,,
 28,object,_stanfordscenedbmodels,,
-29,object,_stanfordscenedbmodels,,
+29,object,_stanfordscenedbmodels,45,
 30,object,mirror,,
-edgeNum 0
+31,pairwise_relationship,vert_support,0,1
+32,pairwise_relationship,vert_support,0,3
+33,pairwise_relationship,vert_support,4,5
+34,pairwise_relationship,vert_support,4,7
+35,pairwise_relationship,vert_support,4,9
+36,pairwise_relationship,vert_support,4,10
+37,pairwise_relationship,vert_support,4,11
+38,pairwise_relationship,vert_support,4,15
+39,pairwise_relationship,vert_support,4,16
+40,pairwise_relationship,vert_support,4,19
+41,pairwise_relationship,vert_support,4,20
+42,pairwise_relationship,vert_support,4,21
+43,pairwise_relationship,vert_support,4,22
+44,pairwise_relationship,vert_support,4,26
+45,pairwise_relationship,vert_support,4,29
+edgeNum 30
+0,0,31
+1,31,1
+2,0,32
+3,32,3
+4,4,33
+5,33,5
+6,4,34
+7,34,7
+8,4,35
+9,35,9
+10,4,36
+11,36,10
+12,4,37
+13,37,11
+14,4,38
+15,38,15
+16,4,39
+17,39,16
+18,4,40
+19,40,19
+20,4,41
+21,41,20
+22,4,42
+23,42,21
+24,4,43
+25,43,22
+26,4,44
+27,44,26
+28,4,45
+29,45,29

@@ -37,6 +37,7 @@ struct SelEntity
 	QString nameString;  // e.g. chair-4
 
 	bool isPlural;
+	QString instanceCountString; // could be a number, or string e.g., many some
 	int instanceCount;
 
 	int attributeCount;

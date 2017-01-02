@@ -17,7 +17,8 @@
 #define NAME 3
 #define LOAD 4
 
-#define MAX_LABELS 300
+//#define MAX_LABELS 300
+#define MAX_LABELS 500
 
 #define MAX_ATTID 100000
 

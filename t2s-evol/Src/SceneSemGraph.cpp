@@ -97,7 +97,17 @@ void SceneSemGraph::loadGraph(const QString &filename)
 			{
 				currLine = ifs.readLine();
 				std::vector<std::string> parts = PartitionString(currLine.toStdString(), ",");
-				addNode(QString(parts[1].c_str()), QString(parts[2].c_str()));
+				
+				// object node
+				if (parts.size() == 3)
+				{
+					addNode(QString(parts[1].c_str()), QString(parts[2].c_str()));
+				}
+				else
+				{
+					addNode(QString(parts[1].c_str()), QString(parts[2].c_str()));
+				}
+				
 			}
 		} 
 
@@ -122,6 +132,52 @@ TSScene* SceneSemGraph::covertToTSScene(unordered_map<string, Model*> &models)
 	TSScene* newScene = new TSScene(models, m_metaScene);
 
 	return newScene;
+}
+
+SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList)
+{
+	SceneSemGraph *subGraph = new SceneSemGraph();
+
+	map<int, int> oldToNewNodeIdMap;
+	for (int i = 0; i < nodeList.size(); i++)
+	{
+		int oldNodeId = nodeList[i];
+		oldToNewNodeIdMap[oldNodeId] = i;
+	}
+
+	// build graph nodes
+	for (int i = 0; i < nodeList.size(); i++)
+	{
+		SemNode oldNode = m_nodes[nodeList[i]];
+		subGraph->addNode(oldNode.nodeType, oldNode.nodeName);
+	}	
+
+	// build graph edges
+	for (int i = 0; i < m_edgeNum; i++)
+	{
+		SemEdge oldEdge = m_edges[i];
+
+		if (oldToNewNodeIdMap.find(oldEdge.sourceNodeId) != oldToNewNodeIdMap.end() 
+			&& oldToNewNodeIdMap.find(oldEdge.targetNodeId) != oldToNewNodeIdMap.end())
+		{
+			int newSourceId = oldToNewNodeIdMap[oldEdge.sourceNodeId];
+			int newTargetId = oldToNewNodeIdMap[oldEdge.targetNodeId];
+			subGraph->addEdge(newSourceId, newTargetId);
+		}
+	}
+
+	// set meta scene
+	for (int i = 0; i < nodeList.size(); i++)
+	{
+		int oldNodeId = nodeList[i];		
+
+		if (oldNodeId < m_modelNum)
+		{
+			subGraph->m_metaScene.m_metaModellList.push_back(m_metaScene.m_metaModellList[oldNodeId]);
+		}
+	}
+
+	return subGraph;
 }
 
 

@@ -22,16 +22,40 @@ newModel 9 49bb44051ac701a38e6dba661026d53a
 transform 1.139880 0.000000 0.000000 0.000000 0.000000 1.139880 0.000000 0.000000 0.000000 0.000000 1.139880 0.000000 133.809998 186.026993 3.250000 1.000000
 newModel 10 a4479090d2e0939ee4b1c2efb094888b
 transform 0.000000 -0.684581 0.000000 0.000000 0.684581 0.000000 0.000000 0.000000 0.000000 0.000000 0.684581 0.000000 242.813995 285.955994 46.136700 1.000000
-nodeNum 11
-0,object,room,,
-1,object,dresser,,
-2,object,_stanfordscenedbmodels,,
-3,object,books,,
-4,object,bottle,,
-5,object,book,,
+nodeNum 19
+0,object,room,,11 12
+1,object,dresser,11,13 14 15 16 17 18
+2,object,_stanfordscenedbmodels,13,
+3,object,books,14,
+4,object,bottle,15,
+5,object,book,16,
 6,object,_stanfordscenedbmodels,,
-7,object,_stanfordscenedbmodels,,
-8,object,toyfigure,,
-9,object,trashbin,,
+7,object,_stanfordscenedbmodels,17,
+8,object,toyfigure,18,
+9,object,trashbin,12,
 10,object,wallart,,
-edgeNum 0
+11,pairwise_relationship,vert_support,0,1
+12,pairwise_relationship,vert_support,0,9
+13,pairwise_relationship,vert_support,1,2
+14,pairwise_relationship,vert_support,1,3
+15,pairwise_relationship,vert_support,1,4
+16,pairwise_relationship,vert_support,1,5
+17,pairwise_relationship,vert_support,1,7
+18,pairwise_relationship,vert_support,1,8
+edgeNum 16
+0,0,11
+1,11,1
+2,0,12
+3,12,9
+4,1,13
+5,13,2
+6,1,14
+7,14,3
+8,1,15
+9,15,4
+10,1,16
+11,16,5
+12,1,17
+13,17,7
+14,1,18
+15,18,8

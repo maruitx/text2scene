@@ -48,29 +48,95 @@ newModel 22 c3f1944d562738f7daaccab222ac90bc
 transform 2.133400 0.000000 0.000000 0.000000 0.000000 2.133400 0.000000 0.000000 0.000000 0.000000 2.133400 0.000000 -47.475800 10.467900 3.250000 1.000000
 newModel 23 fd244782842c611b6443e5551f9d3958
 transform 0.000000 -1.124860 0.000000 0.000000 1.124860 0.000000 0.000000 0.000000 0.000000 0.000000 1.124860 0.000000 52.447102 190.091003 3.250000 1.000000
-nodeNum 24
-0,object,room,,
+nodeNum 46
+0,object,room,,24 25 26
 1,object,_stanfordscenedbmodels,,
-2,object,desk,,
-3,object,speaker,,
-4,object,monitor,,
+2,object,desk,24,27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42
+3,object,speaker,27,
+4,object,monitor,28,
 5,object,_stanfordscenedbmodels,,
-6,object,monitor,,
-7,object,mousepad,,
-8,object,computermouse,,
-9,object,rubikscube,,
+6,object,monitor,29,
+7,object,mousepad,30,43 44
+8,object,computermouse,31 43,
+9,object,rubikscube,32,
 10,object,_stanfordscenedbmodels,,
-11,object,camera,,
-12,object,_stanfordscenedbmodels,,
-13,object,bowl,,
-14,object,headphones,,
-15,object,lamp,,
-16,object,sodacan,,
-17,object,notepad,,
-18,object,pencil,,
-19,object,speaker,,
-20,object,keyboard,,
+11,object,camera,33,
+12,object,_stanfordscenedbmodels,25 34,
+13,object,bowl,35,
+14,object,headphones,36,
+15,object,lamp,37,
+16,object,sodacan,38,
+17,object,notepad,39 44,45
+18,object,pencil,40 45,
+19,object,speaker,41,
+20,object,keyboard,42,
 21,object,computer,,
-22,object,powerstrip,,
+22,object,powerstrip,26,
 23,object,chair,,
-edgeNum 0
+24,pairwise_relationship,vert_support,0,2
+25,pairwise_relationship,vert_support,0,12
+26,pairwise_relationship,vert_support,0,22
+27,pairwise_relationship,vert_support,2,3
+28,pairwise_relationship,vert_support,2,4
+29,pairwise_relationship,vert_support,2,6
+30,pairwise_relationship,vert_support,2,7
+31,pairwise_relationship,vert_support,2,8
+32,pairwise_relationship,vert_support,2,9
+33,pairwise_relationship,vert_support,2,11
+34,pairwise_relationship,vert_support,2,12
+35,pairwise_relationship,vert_support,2,13
+36,pairwise_relationship,vert_support,2,14
+37,pairwise_relationship,vert_support,2,15
+38,pairwise_relationship,vert_support,2,16
+39,pairwise_relationship,vert_support,2,17
+40,pairwise_relationship,vert_support,2,18
+41,pairwise_relationship,vert_support,2,19
+42,pairwise_relationship,vert_support,2,20
+43,pairwise_relationship,vert_support,7,8
+44,pairwise_relationship,vert_support,7,17
+45,pairwise_relationship,vert_support,17,18
+edgeNum 44
+0,0,24
+1,24,2
+2,0,25
+3,25,12
+4,0,26
+5,26,22
+6,2,27
+7,27,3
+8,2,28
+9,28,4
+10,2,29
+11,29,6
+12,2,30
+13,30,7
+14,2,31
+15,31,8
+16,2,32
+17,32,9
+18,2,33
+19,33,11
+20,2,34
+21,34,12
+22,2,35
+23,35,13
+24,2,36
+25,36,14
+26,2,37
+27,37,15
+28,2,38
+29,38,16
+30,2,39
+31,39,17
+32,2,40
+33,40,18
+34,2,41
+35,41,19
+36,2,42
+37,42,20
+38,7,43
+39,43,8
+40,7,44
+41,44,17
+42,17,45
+43,45,18

@@ -174,7 +174,12 @@ void Scene::renderSynScene(const Transform &trans, int var, bool applyShadow)
 	else
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-	m_variations[var]->render(trans, applyShadow);
+	int varNum = m_variations.size();
+
+	if (var < varNum)
+	{
+		m_variations[var]->render(trans, applyShadow);
+	}	
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
@@ -188,7 +193,12 @@ void Scene::renderSynSceneDepth(const Transform &trans, int var)
 	else
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-	m_variations[var]->renderDepth(trans);
+	int varNum = m_variations.size();
+
+	if (var < varNum)
+	{
+		m_variations[var]->renderDepth(trans);
+	}
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
@@ -204,6 +214,7 @@ void Scene::runOneEvolutionStep()
 	int topSSGNum = m_previewNum;
 
 	m_semanticGraphMatcher->updateCurrentTextSemGraph(activeTextSemGraph);
+	//vector<SceneSemGraph*> matchedSSGs = m_semanticGraphMatcher->testMatchTSGWithSSGs(topSSGNum);
 	vector<SceneSemGraph*> matchedSSGs = m_semanticGraphMatcher->matchTSGWithSSGs(topSSGNum);
 
 	// clean previous variations
@@ -214,9 +225,7 @@ void Scene::runOneEvolutionStep()
 
 	m_variations.clear();
 
-
-
-	for (int i = 0; i < m_previewNum; ++i)
+	for (int i = 0; i < matchedSSGs.size(); ++i)
 	{
 		TSScene *s = matchedSSGs[i]->covertToTSScene(m_models);
 		m_variations.push_back(s);

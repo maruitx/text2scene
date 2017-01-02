@@ -22,16 +22,43 @@ newModel 9 4e300f10506f23f86e57243d49772ed8
 transform 0.000000 -0.014320 0.000000 0.000000 0.014320 0.000000 0.000000 0.000000 0.000000 0.000000 0.014320 0.000000 23.795401 391.260986 42.675201 1.000000
 newModel 10 c24783f8dae6f779f11c3739edd52fa3
 transform 2.052850 0.000000 0.000000 0.000000 0.000000 2.052850 0.000000 0.000000 0.000000 0.000000 2.052850 0.000000 102.612000 393.015015 8.132760 1.000000
-nodeNum 11
-0,object,room,,
-1,object,_stanfordscenedbmodels,,
-2,object,_stanfordscenedbmodels,,
-3,object,_stanfordscenedbmodels,,
-4,object,_stanfordscenedbmodels,,
-5,object,_stanfordscenedbmodels,,
-6,object,_stanfordscenedbmodels,,
-7,object,_stanfordscenedbmodels,,
+nodeNum 20
+0,object,room,,11 12
+1,object,_stanfordscenedbmodels,11,13 14 15 16 17 18 19
+2,object,_stanfordscenedbmodels,13,
+3,object,_stanfordscenedbmodels,14,
+4,object,_stanfordscenedbmodels,15,
+5,object,_stanfordscenedbmodels,16,
+6,object,_stanfordscenedbmodels,17,
+7,object,_stanfordscenedbmodels,18,
 8,object,_stanfordscenedbmodels,,
-9,object,_stanfordscenedbmodels,,
-10,object,_stanfordscenedbmodels,,
-edgeNum 0
+9,object,_stanfordscenedbmodels,19,
+10,object,_stanfordscenedbmodels,12,
+11,pairwise_relationship,vert_support,0,1
+12,pairwise_relationship,vert_support,0,10
+13,pairwise_relationship,vert_support,1,2
+14,pairwise_relationship,vert_support,1,3
+15,pairwise_relationship,vert_support,1,4
+16,pairwise_relationship,vert_support,1,5
+17,pairwise_relationship,vert_support,1,6
+18,pairwise_relationship,vert_support,1,7
+19,pairwise_relationship,vert_support,1,9
+edgeNum 18
+0,0,11
+1,11,1
+2,0,12
+3,12,10
+4,1,13
+5,13,2
+6,1,14
+7,14,3
+8,1,15
+9,15,4
+10,1,16
+11,16,5
+12,1,17
+13,17,6
+14,1,18
+15,18,7
+16,1,19
+17,19,9

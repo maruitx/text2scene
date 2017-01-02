@@ -46,28 +46,70 @@ newModel 21 ee7ef8b40cc2c90d6b7170bfc4da1f8
 transform 0.789436 -1.655090 0.000000 0.000000 0.000000 0.000000 -1.833720 0.000000 1.655090 0.789436 0.000000 0.000000 110.755997 189.598999 56.972801 1.000000
 newModel 22 40ab45735f526717e25492f5f62d416f
 transform 0.000000 1.560000 0.000000 0.000000 -1.560000 0.000000 0.000000 0.000000 0.000000 0.000000 1.560000 0.000000 80.217003 160.985992 3.250000 1.000000
-nodeNum 23
-0,object,room,,
-1,object,trashbin,,
+nodeNum 37
+0,object,room,,23
+1,object,trashbin,23,
 2,object,_stanfordscenedbmodels,,
-3,object,desk,,
-4,object,computer,,
-5,object,_stanfordscenedbmodels,,
-6,object,monitor,,
-7,object,monitor,,
-8,object,keyboard,,
+3,object,desk,,24 25 26 27 28 29 30 31 32 33 34
+4,object,computer,24,35
+5,object,_stanfordscenedbmodels,35,
+6,object,monitor,25,
+7,object,monitor,26,
+8,object,keyboard,27,
 9,object,_stanfordscenedbmodels,,
-10,object,powerstrip,,
-11,object,_stanfordscenedbmodels,,
-12,object,picture,,
-13,object,_stanfordscenedbmodels,,
-14,object,glasses,,
+10,object,powerstrip,28,
+11,object,_stanfordscenedbmodels,29,
+12,object,picture,30,
+13,object,_stanfordscenedbmodels,31,
+14,object,glasses,32,
 15,object,headphones,,
 16,object,paper,,
-17,object,paper,,
-18,object,pencil,,
+17,object,paper,33,36
+18,object,pencil,36,
 19,object,drinkingutensil,,
-20,object,sodacan,,
+20,object,sodacan,34,
 21,object,_stanfordscenedbmodels,,
 22,object,chair,,
-edgeNum 0
+23,pairwise_relationship,vert_support,0,1
+24,pairwise_relationship,vert_support,3,4
+25,pairwise_relationship,vert_support,3,6
+26,pairwise_relationship,vert_support,3,7
+27,pairwise_relationship,vert_support,3,8
+28,pairwise_relationship,vert_support,3,10
+29,pairwise_relationship,vert_support,3,11
+30,pairwise_relationship,vert_support,3,12
+31,pairwise_relationship,vert_support,3,13
+32,pairwise_relationship,vert_support,3,14
+33,pairwise_relationship,vert_support,3,17
+34,pairwise_relationship,vert_support,3,20
+35,pairwise_relationship,vert_support,4,5
+36,pairwise_relationship,vert_support,17,18
+edgeNum 28
+0,0,23
+1,23,1
+2,3,24
+3,24,4
+4,3,25
+5,25,6
+6,3,26
+7,26,7
+8,3,27
+9,27,8
+10,3,28
+11,28,10
+12,3,29
+13,29,11
+14,3,30
+15,30,12
+16,3,31
+17,31,13
+18,3,32
+19,32,14
+20,3,33
+21,33,17
+22,3,34
+23,34,20
+24,4,35
+25,35,5
+26,17,36
+27,36,18

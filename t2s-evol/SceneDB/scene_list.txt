@@ -1,4 +1,4 @@
-StanfordSceneDatabase 133
+StanfordSceneDatabase 80
 scene00000
 scene00001
 scene00002

@@ -45,6 +45,8 @@ public:
 	void addNode(const QString &nType, const QString &nName);
 	void addEdge(int s, int t);
 
+	std::vector<int> findNodeWithName(const QString &nName);
+
 public:
 	int m_nodeNum, m_edgeNum;
 	std::vector<SemNode> m_nodes;

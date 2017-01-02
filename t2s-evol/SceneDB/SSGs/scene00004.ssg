@@ -8,9 +8,18 @@ newModel 2 51ddb98b62d242c234b77b4127aa78ab
 transform 0.002038 -0.000053 0.000000 0.000000 0.000053 0.002038 0.000000 0.000000 0.000000 0.000000 0.002039 0.000000 148.244003 203.503006 51.670799 1.000000
 newModel 3 225d37286bed9bb9dbf53b03c847b004
 transform 1.620180 -0.084910 0.000000 0.000000 0.084910 1.620180 0.000000 0.000000 0.000000 0.000000 1.622400 0.000000 -62.005199 163.371994 2.200040 1.000000
-nodeNum 4
-0,object,room,,
-1,object,desk,,
-2,object,computer,,
-3,object,monitor,,
-edgeNum 0
+nodeNum 7
+0,object,room,,4
+1,object,desk,4,5 6
+2,object,computer,5,
+3,object,monitor,6,
+4,pairwise_relationship,vert_support,0,1
+5,pairwise_relationship,vert_support,1,2
+6,pairwise_relationship,vert_support,1,3
+edgeNum 6
+0,0,4
+1,4,1
+2,1,5
+3,5,2
+4,1,6
+5,6,3

@@ -11,7 +11,7 @@
 #include "Token.h"
 #include "List.h"
 #include "Graph.h"
-#include "assert.h"
+#include "gmt_assert.h"
 #include "Tools.h"
 
 

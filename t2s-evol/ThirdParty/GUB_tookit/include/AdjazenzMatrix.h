@@ -18,7 +18,7 @@ Email:  messmer@iam.unibe.ch
 
 #include <stdio.h>
 #include <string.h>
-#include "assert.h"
+#include "gmt_assert.h"
 #include "Randomizer.h"
 //#include "AttributeClass.h"
 #include "AttControl.h"

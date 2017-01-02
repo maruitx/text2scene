@@ -62,36 +62,96 @@ newModel 29 3e64a7042776f19adc9938c9fceb2ffd
 transform 1.897980 0.000000 0.000000 0.000000 0.000000 1.897980 0.000000 0.000000 0.000000 0.000000 1.897980 0.000000 10.628900 193.160995 7.720560 1.000000
 newModel 30 e382a760529244811085a6d70c973b41
 transform 0.827932 -0.221843 0.000000 0.000000 0.000000 0.000000 0.857138 0.000000 -0.221843 -0.827932 0.000000 0.000000 -9.554140 240.427002 4.812630 1.000000
-nodeNum 31
-0,object,room,,
-1,object,_stanfordscenedbmodels,,
-2,object,_stanfordscenedbmodels,,
-3,object,dresser,,
-4,object,_stanfordscenedbmodels,,
-5,object,mirror,,
-6,object,_stanfordscenedbmodels,,
-7,object,_stanfordscenedbmodels,,
-8,object,_stanfordscenedbmodels,,
-9,object,_stanfordscenedbmodels,,
-10,object,bottle,,
-11,object,tableclock,,
-12,object,_stanfordscenedbmodels,,
+nodeNum 51
+0,object,room,,31 32 33 34 35
+1,object,_stanfordscenedbmodels,31,
+2,object,_stanfordscenedbmodels,32,
+3,object,dresser,33,36 37 38 39 40
+4,object,_stanfordscenedbmodels,36,
+5,object,mirror,37,
+6,object,_stanfordscenedbmodels,38,
+7,object,_stanfordscenedbmodels,39,
+8,object,_stanfordscenedbmodels,40,
+9,object,_stanfordscenedbmodels,,41 42 43 44 45 46
+10,object,bottle,41,
+11,object,tableclock,42,
+12,object,_stanfordscenedbmodels,43,
 13,object,_stanfordscenedbmodels,,
-14,object,_stanfordscenedbmodels,,
-15,object,_stanfordscenedbmodels,,
-16,object,_stanfordscenedbmodels,,
-17,object,bed,,
+14,object,_stanfordscenedbmodels,44,
+15,object,_stanfordscenedbmodels,45,
+16,object,_stanfordscenedbmodels,46,
+17,object,bed,34,47
 18,object,mirror,,
-19,object,wallart,,
-20,object,_stanfordscenedbmodels,,
-21,object,book,,
-22,object,book,,
-23,object,dog,,
+19,object,wallart,47,
+20,object,_stanfordscenedbmodels,,48 49
+21,object,book,48,50
+22,object,book,50,
+23,object,dog,49,
 24,object,_stanfordscenedbmodels,,
 25,object,_stanfordscenedbmodels,,
 26,object,bench,,
 27,object,lightswitch,,
 28,object,_stanfordscenedbmodels,,
-29,object,_stanfordscenedbmodels,,
+29,object,_stanfordscenedbmodels,35,
 30,object,_stanfordscenedbmodels,,
-edgeNum 0
+31,pairwise_relationship,vert_support,0,1
+32,pairwise_relationship,vert_support,0,2
+33,pairwise_relationship,vert_support,0,3
+34,pairwise_relationship,vert_support,0,17
+35,pairwise_relationship,vert_support,0,29
+36,pairwise_relationship,vert_support,3,4
+37,pairwise_relationship,vert_support,3,5
+38,pairwise_relationship,vert_support,3,6
+39,pairwise_relationship,vert_support,3,7
+40,pairwise_relationship,vert_support,3,8
+41,pairwise_relationship,vert_support,9,10
+42,pairwise_relationship,vert_support,9,11
+43,pairwise_relationship,vert_support,9,12
+44,pairwise_relationship,vert_support,9,14
+45,pairwise_relationship,vert_support,9,15
+46,pairwise_relationship,vert_support,9,16
+47,pairwise_relationship,vert_support,17,19
+48,pairwise_relationship,vert_support,20,21
+49,pairwise_relationship,vert_support,20,23
+50,pairwise_relationship,vert_support,21,22
+edgeNum 40
+0,0,31
+1,31,1
+2,0,32
+3,32,2
+4,0,33
+5,33,3
+6,0,34
+7,34,17
+8,0,35
+9,35,29
+10,3,36
+11,36,4
+12,3,37
+13,37,5
+14,3,38
+15,38,6
+16,3,39
+17,39,7
+18,3,40
+19,40,8
+20,9,41
+21,41,10
+22,9,42
+23,42,11
+24,9,43
+25,43,12
+26,9,44
+27,44,14
+28,9,45
+29,45,15
+30,9,46
+31,46,16
+32,17,47
+33,47,19
+34,20,48
+35,48,21
+36,20,49
+37,49,23
+38,21,50
+39,50,22

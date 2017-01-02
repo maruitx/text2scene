@@ -19,7 +19,7 @@ Email:  messmer@iam.unibe.ch
 #include <stdio.h>
 //#include <stream.h>
 #include <iostream>
-#include "assert.h"
+#include "gmt_assert.h"
 
 #ifndef MAX_MODEL_SIZE
 #define MAX_MODEL_SIZE 500

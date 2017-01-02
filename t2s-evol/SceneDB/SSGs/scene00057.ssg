@@ -32,21 +32,51 @@ newModel 14 6547433f606945dbd9d6eb448e778c01
 transform 0.496804 0.496804 0.000000 0.000000 0.000000 0.000000 0.702587 0.000000 0.496804 -0.496804 0.000000 0.000000 186.039001 27.464800 -8.497670 1.000000
 newModel 15 c6fd613a4583b17311fc2b865c2a185b
 transform 0.000000 -0.707522 0.000000 0.000000 0.707522 0.000000 0.000000 0.000000 0.000000 0.000000 0.707522 0.000000 94.851898 185.957993 3.250000 1.000000
-nodeNum 16
-0,object,room,,
+nodeNum 26
+0,object,room,,16 17 18
 1,object,_stanfordscenedbmodels,,
 2,object,powersocket,,
 3,object,mirror,,
-4,object,dresser,,
-5,object,computer,,
-6,object,_stanfordscenedbmodels,,
-7,object,_stanfordscenedbmodels,,
-8,object,_stanfordscenedbmodels,,
+4,object,dresser,16,19 20 21 22 23 24 25
+5,object,computer,19,
+6,object,_stanfordscenedbmodels,20,
+7,object,_stanfordscenedbmodels,21,
+8,object,_stanfordscenedbmodels,22,
 9,object,_pilotstudymodels,,
-10,object,cap,,
-11,object,bottle,,
-12,object,lightswitch,,
+10,object,cap,23,
+11,object,bottle,24,
+12,object,lightswitch,25,
 13,object,_pilotstudymodels,,
-14,object,shirt,,
+14,object,shirt,17,
 15,object,rug,,
-edgeNum 0
+16,pairwise_relationship,vert_support,0 18,4
+17,pairwise_relationship,vert_support,0,14
+18,pairwise_relationship,vert_support,0,16
+19,pairwise_relationship,vert_support,4,5
+20,pairwise_relationship,vert_support,4,6
+21,pairwise_relationship,vert_support,4,7
+22,pairwise_relationship,vert_support,4,8
+23,pairwise_relationship,vert_support,4,10
+24,pairwise_relationship,vert_support,4,11
+25,pairwise_relationship,vert_support,4,12
+edgeNum 20
+0,0,16
+1,16,4
+2,0,17
+3,17,14
+4,0,18
+5,18,16
+6,4,19
+7,19,5
+8,4,20
+9,20,6
+10,4,21
+11,21,7
+12,4,22
+13,22,8
+14,4,23
+15,23,10
+16,4,24
+17,24,11
+18,4,25
+19,25,12

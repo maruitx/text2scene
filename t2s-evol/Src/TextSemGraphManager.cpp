@@ -80,7 +80,8 @@ void TextSemGraphManager::loadSELFromOutput(const QString &filename)
 
 					if (currLine.left(5) == "count")
 					{
-						newEntity.instanceCount = StringToIntegerList(currLine.toStdString(), "count:")[0];
+						std::vector<std::string> parts = PartitionString(currLine.toStdString(), ":");
+						newEntity.instanceCountString =  QString(parts[1].c_str());;
 					}
 
 					if (currLine.contains("attributes"))

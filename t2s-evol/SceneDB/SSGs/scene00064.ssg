@@ -24,17 +24,44 @@ newModel 10 b92c1ad2943ec29168faa7730065e439
 transform 1.857800 -0.550306 0.000000 0.000000 0.550306 1.857800 0.000000 0.000000 0.000000 0.000000 1.937590 0.000000 230.917999 183.337997 4.775660 1.000000
 newModel 11 aeb9aa00a233920e1f6a5b0146bf3030
 transform 1.622400 0.000000 0.000000 0.000000 0.000000 1.622400 0.000000 0.000000 0.000000 0.000000 1.622400 0.000000 188.160004 199.324005 3.250000 1.000000
-nodeNum 12
-0,object,room,,
+nodeNum 21
+0,object,room,,12 13
 1,object,speaker,,
-2,object,cabinet,,
-3,object,tv,,
-4,object,_stanfordscenedbmodels,,
-5,object,_stanfordscenedbmodels,,
-6,object,_stanfordscenedbmodels,,
-7,object,videogameconsole,,
-8,object,videogameconsole,,
-9,object,_stanfordscenedbmodels,,
+2,object,cabinet,12,14 15 16 17 18 19
+3,object,tv,14,
+4,object,_stanfordscenedbmodels,15,20
+5,object,_stanfordscenedbmodels,20,
+6,object,_stanfordscenedbmodels,16,
+7,object,videogameconsole,17,
+8,object,videogameconsole,18,
+9,object,_stanfordscenedbmodels,19,
 10,object,speaker,,
-11,object,pottedplant,,
-edgeNum 0
+11,object,pottedplant,13,
+12,pairwise_relationship,vert_support,0,2
+13,pairwise_relationship,vert_support,0,11
+14,pairwise_relationship,vert_support,2,3
+15,pairwise_relationship,vert_support,2,4
+16,pairwise_relationship,vert_support,2,6
+17,pairwise_relationship,vert_support,2,7
+18,pairwise_relationship,vert_support,2,8
+19,pairwise_relationship,vert_support,2,9
+20,pairwise_relationship,vert_support,4,5
+edgeNum 18
+0,0,12
+1,12,2
+2,0,13
+3,13,11
+4,2,14
+5,14,3
+6,2,15
+7,15,4
+8,2,16
+9,16,6
+10,2,17
+11,17,7
+12,2,18
+13,18,8
+14,2,19
+15,19,9
+16,4,20
+17,20,5

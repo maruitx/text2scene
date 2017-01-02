@@ -38,24 +38,72 @@ newModel 17 fced7db5239547baff59f04994ef1f0c
 transform 0.000000 0.936896 0.000000 0.000000 -0.936896 0.000000 0.000000 0.000000 0.000000 0.000000 0.936896 0.000000 50.272400 88.517899 33.390499 1.000000
 newModel 18 41e5bda56f6e840e8a1430c80ad4e85
 transform 0.000000 1.500000 0.000000 0.000000 -1.500000 0.000000 0.000000 0.000000 0.000000 0.000000 1.500000 0.000000 22.513800 -55.489300 39.483898 1.000000
-nodeNum 19
-0,object,room,,
-1,object,rug,,
-2,object,table,,
-3,object,_stanfordscenedbmodels,,
-4,object,pizza,,
-5,object,_stanfordscenedbmodels,,
-6,object,_stanfordscenedbmodels,,
-7,object,_stanfordscenedbmodels,,
-8,object,drinkingutensil,,
-9,object,_stanfordscenedbmodels,,
-10,object,_stanfordscenedbmodels,,
-11,object,chair,,
-12,object,chair,,
-13,object,chair,,
-14,object,chair,,
-15,object,chair,,
-16,object,chair,,
+nodeNum 35
+0,object,room,,19
+1,object,rug,19,20 21 22 23 24 25 26
+2,object,table,20,27 28 29 30 31 32 33 34
+3,object,_stanfordscenedbmodels,27,
+4,object,pizza,28,
+5,object,_stanfordscenedbmodels,29,
+6,object,_stanfordscenedbmodels,30,
+7,object,_stanfordscenedbmodels,31,
+8,object,drinkingutensil,32,
+9,object,_stanfordscenedbmodels,33,
+10,object,_stanfordscenedbmodels,34,
+11,object,chair,21,
+12,object,chair,22,
+13,object,chair,23,
+14,object,chair,24,
+15,object,chair,25,
+16,object,chair,26,
 17,object,wallart,,
 18,object,wallart,,
-edgeNum 0
+19,pairwise_relationship,vert_support,0,1
+20,pairwise_relationship,vert_support,1,2
+21,pairwise_relationship,vert_support,1,11
+22,pairwise_relationship,vert_support,1,12
+23,pairwise_relationship,vert_support,1,13
+24,pairwise_relationship,vert_support,1,14
+25,pairwise_relationship,vert_support,1,15
+26,pairwise_relationship,vert_support,1,16
+27,pairwise_relationship,vert_support,2,3
+28,pairwise_relationship,vert_support,2,4
+29,pairwise_relationship,vert_support,2,5
+30,pairwise_relationship,vert_support,2,6
+31,pairwise_relationship,vert_support,2,7
+32,pairwise_relationship,vert_support,2,8
+33,pairwise_relationship,vert_support,2,9
+34,pairwise_relationship,vert_support,2,10
+edgeNum 32
+0,0,19
+1,19,1
+2,1,20
+3,20,2
+4,1,21
+5,21,11
+6,1,22
+7,22,12
+8,1,23
+9,23,13
+10,1,24
+11,24,14
+12,1,25
+13,25,15
+14,1,26
+15,26,16
+16,2,27
+17,27,3
+18,2,28
+19,28,4
+20,2,29
+21,29,5
+22,2,30
+23,30,6
+24,2,31
+25,31,7
+26,2,32
+27,32,8
+28,2,33
+29,33,9
+30,2,34
+31,34,10

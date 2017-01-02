@@ -18,7 +18,7 @@ Email:  messmer@iam.unibe.ch
 
 #include <string.h>
 
-#include "assert.h"
+#include "gmt_assert.h"
 #include <stdio.h>
 //#include <stream.h>
 #include <iostream>
