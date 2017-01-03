@@ -37,7 +37,7 @@ nodeNum 28
 5,object,speaker,19,
 6,object,tv,20,
 7,object,bottle,21,
-8,object,_stanfordscenedbmodels,22,
+8,object,cup,22,
 9,object,book,23,
 10,object,speaker,24,
 11,object,chair,25 27,
@@ -86,3 +86,6 @@ edgeNum 28
 25,26,3
 26,3,27
 27,27,11
+
+27,27,11
+27,11

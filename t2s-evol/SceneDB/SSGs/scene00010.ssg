@@ -92,20 +92,20 @@ newModel 44 f297885d4918000ec8724d5673a063a6
 transform 1.838610 0.144702 0.000000 0.000000 -0.144702 1.838610 0.000000 0.000000 0.000000 0.000000 1.844300 0.000000 221.800995 121.807999 3.250000 1.000000
 nodeNum 79
 0,object,room,,45 46 47 48 49 50 51 52 53 54
-1,object,_stanfordscenedbmodels,45,55 56 57 58
-2,object,_stanfordscenedbmodels,55,
-3,object,_stanfordscenedbmodels,56,
-4,object,_stanfordscenedbmodels,57,
-5,object,_stanfordscenedbmodels,46,59 60 61 62 63 64
-6,object,_stanfordscenedbmodels,59,
-7,object,_stanfordscenedbmodels,60,
-8,object,_stanfordscenedbmodels,61,
-9,object,_stanfordscenedbmodels,62,65
-10,object,_stanfordscenedbmodels,63,
-11,object,_stanfordscenedbmodels,58 64 65,
+1,object,washer,45,55 56 57 58
+2,object,hanger,55,
+3,object,hanger,56,
+4,object,hanger,57,
+5,object,washer,46,59 60 61 62 63 64
+6,object,taw,59,
+7,object,taw,60,
+8,object,taw,61,
+9,object,taw,62,65
+10,object,taw,63,
+11,object,jersey,58 64 65,
 12,object,ceilingfan,47,
-13,object,_stanfordscenedbmodels,48,66
-14,object,_stanfordscenedbmodels,49,
+13,object,trashbin,48,66
+14,object,vacuum,49,
 15,object,mirror,,
 16,object,suitcase,50,
 17,object,rack,51,67 68 69 70 71 72 73
@@ -113,29 +113,29 @@ nodeNum 79
 19,object,shoes,,
 20,object,shoes,,
 21,object,shoes,67,
-22,object,_stanfordscenedbmodels,68,
+22,object,shoes,68,
 23,object,shoes,69,
 24,object,shoes,70,
 25,object,shoes,71,
-26,object,_stanfordscenedbmodels,72,
+26,object,shoes,72,
 27,object,purse,73,
 28,object,rack,,
 29,object,sink,,74
-30,object,_stanfordscenedbmodels,74,
-31,object,_stanfordscenedbmodels,,
-32,object,_stanfordscenedbmodels,,
+30,object,bottle,74,
+31,object,basket,,
+32,object,radio receiver,,
 33,object,rack,52,75
 34,object,suitcase,75,
-35,object,_stanfordscenedbmodels,,76 77 78
-36,object,_stanfordscenedbmodels,76,
-37,object,_stanfordscenedbmodels,77,
+35,object,1shelves,,76 77 78
+36,object,papertowel,76,
+37,object,dustpan,77,
 38,object,cap,78,
-39,object,_stanfordscenedbmodels,66,
-40,object,_stanfordscenedbmodels,,
-41,object,_stanfordscenedbmodels,,
-42,object,_stanfordscenedbmodels,53,
-43,object,_stanfordscenedbmodels,,
-44,object,_stanfordscenedbmodels,54,
+39,object,towel,66,
+40,object,broom,,
+41,object,broom,,
+42,object,basket,53,
+43,object,bag,,
+44,object,bag,54,
 45,pairwise_relationship,vert_support,0,1
 46,pairwise_relationship,vert_support,0,5
 47,pairwise_relationship,vert_support,0,12
@@ -194,6 +194,52 @@ edgeNum 68
 20,1,55
 21,55,2
 22,1,56
+23,56,3
+24,1,57
+25,57,4
+26,1,58
+27,58,11
+28,5,59
+29,59,6
+30,5,60
+31,60,7
+32,5,61
+33,61,8
+34,5,62
+35,62,9
+36,5,63
+37,63,10
+38,5,64
+39,64,11
+40,9,65
+41,65,11
+42,13,66
+43,66,39
+44,17,67
+45,67,21
+46,17,68
+47,68,22
+48,17,69
+49,69,23
+50,17,70
+51,70,24
+52,17,71
+53,71,25
+54,17,72
+55,72,26
+56,17,73
+57,73,27
+58,29,74
+59,74,30
+60,33,75
+61,75,34
+62,35,76
+63,76,36
+64,35,77
+65,77,37
+66,35,78
+67,78,38
+1,56
 23,56,3
 24,1,57
 25,57,4

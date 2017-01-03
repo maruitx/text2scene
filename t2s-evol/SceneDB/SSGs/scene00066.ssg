@@ -32,17 +32,17 @@ newModel 14 8e619f1312acae5021d25a6a55757584
 transform 1.139880 0.000000 0.000000 0.000000 0.000000 1.139880 0.000000 0.000000 0.000000 0.000000 1.139880 0.000000 201.054001 223.253998 3.250000 1.000000
 nodeNum 27
 0,object,room,,15 16 17 18 19
-1,object,_stanfordscenedbmodels,15,
-2,object,_stanfordscenedbmodels,16,20 21 22 23 24 25 26
+1,object,guitarstand,15,
+2,object,tvstand,16,20 21 22 23 24 25 26
 3,object,tv,20,
 4,object,videogameconsole,21,
-5,object,_stanfordscenedbmodels,22,
-6,object,_stanfordscenedbmodels,23,
-7,object,_stanfordscenedbmodels,24,
-8,object,_stanfordscenedbmodels,25,
+5,object,mediaplayer,22,
+6,object,remote control,23,
+7,object,controller,24,
+8,object,webcam,25,
 9,object,videogamecontroller,,
 10,object,videogamecontroller,,
-11,object,_stanfordscenedbmodels,26,
+11,object,videodisk,26,
 12,object,speaker,17,
 13,object,speaker,18,
 14,object,pottedplant,19,
@@ -74,6 +74,16 @@ edgeNum 24
 12,2,21
 13,21,4
 14,2,22
+15,22,5
+16,2,23
+17,23,6
+18,2,24
+19,24,7
+20,2,25
+21,25,8
+22,2,26
+23,26,11
+22
 15,22,5
 16,2,23
 17,23,6

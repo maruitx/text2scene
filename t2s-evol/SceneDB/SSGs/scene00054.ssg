@@ -38,16 +38,16 @@ nodeNum 32
 2,object,chair,,
 3,object,chair,,
 4,object,table,,16 17 18 19 20 21 22 23 24 25
-5,object,_stanfordscenedbmodels,16,26 27 28
-6,object,_stanfordscenedbmodels,17 26,
+5,object,plate,16,26 27 28
+6,object,fooditem,17 26,
 7,object,knife,18 27,
-8,object,drinkingutensil,19,29
+8,object,cup,19,29
 9,object,book,20,
-10,object,_stanfordscenedbmodels,21,
-11,object,_stanfordscenedbmodels,22 29,30
-12,object,_stanfordscenedbmodels,23 30,
-13,object,_stanfordscenedbmodels,24 28,
-14,object,_stanfordscenedbmodels,25,31
+10,object,candle,21,
+11,object,plate,22 29,30
+12,object,cup,23 30,
+13,object,magazine,24 28,
+14,object,mug,25,31
 15,object,chair,31,
 16,pairwise_relationship,vert_support,4,5
 17,pairwise_relationship,vert_support,4,6
@@ -89,6 +89,20 @@ edgeNum 32
 20,5,26
 21,26,6
 22,5,27
+23,27,7
+24,5,28
+25,28,13
+26,8,29
+27,29,11
+28,11,30
+29,30,12
+30,14,31
+31,31,15
+1,30
+29,30,12
+30,14,31
+31,31,15
+,27
 23,27,7
 24,5,28
 25,28,13

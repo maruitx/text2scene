@@ -127,8 +127,9 @@ void SceneSemGraph::loadGraph(const QString &filename)
 	inFile.close();
 }
 
-TSScene* SceneSemGraph::covertToTSScene(unordered_map<string, Model*> &models)
+TSScene* SceneSemGraph::covertToTSScene(unordered_map<string, Model*> &models, const QString &sceneName)
 {
+	m_metaScene.m_sceneFileName = sceneName;
 	TSScene* newScene = new TSScene(models, m_metaScene);
 
 	return newScene;

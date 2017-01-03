@@ -65,14 +65,14 @@ nodeNum 49
 11,object,lamp,36,
 12,object,notepad,37,48
 13,object,pen,38 48,
-14,object,_stanfordscenedbmodels,39,
+14,object,cellphone,39,
 15,object,wallet,40,
-16,object,_pilotstudymodels,41,
+16,object,key,41,
 17,object,headphones,42,
 18,object,usbstick,43,
 19,object,mediadiscs,44,
 20,object,stapler,45,
-21,object,_stanfordscenedbmodels,46,
+21,object,cellulose tape,46,
 22,object,chair,27,
 23,object,powersocket,,
 24,object,powerstrip,28,
@@ -147,5 +147,10 @@ edgeNum 48
 43,46,21
 44,7,47
 45,47,8
+46,12,48
+47,48,13
+48
+47,48,13
+
 46,12,48
 47,48,13

@@ -44,17 +44,17 @@ nodeNum 37
 2,object,speaker,,
 3,object,speaker,,
 4,object,tv,21,29
-5,object,_stanfordscenedbmodels,22,30 31
+5,object,videogameconsole,22,30 31
 6,object,videogamecontroller,30,
 7,object,videogamecontroller,31,
-8,object,_stanfordscenedbmodels,,
-9,object,_stanfordscenedbmodels,23,32
+8,object,videogameconsole,,
+9,object,chestofdrawers,23,32
 10,object,videogamecontroller,24,33
 11,object,toyfigure,,34
-12,object,_stanfordscenedbmodels,25,
-13,object,_stanfordscenedbmodels,26 29,
-14,object,_stanfordscenedbmodels,27,
-15,object,_stanfordscenedbmodels,,
+12,object,videogamecontroller,25,
+13,object,remote control,26 29,
+14,object,remote control,27,
+15,object,powersocket,,
 16,object,rug,20 28 32 33 34,35 36
 17,object,pillow,35,
 18,object,pillow,36,
@@ -108,6 +108,11 @@ edgeNum 36
 28,10,33
 29,33,16
 30,11,34
+31,34,16
+32,16,35
+33,35,17
+34,16,36
+35,36,18
 31,34,16
 32,16,35
 33,35,17

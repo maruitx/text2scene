@@ -50,8 +50,8 @@ nodeNum 43
 0,object,room,,
 1,object,bookcase,,23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40
 2,object,pottedplant,23,
-3,object,_stanfordscenedbmodels,39,
-4,object,_stanfordscenedbmodels,40,
+3,object,pictureframe,39,
+4,object,decorativeaccessory,40,
 5,object,books,24,
 6,object,books,25,
 7,object,books,26,41
@@ -59,16 +59,16 @@ nodeNum 43
 9,object,books,27,
 10,object,books,28,
 11,object,books,29,
-12,object,_stanfordscenedbmodels,30,
-13,object,_stanfordscenedbmodels,31,
+12,object,bookend,30,
+13,object,toy,31,
 14,object,book,32,
 15,object,toyfigure,33,
-16,object,_stanfordscenedbmodels,,
-17,object,_stanfordscenedbmodels,34 42,
+16,object,toyfigure,,
+17,object,chestofdrawers,34 42,
 18,object,book,,
 19,object,toyfigure,35,
 20,object,guitar,36,
-21,object,_stanfordscenedbmodels,37,
+21,object,calculator,37,
 22,object,pottedplant,38,
 23,pairwise_relationship,vert_support,1,2
 24,pairwise_relationship,vert_support,1,5
@@ -123,6 +123,15 @@ edgeNum 40
 29,37,21
 30,1,38
 31,38,22
+32,1,39
+33,39,3
+34,1,40
+35,40,4
+36,7,41
+37,41,8
+38,8,42
+39,42,17
+38,22
 32,1,39
 33,39,3
 34,1,40

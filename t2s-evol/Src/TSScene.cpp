@@ -6,26 +6,31 @@
 TSScene::TSScene(unordered_map<string, Model*> &models)
 	:m_models(models),
 	m_sceneBB(vec3(math_maxfloat), vec3(math_minfloat)),
-	m_frameCount(0)
+	m_frameCount(0),
+	m_loadedModelNum(0)
 {
-
+	
 }
 
 TSScene::TSScene(unordered_map<string, Model*> &models, const QString &fileName)
 : m_models(models),
   m_sceneBB(vec3(math_maxfloat), vec3(math_minfloat)), 
-  m_frameCount(0)
+  m_frameCount(0),
+  m_loadedModelNum(0)
 {
 	loadSceneFile(fileName);
+	countLoadedModelNum();
 }
 
 TSScene::TSScene(unordered_map<string, Model*> &models, MetaScene &ms)
 	:m_models(models),
 	m_metaScene(ms),
 	m_sceneBB(vec3(math_maxfloat), vec3(math_minfloat)),
-	m_frameCount(0)
+	m_frameCount(0),
+	m_loadedModelNum(0)
 {
 	m_modelNum = m_metaScene.m_metaModellList.size();
+	countLoadedModelNum();
 }
 
 TSScene::~TSScene()
@@ -115,6 +120,8 @@ void TSScene::render(const Transform &trans, bool applyShadow)
 			}
 
 			nrLoaded++;
+
+			countLoadedModelNum();
 		}
 	}
 
@@ -146,5 +153,26 @@ void TSScene::makeRandom()
 		md.transformation.a14 += rand<float>(-10, 10);
 		md.transformation.a24 += rand<float>(-10, 10);
 		md.transformation.a34 += rand<float>(-10, 10);
+	}
+}
+
+void TSScene::countLoadedModelNum()
+{
+	m_loadedModelNum = 0;
+
+	for (int i = 0; i < m_metaScene.m_metaModellList.size(); i++)
+	{
+		MetaModel &md = m_metaScene.m_metaModellList[i];
+		auto &iter = m_models.find(md.name);
+
+		if (iter != m_models.end())
+		{
+			m_loadedModelNum++;
+		}
+	}
+
+	if (m_loadedModelNum == m_metaScene.m_metaModellList.size())
+	{
+		cout << "\nFinish loading models for "<<m_metaScene.m_sceneFileName.toStdString()<<"\n";
 	}
 }

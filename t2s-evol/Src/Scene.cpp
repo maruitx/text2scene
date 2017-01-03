@@ -205,7 +205,7 @@ void Scene::renderSynSceneDepth(const Transform &trans, int var)
 
 void Scene::runOneEvolutionStep()
 {
-	QString filename = "../matt-SEL-playground/out.txt";
+	QString filename = "out.txt";
 	m_textSemGraphManager->loadSELFromOutput(filename);
 
 	TextSemGraph* activeTextSemGraph = m_textSemGraphManager->getActiveGraph();
@@ -227,7 +227,8 @@ void Scene::runOneEvolutionStep()
 
 	for (int i = 0; i < matchedSSGs.size(); ++i)
 	{
-		TSScene *s = matchedSSGs[i]->covertToTSScene(m_models);
+		QString sceneName = QString("Preview %1").arg(i);
+		TSScene *s = matchedSSGs[i]->covertToTSScene(m_models, sceneName);
 		m_variations.push_back(s);
 	}
 }

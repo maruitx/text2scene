@@ -17,9 +17,12 @@ transform 0.054426 0.000000 0.000000 0.000000 0.000000 0.000000 -0.054426 0.0000
 nodeNum 7
 0,object,room,,
 1,object,nightstand,,
-2,object,_stanfordscenedbmodels,,
-3,object,_pilotstudymodels,,
+2,object,cup,,
+3,object,tableclock,,
 4,object,pillbottle,,
 5,object,book,,
 6,object,book,,
 edgeNum 0
+book,,
+edgeNum 0
+Num 0

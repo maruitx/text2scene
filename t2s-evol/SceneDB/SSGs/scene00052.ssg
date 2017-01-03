@@ -60,28 +60,28 @@ nodeNum 63
 0,object,room,,28 29 30 31
 1,object,table,28,32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53
 2,object,pottedplant,32,
-3,object,_stanfordscenedbmodels,33,54
-4,object,_stanfordscenedbmodels,34 54,
-5,object,_stanfordscenedbmodels,35,
-6,object,_stanfordscenedbmodels,36,
-7,object,_stanfordscenedbmodels,37,55
-8,object,_stanfordscenedbmodels,38 55,
-9,object,_stanfordscenedbmodels,,
-10,object,_stanfordscenedbmodels,39,56 57 58 59
+3,object,plate,33,54
+4,object,fooditem,34 54,
+5,object,glasses,35,
+6,object,pepper shaker,36,
+7,object,plate,37,55
+8,object,fooditem,38 55,
+9,object,fooditem,,
+10,object,platter,39,56 57 58 59
 11,object,fooditem,40 56,
-12,object,_stanfordscenedbmodels,41 57,
-13,object,_stanfordscenedbmodels,42 58,
-14,object,_stanfordscenedbmodels,43 59,
-15,object,_stanfordscenedbmodels,44,60 61
-16,object,_stanfordscenedbmodels,45 60,
-17,object,_stanfordscenedbmodels,46 61,
-18,object,_stanfordscenedbmodels,47,
+12,object,fooditem,41 57,
+13,object,fooditem,42 58,
+14,object,fooditem,43 59,
+15,object,bowl,44,60 61
+16,object,fooditem,45 60,
+17,object,fooditem,46 61,
+18,object,fooditem,47,
 19,object,book,48,62
-20,object,_pilotstudymodels,49 62,
-21,object,_stanfordscenedbmodels,50,
+20,object,key,49 62,
+21,object,cellphone,50,
 22,object,wallet,51,
-23,object,_stanfordscenedbmodels,52,
-24,object,drinkingutensil,53,
+23,object,mug,52,
+24,object,cup,53,
 25,object,chair,29,
 26,object,chair,30,
 27,object,chair,31,
@@ -167,6 +167,35 @@ edgeNum 70
 43,49,20
 44,1,50
 45,50,21
+46,1,51
+47,51,22
+48,1,52
+49,52,23
+50,1,53
+51,53,24
+52,3,54
+53,54,4
+54,7,55
+55,55,8
+56,10,56
+57,56,11
+58,10,57
+59,57,12
+60,10,58
+61,58,13
+62,10,59
+63,59,14
+64,15,60
+65,60,16
+66,15,61
+67,61,17
+68,19,62
+69,62,20
+,15,61
+67,61,17
+68,19,62
+69,62,20
+21
 46,1,51
 47,51,22
 48,1,52

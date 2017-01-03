@@ -49,17 +49,17 @@ transform 1.500000 0.000000 0.000000 0.000000 0.000000 1.500000 0.000000 0.00000
 nodeNum 41
 0,object,room,,23 24 25
 1,object,table,23,26 27 28 29 30 31 32 33 34 35 36
-2,object,_stanfordscenedbmodels,26,
-3,object,_stanfordscenedbmodels,27,37 38 39
-4,object,_stanfordscenedbmodels,37,
+2,object,holder,26,
+3,object,magazine,27,37 38 39
+4,object,cellphone,37,
 5,object,glasses,28,
 6,object,pottedplant,29 38,
-7,object,_stanfordscenedbmodels,30 39,
+7,object,holder,30 39,
 8,object,canopener,31,
 9,object,book,32,
-10,object,_stanfordscenedbmodels,33,40
+10,object,plate,33,40
 11,object,fooditem,34 40,
-12,object,_stanfordscenedbmodels,35,
+12,object,milkcarton,35,
 13,object,sodacan,36,
 14,object,wallart,,
 15,object,wallart,,
@@ -67,7 +67,7 @@ nodeNum 41
 17,object,chair,,
 18,object,chair,,
 19,object,chair,,
-20,object,_stanfordscenedbmodels,,
+20,object,wallclock,,
 21,object,pottedplant,24,
 22,object,lamp,25,
 23,pairwise_relationship,vert_support,0,1
@@ -115,6 +115,17 @@ edgeNum 36
 23,34,11
 24,1,35
 25,35,12
+26,1,36
+27,36,13
+28,3,37
+29,37,4
+30,3,38
+31,38,6
+32,3,39
+33,39,7
+34,10,40
+35,40,11
+,35,12
 26,1,36
 27,36,13
 28,3,37

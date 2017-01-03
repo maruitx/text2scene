@@ -43,21 +43,21 @@ nodeNum 35
 1,object,desk,19,22 23 24 25 26 27 28 29 30 31 32
 2,object,pottedplant,22,33
 3,object,printer,23,
-4,object,_stanfordscenedbmodels,24,
+4,object,telephone,24,
 5,object,headphones,,
 6,object,monitor,25,34
 7,object,monitor,26,
 8,object,keyboard,27,
 9,object,computermouse,28,
-10,object,_stanfordscenedbmodels,29 33 34,
-11,object,_stanfordscenedbmodels,30,
-12,object,_stanfordscenedbmodels,31,
+10,object,ipod,29 33 34,
+11,object,cellphone,30,
+12,object,rubikscube,31,
 13,object,wallart,,
 14,object,powersocket,,
 15,object,computer,20 32,
 16,object,chair,21,
 17,object,lamp,,
-18,object,_stanfordscenedbmodels,,
+18,object,book,,
 19,pairwise_relationship,vert_support,0,1
 20,pairwise_relationship,vert_support,0,15
 21,pairwise_relationship,vert_support,0,16
@@ -100,6 +100,14 @@ edgeNum 32
 22,1,30
 23,30,11
 24,1,31
+25,31,12
+26,1,32
+27,32,15
+28,2,33
+29,33,10
+30,6,34
+31,34,10
+,1,31
 25,31,12
 26,1,32
 27,32,15

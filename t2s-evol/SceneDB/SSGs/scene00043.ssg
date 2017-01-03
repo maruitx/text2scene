@@ -144,9 +144,9 @@ newModel 70 7a6388da9d848f88f584e3f372dd1a2d
 transform 0.000000 -1.480240 0.000000 0.000000 1.480240 0.000000 0.000000 0.000000 0.000000 0.000000 1.480240 0.000000 340.104004 210.488007 55.054199 1.000000
 nodeNum 122
 0,object,room,,71 72 73 74 75 76 77 78 79 80
-1,object,_stanfordscenedbmodels,,
+1,object,wallclock,,
 2,object,dresser,,81 82
-3,object,_stanfordscenedbmodels,81,
+3,object,tissuebox,81,
 4,object,hat,82,
 5,object,desk,71,83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100
 6,object,monitor,83,
@@ -159,18 +159,18 @@ nodeNum 122
 13,object,lamp,90,
 14,object,notepad,91,102
 15,object,pen,92 102,
-16,object,_stanfordscenedbmodels,93,
+16,object,cellphone,93,
 17,object,wallet,94,
-18,object,_pilotstudymodels,95,
+18,object,key,95,
 19,object,headphones,96,
 20,object,usbstick,97,
 21,object,mediadiscs,98,
 22,object,stapler,99,
-23,object,_stanfordscenedbmodels,100,
+23,object,cellulose tape,100,
 24,object,chair,72,
 25,object,pianokeyboard,,
-26,object,_stanfordscenedbmodels,,
-27,object,_stanfordscenedbmodels,,
+26,object,guitarstand,,
+27,object,guitarstand,,
 28,object,powersocket,,
 29,object,powersocket,,
 30,object,lightswitch,,
@@ -193,22 +193,22 @@ nodeNum 122
 47,object,bed,77,113
 48,object,computer,113,
 49,object,speaker,78,114
-50,object,_stanfordscenedbmodels,114,
+50,object,central processing unit,114,
 51,object,nightstand,79,115 116 117 118 119 120 121
-52,object,_stanfordscenedbmodels,115,
+52,object,tableclock,115,
 53,object,book,116,
-54,object,_stanfordscenedbmodels,117,
-55,object,_stanfordscenedbmodels,,
+54,object,watch,117,
+55,object,flashlight,,
 56,object,hammer,,
 57,object,screwdriver,118,
-58,object,_stanfordscenedbmodels,119,
-59,object,_stanfordscenedbmodels,120,
-60,object,_stanfordscenedbmodels,121,
-61,object,_stanfordscenedbmodels,80,
-62,object,_stanfordscenedbmodels,,
-63,object,_stanfordscenedbmodels,,
+58,object,wrench,119,
+59,object,duct tape,120,
+60,object,tape,121,
+61,object,basket,80,
+62,object,need,,
+63,object,need,,
 64,object,fan,,
-65,object,_stanfordscenedbmodels,,
+65,object,camera tripod,,
 66,object,wallart,,
 67,object,wallart,,
 68,object,wallart,,
@@ -349,6 +349,28 @@ edgeNum 102
 80,37,111
 81,111,38
 82,39,112
+83,112,43
+84,47,113
+85,113,48
+86,49,114
+87,114,50
+88,51,115
+89,115,52
+90,51,116
+91,116,53
+92,51,117
+93,117,54
+94,51,118
+95,118,57
+96,51,119
+97,119,58
+98,51,120
+99,120,59
+100,51,121
+101,121,60
+
+101,121,60
+,112
 83,112,43
 84,47,113
 85,113,48

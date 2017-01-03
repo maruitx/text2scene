@@ -53,29 +53,29 @@ transform 0.000000 1.185470 0.000000 0.000000 -1.185470 0.000000 0.000000 0.0000
 nodeNum 43
 0,object,room,,25 26 27 28 29 30 31 32 33
 1,object,bed,25,
-2,object,_stanfordscenedbmodels,,
-3,object,_stanfordscenedbmodels,26,
+2,object,toyfigure,,
+3,object,chestofdrawers,26,
 4,object,nightstand,27,34 35
-5,object,_stanfordscenedbmodels,34,
-6,object,_stanfordscenedbmodels,35,
+5,object,tableclock,34,
+6,object,videogamecontroller,35,
 7,object,wallart,,
 8,object,stool,,
-9,object,_stanfordscenedbmodels,,
+9,object,poster,,
 10,object,dresser,28,36 37 38 39 40 41
-11,object,_stanfordscenedbmodels,36,
-12,object,_stanfordscenedbmodels,37,
-13,object,_stanfordscenedbmodels,38,
-14,object,_stanfordscenedbmodels,39,
+11,object,toyfigure,36,
+12,object,toyfigure,37,
+13,object,toyfigure,38,
+14,object,toyfigure,39,
 15,object,computer,40,
-16,object,_stanfordscenedbmodels,41,
+16,object,cellphone,41,
 17,object,pottedplant,29,
 18,object,pottedplant,30,
-19,object,_stanfordscenedbmodels,,
+19,object,walldecoration,,
 20,object,powersocket,,
-21,object,_stanfordscenedbmodels,31,42
+21,object,basket,31,42
 22,object,book,32 42,
-23,object,_stanfordscenedbmodels,,
-24,object,_stanfordscenedbmodels,33,
+23,object,board,,
+24,object,basket,33,
 25,pairwise_relationship,vert_support,0,1
 26,pairwise_relationship,vert_support,0,3
 27,pairwise_relationship,vert_support,0,4
@@ -114,6 +114,24 @@ edgeNum 36
 16,0,33
 17,33,24
 18,4,34
+19,34,5
+20,4,35
+21,35,6
+22,10,36
+23,36,11
+24,10,37
+25,37,12
+26,10,38
+27,38,13
+28,10,39
+29,39,14
+30,10,40
+31,40,15
+32,10,41
+33,41,16
+34,21,42
+35,42,22
+,4,34
 19,34,5
 20,4,35
 21,35,6

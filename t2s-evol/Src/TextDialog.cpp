@@ -4,6 +4,7 @@
 #include <qtextedit.h>
 #include <qpushbutton.h>
 #include <qboxlayout.h>
+#include <QProcess>
 
 TextDialog::TextDialog(GLWidget *parent, Scene *s)
 	: m_parent(parent), 
@@ -50,7 +51,7 @@ void TextDialog::initEditSentence()
 	//	                         "Each unit contains a mixture of books and decorations. Inside the basket, "
 	//							 "there is a basketball and other sports equipment.");
 
-	m_editSentence->setPlainText("Debug: directly parsing result from out.txt");
+	m_editSentence->setPlainText("");
 }
 
 void TextDialog::setupConnection()
@@ -71,9 +72,26 @@ void TextDialog::onButtonProcess()
 	//qDebug() << m_editSentence->toPlainText();
 
 	// To-do: save current text to in.txt
+	QString filename = "in.txt";
 
-	// To-do: call command line parser to generate out.txt
+	QFile outFile(filename);
+	QTextStream ofs(&outFile);
 
+	if (!outFile.open(QIODevice::ReadWrite | QIODevice::Truncate | QIODevice::Text))
+	{
+		cout << "\TextDialog: cannot save text to in.txt\n";
+		return;
+	}
+	else
+	{
+		QString inputSentence = m_editSentence->toPlainText();
+		ofs << inputSentence;
+		outFile.close();	}
+
+	// To-do: call command line text parser to generate out.txt
+	QString parserProgramName = "matt-SEL-playground.exe";
+	
+	QProcess::execute(parserProgramName);
 	m_scene->runOneEvolutionStep();
 }
 

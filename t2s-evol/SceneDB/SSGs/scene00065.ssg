@@ -69,27 +69,27 @@ transform 1.149400 0.881966 0.000000 0.000000 -0.881966 1.149400 0.000000 0.0000
 nodeNum 59
 0,object,room,,33 34 35
 1,object,mediastorage,33,36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56
-2,object,_stanfordscenedbmodels,36,
-3,object,_stanfordscenedbmodels,37,57
-4,object,_stanfordscenedbmodels,57,
-5,object,_stanfordscenedbmodels,38,
-6,object,_stanfordscenedbmodels,39,
-7,object,_stanfordscenedbmodels,,
-8,object,_stanfordscenedbmodels,40,
-9,object,_stanfordscenedbmodels,41,
-10,object,_stanfordscenedbmodels,42,
-11,object,_stanfordscenedbmodels,43,
-12,object,_stanfordscenedbmodels,44,
+2,object,videogameconsole,36,
+3,object,videogameconsole,37,57
+4,object,mediaplayer,57,
+5,object,videogameconsole,38,
+6,object,webcam,39,
+7,object,videogameconsole,,
+8,object,videogamecontroller,40,
+9,object,videogameconsole,41,
+10,object,videogamecontroller,42,
+11,object,mediaplayer,43,
+12,object,videogamecontroller,44,
 13,object,videogamecontroller,,
-14,object,_stanfordscenedbmodels,45,58
-15,object,_stanfordscenedbmodels,46,
-16,object,_stanfordscenedbmodels,47,
-17,object,_stanfordscenedbmodels,48,
+14,object,videodisk,45,58
+15,object,telephone,46,
+16,object,controller,47,
+17,object,wheel,48,
 18,object,tv,49,
-19,object,_stanfordscenedbmodels,50,
-20,object,_stanfordscenedbmodels,51 58,
-21,object,_stanfordscenedbmodels,52,
-22,object,_stanfordscenedbmodels,53,
+19,object,videogameconsole,50,
+20,object,case,51 58,
+21,object,videogamecontroller,52,
+22,object,mediaplayer,53,
 23,object,battery,54,
 24,object,battery,,
 25,object,battery,,
@@ -162,6 +162,24 @@ edgeNum 52
 32,1,49
 33,49,18
 34,1,50
+35,50,19
+36,1,51
+37,51,20
+38,1,52
+39,52,21
+40,1,53
+41,53,22
+42,1,54
+43,54,23
+44,1,55
+45,55,29
+46,1,56
+47,56,30
+48,3,57
+49,57,4
+50,14,58
+51,58,20
+4,1,50
 35,50,19
 36,1,51
 37,51,20

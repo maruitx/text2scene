@@ -75,37 +75,37 @@ nodeNum 68
 1,object,rug,35,36 37 38 39 40 41 42 43 44
 2,object,mediastorage,36,45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67
 3,object,tv,45,
-4,object,_stanfordscenedbmodels,37,
-5,object,_stanfordscenedbmodels,38,
+4,object,work,37,
+5,object,videogameconsole,38,
 6,object,videogamecontroller,39 46,
 7,object,videogamecontroller,40 47,
-8,object,_stanfordscenedbmodels,41,
-9,object,_stanfordscenedbmodels,42,
-10,object,_stanfordscenedbmodels,43 48,
-11,object,_stanfordscenedbmodels,49,
-12,object,_stanfordscenedbmodels,50,
-13,object,_stanfordscenedbmodels,51,
-14,object,_stanfordscenedbmodels,52,
+8,object,videogamecontroller,41,
+9,object,videogamecontroller,42,
+10,object,videogameconsole,43 48,
+11,object,videogamecontroller,49,
+12,object,videogamecontroller,50,
+13,object,noname,51,
+14,object,cart,52,
 15,object,toyfigure,,
-16,object,_stanfordscenedbmodels,53,
+16,object,videogameconsole,53,
 17,object,videogameconsole,54,
-18,object,_stanfordscenedbmodels,55,
-19,object,_stanfordscenedbmodels,56,
-20,object,_stanfordscenedbmodels,57,
-21,object,_stanfordscenedbmodels,58,
+18,object,psp,55,
+19,object,noname,56,
+20,object,toyfigure,57,
+21,object,candle,58,
 22,object,videogameconsole,44 59,
-23,object,_stanfordscenedbmodels,60,
-24,object,_stanfordscenedbmodels,61,
+23,object,videogamecontroller,60,
+24,object,videogamecontroller,61,
 25,object,toyfigure,62,
-26,object,_stanfordscenedbmodels,63,
-27,object,_stanfordscenedbmodels,64,
+26,object,toyfigure,63,
+27,object,videogamecontroller,64,
 28,object,toyfigure,,
-29,object,_stanfordscenedbmodels,65,
+29,object,toyfigure,65,
 30,object,toyfigure,,
-31,object,_stanfordscenedbmodels,66,
-32,object,_stanfordscenedbmodels,,
-33,object,_stanfordscenedbmodels,67,
-34,object,_stanfordscenedbmodels,,
+31,object,videogameconsole,66,
+32,object,remote control,,
+33,object,toyfigure,67,
+34,object,stained-glass window,,
 35,pairwise_relationship,vert_support,0,1
 36,pairwise_relationship,vert_support,1,2
 37,pairwise_relationship,vert_support,1,4
@@ -184,6 +184,29 @@ edgeNum 66
 41,55,18
 42,2,56
 43,56,19
+44,2,57
+45,57,20
+46,2,58
+47,58,21
+48,2,59
+49,59,22
+50,2,60
+51,60,23
+52,2,61
+53,61,24
+54,2,62
+55,62,25
+56,2,63
+57,63,26
+58,2,64
+59,64,27
+60,2,65
+61,65,29
+62,2,66
+63,66,31
+64,2,67
+65,67,33
+
 44,2,57
 45,57,20
 46,2,58

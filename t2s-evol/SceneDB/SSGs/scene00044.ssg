@@ -196,7 +196,7 @@ nodeNum 175
 0,object,room,,96 97 98 99 100 101 102 103 104 105 106 107
 1,object,desk,96,108 109 110 111 112 113 114 115 116 117 118 119 120 121 122
 2,object,computer,108,
-3,object,_stanfordscenedbmodels,109,
+3,object,pictureframe,109,
 4,object,keyboard,110,
 5,object,mousepad,111,123
 6,object,computermouse,112 123,
@@ -205,87 +205,87 @@ nodeNum 175
 9,object,powerstrip,114,
 10,object,speaker,115,
 11,object,speaker,116,
-12,object,_pilotstudymodels,117,
+12,object,key,117,
 13,object,headphones,118,
-14,object,_stanfordscenedbmodels,119,
+14,object,cellphone,119,
 15,object,notepad,120 124,
 16,object,book,121,
 17,object,sodacan,122,
 18,object,chair,97,
 19,object,trashbin,98,
 20,object,lamp,99,125
-21,object,_stanfordscenedbmodels,100,126 127 128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143 144
+21,object,desk,100,126 127 128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143 144
 22,object,computer,126,
 23,object,computermouse,127,
 24,object,speaker,128,
 25,object,speaker,129,
-26,object,_stanfordscenedbmodels,130,
+26,object,compact disk,130,
 27,object,notepad,131,145 146
 28,object,pen,145,
 29,object,lamp,132 146,
-30,object,_stanfordscenedbmodels,,
-31,object,_stanfordscenedbmodels,133,
+30,object,noname,,
+31,object,cellphone,133,
 32,object,stapler,134,
 33,object,books,135,
 34,object,book,136,
 35,object,book,137,
 36,object,book,138,
-37,object,_stanfordscenedbmodels,139,
+37,object,wallet,139,
 38,object,book,140,147
 39,object,book,141 147,148
-40,object,_stanfordscenedbmodels,142 148,
-41,object,_stanfordscenedbmodels,,
-42,object,_stanfordscenedbmodels,,
-43,object,_stanfordscenedbmodels,,
-44,object,_stanfordscenedbmodels,143,
-45,object,_stanfordscenedbmodels,144,
+40,object,globe,142 148,
+41,object,paperclip,,
+42,object,paperclip,,
+43,object,paperclip,,
+44,object,heart,143,
+45,object,holder,144,
 46,object,toyfigure,,
 47,object,chair,,
-48,object,_stanfordscenedbmodels,,
+48,object,powersocket,,
 49,object,powersocket,,
 50,object,powerstrip,101,
 51,object,wallart,,
-52,object,_stanfordscenedbmodels,,
+52,object,board,,
 53,object,couch,102,
 54,object,pillow,,
 55,object,pillow,,
 56,object,hat,,
 57,object,book,,
 58,object,chair,103,
-59,object,_stanfordscenedbmodels,,
+59,object,wallclock,,
 60,object,table,,149 150 151 152 153 154 155 156 157
 61,object,coaster,149,158
-62,object,_stanfordscenedbmodels,150 158,
+62,object,mug,150 158,
 63,object,coaster,151,159
-64,object,_stanfordscenedbmodels,152 159,
+64,object,mug,152 159,
 65,object,coaster,153,160
-66,object,_stanfordscenedbmodels,154 160,
-67,object,_stanfordscenedbmodels,155,
+66,object,mug,154 160,
+67,object,magazine,155,
 68,object,plate,156,161
 69,object,fooditem,157 161,
 70,object,fooditem,,
 71,object,desk,,162 163 164 165 166 167 168 169 170 171 172
 72,object,computer,162,173
-73,object,_stanfordscenedbmodels,173,
+73,object,radio,173,
 74,object,monitor,163,
 75,object,monitor,164,
 76,object,keyboard,165,
-77,object,_stanfordscenedbmodels,,
+77,object,apple,,
 78,object,powerstrip,166,
-79,object,_stanfordscenedbmodels,167,
+79,object,picture frame,167,
 80,object,picture,168,
-81,object,_stanfordscenedbmodels,169,
+81,object,pictureframe,169,
 82,object,glasses,170,
 83,object,headphones,,
 84,object,paper,,
 85,object,paper,171,174
 86,object,pencil,174,
-87,object,drinkingutensil,,
+87,object,mug,,
 88,object,sodacan,172,
-89,object,_stanfordscenedbmodels,,
+89,object,cellphone,,
 90,object,chair,,
 91,object,trashbin,104,
-92,object,_stanfordscenedbmodels,,
+92,object,powersocket,,
 93,object,lamp,105,
 94,object,rug,106,
 95,object,rug,107 125,
@@ -499,6 +499,41 @@ edgeNum 158
 127,159,64
 128,65,160
 129,160,66
+130,68,161
+131,161,69
+132,71,162
+133,162,72
+134,71,163
+135,163,74
+136,71,164
+137,164,75
+138,71,165
+139,165,76
+140,71,166
+141,166,78
+142,71,167
+143,167,79
+144,71,168
+145,168,80
+146,71,169
+147,169,81
+148,71,170
+149,170,82
+150,71,171
+151,171,85
+152,71,172
+153,172,88
+154,72,173
+155,173,73
+156,85,174
+157,174,86
+
+153,172,88
+154,72,173
+155,173,73
+156,85,174
+157,174,86
+
 130,68,161
 131,161,69
 132,71,162

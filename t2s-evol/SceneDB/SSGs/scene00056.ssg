@@ -25,12 +25,12 @@ transform 0.000000 -0.684581 0.000000 0.000000 0.684581 0.000000 0.000000 0.0000
 nodeNum 19
 0,object,room,,11 12
 1,object,dresser,11,13 14 15 16 17 18
-2,object,_stanfordscenedbmodels,13,
+2,object,tissuebox,13,
 3,object,books,14,
 4,object,bottle,15,
 5,object,book,16,
-6,object,_stanfordscenedbmodels,,
-7,object,_stanfordscenedbmodels,17,
+6,object,ipod,,
+7,object,aerosol,17,
 8,object,toyfigure,18,
 9,object,trashbin,12,
 10,object,wallart,,
@@ -54,6 +54,12 @@ edgeNum 16
 8,1,15
 9,15,4
 10,1,16
+11,16,5
+12,1,17
+13,17,7
+14,1,18
+15,18,8
+
 11,16,5
 12,1,17
 13,17,7

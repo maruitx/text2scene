@@ -88,44 +88,44 @@ nodeNum 72
 0,object,room,,42 43 44 45 46 47 48
 1,object,mediastorage,42,49 50 51 52 53 54 55 56 57 58 59 60
 2,object,tv,49,
-3,object,_stanfordscenedbmodels,50,
-4,object,_stanfordscenedbmodels,,
-5,object,_stanfordscenedbmodels,51,
-6,object,_stanfordscenedbmodels,52,
+3,object,collection,50,
+4,object,videogamecontroller,,
+5,object,videogamecontroller,51,
+6,object,videogamecontroller,52,
 7,object,pottedplant,53,
-8,object,_stanfordscenedbmodels,54,
-9,object,_stanfordscenedbmodels,55,
-10,object,_stanfordscenedbmodels,56,
-11,object,_stanfordscenedbmodels,57,
-12,object,_stanfordscenedbmodels,58,
-13,object,_stanfordscenedbmodels,,
-14,object,_stanfordscenedbmodels,,
-15,object,_stanfordscenedbmodels,59,
+8,object,videogameconsole,54,
+9,object,game,55,
+10,object,videogameconsole,56,
+11,object,mediaplayer,57,
+12,object,remote control,58,
+13,object,xbox360,,
+14,object,videogamecontroller,,
+15,object,mouse,59,
 16,object,vase,60,
 17,object,table,,61 62 63 64 65 66
-18,object,_stanfordscenedbmodels,61,
-19,object,_stanfordscenedbmodels,62,
-20,object,_stanfordscenedbmodels,63,
-21,object,_stanfordscenedbmodels,64,
-22,object,_stanfordscenedbmodels,65,
+18,object,remote control,61,
+19,object,chess,62,
+20,object,guy,63,
+21,object,chessboard,64,
+22,object,videogamecontroller,65,
 23,object,camera,66,
 24,object,chair,43,
 25,object,couch,44,67 68
 26,object,computer,67,
-27,object,_stanfordscenedbmodels,,
+27,object,man,,
 28,object,table,45,69 70 71
 29,object,lamp,69,
-30,object,_stanfordscenedbmodels,68 70,
+30,object,remote control,68 70,
 31,object,book,71,
 32,object,pottedplant,46,
-33,object,_stanfordscenedbmodels,47,
-34,object,_stanfordscenedbmodels,,
+33,object,ashcan,47,
+34,object,battery,,
 35,object,cat,,
 36,object,wallart,,
 37,object,wallart,,
 38,object,wallart,,
-39,object,_stanfordscenedbmodels,,
-40,object,_stanfordscenedbmodels,,
+39,object,wallclock,,
+40,object,railing,,
 41,object,chair,48,
 42,pairwise_relationship,vert_support,0,1
 43,pairwise_relationship,vert_support,0,24
@@ -193,6 +193,32 @@ edgeNum 60
 32,1,58
 33,58,12
 34,1,59
+35,59,15
+36,1,60
+37,60,16
+38,17,61
+39,61,18
+40,17,62
+41,62,19
+42,17,63
+43,63,20
+44,17,64
+45,64,21
+46,17,65
+47,65,22
+48,17,66
+49,66,23
+50,25,67
+51,67,26
+52,25,68
+53,68,30
+54,28,69
+55,69,29
+56,28,70
+57,70,30
+58,28,71
+59,71,31
+
 35,59,15
 36,1,60
 37,60,16

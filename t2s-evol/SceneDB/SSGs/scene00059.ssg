@@ -90,49 +90,49 @@ newModel 43 436c74caa92dcf123c81d9b042c20aa4
 transform -0.435187 0.710161 0.000000 0.000000 -0.710161 -0.435187 0.000000 0.000000 0.000000 0.000000 0.832896 0.000000 113.913002 21.621901 0.046808 1.000000
 nodeNum 79
 0,object,room,,44 45 46 47
-1,object,_stanfordscenedbmodels,,
+1,object,wallclock,,
 2,object,couch,44,
-3,object,_stanfordscenedbmodels,45,48 49 50 51
-4,object,_stanfordscenedbmodels,48,52
+3,object,display,45,48 49 50 51
+4,object,collection,48,52
 5,object,pottedplant,49 52,
 6,object,toyfigure,50,
-7,object,_stanfordscenedbmodels,51,
+7,object,toyfigure,51,
 8,object,powersocket,,
 9,object,mediastorage,46,53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72
-10,object,_stanfordscenedbmodels,53,
-11,object,_stanfordscenedbmodels,54,73
-12,object,_stanfordscenedbmodels,73,
-13,object,_stanfordscenedbmodels,55,
-14,object,_stanfordscenedbmodels,56,
-15,object,_stanfordscenedbmodels,,
-16,object,_stanfordscenedbmodels,57,
-17,object,_stanfordscenedbmodels,58,
-18,object,_stanfordscenedbmodels,59,
+10,object,videogameconsole,53,
+11,object,videogameconsole,54,73
+12,object,mediaplayer,73,
+13,object,videogameconsole,55,
+14,object,webcam,56,
+15,object,videogameconsole,,
+16,object,videogamecontroller,57,
+17,object,videogameconsole,58,
+18,object,videogamecontroller,59,
 19,object,videogamecontroller,,
 20,object,videogamecontroller,,
 21,object,videogamecontroller,,
-22,object,_stanfordscenedbmodels,60,74
-23,object,_stanfordscenedbmodels,61,
-24,object,_stanfordscenedbmodels,62,
-25,object,_stanfordscenedbmodels,63,
+22,object,videodisk,60,74
+23,object,videogamecontroller,61,
+24,object,videogamecontroller,62,
+25,object,wheel,63,
 26,object,tv,64,
-27,object,_stanfordscenedbmodels,65,
-28,object,_stanfordscenedbmodels,66 74,
-29,object,_stanfordscenedbmodels,67,
-30,object,_stanfordscenedbmodels,68,
+27,object,videogameconsole,65,
+28,object,case,66 74,
+29,object,videogamecontroller,67,
+30,object,mediaplayer,68,
 31,object,battery,69,
 32,object,battery,,
 33,object,battery,,
 34,object,battery,,
 35,object,battery,,
-36,object,_stanfordscenedbmodels,70,
-37,object,_stanfordscenedbmodels,71,
-38,object,_stanfordscenedbmodels,72,
+36,object,telephone,70,
+37,object,mediaplayer,71,
+38,object,controller,72,
 39,object,table,47,75 76 77 78
-40,object,_stanfordscenedbmodels,75,
-41,object,drinkingutensil,76,
+40,object,remote control,75,
+41,object,cup,76,
 42,object,computer,77,
-43,object,_stanfordscenedbmodels,78,
+43,object,remote control,78,
 44,pairwise_relationship,vert_support,0,2
 45,pairwise_relationship,vert_support,0,3
 46,pairwise_relationship,vert_support,0,9
@@ -215,6 +215,33 @@ edgeNum 70
 43,65,27
 44,9,66
 45,66,28
+46,9,67
+47,67,29
+48,9,68
+49,68,30
+50,9,69
+51,69,31
+52,9,70
+53,70,36
+54,9,71
+55,71,37
+56,9,72
+57,72,38
+58,11,73
+59,73,12
+60,22,74
+61,74,28
+62,39,75
+63,75,40
+64,39,76
+65,76,41
+66,39,77
+67,77,42
+68,39,78
+69,78,43
+
+69,78,43
+,66,28
 46,9,67
 47,67,29
 48,9,68

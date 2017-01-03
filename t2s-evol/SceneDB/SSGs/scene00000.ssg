@@ -96,51 +96,51 @@ newModel 46 e5cf3055d4dbe35c6cee5c93a7be9401
 transform -2.648830 -4.587920 0.000000 0.000000 4.587920 -2.648830 0.000000 0.000000 0.000000 0.000000 5.297670 0.000000 152.466995 98.687698 -0.352900 1.000000
 nodeNum 89
 0,object,room,,47 48 49 50 51 52 53 54 55 56 57 58
-1,object,_stanfordscenedbmodels,47,
-2,object,_stanfordscenedbmodels,,
-3,object,_stanfordscenedbmodels,48,
+1,object,fireplace,47,
+2,object,stove,,
+3,object,cabinet,48,
 4,object,refrigerator,49,59 60 61
-5,object,_stanfordscenedbmodels,,
+5,object,magnet,,
 6,object,bowl,59,
 7,object,bottle,60,
 8,object,bottle,61,
-9,object,_stanfordscenedbmodels,50,
-10,object,_stanfordscenedbmodels,51,
+9,object,cabinet,50,
+10,object,cabinet,51,
 11,object,table,,62 63 64 65
 12,object,bowl,62,66
-13,object,_stanfordscenedbmodels,63 66,
+13,object,vase,63 66,
 14,object,vase,64,
 15,object,pizza,65,
 16,object,counter,52,67 68 69 70 71 72 73 74
 17,object,bottle,67,
-18,object,_stanfordscenedbmodels,68,75
-19,object,_stanfordscenedbmodels,69 75,
-20,object,_stanfordscenedbmodels,70,76
-21,object,_stanfordscenedbmodels,71 76,
+18,object,coaster,68,75
+19,object,cup,69 75,
+20,object,chopping board,70,76
+21,object,fooditem,71 76,
 22,object,bottle,72,
-23,object,_stanfordscenedbmodels,73,
-24,object,_stanfordscenedbmodels,74,
+23,object,rack,73,
+24,object,kitchen appliance,74,
 25,object,counter,53,77 78 79 80 81
-26,object,_stanfordscenedbmodels,77,82 83 84
-27,object,_stanfordscenedbmodels,82,
-28,object,_stanfordscenedbmodels,83,
+26,object,_randomsetstudymodels,77,82 83 84
+27,object,fooditem,82,
+28,object,fooditem,83,
 29,object,knife,78 84,
 30,object,bottle,79,
-31,object,_stanfordscenedbmodels,,
-32,object,_stanfordscenedbmodels,80,
-33,object,_stanfordscenedbmodels,81,
+31,object,holder,,
+32,object,bowl,80,
+33,object,kitchen appliance,81,
 34,object,counter,54,85 86 87 88
 35,object,microwave,85,
-36,object,_stanfordscenedbmodels,86,
-37,object,_stanfordscenedbmodels,87,
-38,object,_stanfordscenedbmodels,88,
-39,object,_stanfordscenedbmodels,,
+36,object,fooditem,86,
+37,object,cerealbox,87,
+38,object,glass,88,
+39,object,milkcarton,,
 40,object,cerealbox,,
 41,object,pottedplant,55,
-42,object,_stanfordscenedbmodels,56,
-43,object,_stanfordscenedbmodels,,
+42,object,candle,56,
+43,object,walldecoration,,
 44,object,vase,57,
-45,object,_stanfordscenedbmodels,,
+45,object,personstanding,,
 46,object,dog,58,
 47,pairwise_relationship,vert_support,0,1
 48,pairwise_relationship,vert_support,0,3
@@ -236,6 +236,42 @@ edgeNum 84
 48,16,71
 49,71,21
 50,16,72
+51,72,22
+52,16,73
+53,73,23
+54,16,74
+55,74,24
+56,18,75
+57,75,19
+58,20,76
+59,76,21
+60,25,77
+61,77,26
+62,25,78
+63,78,29
+64,25,79
+65,79,30
+66,25,80
+67,80,32
+68,25,81
+69,81,33
+70,26,82
+71,82,27
+72,26,83
+73,83,28
+74,26,84
+75,84,29
+76,34,85
+77,85,35
+78,34,86
+79,86,36
+80,34,87
+81,87,37
+82,34,88
+83,88,38
+
+83,88,38
+
 51,72,22
 52,16,73
 53,73,23

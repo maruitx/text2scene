@@ -46,8 +46,8 @@ nodeNum 28
 10,object,cabling,24,
 11,object,lamp,25,
 12,object,picture,26,
-13,object,_stanfordscenedbmodels,27,
-14,object,_stanfordscenedbmodels,,
+13,object,toyfigure,27,
+14,object,wallclock,,
 15,object,chair,,
 16,pairwise_relationship,vert_support,0,1
 17,pairwise_relationship,vert_support,1,2
@@ -84,5 +84,8 @@ edgeNum 24
 19,25,11
 20,1,26
 21,26,12
+22,1,27
+23,27,13
+26,12
 22,1,27
 23,27,13

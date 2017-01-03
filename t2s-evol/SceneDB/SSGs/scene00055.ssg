@@ -54,25 +54,25 @@ nodeNum 57
 0,object,room,,25 26 27 28
 1,object,table,25,29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48
 2,object,book,29,
-3,object,_stanfordscenedbmodels,30,49 50
+3,object,plate,30,49 50
 4,object,fooditem,31 49,
-5,object,_stanfordscenedbmodels,32 50,
-6,object,drinkingutensil,33,
-7,object,drinkingutensil,34,
-8,object,_stanfordscenedbmodels,35,
-9,object,_stanfordscenedbmodels,36,51 52 53 54
-10,object,_stanfordscenedbmodels,37 51,
+5,object,fruit,32 50,
+6,object,cup,33,
+7,object,mug,34,
+8,object,pepper shaker,35,
+9,object,tray,36,51 52 53 54
+10,object,fooditem,37 51,
 11,object,fooditem,38 52,
 12,object,fooditem,39 53,
-13,object,_stanfordscenedbmodels,40 54,
+13,object,fooditem,40 54,
 14,object,cap,41,
 15,object,pottedplant,42,
-16,object,_stanfordscenedbmodels,43,55
-17,object,_stanfordscenedbmodels,44 55,
-18,object,_stanfordscenedbmodels,45,
-19,object,_stanfordscenedbmodels,46,
-20,object,_stanfordscenedbmodels,47,56
-21,object,_stanfordscenedbmodels,48 56,
+16,object,bowl,43,55
+17,object,fooditem,44 55,
+18,object,wallet,45,
+19,object,glasses,46,
+20,object,plate,47,56
+21,object,fooditem,48 56,
 22,object,chair,26,
 23,object,chair,27,
 24,object,chair,28,
@@ -154,6 +154,29 @@ edgeNum 64
 42,1,46
 43,46,19
 44,1,47
+45,47,20
+46,1,48
+47,48,21
+48,3,49
+49,49,4
+50,3,50
+51,50,5
+52,9,51
+53,51,10
+54,9,52
+55,52,11
+56,9,53
+57,53,12
+58,9,54
+59,54,13
+60,16,55
+61,55,17
+62,20,56
+63,56,21
+17
+62,20,56
+63,56,21
+
 45,47,20
 46,1,48
 47,48,21

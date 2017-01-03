@@ -56,8 +56,8 @@ nodeNum 49
 4,object,toyfigure,28,
 5,object,monitor,29,
 6,object,keyboard,30,
-7,object,_stanfordscenedbmodels,31,
-8,object,_stanfordscenedbmodels,32,46
+7,object,cellphone,31,
+8,object,compact disk,32,46
 9,object,mediadiscs,33,
 10,object,sodacan,34,
 11,object,cabling,35,
@@ -68,8 +68,8 @@ nodeNum 49
 16,object,monitor,40 46,
 17,object,usbstick,41,
 18,object,headphones,42,
-19,object,_stanfordscenedbmodels,43,
-20,object,_stanfordscenedbmodels,44,
+19,object,fooditem,43,
+20,object,mediadiscs,44,
 21,object,speaker,45,
 22,object,chair,25,
 23,object,computer,26,
@@ -145,6 +145,11 @@ edgeNum 50
 43,45,21
 44,8,46
 45,46,16
+46,12,47
+47,47,13
+48,14,48
+49,48,15
+5,46,16
 46,12,47
 47,47,13
 48,14,48

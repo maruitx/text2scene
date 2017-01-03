@@ -102,55 +102,55 @@ newModel 49 6354f7b41a25f49eb637980f6f06104
 transform -1.702400 0.000000 -0.000000 0.000000 0.000000 1.702400 0.000000 0.000000 0.000000 0.000000 -1.702400 0.000000 125.278999 119.535004 106.049004 1.000000
 nodeNum 86
 0,object,room,,50 51 52 53 54 55 56 57
-1,object,_stanfordscenedbmodels,50,
+1,object,refrigerator,50,
 2,object,counter,,58 59 60 61 62 63 64 65 82 83
-3,object,_stanfordscenedbmodels,58,
+3,object,tissuebox,58,
 4,object,camera,59,
 5,object,book,60,84
 6,object,pen,84,
 7,object,pencil,82,
-8,object,_stanfordscenedbmodels,83,
+8,object,battery,83,
 9,object,computer,61,
 10,object,usbstick,62,
-11,object,_stanfordscenedbmodels,63,
-12,object,_stanfordscenedbmodels,64,
-13,object,_stanfordscenedbmodels,65,
-14,object,_stanfordscenedbmodels,51,66 67 68 69 70 71 72
-15,object,_stanfordscenedbmodels,66,
-16,object,_stanfordscenedbmodels,67,
-17,object,_stanfordscenedbmodels,68,
-18,object,_stanfordscenedbmodels,69,
-19,object,_stanfordscenedbmodels,70,
-20,object,_stanfordscenedbmodels,71,
-21,object,_stanfordscenedbmodels,72,
-22,object,_stanfordscenedbmodels,,
+11,object,auxiliary storage,63,
+12,object,plug,64,
+13,object,toiletpaper,65,
+14,object,cabinet,51,66 67 68 69 70 71 72
+15,object,flask,66,
+16,object,flask,67,
+17,object,holder,68,
+18,object,glass,69,
+19,object,glass,70,
+20,object,glass,71,
+21,object,candle,72,
+22,object,vessel,,
 23,object,stool,52,
-24,object,_stanfordscenedbmodels,53,73 74 75 76 77 78 85
-25,object,_stanfordscenedbmodels,73,
+24,object,chestofdrawers,53,73 74 75 76 77 78 85
+25,object,switch,73,
 26,object,bottle,74,
 27,object,bottle,75,
 28,object,bottle,76,
-29,object,_stanfordscenedbmodels,77,
+29,object,bunsen burner,77,
 30,object,bottle,85,
-31,object,_stanfordscenedbmodels,78,
+31,object,dial,78,
 32,object,wallart,,
-33,object,_stanfordscenedbmodels,,
-34,object,_stanfordscenedbmodels,,
-35,object,_stanfordscenedbmodels,54,
+33,object,towel ring,,
+34,object,board,,
+35,object,fire extinguisher,54,
 36,object,stool,,
 37,object,refrigerator,55,
-38,object,_stanfordscenedbmodels,56,79 80 81
-39,object,_stanfordscenedbmodels,79,
-40,object,_stanfordscenedbmodels,80,
-41,object,_stanfordscenedbmodels,81,
-42,object,_stanfordscenedbmodels,,
+38,object,case,56,79 80 81
+39,object,calculator,79,
+40,object,erlenmeyer flask,80,
+41,object,book,81,
+42,object,dryer,,
 43,object,showerhead,,
 44,object,ceilingfan,,
-45,object,_stanfordscenedbmodels,,
-46,object,_stanfordscenedbmodels,57,
-47,object,_stanfordscenedbmodels,,
-48,object,_stanfordscenedbmodels,,
-49,object,_stanfordscenedbmodels,,
+45,object,personstanding,,
+46,object,ashcan,57,
+47,object,fire alarm,,
+48,object,fire alarm,,
+49,object,fire alarm,,
 50,pairwise_relationship,vert_support,0,1
 51,pairwise_relationship,vert_support,0,14
 52,pairwise_relationship,vert_support,0,23
@@ -216,6 +216,51 @@ edgeNum 72
 25,62,10
 26,2,63
 27,63,11
+28,2,64
+29,64,12
+30,2,65
+31,65,13
+32,14,66
+33,66,15
+34,14,67
+35,67,16
+36,14,68
+37,68,17
+38,14,69
+39,69,18
+40,14,70
+41,70,19
+42,14,71
+43,71,20
+44,14,72
+45,72,21
+46,24,73
+47,73,25
+48,24,74
+49,74,26
+50,24,75
+51,75,27
+52,24,76
+53,76,28
+54,24,77
+55,77,29
+56,24,78
+57,78,31
+58,38,79
+59,79,39
+60,38,80
+61,80,40
+62,38,81
+63,81,41
+64,2,82
+65,82,7
+66,2,83
+67,83,8
+68,5,84
+69,84,6
+70,24,85
+71,85,30
+11
 28,2,64
 29,64,12
 30,2,65

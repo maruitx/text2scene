@@ -28,16 +28,22 @@ newModel 12 d08941d91a52d4ca411abfe83236ee8a
 transform 0.000000 -0.936896 0.000000 0.000000 0.936896 0.000000 0.000000 0.000000 0.000000 0.000000 0.936896 0.000000 345.743011 101.716003 3.132890 1.000000
 nodeNum 13
 0,object,room,,
-1,object,_stanfordscenedbmodels,,
+1,object,brake shoe,,
 2,object,endtable,,
-3,object,_stanfordscenedbmodels,,
-4,object,_stanfordscenedbmodels,,
-5,object,_stanfordscenedbmodels,,
+3,object,calculator,,
+4,object,telephone,,
+5,object,radio,,
 6,object,notepad,,
 7,object,pen,,
 8,object,pen,,
-9,object,_pilotstudymodels,,
+9,object,key,,
 10,object,plant,,
+11,object,wallart,,
+12,object,lamp,,
+edgeNum 0
+,
+edgeNum 0
+,,
 11,object,wallart,,
 12,object,lamp,,
 edgeNum 0

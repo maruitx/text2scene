@@ -27,14 +27,14 @@ transform 0.143186 1.819350 0.000000 0.000000 -1.819350 0.143186 0.000000 0.0000
 nodeNum 23
 0,object,room,,12 13 14
 1,object,table,12,15 16 17 18 19 20 21
-2,object,_stanfordscenedbmodels,15,
+2,object,plate,15,
 3,object,pottedplant,16,
 4,object,plate,17,22
-5,object,_stanfordscenedbmodels,,
-6,object,_stanfordscenedbmodels,22,
+5,object,fooditem,,
+6,object,fooditem,22,
 7,object,usbstick,18,
-8,object,_stanfordscenedbmodels,19,
-9,object,_stanfordscenedbmodels,20,
+8,object,ashtray,19,
+9,object,bowl,20,
 10,object,chair,21,
 11,object,chair,13,
 12,pairwise_relationship,vert_support,0 14,1
@@ -63,6 +63,15 @@ edgeNum 22
 11,17,4
 12,1,18
 13,18,7
+14,1,19
+15,19,8
+16,1,20
+17,20,9
+18,1,21
+19,21,10
+20,4,22
+21,22,6
+8,7
 14,1,19
 15,19,8
 16,1,20

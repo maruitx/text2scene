@@ -25,13 +25,17 @@ transform 0.000000 0.000000 1.199930 0.000000 0.848477 -0.848477 0.000000 0.0000
 nodeNum 11
 0,object,room,,
 1,object,nightstand,,
-2,object,_stanfordscenedbmodels,,
+2,object,tableclock,,
 3,object,book,,
-4,object,_stanfordscenedbmodels,,
-5,object,_stanfordscenedbmodels,,
+4,object,watch,,
+5,object,flashlight,,
 6,object,hammer,,
 7,object,screwdriver,,
-8,object,_stanfordscenedbmodels,,
+8,object,wrench,,
+9,object,duct tape,,
+10,object,tape,,
+edgeNum 0
+ls,,
 9,object,_stanfordscenedbmodels,,
 10,object,_stanfordscenedbmodels,,
 edgeNum 0

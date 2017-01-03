@@ -73,17 +73,17 @@ transform 0.000000 0.866213 0.000000 0.000000 -0.866213 0.000000 0.000000 0.0000
 nodeNum 62
 0,object,room,,35
 1,object,bookcase,35,36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 58 59
-2,object,_stanfordscenedbmodels,36,
-3,object,_stanfordscenedbmodels,37,54
-4,object,_stanfordscenedbmodels,54,
-5,object,_stanfordscenedbmodels,58,
-6,object,_stanfordscenedbmodels,38,
-7,object,_stanfordscenedbmodels,39,60
-8,object,_stanfordscenedbmodels,59 60,
-9,object,_stanfordscenedbmodels,40,
+2,object,mediaplayer,36,
+3,object,mediaplayer,37,54
+4,object,mediaplayer,54,
+5,object,disccase,58,
+6,object,videodisk,38,
+7,object,disccase,39,60
+8,object,mediadiscs,59 60,
+9,object,disccase,40,
 10,object,videogameconsole,41,
-11,object,_stanfordscenedbmodels,,
-12,object,_stanfordscenedbmodels,,
+11,object,remote control,,
+12,object,player,,
 13,object,videogamecontroller,42,
 14,object,toyfigure,,
 15,object,toyfigure,,
@@ -98,12 +98,12 @@ nodeNum 62
 24,object,speaker,47,
 25,object,speaker,48,
 26,object,pianokeyboard,49,
-27,object,_stanfordscenedbmodels,50,
-28,object,_stanfordscenedbmodels,51,
+27,object,disccase,50,
+28,object,toy,51,
 29,object,book,52,57
 30,object,book,57,
 31,object,pianokeyboard,53,
-32,object,_stanfordscenedbmodels,,
+32,object,guitarstand,,
 33,object,wallart,,
 34,object,wallart,,
 35,pairwise_relationship,vert_support,0,1
@@ -171,6 +171,24 @@ edgeNum 54
 34,1,52
 35,52,29
 36,1,53
+37,53,31
+38,3,54
+39,54,4
+40,16,55
+41,55,17
+42,17,56
+43,56,18
+44,29,57
+45,57,30
+46,1,58
+47,58,5
+48,1,59
+49,59,8
+50,7,60
+51,60,8
+52,16,61
+53,61,18
+1,53
 37,53,31
 38,3,54
 39,54,4

@@ -49,26 +49,26 @@ transform 0.000000 1.560000 0.000000 0.000000 -1.560000 0.000000 0.000000 0.0000
 nodeNum 37
 0,object,room,,23
 1,object,trashbin,23,
-2,object,_stanfordscenedbmodels,,
+2,object,powersocket,,
 3,object,desk,,24 25 26 27 28 29 30 31 32 33 34
 4,object,computer,24,35
-5,object,_stanfordscenedbmodels,35,
+5,object,radio,35,
 6,object,monitor,25,
 7,object,monitor,26,
 8,object,keyboard,27,
-9,object,_stanfordscenedbmodels,,
+9,object,apple,,
 10,object,powerstrip,28,
-11,object,_stanfordscenedbmodels,29,
+11,object,picture frame,29,
 12,object,picture,30,
-13,object,_stanfordscenedbmodels,31,
+13,object,pictureframe,31,
 14,object,glasses,32,
 15,object,headphones,,
 16,object,paper,,
 17,object,paper,33,36
 18,object,pencil,36,
-19,object,drinkingutensil,,
+19,object,mug,,
 20,object,sodacan,34,
-21,object,_stanfordscenedbmodels,,
+21,object,cellphone,,
 22,object,chair,,
 23,pairwise_relationship,vert_support,0,1
 24,pairwise_relationship,vert_support,3,4
@@ -105,6 +105,17 @@ edgeNum 28
 17,31,13
 18,3,32
 19,32,14
+20,3,33
+21,33,17
+22,3,34
+23,34,20
+24,4,35
+25,35,5
+26,17,36
+27,36,18
+
+27,36,18
+
 20,3,33
 21,33,17
 22,3,34

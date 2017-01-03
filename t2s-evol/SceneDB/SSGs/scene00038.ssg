@@ -39,7 +39,7 @@ nodeNum 29
 3,object,powersocket,,
 4,object,desk,17,19 20 21 22 23 24 25 26 27 28
 5,object,speaker,19,
-6,object,_stanfordscenedbmodels,20,
+6,object,telecommunication,20,
 7,object,computermouse,21,
 8,object,speaker,22,
 9,object,printer,23,
@@ -47,7 +47,7 @@ nodeNum 29
 11,object,notepad,25,
 12,object,monitor,26,
 13,object,keyboard,27,
-14,object,_stanfordscenedbmodels,28,
+14,object,teacup,28,
 15,object,trashbin,18,
 16,pairwise_relationship,vert_support,0,1
 17,pairwise_relationship,vert_support,0,4
@@ -88,4 +88,7 @@ edgeNum 26
 22,4,27
 23,27,13
 24,4,28
+25,28,14
+5,28,14
+
 25,28,14

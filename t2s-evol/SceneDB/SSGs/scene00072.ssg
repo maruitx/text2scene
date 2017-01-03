@@ -129,48 +129,48 @@ transform 2.220360 0.000000 0.000000 0.000000 0.000000 2.220360 0.000000 0.00000
 nodeNum 112
 0,object,room,,63 64 65 66 67 68 69 70 71 72 73
 1,object,chair,63,
-2,object,_stanfordscenedbmodels,,
-3,object,_stanfordscenedbmodels,,
+2,object,cabinet,,
+3,object,cabinet,,
 4,object,sink,64,74 75 76 77 78 79 80 81 82 83 84 85 86 87
-5,object,_stanfordscenedbmodels,74,88
-6,object,_stanfordscenedbmodels,88,
-7,object,_stanfordscenedbmodels,75,
-8,object,_stanfordscenedbmodels,76,
+5,object,plate,74,88
+6,object,fooditem,88,
+7,object,mug,75,
+8,object,mug,76,
 9,object,bowl,77,
-10,object,_stanfordscenedbmodels,78,89 90 91
-11,object,_stanfordscenedbmodels,89,
-12,object,_stanfordscenedbmodels,90,
+10,object,chopping board,78,89 90 91
+11,object,fruit,89,
+12,object,fruit,90,
 13,object,knife,91,
-14,object,_stanfordscenedbmodels,,
-15,object,_stanfordscenedbmodels,79,
-16,object,_stanfordscenedbmodels,80,
-17,object,_stanfordscenedbmodels,81,92
-18,object,_stanfordscenedbmodels,92,
-19,object,_stanfordscenedbmodels,82,93
-20,object,_stanfordscenedbmodels,83 93,
-21,object,_stanfordscenedbmodels,,
-22,object,_stanfordscenedbmodels,84,
-23,object,_stanfordscenedbmodels,85,
-24,object,_stanfordscenedbmodels,86,
-25,object,_stanfordscenedbmodels,,
-26,object,_stanfordscenedbmodels,65,94 95 96
-27,object,_stanfordscenedbmodels,94,
-28,object,_stanfordscenedbmodels,95,
-29,object,_stanfordscenedbmodels,96,
+14,object,blender,,
+15,object,milkcarton,79,
+16,object,bread,80,
+17,object,pan,81,92
+18,object,basin,92,
+19,object,dish,82,93
+20,object,dish,83 93,
+21,object,flatware,,
+22,object,pan,84,
+23,object,coffee mill,85,
+24,object,cerealbox,86,
+25,object,ring,,
+26,object,grill,65,94 95 96
+27,object,pan,94,
+28,object,pan,95,
+29,object,spatula,96,
 30,object,wallart,,
 31,object,chair,66,
 32,object,table,67,97 98 99 100
-33,object,_stanfordscenedbmodels,97,
-34,object,_stanfordscenedbmodels,98,
-35,object,_stanfordscenedbmodels,99,
-36,object,_stanfordscenedbmodels,100,
+33,object,fooditem,97,
+34,object,noname,98,
+35,object,chocolate,99,
+36,object,teacup,100,
 37,object,chair,68,
 38,object,chair,69,
-39,object,_stanfordscenedbmodels,70,101 102 103
+39,object,refrigerator,70,101 102 103
 40,object,microwave,101,
-41,object,_stanfordscenedbmodels,102,
-42,object,_stanfordscenedbmodels,103,
-43,object,_stanfordscenedbmodels,71,104 105 106 107 108 109 110 111
+41,object,vase,102,
+42,object,vase,103,
+43,object,bin,71,104 105 106 107 108 109 110 111
 44,object,sodacan,,
 45,object,sodacan,104,
 46,object,sodacan,105,
@@ -182,13 +182,13 @@ nodeNum 112
 52,object,bottle,109,
 53,object,bottle,110,
 54,object,bottle,111,
-55,object,_stanfordscenedbmodels,,
-56,object,_stanfordscenedbmodels,72,
-57,object,_stanfordscenedbmodels,,
-58,object,_stanfordscenedbmodels,,
-59,object,_stanfordscenedbmodels,,
-60,object,_stanfordscenedbmodels,,
-61,object,_stanfordscenedbmodels,87,
+55,object,support,,
+56,object,vacuum,72,
+57,object,basket,,
+58,object,decoration,,
+59,object,decoration,,
+60,object,personstanding,,
+61,object,paper towel,87,
 62,object,trashbin,73,
 63,pairwise_relationship,vert_support,0,1
 64,pairwise_relationship,vert_support,0,4
@@ -282,6 +282,66 @@ edgeNum 98
 39,82,19
 40,4,83
 41,83,20
+42,4,84
+43,84,22
+44,4,85
+45,85,23
+46,4,86
+47,86,24
+48,4,87
+49,87,61
+50,5,88
+51,88,6
+52,10,89
+53,89,11
+54,10,90
+55,90,12
+56,10,91
+57,91,13
+58,17,92
+59,92,18
+60,19,93
+61,93,20
+62,26,94
+63,94,27
+64,26,95
+65,95,28
+66,26,96
+67,96,29
+68,32,97
+69,97,33
+70,32,98
+71,98,34
+72,32,99
+73,99,35
+74,32,100
+75,100,36
+76,39,101
+77,101,40
+78,39,102
+79,102,41
+80,39,103
+81,103,42
+82,43,104
+83,104,45
+84,43,105
+85,105,46
+86,43,106
+87,106,47
+88,43,107
+89,107,49
+90,43,108
+91,108,51
+92,43,109
+93,109,52
+94,43,110
+95,110,53
+96,43,111
+97,111,54
+95,110,53
+96,43,111
+97,111,54
+,20
 42,4,84
 43,84,22
 44,4,85

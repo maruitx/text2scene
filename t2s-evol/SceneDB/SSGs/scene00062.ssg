@@ -34,15 +34,15 @@ nodeNum 30
 0,object,room,,15 16 17 18
 1,object,cabinet,15,19 20 21 22 23 24 25 26
 2,object,tv,19,
-3,object,_stanfordscenedbmodels,20,27
-4,object,drinkingutensil,27,
-5,object,_stanfordscenedbmodels,21,28
+3,object,mediaplayer,20,27
+4,object,mug,27,
+5,object,mediaplayer,21,28
 6,object,camera,28,
-7,object,_stanfordscenedbmodels,22,
+7,object,remote control,22,
 8,object,book,23,29
 9,object,book,29,
 10,object,mediadiscs,24,
-11,object,_stanfordscenedbmodels,25,
+11,object,videodisk,25,
 12,object,speaker,16,
 13,object,speaker,17,
 14,object,rug,18 26,
@@ -88,6 +88,13 @@ edgeNum 30
 23,26,14
 24,3,27
 25,27,4
+26,5,28
+27,28,6
+28,8,29
+29,29,9
+9
+29,29,9
+,27,4
 26,5,28
 27,28,6
 28,8,29

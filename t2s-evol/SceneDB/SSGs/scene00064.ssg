@@ -29,12 +29,12 @@ nodeNum 21
 1,object,speaker,,
 2,object,cabinet,12,14 15 16 17 18 19
 3,object,tv,14,
-4,object,_stanfordscenedbmodels,15,20
-5,object,_stanfordscenedbmodels,20,
-6,object,_stanfordscenedbmodels,16,
+4,object,mediaplayer,15,20
+5,object,mediaplayer,20,
+6,object,disccase,16,
 7,object,videogameconsole,17,
 8,object,videogameconsole,18,
-9,object,_stanfordscenedbmodels,19,
+9,object,noname,19,
 10,object,speaker,,
 11,object,pottedplant,13,
 12,pairwise_relationship,vert_support,0,2
@@ -60,6 +60,12 @@ edgeNum 18
 10,2,17
 11,17,7
 12,2,18
+13,18,8
+14,2,19
+15,19,9
+16,4,20
+17,20,5
+,2,18
 13,18,8
 14,2,19
 15,19,9

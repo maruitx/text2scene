@@ -40,15 +40,15 @@ nodeNum 30
 2,object,speaker,,
 3,object,speaker,,
 4,object,tv,19,27
-5,object,_stanfordscenedbmodels,20,28 29
+5,object,videogameconsole,20,28 29
 6,object,videogamecontroller,28,
 7,object,videogamecontroller,29,
-8,object,_stanfordscenedbmodels,,
-9,object,_stanfordscenedbmodels,21,
-10,object,_stanfordscenedbmodels,22,
+8,object,videogameconsole,,
+9,object,chestofdrawers,21,
+10,object,remote control,22,
 11,object,toyfigure,,
-12,object,_stanfordscenedbmodels,23,
-13,object,_stanfordscenedbmodels,24 27,
+12,object,videogamecontroller,23,
+13,object,remote control,24 27,
 14,object,videogamecontroller,25,
 15,object,pottedplant,26,
 16,object,pottedplant,18,
@@ -88,6 +88,11 @@ edgeNum 26
 19,26,15
 20,4,27
 21,27,13
+22,5,28
+23,28,6
+24,5,29
+25,29,7
+3
 22,5,28
 23,28,6
 24,5,29

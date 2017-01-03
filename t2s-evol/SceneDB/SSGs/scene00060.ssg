@@ -37,18 +37,18 @@ nodeNum 34
 1,object,rug,16,22 23 24 25 26
 2,object,speaker,17 22,
 3,object,speaker,18 23,
-4,object,_stanfordscenedbmodels,19 24,27 28 29 30 31 32 33
+4,object,tvstand,19 24,27 28 29 30 31 32 33
 5,object,tv,27,
 6,object,videogameconsole,28,
-7,object,_stanfordscenedbmodels,29,
-8,object,_stanfordscenedbmodels,30,
-9,object,_stanfordscenedbmodels,31,
-10,object,_stanfordscenedbmodels,32,
+7,object,mediaplayer,29,
+8,object,remote control,30,
+9,object,controller,31,
+10,object,webcam,32,
 11,object,videogamecontroller,,
 12,object,videogamecontroller,,
-13,object,_stanfordscenedbmodels,33,
+13,object,videodisk,33,
 14,object,couch,20 25,
-15,object,_stanfordscenedbmodels,21 26,
+15,object,guitarstand,21 26,
 16,pairwise_relationship,vert_support,0,1
 17,pairwise_relationship,vert_support,0,2
 18,pairwise_relationship,vert_support,0,3
@@ -95,6 +95,16 @@ edgeNum 36
 24,4,28
 25,28,6
 26,4,29
+27,29,7
+28,4,30
+29,30,8
+30,4,31
+31,31,9
+32,4,32
+33,32,10
+34,4,33
+35,33,13
+9
 27,29,7
 28,4,30
 29,30,8

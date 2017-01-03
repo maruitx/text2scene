@@ -64,13 +64,13 @@ nodeNum 50
 4,object,powersocket,,
 5,object,desk,28,31 32 33 34 35 36 37 38 39
 6,object,printer,31,
-7,object,_stanfordscenedbmodels,32,
+7,object,telecommunication,32,
 8,object,computermouse,33,
 9,object,speaker,34,
 10,object,monitor,35,
 11,object,keyboard,36,
 12,object,monitor,37,
-13,object,_stanfordscenedbmodels,38,
+13,object,teacup,38,
 14,object,notepad,39,
 15,object,desk,29,40 41 42 43 44 45 46 47 48
 16,object,mousepad,40,49
@@ -79,7 +79,7 @@ nodeNum 50
 19,object,keyboard,43,
 20,object,speaker,44,
 21,object,speaker,45,
-22,object,_stanfordscenedbmodels,46,
+22,object,cup,46,
 23,object,book,47,
 24,object,bottle,48,
 25,object,wallart,,
@@ -151,4 +151,9 @@ edgeNum 44
 40,15,48
 41,48,24
 42,16,49
+43,49,17
+
+42,16,49
+43,49,17
+2,16,49
 43,49,17

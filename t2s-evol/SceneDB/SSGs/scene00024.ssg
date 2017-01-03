@@ -25,14 +25,14 @@ transform 2.401550 0.000000 0.000000 0.000000 0.000000 2.401550 0.000000 0.00000
 nodeNum 20
 0,object,room,,11
 1,object,table,11,12 13 14 15 16 17 18 19
-2,object,_stanfordscenedbmodels,12,
-3,object,_stanfordscenedbmodels,13,
-4,object,_stanfordscenedbmodels,14,
-5,object,_stanfordscenedbmodels,15,
+2,object,pictureframe,12,
+3,object,pictureframe,13,
+4,object,holder,14,
+5,object,candle,15,
 6,object,telephone,16,
 7,object,bowl,17,
 8,object,pottedplant,18,
-9,object,_stanfordscenedbmodels,19,
+9,object,magazine,19,
 10,object,wallart,,
 11,pairwise_relationship,vert_support,0,1
 12,pairwise_relationship,vert_support,1,2
@@ -55,6 +55,14 @@ edgeNum 18
 8,1,15
 9,15,5
 10,1,16
+11,16,6
+12,1,17
+13,17,7
+14,1,18
+15,18,8
+16,1,19
+17,19,9
+6
 11,16,6
 12,1,17
 13,17,7

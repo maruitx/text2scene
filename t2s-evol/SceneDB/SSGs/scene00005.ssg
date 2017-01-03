@@ -11,7 +11,7 @@ transform 0.879218 -1.974750 0.000000 0.000000 1.974750 0.879218 0.000000 0.0000
 nodeNum 7
 0,object,room,,4
 1,object,desk,4,5 6
-2,object,_pilotstudymodels,5,
+2,object,holder,5,
 3,object,stapler,6,
 4,pairwise_relationship,vert_support,0,1
 5,pairwise_relationship,vert_support,1,2
@@ -22,4 +22,6 @@ edgeNum 6
 2,1,5
 3,5,2
 4,1,6
+5,6,3
+,6
 5,6,3

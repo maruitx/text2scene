@@ -15,8 +15,12 @@ transform 0.038220 0.000000 0.000000 0.000000 0.000000 0.038220 0.000000 0.00000
 nodeNum 6
 0,object,room,,
 1,object,nightstand,,
-2,object,_stanfordscenedbmodels,,
+2,object,tableclock,,
 3,object,lamp,,
 4,object,book,,
-5,object,drinkingutensil,,
+5,object,cup,,
+edgeNum 0
+
+edgeNum 0
+
 edgeNum 0

@@ -50,27 +50,27 @@ newModel 23 f814eb2a6234540aa35a7666f0cfa5bb
 transform -0.520738 -1.470520 0.000000 0.000000 1.470520 -0.520738 0.000000 0.000000 0.000000 0.000000 1.560000 0.000000 87.483597 159.647995 3.250000 1.000000
 nodeNum 50
 0,object,room,,24 25
-1,object,_stanfordscenedbmodels,24,26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45
+1,object,desk,24,26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45
 2,object,speaker,26,46
-3,object,_stanfordscenedbmodels,27,
-4,object,_stanfordscenedbmodels,28,
-5,object,_stanfordscenedbmodels,29,
-6,object,_stanfordscenedbmodels,30,
-7,object,_stanfordscenedbmodels,31,
+3,object,compact disk,27,
+4,object,compact disk,28,
+5,object,compact disk,29,
+6,object,mediadiscs,30,
+7,object,compact disk,31,
 8,object,speaker,32,47 48
-9,object,_stanfordscenedbmodels,33,
-10,object,_stanfordscenedbmodels,34 47,49
-11,object,_pilotstudymodels,35 46,
-12,object,_pilotstudymodels,36 48,
+9,object,compact disk,33,
+10,object,cadmium,34 47,49
+11,object,compact disk,35 46,
+12,object,compact disk,36 48,
 13,object,monitor,37 49,
-14,object,_stanfordscenedbmodels,38,
-15,object,_stanfordscenedbmodels,39,
-16,object,_stanfordscenedbmodels,40,
+14,object,compact disk,38,
+15,object,mediadiscs,39,
+16,object,mediadiscs,40,
 17,object,keyboard,41,
 18,object,speaker,42,
 19,object,computermouse,43,
-20,object,_stanfordscenedbmodels,44,
-21,object,_stanfordscenedbmodels,45,
+20,object,cellphone,44,
+21,object,noname,45,
 22,object,wallart,,
 23,object,chair,25,
 24,pairwise_relationship,vert_support,0,1
@@ -136,6 +136,24 @@ edgeNum 52
 33,40,16
 34,1,41
 35,41,17
+36,1,42
+37,42,18
+38,1,43
+39,43,19
+40,1,44
+41,44,20
+42,1,45
+43,45,21
+44,2,46
+45,46,11
+46,8,47
+47,47,10
+48,8,48
+49,48,12
+50,10,49
+51,49,13
+51,49,13
+,17
 36,1,42
 37,42,18
 38,1,43

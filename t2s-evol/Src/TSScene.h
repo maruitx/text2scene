@@ -20,6 +20,8 @@ public:
 
 	void makeRandom();
 
+	void countLoadedModelNum(); // count loaded model number by finding model in loaded modelDB
+
 private:
 	unordered_map<string, Model*> &m_models;   // current loaded object DB
 	
@@ -29,5 +31,7 @@ private:
 
 	int m_modelNum;
 	int m_frameCount;
+
+	int m_loadedModelNum;
 };
 

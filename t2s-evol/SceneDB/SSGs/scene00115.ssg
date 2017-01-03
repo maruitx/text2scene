@@ -27,13 +27,20 @@ transform 1.500000 0.000000 0.000000 0.000000 0.000000 1.500000 0.000000 0.00000
 nodeNum 12
 0,object,room,,
 1,object,nightstand,,
-2,object,_stanfordscenedbmodels,,
-3,object,_stanfordscenedbmodels,,
-4,object,_stanfordscenedbmodels,,
-5,object,_stanfordscenedbmodels,,
-6,object,drinkingutensil,,
-7,object,_stanfordscenedbmodels,,
-8,object,_stanfordscenedbmodels,,
+2,object,atomizer,,
+3,object,cube,,
+4,object,pillbottle,,
+5,object,tableclock,,
+6,object,cup,,
+7,object,cellphone,,
+8,object,fooditem,,
+9,object,books,,
+10,object,trashbin,,
+11,object,bottle,,
+edgeNum 0
+
+edgeNum 0
+dbmodels,,
 9,object,books,,
 10,object,trashbin,,
 11,object,bottle,,

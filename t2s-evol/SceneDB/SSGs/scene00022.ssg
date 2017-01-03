@@ -52,21 +52,21 @@ nodeNum 45
 0,object,room,,
 1,object,table,,24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42
 2,object,bowl,24,
-3,object,_stanfordscenedbmodels,25,
+3,object,cellphone,25,
 4,object,pottedplant,26,
 5,object,book,27,43 44
 6,object,notepad,43,
-7,object,_stanfordscenedbmodels,28,
-8,object,drinkingutensil,29,
-9,object,_stanfordscenedbmodels,30,
+7,object,candle,28,
+8,object,mug,29,
+9,object,paperbox,30,
 10,object,fooditem,31 44,
-11,object,_stanfordscenedbmodels,32,
-12,object,_stanfordscenedbmodels,33,
+11,object,toyfigure,32,
+12,object,decorativeaccessory,33,
 13,object,purse,,
-14,object,_stanfordscenedbmodels,34,
-15,object,_stanfordscenedbmodels,35,
+14,object,coffee maker,34,
+15,object,tissuebox,35,
 16,object,fooditem,36,
-17,object,_stanfordscenedbmodels,37,
+17,object,chestofdrawers,37,
 18,object,camera,38,
 19,object,books,39,
 20,object,books,40,
@@ -128,6 +128,18 @@ edgeNum 42
 30,1,39
 31,39,19
 32,1,40
+33,40,20
+34,1,41
+35,41,21
+36,1,42
+37,42,22
+38,5,43
+39,43,6
+40,5,44
+41,44,10
+
+41,44,10
+,40
 33,40,20
 34,1,41
 35,41,21

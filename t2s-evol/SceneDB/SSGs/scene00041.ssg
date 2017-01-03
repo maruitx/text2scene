@@ -78,39 +78,39 @@ newModel 37 970f27b386161974f6a73537204ca067
 transform 1.282210 0.000000 0.000000 0.000000 0.000000 1.282210 0.000000 0.000000 0.000000 0.000000 1.282210 0.000000 114.361000 428.878998 -4.275090 1.000000
 nodeNum 61
 0,object,room,,38 39 40 41 42 43 44 45 46
-1,object,_stanfordscenedbmodels,38,47 48 49 50 51
-2,object,_stanfordscenedbmodels,47,
-3,object,_stanfordscenedbmodels,48,
-4,object,_stanfordscenedbmodels,49,
-5,object,_stanfordscenedbmodels,50,
-6,object,_stanfordscenedbmodels,51,
-7,object,_stanfordscenedbmodels,,
-8,object,_stanfordscenedbmodels,,
-9,object,_stanfordscenedbmodels,,
-10,object,_stanfordscenedbmodels,,
+1,object,bookcase,38,47 48 49 50 51
+2,object,toyfigure,47,
+3,object,toyfigure,48,
+4,object,toyfigure,49,
+5,object,toyfigure,50,
+6,object,toyfigure,51,
+7,object,toyfigure,,
+8,object,ball,,
+9,object,ball,,
+10,object,ball,,
 11,object,desk,,52 53 54 55 56
-12,object,_stanfordscenedbmodels,52,
-13,object,_stanfordscenedbmodels,53,
+12,object,cradle,52,
+13,object,notepad,53,
 14,object,pottedplant,54,
 15,object,bowl,55,
-16,object,_stanfordscenedbmodels,56,
-17,object,_stanfordscenedbmodels,39,57 58 59
+16,object,cup,56,
+17,object,rug,39,57 58 59
 18,object,shoes,57,
 19,object,shoes,58,
 20,object,shoes,59,
-21,object,_stanfordscenedbmodels,,
-22,object,_stanfordscenedbmodels,40,
-23,object,_stanfordscenedbmodels,41,
+21,object,board,,
+22,object,paperbox,40,
+23,object,paperbox,41,
 24,object,pottedplant,42,
-25,object,_stanfordscenedbmodels,43,
-26,object,_stanfordscenedbmodels,44,
-27,object,_stanfordscenedbmodels,45,
+25,object,table,43,
+26,object,gametable,44,
+27,object,gametable,45,
 28,object,table,,60
-29,object,_stanfordscenedbmodels,60,
+29,object,chess,60,
 30,object,chair,,
 31,object,chair,,
 32,object,chair,46,
-33,object,_stanfordscenedbmodels,,
+33,object,powersocket,,
 34,object,wallart,,
 35,object,coatrack,,
 36,object,lightswitch,,
@@ -152,6 +152,42 @@ edgeNum 46
 10,0,43
 11,43,25
 12,0,44
+13,44,26
+14,0,45
+15,45,27
+16,0,46
+17,46,32
+18,1,47
+19,47,2
+20,1,48
+21,48,3
+22,1,49
+23,49,4
+24,1,50
+25,50,5
+26,1,51
+27,51,6
+28,11,52
+29,52,12
+30,11,53
+31,53,13
+32,11,54
+33,54,14
+34,11,55
+35,55,15
+36,11,56
+37,56,16
+38,17,57
+39,57,18
+40,17,58
+41,58,19
+42,17,59
+43,59,20
+44,28,60
+45,60,29
+
+45,60,29
+
 13,44,26
 14,0,45
 15,45,27

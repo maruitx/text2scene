@@ -50,18 +50,18 @@ newModel 23 fd244782842c611b6443e5551f9d3958
 transform 0.000000 -1.124860 0.000000 0.000000 1.124860 0.000000 0.000000 0.000000 0.000000 0.000000 1.124860 0.000000 52.447102 190.091003 3.250000 1.000000
 nodeNum 46
 0,object,room,,24 25 26
-1,object,_stanfordscenedbmodels,,
+1,object,powersocket,,
 2,object,desk,24,27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42
 3,object,speaker,27,
 4,object,monitor,28,
-5,object,_stanfordscenedbmodels,,
+5,object,webcam,,
 6,object,monitor,29,
 7,object,mousepad,30,43 44
 8,object,computermouse,31 43,
 9,object,rubikscube,32,
-10,object,_stanfordscenedbmodels,,
+10,object,rifle,,
 11,object,camera,33,
-12,object,_stanfordscenedbmodels,25 34,
+12,object,mediadiscs,25 34,
 13,object,bowl,35,
 14,object,headphones,36,
 15,object,lamp,37,
@@ -135,6 +135,12 @@ edgeNum 44
 36,2,42
 37,42,20
 38,7,43
+39,43,8
+40,7,44
+41,44,17
+42,17,45
+43,45,18
+8,7,43
 39,43,8
 40,7,44
 41,44,17

@@ -30,14 +30,19 @@ nodeNum 13
 0,object,room,,
 1,object,rug,,
 2,object,table,,
-3,object,drinkingutensil,,
-4,object,drinkingutensil,,
+3,object,mug,,
+4,object,mug,,
 5,object,toyfigure,,
 6,object,fooditem,,
-7,object,drinkingutensil,,
-8,object,_stanfordscenedbmodels,,
+7,object,cup,,
+8,object,bowl,,
 9,object,computer,,
 10,object,chair,,
 11,object,purse,,
 12,object,chair,,
+edgeNum 0
+se,,
+12,object,chair,,
+edgeNum 0
+air,,
 edgeNum 0

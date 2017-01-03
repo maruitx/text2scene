@@ -65,30 +65,30 @@ nodeNum 63
 1,object,chair,,
 2,object,table,30,31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53
 3,object,pottedplant,31,
-4,object,_stanfordscenedbmodels,32,
-5,object,_stanfordscenedbmodels,33,54
-6,object,_stanfordscenedbmodels,34 54,
-7,object,_stanfordscenedbmodels,35,
-8,object,_stanfordscenedbmodels,36,55 56
-9,object,_stanfordscenedbmodels,37 55,
-10,object,_stanfordscenedbmodels,38 56,
-11,object,_stanfordscenedbmodels,39,
-12,object,_stanfordscenedbmodels,40,57
-13,object,_stanfordscenedbmodels,41 57,
-14,object,_stanfordscenedbmodels,42,
-15,object,_stanfordscenedbmodels,43,
-16,object,_stanfordscenedbmodels,44,
-17,object,_stanfordscenedbmodels,45,
-18,object,_stanfordscenedbmodels,46,
-19,object,_stanfordscenedbmodels,47,
-20,object,_stanfordscenedbmodels,48,58 59 60
+4,object,pepper mill,32,
+5,object,plate,33,54
+6,object,fooditem,34 54,
+7,object,teacup,35,
+8,object,money,36,55 56
+9,object,coin,37 55,
+10,object,coin,38 56,
+11,object,coin,39,
+12,object,money,40,57
+13,object,coin,41 57,
+14,object,mug,42,
+15,object,coin,43,
+16,object,coin,44,
+17,object,mug,45,
+18,object,pot,46,
+19,object,fooditem,47,
+20,object,plate,48,58 59 60
 21,object,knife,49 58,
 22,object,fork,50 59,
-23,object,_stanfordscenedbmodels,51 60,
-24,object,_stanfordscenedbmodels,52,61
-25,object,_stanfordscenedbmodels,53 61,
+23,object,fooditem,51 60,
+24,object,plate,52,61
+25,object,fooditem,53 61,
 26,object,chair,,62
-27,object,_stanfordscenedbmodels,62,
+27,object,wallet,62,
 28,object,chair,,
 29,object,chair,,
 30,pairwise_relationship,vert_support,0,2
@@ -160,6 +160,43 @@ edgeNum 66
 32,2,46
 33,46,18
 34,2,47
+35,47,19
+36,2,48
+37,48,20
+38,2,49
+39,49,21
+40,2,50
+41,50,22
+42,2,51
+43,51,23
+44,2,52
+45,52,24
+46,2,53
+47,53,25
+48,5,54
+49,54,6
+50,8,55
+51,55,9
+52,8,56
+53,56,10
+54,12,57
+55,57,13
+56,20,58
+57,58,21
+58,20,59
+59,59,22
+60,20,60
+61,60,23
+62,24,61
+63,61,25
+64,26,62
+65,62,27
+,23
+62,24,61
+63,61,25
+64,26,62
+65,62,27
+,47
 35,47,19
 36,2,48
 37,48,20

@@ -32,9 +32,9 @@ nodeNum 21
 0,object,room,,14 15
 1,object,chair,,
 2,object,speaker,14,
-3,object,_stanfordscenedbmodels,,
+3,object,case,,
 4,object,desk,15,16 17 18 19 20
-5,object,_stanfordscenedbmodels,16,
+5,object,radio receiver,16,
 6,object,headphones,,
 7,object,bowl,17,
 8,object,computermouse,18,
@@ -63,5 +63,8 @@ edgeNum 14
 9,18,8
 10,4,19
 11,19,10
+12,4,20
+13,20,12
+19,10
 12,4,20
 13,20,12

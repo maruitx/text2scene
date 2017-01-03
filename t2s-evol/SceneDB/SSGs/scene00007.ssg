@@ -18,14 +18,18 @@ newModel 7 2b94a026f1eb8efea156590b19c3013b
 transform 0.000000 -0.832897 0.000000 0.000000 0.832897 0.000000 0.000000 0.000000 0.000000 0.000000 0.832897 0.000000 349.497009 226.681000 52.538200 1.000000
 nodeNum 9
 0,object,room,,
-1,object,_stanfordscenedbmodels,,8
-2,object,_stanfordscenedbmodels,,
+1,object,bed,,8
+2,object,pants,,
 3,object,computer,8,
 4,object,pillow,,
 5,object,bear,,
 6,object,shirt,,
 7,object,wallart,,
 8,pairwise_relationship,vert_support,1,3
+edgeNum 2
+0,1,8
+1,8,3
+pport,1,3
 edgeNum 2
 0,1,8
 1,8,3

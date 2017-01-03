@@ -1,0 +1,5 @@
+#Rui's git root
+gitRoot=C:\Ruim\Graphics\T2S_MPC\text2scene\
+
+inputFile=in.txt
+outputFile=out.txt
