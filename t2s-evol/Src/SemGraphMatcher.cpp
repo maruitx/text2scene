@@ -71,15 +71,25 @@ vector<SceneSemGraph*> SemGraphMatcher::matchTSGWithSSGs(int topMacthNum)
 
 	vector<pair<double, InstanceData *>> matchedInstances;
 
+	// collected matched instance ids
+	std::set<int> matchedSSGIds;
 	for (int i = 0; i < matchedSSGNum; i++)
 	{
 		InstanceData* IS = m_gmtMatcher->m_graphDatabase->getInstance(i);
+		int currId = IS->modelNr;
 
-		matchedInstances.push_back(make_pair(IS->totalError, IS));
+		// only return non-repeated instance
+		if (std::find(matchedSSGIds.begin(), matchedSSGIds.end(), currId) == matchedSSGIds.end())
+		{
+			matchedInstances.push_back(make_pair(IS->totalError, IS));
+		}
+
+		matchedSSGIds.insert(currId);
 	}
 
 	sort(matchedInstances.begin(), matchedInstances.end()); // ascending order
 
+	matchedSSGNum = matchedInstances.size();
 	vector<SceneSemGraph*> matchedSubSSGs;
 
 	int ssgNum = min(topMacthNum, matchedSSGNum);

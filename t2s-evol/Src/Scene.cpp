@@ -10,9 +10,7 @@
 #include "TransformFeedback.h"
 #include "TSScene.h"
 #include "TextSemGraphManager.h"
-#include "SceneSemGraphManager.h"
-#include "SceneSemGraph.h"
-#include "SemGraphMatcher.h"
+#include "SceneGenerator.h"
 
 Scene::Scene(CameraManager *camManager)
 : m_cameraManager(camManager),
@@ -146,8 +144,7 @@ void Scene::initSynScene()
 	const string mainSceneDBDirectory = "../../SceneDB";
 
 	m_textSemGraphManager = new TextSemGraphManager();
-	m_sceneSemGraphManager = new SceneSemGraphManager(QString(mainSceneDBDirectory.c_str()));
-	m_semanticGraphMatcher = new SemGraphMatcher(m_sceneSemGraphManager);
+	m_sceneGenerator = new SceneGenerator(QString(mainSceneDBDirectory.c_str()), m_models);
 
 	// temporary setting
 	params::inst()->sceneDirectory = mainSceneDBDirectory + "/StanfordSceneDB/scenes/";
@@ -157,10 +154,7 @@ void Scene::initSynScene()
 	m_previewNum = 5;
 	for (int i = 0; i < m_previewNum; ++i)
 	{
-		//SceneSemGraph *ssg = m_sceneSemGraphManager->getGraph(i);
-		//TSScene *s = ssg->covertToTSScene(m_models);
 		TSScene *s = new TSScene(m_models);
-
 		m_variations.push_back(s);
 	}
 }
@@ -211,11 +205,9 @@ void Scene::runOneEvolutionStep()
 	TextSemGraph* activeTextSemGraph = m_textSemGraphManager->getActiveGraph();
 	m_textSemGraphManager->updateActiveGraphId();
 
-	int topSSGNum = m_previewNum;
+	m_sceneGenerator->setCurrentTextGraph(activeTextSemGraph);
 
-	m_semanticGraphMatcher->updateCurrentTextSemGraph(activeTextSemGraph);
-	//vector<SceneSemGraph*> matchedSSGs = m_semanticGraphMatcher->testMatchTSGWithSSGs(topSSGNum);
-	vector<SceneSemGraph*> matchedSSGs = m_semanticGraphMatcher->matchTSGWithSSGs(topSSGNum);
+	int topSSGNum = m_previewNum;
 
 	// clean previous variations
 	for (int i = 0; i < m_variations.size(); i++)
@@ -225,11 +217,11 @@ void Scene::runOneEvolutionStep()
 
 	m_variations.clear();
 
-	for (int i = 0; i < matchedSSGs.size(); ++i)
+	std::vector<TSScene*> tsscenes = m_sceneGenerator->generateTSScenes(topSSGNum);
+
+	for (int i = 0; i < tsscenes.size(); ++i)
 	{
-		QString sceneName = QString("Preview %1").arg(i);
-		TSScene *s = matchedSSGs[i]->covertToTSScene(m_models, sceneName);
-		m_variations.push_back(s);
+		m_variations.push_back(tsscenes[i]);
 	}
 }
 
