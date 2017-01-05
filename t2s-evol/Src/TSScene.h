@@ -3,8 +3,8 @@
 #include "MetaData.h"
 
 class Object;
-
 class Model;
+class SceneSemGraph;
 
 class TSScene
 {
@@ -22,6 +22,9 @@ public:
 
 	void countLoadedModelNum(); // count loaded model number by finding model in loaded modelDB
 
+public:
+	SceneSemGraph *m_ssg;
+
 private:
 	unordered_map<string, Model*> &m_models;   // current loaded object DB
 	
@@ -33,5 +36,7 @@ private:
 	int m_frameCount;
 
 	int m_loadedModelNum;
+
+
 };
 

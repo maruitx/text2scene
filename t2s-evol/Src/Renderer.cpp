@@ -337,6 +337,7 @@ void Renderer::onMouseClick(int mx, int my)
         if (m_previewFBOs[i].clicked(mx, my, m_prevYOffset))
         {
             m_activePreview = i;
+			m_scene->m_activeVarationId = m_activePreview;
         }
     }
 

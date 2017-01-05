@@ -55,6 +55,8 @@ public:
 	void render(const Transform &trans, const mat4 &initTrans, bool applyShadow = false);
 	void renderDepth(const Transform &trans, const mat4 &initTrans);
 
+	vec3 m_sceneCenter;
+
 public slots:
 	void loadingDone();	
 
@@ -62,8 +64,7 @@ private:
 	ModelThread m_thread;
 	BoundingBox m_bb;
 
-	vector<ModelMesh> m_meshes;
-
+	vector<ModelMesh> m_meshes;	
 };
 
 #endif

@@ -213,6 +213,7 @@ SceneSemGraph* SemGraphMatcher::convertGMTInstanceToSSG(InstanceData *gmtInstanc
 		}			
 	}
 
+	std::sort(nodeList.begin(), nodeList.end());
 	SceneSemGraph *matchedSubSSG = matchedFullSSG->getSubGraph(nodeList);
 
 	return matchedSubSSG;

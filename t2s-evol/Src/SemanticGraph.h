@@ -4,7 +4,7 @@
 
 class SemNode{
 public:
-	SemNode(const QString &t, const QString &n, int id) { nodeType = t; nodeName = n; nodeId = id; };
+	SemNode(const QString &t, const QString &n, int id) { nodeType = t; nodeName = n; nodeId = id; isAligned = false; };
 	~SemNode() {};
 
 	// node types: object, p_attribute, p_relation, g_relation, g_attribute, 
@@ -25,15 +25,19 @@ public:
 	// for object: from passive object to relation/attribute node, e.g. table --> support
 	std::vector<int> outEdgeNodeList;
 
+	bool isAligned;
+
 };
 
 class SemEdge{
 public:
-	SemEdge(int s, int t, int id) { sourceNodeId = s, targetNodeId = t; edgeId = id; };
+	SemEdge(int s, int t, int id) { sourceNodeId = s; targetNodeId = t; edgeId = id; isAligned = false; };
 	~SemEdge() {};
 
 	int sourceNodeId, targetNodeId;
 	int edgeId;
+
+	bool isAligned;
 };
 
 class SemanticGraph
@@ -46,6 +50,7 @@ public:
 	void addEdge(int s, int t);
 
 	std::vector<int> findNodeWithName(const QString &nName);
+	bool isEdgeExist(int s, int t);
 
 public:
 	int m_nodeNum, m_edgeNum;

@@ -27,7 +27,7 @@ private:
 
 	std::vector<int> m_isNodeCertain;
 	std::vector<int> m_isNodeGrounded;
-
+	std::vector<int> m_isEdgeGrounded;
 
 };
 

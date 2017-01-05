@@ -7,7 +7,8 @@ TSScene::TSScene(unordered_map<string, Model*> &models)
 	:m_models(models),
 	m_sceneBB(vec3(math_maxfloat), vec3(math_minfloat)),
 	m_frameCount(0),
-	m_loadedModelNum(0)
+	m_loadedModelNum(0),
+	m_ssg(NULL)
 {
 	
 }
@@ -16,7 +17,8 @@ TSScene::TSScene(unordered_map<string, Model*> &models, const QString &fileName)
 : m_models(models),
   m_sceneBB(vec3(math_maxfloat), vec3(math_minfloat)), 
   m_frameCount(0),
-  m_loadedModelNum(0)
+  m_loadedModelNum(0),
+  m_ssg(NULL)
 {
 	loadSceneFile(fileName);
 	countLoadedModelNum();
@@ -27,7 +29,8 @@ TSScene::TSScene(unordered_map<string, Model*> &models, MetaScene &ms)
 	m_metaScene(ms),
 	m_sceneBB(vec3(math_maxfloat), vec3(math_minfloat)),
 	m_frameCount(0),
-	m_loadedModelNum(0)
+	m_loadedModelNum(0),
+	m_ssg(NULL)
 {
 	m_modelNum = m_metaScene.m_metaModellList.size();
 	countLoadedModelNum();

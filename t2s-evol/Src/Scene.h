@@ -45,6 +45,7 @@ public:
 	TextSemGraphManager *m_textSemGraphManager;
 	SceneGenerator *m_sceneGenerator;
 
+	int m_activeVarationId;
 private:
 	
     NiceGrid *m_niceGrid;

@@ -46,3 +46,16 @@ std::vector<int> SemanticGraph::findNodeWithName(const QString &nName)
 
 	return nodeIds;
 }
+
+bool SemanticGraph::isEdgeExist(int s, int t)
+{
+	for (int i = 0; i < m_edgeNum; i++)
+	{
+		if (m_edges[i].sourceNodeId == s && m_edges[i].targetNodeId == t)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}

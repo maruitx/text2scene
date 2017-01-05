@@ -151,12 +151,14 @@ void Scene::initSynScene()
 	params::inst()->modelDirectory = mainSceneDBDirectory + "/StanfordSceneDB/models/";
 	params::inst()->textureDirectory = mainSceneDBDirectory + "/StanfordSceneDB/textures/";
 
-	m_previewNum = 5;
+	m_previewNum = 3;
 	for (int i = 0; i < m_previewNum; ++i)
 	{
 		TSScene *s = new TSScene(m_models);
 		m_variations.push_back(s);
 	}
+
+	m_activeVarationId = 0;
 }
 
 void Scene::renderSynScene(const Transform &trans, int var, bool applyShadow)
@@ -199,15 +201,19 @@ void Scene::renderSynSceneDepth(const Transform &trans, int var)
 
 void Scene::runOneEvolutionStep()
 {
+	// get active tsg
 	QString filename = "out.txt";
 	m_textSemGraphManager->loadSELFromOutput(filename);
 
 	TextSemGraph* activeTextSemGraph = m_textSemGraphManager->getActiveGraph();
 	m_textSemGraphManager->updateActiveGraphId();
 
-	m_sceneGenerator->setCurrentTextGraph(activeTextSemGraph);
+	m_sceneGenerator->updateCurrentTextGraph(activeTextSemGraph);
+	m_sceneGenerator->updateCurrentTSScene(m_variations[m_activeVarationId]);
 
 	int topSSGNum = m_previewNum;
+
+	std::vector<TSScene*> tsscenes = m_sceneGenerator->generateTSScenes(topSSGNum);
 
 	// clean previous variations
 	for (int i = 0; i < m_variations.size(); i++)
@@ -216,8 +222,6 @@ void Scene::runOneEvolutionStep()
 	}
 
 	m_variations.clear();
-
-	std::vector<TSScene*> tsscenes = m_sceneGenerator->generateTSScenes(topSSGNum);
 
 	for (int i = 0; i < tsscenes.size(); ++i)
 	{

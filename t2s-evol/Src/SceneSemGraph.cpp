@@ -14,6 +14,18 @@ SceneSemGraph::SceneSemGraph(const QString &s)
 	loadGraph(m_fullFilename);
 }
 
+SceneSemGraph::SceneSemGraph(SceneSemGraph *sg)
+	: m_metaScene(sg->m_metaScene),
+	m_objectGraphNodeIdToModelSceneIdMap(sg->m_objectGraphNodeIdToModelSceneIdMap),
+	m_modelNum(sg->m_modelNum)
+{
+	m_nodeNum = sg->m_nodeNum;
+	m_edgeNum = sg->m_edgeNum;
+
+	m_nodes = sg->m_nodes;
+	m_edges = sg->m_edges;
+}
+
 SceneSemGraph::~SceneSemGraph()
 {
 
@@ -85,11 +97,28 @@ void SceneSemGraph::loadGraph(const QString &filename)
 						transMat = transMat.transpose();
 						m_metaScene.m_metaModellList[i].transformation = transMat;
 					}
+
+					if (currLine.contains("frontDir "))
+					{
+						std::vector<int> dirElementList = StringToIntegerList(currLine.toStdString(), "frontDir ");
+						m_metaScene.m_metaModellList[i].frontDir = vec3(dirElementList[0], dirElementList[1], dirElementList[2]);
+					}
+					if (currLine.contains("upDir "))
+					{
+						std::vector<int> dirElementList = StringToIntegerList(currLine.toStdString(), "upDir ");
+						m_metaScene.m_metaModellList[i].upDir = vec3(dirElementList[0], dirElementList[1], dirElementList[2]);
+					}
+					if (currLine.contains("center "))
+					{
+						std::vector<float> elementList = StringToFloatList(currLine.toStdString(), "center ");
+						m_metaScene.m_metaModellList[i].upDir = vec3(elementList[0], elementList[1], elementList[2]);
+					}
 				}
 			}
 		}
 
 		// load nodes
+		int metaModelId = 0;
 		if (currLine.contains("nodeNum "))
 		{
 			int nodeNum = StringToIntegerList(currLine.toStdString(), "nodeNum ")[0];
@@ -99,9 +128,11 @@ void SceneSemGraph::loadGraph(const QString &filename)
 				std::vector<std::string> parts = PartitionString(currLine.toStdString(), ",");
 				
 				// object node
-				if (parts.size() == 3)
+				if (QString(parts[1].c_str()) == "object")
 				{
 					addNode(QString(parts[1].c_str()), QString(parts[2].c_str()));
+					m_objectGraphNodeIdToModelSceneIdMap[m_nodeNum - 1] = metaModelId;
+					metaModelId++;
 				}
 				else
 				{
@@ -131,6 +162,7 @@ TSScene* SceneSemGraph::covertToTSScene(unordered_map<string, Model*> &models, c
 {
 	m_metaScene.m_sceneFileName = sceneName;
 	TSScene* newScene = new TSScene(models, m_metaScene);
+	newScene->m_ssg = this;
 
 	return newScene;
 }
@@ -170,11 +202,13 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList)
 	// set meta scene
 	for (int i = 0; i < nodeList.size(); i++)
 	{
-		int oldNodeId = nodeList[i];		
+		int oldNodeId = nodeList[i];
+		int oldMetaModelId = m_objectGraphNodeIdToModelSceneIdMap[oldNodeId];
 
-		if (oldNodeId < m_modelNum)
+		if (oldMetaModelId < m_modelNum)
 		{
-			subGraph->m_metaScene.m_metaModellList.push_back(m_metaScene.m_metaModellList[oldNodeId]);
+			subGraph->m_metaScene.m_metaModellList.push_back(m_metaScene.m_metaModellList[oldMetaModelId]);
+			subGraph->m_objectGraphNodeIdToModelSceneIdMap[i] = i;
 		}
 	}
 

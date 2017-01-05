@@ -6,7 +6,7 @@
 class MetaModel
 	{
 		public:
-			MetaModel() : name(""), id(0), transformation(mat4::identitiy()), material(), visible(true), path("") {}
+			MetaModel() : name(""), id(0), transformation(mat4::identitiy()), material(), visible(true), path(""), frontDir(vec3(0, -1, 0)), upDir(vec3(0, 0, 1)), center(vec3(0,0,0)) {}
 			MetaModel(const MetaModel &md) { name = md.name; id = md.id; transformation = md.transformation; material = md.material; visible = md.visible; path = md.path; }
 			MetaModel &operator = (const MetaModel &md) { name = md.name; id = md.id; transformation = md.transformation; material = md.material; visible = md.visible; path = md.path;  return *this; }
 
@@ -16,6 +16,9 @@ class MetaModel
 			Material material;		
 			bool visible;
 			string path;
+			vec3 frontDir;
+			vec3 upDir;
+			vec3 center;
 	};
 
 class MetaScene

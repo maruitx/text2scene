@@ -306,7 +306,9 @@ void Model::render(const Transform &trans, const mat4 &initTrans, bool applyShad
 		glEnable(GL_CULL_FACE);
 	}
 
-	mat4 m = mat4::scale(vec3(0.1)) * mat4::rotateX(-90) * initTrans;
+	mat4 viewTrans = mat4::scale(vec3(0.1)) * mat4::rotateX(-90);
+
+	mat4 m = viewTrans * initTrans;
 
 	Shader *shader = shaders::inst()->model;
 	shader->bind();
