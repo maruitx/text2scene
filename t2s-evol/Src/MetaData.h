@@ -6,8 +6,8 @@
 class MetaModel
 	{
 		public:
-			MetaModel() : name(""), id(0), transformation(mat4::identitiy()), material(), visible(true), path(""), frontDir(vec3(0, -1, 0)), upDir(vec3(0, 0, 1)), center(vec3(0,0,0)) {}
-			MetaModel(const MetaModel &md) { name = md.name; id = md.id; transformation = md.transformation; material = md.material; visible = md.visible; path = md.path; }
+			MetaModel() : name(""), id(0), transformation(mat4::identitiy()), material(), visible(true), path(""), frontDir(vec3(0, -1, 0)), upDir(vec3(0, 0, 1)), position(vec3(0,0,0)) {}
+			MetaModel(const MetaModel &md) { name = md.name; id = md.id; transformation = md.transformation; material = md.material; visible = md.visible; path = md.path; frontDir = md.frontDir; upDir = md.upDir; position = md.position; };
 			MetaModel &operator = (const MetaModel &md) { name = md.name; id = md.id; transformation = md.transformation; material = md.material; visible = md.visible; path = md.path;  return *this; }
 
 			string name;
@@ -18,7 +18,7 @@ class MetaModel
 			string path;
 			vec3 frontDir;
 			vec3 upDir;
-			vec3 center;
+			vec3 position;
 	};
 
 class MetaScene

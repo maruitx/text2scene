@@ -97,11 +97,15 @@ vector<SceneSemGraph*> SemGraphMatcher::matchTSGWithSSGs(int topMacthNum)
 	for (int i = 0; i < ssgNum; i++)
 	{
 		SceneSemGraph *ssg = convertGMTInstanceToSSG(matchedInstances[i].second);
-		matchedSubSSGs.push_back(ssg);
+
+		if (ssg!=NULL)
+		{
+			matchedSubSSGs.push_back(ssg);
+		}
 	}
 
 
-	cout << "SemGraphMatcher: graph matching done, found instance number " << matchedSSGNum << ", shown instance number " << ssgNum << ".\n";
+	cout << "SemGraphMatcher: graph matching done, found instance number " << matchedSSGNum << ", shown instance number " << matchedSubSSGs.size() << ".\n";
 
 	return matchedSubSSGs;
 }
@@ -206,7 +210,8 @@ SceneSemGraph* SemGraphMatcher::convertGMTInstanceToSSG(InstanceData *gmtInstanc
 	for (int i = 0; i < nodeNum; i++)
 	{		
 		int matchedNodeId = gmtInstance->model[i];
-		// do not add the virtual node which we added to make the graph as one component
+
+		// we add a virtual node in GMT graph, do not add the virtual node which we added to make the graph as one component		
 		if (matchedNodeId < matchedFullSSG->m_nodeNum)
 		{
 			nodeList.push_back(matchedNodeId);

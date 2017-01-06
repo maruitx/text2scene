@@ -47,6 +47,8 @@ struct SelEntity
 	vector<SelRelationship> m_relationships;
 	vector<SelAttribute> m_attributes;
 	vector<SelCommand> m_commands;
+
+	vector<int> m_instanceNodeIds;  // the node id of current instance
 };
 
 struct SelSentence

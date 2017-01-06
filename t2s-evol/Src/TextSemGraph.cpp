@@ -37,6 +37,8 @@ void TextSemGraph::buildGraphFromSEL()
 				{
 					addNode("object", entityName);
 					m_isNodeCertain.push_back(1);
+
+					m_sentence.m_entities[i].m_instanceNodeIds.push_back(m_nodeNum-1);
 				}
 			}
 			else
@@ -47,6 +49,8 @@ void TextSemGraph::buildGraphFromSEL()
 				{
 					addNode("object", entityName);
 					m_isNodeCertain.push_back(0);
+
+					m_sentence.m_entities[i].m_instanceNodeIds.push_back(m_nodeNum - 1);
 				}
 			}
 
@@ -58,6 +62,7 @@ void TextSemGraph::buildGraphFromSEL()
 			addNode("object", entityName);
 			m_isNodeCertain.push_back(1);
 
+			m_sentence.m_entities[i].m_instanceNodeIds.push_back(m_nodeNum - 1);
 			m_sentence.m_entities[i].instanceCount = 1;
 		}
 	}
@@ -83,14 +88,12 @@ void TextSemGraph::buildGraphFromSEL()
 					m_nodes[m_nodeNum - 1].nodeType = "relation:horizon_support";
 				}
 
-				std::vector<int> nodeIds = findNodeWithName(passiveEntityName);
-				for (int k = 0; k < nodeIds.size(); k++)
+				std::vector<int> passiveNodeIds = findNodeWithName(passiveEntityName);
+				for (int k = 0; k < passiveNodeIds.size(); k++)
 				{
-					//addEdge(i, m_nodeNum - 1);
-					//addEdge(m_nodeNum-1, nodeIds[k]);
-
-					addEdge(m_nodeNum - 1, i);
-					addEdge(nodeIds[k], m_nodeNum - 1);
+					int instanceNodeId = m_sentence.m_entities[i].m_instanceNodeIds[n];
+					addEdge(m_nodeNum - 1, instanceNodeId);
+					addEdge(passiveNodeIds[k], m_nodeNum - 1);
 				}
 			}
 		}
@@ -173,6 +176,10 @@ void TextSemGraph::mapToFixedObjSet(QString &nodeName)
 		nodeName = "computer";
 	}
 
+	if (nodeName == "mouse")
+	{
+		nodeName = "computermouse";
+	}
 }
 
 void TextSemGraph::mapToFixedRelationSet(QString &nodeName, QString &nodeType /*= QString("")*/)

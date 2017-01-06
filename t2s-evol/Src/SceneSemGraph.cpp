@@ -68,8 +68,6 @@ void SceneSemGraph::loadGraph(const QString &filename)
 		QString currLine = ifs.readLine();
 
 		// load model info
-
-
 		if (currLine.contains("modelCount "))
 		{
 			m_modelNum = StringToIntegerList(currLine.toStdString(), "modelCount ")[0];
@@ -85,34 +83,41 @@ void SceneSemGraph::loadGraph(const QString &filename)
 
 					m_metaScene.m_metaModellList[i].id = modelIndex;
 					m_metaScene.m_metaModellList[i].name = parts[2];
-					m_metaScene.m_metaModellList[i].path = m_metaScene.m_modelRepository.toStdString() + "/" + parts[2] + ".obj";
+					m_metaScene.m_metaModellList[i].path = m_metaScene.m_modelRepository.toStdString() + "/" + parts[2] + ".obj";					
+				}
 
+				currLine = ifs.readLine();
+				if (currLine.contains("transform "))
+				{
+					std::vector<float> transformVec = StringToFloatList(currLine.toStdString(), "transform ");  // transformation vector in stanford scene file is column-wise
+					mat4 transMat(transformVec.data());
+					transMat = transMat.transpose();
+					m_metaScene.m_metaModellList[i].transformation = transMat;					
+				}
 
-					currLine = ifs.readLine();
+				currLine = ifs.readLine();
+				if (currLine.contains("position "))
+				{
+					std::vector<float> elementList = StringToFloatList(currLine.toStdString(), "position ");
+					vec3 initPos(elementList[0], elementList[1], elementList[2]);
+					m_metaScene.m_metaModellList[i].position = TransformPoint(m_metaScene.m_metaModellList[i].transformation, initPos);
+				}
 
-					if (currLine.contains("transform "))
-					{
-						std::vector<float> transformVec = StringToFloatList(currLine.toStdString(), "transform ");  // transformation vector in stanford scene file is column-wise
-						mat4 transMat(transformVec.data());
-						transMat = transMat.transpose();
-						m_metaScene.m_metaModellList[i].transformation = transMat;
-					}
+				currLine = ifs.readLine();
+				if (currLine.contains("frontDir "))
+				{
+					std::vector<int> dirElementList = StringToIntegerList(currLine.toStdString(), "frontDir ");
+					vec3 initFrontDir(dirElementList[0], dirElementList[1], dirElementList[2]);
+					m_metaScene.m_metaModellList[i].frontDir = TransformVector(m_metaScene.m_metaModellList[i].transformation, initFrontDir);
+					
+				}
 
-					if (currLine.contains("frontDir "))
-					{
-						std::vector<int> dirElementList = StringToIntegerList(currLine.toStdString(), "frontDir ");
-						m_metaScene.m_metaModellList[i].frontDir = vec3(dirElementList[0], dirElementList[1], dirElementList[2]);
-					}
-					if (currLine.contains("upDir "))
-					{
-						std::vector<int> dirElementList = StringToIntegerList(currLine.toStdString(), "upDir ");
-						m_metaScene.m_metaModellList[i].upDir = vec3(dirElementList[0], dirElementList[1], dirElementList[2]);
-					}
-					if (currLine.contains("center "))
-					{
-						std::vector<float> elementList = StringToFloatList(currLine.toStdString(), "center ");
-						m_metaScene.m_metaModellList[i].upDir = vec3(elementList[0], elementList[1], elementList[2]);
-					}
+				currLine = ifs.readLine();
+				if (currLine.contains("upDir "))
+				{
+					std::vector<int> dirElementList = StringToIntegerList(currLine.toStdString(), "upDir ");
+					vec3 initUpDir(dirElementList[0], dirElementList[1], dirElementList[2]);
+					m_metaScene.m_metaModellList[i].upDir = TransformVector(m_metaScene.m_metaModellList[i].transformation, initUpDir);			
 				}
 			}
 		}
@@ -199,16 +204,29 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList)
 		}
 	}
 
+	// Debug
+	if (subGraph->m_edgeNum %2 != 0 )
+	{
+		delete subGraph;
+		subGraph = NULL;
+		return subGraph;
+	}
+
 	// set meta scene
 	for (int i = 0; i < nodeList.size(); i++)
 	{
 		int oldNodeId = nodeList[i];
-		int oldMetaModelId = m_objectGraphNodeIdToModelSceneIdMap[oldNodeId];
 
-		if (oldMetaModelId < m_modelNum)
+		// non-object node is not saved in the map
+		if (m_objectGraphNodeIdToModelSceneIdMap.count(oldNodeId))
 		{
-			subGraph->m_metaScene.m_metaModellList.push_back(m_metaScene.m_metaModellList[oldMetaModelId]);
-			subGraph->m_objectGraphNodeIdToModelSceneIdMap[i] = i;
+			int oldMetaModelId = m_objectGraphNodeIdToModelSceneIdMap[oldNodeId];
+
+			if (oldMetaModelId < m_modelNum)
+			{
+				subGraph->m_metaScene.m_metaModellList.push_back(m_metaScene.m_metaModellList[oldMetaModelId]);
+				subGraph->m_objectGraphNodeIdToModelSceneIdMap[i] = i;
+			}
 		}
 	}
 

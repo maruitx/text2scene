@@ -4,6 +4,7 @@
 #include "TextSemGraph.h"
 #include "SemGraphMatcher.h"
 #include "TSScene.h"
+#include "Utility.h"
 
 SceneGenerator::SceneGenerator(const QString &sceneDBPath, unordered_map<string, Model*> &models)
 	:m_models(models)
@@ -38,7 +39,7 @@ std::vector<TSScene*> SceneGenerator::generateTSScenes(int num)
 	{
 		QString sceneName = QString("Preview %1").arg(i);
 
-		SceneSemGraph *newSSG = semanticAlignToCurrTSScene(matchedSSGs[i]);
+		SceneSemGraph *newSSG = alignToCurrTSScene(matchedSSGs[i]);
 
 		//TSScene *s = matchedSSGs[i]->covertToTSScene(m_models, sceneName);
 		TSScene *s = newSSG->covertToTSScene(m_models, sceneName);
@@ -48,7 +49,7 @@ std::vector<TSScene*> SceneGenerator::generateTSScenes(int num)
 	return tsscenes;
 }
 
-SceneSemGraph* SceneGenerator::semanticAlignToCurrTSScene(SceneSemGraph *matchedSg)
+SceneSemGraph* SceneGenerator::alignToCurrTSScene(SceneSemGraph *matchedSg)
 {
 	SceneSemGraph *newSg;
 	SceneSemGraph *currSg = m_currTSScene->m_ssg;
@@ -74,7 +75,7 @@ SceneSemGraph* SceneGenerator::semanticAlignToCurrTSScene(SceneSemGraph *matched
 	// copy from current sg
 	newSg = new SceneSemGraph(currSg);
 
-	std::map<int, int> mapFromMatchToCurrentNodeId;
+	std::map<int, int> mapFromMatchToNewNodeId;
 
 	// first match object node
 	for (int mi = 0; mi < matchedSg->m_nodeNum; mi++)
@@ -85,15 +86,15 @@ SceneSemGraph* SceneGenerator::semanticAlignToCurrTSScene(SceneSemGraph *matched
 		{
 			for (int ci = 0; ci < newSg->m_nodeNum; ci++)
 			{
-				SemNode& currSgNode = newSg->m_nodes[ci];
+				SemNode& newSgNode = newSg->m_nodes[ci];
 				// skip the aligned edges
-				if (!currSgNode.isAligned && currSgNode.nodeType == "object")
+				if (!newSgNode.isAligned && newSgNode.nodeType == "object")
 				{
-					if (matchedSgNode.nodeName == currSgNode.nodeName)
+					if (matchedSgNode.nodeName == newSgNode.nodeName)
 					{
 						matchedSgNode.isAligned = true;
-						currSgNode.isAligned = true;
-						mapFromMatchToCurrentNodeId[mi] = ci;
+						newSgNode.isAligned = true;
+						mapFromMatchToNewNodeId[mi] = ci; // save aligned object node map
 					}
 				}
 			}
@@ -105,22 +106,34 @@ SceneSemGraph* SceneGenerator::semanticAlignToCurrTSScene(SceneSemGraph *matched
 	{
 		SemNode& matchedSgNode = matchedSg->m_nodes[mi];
 
-		if (matchedSgNode.nodeType == "pairwise_relation")
+		if (matchedSgNode.nodeType == "pairwise_relationship")
 		{
+			// To test whether in and out node exist
+			if (matchedSgNode.inEdgeNodeList.empty() || matchedSgNode.outEdgeNodeList.empty())
+			{ 
+				break;			
+			}
+
 			int mInNodeId = matchedSgNode.inEdgeNodeList[0];
 			int mOutNodeId = matchedSgNode.outEdgeNodeList[0];
 
+			// if either object node is not in the aligned map
+			if (!mapFromMatchToNewNodeId.count(mInNodeId) || !mapFromMatchToNewNodeId.count(mOutNodeId))
+			{
+				break;
+			}
+
 			for (int ci = 0; ci < newSg->m_nodeNum; ci++)
 			{
-				SemNode& currSgNode = newSg->m_nodes[ci];
-				if (!currSgNode.isAligned && currSgNode.nodeType == "pairwise_relation")
+				SemNode& newSgNode = newSg->m_nodes[ci];
+				if (!newSgNode.isAligned && newSgNode.nodeType == "pairwise_relationship")
 				{
-					if (currSgNode.inEdgeNodeList[0] == mapFromMatchToCurrentNodeId[mInNodeId]
-						&& currSgNode.outEdgeNodeList[0] == mapFromMatchToCurrentNodeId[mOutNodeId])
+					if (newSgNode.inEdgeNodeList[0] == mapFromMatchToNewNodeId[mInNodeId]
+						&& newSgNode.outEdgeNodeList[0] == mapFromMatchToNewNodeId[mOutNodeId])
 					{
 						matchedSgNode.isAligned = true;
-						currSgNode.isAligned = true;
-						mapFromMatchToCurrentNodeId[mi] = ci;
+						newSgNode.isAligned = true;
+						mapFromMatchToNewNodeId[mi] = ci;  // save aligned pairwise relationship node map
 					}
 				}
 			}
@@ -136,7 +149,7 @@ SceneSemGraph* SceneGenerator::semanticAlignToCurrTSScene(SceneSemGraph *matched
 		{
 			// update graph
 			newSg->addNode(matchedSgNode.nodeType, matchedSgNode.nodeName);
-			mapFromMatchToCurrentNodeId[mi] = newSg->m_nodeNum-1;  // node id is the last node's id
+			mapFromMatchToNewNodeId[mi] = newSg->m_nodeNum-1;  // node id is the last node's id; save inserted node map
 		}
 	}
 
@@ -145,8 +158,8 @@ SceneSemGraph* SceneGenerator::semanticAlignToCurrTSScene(SceneSemGraph *matched
 	{
 		SemEdge& matchedSgEdge = matchedSg->m_edges[mei];
 
-		int s = mapFromMatchToCurrentNodeId[matchedSgEdge.sourceNodeId];
-		int t = mapFromMatchToCurrentNodeId[matchedSgEdge.targetNodeId];
+		int s = mapFromMatchToNewNodeId[matchedSgEdge.sourceNodeId];
+		int t = mapFromMatchToNewNodeId[matchedSgEdge.targetNodeId];
 		if (!newSg->isEdgeExist(s, t))
 		{
 			newSg->addEdge(s, t);
@@ -159,23 +172,75 @@ SceneSemGraph* SceneGenerator::semanticAlignToCurrTSScene(SceneSemGraph *matched
 		SemNode& matchedSgNode = matchedSg->m_nodes[mi];
 		if (!matchedSgNode.isAligned && matchedSgNode.nodeType == "object")
 		{
-			//matchedSg->m_metaScene.m_metaModellList[matchedSgNode.nodeId] = currSg->m_metaScene.m_metaModellList[currSgNode.nodeId];
 			int mModelId = matchedSg->m_objectGraphNodeIdToModelSceneIdMap[mi];
 			MetaModel modelToInsert = matchedSg->m_metaScene.m_metaModellList[mModelId];
 			newSg->m_metaScene.m_metaModellList.push_back(modelToInsert);
 
 			int currMetaModelNum = newSg->m_metaScene.m_metaModellList.size();
-			int ci = mapFromMatchToCurrentNodeId[mi];
+			int ci = mapFromMatchToNewNodeId[mi];
 			newSg->m_objectGraphNodeIdToModelSceneIdMap[ci] = currMetaModelNum-1;
+		}
+	}
+
+	// geometry alignment
+	for (int mi = 0; mi < matchedSg->m_nodeNum; mi++)
+	{
+		SemNode& matchedSgNode = matchedSg->m_nodes[mi];
+		if (!matchedSgNode.isAligned && matchedSgNode.nodeType == "pairwise_relationship")
+		{
+			int mInNodeId = matchedSgNode.inEdgeNodeList[0];
+			int mOutNodeId = matchedSgNode.outEdgeNodeList[0];
+
+			int mRefNodeId;
+			int mActiveNodeId;
+
+			// find the reference node
+			if (matchedSg->m_nodes[mInNodeId].isAligned && !matchedSg->m_nodes[mOutNodeId].isAligned)
+			{
+				mRefNodeId = mInNodeId;
+				mActiveNodeId = mOutNodeId;
+			}
+			else if (matchedSg->m_nodes[mOutNodeId].isAligned && !matchedSg->m_nodes[mInNodeId].isAligned)
+			{
+				mRefNodeId = mOutNodeId;
+				mActiveNodeId = mInNodeId;
+			}
+			else
+			{
+				break;
+			}
+
+			int newRefNodeId = mapFromMatchToNewNodeId[mRefNodeId];
+			int newActiveNodeId = mapFromMatchToNewNodeId[mActiveNodeId];
+
+			// compute transformation matrix based on the ref nodes
+			int mRefModelId = matchedSg->m_objectGraphNodeIdToModelSceneIdMap[mRefNodeId];
+			int newRefModeId = newSg->m_objectGraphNodeIdToModelSceneIdMap[newRefNodeId];
+
+			mat4 transMat = computeTransMat(matchedSg->m_metaScene.m_metaModellList[mRefModelId], newSg->m_metaScene.m_metaModellList[newRefModeId]);
+
+			// transform active model
+			int newActiveModelId = newSg->m_objectGraphNodeIdToModelSceneIdMap[newActiveNodeId];
+			MetaModel &newActiveModel = newSg->m_metaScene.m_metaModellList[newActiveModelId];
+			newActiveModel.transformation = transMat*newActiveModel.transformation;
+			newActiveModel.position = TransformPoint(transMat, newActiveModel.position);
+			newActiveModel.frontDir = TransformVector(transMat, newActiveModel.frontDir);
+			newActiveModel.upDir = TransformVector(transMat,newActiveModel.upDir);
+
+			// adjust position of transformed active model
 		}
 	}
 
 	return newSg;
 }
 
-void SceneGenerator::geometryAlignToCurrTSScene()
-{
 
+mat4 SceneGenerator::computeTransMat(const MetaModel &fromModel, const MetaModel &toModel)
+{
+	mat4 rotMat = GetRotationMatrix(fromModel.frontDir, toModel.frontDir);
+	mat4 transMat = GetTransformationMat(rotMat, fromModel.position, toModel.position);
+
+	return transMat;
 }
 
 

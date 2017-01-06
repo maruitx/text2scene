@@ -8,6 +8,7 @@ class SceneSemGraph;
 class SceneSemGraphManager;
 class TSScene;
 class Model;
+class MetaModel;
 
 class SceneGenerator
 {
@@ -20,8 +21,9 @@ public:
 
 	std::vector<TSScene*> generateTSScenes(int num);
 
-	SceneSemGraph* semanticAlignToCurrTSScene(SceneSemGraph *matchedSg);
-	void geometryAlignToCurrTSScene();
+	// alignment
+	SceneSemGraph* alignToCurrTSScene(SceneSemGraph *matchedSg);
+	mat4 computeTransMat(const MetaModel &fromModel, const MetaModel &toModel);
 
 private:
 	unordered_map<string, Model*> m_models;
