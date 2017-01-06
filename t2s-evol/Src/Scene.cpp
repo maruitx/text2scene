@@ -9,6 +9,9 @@
 #include "Geometry.h"
 #include "TransformFeedback.h"
 #include "TSScene.h"
+#include "TextSemGraphManager.h"
+#include "SceneGenerator.h"
+#include "Utility.h"
 
 Scene::Scene(CameraManager *camManager)
 : m_cameraManager(camManager),
@@ -121,23 +124,43 @@ void Scene::initTextures()
 
 void Scene::initSynScene()
 {
-	const string directory = "./SceneDB/StanfordSceneDB/";
-	//const string directory = "L:/sceneSynthesisDatabase/databaseFull/";
-	const string scene = "scene00003.txt";
+	//const string directory = "./SceneDB/StanfordSceneDB/";  
+	////const string directory = "L:/sceneSynthesisDatabase/databaseFull/";
+	//const string scene = "scene00003.txt";
 
-	params::inst()->sceneDirectory   = directory + "scenes/";
-	params::inst()->modelDirectory   = directory + "models/";
-	params::inst()->textureDirectory = directory + "textures/";
+	//params::inst()->sceneDirectory   = directory + "scenes/";
+	//params::inst()->modelDirectory   = directory + "models/";
+	//params::inst()->textureDirectory = directory + "textures/";
 
-	for (int i = 0; i < 15; ++i)
+	//for (int i = 0; i < 15; ++i)
+	//{
+	//	TSScene *s = new TSScene(m_models, QString((params::inst()->sceneDirectory + scene).c_str()));
+	//	if (i > 0)
+	//		s->makeRandom();
+
+	//	m_variations.push_back(s);
+	//}
+
+	// modify the SceneDB path to your local SceneDB folder
+	string localSceneDBPath = GetFileLines("./SceneDB/LocalSceneDBPath.txt", 3)[0];
+	params::inst()->localSceneDBDirectory = localSceneDBPath;
+
+	m_textSemGraphManager = new TextSemGraphManager();
+	m_sceneGenerator = new SceneGenerator(m_models);
+
+	// temporary setting
+	params::inst()->sceneDirectory = localSceneDBPath + "/StanfordSceneDB/scenes/";
+	params::inst()->modelDirectory = localSceneDBPath + "/StanfordSceneDB/models/";
+	params::inst()->textureDirectory = localSceneDBPath + "/StanfordSceneDB/textures/";
+
+	m_previewNum = 3;
+	for (int i = 0; i < m_previewNum; ++i)
 	{
-		TSScene *s = new TSScene(m_models, QString((params::inst()->sceneDirectory + scene).c_str()));
-		if (i > 0)
-			s->makeRandom();
-
+		TSScene *s = new TSScene(m_models);
 		m_variations.push_back(s);
 	}
 
+	m_activeVarationId = 0;
 }
 
 void Scene::renderSynScene(const Transform &trans, int var, bool applyShadow)
@@ -149,7 +172,12 @@ void Scene::renderSynScene(const Transform &trans, int var, bool applyShadow)
 	else
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-	m_variations[var]->render(trans, applyShadow);
+	int varNum = m_variations.size();
+
+	if (var < varNum)
+	{
+		m_variations[var]->render(trans, applyShadow);
+	}	
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
@@ -163,8 +191,43 @@ void Scene::renderSynSceneDepth(const Transform &trans, int var)
 	else
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-	m_variations[var]->renderDepth(trans);
+	int varNum = m_variations.size();
+
+	if (var < varNum)
+	{
+		m_variations[var]->renderDepth(trans);
+	}
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+}
+
+void Scene::runOneEvolutionStep()
+{
+	// get active tsg
+	QString filename = "out.txt";
+	m_textSemGraphManager->loadSELFromOutput(filename);
+
+	TextSemGraph* activeTextSemGraph = m_textSemGraphManager->getActiveGraph();
+	m_textSemGraphManager->updateActiveGraphId();
+
+	m_sceneGenerator->updateCurrentTextGraph(activeTextSemGraph);
+	m_sceneGenerator->updateCurrentTSScene(m_variations[m_activeVarationId]);
+
+	int topSSGNum = m_previewNum;
+
+	std::vector<TSScene*> tsscenes = m_sceneGenerator->generateTSScenes(topSSGNum);
+
+	// clean previous variations
+	for (int i = 0; i < m_variations.size(); i++)
+	{
+		delete m_variations[i];
+	}
+
+	m_variations.clear();
+
+	for (int i = 0; i < tsscenes.size(); ++i)
+	{
+		m_variations.push_back(tsscenes[i]);
+	}
 }
 

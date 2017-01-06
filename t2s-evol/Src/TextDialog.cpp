@@ -1,15 +1,18 @@
 #include "TextDialog.h"
 #include "GLWidget.h"
+#include "Scene.h"
 #include <qtextedit.h>
 #include <qpushbutton.h>
 #include <qboxlayout.h>
+#include <QProcess>
 
-TextDialog::TextDialog(GLWidget *parent)
-: m_parent(parent), 
+TextDialog::TextDialog(GLWidget *parent, Scene *s)
+	: m_parent(parent), 
+	m_scene(s),
   m_showState(false)
 {
 	init();
-	//toggleShow(m_parent->pos().x(), m_parent->pos().y());
+	toggleShow(m_parent->pos().x(), m_parent->pos().y());
 }
 
 TextDialog::~TextDialog()
@@ -44,9 +47,11 @@ void TextDialog::initEditSentence()
 {
 	m_editSentence = new QTextEdit(this);
 
-	m_editSentence->setPlainText("Below the TV is a low-profile media cabinet which contains some audiovisual equipment."
-		                         "Each unit contains a mixture of books and decorations. Inside the basket, "
-								 "there is a basketball and other sports equipment.");
+	//m_editSentence->setPlainText("Below the TV is a low-profile media cabinet which contains some audiovisual equipment."
+	//	                         "Each unit contains a mixture of books and decorations. Inside the basket, "
+	//							 "there is a basketball and other sports equipment.");
+
+	m_editSentence->setPlainText("");
 }
 
 void TextDialog::setupConnection()
@@ -64,7 +69,30 @@ void TextDialog::toggleShow(int posX, int posY)
 
 void TextDialog::onButtonProcess()
 {
-	qDebug() << m_editSentence->toPlainText();
+	//qDebug() << m_editSentence->toPlainText();
+
+	// To-do: save current text to in.txt
+	QString filename = "in.txt";
+
+	QFile outFile(filename);
+	QTextStream ofs(&outFile);
+
+	if (!outFile.open(QIODevice::ReadWrite | QIODevice::Truncate | QIODevice::Text))
+	{
+		cout << "\TextDialog: cannot save text to in.txt\n";
+		return;
+	}
+	else
+	{
+		QString inputSentence = m_editSentence->toPlainText();
+		ofs << inputSentence;
+		outFile.close();	}
+
+	// To-do: call command line text parser to generate out.txt
+	QString parserProgramName = "matt-SEL-playground.exe";
+	
+	QProcess::execute(parserProgramName);
+	m_scene->runOneEvolutionStep();
 }
 
 void TextDialog::keyPressEvent(QKeyEvent *e)

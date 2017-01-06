@@ -1,0 +1,19 @@
+Method to use: 3.2.2
+
+Explanations:
+1: Tree Search
+   1.1  Ullman
+   1.2  A*
+   1.3  A* with lookahead
+
+2: Network based algorithm
+   2.1  exact
+   2.2  inexact
+   
+3: Polynomial Decision Tree Graph Matcher
+   3.1    complete decision tree (subgraph and graph isomorphism)
+   3.2.k  k-depth pruned complete decision tree
+   3.3    breadth pruned deciiosn tree (multiple model graphs)
+   3.4.k  both breadth- and k-depth pruned decision tree
+   3.5    breadth-pruned (single model)
+   3.6.k  both breadth- and k-depth pruned decision tree  

@@ -88,6 +88,7 @@ struct GlobalObjectParams
 	std::string modelDirectory;
 	std::string textureDirectory;
 	std::string sceneDirectory;
+	std::string localSceneDBDirectory;
 
 	unordered_map<string, Texture *> textures;
 };
