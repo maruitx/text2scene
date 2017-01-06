@@ -6,6 +6,35 @@
 #include "Math.h"
 #include <QQuaternion>
 
+static bool FileExists(const std::string &filename)
+{
+	std::ifstream file(filename);
+	return (!file.fail());
+}
+
+static std::vector<std::string> GetFileLines(const std::string &filename, unsigned int minLineLength)
+{
+	std::vector<std::string> result;
+	if (!FileExists(filename)) {
+		std::cout << "Required file not found: " << filename <<"\n";
+		return result;
+	}
+	std::ifstream file(filename);
+
+	std::string curLine;
+	while (!file.fail())
+	{
+		std::getline(file, curLine);
+		if (!file.fail() && curLine.length() >= minLineLength)
+		{
+			if (curLine.at(curLine.length() - 1) == '\r')
+				curLine = curLine.substr(0, curLine.size() - 1);
+			result.push_back(curLine);
+		}
+	}
+	return result;
+}
+
 static std::vector<std::string> PartitionString(const std::string &s, const std::string &separator)
 {
 	std::vector<std::string> result;

@@ -2,9 +2,7 @@
 #include "SceneSemGraph.h"
 #include "Utility.h"
 
-
-SceneSemGraphManager::SceneSemGraphManager(const QString &folderDir)
-	: m_mainSceneDBFolderPath(folderDir)
+SceneSemGraphManager::SceneSemGraphManager()
 {
 	loadGraphs();
 	loadNodeLabelMap();
@@ -18,7 +16,7 @@ SceneSemGraphManager::~SceneSemGraphManager()
 
 void SceneSemGraphManager::loadGraphs()
 {
-	QString filename = m_mainSceneDBFolderPath + "/scene_list.txt";
+	QString filename = "./SceneDB/scene_list.txt";
 	QFile inFile(filename);
 	QTextStream ifs(&inFile);
 
@@ -38,8 +36,7 @@ void SceneSemGraphManager::loadGraphs()
 		{
 			currLine = ifs.readLine();
 
-			//
-			QString ssgFileName = m_mainSceneDBFolderPath + "/SSGs/" + currLine + ".ssg";
+			QString ssgFileName = "./SceneDB/SSGs/" + currLine + ".ssg";
 
 			SceneSemGraph *newSceneSemGraph = new SceneSemGraph(ssgFileName);
 			m_sceneSemGraphs.push_back(newSceneSemGraph);
@@ -53,7 +50,7 @@ void SceneSemGraphManager::loadGraphs()
 
 void SceneSemGraphManager::loadNodeLabelMap()
 {
-	QString filename = m_mainSceneDBFolderPath + "/SSGNodeLabelMap.txt";
+	QString filename ="./SceneDB/SSGNodeLabelMap.txt";
 	QFile inFile(filename);
 	QTextStream ifs(&inFile);
 

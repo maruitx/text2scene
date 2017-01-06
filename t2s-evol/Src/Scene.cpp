@@ -11,6 +11,7 @@
 #include "TSScene.h"
 #include "TextSemGraphManager.h"
 #include "SceneGenerator.h"
+#include "Utility.h"
 
 Scene::Scene(CameraManager *camManager)
 : m_cameraManager(camManager),
@@ -140,16 +141,17 @@ void Scene::initSynScene()
 	//	m_variations.push_back(s);
 	//}
 
-	// SceneDB is just outside of the git-root folder
-	const string mainSceneDBDirectory = "../../SceneDB";
+	// modify the SceneDB path to your local SceneDB folder
+	string localSceneDBPath = GetFileLines("./SceneDB/LocalSceneDBPath.txt", 3)[0];
+	params::inst()->localSceneDBDirectory = localSceneDBPath;
 
 	m_textSemGraphManager = new TextSemGraphManager();
-	m_sceneGenerator = new SceneGenerator(QString(mainSceneDBDirectory.c_str()), m_models);
+	m_sceneGenerator = new SceneGenerator(m_models);
 
 	// temporary setting
-	params::inst()->sceneDirectory = mainSceneDBDirectory + "/StanfordSceneDB/scenes/";
-	params::inst()->modelDirectory = mainSceneDBDirectory + "/StanfordSceneDB/models/";
-	params::inst()->textureDirectory = mainSceneDBDirectory + "/StanfordSceneDB/textures/";
+	params::inst()->sceneDirectory = localSceneDBPath + "/StanfordSceneDB/scenes/";
+	params::inst()->modelDirectory = localSceneDBPath + "/StanfordSceneDB/models/";
+	params::inst()->textureDirectory = localSceneDBPath + "/StanfordSceneDB/textures/";
 
 	m_previewNum = 5;
 	for (int i = 0; i < m_previewNum; ++i)

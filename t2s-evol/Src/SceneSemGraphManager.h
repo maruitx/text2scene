@@ -7,7 +7,7 @@ class SceneSemGraph;
 class SceneSemGraphManager
 {
 public:
-	SceneSemGraphManager(const QString &folderDir);
+	SceneSemGraphManager();
 	~SceneSemGraphManager();
 
 	void loadGraphs();

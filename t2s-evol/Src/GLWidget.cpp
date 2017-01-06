@@ -107,6 +107,7 @@ void GLWidget::initParams()
 	p->modelDirectory      = "";
 	p->textureDirectory    = "";
 	p->sceneDirectory      = "";
+	p->localSceneDBDirectory = "";
 }
 
 void GLWidget::initShaders()

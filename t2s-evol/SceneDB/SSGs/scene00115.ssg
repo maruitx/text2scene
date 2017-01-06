@@ -33,11 +33,12 @@ nodeNum 12
 5,object,tableclock,,
 6,object,cup,,
 7,object,cellphone,,
-8,object,fooditem,,
+8,object,biscuit,,
 9,object,books,,
 10,object,trashbin,,
 11,object,bottle,,
 edgeNum 0
+
 
 edgeNum 0
 dbmodels,,

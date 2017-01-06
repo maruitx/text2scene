@@ -52,7 +52,7 @@ nodeNum 20
 8,object,cookie,,
 9,object,cookie,,
 10,object,cookie,,
-11,object,fooditem,,
+11,object,plate,,
 12,object,table,,
 13,object,food processor,,
 14,object,glass,,
@@ -62,6 +62,7 @@ nodeNum 20
 18,object,mug,,
 19,object,mug,,
 edgeNum 0
+0
 ,drinkingutensil,,
 19,object,drinkingutensil,,
 edgeNum 0

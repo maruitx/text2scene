@@ -37,9 +37,11 @@ nodeNum 13
 7,object,decorativeaccessory,,
 8,object,ceramic,,
 9,object,candle,,
-10,object,_randomsetstudymodels,,
+10,object,candle,,
 11,object,lamp,,
 12,object,wallart,,
+edgeNum 0
+,,
 edgeNum 0
 dbmodels,,
 11,object,lamp,,

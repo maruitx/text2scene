@@ -2,6 +2,7 @@
 #include "Model.h"
 #include "TSScene.h"
 #include "Utility.h"
+#include "Headers.h"
 
 SceneSemGraph::SceneSemGraph()
 {
@@ -51,8 +52,7 @@ void SceneSemGraph::loadGraph(const QString &filename)
 
 	if (m_metaScene.m_sceneFormat == "StanfordSceneDatabase")
 	{
-		int cutPos = sceneFileInfo.absolutePath().lastIndexOf("/");
-		m_metaScene.m_sceneDBPath = sceneFileInfo.absolutePath().left(cutPos) + "/StanfordSceneDB";
+		m_metaScene.m_sceneDBPath = QString(params::inst()->localSceneDBDirectory.c_str()) + "/StanfordSceneDB";
 
 		m_metaScene.m_sceneFilePath = m_metaScene.m_sceneDBPath + "/scenes";
 		m_metaScene.m_modelRepository = m_metaScene.m_sceneDBPath + "/models";

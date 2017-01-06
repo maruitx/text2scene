@@ -60,10 +60,11 @@ nodeNum 21
 14,object,paperclip,,
 15,object,toyfigure,,
 16,object,chair,,
-17,object,_geoautotagevalset,,
+17,object,wallart,,
 18,object,wallart,,
 19,object,powersocket,,
 20,object,trashbin,,
+edgeNum 0
 edgeNum 0
 8,object,wallart,,
 19,object,_stanfordscenedbmodels,,

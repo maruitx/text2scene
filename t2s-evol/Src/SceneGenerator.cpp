@@ -5,11 +5,12 @@
 #include "SemGraphMatcher.h"
 #include "TSScene.h"
 #include "Utility.h"
+#include "Headers.h"
 
-SceneGenerator::SceneGenerator(const QString &sceneDBPath, unordered_map<string, Model*> &models)
+SceneGenerator::SceneGenerator(unordered_map<string, Model*> &models)
 	:m_models(models)
 {
-	m_sceneSemGraphManager = new SceneSemGraphManager(sceneDBPath);
+	m_sceneSemGraphManager = new SceneSemGraphManager();
 	m_semanticGraphMatcher = new SemGraphMatcher(m_sceneSemGraphManager);
 }
 

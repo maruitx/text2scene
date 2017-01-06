@@ -13,7 +13,7 @@ class MetaModel;
 class SceneGenerator
 {
 public:
-	SceneGenerator(const QString &sceneDBPath, unordered_map<string, Model*> &models);
+	SceneGenerator(unordered_map<string, Model*> &models);
 	~SceneGenerator();
 
 	void updateCurrentTextGraph(TextSemGraph *tsg);
