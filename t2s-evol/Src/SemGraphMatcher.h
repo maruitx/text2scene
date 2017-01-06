@@ -20,6 +20,9 @@ public:
 	vector<SceneSemGraph*> testMatchTSGWithSSGs(int topMacthNum);
 	vector<SceneSemGraph*> matchTSGWithSSGs(int topMacthNum);
 
+	vector<SceneSemGraph*> alignmentTSGWithDatabaseSSGs(int topMatchNum);
+	SceneSemGraph* alignTSGWithSSG(TextSemGraph *tsg, SceneSemGraph *databaseSSG, double &matchingScore);
+
 	double computeSimilarity(TextSemGraph *tsg, SceneSemGraph *ssg);
 
 	Graph* convertToGMTGraph(SemanticGraph *sg);

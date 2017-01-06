@@ -153,7 +153,7 @@ void Scene::initSynScene()
 	params::inst()->modelDirectory = localSceneDBPath + "/StanfordSceneDB/models/";
 	params::inst()->textureDirectory = localSceneDBPath + "/StanfordSceneDB/textures/";
 
-	m_previewNum = 5;
+	m_previewNum = 3;
 	for (int i = 0; i < m_previewNum; ++i)
 	{
 		TSScene *s = new TSScene(m_models);

@@ -4,7 +4,7 @@
 
 class SemNode{
 public:
-	SemNode(const QString &t, const QString &n, int id) { nodeType = t; nodeName = n; nodeId = id; isAligned = false; };
+	SemNode(const QString &t, const QString &n, int id) { nodeType = t; nodeName = n; nodeId = id; isAligned = false; isMatched = false; };
 	~SemNode() {};
 
 	// node types: object, p_attribute, p_relation, g_relation, g_attribute, 
@@ -25,18 +25,20 @@ public:
 	// for object: from passive object to relation/attribute node, e.g. table --> support
 	std::vector<int> outEdgeNodeList;
 
+	bool isMatched;
 	bool isAligned;
 
 };
 
 class SemEdge{
 public:
-	SemEdge(int s, int t, int id) { sourceNodeId = s; targetNodeId = t; edgeId = id; isAligned = false; };
+	SemEdge(int s, int t, int id) { sourceNodeId = s; targetNodeId = t; edgeId = id; isAligned = false; isMatched = false; };
 	~SemEdge() {};
 
 	int sourceNodeId, targetNodeId;
 	int edgeId;
 
+	bool isMatched;
 	bool isAligned;
 };
 

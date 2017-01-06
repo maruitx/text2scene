@@ -32,7 +32,8 @@ void SceneGenerator::updateCurrentTSScene(TSScene *ts)
 std::vector<TSScene*> SceneGenerator::generateTSScenes(int num)
 {
 	//vector<SceneSemGraph*> matchedSSGs = m_semanticGraphMatcher->testMatchTSGWithSSGs(num);
-	std::vector<SceneSemGraph*> matchedSSGs = m_semanticGraphMatcher->matchTSGWithSSGs(num);
+	//std::vector<SceneSemGraph*> matchedSSGs = m_semanticGraphMatcher->matchTSGWithSSGs(num);
+	std::vector<SceneSemGraph*> matchedSSGs = m_semanticGraphMatcher->alignmentTSGWithDatabaseSSGs(num);
 
 	std::vector<TSScene*> tsscenes;
 
@@ -88,7 +89,7 @@ SceneSemGraph* SceneGenerator::alignToCurrTSScene(SceneSemGraph *matchedSg)
 			for (int ci = 0; ci < newSg->m_nodeNum; ci++)
 			{
 				SemNode& newSgNode = newSg->m_nodes[ci];
-				// skip the aligned edges
+				// skip the aligned nodes
 				if (!newSgNode.isAligned && newSgNode.nodeType == "object")
 				{
 					if (matchedSgNode.nodeName == newSgNode.nodeName)
@@ -96,6 +97,8 @@ SceneSemGraph* SceneGenerator::alignToCurrTSScene(SceneSemGraph *matchedSg)
 						matchedSgNode.isAligned = true;
 						newSgNode.isAligned = true;
 						mapFromMatchToNewNodeId[mi] = ci; // save aligned object node map
+
+						break;
 					}
 				}
 			}
@@ -118,7 +121,7 @@ SceneSemGraph* SceneGenerator::alignToCurrTSScene(SceneSemGraph *matchedSg)
 			int mInNodeId = matchedSgNode.inEdgeNodeList[0];
 			int mOutNodeId = matchedSgNode.outEdgeNodeList[0];
 
-			// if either object node is not in the aligned map
+			// if any object node is not in the aligned map, then break
 			if (!mapFromMatchToNewNodeId.count(mInNodeId) || !mapFromMatchToNewNodeId.count(mOutNodeId))
 			{
 				break;
@@ -127,6 +130,8 @@ SceneSemGraph* SceneGenerator::alignToCurrTSScene(SceneSemGraph *matchedSg)
 			for (int ci = 0; ci < newSg->m_nodeNum; ci++)
 			{
 				SemNode& newSgNode = newSg->m_nodes[ci];
+
+				// skip the aligned nodes
 				if (!newSgNode.isAligned && newSgNode.nodeType == "pairwise_relationship")
 				{
 					if (newSgNode.inEdgeNodeList[0] == mapFromMatchToNewNodeId[mInNodeId]
@@ -135,6 +140,8 @@ SceneSemGraph* SceneGenerator::alignToCurrTSScene(SceneSemGraph *matchedSg)
 						matchedSgNode.isAligned = true;
 						newSgNode.isAligned = true;
 						mapFromMatchToNewNodeId[mi] = ci;  // save aligned pairwise relationship node map
+
+						break;
 					}
 				}
 			}
@@ -234,7 +241,6 @@ SceneSemGraph* SceneGenerator::alignToCurrTSScene(SceneSemGraph *matchedSg)
 
 	return newSg;
 }
-
 
 mat4 SceneGenerator::computeTransMat(const MetaModel &fromModel, const MetaModel &toModel)
 {
