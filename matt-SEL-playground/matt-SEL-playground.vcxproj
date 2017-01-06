@@ -39,6 +39,7 @@
     <Text Include="..\data\SEL\spatialNouns.txt" />
     <Text Include="..\data\SEL\stopVerbs.txt" />
     <Text Include="dependency-notes.txt" />
+    <Text Include="in.txt" />
     <Text Include="known-failures.txt" />
     <Text Include="SEL-params.txt" />
   </ItemGroup>

@@ -134,6 +134,13 @@ void SELParser::assignTargets(ParsedSentence &s)
 		addTarget(s, u.pBIndex, u.pAIndex, u.type);
 	}
 
+	//transfer some of the books on the desk to the table.
+	//nmod:to(transfer-10, table-20~NN)
+	for (auto &u : s.findUnits("nmod:", "VB", "NN"))
+	{
+		addTarget(s, u.pAIndex, u.pBIndex, u.getTypeSuffix());
+	}
+
 	// Make the kitchen table and the desk more messy.
 	//nsubj(messy-9, table-4~NN)
 	//xcomp(Make-1, messy-9~JJ)
@@ -495,5 +502,15 @@ void SELParser::assignRelationships(ParsedSentence &s)
 	for (auto &r : PatternMatcher::match(s, PatternMatchQuery("dobj(0-VB, 1-NN)", "nmod:(0-VB, 2-NN)")))
 	{
 		addRelationship(s, r.tokens[1], r.tokens[2], s.units[r.units[1]].getTypeSuffix());
+	}
+
+	//There is a keyboard and a mouse on the desk.
+	//conj:and(keyboard-4, mouse-7~NN)
+	//nmod:on(mouse-7, desk-10~NN)
+	//conj:and(0-NN, 1-NN)
+	//nmod:(1-NN, 2-NN)
+	for (auto &r : PatternMatcher::match(s, PatternMatchQuery("conj:and(0-NN, 1-NN)", "nmod:(1-NN, 2-NN)")))
+	{
+		addRelationship(s, r.tokens[0], r.tokens[2], s.units[r.units[1]].getTypeSuffix());
 	}
 }

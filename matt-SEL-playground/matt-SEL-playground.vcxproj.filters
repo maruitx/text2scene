@@ -72,6 +72,7 @@
       <Filter>data</Filter>
     </Text>
     <Text Include="SEL-params.txt" />
+    <Text Include="in.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="data">

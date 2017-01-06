@@ -33,13 +33,17 @@ void App::runTests()
 	//debugText += "There is a PC on the desk. To the right of the desk, there is a bookshelf with books.";
 	//debugText += "There are two sleek, white laptops on the desk. To the right of the wooden desk, there is a big bookshelf with many books.";
 	//debugText += "Books are sparsely distributed on the bookshelf.";
-	//debugText += "";
+	//debugText += "In the center of the table is a flower vase.";
+	//debugText += "There is a group of books on the desk.";
+	//debugText += "Put a stack of books on the desk.";
+	//debugText += "Stack books on the desk.";
+	//debugText += "There are books stacked on the desk.";
 	//debugText += "";
 
 	//
 	// commands
 	//
-	//debugText += "Move the chairs closer together and clean the desk.";
+	//debugText += "Move the chairs around the dining table further apart and transfer some of the books on the desk to the table.";
 	//debugText += "Make the kitchen table more messy.";
 	//debugText += "Make the kitchen table and the desk more messy.";
 	//debugText += "Remove the speakers from the desk.";
@@ -57,7 +61,8 @@ void App::runTests()
 	//debugText += "Put the art casually on the wall. The art is casually distributed on the wall.";
 	//debugText += "Put books sparsely on the shelf. Books are sparsely distributed on the shelf.";
 	//debugText += "The meeting room is crowded with chairs.";
-	//debugText += "";
+	//debugText += "Put books on the desk and rearrange the chairs.";
+	//debugText += "Move two chairs closer to the table.";
 	debugText = util::replace(debugText, ".", ". ");
 	const string parsedText = SELUtil::processText(debugText);
 	cout << "input: " << debugText << endl;
