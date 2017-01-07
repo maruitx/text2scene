@@ -25,7 +25,7 @@ float VSM(vec4 smcoord, sampler2D smb)
 	if (coords.y > 1 - eps || coords.y < eps || coords.x > 1 - eps || coords.x < eps)
 		return 1;
 
-	if (smcoord.z < 1)
+	if(smcoord.z < 1)
 		return 1;
 
 	float depth = coords.z;
@@ -37,7 +37,7 @@ float VSM(vec4 smcoord, sampler2D smb)
 
 	sigma2 -= depthSM * depthSM;
 
-	float bias = 0.00001;
+	float bias = 0.000001;
 
 	float dist = depth - depthSM;
 	float P = sigma2 / (sigma2 + dist * dist);

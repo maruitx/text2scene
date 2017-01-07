@@ -135,7 +135,7 @@ void main()
     {
         for(int i=0; i<numLights; i++)
         {            
-            //shadow *= VSM(VertShadowCoord[i], shadowMap[i]); 
+            shadow *= VSM(VertShadowCoord[i], shadowMap[i]); 
         }   
     }
 

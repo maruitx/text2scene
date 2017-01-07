@@ -51,7 +51,7 @@ void TextDialog::initEditSentence()
 	//	                         "Each unit contains a mixture of books and decorations. Inside the basket, "
 	//							 "there is a basketball and other sports equipment.");
 
-	m_editSentence->setPlainText("");
+	m_editSentence->setPlainText("There is a desk and a chair");
 }
 
 void TextDialog::setupConnection()

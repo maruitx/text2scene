@@ -73,6 +73,9 @@ void GUI::initTab1(Slots slot)
     setupFloatSlider(slot, x, y+=45, 1.0f, 8.0f, QString("BlurSigma: "), &p->blur.x);
     setupFloatSlider(slot, x, y+=45, 1.0f, 8.0f, QString("BlurStride: "), &p->blur.y);
     setupFloatSlider(slot, x, y+=45, 0.001f, 3.0f, QString("Light Intensity: "), &p->lightIntensity);    
+    setupFloatSlider(slot, x, y+=45, 10.0f, 90.0f, QString("Light Fov: "), &p->fovLight);
+    setupFloatSlider(slot, x, y+=45, 1.0f, 60.0f, QString("Light NCP: "), &p->ncpLight);
+    setupFloatSlider(slot, x, y+=45, 10.0f, 100.0f, QString("Light FCP: "), &p->fcpLight);
 
     setupFloatSlider(slot, x, y += 45, 0.0f, 1000.0f, QString("OffsetFactor: "), &p->polygonOffsetFactor);
     setupFloatSlider(slot, x, y += 45, 0.0f, 10000.0f, QString("OffsetUnits: "), &p->polygonOffsetUnits);

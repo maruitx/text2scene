@@ -94,6 +94,9 @@ void GLWidget::initParams()
     p->ncp                 = 0.0f;
     p->fcp                 = 0.0f;
     p->fov                 = 0.0f;
+    p->ncpLight            = 5.0f;
+    p->fcpLight            = 50.0f;
+    p->fovLight            = 90.0f;
     p->lightIntensity      = 1.0f;
     
     p->polygonOffsetUnits  = 0.0f;
@@ -101,6 +104,8 @@ void GLWidget::initParams()
     p->depthRangeMax       = 1.0f;
     p->depthRangeMin       = 0.0f;
     
+    p->globalSceneScale    = vec3(0.1f);
+
     p->nrVertices          = 0;
     p->nrActiveVertices    = 0;
 
@@ -108,6 +113,10 @@ void GLWidget::initParams()
 	p->textureDirectory    = "";
 	p->sceneDirectory      = "";
 	p->localSceneDBDirectory = "";
+    
+    p->sceneBB = BoundingBox(vec3(math_maxfloat, math_maxfloat, math_maxfloat), vec3(math_minfloat, math_minfloat, math_minfloat));
+    //p->cameraTrans = vec3(-12, 0, 12);
+    p->cameraTrans = vec3(0, 0, 0);
 }
 
 void GLWidget::initShaders()

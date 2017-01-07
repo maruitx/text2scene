@@ -57,7 +57,7 @@ void CameraManager::currentPerspective(Transform &trans)
 		view *= mat4::translate(vec3(0, 0, m_zoom));		
 		view *= mat4::rotate(m_rotate.x, 1, 0, 0);
 		view *= mat4::rotate(m_rotate.y, 0, 1, 0); 
-		view *= mat4::translate(-12, 0, 12);
+        //view *= mat4::translate(params::inst()->cameraTrans);
 
 		trans.projection = projection;
 		trans.view = view;
@@ -263,9 +263,11 @@ vec3 CameraManager::currentCamPos()
 	{
 		mat4 view = mat4::identitiy();
 
-		view = mat4::translate(vec3(0, 0, m_zoom));
+		view = mat4::translate(vec3(0, m_rotHeight, 0));
+		view *= mat4::translate(vec3(0, 0, m_zoom));		
 		view *= mat4::rotate(m_rotate.x, 1, 0, 0);
 		view *= mat4::rotate(m_rotate.y, 0, 1, 0); 
+        //view *= mat4::translate(params::inst()->cameraTrans);
 
 		vec4 camPos = view.inverse() * vec4(0.0, 0.0, 0.0, 1.0);
 
@@ -327,9 +329,11 @@ void CameraManager::currentCamParams()
 
 		mat4 view = mat4::identitiy();
 
-		view = mat4::translate(vec3(0, 0, m_zoom));
+		view = mat4::translate(vec3(0, m_rotHeight, 0));
+		view *= mat4::translate(vec3(0, 0, m_zoom));		
 		view *= mat4::rotate(m_rotate.x, 1, 0, 0);
 		view *= mat4::rotate(m_rotate.y, 0, 1, 0); 
+        //view *= mat4::translate(params::inst()->cameraTrans);
 
 		vec4 camPos = view.inverse() * vec4(0.0, 0.0, 0.0, 1.0);
 

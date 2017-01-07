@@ -76,8 +76,13 @@ struct GlobalObjectParams
     float ncp;
     float fcp;
     float fov;
+    float ncpLight;
+    float fcpLight;
+    float fovLight;
     float sampleShading;
     float lightIntensity;
+
+    vec3 globalSceneScale;
 
     vector<Light *> lights;
     int activeLight;
@@ -91,6 +96,9 @@ struct GlobalObjectParams
 	std::string localSceneDBDirectory;
 
 	unordered_map<string, Texture *> textures;
+
+    BoundingBox sceneBB;
+    vec3 cameraTrans;
 };
 
 struct Shaders

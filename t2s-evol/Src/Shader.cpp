@@ -698,7 +698,7 @@ void Shader::setMatrices(const Transform &trans, const mat4 &model, bool p, bool
 	if(n)
 	{
 		mat3 normal(model);
-		normal = normal.inverse().transpose();
+		//normal = normal.inverse().transpose();
 
 		this->setMatrix("matNormal", normal, GL_TRUE);
 	}

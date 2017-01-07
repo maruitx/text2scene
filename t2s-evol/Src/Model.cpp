@@ -62,7 +62,7 @@ void ModelMesh::computeNormals()
 	}
 }
 
-void ModelMesh::render(const Transform &trans, Shader *shader, const mat4 &model)
+void ModelMesh::render(const Transform &trans, Shader *shader)
 {
 	if (m_vbo)
 	{
@@ -89,7 +89,6 @@ void ModelMesh::render(const Transform &trans, Shader *shader, const mat4 &model
 
 		m_vbo->render();		
 	}
-
 }
 
 void ModelMesh::renderDepth(const Transform &trans, const mat4 &model)
@@ -98,17 +97,11 @@ void ModelMesh::renderDepth(const Transform &trans, const mat4 &model)
 	{
 		if (params::inst()->applyCulling)
 		{
-			glCullFace(GL_BACK);
-			glEnable(GL_CULL_FACE);
-		}
+			//glCullFace(GL_BACK);
+			//glEnable(GL_CULL_FACE);
+		}		
 
-		mat4 m = mat4::scale(vec3(0.1)) * mat4::rotateX(-90) * model;
-
-		Shader *shader = shaders::inst()->modelDepth;
-		shader->bind();
-		shader->setMatrices(trans, m);
-			m_vbo->render();
-		shader->release();
+    	m_vbo->render();
 	}
 }
 
@@ -177,6 +170,9 @@ void ModelThread::load(const string &fileName)
 	std::vector<unsigned int> indices;
 	activeMaterial = nullptr;
 
+    vec3 mi = vec3(math_maxfloat);
+    vec3 ma = vec3(math_minfloat);
+
 	for (unsigned int lineIndex = 0; lineIndex < objLines.size(); lineIndex++)
 	{
 		const std::string &curLine = objLines[lineIndex];
@@ -193,17 +189,23 @@ void ModelThread::load(const string &fileName)
 			stream << curLine.substr(2);
 			stream >> curVertex.vx >> curVertex.vy >> curVertex.vz;
 
-			if (vertices.size() == 1)
-			{
-				m_bb.setMin(vec3(curVertex.vx, curVertex.vy, curVertex.vz));
-				m_bb.setMax(vec3(curVertex.vx, curVertex.vy, curVertex.vz));
-			}
-			else
-			{
-				m_bb.setMin(min(m_bb.mi(), vec3(curVertex.vx, curVertex.vy, curVertex.vz)));
-				m_bb.setMax(max(m_bb.ma(), vec3(curVertex.vx, curVertex.vy, curVertex.vz)));
-			}
+            if(mi.x > curVertex.vx)
+                mi.x = curVertex.vx;
+            if(mi.y > curVertex.vy)
+                mi.y = curVertex.vy;
+            if(mi.z > curVertex.vz)
+                mi.z = curVertex.vz;
+
+            if(ma.x < curVertex.vx)
+                ma.x = curVertex.vx;
+            if(ma.y < curVertex.vy)
+                ma.y = curVertex.vy;
+            if(ma.z < curVertex.vz)
+                ma.z = curVertex.vz;    
+
+            m_bb.setMinMax(mi, ma);
 		}
+
 		if (curLine[0] == 'v' && curLine[1] == 't')
 		{
 			VertexBufferObject::DATA &curVertex = vertices[vertices.size() - 1];
@@ -262,7 +264,7 @@ void ModelThread::load(const string &fileName)
 			const std::string materialName = curLine.substr(7);
 			activeMaterial = &materials[materialName];
 		}
-	}
+	}    
 
 	if (indices.size() > 0)
 	{
@@ -286,7 +288,9 @@ void ModelThread::load(const string &fileName)
 
 
 Model::Model(const string &fileName)
-: m_thread(fileName, m_meshes, m_bb)
+: m_thread(fileName, m_meshes, m_bb), 
+  m_vboBB(nullptr), 
+  m_bb(vec3(math_maxfloat), vec3(math_minfloat))
 {
 	//Code for parallel loading
 	connect(&m_thread, SIGNAL(finished()), this, SLOT(loadingDone()));
@@ -306,8 +310,7 @@ void Model::render(const Transform &trans, const mat4 &initTrans, bool applyShad
 		glEnable(GL_CULL_FACE);
 	}
 
-	mat4 viewTrans = mat4::scale(vec3(0.1)) * mat4::rotateX(-90);
-
+	mat4 viewTrans = mat4::scale(params::inst()->globalSceneScale) * mat4::rotateX(-90);
 	mat4 m = viewTrans * initTrans;
 
 	Shader *shader = shaders::inst()->model;
@@ -320,23 +323,41 @@ void Model::render(const Transform &trans, const mat4 &initTrans, bool applyShad
 
 		for (auto &i : m_meshes)
 		{
-			i.render(trans, shader, mat4::identitiy());
+			i.render(trans, shader);
 		}
 
 	shader->release();
+
+
+    if(m_vboBB && params::inst()->renderObjectBB)
+    {
+	    shader = shaders::inst()->default;
+	    shader->bind();
+		    shader->setMatrices(trans, m, true, true, true, true, true);
+       
+		    m_vboBB->render();
+
+        shader->release();
+    }
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void Model::renderDepth(const Transform &trans, const mat4 &initTrans)
 {
-	mat4 model = mat4::identitiy();
-	model = initTrans;
+	mat4 viewTrans = mat4::scale(params::inst()->globalSceneScale) * mat4::rotateX(-90);
+	mat4 m = viewTrans * initTrans;
 
-	for (auto &i : m_meshes)
-	{
-		i.renderDepth(trans, model);
-	}
+	Shader *shader = shaders::inst()->modelDepth;
+	shader->bind();
+	    shader->setMatrices(trans, m, true, true, true, true, true);
+
+		    for (auto &i : m_meshes)
+		    {
+			    i.renderDepth(trans);
+		    }
+
+	shader->release();
 }
 
 void Model::loadingDone()
@@ -345,4 +366,85 @@ void Model::loadingDone()
 	{
 		i.buildVBO();
 	}
+
+    buildBBVBO();
+}
+
+void Model::buildBBVBO()
+{
+    vec3 mi = m_bb.mi();
+    vec3 ma = m_bb.ma();
+
+    vec3 a = vec3(mi.x, mi.y, mi.z);
+    vec3 b = vec3(ma.x, mi.y, mi.z);
+    vec3 c = vec3(ma.x, mi.y, ma.z);
+    vec3 d = vec3(mi.x, mi.y, ma.z);
+
+    vec3 e = vec3(mi.x, ma.y, mi.z);
+    vec3 f = vec3(ma.x, ma.y, mi.z);
+    vec3 g = vec3(ma.x, ma.y, ma.z);
+    vec3 h = vec3(mi.x, ma.y, ma.z);
+
+    vector<vec3> vertices;
+    
+    vertices.push_back(a);
+    vertices.push_back(b);
+    vertices.push_back(b);
+    vertices.push_back(c);
+    vertices.push_back(c);
+    vertices.push_back(d);
+    vertices.push_back(d);
+    vertices.push_back(a);
+
+    vertices.push_back(e);
+    vertices.push_back(f);
+    vertices.push_back(f);
+    vertices.push_back(g);
+    vertices.push_back(g);
+    vertices.push_back(h);
+    vertices.push_back(h);
+    vertices.push_back(e);
+
+    vertices.push_back(a);
+    vertices.push_back(e);
+    vertices.push_back(b);
+    vertices.push_back(f);
+    vertices.push_back(c);
+    vertices.push_back(g);
+    vertices.push_back(d);
+    vertices.push_back(h);
+
+   uint nrVertices = vertices.size();
+   VertexBufferObject::DATA *data = new VertexBufferObject::DATA[nrVertices];
+
+    for(uint i=0; i<nrVertices; ++i)
+    {    
+        vec3 v = vertices[i];
+
+        data[i].vx = v.x;
+        data[i].vy = v.y;
+        data[i].vz = v.z;
+        data[i].vw = 1.0f;
+        
+        data[i].nx = 0.0f;
+        data[i].ny = 0.0f;
+        data[i].nz = 0.0f;
+        data[i].nw = 0.0f;
+        
+        data[i].cx = 0.0f;
+        data[i].cy = 0.0f;
+        data[i].cz = 0.0f;
+        data[i].cw = 1.0f;
+        
+        data[i].tx = 0.0f;
+        data[i].ty = 0.0f;
+        data[i].tz = 0.0f;
+		data[i].tw = 0.0f;
+    }    
+
+	m_vboBB = new VertexBufferObject();
+	m_vboBB->setData(data, GL_STATIC_DRAW, nrVertices, GL_LINES);
+	m_vboBB->bindDefaultAttribs();
+
+    delete data;
 }

@@ -128,7 +128,7 @@ void Light::renderLightView(mat4 &lightView, int activeScene)
 	    glPushAttrib(GL_ALL_ATTRIB_BITS);
 	    glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);
 
-        mat4 projection = mat4::perspective(m_fovLight, (float)m_bufferWidth/(float)m_bufferHeight, m_ncpLight, m_fcpLight);
+        mat4 projection = mat4::perspective(params::inst()->fovLight, (float)m_bufferWidth/(float)m_bufferHeight, params::inst()->ncpLight, params::inst()->fcpLight);
         mat4 view = mat4::lookAt(m_position, vec3(0, 5, 0), vec3(0, 1, 0));
         mat4 bias(0.5, 0.0f, 0.0f, 0.5, 0.0f, 0.5, 0.0f, 0.5, 0.0f, 0.0f, 0.5, 0.5, 0.0f, 0.0f, 0.0f, 1.0f);
 

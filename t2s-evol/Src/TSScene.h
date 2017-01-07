@@ -17,10 +17,12 @@ public:
 	void loadSceneFile(const QString filename, int obbOnly = false);
 	void render(const Transform &trans, bool applyShadow);
 	void renderDepth(const Transform &trans);
+    void renderSceneBB(const Transform &trans);
 
 	void makeRandom();
 
 	void countLoadedModelNum(); // count loaded model number by finding model in loaded modelDB
+    void computeSceneBB();
 
 public:
 	SceneSemGraph *m_ssg;
@@ -31,6 +33,7 @@ private:
 	MetaScene m_metaScene;
 
 	BoundingBox m_sceneBB;
+    vec3 m_camTrans;
 
 	int m_modelNum;
 	int m_frameCount;

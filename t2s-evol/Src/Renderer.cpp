@@ -338,6 +338,8 @@ void Renderer::onMouseClick(int mx, int my)
         {
             m_activePreview = i;
 			m_scene->m_activeVarationId = m_activePreview;
+
+            params::inst()->sceneBB = BoundingBox(vec3(math_maxfloat, math_maxfloat, math_maxfloat), vec3(math_minfloat, math_minfloat, math_minfloat));
         }
     }
 
