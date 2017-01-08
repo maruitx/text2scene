@@ -18,7 +18,7 @@ public:
 	vector<SceneSemGraph*> alignmentTSGWithDatabaseSSGs(int topMatchNum);
 	SceneSemGraph* alignTSGWithSSG(TextSemGraph *tsg, SceneSemGraph *databaseSSG, double &matchingScore);
 
-	double computeSimilarity(TextSemGraph *tsg, SceneSemGraph *ssg);
+	double computeSimilarity(TextSemGraph *tsg, SceneSemGraph *ssg); // debug: simple compute similarity by matching node name
 
 private:
 	SceneSemGraphManager *m_sceneSemGraphManager;

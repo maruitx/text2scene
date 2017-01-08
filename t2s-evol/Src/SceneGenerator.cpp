@@ -40,8 +40,6 @@ std::vector<TSScene*> SceneGenerator::generateTSScenes(int num)
 		QString sceneName = QString("Preview %1").arg(i);
 
 		SceneSemGraph *newSSG = alignToCurrTSScene(matchedSSGs[i]);
-
-		//TSScene *s = matchedSSGs[i]->covertToTSScene(m_models, sceneName);
 		TSScene *s = newSSG->covertToTSScene(m_models, sceneName);
 		tsscenes.push_back(s);
 	}

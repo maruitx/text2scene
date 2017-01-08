@@ -200,36 +200,49 @@ void TextSemGraph::mapToFixedRelationSet(QString &nodeName, QString &nodeType /*
 			nodeName = "vert_support";
 		}
 		nodeType = "pairwise_relationship";
+		return;
 	}
 
 	if (nodeName == "next to" || nodeName == "close to")
 	{
 		nodeName = "near";
+		nodeType = "pairwise_relationship";
+		return;
 	}
 
 	if (nodeName.contains("front"))
 	{
 		nodeName = "front";
+		nodeType = "pairwise_relationship";
+		return;
 	}
 
 	if (nodeName.contains("back") || nodeName.contains("behind"))
 	{
 		nodeName = "back";
+		nodeType = "pairwise_relationship";
+		return;
 	}
 
 	if (nodeName.contains("left"))
 	{
 		nodeName = "left";
+		nodeType = "pairwise_relationship";
+		return;
 	}
 
 	if (nodeName.contains("right"))
 	{
 		nodeName = "right";
+		nodeType = "pairwise_relationship";
+		return;
 	}
 
 	if (nodeName == "around")
 	{
 		nodeType = "group_relationship";
+		nodeType = "pairwise_relationship";
+		return;
 	}
 }
 

@@ -178,9 +178,9 @@ SceneSemGraph* SemGraphMatcher::alignTSGWithSSG(TextSemGraph *tsg, SceneSemGraph
 		}
 	}
 
-
-
-	matchedSubSSG = databaseSSG->getSubGraph(matchedDBSsgNodeList);
+	// add nodes by scene context
+	bool useContext = true;
+	matchedSubSSG = databaseSSG->getSubGraph(matchedDBSsgNodeList, useContext);
 
 	return matchedSubSSG;
 }
@@ -206,5 +206,4 @@ double SemGraphMatcher::computeSimilarity(TextSemGraph *tsg, SceneSemGraph *ssg)
 
 	return simVal;
 }
-
 

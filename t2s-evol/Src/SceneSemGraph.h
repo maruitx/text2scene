@@ -19,7 +19,7 @@ public:
 	void loadGraph(const QString &filename);
 	TSScene* covertToTSScene(unordered_map<string, Model*> &models, const QString &sceneName = "");
 
-	SceneSemGraph* getSubGraph(const vector<int> &nodeList);
+	SceneSemGraph* getSubGraph(const vector<int> &nodeList, bool useContext = false);
 
 public:
 	MetaScene m_metaScene;
