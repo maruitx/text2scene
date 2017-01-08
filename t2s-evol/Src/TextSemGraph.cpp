@@ -180,6 +180,11 @@ void TextSemGraph::mapToFixedObjSet(QString &nodeName)
 	{
 		nodeName = "computermouse";
 	}
+
+	if (nodeName == "bookshelf")
+	{
+		nodeName = "bookcase";
+	}
 }
 
 void TextSemGraph::mapToFixedRelationSet(QString &nodeName, QString &nodeType /*= QString("")*/)

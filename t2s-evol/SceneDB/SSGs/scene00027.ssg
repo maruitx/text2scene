@@ -100,7 +100,7 @@ transform 1.500000 0.000000 0.000000 0.000000 0.000000 1.500000 0.000000 0.00000
 position 4.28125 6.06765 0
 frontDir 0 -1 0
 upDir 0 0 1
-nodeNum 55
+nodeNum 51
 0,object,room,,20 21 22
 1,object,desk,20 42 44 47,23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 40 41 43 45 46
 2,object,computer,23,
@@ -119,8 +119,8 @@ nodeNum 55
 15,object,notepad,35 39,
 16,object,book,36,
 17,object,sodacan,37,
-18,object,chair,21 43 48 52 54,44 50 51 53
-19,object,trashbin,22 45 46 49 50 51 53,47 52 54
+18,object,chair,21 43 48,44 50
+19,object,trashbin,22 45 46 49 50,47
 20,pairwise_relationship,vert_support,0,1
 21,pairwise_relationship,vert_support,0,18
 22,pairwise_relationship,vert_support,0,19
@@ -152,11 +152,7 @@ nodeNum 55
 48,pairwise_relationship,near,8,18
 49,pairwise_relationship,near,8,19
 50,pairwise_relationship,near,18,19
-51,pairwise_relationship,back,18,19
-52,pairwise_relationship,front,19,18
-53,pairwise_relationship,leftside,18,19
-54,pairwise_relationship,rightside,19,18
-edgeNum 70
+edgeNum 62
 0,0,20
 1,20,1
 2,0,21
@@ -219,11 +215,3 @@ edgeNum 70
 59,49,19
 60,18,50
 61,50,19
-62,18,51
-63,51,19
-64,19,52
-65,52,18
-66,18,53
-67,53,19
-68,19,54
-69,54,18

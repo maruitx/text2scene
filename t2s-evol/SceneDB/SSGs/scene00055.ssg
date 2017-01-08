@@ -125,9 +125,9 @@ transform 0.000000 -1.500000 0.000000 0.000000 1.500000 0.000000 0.000000 0.0000
 position 10.444 10.455 0
 frontDir 0 -1 0
 upDir 0 0 1
-nodeNum 72
+nodeNum 60
 0,object,room,,25 26 27 28
-1,object,table,25 58 60 62 64 66 68,29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 57 59 61 63 65 67
+1,object,table,25,29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48
 2,object,book,29,
 3,object,plate,30,49 50
 4,object,sandwich,31 49,
@@ -148,9 +148,9 @@ nodeNum 72
 19,object,glasses,46,
 20,object,plate,47,56
 21,object,foodplate,48 56,
-22,object,chair,26 57 59,58 60 69 70
-23,object,chair,27 61 63 69,62 64 71
-24,object,chair,28 65 67 70 71,66 68
+22,object,chair,26,57 58
+23,object,chair,27 57,59
+24,object,chair,28 58 59,
 25,pairwise_relationship,vert_support,0,1
 26,pairwise_relationship,vert_support,0,22
 27,pairwise_relationship,vert_support,0,23
@@ -183,22 +183,10 @@ nodeNum 72
 54,pairwise_relationship,vert_support,9,13
 55,pairwise_relationship,vert_support,16,17
 56,pairwise_relationship,vert_support,20,21
-57,pairwise_relationship,front,1,22
-58,pairwise_relationship,back,22,1
-59,pairwise_relationship,leftside,1,22
-60,pairwise_relationship,rightside,22,1
-61,pairwise_relationship,front,1,23
-62,pairwise_relationship,back,23,1
-63,pairwise_relationship,leftside,1,23
-64,pairwise_relationship,rightside,23,1
-65,pairwise_relationship,front,1,24
-66,pairwise_relationship,back,24,1
-67,pairwise_relationship,leftside,1,24
-68,pairwise_relationship,rightside,24,1
-69,pairwise_relationship,near,22,23
-70,pairwise_relationship,near,22,24
-71,pairwise_relationship,near,23,24
-edgeNum 94
+57,pairwise_relationship,near,22,23
+58,pairwise_relationship,near,22,24
+59,pairwise_relationship,near,23,24
+edgeNum 70
 0,0,25
 1,25,1
 2,0,26
@@ -263,33 +251,9 @@ edgeNum 94
 61,55,17
 62,20,56
 63,56,21
-64,1,57
-65,57,22
+64,22,57
+65,57,23
 66,22,58
-67,58,1
-68,1,59
-69,59,22
-70,22,60
-71,60,1
-72,1,61
-73,61,23
-74,23,62
-75,62,1
-76,1,63
-77,63,23
-78,23,64
-79,64,1
-80,1,65
-81,65,24
-82,24,66
-83,66,1
-84,1,67
-85,67,24
-86,24,68
-87,68,1
-88,22,69
-89,69,23
-90,22,70
-91,70,24
-92,23,71
-93,71,24
+67,58,24
+68,23,59
+69,59,24

@@ -31,8 +31,6 @@ void SceneGenerator::updateCurrentTSScene(TSScene *ts)
 
 std::vector<TSScene*> SceneGenerator::generateTSScenes(int num)
 {
-	//vector<SceneSemGraph*> matchedSSGs = m_semanticGraphMatcher->testMatchTSGWithSSGs(num);
-	//std::vector<SceneSemGraph*> matchedSSGs = m_semanticGraphMatcher->matchTSGWithSSGs(num);
 	std::vector<SceneSemGraph*> matchedSSGs = m_semanticGraphMatcher->alignmentTSGWithDatabaseSSGs(num);
 
 	std::vector<TSScene*> tsscenes;

@@ -60,10 +60,10 @@ transform 1.622400 0.000000 0.000000 0.000000 0.000000 1.622400 0.000000 0.00000
 position 10.784 10.362 0
 frontDir 0 -1 0
 upDir 0 0 1
-nodeNum 42
+nodeNum 30
 0,object,room,,12 13
-1,object,speaker,23 25 29,21 22 24 26 27 28
-2,object,cabinet,12 21 22 24 32 34 37 39,14 15 16 17 18 19 23 25 30 31 33 35 36 38
+1,object,speaker,25,21 22 23 24
+2,object,cabinet,12 21,14 15 16 17 18 19 26 27
 3,object,tv,14,
 4,object,mediaplayer,15,20
 5,object,mediaplayer,20,
@@ -71,8 +71,8 @@ nodeNum 42
 7,object,videogameconsole,17,
 8,object,videogameconsole,18,
 9,object,noname,19,
-10,object,speaker,26 30 31 33 41,32 34 40
-11,object,pottedplant,13 27 28 35 36 38 40,29 37 39 41
+10,object,speaker,22 26 29,28
+11,object,pottedplant,13 23 24 27 28,25 29
 12,pairwise_relationship,vert_support,0,2
 13,pairwise_relationship,vert_support,0,11
 14,pairwise_relationship,vert_support,2,3
@@ -83,27 +83,15 @@ nodeNum 42
 19,pairwise_relationship,vert_support,2,9
 20,pairwise_relationship,vert_support,4,5
 21,pairwise_relationship,near,1,2
-22,pairwise_relationship,back,1,2
-23,pairwise_relationship,front,2,1
-24,pairwise_relationship,rightside,1,2
-25,pairwise_relationship,leftside,2,1
-26,pairwise_relationship,near,1,10
-27,pairwise_relationship,near,1,11
-28,pairwise_relationship,rightside,1,11
-29,pairwise_relationship,leftside,11,1
-30,pairwise_relationship,near,2,10
-31,pairwise_relationship,front,2,10
-32,pairwise_relationship,back,10,2
-33,pairwise_relationship,leftside,2,10
-34,pairwise_relationship,rightside,10,2
-35,pairwise_relationship,near,2,11
-36,pairwise_relationship,front,2,11
-37,pairwise_relationship,back,11,2
-38,pairwise_relationship,leftside,2,11
-39,pairwise_relationship,rightside,11,2
-40,pairwise_relationship,rightside,10,11
-41,pairwise_relationship,leftside,11,10
-edgeNum 60
+22,pairwise_relationship,near,1,10
+23,pairwise_relationship,near,1,11
+24,pairwise_relationship,rightside,1,11
+25,pairwise_relationship,leftside,11,1
+26,pairwise_relationship,near,2,10
+27,pairwise_relationship,near,2,11
+28,pairwise_relationship,rightside,10,11
+29,pairwise_relationship,leftside,11,10
+edgeNum 36
 0,0,12
 1,12,2
 2,0,13
@@ -125,42 +113,18 @@ edgeNum 60
 18,1,21
 19,21,2
 20,1,22
-21,22,2
-22,2,23
-23,23,1
+21,22,10
+22,1,23
+23,23,11
 24,1,24
-25,24,2
-26,2,25
+25,24,11
+26,11,25
 27,25,1
-28,1,26
+28,2,26
 29,26,10
-30,1,27
+30,2,27
 31,27,11
-32,1,28
+32,10,28
 33,28,11
 34,11,29
-35,29,1
-36,2,30
-37,30,10
-38,2,31
-39,31,10
-40,10,32
-41,32,2
-42,2,33
-43,33,10
-44,10,34
-45,34,2
-46,2,35
-47,35,11
-48,2,36
-49,36,11
-50,11,37
-51,37,2
-52,2,38
-53,38,11
-54,11,39
-55,39,2
-56,10,40
-57,40,11
-58,11,41
-59,41,10
+35,29,10

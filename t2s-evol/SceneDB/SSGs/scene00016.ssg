@@ -115,16 +115,16 @@ transform 0.119266 0.000000 0.000000 0.000000 0.000000 0.119266 0.000000 0.00000
 position 67.8894 -48.4287 0.0005
 frontDir 0 -1 0
 upDir 0 0 1
-nodeNum 61
+nodeNum 53
 0,object,room,,
-1,object,bookcase,44 47 49,23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 43 45 46 48
+1,object,bookcase,44 47,23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 43 45 46
 2,object,pottedplant,23,
 3,object,pictureframe,39,
 4,object,decorativeaccessory,40,
 5,object,books,24,
 6,object,books,25,
 7,object,books,26,41
-8,object,books,41 43 52 54 57,42 44 50 51 53 55 56
+8,object,books,41 43 51,42 44 48 49 50
 9,object,books,27,
 10,object,books,28,
 11,object,books,29,
@@ -132,9 +132,9 @@ nodeNum 61
 13,object,toy,31,
 14,object,book,32,
 15,object,toyfigure,33,
-16,object,toyfigure,45 46 50 51 53 60,47 52 54 58 59
+16,object,toyfigure,45 48,52
 17,object,chestofdrawers,34 42,
-18,object,book,48 55 56 58 59,49 57 60
+18,object,book,46 49 50 52,47 51
 19,object,toyfigure,35,
 20,object,guitar,36,
 21,object,calculator,37,
@@ -162,22 +162,14 @@ nodeNum 61
 43,pairwise_relationship,rightside,1,8
 44,pairwise_relationship,leftside,8,1
 45,pairwise_relationship,near,1,16
-46,pairwise_relationship,front,1,16
-47,pairwise_relationship,back,16,1
-48,pairwise_relationship,back,1,18
-49,pairwise_relationship,front,18,1
-50,pairwise_relationship,near,8,16
-51,pairwise_relationship,front,8,16
-52,pairwise_relationship,back,16,8
-53,pairwise_relationship,rightside,8,16
-54,pairwise_relationship,leftside,16,8
-55,pairwise_relationship,near,8,18
-56,pairwise_relationship,front,8,18
-57,pairwise_relationship,back,18,8
-58,pairwise_relationship,near,16,18
-59,pairwise_relationship,leftside,16,18
-60,pairwise_relationship,rightside,18,16
-edgeNum 76
+46,pairwise_relationship,back,1,18
+47,pairwise_relationship,front,18,1
+48,pairwise_relationship,near,8,16
+49,pairwise_relationship,near,8,18
+50,pairwise_relationship,front,8,18
+51,pairwise_relationship,back,18,8
+52,pairwise_relationship,near,16,18
+edgeNum 60
 0,1,23
 1,23,2
 2,1,24
@@ -225,32 +217,16 @@ edgeNum 76
 44,1,45
 45,45,16
 46,1,46
-47,46,16
-48,16,47
+47,46,18
+48,18,47
 49,47,1
-50,1,48
-51,48,18
-52,18,49
-53,49,1
+50,8,48
+51,48,16
+52,8,49
+53,49,18
 54,8,50
-55,50,16
-56,8,51
-57,51,16
+55,50,18
+56,18,51
+57,51,8
 58,16,52
-59,52,8
-60,8,53
-61,53,16
-62,16,54
-63,54,8
-64,8,55
-65,55,18
-66,8,56
-67,56,18
-68,18,57
-69,57,8
-70,16,58
-71,58,18
-72,16,59
-73,59,18
-74,18,60
-75,60,16
+59,52,18

@@ -2,7 +2,6 @@
 #include "SceneSemGraphManager.h"
 #include "SceneSemGraph.h"
 #include "TextSemGraph.h"
-#include "GMTMatcher.h"
 
 
 SemGraphMatcher::SemGraphMatcher(SceneSemGraphManager *ssgManager)
@@ -33,60 +32,6 @@ SemGraphMatcher::~SemGraphMatcher()
 void SemGraphMatcher::updateCurrentTextSemGraph(TextSemGraph *tsg)
 {
 	m_currTextSemGraph = tsg;
-}
-
-vector<SceneSemGraph*> SemGraphMatcher::matchTSGWithSSGs(int topMatchNum)
-{
-	cout << "SemGraphMatcher: start graph matching.\n";
-
-	Graph *textGraph = convertToGMTGraph(m_currTextSemGraph);
-
-	double match_threshold = -1;
-	/* recognition(Graph*, error threshold=-1 (no limit) =0 (exact match only)  */
-	/*                                    >0 (find first inexact match)         */
-	m_gmtMatcher->m_graphDatabase->recognition(textGraph, match_threshold);
-
-	int matchedSSGNum = m_gmtMatcher->m_graphDatabase->NumberOfMatches();
-
-	vector<pair<double, InstanceData *>> matchedInstances;
-
-	// collected matched instance ids
-	std::set<int> matchedSSGIds;
-	for (int i = 0; i < matchedSSGNum; i++)
-	{
-		InstanceData* IS = m_gmtMatcher->m_graphDatabase->getInstance(i);
-		int currId = IS->modelNr;
-
-		// only return non-repeated instance
-		if (std::find(matchedSSGIds.begin(), matchedSSGIds.end(), currId) == matchedSSGIds.end())
-		{
-			matchedInstances.push_back(make_pair(IS->totalError, IS));
-		}
-
-		matchedSSGIds.insert(currId);
-	}
-
-	sort(matchedInstances.begin(), matchedInstances.end()); // ascending order
-
-	matchedSSGNum = matchedInstances.size();
-	vector<SceneSemGraph*> matchedSubSSGs;
-
-	int ssgNum = min(topMatchNum, matchedSSGNum);
-
-	for (int i = 0; i < ssgNum; i++)
-	{
-		SceneSemGraph *ssg = convertGMTInstanceToSSG(matchedInstances[i].second);
-
-		if (ssg!=NULL)
-		{
-			matchedSubSSGs.push_back(ssg);
-		}
-	}
-
-
-	cout << "SemGraphMatcher: graph matching done, found instance number " << matchedSSGNum << ", shown instance number " << matchedSubSSGs.size() << ".\n";
-
-	return matchedSubSSGs;
 }
 
 
@@ -240,32 +185,6 @@ SceneSemGraph* SemGraphMatcher::alignTSGWithSSG(TextSemGraph *tsg, SceneSemGraph
 	return matchedSubSSG;
 }
 
-vector<SceneSemGraph*> SemGraphMatcher::testMatchTSGWithSSGs(int topMacthNum)
-{
-	//m_gmtMatcher->test();
-
-	vector<pair<double, SceneSemGraph *>> evaluatedSSGs;
-
-	for (int i = 0; i < m_sceneSemGraphManager->m_ssgNum; i++)
-	{
-		SceneSemGraph *currSSG = m_sceneSemGraphManager->getGraph(i);
-
-		//double simVal = rand();
-		double simVal = computeSimilarity(m_currTextSemGraph, currSSG);
-		evaluatedSSGs.push_back(make_pair(simVal, currSSG));
-	}
-
-	sort(evaluatedSSGs.begin(), evaluatedSSGs.end());  // ascending order
-	reverse(evaluatedSSGs.begin(), evaluatedSSGs.end()); // descending order
-
-	vector<SceneSemGraph*> topSSGs(topMacthNum);
-	for (int i = 0; i < topMacthNum; i++)
-	{
-		topSSGs[i] = evaluatedSSGs[i].second;
-	}
-
-	return topSSGs;
-}
 
 double SemGraphMatcher::computeSimilarity(TextSemGraph *tsg, SceneSemGraph *ssg)
 {
@@ -288,69 +207,4 @@ double SemGraphMatcher::computeSimilarity(TextSemGraph *tsg, SceneSemGraph *ssg)
 	return simVal;
 }
 
-Graph* SemGraphMatcher::convertToGMTGraph(SemanticGraph *sg)
-{
-	Graph *gmtGraph = new Graph;
-
-	double attrVal[1];  // use node attribute to store node type; later we can weight on diff node types
-	
-	for (int i = 0; i < sg->m_nodeNum; i++)
-	{
-		int labelID = m_sceneSemGraphManager->getNodeLabelID(sg->m_nodes[i].nodeName);
-		int attriID = m_sceneSemGraphManager->getNodeTypeID(sg->m_nodes[i].nodeName);
-
-		attrVal[0] = attriID;
-		/* set(id,Label,attribute array, dimension of array) */
-		gmtGraph->set(i, labelID, attrVal, 1);
-	}
-
-	for (int i = 0; i < sg->m_edgeNum; i++)
-	{
-		attrVal[0] = 0;
-		/* setEdge(out-node(source),in-node(target),number,label,attributes-array,dim of array) */
-		gmtGraph->setEdge(sg->m_edges[i].sourceNodeId, sg->m_edges[i].targetNodeId, i, 0, attrVal, 1); // // set edge label as 0, and the attribute label as 0
-	}
-
-	// Debug: add a virtual node and edges to make sure the graph is one component
-	// To-fix: should not be needed when horizon and vert support hierarchy is built
-	int vNum = gmtGraph->xVertices;
-	int eNum = gmtGraph->xEdges;
-	gmtGraph->set(vNum, 277, attrVal, 1);  // set label as room
-	for (int i = 0; i < vNum; i++)
-	{
-		gmtGraph->setEdge(vNum, i, i+eNum, 0, attrVal, 1); // // set edge label as 0, and the attribute label as 0
-	}
-
-	gmtGraph->setName("G0");
-	/* mark end of graph definition (1) directed, (0) undirected */
-	gmtGraph->done(1);
-
-	return gmtGraph;
-}
-
-SceneSemGraph* SemGraphMatcher::convertGMTInstanceToSSG(InstanceData *gmtInstance)
-{
-	int matchedSSGId = gmtInstance->modelNr;
-	SceneSemGraph *matchedFullSSG = m_sceneSemGraphManager->getGraph(matchedSSGId);
-
-	int nodeNum = gmtInstance->dim;
-	vector<int> nodeList;
-
-	// collect node list
-	for (int i = 0; i < nodeNum; i++)
-	{		
-		int matchedNodeId = gmtInstance->model[i];
-
-		// we add a virtual node in GMT graph, do not add the virtual node which we added to make the graph as one component		
-		if (matchedNodeId < matchedFullSSG->m_nodeNum)
-		{
-			nodeList.push_back(matchedNodeId);
-		}			
-	}
-
-	std::sort(nodeList.begin(), nodeList.end());
-	SceneSemGraph *matchedSubSSG = matchedFullSSG->getSubGraph(nodeList);
-
-	return matchedSubSSG;
-}
 
