@@ -55,14 +55,14 @@ transform 0.003897 0.000000 0.000000 0.000000 0.000000 0.003897 0.000000 0.00000
 position 1025.02 1338.87 -0.005
 frontDir 0 -1 0
 upDir 0 0 1
-nodeNum 25
+nodeNum 28
 0,object,room,,11
-1,object,bookcase,11,12 13 14 15 16 17 18 19
+1,object,bookcase,11 27,12 13 14 15 16 17 18 19 25 26
 2,object,books,12,20
 3,object,books,13 20,
 4,object,books,14,21 22
 5,object,books,15 21,
-6,object,books,,23 24
+6,object,books,25 26,23 24 27
 7,object,books,16 22,
 8,object,printer,17,
 9,object,camera,18 23,
@@ -81,7 +81,10 @@ nodeNum 25
 22,pairwise_relationship,vert_support,4,7
 23,pairwise_relationship,vert_support,6,9
 24,pairwise_relationship,vert_support,6,10
-edgeNum 28
+25,pairwise_relationship,near,1,6
+26,pairwise_relationship,leftside,1,6
+27,pairwise_relationship,rightside,6,1
+edgeNum 34
 0,0,11
 1,11,1
 2,1,12
@@ -110,5 +113,9 @@ edgeNum 28
 25,23,9
 26,6,24
 27,24,10
-
-
+28,1,25
+29,25,6
+30,1,26
+31,26,6
+32,6,27
+33,27,1

@@ -172,20 +172,18 @@ TSScene* SceneSemGraph::covertToTSScene(unordered_map<string, Model*> &models, c
 	return newScene;
 }
 
-SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList)
+SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, bool useContext /* = false*/)
 {
 	SceneSemGraph *subGraph = new SceneSemGraph();
 
 	map<int, int> oldToNewNodeIdMap;
-	for (int i = 0; i < nodeList.size(); i++)
-	{
-		int oldNodeId = nodeList[i];
-		oldToNewNodeIdMap[oldNodeId] = i;
-	}
 
 	// build graph nodes
 	for (int i = 0; i < nodeList.size(); i++)
 	{
+		int oldNodeId = nodeList[i];
+		oldToNewNodeIdMap[oldNodeId] = i;
+
 		SemNode oldNode = m_nodes[nodeList[i]];
 		subGraph->addNode(oldNode.nodeType, oldNode.nodeName);
 	}	
@@ -204,6 +202,79 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList)
 		}
 	}
 
+   // enrich subgraph with context
+	std::vector<int> enrichedNodeList = nodeList;
+	if (useContext)
+	{
+		// add support parent
+		for (int i = 0; i < nodeList.size(); i++)
+		{
+			int oldNodeId = nodeList[i];
+
+			SemNode &oldNode = m_nodes[oldNodeId];
+
+			if (oldNode.nodeType == "object")
+			{
+				std::vector<int> inNodeList = oldNode.inEdgeNodeList; 
+
+				// find support node
+				for (int j = 0; j < inNodeList.size(); j++)
+				{
+					int inNodeId = inNodeList[j];
+
+					// if there is support node missing
+					if (!oldToNewNodeIdMap.count(inNodeId) && m_nodes[inNodeId].nodeName.contains("support"))
+					{
+						std::vector<int> suppParentIdList = m_nodes[inNodeId].inEdgeNodeList; // should only have one support parent
+
+						bool parentIsRoom = false;
+						for (int k = 0; k < suppParentIdList.size(); k++)
+						{
+							int suppParentNodeId = suppParentIdList[k];
+							if (m_nodes[suppParentNodeId].nodeName.contains("room"))
+							{
+								parentIsRoom = true;
+								break;
+							}
+						}
+
+						if (parentIsRoom) break;
+
+						// add support node
+						subGraph->addNode(m_nodes[inNodeId].nodeType, m_nodes[inNodeId].nodeName);
+						int currNodeId = subGraph->m_nodeNum - 1;
+						oldToNewNodeIdMap[inNodeId] = currNodeId;
+						subGraph->addEdge(currNodeId, oldToNewNodeIdMap[oldNodeId]);
+
+						enrichedNodeList.push_back(inNodeId);
+
+						// add support parent
+						for (int k = 0; k < suppParentIdList.size(); k++)
+						{
+							int suppParentNodeId = suppParentIdList[k];
+
+							if (!oldToNewNodeIdMap.count(suppParentNodeId) && m_nodes[suppParentNodeId].nodeType == "object")
+							{
+								subGraph->addNode(m_nodes[suppParentNodeId].nodeType, m_nodes[suppParentNodeId].nodeName);
+								int currNodeId = subGraph->m_nodeNum - 1;
+								oldToNewNodeIdMap[suppParentNodeId] = currNodeId;
+								enrichedNodeList.push_back(suppParentNodeId);
+
+								subGraph->addEdge(currNodeId, oldToNewNodeIdMap[inNodeId]);
+
+								subGraph->m_nodes[currNodeId].isInferredObj = true;
+								subGraph->m_nodes[currNodeId].inferRefObjId = oldToNewNodeIdMap[oldNodeId];
+							}
+						}
+					}
+				}
+			}
+		}
+
+		// add high co-occur objects with probability
+	}
+
+
 	// Debug
 	if (subGraph->m_edgeNum %2 != 0 )
 	{
@@ -213,9 +284,10 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList)
 	}
 
 	// set meta scene
-	for (int i = 0; i < nodeList.size(); i++)
+	int sceneId = 0;
+	for (int i = 0; i < enrichedNodeList.size(); i++)
 	{
-		int oldNodeId = nodeList[i];
+		int oldNodeId = enrichedNodeList[i];
 
 		// non-object node is not saved in the map
 		if (m_objectGraphNodeIdToModelSceneIdMap.count(oldNodeId))
@@ -225,7 +297,9 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList)
 			if (oldMetaModelId < m_modelNum)
 			{
 				subGraph->m_metaScene.m_metaModellList.push_back(m_metaScene.m_metaModellList[oldMetaModelId]);
-				subGraph->m_objectGraphNodeIdToModelSceneIdMap[i] = i;
+				int currNodeId = oldToNewNodeIdMap[oldNodeId];
+				subGraph->m_objectGraphNodeIdToModelSceneIdMap[currNodeId] = sceneId;
+				sceneId++;
 			}
 		}
 	}

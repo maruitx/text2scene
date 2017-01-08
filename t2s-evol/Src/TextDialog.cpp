@@ -71,7 +71,52 @@ void TextDialog::onButtonProcess()
 {
 	//qDebug() << m_editSentence->toPlainText();
 
-	// To-do: save current text to in.txt
+	QString inputSentence = m_editSentence->toPlainText();
+
+	if (inputSentence.contains("LM "))
+	{
+		QStringList stringList = inputSentence.split(" ");
+		QString modelName = stringList[1];
+
+		MetaModel m;
+		m.name = modelName.toStdString();
+		m.path = params::inst()->modelDirectory + modelName.toStdString() + ".obj";
+		mat4 transMat;
+		transMat.setToIdentity();
+		m.transformation = transMat;
+		m.isInited = true;
+
+		m_scene->roomModel = m;
+
+		int varNum = m_scene->m_variations.size();
+		for (int i = 0; i < varNum; i++)
+		{
+			m_scene->m_variations[i]->updateRoomModel(m);
+		}
+
+		return;
+	}
+
+	if (inputSentence.contains("LS "))
+	{
+		inputSentence.remove("LS ");
+		QStringList sceneNameList = inputSentence.split(" ");
+		
+		int sceneNum = sceneNameList.size();
+
+		for (int i = 0; i < sceneNum; i++)
+		{
+			if (sceneNum < m_scene->m_variations.size())
+			{
+				QString sceneFileName = QString(params::inst()->sceneDirectory.c_str()) + sceneNameList[i] + ".txt";
+				m_scene->m_variations[i]->loadSceneFile(sceneFileName);
+			}
+		}
+
+		return;
+	}
+
+
 	QString filename = "in.txt";
 
 	QFile outFile(filename);
@@ -84,7 +129,6 @@ void TextDialog::onButtonProcess()
 	}
 	else
 	{
-		QString inputSentence = m_editSentence->toPlainText();
 		ofs << inputSentence;
 		outFile.close();	}
 

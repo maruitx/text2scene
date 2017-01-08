@@ -14,7 +14,7 @@ public:
 	TSScene(unordered_map<string, Model*> &models, const QString &fileName);    // init with current loaded object DB and scene file
 	~TSScene();
 
-	void loadSceneFile(const QString filename, int obbOnly = false);
+	void loadSceneFile(const QString &filename);
 	void render(const Transform &trans, bool applyShadow);
 	void renderDepth(const Transform &trans);
     void renderSceneBB(const Transform &trans);
@@ -23,6 +23,10 @@ public:
 
 	void countLoadedModelNum(); // count loaded model number by finding model in loaded modelDB
     void computeSceneBB();
+
+	void loadModel(MetaModel m);
+
+	void updateRoomModel(MetaModel m);
 
 public:
 	SceneSemGraph *m_ssg;

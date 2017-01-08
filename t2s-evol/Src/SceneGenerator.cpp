@@ -31,8 +31,6 @@ void SceneGenerator::updateCurrentTSScene(TSScene *ts)
 
 std::vector<TSScene*> SceneGenerator::generateTSScenes(int num)
 {
-	//vector<SceneSemGraph*> matchedSSGs = m_semanticGraphMatcher->testMatchTSGWithSSGs(num);
-	//std::vector<SceneSemGraph*> matchedSSGs = m_semanticGraphMatcher->matchTSGWithSSGs(num);
 	std::vector<SceneSemGraph*> matchedSSGs = m_semanticGraphMatcher->alignmentTSGWithDatabaseSSGs(num);
 
 	std::vector<TSScene*> tsscenes;
@@ -42,8 +40,6 @@ std::vector<TSScene*> SceneGenerator::generateTSScenes(int num)
 		QString sceneName = QString("Preview %1").arg(i);
 
 		SceneSemGraph *newSSG = alignToCurrTSScene(matchedSSGs[i]);
-
-		//TSScene *s = matchedSSGs[i]->covertToTSScene(m_models, sceneName);
 		TSScene *s = newSSG->covertToTSScene(m_models, sceneName);
 		tsscenes.push_back(s);
 	}

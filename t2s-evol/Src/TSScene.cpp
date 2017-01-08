@@ -1,11 +1,13 @@
 #include "TSScene.h"
 #include "Utility.h"
 #include "Model.h"
+#include "SceneSemGraph.h"
 
 
 TSScene::TSScene(unordered_map<string, Model*> &models)
 	:m_models(models),
 	m_sceneBB(vec3(math_maxfloat), vec3(math_minfloat)),
+	m_modelNum(0),
 	m_frameCount(0),
 	m_loadedModelNum(0),
 	m_ssg(NULL), 
@@ -16,7 +18,8 @@ TSScene::TSScene(unordered_map<string, Model*> &models)
 
 TSScene::TSScene(unordered_map<string, Model*> &models, const QString &fileName)
 : m_models(models),
-  m_sceneBB(vec3(math_maxfloat), vec3(math_minfloat)), 
+  m_sceneBB(vec3(math_maxfloat), vec3(math_minfloat)),
+  m_modelNum(0),
   m_frameCount(0),
   m_loadedModelNum(0),
   m_ssg(NULL), 
@@ -43,8 +46,10 @@ TSScene::~TSScene()
 {
 }
 
-void TSScene::loadSceneFile(const QString filename, int obbOnly /*= false*/)
+void TSScene::loadSceneFile(const QString &filename)
 {
+	m_metaScene.m_metaModellList.clear();
+
 	cout << "Loading Scene File ... ";
 	QFile inFile(filename);
 	QTextStream ifs(&inFile);
@@ -311,4 +316,35 @@ void TSScene::computeSceneBB()
 
     m_sceneBB.setMinMax(smi, sma);
     m_camTrans = t;
+}
+
+void TSScene::loadModel(MetaModel m)
+{
+	m_metaScene.m_metaModellList.push_back(m);
+	m_modelNum++;
+}
+
+void TSScene::updateRoomModel(MetaModel m)
+{
+	if (m.isInited)
+	{
+		for (int i = 0; i < m_metaScene.m_metaModellList.size(); i++)
+		{
+			// if room exist, update with loaded room
+			QString modelName = QString(m_metaScene.m_metaModellList[i].name.c_str());
+			if (modelName.contains("room"))
+			{
+				m_metaScene.m_metaModellList[i] = m;
+				if (m_ssg != NULL)
+				{
+					m_ssg->m_metaScene.m_metaModellList[i] = m;
+				}
+
+				return;
+			}
+		}
+
+		// add room if it is not exist
+		loadModel(m);
+	}
 }
