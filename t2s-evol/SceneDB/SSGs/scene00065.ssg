@@ -1,5 +1,5 @@
 StanfordSceneDatabase
-modelCount 33
+modelCount 31
 newModel 0 room01
 transform 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000
 position 121.438 121.5 0
@@ -65,219 +65,519 @@ transform 0.015565 -0.017287 0.000000 0.000000 0.017287 0.015565 0.000000 0.0000
 position 285.433 185.04 -1.7972
 frontDir 0 -1 0
 upDir 0 0 1
-newModel 13 1046b3d5a381a8902e5ae31c6c631a39
-transform 0.092744 0.002429 0.000000 0.000000 0.000000 0.000000 -0.092776 0.000000 -0.002429 0.092744 0.000000 0.000000 34.058899 211.076004 17.310400 1.000000
-position 7.9235 -106.749 27.827
-frontDir 0 -1 0
-upDir 0 0 1
-newModel 14 1a746be9d089842dcc7695c3ba352268
+newModel 13 1a746be9d089842dcc7695c3ba352268
 transform 1.737300 -0.615211 0.000000 0.000000 0.615211 1.737300 0.000000 0.000000 0.000000 0.000000 1.843010 0.000000 120.556000 237.464996 4.844010 1.000000
 position 2.32873 -1.02256 -5e-06
 frontDir 0 -1 0
 upDir 0 0 1
-newModel 15 fed335202963b8d3fbeef84a1ff2df7f
+newModel 14 fed335202963b8d3fbeef84a1ff2df7f
 transform 0.974370 0.000000 0.000000 0.000000 -0.000000 0.974370 0.000000 0.000000 0.000000 0.000000 0.974371 0.000000 65.748703 226.112000 44.156200 1.000000
 position -8.55488 -4.19761 5e-06
 frontDir 0 -1 0
 upDir 0 0 1
-newModel 16 61c6c6a47e5b9d34496c7671bf276db5
+newModel 15 61c6c6a47e5b9d34496c7671bf276db5
 transform -0.396749 -0.517054 0.000000 0.000000 0.517054 -0.396749 0.000000 0.000000 0.000000 0.000000 0.651733 0.000000 45.150299 231.595993 5.577210 1.000000
 position 3 12.5 -1.125
 frontDir 0 0 1
 upDir 0 1 0
-newModel 17 236d7ffc6e78cc67eba92b622d2c95c9
+newModel 16 236d7ffc6e78cc67eba92b622d2c95c9
 transform 1.185470 0.000000 0.000000 0.000000 -0.000000 1.185470 0.000000 0.000000 0.000000 0.000000 1.185470 0.000000 74.225800 196.164993 14.761400 1.000000
 position 12.1557 17.8326 -8.36571
 frontDir 0 -1 0
 upDir 0 0 1
-newModel 18 80968124315c8b131f6a5b0146bf3030
+newModel 17 80968124315c8b131f6a5b0146bf3030
 transform 1.897980 0.000000 0.000000 0.000000 -0.000000 1.897980 0.000000 0.000000 0.000000 0.000000 1.897980 0.000000 70.993797 219.787994 25.004101 1.000000
 position 18.2952 4.68495 0
 frontDir 0 -1 0
 upDir 0 0 1
-newModel 19 614f21133d44498313863167023e6b10
+newModel 18 614f21133d44498313863167023e6b10
 transform 1.560000 -0.000000 0.000000 0.000000 0.000000 1.560000 0.000000 0.000000 0.000000 0.000000 1.560000 0.000000 95.507004 210.085007 4.844010 1.000000
 position 10.3711 8.5757 0
 frontDir 0 -1 0
 upDir 0 0 1
-newModel 20 11e515cd806010b974287c0ff7c0f69a
+newModel 19 11e515cd806010b974287c0ff7c0f69a
 transform -1.193100 1.193100 0.000000 0.000000 -1.193100 -1.193100 0.000000 0.000000 0.000000 0.000000 1.687300 0.000000 323.126007 263.303009 -13.965200 1.000000
 position 64.6406 94.832 11.1474
 frontDir 0 -1 0
 upDir 0 0 1
-newModel 21 a0b126315ac274ba040aed0c3e87e91
+newModel 20 a0b126315ac274ba040aed0c3e87e91
 transform 0.023254 0.000609 0.000000 0.000000 -0.000609 0.023254 0.000000 0.000000 0.000000 0.000000 0.023262 0.000000 41.628399 213.283005 24.709900 1.000000
 position 285.433 185.04 -1.7972
 frontDir 0 -1 0
 upDir 0 0 1
-newModel 22 7d882856d472ad7dff59f04994ef1f0c
+newModel 21 7d882856d472ad7dff59f04994ef1f0c
 transform 1.139880 0.000000 0.000000 0.000000 -0.000000 1.139880 0.000000 0.000000 0.000000 0.000000 1.139880 0.000000 133.610001 171.613007 4.844010 1.000000
 position 29.1477 42.7919 0
 frontDir 0 -1 0
 upDir 0 0 1
-newModel 23 bca4b019f0e82b047ce5891d242f55b0
+newModel 22 bca4b019f0e82b047ce5891d242f55b0
 transform -4.072510 0.000000 0.000000 0.000000 0.000000 0.000000 -4.072510 0.000000 0.000000 -4.072510 0.000000 0.000000 30.618099 224.561996 7.849660 1.000000
 position 0.539494 0.368644 -0.002805
 frontDir 0 -1 0
 upDir 0 0 1
-newModel 24 b19a5b014dc258084c67f377a28bcf90
+newModel 23 b19a5b014dc258084c67f377a28bcf90
 transform 0.000000 3.188010 0.000000 0.000000 -3.188010 0.000000 0.000000 0.000000 0.000000 0.000000 3.188010 0.000000 32.485699 216.755997 4.858750 1.000000
 position 1.20847 0 -0.004625
 frontDir 0 -1 0
 upDir 0 0 1
-newModel 25 b19a5b014dc258084c67f377a28bcf90
+newModel 24 b19a5b014dc258084c67f377a28bcf90
 transform 0.000000 3.188010 0.000000 0.000000 -3.188010 0.000000 0.000000 0.000000 0.000000 0.000000 3.188010 0.000000 34.790401 216.626999 4.858750 1.000000
 position 1.20847 0 -0.004625
 frontDir 0 -1 0
 upDir 0 0 1
-newModel 26 b19a5b014dc258084c67f377a28bcf90
+newModel 25 b19a5b014dc258084c67f377a28bcf90
 transform 0.000000 3.188010 0.000000 0.000000 -3.188010 0.000000 0.000000 0.000000 0.000000 0.000000 3.188010 0.000000 37.175598 216.542999 4.858750 1.000000
 position 1.20847 0 -0.004625
 frontDir 0 -1 0
 upDir 0 0 1
-newModel 27 b19a5b014dc258084c67f377a28bcf90
+newModel 26 b19a5b014dc258084c67f377a28bcf90
 transform 0.000000 3.188010 0.000000 0.000000 -3.188010 0.000000 0.000000 0.000000 0.000000 0.000000 3.188010 0.000000 39.484798 216.613007 4.858750 1.000000
 position 1.20847 0 -0.004625
 frontDir 0 -1 0
 upDir 0 0 1
-newModel 28 1046b3d5a381a8902e5ae31c6c631a39
-transform 0.084755 0.037735 0.000000 0.000000 0.000000 0.000000 -0.092776 0.000000 -0.037735 0.084755 0.000000 0.000000 40.255699 227.427994 17.310400 1.000000
-position 7.9235 -106.749 27.827
-frontDir 0 -1 0
-upDir 0 0 1
-newModel 29 f6b3c94e80eb5c4caba01f0400bf9a2c
+newModel 27 f6b3c94e80eb5c4caba01f0400bf9a2c
 transform 3.051050 0.000000 0.000000 0.000000 0.000000 3.051050 0.000000 0.000000 0.000000 0.000000 3.051050 0.000000 33.659901 226.328995 44.156200 1.000000
 position 0.14372 0.11437 0
 frontDir 0 -1 0
 upDir 0 0 1
-newModel 30 a8f1b13a14355476e4406b3bf37e6ffe
+newModel 28 a8f1b13a14355476e4406b3bf37e6ffe
 transform 0.283610 0.000000 0.000000 0.000000 0.000000 0.283610 0.000000 0.000000 0.000000 0.000000 0.283610 0.000000 47.944698 232.940002 84.140404 1.000000
 position 17.9644 -38.1252 0
 frontDir 0 -1 0
 upDir 0 0 1
-newModel 31 a4370b35519d93161ba7a7e54b0d6212
+newModel 29 a4370b35519d93161ba7a7e54b0d6212
 transform 1.224250 -0.664713 0.000000 0.000000 0.664713 1.224250 0.000000 0.000000 0.000000 0.000000 1.393060 0.000000 160.341003 248.462997 -3.252770 1.000000
 position 38.3913 -3.93701 4.66795
 frontDir 0 -1 0
 upDir 0 0 1
-newModel 32 a4370b35519d93161ba7a7e54b0d6212
+newModel 30 a4370b35519d93161ba7a7e54b0d6212
 transform 1.149400 0.881966 0.000000 0.000000 -0.881966 1.149400 0.000000 0.000000 0.000000 0.000000 1.448790 0.000000 -38.452000 187.569000 -3.512890 1.000000
 position 38.3913 -3.93701 4.66795
 frontDir 0 -1 0
 upDir 0 0 1
-nodeNum 59
-0,object,room,,33 34 35
-1,object,mediastorage,33,36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56
-2,object,videogameconsole,36,
-3,object,videogameconsole,37,57
-4,object,mediaplayer,57,
-5,object,videogameconsole,38,
-6,object,webcam,39,
-7,object,videogameconsole,,
-8,object,videogamecontroller,40,
-9,object,videogameconsole,41,
-10,object,videogamecontroller,42,
-11,object,mediaplayer,43,
-12,object,videogamecontroller,44,
-13,object,videogamecontroller,,
-14,object,videodisk,45,58
-15,object,telephone,46,
-16,object,controller,47,
-17,object,wheel,48,
-18,object,tv,49,
-19,object,videogameconsole,50,
-20,object,case,51 58,
-21,object,videogamecontroller,52,
-22,object,mediaplayer,53,
-23,object,battery,54,
-24,object,battery,,
-25,object,battery,,
-26,object,battery,,
-27,object,battery,,
-28,object,videogamecontroller,,
-29,object,mediadiscs,55,
-30,object,pottedplant,56,
-31,object,speaker,34,
-32,object,speaker,35,
-33,pairwise_relationship,vert_support,0,1
-34,pairwise_relationship,vert_support,0,31
-35,pairwise_relationship,vert_support,0,32
-36,pairwise_relationship,vert_support,1,2
-37,pairwise_relationship,vert_support,1,3
-38,pairwise_relationship,vert_support,1,5
-39,pairwise_relationship,vert_support,1,6
-40,pairwise_relationship,vert_support,1,8
-41,pairwise_relationship,vert_support,1,9
-42,pairwise_relationship,vert_support,1,10
-43,pairwise_relationship,vert_support,1,11
-44,pairwise_relationship,vert_support,1,12
-45,pairwise_relationship,vert_support,1,14
-46,pairwise_relationship,vert_support,1,15
-47,pairwise_relationship,vert_support,1,16
-48,pairwise_relationship,vert_support,1,17
-49,pairwise_relationship,vert_support,1,18
-50,pairwise_relationship,vert_support,1,19
-51,pairwise_relationship,vert_support,1,20
-52,pairwise_relationship,vert_support,1,21
-53,pairwise_relationship,vert_support,1,22
-54,pairwise_relationship,vert_support,1,23
-55,pairwise_relationship,vert_support,1,29
-56,pairwise_relationship,vert_support,1,30
-57,pairwise_relationship,vert_support,3,4
-58,pairwise_relationship,vert_support,14,20
-edgeNum 52
-0,0,33
-1,33,1
-2,0,34
-3,34,31
-4,0,35
-5,35,32
-6,1,36
-7,36,2
-8,1,37
-9,37,3
-10,1,38
-11,38,5
-12,1,39
-13,39,6
-14,1,40
-15,40,8
-16,1,41
-17,41,9
-18,1,42
-19,42,10
-20,1,43
-21,43,11
-22,1,44
-23,44,12
-24,1,45
-25,45,14
-26,1,46
-27,46,15
-28,1,47
-29,47,16
-30,1,48
-31,48,17
-32,1,49
-33,49,18
-34,1,50
-35,50,19
-36,1,51
-37,51,20
-38,1,52
-39,52,21
-40,1,53
-41,53,22
-42,1,54
-43,54,23
-44,1,55
-45,55,29
-46,1,56
-47,56,30
-48,3,57
-49,57,4
-50,14,58
-51,58,20
-20
-,14,58
-51,58,20
+nodeNum 162
+0,object,room,,31 32 33
+1,object,mediastorage,31 59 62 65 68 71 74 77 80 83,34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 57 58 60 61 63 64 66 67 69 70 72 73 75 76 78 79 81 82
+2,object,videogameconsole,34,
+3,object,videogameconsole,35,55
+4,object,mediaplayer,55,
+5,object,videogameconsole,36,
+6,object,webcam,37,
+7,object,videogameconsole,57 58 86 89 91 94 96 99 101 104 106 109 112 115,59 84 85 87 88 90 92 93 95 97 98 100 102 103 105 107 108 110 111 113 114
+8,object,videogamecontroller,38,
+9,object,videogameconsole,39,
+10,object,videogamecontroller,40,
+11,object,mediaplayer,41,
+12,object,videogamecontroller,42,
+13,object,videodisk,60 61 84 85,62 86 116 117 118 119 120 121 122
+14,object,telephone,43,56
+15,object,controller,44,
+16,object,wheel,45,
+17,object,tv,46,
+18,object,videogameconsole,47,
+19,object,case,48,
+20,object,videogamecontroller,49 56,
+21,object,mediaplayer,50,
+22,object,battery,51,
+23,object,battery,52,
+24,object,battery,63 64 87 88 90 116 125 128 131,65 89 91 123 124 126 127 129 130
+25,object,battery,66 67 92 93 95 117 134 137 140,68 94 96 132 133 135 136 138 139
+26,object,battery,69 70 97 98 100 118 143 146 149,71 99 101 141 142 144 145 147 148
+27,object,mediadiscs,72 73 102 103 105 119 152 155 158,74 104 106 150 151 153 154 156 157
+28,object,pottedplant,75 76 107 108 120 123 124 132 133 141 142 150 151,77 109 125 134 143 152 159 160
+29,object,speaker,53,
+30,object,speaker,54,
+31,pairwise_relationship,vert_support,0 32 78 79 110 111 121 126 127 135 136 144 145 153 154 159,1 80 112 128 137 146 155 161
+32,pairwise_relationship,vert_support,0 33 81 82 113 114 122 129 130 138 139 147 148 156 157 160 161,31 83 115 131 140 149 158
+33,pairwise_relationship,vert_support,0,32
+34,pairwise_relationship,vert_support,1,2
+35,pairwise_relationship,vert_support,1,3
+36,pairwise_relationship,vert_support,1,5
+37,pairwise_relationship,vert_support,1,6
+38,pairwise_relationship,vert_support,1,8
+39,pairwise_relationship,vert_support,1,9
+40,pairwise_relationship,vert_support,1,10
+41,pairwise_relationship,vert_support,1,11
+42,pairwise_relationship,vert_support,1,12
+43,pairwise_relationship,vert_support,1,14
+44,pairwise_relationship,vert_support,1,15
+45,pairwise_relationship,vert_support,1,16
+46,pairwise_relationship,vert_support,1,17
+47,pairwise_relationship,vert_support,1,18
+48,pairwise_relationship,vert_support,1,19
+49,pairwise_relationship,vert_support,1,20
+50,pairwise_relationship,vert_support,1,21
+51,pairwise_relationship,vert_support,1,22
+52,pairwise_relationship,vert_support,1,23
+53,pairwise_relationship,vert_support,1,29
+54,pairwise_relationship,vert_support,1,30
+55,pairwise_relationship,vert_support,3,4
+56,pairwise_relationship,vert_support,14,20
+57,pairwise_relationship,near,1,7
+58,pairwise_relationship,front,1,7
+59,pairwise_relationship,back,7,1
+60,pairwise_relationship,near,1,13
+61,pairwise_relationship,front,1,13
+62,pairwise_relationship,back,13,1
+63,pairwise_relationship,near,1,24
+64,pairwise_relationship,front,1,24
+65,pairwise_relationship,back,24,1
+66,pairwise_relationship,near,1,25
+67,pairwise_relationship,front,1,25
+68,pairwise_relationship,back,25,1
+69,pairwise_relationship,near,1,26
+70,pairwise_relationship,front,1,26
+71,pairwise_relationship,back,26,1
+72,pairwise_relationship,near,1,27
+73,pairwise_relationship,front,1,27
+74,pairwise_relationship,back,27,1
+75,pairwise_relationship,near,1,28
+76,pairwise_relationship,front,1,28
+77,pairwise_relationship,back,28,1
+78,pairwise_relationship,near,1,31
+79,pairwise_relationship,front,1,31
+80,pairwise_relationship,back,31,1
+81,pairwise_relationship,near,1,32
+82,pairwise_relationship,front,1,32
+83,pairwise_relationship,back,32,1
+84,pairwise_relationship,near,7,13
+85,pairwise_relationship,front,7,13
+86,pairwise_relationship,back,13,7
+87,pairwise_relationship,near,7,24
+88,pairwise_relationship,front,7,24
+89,pairwise_relationship,back,24,7
+90,pairwise_relationship,leftside,7,24
+91,pairwise_relationship,rightside,24,7
+92,pairwise_relationship,near,7,25
+93,pairwise_relationship,front,7,25
+94,pairwise_relationship,back,25,7
+95,pairwise_relationship,leftside,7,25
+96,pairwise_relationship,rightside,25,7
+97,pairwise_relationship,near,7,26
+98,pairwise_relationship,front,7,26
+99,pairwise_relationship,back,26,7
+100,pairwise_relationship,leftside,7,26
+101,pairwise_relationship,rightside,26,7
+102,pairwise_relationship,near,7,27
+103,pairwise_relationship,front,7,27
+104,pairwise_relationship,back,27,7
+105,pairwise_relationship,leftside,7,27
+106,pairwise_relationship,rightside,27,7
+107,pairwise_relationship,near,7,28
+108,pairwise_relationship,front,7,28
+109,pairwise_relationship,back,28,7
+110,pairwise_relationship,near,7,31
+111,pairwise_relationship,front,7,31
+112,pairwise_relationship,back,31,7
+113,pairwise_relationship,near,7,32
+114,pairwise_relationship,front,7,32
+115,pairwise_relationship,back,32,7
+116,pairwise_relationship,near,13,24
+117,pairwise_relationship,near,13,25
+118,pairwise_relationship,near,13,26
+119,pairwise_relationship,near,13,27
+120,pairwise_relationship,near,13,28
+121,pairwise_relationship,near,13,31
+122,pairwise_relationship,near,13,32
+123,pairwise_relationship,near,24,28
+124,pairwise_relationship,rightside,24,28
+125,pairwise_relationship,leftside,28,24
+126,pairwise_relationship,near,24,31
+127,pairwise_relationship,front,24,31
+128,pairwise_relationship,back,31,24
+129,pairwise_relationship,near,24,32
+130,pairwise_relationship,front,24,32
+131,pairwise_relationship,back,32,24
+132,pairwise_relationship,near,25,28
+133,pairwise_relationship,rightside,25,28
+134,pairwise_relationship,leftside,28,25
+135,pairwise_relationship,near,25,31
+136,pairwise_relationship,front,25,31
+137,pairwise_relationship,back,31,25
+138,pairwise_relationship,near,25,32
+139,pairwise_relationship,front,25,32
+140,pairwise_relationship,back,32,25
+141,pairwise_relationship,near,26,28
+142,pairwise_relationship,rightside,26,28
+143,pairwise_relationship,leftside,28,26
+144,pairwise_relationship,near,26,31
+145,pairwise_relationship,front,26,31
+146,pairwise_relationship,back,31,26
+147,pairwise_relationship,near,26,32
+148,pairwise_relationship,front,26,32
+149,pairwise_relationship,back,32,26
+150,pairwise_relationship,near,27,28
+151,pairwise_relationship,rightside,27,28
+152,pairwise_relationship,leftside,28,27
+153,pairwise_relationship,near,27,31
+154,pairwise_relationship,front,27,31
+155,pairwise_relationship,back,31,27
+156,pairwise_relationship,near,27,32
+157,pairwise_relationship,front,27,32
+158,pairwise_relationship,back,32,27
+159,pairwise_relationship,near,28,31
+160,pairwise_relationship,near,28,32
+161,pairwise_relationship,near,31,32
+edgeNum 262
+0,0,31
+1,31,1
+2,0,32
+3,32,31
+4,0,33
+5,33,32
+6,1,34
+7,34,2
+8,1,35
+9,35,3
+10,1,36
+11,36,5
+12,1,37
+13,37,6
+14,1,38
+15,38,8
+16,1,39
+17,39,9
+18,1,40
+19,40,10
+20,1,41
+21,41,11
+22,1,42
+23,42,12
+24,1,43
+25,43,14
+26,1,44
+27,44,15
+28,1,45
+29,45,16
+30,1,46
+31,46,17
+32,1,47
+33,47,18
+34,1,48
+35,48,19
+36,1,49
+37,49,20
+38,1,50
+39,50,21
+40,1,51
+41,51,22
+42,1,52
+43,52,23
+44,1,53
+45,53,29
+46,1,54
+47,54,30
+48,3,55
+49,55,4
+50,14,56
+51,56,20
+52,1,57
+53,57,7
+54,1,58
+55,58,7
+56,7,59
+57,59,1
+58,1,60
+59,60,13
+60,1,61
+61,61,13
+62,13,62
+63,62,1
+64,1,63
+65,63,24
+66,1,64
+67,64,24
+68,24,65
+69,65,1
+70,1,66
+71,66,25
+72,1,67
+73,67,25
+74,25,68
+75,68,1
+76,1,69
+77,69,26
+78,1,70
+79,70,26
+80,26,71
+81,71,1
+82,1,72
+83,72,27
+84,1,73
+85,73,27
+86,27,74
+87,74,1
+88,1,75
+89,75,28
+90,1,76
+91,76,28
+92,28,77
+93,77,1
+94,1,78
+95,78,31
+96,1,79
+97,79,31
+98,31,80
+99,80,1
+100,1,81
+101,81,32
+102,1,82
+103,82,32
+104,32,83
+105,83,1
+106,7,84
+107,84,13
+108,7,85
+109,85,13
+110,13,86
+111,86,7
+112,7,87
+113,87,24
+114,7,88
+115,88,24
+116,24,89
+117,89,7
+118,7,90
+119,90,24
+120,24,91
+121,91,7
+122,7,92
+123,92,25
+124,7,93
+125,93,25
+126,25,94
+127,94,7
+128,7,95
+129,95,25
+130,25,96
+131,96,7
+132,7,97
+133,97,26
+134,7,98
+135,98,26
+136,26,99
+137,99,7
+138,7,100
+139,100,26
+140,26,101
+141,101,7
+142,7,102
+143,102,27
+144,7,103
+145,103,27
+146,27,104
+147,104,7
+148,7,105
+149,105,27
+150,27,106
+151,106,7
+152,7,107
+153,107,28
+154,7,108
+155,108,28
+156,28,109
+157,109,7
+158,7,110
+159,110,31
+160,7,111
+161,111,31
+162,31,112
+163,112,7
+164,7,113
+165,113,32
+166,7,114
+167,114,32
+168,32,115
+169,115,7
+170,13,116
+171,116,24
+172,13,117
+173,117,25
+174,13,118
+175,118,26
+176,13,119
+177,119,27
+178,13,120
+179,120,28
+180,13,121
+181,121,31
+182,13,122
+183,122,32
+184,24,123
+185,123,28
+186,24,124
+187,124,28
+188,28,125
+189,125,24
+190,24,126
+191,126,31
+192,24,127
+193,127,31
+194,31,128
+195,128,24
+196,24,129
+197,129,32
+198,24,130
+199,130,32
+200,32,131
+201,131,24
+202,25,132
+203,132,28
+204,25,133
+205,133,28
+206,28,134
+207,134,25
+208,25,135
+209,135,31
+210,25,136
+211,136,31
+212,31,137
+213,137,25
+214,25,138
+215,138,32
+216,25,139
+217,139,32
+218,32,140
+219,140,25
+220,26,141
+221,141,28
+222,26,142
+223,142,28
+224,28,143
+225,143,26
+226,26,144
+227,144,31
+228,26,145
+229,145,31
+230,31,146
+231,146,26
+232,26,147
+233,147,32
+234,26,148
+235,148,32
+236,32,149
+237,149,26
+238,27,150
+239,150,28
+240,27,151
+241,151,28
+242,28,152
+243,152,27
+244,27,153
+245,153,31
+246,27,154
+247,154,31
+248,31,155
+249,155,27
+250,27,156
+251,156,32
+252,27,157
+253,157,32
+254,32,158
+255,158,27
+256,28,159
+257,159,31
+258,28,160
+259,160,32
+260,31,161
+261,161,32

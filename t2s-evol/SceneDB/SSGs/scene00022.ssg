@@ -120,9 +120,9 @@ transform 0.000000 -1.053880 0.000000 0.000000 1.053880 0.000000 0.000000 0.0000
 position -40.9814 267.114 -5e-05
 frontDir 1 0 0
 upDir 0 0 1
-nodeNum 45
+nodeNum 51
 0,object,room,,
-1,object,table,,24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42
+1,object,table,46 49,24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 45 47 48
 2,object,bowl,24,
 3,object,cellphone,25,
 4,object,pottedplant,26,
@@ -134,7 +134,7 @@ nodeNum 45
 10,object,bowl,31 44,
 11,object,toyfigure,32,
 12,object,decorativeaccessory,33,
-13,object,purse,,
+13,object,purse,45,46 50
 14,object,coffee maker,34,
 15,object,tissuebox,35,
 16,object,donutbox,36,
@@ -144,7 +144,7 @@ nodeNum 45
 20,object,books,40,
 21,object,books,41,
 22,object,pottedplant,42,
-23,object,wallart,,
+23,object,wallart,47 48 50,49
 24,pairwise_relationship,vert_support,1,2
 25,pairwise_relationship,vert_support,1,3
 26,pairwise_relationship,vert_support,1,4
@@ -166,7 +166,13 @@ nodeNum 45
 42,pairwise_relationship,vert_support,1,22
 43,pairwise_relationship,vert_support,5,6
 44,pairwise_relationship,vert_support,5,10
-edgeNum 42
+45,pairwise_relationship,leftside,1,13
+46,pairwise_relationship,rightside,13,1
+47,pairwise_relationship,near,1,23
+48,pairwise_relationship,back,1,23
+49,pairwise_relationship,front,23,1
+50,pairwise_relationship,near,13,23
+edgeNum 54
 0,1,24
 1,24,2
 2,1,25
@@ -209,9 +215,15 @@ edgeNum 42
 39,43,6
 40,5,44
 41,44,10
-10
-7,42,22
-38,5,43
-39,43,6
-40,5,44
-41,44,10
+42,1,45
+43,45,13
+44,13,46
+45,46,1
+46,1,47
+47,47,23
+48,1,48
+49,48,23
+50,23,49
+51,49,1
+52,13,50
+53,50,23

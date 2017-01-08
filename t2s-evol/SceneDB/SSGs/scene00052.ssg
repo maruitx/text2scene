@@ -140,9 +140,9 @@ transform -1.333490 -0.000001 0.000000 0.000000 0.000001 -1.333490 0.000000 0.00
 position 11.3 12 -0.0615
 frontDir 1 0 0
 upDir 0 0 1
-nodeNum 63
+nodeNum 84
 0,object,room,,28 29 30 31
-1,object,table,28,32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53
+1,object,table,28 65 68 71,32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 63 64 66 67 69 70
 2,object,pottedplant,32,
 3,object,plate,33,54
 4,object,foodplate,34 54,
@@ -150,7 +150,7 @@ nodeNum 63
 6,object,pepper shaker,36,
 7,object,plate,37,55
 8,object,food,38 55,
-9,object,carrot,,
+9,object,carrot,63 74 77 80,72 73 75 76 78 79
 10,object,platter,39,56 57 58 59
 11,object,sandwich,40 56,
 12,object,sandwich,41 57,
@@ -166,9 +166,9 @@ nodeNum 63
 22,object,wallet,51,
 23,object,mug,52,
 24,object,cup,53,
-25,object,chair,29,
-26,object,chair,30,
-27,object,chair,31,
+25,object,chair,29 64 72 73,65 74 81 82
+26,object,chair,30 66 67 75 76 81,68 77 83
+27,object,chair,31 69 70 78 79 82 83,71 80
 28,pairwise_relationship,vert_support,0,1
 29,pairwise_relationship,vert_support,0,25
 30,pairwise_relationship,vert_support,0,26
@@ -204,7 +204,28 @@ nodeNum 63
 60,pairwise_relationship,vert_support,15,16
 61,pairwise_relationship,vert_support,15,17
 62,pairwise_relationship,vert_support,19,20
-edgeNum 70
+63,pairwise_relationship,near,1,9
+64,pairwise_relationship,front,1,25
+65,pairwise_relationship,back,25,1
+66,pairwise_relationship,near,1,26
+67,pairwise_relationship,front,1,26
+68,pairwise_relationship,back,26,1
+69,pairwise_relationship,near,1,27
+70,pairwise_relationship,front,1,27
+71,pairwise_relationship,back,27,1
+72,pairwise_relationship,near,9,25
+73,pairwise_relationship,front,9,25
+74,pairwise_relationship,back,25,9
+75,pairwise_relationship,near,9,26
+76,pairwise_relationship,front,9,26
+77,pairwise_relationship,back,26,9
+78,pairwise_relationship,near,9,27
+79,pairwise_relationship,front,9,27
+80,pairwise_relationship,back,27,9
+81,pairwise_relationship,near,25,26
+82,pairwise_relationship,near,25,27
+83,pairwise_relationship,near,26,27
+edgeNum 112
 0,0,28
 1,28,1
 2,0,29
@@ -275,6 +296,45 @@ edgeNum 70
 67,61,17
 68,19,62
 69,62,20
-,20
-
-69,62,20
+70,1,63
+71,63,9
+72,1,64
+73,64,25
+74,25,65
+75,65,1
+76,1,66
+77,66,26
+78,1,67
+79,67,26
+80,26,68
+81,68,1
+82,1,69
+83,69,27
+84,1,70
+85,70,27
+86,27,71
+87,71,1
+88,9,72
+89,72,25
+90,9,73
+91,73,25
+92,25,74
+93,74,9
+94,9,75
+95,75,26
+96,9,76
+97,76,26
+98,26,77
+99,77,9
+100,9,78
+101,78,27
+102,9,79
+103,79,27
+104,27,80
+105,80,9
+106,25,81
+107,81,26
+108,25,82
+109,82,27
+110,26,83
+111,83,27

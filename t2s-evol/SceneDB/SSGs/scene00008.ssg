@@ -70,19 +70,19 @@ transform 0.000000 -1.480240 0.000000 0.000000 1.480240 0.000000 0.000000 0.0000
 position 126.225 16.8258 0
 frontDir 0 -1 0
 upDir 0 0 1
-nodeNum 24
+nodeNum 75
 0,object,room,,14 15
-1,object,need,,
-2,object,need,,
-3,object,camera tripod,14,
-4,object,bed,15,16 17 18 19 20 21
+1,object,need,27 30 32 35 38,24 25 26 28 29 31 33 34 36 37
+2,object,need,24 41 44 46 49 52,39 40 42 43 45 47 48 50 51
+3,object,camera tripod,14 25 26 39 40 55 58 61,27 41 53 54 56 57 59 60
+4,object,bed,15 28 29 31 42 43 45 53 54 64 66 69 71,16 17 18 19 20 21 30 32 44 46 55 62 63 65 67 68 70
 5,object,tissuebox,16,
 6,object,computer,17,
-7,object,hat,,
+7,object,hat,33 34 47 48 56 57 62 63 65 74,35 49 58 64 66 72 73
 8,object,book,18,22 23
 9,object,pencil,19 22,
 10,object,notepad,23,
-11,object,chocolate,,
+11,object,chocolate,36 37 50 51 59 60 67 68 70 72 73,38 52 61 69 71 74
 12,object,cabling,20,
 13,object,wallart,21,
 14,pairwise_relationship,vert_support,0,3
@@ -95,7 +95,58 @@ nodeNum 24
 21,pairwise_relationship,vert_support,4,13
 22,pairwise_relationship,vert_support,8,9
 23,pairwise_relationship,vert_support,8,10
-edgeNum 20
+24,pairwise_relationship,near,1,2
+25,pairwise_relationship,near,1,3
+26,pairwise_relationship,front,1,3
+27,pairwise_relationship,back,3,1
+28,pairwise_relationship,near,1,4
+29,pairwise_relationship,back,1,4
+30,pairwise_relationship,front,4,1
+31,pairwise_relationship,rightside,1,4
+32,pairwise_relationship,leftside,4,1
+33,pairwise_relationship,near,1,7
+34,pairwise_relationship,front,1,7
+35,pairwise_relationship,back,7,1
+36,pairwise_relationship,near,1,11
+37,pairwise_relationship,rightside,1,11
+38,pairwise_relationship,leftside,11,1
+39,pairwise_relationship,near,2,3
+40,pairwise_relationship,front,2,3
+41,pairwise_relationship,back,3,2
+42,pairwise_relationship,near,2,4
+43,pairwise_relationship,back,2,4
+44,pairwise_relationship,front,4,2
+45,pairwise_relationship,rightside,2,4
+46,pairwise_relationship,leftside,4,2
+47,pairwise_relationship,near,2,7
+48,pairwise_relationship,front,2,7
+49,pairwise_relationship,back,7,2
+50,pairwise_relationship,near,2,11
+51,pairwise_relationship,rightside,2,11
+52,pairwise_relationship,leftside,11,2
+53,pairwise_relationship,near,3,4
+54,pairwise_relationship,back,3,4
+55,pairwise_relationship,front,4,3
+56,pairwise_relationship,near,3,7
+57,pairwise_relationship,back,3,7
+58,pairwise_relationship,front,7,3
+59,pairwise_relationship,near,3,11
+60,pairwise_relationship,back,3,11
+61,pairwise_relationship,front,11,3
+62,pairwise_relationship,near,4,7
+63,pairwise_relationship,front,4,7
+64,pairwise_relationship,back,7,4
+65,pairwise_relationship,leftside,4,7
+66,pairwise_relationship,rightside,7,4
+67,pairwise_relationship,near,4,11
+68,pairwise_relationship,front,4,11
+69,pairwise_relationship,back,11,4
+70,pairwise_relationship,leftside,4,11
+71,pairwise_relationship,rightside,11,4
+72,pairwise_relationship,near,7,11
+73,pairwise_relationship,front,7,11
+74,pairwise_relationship,back,11,7
+edgeNum 122
 0,0,14
 1,14,3
 2,0,15
@@ -116,5 +167,105 @@ edgeNum 20
 17,22,9
 18,8,23
 19,23,10
-10
-
+20,1,24
+21,24,2
+22,1,25
+23,25,3
+24,1,26
+25,26,3
+26,3,27
+27,27,1
+28,1,28
+29,28,4
+30,1,29
+31,29,4
+32,4,30
+33,30,1
+34,1,31
+35,31,4
+36,4,32
+37,32,1
+38,1,33
+39,33,7
+40,1,34
+41,34,7
+42,7,35
+43,35,1
+44,1,36
+45,36,11
+46,1,37
+47,37,11
+48,11,38
+49,38,1
+50,2,39
+51,39,3
+52,2,40
+53,40,3
+54,3,41
+55,41,2
+56,2,42
+57,42,4
+58,2,43
+59,43,4
+60,4,44
+61,44,2
+62,2,45
+63,45,4
+64,4,46
+65,46,2
+66,2,47
+67,47,7
+68,2,48
+69,48,7
+70,7,49
+71,49,2
+72,2,50
+73,50,11
+74,2,51
+75,51,11
+76,11,52
+77,52,2
+78,3,53
+79,53,4
+80,3,54
+81,54,4
+82,4,55
+83,55,3
+84,3,56
+85,56,7
+86,3,57
+87,57,7
+88,7,58
+89,58,3
+90,3,59
+91,59,11
+92,3,60
+93,60,11
+94,11,61
+95,61,3
+96,4,62
+97,62,7
+98,4,63
+99,63,7
+100,7,64
+101,64,4
+102,4,65
+103,65,7
+104,7,66
+105,66,4
+106,4,67
+107,67,11
+108,4,68
+109,68,11
+110,11,69
+111,69,4
+112,4,70
+113,70,11
+114,11,71
+115,71,4
+116,7,72
+117,72,11
+118,7,73
+119,73,11
+120,11,74
+121,74,7

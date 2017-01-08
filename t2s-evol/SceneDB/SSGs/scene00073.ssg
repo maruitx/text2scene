@@ -55,18 +55,18 @@ transform 2.052850 0.000000 0.000000 0.000000 0.000000 2.052850 0.000000 0.00000
 position -0.792382 1.67542 -0.00428
 frontDir 0 -1 0
 upDir 0 0 1
-nodeNum 20
+nodeNum 28
 0,object,room,,11 12
-1,object,cabinet,11,13 14 15 16 17 18 19
+1,object,cabinet,11 21 24,13 14 15 16 17 18 19 20 22 23
 2,object,flask,13,
 3,object,flask,14,
 4,object,holder,15,
 5,object,glass,16,
 6,object,glass,17,
 7,object,glass,18,
-8,object,vessel,,
+8,object,vessel,20 27,21 25 26
 9,object,bunsen burner,19,
-10,object,fire extinguisher,12,
+10,object,fire extinguisher,12 22 23 25 26,24 27
 11,pairwise_relationship,vert_support,0,1
 12,pairwise_relationship,vert_support,0,10
 13,pairwise_relationship,vert_support,1,2
@@ -76,7 +76,15 @@ nodeNum 20
 17,pairwise_relationship,vert_support,1,6
 18,pairwise_relationship,vert_support,1,7
 19,pairwise_relationship,vert_support,1,9
-edgeNum 18
+20,pairwise_relationship,rightside,1,8
+21,pairwise_relationship,leftside,8,1
+22,pairwise_relationship,near,1,10
+23,pairwise_relationship,rightside,1,10
+24,pairwise_relationship,leftside,10,1
+25,pairwise_relationship,near,8,10
+26,pairwise_relationship,leftside,8,10
+27,pairwise_relationship,rightside,10,8
+edgeNum 34
 0,0,11
 1,11,1
 2,0,12
@@ -95,8 +103,19 @@ edgeNum 18
 15,18,7
 16,1,19
 17,19,9
-3,17,6
-14,1,18
-15,18,7
-16,1,19
-17,19,9
+18,1,20
+19,20,8
+20,8,21
+21,21,1
+22,1,22
+23,22,10
+24,1,23
+25,23,10
+26,10,24
+27,24,1
+28,8,25
+29,25,10
+30,8,26
+31,26,10
+32,10,27
+33,27,8

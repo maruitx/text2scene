@@ -120,9 +120,9 @@ transform -0.520738 -1.470520 0.000000 0.000000 1.470520 -0.520738 0.000000 0.00
 position 7.75 -7.62839 0
 frontDir 0 -1 0
 upDir 0 0 1
-nodeNum 50
+nodeNum 61
 0,object,room,,24 25
-1,object,desk,24,26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45
+1,object,desk,24 52 55,26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 50 51 53 54
 2,object,speaker,26,46
 3,object,compact disk,27,
 4,object,compact disk,28,
@@ -143,8 +143,8 @@ nodeNum 50
 19,object,computermouse,43,
 20,object,cellphone,44,
 21,object,noname,45,
-22,object,wallart,,
-23,object,chair,25,
+22,object,wallart,50 51 58 60,52 56 57 59
+23,object,chair,25 53 54 56 57 59,55 58 60
 24,pairwise_relationship,vert_support,0,1
 25,pairwise_relationship,vert_support,0,23
 26,pairwise_relationship,vert_support,1,2
@@ -171,7 +171,18 @@ nodeNum 50
 47,pairwise_relationship,vert_support,8,10
 48,pairwise_relationship,vert_support,8,12
 49,pairwise_relationship,vert_support,10,13
-edgeNum 52
+50,pairwise_relationship,near,1,22
+51,pairwise_relationship,leftside,1,22
+52,pairwise_relationship,rightside,22,1
+53,pairwise_relationship,near,1,23
+54,pairwise_relationship,leftside,1,23
+55,pairwise_relationship,rightside,23,1
+56,pairwise_relationship,near,22,23
+57,pairwise_relationship,front,22,23
+58,pairwise_relationship,back,23,22
+59,pairwise_relationship,leftside,22,23
+60,pairwise_relationship,rightside,23,22
+edgeNum 74
 0,0,24
 1,24,1
 2,0,25
@@ -224,8 +235,25 @@ edgeNum 52
 49,48,12
 50,10,49
 51,49,13
-3
-8,48
-49,48,12
-50,10,49
-51,49,13
+52,1,50
+53,50,22
+54,1,51
+55,51,22
+56,22,52
+57,52,1
+58,1,53
+59,53,23
+60,1,54
+61,54,23
+62,23,55
+63,55,1
+64,22,56
+65,56,23
+66,22,57
+67,57,23
+68,23,58
+69,58,22
+70,22,59
+71,59,23
+72,23,60
+73,60,22
