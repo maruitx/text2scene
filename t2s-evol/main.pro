@@ -24,26 +24,22 @@ QMAKE_CXXFLAGS_RELEASE += /MD
 QMAKE_CFLAGS_DEBUG += /MDd
 QMAKE_CXXFLAGS_DEBUG += /MDd
 
-QMAKE_CXXFLAGS += -TP
 }
 
 INCLUDEPATH += \
 ./ThirdParty/glew-1.12.0/include \
 ./ThirdParty/freeglut-MSVC-3.0.0-2.mp/freeglut/include \
-./ThirdParty/GUB_tookit/include
 
 
 CONFIG(release, debug | release){
 LIBS += \
 ./ThirdParty/glew-1.12.0/lib/Release/x64/glew32.lib \
 ./ThirdParty/freeglut-MSVC-3.0.0-2.mp/freeglut/lib/x64/freeglut.lib \
-#./ThirdParty/GUB_tookit/lib/release/x64/GraphMatcher.lib
 }
 else {
 LIBS += \
 ./ThirdParty/glew-1.12.0/lib/Release/x64/glew32.lib \
 ./ThirdParty/freeglut-MSVC-3.0.0-2.mp/freeglut/lib/x64/freeglut.lib \
-#./ThirdParty/GUB_tookit/lib/debug/x64/GraphMatcher.lib
 }
 
 TARGET = Main
@@ -56,5 +52,4 @@ Src/*.h \
 SOURCES +=  \
 Main.cpp \
 Src/*.cpp \
-ThirdParty/GUB_tookit/src/*.C
 

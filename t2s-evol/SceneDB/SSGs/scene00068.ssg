@@ -70,9 +70,9 @@ transform 0.005664 -0.001518 0.000000 0.000000 0.001518 0.005664 0.000000 0.0000
 position 2010.62 1606.75 -733.485
 frontDir 0 -1 0
 upDir 0 0 1
-nodeNum 27
+nodeNum 30
 0,object,room,,14 15 16
-1,object,cabinet,14,17 18 19 20 21 22 23
+1,object,cabinet,14,17 18 19 20 21 22 23 27 28
 2,object,tv,17,
 3,object,mediaplayer,18,24
 4,object,mug,24,
@@ -83,8 +83,8 @@ nodeNum 27
 9,object,book,26,
 10,object,mediadiscs,22,
 11,object,videodisk,23,
-12,object,speaker,15,
-13,object,speaker,16,
+12,object,speaker,15 27,29
+13,object,speaker,16 28 29,
 14,pairwise_relationship,vert_support,0,1
 15,pairwise_relationship,vert_support,0,12
 16,pairwise_relationship,vert_support,0,13
@@ -98,7 +98,10 @@ nodeNum 27
 24,pairwise_relationship,vert_support,3,4
 25,pairwise_relationship,vert_support,5,6
 26,pairwise_relationship,vert_support,8,9
-edgeNum 26
+27,pairwise_relationship,near,1,12
+28,pairwise_relationship,near,1,13
+29,pairwise_relationship,near,12,13
+edgeNum 32
 0,0,14
 1,14,1
 2,0,15
@@ -125,5 +128,9 @@ edgeNum 26
 23,25,6
 24,8,26
 25,26,9
-
-
+26,1,27
+27,27,12
+28,1,28
+29,28,13
+30,12,29
+31,29,13

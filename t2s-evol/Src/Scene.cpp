@@ -27,7 +27,7 @@ Scene::~Scene()
 void Scene::init()
 {
     m_lights.push_back(new Light(this, Light::SPOT_LIGHT, vec3(0.9f), vec3(14.0f, 35.0f, 12.0f),  vec3(), vec3(1.2f), vec3(), vec3(0.7f, 0.001f, 0.0001f)));   
-	m_niceGrid = new NiceGrid(100.0f, 40.0f);      
+	m_niceGrid = new NiceGrid(200.0f, 40.0f);      
 	
 	initSynScene();
 	//initTextures();
@@ -153,7 +153,7 @@ void Scene::initSynScene()
 	params::inst()->modelDirectory = localSceneDBPath + "/StanfordSceneDB/models/";
 	params::inst()->textureDirectory = localSceneDBPath + "/StanfordSceneDB/textures/";
 
-	m_previewNum = 3;
+	m_previewNum = 5;
 	for (int i = 0; i < m_previewNum; ++i)
 	{
 		TSScene *s = new TSScene(m_models);
@@ -166,7 +166,7 @@ void Scene::initSynScene()
 void Scene::renderSynScene(const Transform &trans, int var, bool applyShadow)
 {
 	glEnable(GL_DEPTH_TEST);
-	
+
 	if (params::inst()->polygonMode == 1)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	else
@@ -175,8 +175,9 @@ void Scene::renderSynScene(const Transform &trans, int var, bool applyShadow)
 	int varNum = m_variations.size();
 
 	if (var < varNum)
-	{
-		m_variations[var]->render(trans, applyShadow);
+	{        
+		m_variations[var]->render(trans, applyShadow);        
+        m_variations[var]->computeSceneBB();
 	}	
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -227,6 +228,7 @@ void Scene::runOneEvolutionStep()
 
 	for (int i = 0; i < tsscenes.size(); ++i)
 	{
+		tsscenes[i]->updateRoomModel(roomModel);
 		m_variations.push_back(tsscenes[i]);
 	}
 }

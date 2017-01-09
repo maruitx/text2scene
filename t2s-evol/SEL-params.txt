@@ -1,5 +1,8 @@
 #Rui's git root
-gitRoot=C:\Ruim\Graphics\T2S_MPC\text2scene\
+#gitRoot=C:\Ruim\Graphics\T2S_MPC\text2scene\
+
+#Soeren's git root
+gitRoot=F:\_Projects\2016_TextToScene\code\
 
 inputFile=in.txt
 outputFile=out.txt

@@ -115,16 +115,16 @@ transform 0.119266 0.000000 0.000000 0.000000 0.000000 0.119266 0.000000 0.00000
 position 67.8894 -48.4287 0.0005
 frontDir 0 -1 0
 upDir 0 0 1
-nodeNum 43
+nodeNum 53
 0,object,room,,
-1,object,bookcase,,23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40
+1,object,bookcase,44 47,23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 43 45 46
 2,object,pottedplant,23,
 3,object,pictureframe,39,
 4,object,decorativeaccessory,40,
 5,object,books,24,
 6,object,books,25,
 7,object,books,26,41
-8,object,books,41,42
+8,object,books,41 43 51,42 44 48 49 50
 9,object,books,27,
 10,object,books,28,
 11,object,books,29,
@@ -132,9 +132,9 @@ nodeNum 43
 13,object,toy,31,
 14,object,book,32,
 15,object,toyfigure,33,
-16,object,toyfigure,,
+16,object,toyfigure,45 48,52
 17,object,chestofdrawers,34 42,
-18,object,book,,
+18,object,book,46 49 50 52,47 51
 19,object,toyfigure,35,
 20,object,guitar,36,
 21,object,calculator,37,
@@ -159,7 +159,17 @@ nodeNum 43
 40,pairwise_relationship,vert_support,1,4
 41,pairwise_relationship,vert_support,7,8
 42,pairwise_relationship,vert_support,8,17
-edgeNum 40
+43,pairwise_relationship,rightside,1,8
+44,pairwise_relationship,leftside,8,1
+45,pairwise_relationship,near,1,16
+46,pairwise_relationship,back,1,18
+47,pairwise_relationship,front,18,1
+48,pairwise_relationship,near,8,16
+49,pairwise_relationship,near,8,18
+50,pairwise_relationship,front,8,18
+51,pairwise_relationship,back,18,8
+52,pairwise_relationship,near,16,18
+edgeNum 60
 0,1,23
 1,23,2
 2,1,24
@@ -200,8 +210,23 @@ edgeNum 40
 37,41,8
 38,8,42
 39,42,17
-2,17
-1
-37,41,8
-38,8,42
-39,42,17
+40,1,43
+41,43,8
+42,8,44
+43,44,1
+44,1,45
+45,45,16
+46,1,46
+47,46,18
+48,18,47
+49,47,1
+50,8,48
+51,48,16
+52,8,49
+53,49,18
+54,8,50
+55,50,18
+56,18,51
+57,51,8
+58,16,52
+59,52,18

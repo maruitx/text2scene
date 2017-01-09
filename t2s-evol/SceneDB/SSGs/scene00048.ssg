@@ -70,15 +70,15 @@ transform -0.000000 -1.386830 0.000000 0.000000 1.386830 -0.000000 0.000000 0.00
 position 11.5857 9.79195 0
 frontDir 0 -1 0
 upDir 0 0 1
-nodeNum 26
+nodeNum 27
 0,object,room,,14
-1,object,rug,14,15 16 17 18
+1,object,rug,14,15 16 17 18 26
 2,object,table,15,19 20 21 22 23 24 25
 3,object,holder,19,
 4,object,candle,20,
 5,object,computer,21,
 6,object,book,22,
-7,object,calculator,,
+7,object,calculator,26,
 8,object,bowl,23,
 9,object,bowl,24,
 10,object,foodplate,25,
@@ -97,7 +97,8 @@ nodeNum 26
 23,pairwise_relationship,vert_support,2,8
 24,pairwise_relationship,vert_support,2,9
 25,pairwise_relationship,vert_support,2,10
-edgeNum 24
+26,pairwise_relationship,near,1,7
+edgeNum 26
 0,0,14
 1,14,1
 2,1,15
@@ -122,4 +123,5 @@ edgeNum 24
 21,24,9
 22,2,25
 23,25,10
-
+24,1,26
+25,26,7

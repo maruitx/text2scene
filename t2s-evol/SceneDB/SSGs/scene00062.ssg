@@ -75,9 +75,9 @@ transform 0.000000 -0.641831 0.000000 0.000000 0.641831 0.000000 0.000000 0.0000
 position 129.902 187.819 0
 frontDir 0 -1 0
 upDir 0 0 1
-nodeNum 30
+nodeNum 36
 0,object,room,,15 16 17 18
-1,object,cabinet,15,19 20 21 22 23 24 25 26
+1,object,cabinet,15,19 20 21 22 23 24 25 26 30 31 32
 2,object,tv,19,
 3,object,mediaplayer,20,27
 4,object,mug,27,
@@ -88,9 +88,9 @@ nodeNum 30
 9,object,book,29,
 10,object,mediadiscs,24,
 11,object,videodisk,25,
-12,object,speaker,16,
-13,object,speaker,17,
-14,object,rug,18 26,
+12,object,speaker,16 30,33 34
+13,object,speaker,17 31 33,35
+14,object,rug,18 26 32 34 35,
 15,pairwise_relationship,vert_support,0,1
 16,pairwise_relationship,vert_support,0,12
 17,pairwise_relationship,vert_support,0,13
@@ -106,7 +106,13 @@ nodeNum 30
 27,pairwise_relationship,vert_support,3,4
 28,pairwise_relationship,vert_support,5,6
 29,pairwise_relationship,vert_support,8,9
-edgeNum 30
+30,pairwise_relationship,near,1,12
+31,pairwise_relationship,near,1,13
+32,pairwise_relationship,near,1,14
+33,pairwise_relationship,near,12,13
+34,pairwise_relationship,near,12,14
+35,pairwise_relationship,near,13,14
+edgeNum 42
 0,0,15
 1,15,1
 2,0,16
@@ -137,5 +143,15 @@ edgeNum 30
 27,28,6
 28,8,29
 29,29,9
-
-9,9
+30,1,30
+31,30,12
+32,1,31
+33,31,13
+34,1,32
+35,32,14
+36,12,33
+37,33,13
+38,12,34
+39,34,14
+40,13,35
+41,35,14

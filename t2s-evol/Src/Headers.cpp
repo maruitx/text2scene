@@ -246,7 +246,7 @@ void renderTexturePreview(uint texture, int posX, int posY, float width, float h
 		glPushMatrix();
 			glTranslatef(posX, posY, 0.0f);
 			glBegin(GL_LINES);
-				glColor3f(0.0f, 0.0f, 0.0f);
+				glColor3f(0.0f, 0.0f, 1.0f);
 
 				glVertex3f(0.0f - 2, 0.0f, 0.0f);
 				glVertex3f(width + 1, 0.0f, 0.0f);
@@ -380,7 +380,7 @@ void renderString(const char *str, int x, int y, Vector4 &color, void *font)
     glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);
 
     glDisable(GL_DEPTH_TEST);
-    glDisable(GL_BLEND);
+    glEnable(GL_BLEND);
     glDisable(GL_TEXTURE_2D);
 
     glEnable2D();

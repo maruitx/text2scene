@@ -155,18 +155,18 @@ transform 0.076435 0.000000 0.000000 0.000000 0.000000 0.076435 0.000000 0.00000
 position 85.625 25.25 -3.25
 frontDir 0 -1 0
 upDir 0 0 1
-nodeNum 58
+nodeNum 120
 0,object,room,,31 32 33 34 35
-1,object,cabinet,31,36 37 38 39 40 41 42
+1,object,cabinet,31 60 62 65 67 70 73 76,36 37 38 39 40 41 42 58 59 61 63 64 66 68 69 71 72 74 75
 2,object,bunsen burner,36,
 3,object,flask,37,
-4,object,thymine,,
+4,object,thymine,58 59 84,60 77 78 79 80 81 82 83
 5,object,beaker,38,
 6,object,beaker,39,
 7,object,grill,40,
 8,object,glass,41,
 9,object,glass,42,
-10,object,cabinet,32,43 44 45 46 47 48 49 50 51 52 53
+10,object,cabinet,32 61 77 88 91 94,43 44 45 46 47 48 49 50 51 52 53 62 85 86 87 89 90 92 93
 11,object,tube,43,
 12,object,erlenmeyer flask,44,
 13,object,erlenmeyer flask,45,
@@ -179,14 +179,14 @@ nodeNum 58
 20,object,pencil,54,
 21,object,glass,52,
 22,object,glass,53,
-23,object,table,,55 56 57
+23,object,table,63 64 78 85 97 100 103,55 56 57 65 95 96 98 99 101 102
 24,object,microscope,55,
 25,object,beaker,56,
 26,object,glass,57,
-27,object,stool,33,
-28,object,stool,34,
-29,object,fire extinguisher,35,
-30,object,fire alarm,,
+27,object,stool,33 66 79 86 106 110,67 104 105 107 108 109
+28,object,stool,34 68 69 80 87 95 96 104 105 113 116,70 88 97 106 111 112 114 115
+29,object,fire extinguisher,35 71 72 81 89 90 98 99 107 111 112 119,73 91 100 113 117 118
+30,object,fire alarm,74 75 82 83 92 93 101 102 108 109 114 115 117 118,76 84 94 103 110 116 119
 31,pairwise_relationship,vert_support,0,1
 32,pairwise_relationship,vert_support,0,10
 33,pairwise_relationship,vert_support,0,27
@@ -214,7 +214,69 @@ nodeNum 58
 55,pairwise_relationship,vert_support,23,24
 56,pairwise_relationship,vert_support,23,25
 57,pairwise_relationship,vert_support,23,26
-edgeNum 54
+58,pairwise_relationship,near,1,4
+59,pairwise_relationship,front,1,4
+60,pairwise_relationship,back,4,1
+61,pairwise_relationship,front,1,10
+62,pairwise_relationship,back,10,1
+63,pairwise_relationship,near,1,23
+64,pairwise_relationship,front,1,23
+65,pairwise_relationship,back,23,1
+66,pairwise_relationship,front,1,27
+67,pairwise_relationship,back,27,1
+68,pairwise_relationship,near,1,28
+69,pairwise_relationship,front,1,28
+70,pairwise_relationship,back,28,1
+71,pairwise_relationship,near,1,29
+72,pairwise_relationship,front,1,29
+73,pairwise_relationship,back,29,1
+74,pairwise_relationship,near,1,30
+75,pairwise_relationship,front,1,30
+76,pairwise_relationship,back,30,1
+77,pairwise_relationship,near,4,10
+78,pairwise_relationship,near,4,23
+79,pairwise_relationship,near,4,27
+80,pairwise_relationship,near,4,28
+81,pairwise_relationship,near,4,29
+82,pairwise_relationship,near,4,30
+83,pairwise_relationship,front,4,30
+84,pairwise_relationship,back,30,4
+85,pairwise_relationship,near,10,23
+86,pairwise_relationship,near,10,27
+87,pairwise_relationship,back,10,28
+88,pairwise_relationship,front,28,10
+89,pairwise_relationship,near,10,29
+90,pairwise_relationship,front,10,29
+91,pairwise_relationship,back,29,10
+92,pairwise_relationship,near,10,30
+93,pairwise_relationship,back,10,30
+94,pairwise_relationship,front,30,10
+95,pairwise_relationship,near,23,28
+96,pairwise_relationship,rightside,23,28
+97,pairwise_relationship,leftside,28,23
+98,pairwise_relationship,near,23,29
+99,pairwise_relationship,back,23,29
+100,pairwise_relationship,front,29,23
+101,pairwise_relationship,near,23,30
+102,pairwise_relationship,rightside,23,30
+103,pairwise_relationship,leftside,30,23
+104,pairwise_relationship,near,27,28
+105,pairwise_relationship,rightside,27,28
+106,pairwise_relationship,leftside,28,27
+107,pairwise_relationship,near,27,29
+108,pairwise_relationship,near,27,30
+109,pairwise_relationship,front,27,30
+110,pairwise_relationship,back,30,27
+111,pairwise_relationship,near,28,29
+112,pairwise_relationship,front,28,29
+113,pairwise_relationship,back,29,28
+114,pairwise_relationship,near,28,30
+115,pairwise_relationship,front,28,30
+116,pairwise_relationship,back,30,28
+117,pairwise_relationship,near,29,30
+118,pairwise_relationship,back,29,30
+119,pairwise_relationship,front,30,29
+edgeNum 178
 0,0,31
 1,31,1
 2,0,32
@@ -269,8 +331,127 @@ edgeNum 54
 51,56,25
 52,23,57
 53,57,26
-
-56
-51,56,25
-52,23,57
-53,57,26
+54,1,58
+55,58,4
+56,1,59
+57,59,4
+58,4,60
+59,60,1
+60,1,61
+61,61,10
+62,10,62
+63,62,1
+64,1,63
+65,63,23
+66,1,64
+67,64,23
+68,23,65
+69,65,1
+70,1,66
+71,66,27
+72,27,67
+73,67,1
+74,1,68
+75,68,28
+76,1,69
+77,69,28
+78,28,70
+79,70,1
+80,1,71
+81,71,29
+82,1,72
+83,72,29
+84,29,73
+85,73,1
+86,1,74
+87,74,30
+88,1,75
+89,75,30
+90,30,76
+91,76,1
+92,4,77
+93,77,10
+94,4,78
+95,78,23
+96,4,79
+97,79,27
+98,4,80
+99,80,28
+100,4,81
+101,81,29
+102,4,82
+103,82,30
+104,4,83
+105,83,30
+106,30,84
+107,84,4
+108,10,85
+109,85,23
+110,10,86
+111,86,27
+112,10,87
+113,87,28
+114,28,88
+115,88,10
+116,10,89
+117,89,29
+118,10,90
+119,90,29
+120,29,91
+121,91,10
+122,10,92
+123,92,30
+124,10,93
+125,93,30
+126,30,94
+127,94,10
+128,23,95
+129,95,28
+130,23,96
+131,96,28
+132,28,97
+133,97,23
+134,23,98
+135,98,29
+136,23,99
+137,99,29
+138,29,100
+139,100,23
+140,23,101
+141,101,30
+142,23,102
+143,102,30
+144,30,103
+145,103,23
+146,27,104
+147,104,28
+148,27,105
+149,105,28
+150,28,106
+151,106,27
+152,27,107
+153,107,29
+154,27,108
+155,108,30
+156,27,109
+157,109,30
+158,30,110
+159,110,27
+160,28,111
+161,111,29
+162,28,112
+163,112,29
+164,29,113
+165,113,28
+166,28,114
+167,114,30
+168,28,115
+169,115,30
+170,30,116
+171,116,28
+172,29,117
+173,117,30
+174,29,118
+175,118,30
+176,30,119
+177,119,29

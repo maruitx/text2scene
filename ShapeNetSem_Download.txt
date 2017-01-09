@@ -1,5 +1,6 @@
 http://shapenet.cs.stanford.edu/shapenet/obj-zip/ShapeNetSem.v0/models-OBJ.zip
 http://shapenet.cs.stanford.edu/shapenet/obj-zip/ShapeNetSem.v0/models-textures.zip
+http://shapenet.cs.stanford.edu/shapenet/obj-zip/ShapeNetSem.v0/models-screenshots.zip
 
 This link restricts the retrieved metadata to only models that have manually verified alignments and categorizations (currently about half of the total).
 http://shapenet.cs.stanford.edu/models3d/solr/select?q=isAligned%3Atrue+AND+source%3Awss+AND+category%3A*&rows=100000&fl=fullId%2Ccategory%2Cwnsynset%2Cwnlemmas%2Cup%2Cfront%2Cunit%2Caligned.dims%2CisContainerLike%2CsurfaceVolume%2CsolidVolume%2CsupportSurfaceArea%2Cweight%2CstaticFrictionForce%2Cname%2Ctags&wt=csv&indent=true

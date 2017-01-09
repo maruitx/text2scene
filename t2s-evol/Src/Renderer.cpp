@@ -26,6 +26,9 @@ Renderer::Renderer(Scene *scene, CameraManager *camManager, GUI *gui)
   m_vboQuad(nullptr)
 {
     init();
+
+    toggleBGColor();
+    toggleBGColor();
 }
 
 Renderer::~Renderer()
@@ -62,7 +65,7 @@ void Renderer::render(Transform &trans)
 
 
     glViewport(0, 0, m_width, m_height);
-    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);    
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);    
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);     
 
     renderTexture(m_fbo->colorTex(), 0, 0, params::inst()->bufferSize.x, params::inst()->bufferSize.y);
@@ -338,6 +341,8 @@ void Renderer::onMouseClick(int mx, int my)
         {
             m_activePreview = i;
 			m_scene->m_activeVarationId = m_activePreview;
+
+            params::inst()->sceneBB = BoundingBox(vec3(math_maxfloat, math_maxfloat, math_maxfloat), vec3(math_minfloat, math_minfloat, math_minfloat));
         }
     }
 

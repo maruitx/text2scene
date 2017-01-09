@@ -20,7 +20,8 @@ public:
 
 	void buildVBO();
 	void computeNormals();
-	void render(const Transform &trans, Shader *shader, const mat4 &model = mat4::identitiy());
+	
+    void render(const Transform &trans, Shader *shader);
 	void renderDepth(const Transform &trans, const mat4 &model = mat4::identitiy());
 
 	vector<VertexBufferObject::DATA> m_vertices;
@@ -54,17 +55,19 @@ public:
 	Model(const string &fileName);
 	void render(const Transform &trans, const mat4 &initTrans, bool applyShadow = false);
 	void renderDepth(const Transform &trans, const mat4 &initTrans);
+    void buildBBVBO();
 
 	vec3 m_sceneCenter;
+    BoundingBox m_bb;
 
 public slots:
 	void loadingDone();	
 
 private:
-	ModelThread m_thread;
-	BoundingBox m_bb;
+	ModelThread m_thread;	
 
 	vector<ModelMesh> m_meshes;	
+    VertexBufferObject *m_vboBB;
 };
 
 #endif

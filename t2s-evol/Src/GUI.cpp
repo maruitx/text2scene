@@ -73,6 +73,9 @@ void GUI::initTab1(Slots slot)
     setupFloatSlider(slot, x, y+=45, 1.0f, 8.0f, QString("BlurSigma: "), &p->blur.x);
     setupFloatSlider(slot, x, y+=45, 1.0f, 8.0f, QString("BlurStride: "), &p->blur.y);
     setupFloatSlider(slot, x, y+=45, 0.001f, 3.0f, QString("Light Intensity: "), &p->lightIntensity);    
+    setupFloatSlider(slot, x, y+=45, 10.0f, 90.0f, QString("Light Fov: "), &p->fovLight);
+    setupFloatSlider(slot, x, y+=45, 1.0f, 60.0f, QString("Light NCP: "), &p->ncpLight);
+    setupFloatSlider(slot, x, y+=45, 10.0f, 100.0f, QString("Light FCP: "), &p->fcpLight);
 
     setupFloatSlider(slot, x, y += 45, 0.0f, 1000.0f, QString("OffsetFactor: "), &p->polygonOffsetFactor);
     setupFloatSlider(slot, x, y += 45, 0.0f, 10000.0f, QString("OffsetUnits: "), &p->polygonOffsetUnits);
@@ -167,6 +170,13 @@ void GUI::render()
 
     QString fpsStr = QString::number(m_fps);
     renderString(fpsStr.toStdString().c_str(), m_width - 33, 15, vec4(m_fontColor.x, m_fontColor.y, m_fontColor.z, 1.0f), GLUT_BITMAP_HELVETICA_10);
+    
+    params::inst()->textCoolDown = max(0.0f, params::inst()->textCoolDown-1);
+    float a = 1.0f;
+    if(params::inst()->textCoolDown <= 50)
+        a = params::inst()->textCoolDown / 50.0f;
+
+    renderString(params::inst()->currentText.toStdString().c_str(), 50, 50, vec4(0.0f, 0.0f, 0.0f, a), GLUT_BITMAP_HELVETICA_18);
 
     glPopClientAttrib();
     glPopAttrib();

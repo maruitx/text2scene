@@ -17,6 +17,9 @@
         <file>Shader/Feedback.vert.glsl</file>
         <file>Shader/GUI.frag.glsl</file>
         <file>Shader/GUI.vert.glsl</file>
+        <file>Shader/Model.frag.glsl</file>
+        <file>Shader/Model.vert.glsl</file>
+        <file>Shader/ModelDepth.frag.glsl</file>
         <file>Shader/NiceGrid.frag.glsl</file>
         <file>Shader/NiceGrid.vert.glsl</file>
         <file>Shader/Noise.frag.glsl</file>

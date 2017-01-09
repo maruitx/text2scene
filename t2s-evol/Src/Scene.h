@@ -46,6 +46,9 @@ public:
 	SceneGenerator *m_sceneGenerator;
 
 	int m_activeVarationId;
+
+	MetaModel roomModel;
+
 private:
 	
     NiceGrid *m_niceGrid;
