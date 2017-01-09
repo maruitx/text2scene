@@ -61,6 +61,13 @@ void SELParser::applyCommand(ParsedSentence &s, const SceneCommand &c)
 			{
 				addEntityAttributeModifier(s, t.referencedTokenIndex, appliedVerb, a.name);
 			}
+			for (auto &tOther : c.targets)
+			{
+				if (tOther.type != "dobj" && tOther.type != "nsubj")
+				{
+					addRelationship(s, t.referencedTokenIndex, tOther.referencedTokenIndex, tOther.type);
+				}
+			}
 		}
 	}
 }
@@ -150,6 +157,26 @@ void SELParser::assignTargets(ParsedSentence &s)
 	{
 		//addAdverb(s, r.tokens[2], s.tokens[r.tokens[1]].text);
 		addTarget(s, r.tokens[2], r.tokens[1], "nsubj");
+	}
+
+	// Put a laptop and a lamp on the right of the desk.
+	//dobj(put-1, laptop-3~NN)
+	//conj:and(laptop-3, lamp-6~NN)
+	//dobj(0-VB, 1-NN)
+	//conj:and(1-NN, 2-NN)
+	for (auto &r : PatternMatcher::match(s, PatternMatchQuery("dobj(0-VB, 1-NN)", "conj:and(1-NN, 2-NN)")))
+	{
+		addTarget(s, r.tokens[0], r.tokens[2], "dobj");
+	}
+
+	// Put a laptop and a lamp on the right of the desk.
+	//nmod:on(put-1, right-9~NN)
+	//nmod:of(right-9, desk-12~NN)
+	//nmod:(0-VB, 1-NN)
+	//nmod:(1-NN, 2-NN)
+	for (auto &r : PatternMatcher::match(s, PatternMatchQuery("nmod:(0-VB, 1-NN)", "nmod:(1-NN, 2-NN)")))
+	{
+		addTarget(s, r.tokens[0], r.tokens[2], s.units[r.units[0]].getTypeSuffix() + " " + s.tokens[r.tokens[1]].text + " " + s.units[r.units[1]].getTypeSuffix());
 	}
 }
 
@@ -403,11 +430,22 @@ void SELParser::assignRelationships(ParsedSentence &s)
 		if (prefix == "is ") prefix = "";
 		addRelationship(s, r.tokens[2], r.tokens[1], prefix + s.units[r.units[0]].getTypeSuffix());
 	}
+
 	for (auto &r : PatternMatcher::match(s, PatternMatchQuery("nmod:(0-VB, 1-NN)", "nsubj(0-VB, 2-NN)", "conj:and(2-NN, 3-NN)")))
 	{
 		string prefix = s.tokens[r.tokens[0]].text + " ";
 		if (prefix == "is ") prefix = "";
 		addRelationship(s, r.tokens[3], r.tokens[1], prefix + s.units[r.units[0]].getTypeSuffix());
+	}
+
+	//There is a desk with two monitors, a keyboard, and a mouse.
+	//nmod:with(desk-4, monitors-7~NNS)
+	//conj:and(monitors-7, keyboard-10~NN)
+	//nmod:(0-NN, 1-NN)
+	//conj:and(1-NN, 2-NN)
+	for (auto &r : PatternMatcher::match(s, PatternMatchQuery("nmod:(0-NN, 1-NN)", "conj:and(1-NN, 2-NN)")))
+	{
+		addRelationship(s, r.tokens[0], r.tokens[2], s.units[r.units[0]].getTypeSuffix());
 	}
 
 	// the soda is to the right of the laptop
