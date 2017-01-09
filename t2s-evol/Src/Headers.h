@@ -99,6 +99,9 @@ struct GlobalObjectParams
 
     BoundingBox sceneBB;
     vec3 cameraTrans;
+
+    QString currentText;
+    float   textCoolDown;
 };
 
 struct Shaders

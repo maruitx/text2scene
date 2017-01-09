@@ -170,6 +170,13 @@ void GUI::render()
 
     QString fpsStr = QString::number(m_fps);
     renderString(fpsStr.toStdString().c_str(), m_width - 33, 15, vec4(m_fontColor.x, m_fontColor.y, m_fontColor.z, 1.0f), GLUT_BITMAP_HELVETICA_10);
+    
+    params::inst()->textCoolDown = max(0.0f, params::inst()->textCoolDown-1);
+    float a = 1.0f;
+    if(params::inst()->textCoolDown <= 50)
+        a = params::inst()->textCoolDown / 50.0f;
+
+    renderString(params::inst()->currentText.toStdString().c_str(), 50, 50, vec4(0.0f, 0.0f, 0.0f, a), GLUT_BITMAP_HELVETICA_18);
 
     glPopClientAttrib();
     glPopAttrib();

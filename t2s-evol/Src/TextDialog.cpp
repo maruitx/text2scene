@@ -7,12 +7,15 @@
 #include <QProcess>
 
 TextDialog::TextDialog(GLWidget *parent, Scene *s)
-	: m_parent(parent), 
-	m_scene(s),
-  m_showState(false)
+ : m_parent(parent), 
+   m_scene(s),
+   m_showState(false), 
+   m_captureSpeech(false)
 {
 	init();
 	toggleShow(m_parent->pos().x(), m_parent->pos().y());
+
+    connect(&m_timer, SIGNAL(timeout()), this, SLOT(checkSpeech()));    
 }
 
 TextDialog::~TextDialog()
@@ -146,4 +149,59 @@ void TextDialog::keyPressEvent(QKeyEvent *e)
 	case Qt::Key_Space:
 		break;
 	}
+}
+
+void TextDialog::toggleSpeech()
+{    
+    m_captureSpeech = !m_captureSpeech;
+
+    if(m_captureSpeech)
+    {
+        if(!m_timer.isActive())
+        {
+            m_timer.start(10);
+            qDebug() << "Speeach capturing enabled.";
+
+            QString workingDir = "../speech2text/";
+            QString cmd = QString("start python " + workingDir + "transcribeStreamingMatt.py");
+
+            system(cmd.toStdString().c_str());
+        }        
+    }
+    else
+    {
+        m_timer.stop();
+        qDebug() << "Speeach capturing disabled.";
+    }
+}
+
+void TextDialog::checkSpeech()
+{
+    //QString dir = "../speech2text/";
+    QString dir = "";
+
+    QFile stateFile(dir + "readySignal.txt");
+    if (stateFile.open(QIODevice::ReadOnly | QIODevice::Text))
+    {      
+        QTextStream stateIn(&stateFile);
+        QString line = stateIn.readLine();
+        
+        if(line == "ready")
+        {
+            QFile transFile(dir + "transcript.txt");
+            if (transFile.open(QIODevice::ReadOnly | QIODevice::Text))
+            {      
+                QTextStream transIn(&transFile);
+                QString line = transIn.readLine();  
+
+                params::inst()->currentText = line;
+                params::inst()->textCoolDown = 250;
+
+                m_editSentence->setText(line);               
+            }
+
+            transFile.close();
+        }
+    }
+    stateFile.remove();
 }

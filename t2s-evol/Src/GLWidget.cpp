@@ -66,10 +66,10 @@ void GLWidget::initParams()
     GlobalObjectParams *p = params::inst();
 
     p->camPos              = vec3(0.0f, 0.0f, 0.0f);
-	p->blur                = vec2(2.0f, 2.0f);
+	p->blur                = vec2(2.0f, 1.0f);
     p->shadowMapSize       = vec2(1024, 1024);
     p->applyShadow         = true;
-    p->gridRenderMode      = 2;
+    p->gridRenderMode      = 3;
     p->shadowIntensity     = 0.4f;
     p->sampleShading       = 1.0f;
     p->polygonMode         = 0;
@@ -77,7 +77,7 @@ void GLWidget::initParams()
     p->applyCulling        = false;
     
     p->windowSize          = vec2(m_width, m_height);
-    p->previewSize         = vec2(240, 180);
+    p->previewSize         = vec2(320, 240);
     p->bufferSize          = vec2(0, 0);
     p->fboSamples          = 4;
     
@@ -117,6 +117,9 @@ void GLWidget::initParams()
     p->sceneBB = BoundingBox(vec3(math_maxfloat, math_maxfloat, math_maxfloat), vec3(math_minfloat, math_minfloat, math_minfloat));
     //p->cameraTrans = vec3(-12, 0, 12);
     p->cameraTrans = vec3(0, 0, 0);
+
+    p->currentText = QString("");
+    p->textCoolDown = 200;
 }
 
 void GLWidget::initShaders()
@@ -358,6 +361,7 @@ void GLWidget::keyPressEvent(QKeyEvent *event)
             //Camera Strafe Left
             break;
         case Qt::Key_B:
+            m_textDialog->onButtonProcess();
             break;
         case Qt::Key_C:
             m_cameraManager->lockCurCamera();
@@ -388,7 +392,7 @@ void GLWidget::keyPressEvent(QKeyEvent *event)
 			loop(params::inst()->polygonMode, 0, 1, 1);
             break;
         case Qt::Key_N:
-            stats.print();
+            m_textDialog->toggleSpeech();
             break;
         case Qt::Key_O:
             break;
