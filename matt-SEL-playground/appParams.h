@@ -19,27 +19,21 @@ struct AppParameters
 		dataDir = gitRoot + "data/SEL/";
 		debugDir = R"(TODO)";
 		
-		for (auto &s : util::getFileLines(dataDir + "spatialNouns.txt", 2))
-		{
-			spatialNouns.insert(s);
-		}
+		auto readFileList = [&](const string &filename) {
+			set<string> result;
+			for (auto &s : util::getFileLines(dataDir + filename, 2))
+			{
+				result.insert(s);
+			}
+			return result;
+		};
 
-		for (auto &s : util::getFileLines(dataDir + "abstractNouns.txt", 2))
-		{
-			abstractNouns.insert(s);
-		}
-		for (auto &s : util::getFileLines(dataDir + "countingAdjectives.txt", 2))
-		{
-			countingAdjectives.insert(s);
-		}
-		for (auto &s : util::getFileLines(dataDir + "applicableVerbs.txt", 2))
-		{
-			applicableVerbs.insert(s);
-		}
-		for (auto &s : util::getFileLines(dataDir + "stopVerbs.txt", 2))
-		{
-			stopVerbs.insert(s);
-		}
+		spatialNouns = readFileList("spatialNouns.txt");
+		abstractNouns = readFileList("abstractNouns.txt");
+		countingAdjectives = readFileList("countingAdjectives.txt");
+		applicableVerbs = readFileList("applicableVerbs.txt");
+		stopVerbs = readFileList("stopVerbs.txt");
+		groupNouns = readFileList("groupNouns.txt");
 	}
 
 	bool isSpatialNoun(const string &s) const 
@@ -50,9 +44,13 @@ struct AppParameters
 	{
 		return (abstractNouns.count(s) != 0);
 	}
-	bool isAbstractOrSpatialNoun(const string &s) const
+	bool isGroupNoun(const string &s) const
 	{
-		return (spatialNouns.count(s) != 0 || abstractNouns.count(s) != 0);
+		return (groupNouns.count(s) != 0);
+	}
+	bool isSpecialNoun(const string &s) const
+	{
+		return (spatialNouns.count(s) != 0 || abstractNouns.count(s) != 0 || groupNouns.count(s) != 0);
 	}
 	bool isCountingAdjective(const string &s) const
 	{
@@ -75,7 +73,7 @@ struct AppParameters
 	string inputFile;
 	string outputFile;
 
-	set<string> spatialNouns, abstractNouns, countingAdjectives, applicableVerbs, stopVerbs;
+	set<string> spatialNouns, abstractNouns, countingAdjectives, applicableVerbs, stopVerbs, groupNouns;
 };
 
 extern AppParameters* g_appParams;

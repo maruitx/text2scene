@@ -73,6 +73,9 @@
     </Text>
     <Text Include="SEL-params.txt" />
     <Text Include="in.txt" />
+    <Text Include="..\data\SEL\groupNouns.txt">
+      <Filter>data</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="data">

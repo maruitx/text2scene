@@ -20,6 +20,14 @@ struct PatternMatchQuery
 		units.push_back(UnitEntry(u2));
 		finalize();
 	}
+	PatternMatchQuery(const string &u0, const string &u1, const string &u2, const string &u3)
+	{
+		units.push_back(UnitEntry(u0));
+		units.push_back(UnitEntry(u1));
+		units.push_back(UnitEntry(u2));
+		units.push_back(UnitEntry(u3));
+		finalize();
+	}
 	struct UnitEntry
 	{
 		UnitEntry() {}
@@ -91,6 +99,10 @@ struct PatternMatcher
 		if (query.units.size() == 3)
 		{
 			return match3(s, query);
+		}
+		if (query.units.size() == 4)
+		{
+			return match4(s, query);
 		}
 		return vector<PatternMatchResult>();
 	}
@@ -200,6 +212,71 @@ private:
 						if (match)
 						{
 							results.push_back(result);
+						}
+					}
+				}
+			}
+		}
+		return results;
+	}
+
+	static vector<PatternMatchResult> match4(const ParsedSentence &s, const PatternMatchQuery &query)
+	{
+		vector<PatternMatchResult> results;
+		for (auto &candidateU0 : iterate(s.units))
+		{
+			for (auto &candidateU1 : iterate(s.units))
+			{
+				for (auto &candidateU2 : iterate(s.units))
+				{
+					for (auto &candidateU3 : iterate(s.units))
+					{
+						if (query.units[0].matches(s, candidateU0.value) &&
+							query.units[1].matches(s, candidateU1.value) &&
+							query.units[2].matches(s, candidateU2.value) &&
+							query.units[3].matches(s, candidateU3.value))
+						{
+							// parts-of-speech and types match, try to assign token indices
+
+							auto getCandidateUnit = [&](size_t x) -> const ParseUnit&{
+								if (x == 0) return candidateU0.value;
+								else if (x == 1) return candidateU1.value;
+								else if (x == 2) return candidateU2.value;
+								else return candidateU3.value;
+							};
+
+							PatternMatchResult result;
+							result.units.push_back((int)candidateU0.index);
+							result.units.push_back((int)candidateU1.index);
+							result.units.push_back((int)candidateU2.index);
+							result.units.push_back((int)candidateU3.index);
+
+							result.tokens.resize(query.tokenCount, -1);
+							bool match = true;
+							for (auto &uQuery : iterate(query.units))
+							{
+								auto assignToken = [&](int variableIndex, int tokenAssignment) {
+									if (result.tokens[variableIndex] == -1)
+									{
+										// variable not yet assigned, give it new assignment
+										result.tokens[variableIndex] = tokenAssignment;
+									}
+									else
+									{
+										// variable already assigned, varify assignment matches
+										if (result.tokens[variableIndex] != tokenAssignment)
+											match = false;
+									}
+								};
+
+								assignToken(uQuery.value.tAIndex, getCandidateUnit(uQuery.index).pAIndex);
+								assignToken(uQuery.value.tBIndex, getCandidateUnit(uQuery.index).pBIndex);
+							}
+
+							if (match)
+							{
+								results.push_back(result);
+							}
 						}
 					}
 				}

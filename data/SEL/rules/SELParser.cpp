@@ -200,7 +200,7 @@ void SELParser::extractEntities(ParsedSentence &s)
 	for (auto &t : s.tokens)
 	{
 		if (util::startsWith(t.posTag, "NN") &&
-			!appParams().isSpecialNoun(t.text) &&
+			!appParams().isAbstractOrSpatialNoun(t.text) &&
 			rejectList.count(t.index) == 0)
 		{
 			SceneEntity entity;
@@ -284,7 +284,7 @@ void SELParser::addTarget(ParsedSentence &s, int commandToken, int entityToken, 
 
 void SELParser::addEntityAttribute(ParsedSentence &s, int tokenIndex, const string &attribute)
 {
-	if (appParams().isSpecialNoun(s.tokens[tokenIndex].text))
+	if (appParams().isAbstractOrSpatialNoun(s.tokens[tokenIndex].text))
 		return;
 
 	if (appParams().isStopVerb(attribute))
@@ -324,8 +324,8 @@ void SELParser::addRelationship(ParsedSentence &s, int tokenIndexA, int tokenInd
 		relationshipType = util::replace(relationshipType, '_', ' ');
 
 	// ignore recording spatial noun relationships.
-	if (appParams().isSpecialNoun(s.tokens[tokenIndexA].text) ||
-		appParams().isSpecialNoun(s.tokens[tokenIndexB].text))
+	if (appParams().isAbstractOrSpatialNoun(s.tokens[tokenIndexA].text) ||
+		appParams().isAbstractOrSpatialNoun(s.tokens[tokenIndexB].text))
 		return;
 
 	auto eL = s.getEntity(tokenIndexA);
@@ -386,27 +386,6 @@ void SELParser::assignEntityAttributes(ParsedSentence &s)
 	{
 		addEntityAttribute(s, u.pBIndex, u.pA);
 	}
-
-	// A plate, a knife and a fork is placed formally in front of each chair.
-	//nsubjpass(placed-10, plate-2~NN)
-	//conj:and(plate-2, knife-5~NN)
-	//nsubjpass(0-VB, 1-NN)
-	//conj:and(1-NN, 2-NN)
-	for (auto &r : PatternMatcher::match(s, PatternMatchQuery("nsubjpass(0-VB, 1-NN)", "conj:and(1-NN, 2-NN)")))
-	{
-		addEntityAttribute(s, r.tokens[2], s.tokens[r.tokens[0]].text);
-	}
-
-	//a pile of stacked books
-	//nmod:of(pile-14, books-17~NNS)
-	//nmod:(pile-14, books-17~NNS)
-	for (auto &u : s.findUnits("nmod:", "NN", "NN"))
-	{
-		if (appParams().isGroupNoun(u.pA))
-		{
-			addEntityAttribute(s, u.pBIndex, SELUtil::makeVerbApplied(u.pA));
-		}
-	}
 }
 
 void SELParser::assignEntityAttributeModifiers(ParsedSentence &s)
@@ -427,18 +406,6 @@ void SELParser::assignEntityAttributeModifiers(ParsedSentence &s)
 	for (auto &r : PatternMatcher::match(s, PatternMatchQuery("nsubj(0-VB, 1-NN)", "advmod(0-VB, 2-RB)")))
 	{
 		addEntityAttributeModifier(s, r.tokens[1], s.tokens[r.tokens[0]].text, s.tokens[r.tokens[2]].text);
-	}
-
-	// A plate, a knife and a fork is placed formally in front of each chair.
-	//nsubjpass(placed-10, plate-2~NN)
-	//conj:and(plate-2, knife-5~NN)
-	//advmod(placed-10, formally-11~RB)
-	//nsubjpass(0-VB, 1-NN)
-	//conj:and(1-NN, 2-NN)
-	//advmod(0-VB, 3-RB)
-	for (auto &r : PatternMatcher::match(s, PatternMatchQuery("nsubjpass(0-VB, 1-NN)", "conj:and(1-NN, 2-NN)", "advmod(0-VB, 3-RB)")))
-	{
-		addEntityAttributeModifier(s, r.tokens[2], s.tokens[r.tokens[0]].text, s.tokens[r.tokens[3]].text);
 	}
 }
 
@@ -528,9 +495,9 @@ void SELParser::assignRelationships(ParsedSentence &s)
 	//nmod:of(middle-9, room-12~NN)
 	//nmod:in(0-NN, 1-NN)
 	//nmod:of(1-NN, 2-NN)
-	for (auto &r : PatternMatcher::match(s, PatternMatchQuery("nmod:(0-NN, 1-NN)", "nmod:(1-NN, 2-NN)")))
+	for (auto &r : PatternMatcher::match(s, PatternMatchQuery("nmod:in(0-NN, 1-NN)", "nmod:of(1-NN, 2-NN)")))
 	{
-		addRelationship(s, r.tokens[0], r.tokens[2], s.units[r.units[0]].getTypeSuffix() + " " + s.tokens[r.tokens[1]].text + " " + s.units[r.units[1]].getTypeSuffix());
+		addRelationship(s, r.tokens[0], r.tokens[2], "in " + s.tokens[r.tokens[1]].text + " of");
 	}
 
 	//There’s a red patterned rug in the middle of the room surrounded by a grey sofa and two sofa chairs with throw pillows.
@@ -563,20 +530,6 @@ void SELParser::assignRelationships(ParsedSentence &s)
 	for (auto &r : PatternMatcher::match(s, PatternMatchQuery("nmod:(0-VB, 1-NN)", "nmod:(1-NN, 2-NN)", "nsubj(0-VB, 3-NN)")))
 	{
 		addRelationship(s, r.tokens[3], r.tokens[2], s.units[r.units[0]].getTypeSuffix() + " " + s.tokens[r.tokens[1]].text + " " + s.units[r.units[1]].getTypeSuffix());
-	}
-
-	//In the center of the table, there is a vase and some sauce bottles.
-	//nmod:in(is-9, center-3~NN)
-	//nmod:of(center-3, table-6~NN)
-	//nsubj(is-9, vase-11~NN)
-	//conj:and(vase-11, bottles-15~NNS)
-	//nmod:(0-VB, 1-NN)
-	//nmod:(1-NN, 2-NN)
-	//nsubj(0-VB, 3-NN)
-	//conj:and(3-NN, 4-NN)
-	for (auto &r : PatternMatcher::match(s, PatternMatchQuery("nmod:(0-VB, 1-NN)", "nmod:(1-NN, 2-NN)", "nsubj(0-VB, 3-NN)", "conj:and(3-NN, 4-NN)")))
-	{
-		addRelationship(s, r.tokens[4], r.tokens[2], s.units[r.units[0]].getTypeSuffix() + " " + s.tokens[r.tokens[1]].text + " " + s.units[r.units[1]].getTypeSuffix());
 	}
 
 	//Remove the speakers from the desk.

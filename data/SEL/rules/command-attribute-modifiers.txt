@@ -1,0 +1,17 @@
+// Make the kitchen table and the desk more messy.
+//advmod(messy-9, more-8~RBR)
+//xcomp(Make-1, messy-9~JJ)
+//advmod(0-JJ, 1-RB)
+//xcomp(2-VB, 0-JJ)
+
+addCommandAttributeModifier:
+pattern=advmod(0-JJ, 1-RB),xcomp(2-VB, 0-JJ)
+command=2
+attribute=0
+modifier=1
+
+// Move the chairs closer together.
+//advmod(together-5, closer-4~RBR)
+//advmod(Move-1, together-5~RB)
+//advmod(0-RB, 1-RB)
+//advmod(2-VB, 0-RB)
