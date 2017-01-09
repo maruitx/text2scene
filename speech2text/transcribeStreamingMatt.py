@@ -40,7 +40,7 @@ CHUNK = int(RATE / 10)  # 100ms
 # connection alive for that long, plus some more to give the API time to figure
 # out the transcription.
 # * https://g.co/cloud/speech/limits#content
-DEADLINE_SECS = 60 * 3 + 5
+DEADLINE_SECS = 60 * 10 + 5
 SPEECH_SCOPE = 'https://www.googleapis.com/auth/cloud-platform'
 
 
@@ -214,6 +214,8 @@ def listen_print_loop(recognize_stream):
 def main():
     service = cloud_speech_pb2.SpeechStub(
         make_channel('speech.googleapis.com', 443))
+        
+    print("Speech2Text started");
 
     # For streaming audio from the microphone, there are three threads.
     # First, a thread that collects audio data as it comes in
