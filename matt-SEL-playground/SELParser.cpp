@@ -562,7 +562,13 @@ void SELParser::assignRelationships(ParsedSentence &s)
 	//nsubj(0-VB, 3-NN)
 	for (auto &r : PatternMatcher::match(s, PatternMatchQuery("nmod:(0-VB, 1-NN)", "nmod:(1-NN, 2-NN)", "nsubj(0-VB, 3-NN)")))
 	{
-		addRelationship(s, r.tokens[3], r.tokens[2], s.units[r.units[0]].getTypeSuffix() + " " + s.tokens[r.tokens[1]].text + " " + s.units[r.units[1]].getTypeSuffix());
+		string determiners;
+		//det(side-7, each-6~DT)
+		for (auto &u : s.findUnits("det", r.tokens[1], -1))
+		{
+			determiners += u.pB + " ";
+		}
+		addRelationship(s, r.tokens[3], r.tokens[2], s.units[r.units[0]].getTypeSuffix() + " " + determiners + s.tokens[r.tokens[1]].text + " " + s.units[r.units[1]].getTypeSuffix());
 	}
 
 	//In the center of the table, there is a vase and some sauce bottles.
