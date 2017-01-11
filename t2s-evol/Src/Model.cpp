@@ -26,8 +26,9 @@ void ModelMesh::buildVBO()
 	m_vbo->setIndexData(m_indices.data(), GL_STATIC_DRAW, m_indices.size());
 	m_vbo->bindDefaultAttribs();
 
-	m_vertices.clear();
-	m_indices.clear();
+    //Currently keeping the geometry data
+	//m_vertices.clear();
+	//m_indices.clear();
 }
 
 void ModelMesh::computeNormals()
@@ -109,7 +110,7 @@ void ModelMesh::renderDepth(const Transform &trans, const mat4 &model)
 ModelThread::ModelThread(const string &fileName, vector<ModelMesh> &meshes, BoundingBox &bb)
 : m_fileName(fileName), 
   m_meshes(meshes), 
-  m_bb(bb)
+  m_bb(bb)  
 {
 
 }
@@ -290,7 +291,8 @@ void ModelThread::load(const string &fileName)
 Model::Model(const string &fileName)
 : m_thread(fileName, m_meshes, m_bb), 
   m_vboBB(nullptr), 
-  m_bb(vec3(math_maxfloat), vec3(math_minfloat))
+  m_bb(vec3(math_maxfloat), vec3(math_minfloat)), 
+  m_collisionTrans(vec3())
 {
 	//Code for parallel loading
 	connect(&m_thread, SIGNAL(finished()), this, SLOT(loadingDone()));
@@ -310,8 +312,9 @@ void Model::render(const Transform &trans, const mat4 &initTrans, bool applyShad
 		glEnable(GL_CULL_FACE);
 	}
 
+    mat4 matCollision = mat4::translate(m_collisionTrans);
 	mat4 viewTrans = mat4::scale(params::inst()->globalSceneScale) * mat4::rotateX(-90);
-	mat4 m = viewTrans * initTrans;
+	mat4 m = matCollision * viewTrans * initTrans;
 
 	Shader *shader = shaders::inst()->model;
 	shader->bind();
@@ -345,8 +348,9 @@ void Model::render(const Transform &trans, const mat4 &initTrans, bool applyShad
 
 void Model::renderDepth(const Transform &trans, const mat4 &initTrans)
 {
+    mat4 matCollision = mat4::translate(m_collisionTrans);
 	mat4 viewTrans = mat4::scale(params::inst()->globalSceneScale) * mat4::rotateX(-90);
-	mat4 m = viewTrans * initTrans;
+    mat4 m = matCollision * viewTrans * initTrans;
 
 	Shader *shader = shaders::inst()->modelDepth;
 	shader->bind();
@@ -447,4 +451,20 @@ void Model::buildBBVBO()
 	m_vboBB->bindDefaultAttribs();
 
     delete data;
+}
+
+bool Model::checkCollisionBBTriangles(const BoundingBox &bb)
+{
+    for(int i=0; i<m_meshes.size(); ++i)
+    {
+        vector<VertexBufferObject::DATA> &vertices = m_meshes[i].m_vertices;
+        
+        for(int j=0; j<vertices.size(); ++j)
+        {
+            VertexBufferObject::DATA d = vertices[j];
+            vec3 p = vec3(d.vx, d.vy, d.vz);
+
+            return bb.inside(p);
+        }
+    }
 }

@@ -56,7 +56,9 @@ public:
 	void render(const Transform &trans, const mat4 &initTrans, bool applyShadow = false);
 	void renderDepth(const Transform &trans, const mat4 &initTrans);
     void buildBBVBO();
+    bool checkCollisionBBTriangles(const BoundingBox &bb);
 
+    vec3 m_collisionTrans;
 	vec3 m_sceneCenter;
     BoundingBox m_bb;
 

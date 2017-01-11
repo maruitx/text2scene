@@ -124,6 +124,12 @@ void TSScene::render(const Transform &trans, bool applyShadow)
 
 		if (iter != m_models.end())
 		{
+            vec3 collisionTrans = vec3();
+            if(resolveCollision(iter->second->m_bb, i))
+            {
+                iter->second->m_collisionTrans = vec3(0, 2, 0);
+            }
+
 			iter->second->render(tt, md.transformation, applyShadow);
 		}
 		else if (md.path.size() > 0)
@@ -348,3 +354,43 @@ void TSScene::updateRoomModel(MetaModel m)
 		loadModel(m);
 	}
 }
+
+bool TSScene::resolveCollision(const BoundingBox &bb, int cidx)
+{
+    vec3 cmi = bb.mi();
+    vec3 cma = bb.ma();
+
+	for (int i = 0; i < m_metaScene.m_metaModellList.size(); i++)
+	{
+        if(i != cidx)
+        {          		
+		    MetaModel &md = m_metaScene.m_metaModellList[i];
+		    auto &iter = m_models.find(md.name);
+
+            if (iter != m_models.end())
+            {
+                vec3 mmi = iter->second->m_bb.mi();
+                vec3 mma = iter->second->m_bb.ma();
+
+                bool coarse = intersectAABB(cmi, cma, mmi, mma);
+                bool fine = false;
+
+                if(coarse)
+                {
+                    fine = iter->second->checkCollisionBBTriangles(bb);
+                    qDebug() << true;
+                }
+
+                return coarse && fine;
+            }
+        }
+    }
+}
+
+bool TSScene::intersectAABB(const vec3 &miA, const vec3 &maA, const vec3 &miB, const vec3 &maB)
+{
+    return (miA.x <= maB.x && maA.x >= miB.x) && 
+           (miA.y <= maB.y && maA.y >= miB.y) &&
+           (miA.z <= maB.z && maA.z >= miB.z);
+}
+
