@@ -10,6 +10,8 @@ TSScene::TSScene(unordered_map<string, Model*> &models)
 	m_modelNum(0),
 	m_frameCount(0),
 	m_loadedModelNum(0),
+	m_isRenderRoom(true),
+	m_isLoadFromFile(false),
 	m_ssg(NULL), 
     m_camTrans(0.0f, 0.0f, 0.0f)
 {
@@ -22,6 +24,8 @@ TSScene::TSScene(unordered_map<string, Model*> &models, const QString &fileName)
   m_modelNum(0),
   m_frameCount(0),
   m_loadedModelNum(0),
+  m_isRenderRoom(true),
+  m_isLoadFromFile(false),
   m_ssg(NULL), 
   m_camTrans(0.0f, 0.0f, 0.0f)
 {
@@ -35,6 +39,8 @@ TSScene::TSScene(unordered_map<string, Model*> &models, MetaScene &ms)
 	m_sceneBB(vec3(math_maxfloat), vec3(math_minfloat)),
 	m_frameCount(0),
 	m_loadedModelNum(0),
+	m_isRenderRoom(true),
+	m_isLoadFromFile(false),
 	m_ssg(NULL), 
     m_camTrans(0.0f, 0.0f, 0.0f)
 {
@@ -56,12 +62,13 @@ void TSScene::loadSceneFile(const QString &filename)
 
 	if (!inFile.open(QIODevice::ReadOnly | QIODevice::Text)) return;
 
+	string initTextureDir = params::inst()->textureDirectory;
+
 	QFileInfo sceneFileInfo(inFile.fileName());
 	m_metaScene.m_sceneFileName = sceneFileInfo.baseName();   // scene_01.txt
 	m_metaScene.m_sceneFilePath = sceneFileInfo.absolutePath();
 
-	int cutPos = sceneFileInfo.absolutePath().lastIndexOf("/");
-	m_metaScene.m_sceneDBPath = sceneFileInfo.absolutePath().left(cutPos);
+	m_metaScene.m_sceneDBPath = QString(params::inst()->sceneDirectory.c_str());
 
 	QString databaseType;
 	QString modelFileName;
@@ -70,10 +77,11 @@ void TSScene::loadSceneFile(const QString &filename)
 
 	m_metaScene.m_sceneFormat = databaseType;
 
-	if (databaseType == QString("StanfordSceneDatabase"))
+	//if (databaseType == QString("StanfordSceneDatabase")) {};
+
 	{
 		int currModelID = -1;
-		m_metaScene.m_modelRepository = m_metaScene.m_sceneDBPath + "/models";
+		m_metaScene.m_modelRepository = QString(params::inst()->modelDirectory.c_str());
 
 		while (!ifs.atEnd())
 		{
@@ -93,7 +101,31 @@ void TSScene::loadSceneFile(const QString &filename)
 
 				m_metaScene.m_metaModellList[currModelID].id = modelIndex;
 				m_metaScene.m_metaModellList[currModelID].name = parts[2];
-				m_metaScene.m_metaModellList[currModelID].path = m_metaScene.m_modelRepository.toStdString() + "/" + parts[2] + ".obj";
+
+				string objPathName = m_metaScene.m_modelRepository.toStdString() + "/" + parts[2] + ".obj";
+				m_metaScene.m_metaModellList[currModelID].path = objPathName;
+
+				// check whether obj file exist in current DB
+				// if not exist, check ShapeNetSem DB for this model
+				if (!fileExists(objPathName))
+				{
+					objPathName = params::inst()->shapeNetSemDirectory + "models-OBJ/models/" + parts[2] + ".obj";
+					string texDir = params::inst()->shapeNetSemDirectory + "models-textures/textures/";
+
+					// if exist in ShapeNetSem, update obje file, but the texture db is unchanged
+					if (fileExists(objPathName))
+					{
+						m_metaScene.m_metaModellList[currModelID].path = objPathName;
+						m_metaScene.m_metaModellList[currModelID].textureDir = texDir;
+
+						cout << "\nModel " << parts[2] << " is not in StanfordDB, but is in ShapeNetSem\n";
+					}
+
+					else
+					{
+						cout << "\nCannot load model " << parts[2] << " even from ShapeNetSem\n";
+					}
+				}
 			}
 
 			if (currLine.contains("transform "))
@@ -106,6 +138,7 @@ void TSScene::loadSceneFile(const QString &filename)
 		}
 	}
 
+	m_isLoadFromFile = true;
 	cout << "done." << endl;
 }
 
@@ -122,19 +155,36 @@ void TSScene::render(const Transform &trans, bool applyShadow)
 		MetaModel &md = m_metaScene.m_metaModellList[i];
 		auto &iter = m_models.find(md.name);
 
+		// if set as not render room, and current room is room, then skip
+		if (!m_isRenderRoom && md.name.find("room")!=std::string::npos)
+		{
+			continue;
+		}
+
 		if (iter != m_models.end())
 		{
-			iter->second->render(tt, md.transformation, applyShadow);
+            vec3 collisionTrans = vec3();
+            if(!m_isLoadFromFile&& resolveCollision(iter->second->m_bb, i))
+            {
+                iter->second->m_collisionTrans = vec3(0, 2, 0);
+            }
+
+			iter->second->render(tt, md.transformation, applyShadow, md.textureDir);
 		}
 		else if (md.path.size() > 0)
 		{
 			if (nrLoaded == 0 && m_frameCount % 20 == 0)
 			{
-				Model *model = new Model(md.path.c_str());
-				m_models.insert(make_pair(md.name, model));
-			}
+				// if model exist
+				if (fileExists(md.path.c_str()) && md.name != "roomDefault")
+				{
+					Model *model = new Model(md.path.c_str());
+					m_models.insert(make_pair(md.name, model));
 
-			nrLoaded++;
+					computeSceneBB();
+					nrLoaded++;
+				}	
+			}			
 
 			countLoadedModelNum();
 		}
@@ -348,3 +398,43 @@ void TSScene::updateRoomModel(MetaModel m)
 		loadModel(m);
 	}
 }
+
+bool TSScene::resolveCollision(const BoundingBox &bb, int cidx)
+{
+    vec3 cmi = bb.mi();
+    vec3 cma = bb.ma();
+
+	for (int i = 0; i < m_metaScene.m_metaModellList.size(); i++)
+	{
+        if(i != cidx)
+        {          		
+		    MetaModel &md = m_metaScene.m_metaModellList[i];
+		    auto &iter = m_models.find(md.name);
+
+            if (iter != m_models.end())
+            {
+                vec3 mmi = iter->second->m_bb.mi();
+                vec3 mma = iter->second->m_bb.ma();
+
+                bool coarse = intersectAABB(cmi, cma, mmi, mma);
+                bool fine = false;
+
+                if(coarse)
+                {
+                    fine = iter->second->checkCollisionBBTriangles(bb);
+                    qDebug() << true;
+                }
+
+                return coarse && fine;
+            }
+        }
+    }
+}
+
+bool TSScene::intersectAABB(const vec3 &miA, const vec3 &maA, const vec3 &miB, const vec3 &maB)
+{
+    return (miA.x <= maB.x && maA.x >= miB.x) && 
+           (miA.y <= maB.y && maA.y >= miB.y) &&
+           (miA.z <= maB.z && maA.z >= miB.z);
+}
+

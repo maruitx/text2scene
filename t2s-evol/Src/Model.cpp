@@ -26,8 +26,9 @@ void ModelMesh::buildVBO()
 	m_vbo->setIndexData(m_indices.data(), GL_STATIC_DRAW, m_indices.size());
 	m_vbo->bindDefaultAttribs();
 
-	m_vertices.clear();
-	m_indices.clear();
+    //Currently keeping the geometry data
+	//m_vertices.clear();
+	//m_indices.clear();
 }
 
 void ModelMesh::computeNormals()
@@ -62,7 +63,7 @@ void ModelMesh::computeNormals()
 	}
 }
 
-void ModelMesh::render(const Transform &trans, Shader *shader)
+void ModelMesh::render(const Transform &trans, Shader *shader, const string &textureDir)
 {
 	if (m_vbo)
 	{
@@ -76,7 +77,18 @@ void ModelMesh::render(const Transform &trans, Shader *shader)
 		}
 		else if (m_material.texName.length() > 0)
 		{
-			string path = params::inst()->textureDirectory + m_material.texName;
+			// if there is no texture dir specified, use the global one
+			string td;
+			if (textureDir == "")
+			{
+				td = params::inst()->textureDirectory;
+			}
+			else
+			{
+				td = textureDir;
+			}
+
+			string path = td + m_material.texName;
 			
 			Texture *tex = new Texture(QString(path.c_str()));
 			tex->setEnvMode(GL_REPLACE);
@@ -109,7 +121,7 @@ void ModelMesh::renderDepth(const Transform &trans, const mat4 &model)
 ModelThread::ModelThread(const string &fileName, vector<ModelMesh> &meshes, BoundingBox &bb)
 : m_fileName(fileName), 
   m_meshes(meshes), 
-  m_bb(bb)
+  m_bb(bb)  
 {
 
 }
@@ -125,8 +137,11 @@ void ModelThread::load(const string &fileName)
 	string baseName = fi.baseName().toStdString();
 	cout << "\nLoading Model: " << baseName;
 
-	string modelFile = params::inst()->modelDirectory + baseName + string(".obj");
-	string materialFile = params::inst()->modelDirectory + baseName + string(".mtl");
+	//string modelFile = params::inst()->modelDirectory + baseName + string(".obj");
+	//string materialFile = params::inst()->modelDirectory + baseName + string(".mtl");
+
+	string modelFile = fileName;
+	string materialFile = fi.path().toStdString() + "/" + baseName + string(".mtl");
 
 	std::vector<std::string> objLines = getFileLines(modelFile, 3);
 	std::vector<std::string> mtlLines = getFileLines(materialFile, 3);
@@ -290,7 +305,8 @@ void ModelThread::load(const string &fileName)
 Model::Model(const string &fileName)
 : m_thread(fileName, m_meshes, m_bb), 
   m_vboBB(nullptr), 
-  m_bb(vec3(math_maxfloat), vec3(math_minfloat))
+  m_bb(vec3(math_maxfloat), vec3(math_minfloat)), 
+  m_collisionTrans(vec3())
 {
 	//Code for parallel loading
 	connect(&m_thread, SIGNAL(finished()), this, SLOT(loadingDone()));
@@ -302,7 +318,7 @@ Model::Model(const string &fileName)
 	//	i.buildVBO();
 }
 
-void Model::render(const Transform &trans, const mat4 &initTrans, bool applyShadow)
+void Model::render(const Transform &trans, const mat4 &initTrans, bool applyShadow, const string &textureDir)
 {
 	if (params::inst()->applyCulling)
 	{
@@ -310,8 +326,9 @@ void Model::render(const Transform &trans, const mat4 &initTrans, bool applyShad
 		glEnable(GL_CULL_FACE);
 	}
 
+    mat4 matCollision = mat4::translate(m_collisionTrans);
 	mat4 viewTrans = mat4::scale(params::inst()->globalSceneScale) * mat4::rotateX(-90);
-	mat4 m = viewTrans * initTrans;
+	mat4 m = matCollision * viewTrans * initTrans;
 
 	Shader *shader = shaders::inst()->model;
 	shader->bind();
@@ -323,7 +340,7 @@ void Model::render(const Transform &trans, const mat4 &initTrans, bool applyShad
 
 		for (auto &i : m_meshes)
 		{
-			i.render(trans, shader);
+			i.render(trans, shader, textureDir);
 		}
 
 	shader->release();
@@ -345,8 +362,9 @@ void Model::render(const Transform &trans, const mat4 &initTrans, bool applyShad
 
 void Model::renderDepth(const Transform &trans, const mat4 &initTrans)
 {
+    mat4 matCollision = mat4::translate(m_collisionTrans);
 	mat4 viewTrans = mat4::scale(params::inst()->globalSceneScale) * mat4::rotateX(-90);
-	mat4 m = viewTrans * initTrans;
+    mat4 m = matCollision * viewTrans * initTrans;
 
 	Shader *shader = shaders::inst()->modelDepth;
 	shader->bind();
@@ -447,4 +465,20 @@ void Model::buildBBVBO()
 	m_vboBB->bindDefaultAttribs();
 
     delete data;
+}
+
+bool Model::checkCollisionBBTriangles(const BoundingBox &bb)
+{
+    for(int i=0; i<m_meshes.size(); ++i)
+    {
+        vector<VertexBufferObject::DATA> &vertices = m_meshes[i].m_vertices;
+        
+        for(int j=0; j<vertices.size(); ++j)
+        {
+            VertexBufferObject::DATA d = vertices[j];
+            vec3 p = vec3(d.vx, d.vy, d.vz);
+
+            return bb.inside(p);
+        }
+    }
 }

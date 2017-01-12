@@ -1,6 +1,7 @@
 #include "TextDialog.h"
 #include "GLWidget.h"
 #include "Scene.h"
+#include "Utility.h"
 #include <qtextedit.h>
 #include <qpushbutton.h>
 #include <qboxlayout.h>
@@ -76,10 +77,16 @@ void TextDialog::onButtonProcess()
 
 	QString inputSentence = m_editSentence->toPlainText();
 
-	if (inputSentence.contains("LM "))
+	// load room model
+	if (inputSentence.contains("lrm "))
 	{
 		QStringList stringList = inputSentence.split(" ");
 		QString modelName = stringList[1];
+
+		if (!modelName.contains("room"))
+		{
+			return;
+		}
 
 		MetaModel m;
 		m.name = modelName.toStdString();
@@ -100,19 +107,160 @@ void TextDialog::onButtonProcess()
 		return;
 	}
 
-	if (inputSentence.contains("LS "))
+	// load a list of scenes with filename extension
+	if (inputSentence.contains("ls "))
 	{
-		inputSentence.remove("LS ");
+		bool isRenderRoom = true;
+
+		inputSentence.remove("ls ");
+
+		// option for not loading room
+		if (inputSentence.contains("-nr"))
+		{
+			inputSentence.remove("-nr ");
+			isRenderRoom = false;
+		}
+
 		QStringList sceneNameList = inputSentence.split(" ");
 		
+	
+
 		int sceneNum = sceneNameList.size();
 
+		if (sceneNum < 0) return;
+
+		// load local sceneDB path
+		vector<string> localSceneDBPaths = getFileLines("./SceneDB/LocalSceneDBPath.txt", 3);
+		string stanfordDBPath, shapeNetSemDBPath, scenennDBPath, changScenePath, resultPath;
+
+		for (int i = 0; i < localSceneDBPaths.size(); i++)
+		{
+			if (localSceneDBPaths[i][0] != '#')
+			{
+				if (localSceneDBPaths[i].find("StanfordDB=") != string::npos)
+				{
+					stanfordDBPath = PartitionString(localSceneDBPaths[i], "StanfordDB=")[0];
+					continue;
+				}
+
+				if (localSceneDBPaths[i].find("ShapeNetSemDB=") != string::npos)
+				{
+					shapeNetSemDBPath = PartitionString(localSceneDBPaths[i], "ShapeNetSemDB=")[0];
+					params::inst()->shapeNetSemDirectory = shapeNetSemDBPath;
+					continue;
+				}
+				
+				if (localSceneDBPaths[i].find("SceneNNDB=") != string::npos)
+				{
+					scenennDBPath = PartitionString(localSceneDBPaths[i], "SceneNNDB=")[0];
+					continue;
+				}
+
+				if (localSceneDBPaths[i].find("ChangScenePath=") != string::npos)
+				{
+					changScenePath = PartitionString(localSceneDBPaths[i], "ChangScenePath=")[0];
+					continue;
+				}
+				
+				if (localSceneDBPaths[i].find("ResultPath=") != string::npos)
+				{
+					resultPath = PartitionString(localSceneDBPaths[i], "ResultPath=")[0];
+					continue;
+				}							
+			}
+		}
+
+		if (!dirExists(stanfordDBPath))
+		{
+			cout << "Please set your local StanfordSceneDB in SceneDB/LocalSceneDBPath.txt\n";
+			return;
+		}
+		{
+			// set default DB path as stanfordDB path
+			params::inst()->sceneDirectory = stanfordDBPath + "scenes/";
+			params::inst()->modelDirectory = stanfordDBPath + "models/";
+			params::inst()->textureDirectory = stanfordDBPath + "textures/";
+		}
+
+		// check scene extension and set proper DB path
+		// input scenes number as the variation number each time for now, otherwise will not be shown
 		for (int i = 0; i < sceneNum; i++)
 		{
 			if (sceneNum < m_scene->m_variations.size())
 			{
-				QString sceneFileName = QString(params::inst()->sceneDirectory.c_str()) + sceneNameList[i] + ".txt";
-				m_scene->m_variations[i]->loadSceneFile(sceneFileName);
+				QString sceneName = sceneNameList[i];
+
+				if (sceneName.contains(".txt"))
+				{
+					// still need to update since may first load scenes from other DB
+					params::inst()->sceneDirectory = stanfordDBPath + "scenes/";
+					params::inst()->modelDirectory = stanfordDBPath + "models/";
+					params::inst()->textureDirectory = stanfordDBPath + "textures/";
+				}
+				else if (sceneName.contains(".snn"))
+				{
+					// scenenn use stanfordDB models and textures
+					params::inst()->sceneDirectory = scenennDBPath + "scenes/";
+					params::inst()->modelDirectory = stanfordDBPath + "models/";
+					params::inst()->textureDirectory = stanfordDBPath + "textures/";
+				}
+				else if (sceneName.contains(".user"))
+				{
+					// user scenes saved in resultPath and use the stanfordDB models and textures
+					params::inst()->sceneDirectory = resultPath; 
+					params::inst()->modelDirectory = stanfordDBPath + "models/";
+					params::inst()->textureDirectory = stanfordDBPath + "textures/";
+					
+					double s = 0.1 / 0.0254;
+					params::inst()->globalSceneScale = vec3(s, s,s) ;
+				}
+				else if (sceneName.contains(".chang"))
+				{
+					// chang scenes also saved in resultPath and 
+					// if shapenetsem DB missing, use stanfordDB models
+
+					params::inst()->sceneDirectory = changScenePath;
+
+					// use the stanfordDB models and textures initially
+					// if not in it, use ShapeNetSem models (tested when loading model in TSScene)
+					params::inst()->modelDirectory = stanfordDBPath + "models/";
+					params::inst()->textureDirectory = stanfordDBPath + "textures/";
+
+					//if (shapeNetSemDBPath.empty() && !dirExists(shapeNetSemDBPath))
+					//{
+					//	cout << "ShapeNetSem DB not exist, use StanfordDB models instead; some models may be missing.\n";
+					//	params::inst()->modelDirectory = stanfordDBPath + "models/";
+					//	params::inst()->textureDirectory = stanfordDBPath + "textures/";
+					//}
+					//else
+					//{
+					//	params::inst()->modelDirectory = shapeNetSemDBPath + "models-OBJ/models/";
+					//	params::inst()->textureDirectory = shapeNetSemDBPath + "models-textures/textures/";
+					//}
+				}
+				else if (sceneName.contains(".result"))
+				{
+					// result use  stanfordDB models and textures
+					params::inst()->sceneDirectory = resultPath;
+					params::inst()->modelDirectory = stanfordDBPath + "models/";
+					params::inst()->textureDirectory = stanfordDBPath + "textures/";
+				}
+				else{
+					cout << "Please specify the extension of the scene file\n";
+					return;
+				}
+
+				QString sceneFileName = QString(params::inst()->sceneDirectory.c_str()) + sceneNameList[i];
+
+				if (fileExists(sceneFileName.toStdString()))
+				{
+					m_scene->m_variations[i]->loadSceneFile(sceneFileName);
+					m_scene->m_variations[i]->m_isRenderRoom = isRenderRoom;
+				}
+				else
+				{
+					cout << "Scene file " << sceneFileName.toStdString() << " does not exist\n";
+				}
 			}
 		}
 
