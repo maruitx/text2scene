@@ -109,12 +109,16 @@ void TSScene::loadSceneFile(const QString &filename)
 				// if not exist, check ShapeNetSem DB for this model
 				if (!fileExists(objPathName))
 				{
-					objPathName = "../../SceneDB/ShapeNetSem/models-OBJ/models/" + parts[2] + ".obj";
+					objPathName = params::inst()->shapeNetSemDirectory + "models-OBJ/models/" + parts[2] + ".obj";
+					string texDir = params::inst()->shapeNetSemDirectory + "models-textures/textures/";
 
 					// if exist in ShapeNetSem, update obje file, but the texture db is unchanged
 					if (fileExists(objPathName))
 					{
 						m_metaScene.m_metaModellList[currModelID].path = objPathName;
+						m_metaScene.m_metaModellList[currModelID].textureDir = texDir;
+
+						cout << "\nModel " << parts[2] << " is not in StanfordDB, but is in ShapeNetSem\n";
 					}
 
 					else
@@ -165,7 +169,7 @@ void TSScene::render(const Transform &trans, bool applyShadow)
                 iter->second->m_collisionTrans = vec3(0, 2, 0);
             }
 
-			iter->second->render(tt, md.transformation, applyShadow);
+			iter->second->render(tt, md.transformation, applyShadow, md.textureDir);
 		}
 		else if (md.path.size() > 0)
 		{

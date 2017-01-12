@@ -21,7 +21,7 @@ public:
 	void buildVBO();
 	void computeNormals();
 	
-    void render(const Transform &trans, Shader *shader);
+	void render(const Transform &trans, Shader *shader, const string &textureDir = "");
 	void renderDepth(const Transform &trans, const mat4 &model = mat4::identitiy());
 
 	vector<VertexBufferObject::DATA> m_vertices;
@@ -53,7 +53,7 @@ class Model : public QObject
 
 public:
 	Model(const string &fileName);
-	void render(const Transform &trans, const mat4 &initTrans, bool applyShadow = false);
+	void render(const Transform &trans, const mat4 &initTrans, bool applyShadow = false, const string &textureDir = "");
 	void renderDepth(const Transform &trans, const mat4 &initTrans);
     void buildBBVBO();
     bool checkCollisionBBTriangles(const BoundingBox &bb);

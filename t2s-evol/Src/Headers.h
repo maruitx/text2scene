@@ -94,6 +94,7 @@ struct GlobalObjectParams
 	std::string textureDirectory;
 	std::string sceneDirectory;
 	std::string localSceneDBDirectory;
+	std::string shapeNetSemDirectory;
 
 	unordered_map<string, Texture *> textures;
 

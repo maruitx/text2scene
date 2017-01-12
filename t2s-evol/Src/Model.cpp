@@ -63,7 +63,7 @@ void ModelMesh::computeNormals()
 	}
 }
 
-void ModelMesh::render(const Transform &trans, Shader *shader)
+void ModelMesh::render(const Transform &trans, Shader *shader, const string &textureDir)
 {
 	if (m_vbo)
 	{
@@ -77,10 +77,18 @@ void ModelMesh::render(const Transform &trans, Shader *shader)
 		}
 		else if (m_material.texName.length() > 0)
 		{
-			string textureDir;
-			textureDir = params::inst()->textureDirectory;
+			// if there is no texture dir specified, use the global one
+			string td;
+			if (textureDir == "")
+			{
+				td = params::inst()->textureDirectory;
+			}
+			else
+			{
+				td = textureDir;
+			}
 
-			string path = textureDir + m_material.texName;
+			string path = td + m_material.texName;
 			
 			Texture *tex = new Texture(QString(path.c_str()));
 			tex->setEnvMode(GL_REPLACE);
@@ -129,8 +137,11 @@ void ModelThread::load(const string &fileName)
 	string baseName = fi.baseName().toStdString();
 	cout << "\nLoading Model: " << baseName;
 
-	string modelFile = params::inst()->modelDirectory + baseName + string(".obj");
-	string materialFile = params::inst()->modelDirectory + baseName + string(".mtl");
+	//string modelFile = params::inst()->modelDirectory + baseName + string(".obj");
+	//string materialFile = params::inst()->modelDirectory + baseName + string(".mtl");
+
+	string modelFile = fileName;
+	string materialFile = fi.path().toStdString() + "/" + baseName + string(".mtl");
 
 	std::vector<std::string> objLines = getFileLines(modelFile, 3);
 	std::vector<std::string> mtlLines = getFileLines(materialFile, 3);
@@ -307,7 +318,7 @@ Model::Model(const string &fileName)
 	//	i.buildVBO();
 }
 
-void Model::render(const Transform &trans, const mat4 &initTrans, bool applyShadow)
+void Model::render(const Transform &trans, const mat4 &initTrans, bool applyShadow, const string &textureDir)
 {
 	if (params::inst()->applyCulling)
 	{
@@ -329,7 +340,7 @@ void Model::render(const Transform &trans, const mat4 &initTrans, bool applyShad
 
 		for (auto &i : m_meshes)
 		{
-			i.render(trans, shader);
+			i.render(trans, shader, textureDir);
 		}
 
 	shader->release();

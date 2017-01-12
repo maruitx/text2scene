@@ -146,6 +146,7 @@ void TextDialog::onButtonProcess()
 				if (localSceneDBPaths[i].find("ShapeNetSemDB=") != string::npos)
 				{
 					shapeNetSemDBPath = PartitionString(localSceneDBPaths[i], "ShapeNetSemDB=")[0];
+					params::inst()->shapeNetSemDirectory = shapeNetSemDBPath;
 					continue;
 				}
 				
@@ -215,11 +216,13 @@ void TextDialog::onButtonProcess()
 				}
 				else if (sceneName.contains(".chang"))
 				{
-					// chang scenes also saved in resultPath and use the shapenetsem models and textures
+					// chang scenes also saved in resultPath and 
 					// if shapenetsem DB missing, use stanfordDB models
 
 					params::inst()->sceneDirectory = changScenePath;
 
+					// use the stanfordDB models and textures initially
+					// if not in it, use ShapeNetSem models (tested when loading model in TSScene)
 					params::inst()->modelDirectory = stanfordDBPath + "models/";
 					params::inst()->textureDirectory = stanfordDBPath + "textures/";
 
