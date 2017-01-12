@@ -142,16 +142,24 @@ void Scene::initSynScene()
 	//}
 
 	// modify the SceneDB path to your local SceneDB folder
-	string localSceneDBPath = GetFileLines("./SceneDB/LocalSceneDBPath.txt", 3)[0];
-	params::inst()->localSceneDBDirectory = localSceneDBPath;
+	string localSceneDBPath = getFileLines("./SceneDB/LocalSceneDBPath.txt", 3)[0];
+	string stanfordDBPath = PartitionString(localSceneDBPath, "stanfordDB=")[0];
+
+	if (!dirExists(stanfordDBPath))
+	{
+		cout << "Please set your local StanfordSceneDB in SceneDB/LocalSceneDBPath.txt\n";
+		return;
+	}
+
+	// set initial scene DB to be StanfordSceneDB
+	params::inst()->localSceneDBDirectory = stanfordDBPath;
 
 	m_textSemGraphManager = new TextSemGraphManager();
 	m_sceneGenerator = new SceneGenerator(m_models);
 
-	// temporary setting
-	params::inst()->sceneDirectory = localSceneDBPath + "/StanfordSceneDB/scenes/";
-	params::inst()->modelDirectory = localSceneDBPath + "/StanfordSceneDB/models/";
-	params::inst()->textureDirectory = localSceneDBPath + "/StanfordSceneDB/textures/";
+	params::inst()->sceneDirectory = stanfordDBPath + "scenes/";
+	params::inst()->modelDirectory = stanfordDBPath + "models/";
+	params::inst()->textureDirectory = stanfordDBPath + "textures/";
 
 	m_previewNum = 5;
 	for (int i = 0; i < m_previewNum; ++i)

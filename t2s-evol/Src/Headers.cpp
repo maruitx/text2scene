@@ -633,13 +633,17 @@ bool fileExists(const std::string &filename)
 
 std::vector<std::string> getFileLines(const std::string &filename, unsigned int minLineLength)
 {
+	std::vector<std::string> result;
+
 	if (!fileExists(filename))
 	{
-		std::cout << "Required file not found: " << filename << '\n';
-		exit(1);
+		std::cout << "\nRequired file not found: " << filename << '\n';
+		
+		//exit(1);
+		return result; // just return the empty string
 	}
 	std::ifstream file(filename);
-	std::vector<std::string> result;
+
 	std::string curLine;
 	while (!file.fail())
 	{
@@ -652,4 +656,16 @@ std::vector<std::string> getFileLines(const std::string &filename, unsigned int 
 		}
 	}
 	return result;
+}
+
+bool dirExists(const std::string& dirName_in)
+{
+	DWORD ftyp = GetFileAttributesA(dirName_in.c_str());
+	if (ftyp == INVALID_FILE_ATTRIBUTES)
+		return false;  //something is wrong with your path!
+
+	if (ftyp & FILE_ATTRIBUTE_DIRECTORY)
+		return true;   // this is a directory!
+
+	return false;    // this is not a directory!
 }

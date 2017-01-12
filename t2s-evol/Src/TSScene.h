@@ -32,6 +32,7 @@ public:
 
 public:
 	SceneSemGraph *m_ssg;
+	bool m_isLoadFromFile;
 
 private:
 	unordered_map<string, Model*> &m_models;   // current loaded object DB

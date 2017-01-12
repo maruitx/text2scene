@@ -10,6 +10,7 @@ TSScene::TSScene(unordered_map<string, Model*> &models)
 	m_modelNum(0),
 	m_frameCount(0),
 	m_loadedModelNum(0),
+	m_isLoadFromFile(false),
 	m_ssg(NULL), 
     m_camTrans(0.0f, 0.0f, 0.0f)
 {
@@ -22,6 +23,7 @@ TSScene::TSScene(unordered_map<string, Model*> &models, const QString &fileName)
   m_modelNum(0),
   m_frameCount(0),
   m_loadedModelNum(0),
+  m_isLoadFromFile(false),
   m_ssg(NULL), 
   m_camTrans(0.0f, 0.0f, 0.0f)
 {
@@ -35,6 +37,7 @@ TSScene::TSScene(unordered_map<string, Model*> &models, MetaScene &ms)
 	m_sceneBB(vec3(math_maxfloat), vec3(math_minfloat)),
 	m_frameCount(0),
 	m_loadedModelNum(0),
+	m_isLoadFromFile(false),
 	m_ssg(NULL), 
     m_camTrans(0.0f, 0.0f, 0.0f)
 {
@@ -60,8 +63,7 @@ void TSScene::loadSceneFile(const QString &filename)
 	m_metaScene.m_sceneFileName = sceneFileInfo.baseName();   // scene_01.txt
 	m_metaScene.m_sceneFilePath = sceneFileInfo.absolutePath();
 
-	int cutPos = sceneFileInfo.absolutePath().lastIndexOf("/");
-	m_metaScene.m_sceneDBPath = sceneFileInfo.absolutePath().left(cutPos);
+	m_metaScene.m_sceneDBPath = QString(params::inst()->sceneDirectory.c_str());
 
 	QString databaseType;
 	QString modelFileName;
@@ -70,10 +72,11 @@ void TSScene::loadSceneFile(const QString &filename)
 
 	m_metaScene.m_sceneFormat = databaseType;
 
-	if (databaseType == QString("StanfordSceneDatabase"))
+	//if (databaseType == QString("StanfordSceneDatabase")) {};
+
 	{
 		int currModelID = -1;
-		m_metaScene.m_modelRepository = m_metaScene.m_sceneDBPath + "/models";
+		m_metaScene.m_modelRepository = QString(params::inst()->modelDirectory.c_str());
 
 		while (!ifs.atEnd())
 		{
@@ -106,6 +109,7 @@ void TSScene::loadSceneFile(const QString &filename)
 		}
 	}
 
+	m_isLoadFromFile = true;
 	cout << "done." << endl;
 }
 
@@ -125,7 +129,7 @@ void TSScene::render(const Transform &trans, bool applyShadow)
 		if (iter != m_models.end())
 		{
             vec3 collisionTrans = vec3();
-            if(resolveCollision(iter->second->m_bb, i))
+            if(!m_isLoadFromFile&& resolveCollision(iter->second->m_bb, i))
             {
                 iter->second->m_collisionTrans = vec3(0, 2, 0);
             }
@@ -136,8 +140,27 @@ void TSScene::render(const Transform &trans, bool applyShadow)
 		{
 			if (nrLoaded == 0 && m_frameCount % 20 == 0)
 			{
-				Model *model = new Model(md.path.c_str());
-				m_models.insert(make_pair(md.name, model));
+				// if model exist
+				if (fileExists(md.path.c_str()) && md.name != "roomDefault")
+				{
+					Model *model = new Model(md.path.c_str());
+					m_models.insert(make_pair(md.name, model));
+				}
+				// try to find it in ShapeNetSem DB
+				else if (fileExists(("../../SceneDB/ShapeNetSem/models-OBJ/models/" + md.name + ".obj")))
+				{
+					md.path = "../../SceneDB/ShapeNetSem/models-OBJ/models/" + md.name + ".obj";
+					params::inst()->modelDirectory = "../../SceneDB/ShapeNetSem/models-OBJ/models/";
+					params::inst()->textureDirectory = "../../SceneDB/ShapeNetSem/models-textures/textures/";
+					
+					Model *model = new Model(md.path.c_str());
+					m_models.insert(make_pair(md.name, model));
+				}
+			
+				else
+				{
+					cout << "Cannot load model " << md.path << "\n";
+				}
 			}
 
 			nrLoaded++;

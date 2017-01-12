@@ -170,5 +170,5 @@ void colorMapBgr(float x, float * out, float * cm);
 
 bool fileExists(const std::string &filename);
 std::vector<std::string> getFileLines(const std::string &filename, unsigned int minLineLength);
-
+bool dirExists(const std::string& dirName_in);
 #endif
