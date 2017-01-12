@@ -113,7 +113,6 @@ void GLWidget::initParams()
 	p->textureDirectory    = "";
 	p->sceneDirectory      = "";
 	p->localSceneDBDirectory = "";
-	p->secondTextureDirectory = "";
     
     p->sceneBB = BoundingBox(vec3(math_maxfloat, math_maxfloat, math_maxfloat), vec3(math_minfloat, math_minfloat, math_minfloat));
     //p->cameraTrans = vec3(-12, 0, 12);

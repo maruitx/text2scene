@@ -143,7 +143,7 @@ void Scene::initSynScene()
 
 	// modify the SceneDB path to your local SceneDB folder
 	string localSceneDBPath = getFileLines("./SceneDB/LocalSceneDBPath.txt", 3)[0];
-	string stanfordDBPath = PartitionString(localSceneDBPath, "stanfordDB=")[0];
+	string stanfordDBPath = PartitionString(localSceneDBPath, "StanfordDB=")[0];
 
 	if (!dirExists(stanfordDBPath))
 	{

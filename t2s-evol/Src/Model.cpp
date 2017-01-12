@@ -78,12 +78,7 @@ void ModelMesh::render(const Transform &trans, Shader *shader)
 		else if (m_material.texName.length() > 0)
 		{
 			string textureDir;
-			if (params::inst()->secondTextureDirectory != "")
-			{
-				textureDir = params::inst()->secondTextureDirectory;
-			}
-			else
-				textureDir = params::inst()->textureDirectory;
+			textureDir = params::inst()->textureDirectory;
 
 			string path = textureDir + m_material.texName;
 			
