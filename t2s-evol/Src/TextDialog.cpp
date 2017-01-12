@@ -110,9 +110,21 @@ void TextDialog::onButtonProcess()
 	// load a list of scenes with filename extension
 	if (inputSentence.contains("ls "))
 	{
+		bool isRenderRoom = true;
+
 		inputSentence.remove("ls ");
+
+		// option for not loading room
+		if (inputSentence.contains("-nr"))
+		{
+			inputSentence.remove("-nr ");
+			isRenderRoom = false;
+		}
+
 		QStringList sceneNameList = inputSentence.split(" ");
 		
+	
+
 		int sceneNum = sceneNameList.size();
 
 		if (sceneNum < 0) return;
@@ -197,6 +209,9 @@ void TextDialog::onButtonProcess()
 					params::inst()->sceneDirectory = resultPath; 
 					params::inst()->modelDirectory = stanfordDBPath + "models/";
 					params::inst()->textureDirectory = stanfordDBPath + "textures/";
+					
+					double s = 0.1 / 0.0254;
+					params::inst()->globalSceneScale = vec3(s, s,s) ;
 				}
 				else if (sceneName.contains(".chang"))
 				{
@@ -204,19 +219,21 @@ void TextDialog::onButtonProcess()
 					// if shapenetsem DB missing, use stanfordDB models
 
 					params::inst()->sceneDirectory = changScenePath;
-					if (shapeNetSemDBPath.empty() && !dirExists(shapeNetSemDBPath))
-					{
-						cout << "ShapeNetSem DB not exist, use StanfordDB models instead; some models may be missing.\n";
-						params::inst()->modelDirectory = stanfordDBPath + "models/";
-						params::inst()->textureDirectory = stanfordDBPath + "textures/";
-					}
-					else
-					{
-						params::inst()->modelDirectory = shapeNetSemDBPath + "models-OBJ/models/";
-						params::inst()->textureDirectory = shapeNetSemDBPath + "models-textures/textures/";
-					}
 
+					params::inst()->modelDirectory = stanfordDBPath + "models/";
+					params::inst()->textureDirectory = stanfordDBPath + "textures/";
 
+					//if (shapeNetSemDBPath.empty() && !dirExists(shapeNetSemDBPath))
+					//{
+					//	cout << "ShapeNetSem DB not exist, use StanfordDB models instead; some models may be missing.\n";
+					//	params::inst()->modelDirectory = stanfordDBPath + "models/";
+					//	params::inst()->textureDirectory = stanfordDBPath + "textures/";
+					//}
+					//else
+					//{
+					//	params::inst()->modelDirectory = shapeNetSemDBPath + "models-OBJ/models/";
+					//	params::inst()->textureDirectory = shapeNetSemDBPath + "models-textures/textures/";
+					//}
 				}
 				else if (sceneName.contains(".result"))
 				{
@@ -235,12 +252,12 @@ void TextDialog::onButtonProcess()
 				if (fileExists(sceneFileName.toStdString()))
 				{
 					m_scene->m_variations[i]->loadSceneFile(sceneFileName);
+					m_scene->m_variations[i]->m_isRenderRoom = isRenderRoom;
 				}
 				else
 				{
 					cout << "Scene file " << sceneFileName.toStdString() << " does not exist\n";
 				}
-
 			}
 		}
 

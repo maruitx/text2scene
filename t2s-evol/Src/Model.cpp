@@ -77,7 +77,15 @@ void ModelMesh::render(const Transform &trans, Shader *shader)
 		}
 		else if (m_material.texName.length() > 0)
 		{
-			string path = params::inst()->textureDirectory + m_material.texName;
+			string textureDir;
+			if (params::inst()->secondTextureDirectory != "")
+			{
+				textureDir = params::inst()->secondTextureDirectory;
+			}
+			else
+				textureDir = params::inst()->textureDirectory;
+
+			string path = textureDir + m_material.texName;
 			
 			Texture *tex = new Texture(QString(path.c_str()));
 			tex->setEnvMode(GL_REPLACE);

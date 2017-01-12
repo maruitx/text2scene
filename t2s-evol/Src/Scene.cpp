@@ -185,7 +185,7 @@ void Scene::renderSynScene(const Transform &trans, int var, bool applyShadow)
 	if (var < varNum)
 	{        
 		m_variations[var]->render(trans, applyShadow);        
-        m_variations[var]->computeSceneBB();
+        //m_variations[var]->computeSceneBB();
 	}	
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);

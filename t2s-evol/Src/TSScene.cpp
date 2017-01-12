@@ -10,6 +10,7 @@ TSScene::TSScene(unordered_map<string, Model*> &models)
 	m_modelNum(0),
 	m_frameCount(0),
 	m_loadedModelNum(0),
+	m_isRenderRoom(true),
 	m_isLoadFromFile(false),
 	m_ssg(NULL), 
     m_camTrans(0.0f, 0.0f, 0.0f)
@@ -23,6 +24,7 @@ TSScene::TSScene(unordered_map<string, Model*> &models, const QString &fileName)
   m_modelNum(0),
   m_frameCount(0),
   m_loadedModelNum(0),
+  m_isRenderRoom(true),
   m_isLoadFromFile(false),
   m_ssg(NULL), 
   m_camTrans(0.0f, 0.0f, 0.0f)
@@ -37,6 +39,7 @@ TSScene::TSScene(unordered_map<string, Model*> &models, MetaScene &ms)
 	m_sceneBB(vec3(math_maxfloat), vec3(math_minfloat)),
 	m_frameCount(0),
 	m_loadedModelNum(0),
+	m_isRenderRoom(true),
 	m_isLoadFromFile(false),
 	m_ssg(NULL), 
     m_camTrans(0.0f, 0.0f, 0.0f)
@@ -58,6 +61,8 @@ void TSScene::loadSceneFile(const QString &filename)
 	QTextStream ifs(&inFile);
 
 	if (!inFile.open(QIODevice::ReadOnly | QIODevice::Text)) return;
+
+	string initTextureDir = params::inst()->textureDirectory;
 
 	QFileInfo sceneFileInfo(inFile.fileName());
 	m_metaScene.m_sceneFileName = sceneFileInfo.baseName();   // scene_01.txt
@@ -96,7 +101,27 @@ void TSScene::loadSceneFile(const QString &filename)
 
 				m_metaScene.m_metaModellList[currModelID].id = modelIndex;
 				m_metaScene.m_metaModellList[currModelID].name = parts[2];
-				m_metaScene.m_metaModellList[currModelID].path = m_metaScene.m_modelRepository.toStdString() + "/" + parts[2] + ".obj";
+
+				string objPathName = m_metaScene.m_modelRepository.toStdString() + "/" + parts[2] + ".obj";
+				m_metaScene.m_metaModellList[currModelID].path = objPathName;
+
+				// check whether obj file exist in current DB
+				// if not exist, check ShapeNetSem DB for this model
+				if (!fileExists(objPathName))
+				{
+					objPathName = "../../SceneDB/ShapeNetSem/models-OBJ/models/" + parts[2] + ".obj";
+
+					// if exist in ShapeNetSem, update obje file, but the texture db is unchanged
+					if (fileExists(objPathName))
+					{
+						m_metaScene.m_metaModellList[currModelID].path = objPathName;
+					}
+
+					else
+					{
+						cout << "\nCannot load model " << parts[2] << " even from ShapeNetSem\n";
+					}
+				}
 			}
 
 			if (currLine.contains("transform "))
@@ -126,6 +151,12 @@ void TSScene::render(const Transform &trans, bool applyShadow)
 		MetaModel &md = m_metaScene.m_metaModellList[i];
 		auto &iter = m_models.find(md.name);
 
+		// if set as not render room, and current room is room, then skip
+		if (!m_isRenderRoom && md.name.find("room")!=std::string::npos)
+		{
+			continue;
+		}
+
 		if (iter != m_models.end())
 		{
             vec3 collisionTrans = vec3();
@@ -145,25 +176,11 @@ void TSScene::render(const Transform &trans, bool applyShadow)
 				{
 					Model *model = new Model(md.path.c_str());
 					m_models.insert(make_pair(md.name, model));
-				}
-				// try to find it in ShapeNetSem DB
-				else if (fileExists(("../../SceneDB/ShapeNetSem/models-OBJ/models/" + md.name + ".obj")))
-				{
-					md.path = "../../SceneDB/ShapeNetSem/models-OBJ/models/" + md.name + ".obj";
-					params::inst()->modelDirectory = "../../SceneDB/ShapeNetSem/models-OBJ/models/";
-					params::inst()->textureDirectory = "../../SceneDB/ShapeNetSem/models-textures/textures/";
-					
-					Model *model = new Model(md.path.c_str());
-					m_models.insert(make_pair(md.name, model));
-				}
-			
-				else
-				{
-					cout << "Cannot load model " << md.path << "\n";
-				}
-			}
 
-			nrLoaded++;
+					computeSceneBB();
+					nrLoaded++;
+				}	
+			}			
 
 			countLoadedModelNum();
 		}
