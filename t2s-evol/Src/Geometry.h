@@ -3,6 +3,7 @@
 
 #include "Math.h"
 #include <vector>
+#include "Utility.h"
 
 class Camera;
 struct Transform;
@@ -40,6 +41,47 @@ class BoundingBox
 
             return false;
         }
+
+		// a AABB from input AABB after transformation
+		BoundingBox transformBoudingBox(const mat4 &transMat) const
+		{
+			// get 8 vertices of the input bb
+			std::vector<vec3> vertices(8);
+			vertices[0] = vec3(m_mi.x, m_mi.y, m_mi.z);
+			vertices[1] = vec3(m_ma.x, m_mi.y, m_mi.z);
+			vertices[2] = vec3(m_ma.x, m_ma.y, m_mi.z);
+			vertices[3] = vec3(m_mi.x, m_ma.y, m_mi.z);
+
+			vertices[4] = vec3(m_mi.x, m_mi.y, m_ma.z);
+			vertices[5] = vec3(m_ma.x, m_mi.y, m_ma.z);
+			vertices[6] = vec3(m_ma.x, m_ma.y, m_ma.z);
+			vertices[7] = vec3(m_mi.x, m_ma.y, m_ma.z);
+
+			vec3 mi = vec3(math_maxfloat);
+			vec3 ma = vec3(math_minfloat);
+
+			// transform all vertices and find max, min
+			for (int i = 0; i < 8; i++)
+			{
+				vec3 transVert = TransformPoint(transMat, vertices[i]);
+
+				if (transVert.x < mi.x)
+					mi.x = transVert.x;
+				if (transVert.y < mi.y)
+					mi.y = transVert.y;
+				if (transVert.z < mi.z)
+					mi.z = transVert.z;
+
+				if (transVert.x > ma.x)
+					ma.x = transVert.x;
+				if (transVert.y > ma.y)
+					ma.y = transVert.y;
+				if (transVert.z > ma.z)
+					ma.z = transVert.z;
+			}
+
+			return BoundingBox(mi, ma);
+		}
 
     private:
         vec3 m_mi;

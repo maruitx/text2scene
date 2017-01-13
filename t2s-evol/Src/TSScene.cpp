@@ -430,9 +430,11 @@ bool TSScene::checkCollision(const BoundingBox &bb, int cidx)
 	}
 
 	mat4 cTransMat = m_metaScene.m_metaModellList[cidx].transformation;
-	vec3 cmi = TransformPoint(cTransMat, bb.mi());
-	vec3 cma = TransformPoint(cTransMat, bb.ma());
-	BoundingBox transBB = BoundingBox(cmi, cma);
+	
+	// compute the new transformed BB
+	BoundingBox transBB = bb.transformBoudingBox(cTransMat);
+	vec3 cmi = transBB.mi();
+	vec3 cma = transBB.ma();
 
 	double delta = 0.01 / params::inst()->globalSceneUnitScale;
 
@@ -448,20 +450,20 @@ bool TSScene::checkCollision(const BoundingBox &bb, int cidx)
 
             if (iter != m_models.end())
             {
-				vec3 mmi = TransformPoint(md.transformation, iter->second->m_bb.mi());
-				vec3 mma = TransformPoint(md.transformation, iter->second->m_bb.ma());
+				// compute the new transformed BB
+				BoundingBox newTransBB = iter->second->m_bb.transformBoudingBox(md.transformation);
+				vec3 mmi = newTransBB.mi();
+				vec3 mma = newTransBB.ma();
 
                 bool coarse = intersectAABB(cmi, cma, mmi, mma, delta);
                 bool fine = false;
 
                 //Testing Fine Collision
 			    //fine = iter->second->checkCollisionBBTriangles(transBB, md.transformation, delta);                    
-                qDebug() << "IntTest:" << coarse << fine;
+                //qDebug() << "IntTest:" << coarse << fine;
 
                 if(coarse)
                 {
-                    //fine = iter->second->checkCollisionBBTriangles(bb);
-
 					// test transformed BB to model with current scene transformation
 					fine = iter->second->checkCollisionBBTriangles(transBB, md.transformation, delta);                                      
                 }
