@@ -3,6 +3,7 @@
 #include "VertexBufferObject.h"
 #include "Mesh.h"
 #include "Light.h"
+#include "Utility.h"
 
 #include <sstream> 
 
@@ -305,8 +306,9 @@ void ModelThread::load(const string &fileName)
 Model::Model(const string &fileName)
 : m_thread(fileName, m_meshes, m_bb), 
   m_vboBB(nullptr), 
-  m_bb(vec3(math_maxfloat), vec3(math_minfloat)), 
-  m_collisionTrans(vec3())
+  m_bb(vec3(math_maxfloat), vec3(math_minfloat)),
+  m_loadingDone(false)
+  //m_collisionTrans(vec3())
 {
 	//Code for parallel loading
 	connect(&m_thread, SIGNAL(finished()), this, SLOT(loadingDone()));
@@ -326,9 +328,10 @@ void Model::render(const Transform &trans, const mat4 &initTrans, bool applyShad
 		glEnable(GL_CULL_FACE);
 	}
 
-    mat4 matCollision = mat4::translate(m_collisionTrans);
-	mat4 viewTrans = mat4::scale(params::inst()->globalSceneScale) * mat4::rotateX(-90);
-	mat4 m = matCollision * viewTrans * initTrans;
+    //mat4 matCollision = mat4::translate(m_collisionTrans);
+	mat4 viewTrans = mat4::scale(params::inst()->globalSceneViewScale) * mat4::rotateX(-90);
+	//mat4 m = matCollision * viewTrans * initTrans;
+	mat4 m = viewTrans * initTrans;
 
 	Shader *shader = shaders::inst()->model;
 	shader->bind();
@@ -362,9 +365,10 @@ void Model::render(const Transform &trans, const mat4 &initTrans, bool applyShad
 
 void Model::renderDepth(const Transform &trans, const mat4 &initTrans)
 {
-    mat4 matCollision = mat4::translate(m_collisionTrans);
-	mat4 viewTrans = mat4::scale(params::inst()->globalSceneScale) * mat4::rotateX(-90);
-    mat4 m = matCollision * viewTrans * initTrans;
+    //mat4 matCollision = mat4::translate(m_collisionTrans);
+	mat4 viewTrans = mat4::scale(params::inst()->globalSceneViewScale) * mat4::rotateX(-90);
+    //mat4 m = matCollision * viewTrans * initTrans;
+	mat4 m =  viewTrans * initTrans;
 
 	Shader *shader = shaders::inst()->modelDepth;
 	shader->bind();
@@ -386,6 +390,8 @@ void Model::loadingDone()
 	}
 
     buildBBVBO();
+	
+	m_loadingDone = true;
 }
 
 void Model::buildBBVBO()
@@ -481,4 +487,30 @@ bool Model::checkCollisionBBTriangles(const BoundingBox &bb)
             return bb.inside(p);
         }
     }
+}
+
+bool Model::checkCollisionBBTriangles(const BoundingBox &bb, const mat4 &transMat, double delta)
+{
+	bool isCollide = false;
+
+	for (int i = 0; i < m_meshes.size(); ++i)
+	{
+		vector<VertexBufferObject::DATA> &vertices = m_meshes[i].m_vertices;
+
+		for (int j = 0; j < vertices.size(); ++j)
+		{
+			VertexBufferObject::DATA d = vertices[j];
+			
+			vec3 p = TransformPoint(transMat, vec3(d.vx, d.vy, d.vz));
+	
+			isCollide = bb.inside(p, delta);
+
+			if (isCollide)
+			{
+				return true;
+			}
+		}
+	}
+
+	return false;
 }

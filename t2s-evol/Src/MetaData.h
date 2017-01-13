@@ -6,13 +6,15 @@
 class MetaModel
 	{
 		public:
-			MetaModel() : name(""), id(0), transformation(mat4::identitiy()), material(), visible(true), path(""), textureDir(""), frontDir(vec3(0, -1, 0)), upDir(vec3(0, 0, 1)), position(vec3(0, 0, 0)), isInited(false) {}
-			MetaModel(const MetaModel &md) { name = md.name; id = md.id; transformation = md.transformation; material = md.material; visible = md.visible; path = md.path; textureDir = md.textureDir; frontDir = md.frontDir; upDir = md.upDir; position = md.position; isInited = md.isInited; };
-			MetaModel &operator = (const MetaModel &md) { name = md.name; id = md.id; transformation = md.transformation; material = md.material; visible = md.visible; path = md.path; textureDir = md.textureDir; isInited = md.isInited;  return *this; }
+			MetaModel() : name(""), id(0), transformation(mat4::identitiy()), collisionTransVec(vec3()), material(), visible(true), path(""), textureDir(""), frontDir(vec3(0, -1, 0)), upDir(vec3(0, 0, 1)), position(vec3(0, 0, 0)), isInitLoaded(false), isAlreadyPlaced(false) {}
+			MetaModel(const MetaModel &md) { name = md.name; id = md.id; transformation = md.transformation; collisionTransVec = md.collisionTransVec; material = md.material; visible = md.visible; path = md.path; textureDir = md.textureDir; frontDir = md.frontDir; upDir = md.upDir; position = md.position; isInitLoaded = md.isInitLoaded; isAlreadyPlaced = md.isAlreadyPlaced; };
+			MetaModel &operator = (const MetaModel &md) { name = md.name; id = md.id; transformation = md.transformation; collisionTransVec = md.collisionTransVec; material = md.material; visible = md.visible; path = md.path; textureDir = md.textureDir; isInitLoaded = md.isInitLoaded; isAlreadyPlaced = md.isAlreadyPlaced;  return *this; }
 
 			string name;
 			int id;
 			mat4 transformation;
+			vec3 collisionTransVec;
+
 			Material material;		
 			bool visible;
 			string path;
@@ -22,7 +24,8 @@ class MetaModel
 			vec3 upDir;
 			vec3 position;
 
-			bool isInited;
+			bool isInitLoaded; // whether the model is loaded at the beginning
+			bool isAlreadyPlaced; // whether the model is already placed in the scene
 	};
 
 class MetaScene

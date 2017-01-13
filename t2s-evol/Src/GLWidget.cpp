@@ -104,7 +104,8 @@ void GLWidget::initParams()
     p->depthRangeMax       = 1.0f;
     p->depthRangeMin       = 0.0f;
     
-    p->globalSceneScale    = vec3(0.1f);
+    p->globalSceneViewScale    = vec3(0.1f);
+	p->globalSceneUnitScale = 0.0254;  // 1 inch = 0.0254m
 
     p->nrVertices          = 0;
     p->nrActiveVertices    = 0;

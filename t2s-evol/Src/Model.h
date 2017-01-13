@@ -57,10 +57,13 @@ public:
 	void renderDepth(const Transform &trans, const mat4 &initTrans);
     void buildBBVBO();
     bool checkCollisionBBTriangles(const BoundingBox &bb);
+	bool checkCollisionBBTriangles(const BoundingBox &bb, const mat4 &transMat, double delta = 0);  // transMat is the transformation to place the model in current scene
 
-    vec3 m_collisionTrans;
+    //vec3 m_collisionTrans;
 	vec3 m_sceneCenter;
     BoundingBox m_bb;
+
+	bool m_loadingDone;
 
 public slots:
 	void loadingDone();	

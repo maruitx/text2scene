@@ -25,13 +25,13 @@ class BoundingBox
         void setMax(const vec3 &ma) { m_ma = ma; }
         void setMinMax(const vec3 &mi, const vec3 &ma) { m_mi = mi; m_ma = ma; }    
 
-        bool inside(const vec3 &p) const 
+        bool inside(const vec3 &p, double delta = 0) const 
         {
-            if(p.x >= m_mi.x && p.x <= m_ma.x)
+			if (p.x >= m_mi.x + delta && p.x <= m_ma.x - delta)
             {
-                if(p.y >= m_mi.y && p.y <= m_ma.y)
+				if (p.y >= m_mi.y + delta && p.y <= m_ma.y - delta)
                 {
-                    if(p.z >= m_mi.z && p.z <= m_ma.z)
+					if (p.z >= m_mi.z + delta&& p.z <= m_ma.z - delta)
                     {
                         return true;
                     }

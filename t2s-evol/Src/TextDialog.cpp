@@ -94,7 +94,7 @@ void TextDialog::onButtonProcess()
 		mat4 transMat;
 		transMat.setToIdentity();
 		m.transformation = transMat;
-		m.isInited = true;
+		m.isInitLoaded = true;
 
 		m_scene->roomModel = m;
 
@@ -212,7 +212,7 @@ void TextDialog::onButtonProcess()
 					params::inst()->textureDirectory = stanfordDBPath + "textures/";
 					
 					double s = 0.1 / 0.0254;
-					params::inst()->globalSceneScale = vec3(s, s,s) ;
+					params::inst()->globalSceneViewScale = vec3(s, s,s) ;
 				}
 				else if (sceneName.contains(".chang"))
 				{

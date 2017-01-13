@@ -23,8 +23,10 @@ public:
 
 	void countLoadedModelNum(); // count loaded model number by finding model in loaded modelDB
     void computeSceneBB();
-    bool resolveCollision(const BoundingBox &bb, int cidx);
-    bool intersectAABB(const vec3 &miA, const vec3 &maA, const vec3 &miB, const vec3 &maB);
+    bool checkCollision(const BoundingBox &bb, int cidx);
+    bool intersectAABB(const vec3 &miA, const vec3 &maA, const vec3 &miB, const vec3 &maB, double delta = 0);
+
+	bool resolveCollision(int modelId);
 
 	void loadModel(MetaModel m);
 
@@ -47,6 +49,7 @@ private:
 	int m_frameCount;
 
 	int m_loadedModelNum;
+	bool m_isLoadingDone;
 
 
 };

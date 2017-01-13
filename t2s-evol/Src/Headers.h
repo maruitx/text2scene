@@ -82,7 +82,8 @@ struct GlobalObjectParams
     float sampleShading;
     float lightIntensity;
 
-    vec3 globalSceneScale;
+    vec3 globalSceneViewScale;
+	double globalSceneUnitScale;  // unit in file to m
 
     vector<Light *> lights;
     int activeLight;

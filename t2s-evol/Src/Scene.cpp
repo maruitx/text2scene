@@ -124,23 +124,6 @@ void Scene::initTextures()
 
 void Scene::initSynScene()
 {
-	//const string directory = "./SceneDB/StanfordSceneDB/";  
-	////const string directory = "L:/sceneSynthesisDatabase/databaseFull/";
-	//const string scene = "scene00003.txt";
-
-	//params::inst()->sceneDirectory   = directory + "scenes/";
-	//params::inst()->modelDirectory   = directory + "models/";
-	//params::inst()->textureDirectory = directory + "textures/";
-
-	//for (int i = 0; i < 15; ++i)
-	//{
-	//	TSScene *s = new TSScene(m_models, QString((params::inst()->sceneDirectory + scene).c_str()));
-	//	if (i > 0)
-	//		s->makeRandom();
-
-	//	m_variations.push_back(s);
-	//}
-
 	// modify the SceneDB path to your local SceneDB folder
 	string localSceneDBPath = getFileLines("./SceneDB/LocalSceneDBPath.txt", 3)[0];
 	string stanfordDBPath = PartitionString(localSceneDBPath, "StanfordDB=")[0];
@@ -160,6 +143,7 @@ void Scene::initSynScene()
 	params::inst()->sceneDirectory = stanfordDBPath + "scenes/";
 	params::inst()->modelDirectory = stanfordDBPath + "models/";
 	params::inst()->textureDirectory = stanfordDBPath + "textures/";
+	params::inst()->globalSceneUnitScale = 0.0254; // default unit scale is inch to m
 
 	m_previewNum = 5;
 	for (int i = 0; i < m_previewNum; ++i)

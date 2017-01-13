@@ -23,6 +23,8 @@ public:
 
 	// alignment
 	SceneSemGraph* alignToCurrTSScene(SceneSemGraph *matchedSg);
+	void geometryAlignment(SceneSemGraph *matchedSg, SceneSemGraph *targetSg);
+
 	mat4 computeTransMat(const MetaModel &fromModel, const MetaModel &toModel);
 
 private:
@@ -31,5 +33,7 @@ private:
 	SceneSemGraphManager *m_sceneSemGraphManager;
 
 	TSScene *m_currTSScene;
+
+	std::map<int, int> m_mapFromMatchToNewNodeId;
 };
 

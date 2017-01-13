@@ -10,6 +10,7 @@ TSScene::TSScene(unordered_map<string, Model*> &models)
 	m_modelNum(0),
 	m_frameCount(0),
 	m_loadedModelNum(0),
+	m_isLoadingDone(false),
 	m_isRenderRoom(true),
 	m_isLoadFromFile(false),
 	m_ssg(NULL), 
@@ -24,6 +25,7 @@ TSScene::TSScene(unordered_map<string, Model*> &models, const QString &fileName)
   m_modelNum(0),
   m_frameCount(0),
   m_loadedModelNum(0),
+  m_isLoadingDone(false),
   m_isRenderRoom(true),
   m_isLoadFromFile(false),
   m_ssg(NULL), 
@@ -39,6 +41,7 @@ TSScene::TSScene(unordered_map<string, Model*> &models, MetaScene &ms)
 	m_sceneBB(vec3(math_maxfloat), vec3(math_minfloat)),
 	m_frameCount(0),
 	m_loadedModelNum(0),
+	m_isLoadingDone(false),
 	m_isRenderRoom(true),
 	m_isLoadFromFile(false),
 	m_ssg(NULL), 
@@ -163,13 +166,18 @@ void TSScene::render(const Transform &trans, bool applyShadow)
 
 		if (iter != m_models.end())
 		{
-            vec3 collisionTrans = vec3();
-            if(!m_isLoadFromFile&& resolveCollision(iter->second->m_bb, i))
-            {
-                iter->second->m_collisionTrans = vec3(0, 2, 0);
-            }
-
-			iter->second->render(tt, md.transformation, applyShadow, md.textureDir);
+			if (iter->second->m_loadingDone)
+			{
+				if (!m_isLoadFromFile && checkCollision(iter->second->m_bb, i))
+				{
+					resolveCollision(i);
+				}
+				else
+				{
+					md.isAlreadyPlaced = true;
+					iter->second->render(tt, md.transformation, applyShadow, md.textureDir);
+				}
+			}	
 		}
 		else if (md.path.size() > 0)
 		{
@@ -181,16 +189,21 @@ void TSScene::render(const Transform &trans, bool applyShadow)
 					Model *model = new Model(md.path.c_str());
 					m_models.insert(make_pair(md.name, model));
 
-					computeSceneBB();
-					nrLoaded++;
+					m_isLoadingDone = false; // when new insert a model, slow loading in another thread
+					
+					nrLoaded++;					
 				}	
 			}			
-
-			countLoadedModelNum();
 		}
 	}
 
+	computeSceneBB();
     //renderSceneBB(trans);
+
+	if (!m_isLoadingDone)
+	{
+		countLoadedModelNum();
+	}
 
 	m_frameCount++;
 }
@@ -282,6 +295,12 @@ void TSScene::makeRandom()
 
 void TSScene::countLoadedModelNum()
 {
+	if (m_metaScene.m_metaModellList.size() == 0)
+	{
+		m_isLoadingDone = true;
+		return;
+	}
+
 	m_loadedModelNum = 0;
 
 	for (int i = 0; i < m_metaScene.m_metaModellList.size(); i++)
@@ -289,7 +308,7 @@ void TSScene::countLoadedModelNum()
 		MetaModel &md = m_metaScene.m_metaModellList[i];
 		auto &iter = m_models.find(md.name);
 
-		if (iter != m_models.end())
+		if (iter != m_models.end() && iter->second->m_loadingDone)
 		{
 			m_loadedModelNum++;
 		}
@@ -297,6 +316,7 @@ void TSScene::countLoadedModelNum()
 
 	if (m_loadedModelNum == m_metaScene.m_metaModellList.size())
 	{
+		m_isLoadingDone = true;
 		cout << "\nFinish loading models for "<<m_metaScene.m_sceneFileName.toStdString()<<"\n";
 	}
 }
@@ -321,7 +341,7 @@ void TSScene::computeSceneBB()
             vec3 mi = bb.mi();
             vec3 ma = bb.ma();
 
-	        mat4 viewTrans = mat4::scale(params::inst()->globalSceneScale) * mat4::rotateX(-90);
+	        mat4 viewTrans = mat4::scale(params::inst()->globalSceneViewScale) * mat4::rotateX(-90);
 	        mat4 m = viewTrans * md.transformation;
 
             mi = m * mi;
@@ -376,7 +396,7 @@ void TSScene::loadModel(MetaModel m)
 
 void TSScene::updateRoomModel(MetaModel m)
 {
-	if (m.isInited)
+	if (m.isInitLoaded)
 	{
 		for (int i = 0; i < m_metaScene.m_metaModellList.size(); i++)
 		{
@@ -399,42 +419,82 @@ void TSScene::updateRoomModel(MetaModel m)
 	}
 }
 
-bool TSScene::resolveCollision(const BoundingBox &bb, int cidx)
+bool TSScene::checkCollision(const BoundingBox &bb, int cidx)
 {
-    vec3 cmi = bb.mi();
-    vec3 cma = bb.ma();
+	bool isCollide = false;
+
+	// do not check for model that is already placed in the scene
+	if (m_metaScene.m_metaModellList[cidx].isAlreadyPlaced)
+	{
+		return false;
+	}
+
+	//vec3 cmi = bb.mi();
+	//vec3 cma = bb.ma();
+
+	mat4 cTransMat = m_metaScene.m_metaModellList[cidx].transformation;
+	vec3 cmi = TransformPoint(cTransMat, bb.mi());
+	vec3 cma = TransformPoint(cTransMat, bb.ma());
+	BoundingBox transBB = BoundingBox(cmi, cma);
+
+	double delta = 0.01 / params::inst()->globalSceneUnitScale;
 
 	for (int i = 0; i < m_metaScene.m_metaModellList.size(); i++)
 	{
-        if(i != cidx)
+		bool isModelAlreadyPlaced = m_metaScene.m_metaModellList[i].isAlreadyPlaced;
+
+		// only check collision with model that is already placed in the scene
+		if (i != cidx && isModelAlreadyPlaced)
         {          		
 		    MetaModel &md = m_metaScene.m_metaModellList[i];
 		    auto &iter = m_models.find(md.name);
 
             if (iter != m_models.end())
             {
-                vec3 mmi = iter->second->m_bb.mi();
-                vec3 mma = iter->second->m_bb.ma();
+				//vec3 mmi = iter->second->m_bb.mi();
+				//vec3 mma = iter->second->m_bb.ma();
 
-                bool coarse = intersectAABB(cmi, cma, mmi, mma);
+				mat4 mTransMat = m_metaScene.m_metaModellList[cidx].transformation;
+				vec3 mmi = TransformPoint(mTransMat, iter->second->m_bb.mi());
+				vec3 mma = TransformPoint(mTransMat, iter->second->m_bb.ma());
+
+                bool coarse = intersectAABB(cmi, cma, mmi, mma, delta);
                 bool fine = false;
 
                 if(coarse)
                 {
-                    fine = iter->second->checkCollisionBBTriangles(bb);
-                    qDebug() << true;
+                    //fine = iter->second->checkCollisionBBTriangles(bb);
+
+					// test transformed BB to model with current scene transformation
+					fine = iter->second->checkCollisionBBTriangles(transBB, md.transformation, delta);                    
                 }
 
-                return coarse && fine;
+				isCollide = coarse && fine;
+
+				if (isCollide)
+				{
+					qDebug() << true;
+					return isCollide;
+				}
             }
         }
     }
+
+	return false;
 }
 
-bool TSScene::intersectAABB(const vec3 &miA, const vec3 &maA, const vec3 &miB, const vec3 &maB)
+bool TSScene::intersectAABB(const vec3 &miA, const vec3 &maA, const vec3 &miB, const vec3 &maB, double delta)
 {
-    return (miA.x <= maB.x && maA.x >= miB.x) && 
-           (miA.y <= maB.y && maA.y >= miB.y) &&
-           (miA.z <= maB.z && maA.z >= miB.z);
+	return (miA.x + delta <= maB.x && maA.x  - delta >= miB.x) &&
+		(miA.y + delta <= maB.y && maA.y - delta >= miB.y) &&
+		(miA.z + delta <= maB.z && maA.z - delta >= miB.z);
+}
+
+bool TSScene::resolveCollision(int modelId)
+{
+
+	//testModel->m_collisionTrans += vec3(0, 2, 0);
+
+	return true;
 }
 
