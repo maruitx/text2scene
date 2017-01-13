@@ -4,6 +4,7 @@
 #include "Mesh.h"
 #include "Light.h"
 #include "Utility.h"
+#include "TriangleIntersection.h"
 
 #include <sstream> 
 
@@ -473,27 +474,129 @@ void Model::buildBBVBO()
     delete data;
 }
 
+//used to map from vec3 to [3]
+bool triangleTriangleWrapper(const vec3 &a1, const vec3 &a2, const vec3 &a3, const vec3 &b1, const vec3 &b2, const vec3 &b3)
+{    
+    float p1[3], q1[3], r1[3];
+    float p2[3], q2[3], r2[3];
+    
+    p1[0] = a1.x;
+    p1[1] = a1.y;
+    p1[2] = a1.z;
+
+    q1[0] = a2.x;
+    q1[1] = a2.y;
+    q1[2] = a2.z;
+
+    r1[0] = a3.x;
+    r1[1] = a3.y;
+    r1[2] = a3.z;
+
+    p1[0] = b1.x;
+    p1[1] = b1.y;
+    p1[2] = b1.z;
+
+    q1[0] = b2.x;
+    q1[1] = b2.y;
+    q1[2] = b2.z;
+
+    r1[0] = b3.x;
+    r1[1] = b3.y;
+    r1[2] = b3.z;
+    
+    return tri_tri_intersect(p1, q1, r1, p2, q2, r2);
+}
+
 bool Model::checkCollisionBBTriangles(const BoundingBox &bb, const mat4 &transMat, double delta)
-{
-	bool isCollide = false;
+{	
+    //box triangle collision as triangle triangle collision
+
+    vec3 b1 = vec3(bb.mi().x, bb.mi().y, bb.mi().z);
+    vec3 b2 = vec3(bb.ma().x, bb.mi().y, bb.mi().z);
+    vec3 b3 = vec3(bb.ma().x, bb.mi().y, bb.ma().z);
+    vec3 b4 = vec3(bb.mi().x, bb.mi().y, bb.ma().z);
+
+    vec3 b5 = vec3(bb.mi().x, bb.ma().y, bb.mi().z);
+    vec3 b6 = vec3(bb.ma().x, bb.ma().y, bb.mi().z);
+    vec3 b7 = vec3(bb.ma().x, bb.ma().y, bb.ma().z);
+    vec3 b8 = vec3(bb.mi().x, bb.ma().y, bb.ma().z);
+
+    vector<tuple<vec3, vec3, vec3>> triangles;
+    
+    //BB Triangles
+
+    //bottom
+    triangles.push_back(make_tuple(b1, b2, b4));
+    triangles.push_back(make_tuple(b2, b3, b4));
+
+    //top
+    triangles.push_back(make_tuple(b5, b6, b8));
+    triangles.push_back(make_tuple(b6, b7, b8));
+
+    //right
+    triangles.push_back(make_tuple(b2, b3, b6));
+    triangles.push_back(make_tuple(b3, b7, b6));
+
+    //left
+    triangles.push_back(make_tuple(b4, b1, b5));
+    triangles.push_back(make_tuple(b4, b5, b8));
+
+    //front
+    triangles.push_back(make_tuple(b1, b2, b6));
+    triangles.push_back(make_tuple(b6, b5, b1));
+
+    //back
+    triangles.push_back(make_tuple(b3, b4, b8));
+    triangles.push_back(make_tuple(b8, b7, b3));
+    
+    bool iscollide = false;
 
 	for (int i = 0; i < m_meshes.size(); ++i)
 	{
 		vector<VertexBufferObject::DATA> &vertices = m_meshes[i].m_vertices;
+        vector<uint> &indices = m_meshes[i].m_indices;
 
-		for (int j = 0; j < vertices.size(); ++j)
-		{
-			VertexBufferObject::DATA d = vertices[j];
-			
-			vec3 p = TransformPoint(transMat, vec3(d.vx, d.vy, d.vz));
+        for(int j=0; j<indices.size()-3; j+=3)
+        {
+            VertexBufferObject::DATA &d1 = vertices[indices[j]];
+            VertexBufferObject::DATA &d2 = vertices[indices[j+1]];
+            VertexBufferObject::DATA &d3 = vertices[indices[j+2]];
+
+            vec3 v1 = TransformPoint(transMat, vec3(d1.vx, d1.vy, d1.vz));
+            vec3 v2 = TransformPoint(transMat, vec3(d2.vx, d2.vy, d2.vz));
+            vec3 v3 = TransformPoint(transMat, vec3(d3.vx, d3.vy, d3.vz));
+
+            for(int k=0; k<triangles.size(); ++k)
+            {
+                auto &t = triangles[k];
+
+                vec3 w1 = get<0>(t);
+                vec3 w2 = get<1>(t);
+                vec3 w3 = get<2>(t);
+
+                bool iscollide = triangleTriangleWrapper(v1, v2, v3, w1, w2, w3);
+                
+                if(iscollide)
+                    return true;
+            }
+        }                
+
+        //point in box test
+        //bool isCollide = false;
+
+		//for (int j = 0; j < vertices.size(); ++j)
+		//{
+		//	VertexBufferObject::DATA d = vertices[j];
+		//	
+		//	vec3 p = TransformPoint(transMat, vec3(d.vx, d.vy, d.vz));
 	
-			isCollide = bb.inside(p, delta);
+		//	isCollide = bb.inside(p, delta);
 
-			if (isCollide)
-			{
-				return true;
-			}
-		}
+		//	if (isCollide)
+		//	{
+		//		return true;
+		//	}
+		//}
 	}
 
 	return false;

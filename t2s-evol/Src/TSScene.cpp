@@ -441,7 +441,7 @@ bool TSScene::checkCollision(const BoundingBox &bb, int cidx)
 		bool isModelAlreadyPlaced = m_metaScene.m_metaModellList[i].isAlreadyPlaced;
 
 		// only check collision with model that is already placed in the scene
-		if (i != cidx && isModelAlreadyPlaced)
+		if (i != cidx)// && isModelAlreadyPlaced)
         {          		
 		    MetaModel &md = m_metaScene.m_metaModellList[i];
 		    auto &iter = m_models.find(md.name);
@@ -454,16 +454,20 @@ bool TSScene::checkCollision(const BoundingBox &bb, int cidx)
                 bool coarse = intersectAABB(cmi, cma, mmi, mma, delta);
                 bool fine = false;
 
+                //Testing Fine Collision
+			    //fine = iter->second->checkCollisionBBTriangles(transBB, md.transformation, delta);                    
+                qDebug() << "IntTest:" << coarse << fine;
+
                 if(coarse)
                 {
                     //fine = iter->second->checkCollisionBBTriangles(bb);
 
 					// test transformed BB to model with current scene transformation
-					fine = iter->second->checkCollisionBBTriangles(transBB, md.transformation, delta);                    
+					fine = iter->second->checkCollisionBBTriangles(transBB, md.transformation, delta);                                      
                 }
 
-				//isCollide = coarse && fine;
-				isCollide = coarse;
+				isCollide = coarse && fine;
+				//isCollide = coarse;
 
 				if (isCollide)
 				{
