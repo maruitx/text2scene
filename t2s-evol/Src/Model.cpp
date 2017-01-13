@@ -473,22 +473,6 @@ void Model::buildBBVBO()
     delete data;
 }
 
-bool Model::checkCollisionBBTriangles(const BoundingBox &bb)
-{
-    for(int i=0; i<m_meshes.size(); ++i)
-    {
-        vector<VertexBufferObject::DATA> &vertices = m_meshes[i].m_vertices;
-        
-        for(int j=0; j<vertices.size(); ++j)
-        {
-            VertexBufferObject::DATA d = vertices[j];
-            vec3 p = vec3(d.vx, d.vy, d.vz);
-
-            return bb.inside(p);
-        }
-    }
-}
-
 bool Model::checkCollisionBBTriangles(const BoundingBox &bb, const mat4 &transMat, double delta)
 {
 	bool isCollide = false;

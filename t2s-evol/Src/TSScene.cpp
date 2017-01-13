@@ -429,9 +429,6 @@ bool TSScene::checkCollision(const BoundingBox &bb, int cidx)
 		return false;
 	}
 
-	//vec3 cmi = bb.mi();
-	//vec3 cma = bb.ma();
-
 	mat4 cTransMat = m_metaScene.m_metaModellList[cidx].transformation;
 	vec3 cmi = TransformPoint(cTransMat, bb.mi());
 	vec3 cma = TransformPoint(cTransMat, bb.ma());
@@ -451,12 +448,8 @@ bool TSScene::checkCollision(const BoundingBox &bb, int cidx)
 
             if (iter != m_models.end())
             {
-				//vec3 mmi = iter->second->m_bb.mi();
-				//vec3 mma = iter->second->m_bb.ma();
-
-				mat4 mTransMat = m_metaScene.m_metaModellList[cidx].transformation;
-				vec3 mmi = TransformPoint(mTransMat, iter->second->m_bb.mi());
-				vec3 mma = TransformPoint(mTransMat, iter->second->m_bb.ma());
+				vec3 mmi = TransformPoint(md.transformation, iter->second->m_bb.mi());
+				vec3 mma = TransformPoint(md.transformation, iter->second->m_bb.ma());
 
                 bool coarse = intersectAABB(cmi, cma, mmi, mma, delta);
                 bool fine = false;
@@ -469,11 +462,12 @@ bool TSScene::checkCollision(const BoundingBox &bb, int cidx)
 					fine = iter->second->checkCollisionBBTriangles(transBB, md.transformation, delta);                    
                 }
 
-				isCollide = coarse && fine;
+				//isCollide = coarse && fine;
+				isCollide = coarse;
 
 				if (isCollide)
 				{
-					qDebug() << true;
+					//qDebug() << true;
 					return isCollide;
 				}
             }
