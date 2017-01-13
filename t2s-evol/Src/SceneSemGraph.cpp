@@ -50,18 +50,13 @@ void SceneSemGraph::loadGraph(const QString &filename)
 
 	ifs >> m_metaScene.m_sceneFormat;
 
-	if (m_metaScene.m_sceneFormat == "StanfordSceneDatabase")
+	// set DB path for the SSG
+	if (m_metaScene.m_sceneFormat == "StanfordSceneDatabase" || m_metaScene.m_sceneFormat == "SceneNNConversionOutput")
 	{
-		m_metaScene.m_sceneDBPath = QString(params::inst()->localSceneDBDirectory.c_str()) + "/StanfordSceneDB";
-
+		m_metaScene.m_sceneDBPath = QString(params::inst()->localSceneDBDirectory.c_str());
 		m_metaScene.m_sceneFilePath = m_metaScene.m_sceneDBPath + "/scenes";
 		m_metaScene.m_modelRepository = m_metaScene.m_sceneDBPath + "/models";
 	}
-	else if (m_metaScene.m_sceneFormat == "SceneNNConversionOutput")
-	{
-
-	}
-
 	
 	while (!ifs.atEnd())
 	{
