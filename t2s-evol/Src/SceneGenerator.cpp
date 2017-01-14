@@ -120,8 +120,9 @@ SceneSemGraph* SceneGenerator::alignToCurrTSScene(SceneSemGraph *matchedSg)
 				break;			
 			}
 
-			int mInNodeId = matchedSgNode.inEdgeNodeList[0];
-			int mOutNodeId = matchedSgNode.outEdgeNodeList[0];
+			// edge dir: (active, relation), (relation, reference)
+			int mInNodeId = matchedSgNode.inEdgeNodeList[0]; // active Node
+			int mOutNodeId = matchedSgNode.outEdgeNodeList[0]; // reference Node
 
 			// if any object node is not in the aligned map, then break
 			if (!m_mapFromMatchToNewNodeId.count(mInNodeId) || !m_mapFromMatchToNewNodeId.count(mOutNodeId))
@@ -206,8 +207,9 @@ void SceneGenerator::geometryAlignment(SceneSemGraph *matchedSg, SceneSemGraph *
 		SemNode& matchedSgNode = matchedSg->m_nodes[mi];
 		if (!matchedSgNode.isAligned && matchedSgNode.nodeType == "pairwise_relationship")
 		{
-			int mInNodeId = matchedSgNode.inEdgeNodeList[0];
-			int mOutNodeId = matchedSgNode.outEdgeNodeList[0];
+			// edge dir: (active, relation), (relation, reference)
+			int mInNodeId = matchedSgNode.inEdgeNodeList[0];  // active
+			int mOutNodeId = matchedSgNode.outEdgeNodeList[0]; // reference
 
 			int mRefNodeId;
 			int mActiveNodeId;

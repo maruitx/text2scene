@@ -92,8 +92,10 @@ void TextSemGraph::buildGraphFromSEL()
 				for (int k = 0; k < passiveNodeIds.size(); k++)
 				{
 					int instanceNodeId = m_sentence.m_entities[i].m_instanceNodeIds[n];
-					addEdge(m_nodeNum - 1, instanceNodeId);
-					addEdge(passiveNodeIds[k], m_nodeNum - 1);
+					//addEdge(m_nodeNum - 1, instanceNodeId);
+					//addEdge(passiveNodeIds[k], m_nodeNum - 1);
+					addEdge(instanceNodeId, m_nodeNum - 1);
+					addEdge(m_nodeNum - 1, passiveNodeIds[k]);
 				}
 			}
 		}

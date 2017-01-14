@@ -130,7 +130,15 @@ void SceneSemGraph::loadGraph(const QString &filename)
 				// object node
 				if (QString(parts[1].c_str()) == "object")
 				{
-					addNode(QString(parts[1].c_str()), QString(parts[2].c_str()));
+					if (parts.size() > 2)
+					{
+						addNode(QString(parts[1].c_str()), QString(parts[2].c_str()));
+					}
+					else
+					{
+						addNode(QString(parts[1].c_str()), "noname");
+					}
+
 					m_objectGraphNodeIdToModelSceneIdMap[m_nodeNum - 1] = metaModelId;
 					metaModelId++;
 				}
@@ -210,18 +218,19 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, bool useC
 
 			if (oldNode.nodeType == "object")
 			{
-				std::vector<int> inNodeList = oldNode.inEdgeNodeList; 
+				std::vector<int> outNodeList = oldNode.outEdgeNodeList; // find its support node
 
 				// find support node
-				for (int j = 0; j < inNodeList.size(); j++)
+				for (int j = 0; j < outNodeList.size(); j++)
 				{
-					int inNodeId = inNodeList[j];
+					int outNodeId = outNodeList[j];  // id of support node
 
 					// if there is support node missing
-					if (!oldToNewNodeIdMap.count(inNodeId) && m_nodes[inNodeId].nodeName.contains("support"))
+					if (!oldToNewNodeIdMap.count(outNodeId) && m_nodes[outNodeId].nodeName.contains("support"))
 					{
-						std::vector<int> suppParentIdList = m_nodes[inNodeId].inEdgeNodeList; // should only have one support parent
+						std::vector<int> suppParentIdList = m_nodes[outNodeId].outEdgeNodeList; // should only have one support parent
 
+						// find whether support parent is room
 						bool parentIsRoom = false;
 						for (int k = 0; k < suppParentIdList.size(); k++)
 						{
@@ -236,12 +245,13 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, bool useC
 						if (parentIsRoom) break;
 
 						// add support node
-						subGraph->addNode(m_nodes[inNodeId].nodeType, m_nodes[inNodeId].nodeName);
+						subGraph->addNode(m_nodes[outNodeId].nodeType, m_nodes[outNodeId].nodeName);
 						int currNodeId = subGraph->m_nodeNum - 1;
-						oldToNewNodeIdMap[inNodeId] = currNodeId;
-						subGraph->addEdge(currNodeId, oldToNewNodeIdMap[oldNodeId]);
+						oldToNewNodeIdMap[outNodeId] = currNodeId;
+						//subGraph->addEdge(currNodeId, oldToNewNodeIdMap[oldNodeId]);
+						subGraph->addEdge(oldToNewNodeIdMap[oldNodeId], currNodeId); // e.g., (tv, support)
 
-						enrichedNodeList.push_back(inNodeId);
+						enrichedNodeList.push_back(outNodeId);
 
 						// add support parent
 						for (int k = 0; k < suppParentIdList.size(); k++)
@@ -255,7 +265,8 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, bool useC
 								oldToNewNodeIdMap[suppParentNodeId] = currNodeId;
 								enrichedNodeList.push_back(suppParentNodeId);
 
-								subGraph->addEdge(currNodeId, oldToNewNodeIdMap[inNodeId]);
+								//subGraph->addEdge(currNodeId, oldToNewNodeIdMap[outNodeId]);
+								subGraph->addEdge(oldToNewNodeIdMap[outNodeId], currNodeId); // e.g. (support, tv_stand)
 
 								subGraph->m_nodes[currNodeId].isInferredObj = true;
 								subGraph->m_nodes[currNodeId].inferRefObjId = oldToNewNodeIdMap[oldNodeId];

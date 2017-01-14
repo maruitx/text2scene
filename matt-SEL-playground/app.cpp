@@ -82,6 +82,7 @@ void App::runTests()
 	//debugText += "To the left of the desk, there is a cabinet with a pile of stacked books and a clock.";
 	//debugText += "A messy coffee table is in front of the couch.";
 	//debugText += "Two chairs are aligned on each side of a rectangular dining table.";
+	debugText += "There are two monitors, two speakers, a keyboard and a mouse on the desk.";
 	debugText = util::replace(debugText, ".", ". ");
 	const string parsedText = SELUtil::processText(debugText);
 	cout << "input: " << debugText << endl;

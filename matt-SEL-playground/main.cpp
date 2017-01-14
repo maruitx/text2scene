@@ -11,5 +11,5 @@ void main()
 	app.go();
 	
 	cout << "Done!" << endl;
-	cin.get();
+	//cin.get();
 }

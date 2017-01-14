@@ -2,27 +2,63 @@ StanfordSceneDatabase
 modelCount 7
 newModel 0 room00
 transform 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000
+position 122.813 121.5 0
+frontDir 0 -1 0
+upDir 0 0 1
 newModel 1 884927d82f2de4f435fb6f633afd9a85
 transform 0.000000 1.560000 0.000000 0.000000 -1.560000 0.000000 0.000000 0.000000 0.000000 0.000000 1.560000 0.000000 41.080101 56.335400 3.250000 1.000000
+position 0 0 0
+frontDir 0 -1 0
+upDir 0 0 1
 newModel 2 8bb91bf0bfedeea1f29c5890b07f3a65
 transform 2.299890 0.000000 0.000000 0.000000 0.000000 2.299890 0.000000 0.000000 0.000000 0.000000 2.299890 0.000000 22.327700 78.541801 48.635399 1.000000
+position 0 0 0
+frontDir 0 -1 0
+upDir 0 0 1
 newModel 3 55ebdbdd7c63ffa4cb1a45efda434120
 transform 0.197505 1.500200 0.000000 0.000000 -1.500200 0.197505 0.000000 0.000000 0.000000 0.000000 1.513150 0.000000 -35.920799 134.057007 48.740002 1.000000
+position 0 0 0
+frontDir 1 0 0
+upDir 0 0 1
 newModel 4 6bfcacdff00d57c633774da3deff863
 transform 1.507710 0.000000 0.000000 0.000000 0.000000 1.507710 0.000000 0.000000 0.000000 0.000000 1.507710 0.000000 33.937199 76.398697 52.602299 1.000000
+position 0 0 0
+frontDir 0 -1 0
+upDir 0 0 1
 newModel 5 57a4dd08863a3b67fb8de648691848ea
 transform 0.039062 0.000000 0.000000 0.000000 0.000000 0.039062 0.000000 0.000000 0.000000 0.000000 0.039062 0.000000 18.104799 61.587399 48.818298 1.000000
+position 254.875 130.25 -2.0054
+frontDir 0 0 1
+upDir 1 0 0
 newModel 6 920d841d67130f9ac762eb31f1f0c676
 transform 0.054426 0.000000 0.000000 0.000000 0.000000 0.000000 -0.054426 0.000000 0.000000 0.054426 0.000000 0.000000 35.861000 68.352798 45.579700 1.000000
-nodeNum 7
-0,object,room,,
-1,object,nightstand,,
-2,object,cup,,
-3,object,tableclock,,
-4,object,pillbottle,,
-5,object,book,,
-6,object,book,,
-edgeNum 0
-book,,
-edgeNum 0
-Num 0
+position 104 34.25 0
+frontDir 0 -1 0
+upDir 0 0 1
+nodeNum 13
+0,object,room,7,
+1,object,nightstand,8 9 10 11,7
+2,object,cup,,8
+3,object,tableclock,12,9
+4,object,pillbottle,,12
+5,object,book,,10
+6,object,book,,11
+7,pairwise_relationship,vert_support,1,0
+8,pairwise_relationship,vert_support,2,1
+9,pairwise_relationship,vert_support,3,1
+10,pairwise_relationship,vert_support,5,1
+11,pairwise_relationship,vert_support,6,1
+12,pairwise_relationship,vert_support,4,3
+edgeNum 12
+0,1,7
+1,7,0
+2,2,8
+3,8,1
+4,3,9
+5,9,1
+6,5,10
+7,10,1
+8,6,11
+9,11,1
+10,4,12
+11,12,3
