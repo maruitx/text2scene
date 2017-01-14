@@ -101,99 +101,99 @@ position 10.784 10.362 0
 frontDir 0 -1 0
 upDir 0 0 1
 nodeNum 45
-0,object,room,,20
-1,object,wallart,,42 43
-2,object,bookcase,20 42,21 22 23 24 25 26 27 28 29 30 31 32 33 34 44
-3,object,lamp,21,
-4,object,toyfigure,22,35
-5,object,vase,23,
-6,object,framework,,36
-7,object,books,24,
-8,object,books,25 35,37
-9,object,books,26 37,38
-10,object,books,,39 40 41
-11,object,books,39 43 44,
-12,object,books,27 38,
-13,object,books,28,
-14,object,books,29 36 40,
-15,object,book,30 41,
-16,object,book,31,
-17,object,book,32,
-18,object,chair,33,
-19,object,pottedplant,34,
-20,pairwise_relationship,vert_support,0,2
-21,pairwise_relationship,vert_support,2,3
-22,pairwise_relationship,vert_support,2,4
-23,pairwise_relationship,vert_support,2,5
-24,pairwise_relationship,vert_support,2,7
-25,pairwise_relationship,vert_support,2,8
-26,pairwise_relationship,vert_support,2,9
-27,pairwise_relationship,vert_support,2,12
-28,pairwise_relationship,vert_support,2,13
-29,pairwise_relationship,vert_support,2,14
-30,pairwise_relationship,vert_support,2,15
-31,pairwise_relationship,vert_support,2,16
-32,pairwise_relationship,vert_support,2,17
-33,pairwise_relationship,vert_support,2,18
-34,pairwise_relationship,vert_support,2,19
-35,pairwise_relationship,vert_support,4,8
-36,pairwise_relationship,vert_support,6,14
-37,pairwise_relationship,vert_support,8,9
-38,pairwise_relationship,vert_support,9,12
-39,pairwise_relationship,vert_support,10,11
-40,pairwise_relationship,vert_support,10,14
-41,pairwise_relationship,vert_support,10,15
-42,pairwise_relationship,near,1,2
-43,pairwise_relationship,near,1,11
-44,pairwise_relationship,near,2,11
+0,object,room,20,
+1,object,wallart,,
+2,object,bookcase,21 22 23 24 25 26 27 28 29 30 31 32 33 34 42 43 44,20
+3,object,lamp,,21
+4,object,toyfigure,35,22
+5,object,vase,,23
+6,object,framework,36,42
+7,object,books,,24
+8,object,books,37,25 35
+9,object,books,38,26 37
+10,object,books,39 40 41,43
+11,object,books,,39 44
+12,object,books,,27 38
+13,object,books,,28
+14,object,books,,29 36 40
+15,object,book,,30 41
+16,object,book,,31
+17,object,book,,32
+18,object,chair,,33
+19,object,pottedplant,,34
+20,pairwise_relationship,vert_support,2,0
+21,pairwise_relationship,vert_support,3,2
+22,pairwise_relationship,vert_support,4,2
+23,pairwise_relationship,vert_support,5,2
+24,pairwise_relationship,vert_support,7,2
+25,pairwise_relationship,vert_support,8,2
+26,pairwise_relationship,vert_support,9,2
+27,pairwise_relationship,vert_support,12,2
+28,pairwise_relationship,vert_support,13,2
+29,pairwise_relationship,vert_support,14,2
+30,pairwise_relationship,vert_support,15,2
+31,pairwise_relationship,vert_support,16,2
+32,pairwise_relationship,vert_support,17,2
+33,pairwise_relationship,vert_support,18,2
+34,pairwise_relationship,vert_support,19,2
+35,pairwise_relationship,vert_support,8,4
+36,pairwise_relationship,vert_support,14,6
+37,pairwise_relationship,vert_support,9,8
+38,pairwise_relationship,vert_support,12,9
+39,pairwise_relationship,vert_support,11,10
+40,pairwise_relationship,vert_support,14,10
+41,pairwise_relationship,vert_support,15,10
+42,pairwise_relationship,vert_support,6,2
+43,pairwise_relationship,vert_support,10,2
+44,pairwise_relationship,vert_support,11,2
 edgeNum 50
-0,0,20
-1,20,2
-2,2,21
-3,21,3
-4,2,22
-5,22,4
-6,2,23
-7,23,5
-8,2,24
-9,24,7
-10,2,25
-11,25,8
-12,2,26
-13,26,9
-14,2,27
-15,27,12
-16,2,28
-17,28,13
-18,2,29
-19,29,14
-20,2,30
-21,30,15
-22,2,31
-23,31,16
-24,2,32
-25,32,17
-26,2,33
-27,33,18
-28,2,34
-29,34,19
-30,4,35
-31,35,8
-32,6,36
-33,36,14
-34,8,37
-35,37,9
-36,9,38
-37,38,12
-38,10,39
-39,39,11
-40,10,40
-41,40,14
-42,10,41
-43,41,15
-44,1,42
+0,2,20
+1,20,0
+2,3,21
+3,21,2
+4,4,22
+5,22,2
+6,5,23
+7,23,2
+8,7,24
+9,24,2
+10,8,25
+11,25,2
+12,9,26
+13,26,2
+14,12,27
+15,27,2
+16,13,28
+17,28,2
+18,14,29
+19,29,2
+20,15,30
+21,30,2
+22,16,31
+23,31,2
+24,17,32
+25,32,2
+26,18,33
+27,33,2
+28,19,34
+29,34,2
+30,8,35
+31,35,4
+32,14,36
+33,36,6
+34,9,37
+35,37,8
+36,12,38
+37,38,9
+38,11,39
+39,39,10
+40,14,40
+41,40,10
+42,15,41
+43,41,10
+44,6,42
 45,42,2
-46,1,43
-47,43,11
-48,2,44
-49,44,11
+46,10,43
+47,43,2
+48,11,44
+49,44,2

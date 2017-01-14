@@ -2,77 +2,255 @@ StanfordSceneDatabase
 modelCount 22
 newModel 0 room15
 transform 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000
+position 133.859 216.536 0
+frontDir -1 0 0
+upDir 0 0 1
 newModel 1 6e2c31e3337f70b733b83271594612d0
 transform 1.379240 -0.144964 0.000000 0.000000 0.144964 1.379240 0.000000 0.000000 0.000000 0.000000 1.386830 0.000000 195.516006 116.164001 8.206700 1.000000
+position 0 0 0
+frontDir 0 -1 0
+upDir 0 0 1
 newModel 2 aa52d97d28e0269c9a4be081d49fa50d
 transform -0.037636 0.037650 0.000287 0.000000 -0.037643 -0.037636 0.000767 0.000000 0.000745 0.000339 0.053229 0.000000 208.177994 118.425003 47.057098 1.000000
+position 0 0 0
+frontDir 0 0 1
+upDir 0 1 0
 newModel 3 c5fc6c1e0d446d37acce1c6e70b58979
 transform 0.000000 1.485010 0.000000 0.000000 -1.485010 0.000000 0.000000 0.000000 0.000000 0.000000 1.485010 0.000000 992.672974 -307.273987 50.523102 1.000000
+position 260.712 542.473 -28.5514
+frontDir 1 0 0
+upDir 0 0 1
 newModel 4 ced7624ec0768b255e0704b94fe2aa5e
 transform -1.333490 0.000000 0.000000 0.000000 0.000000 -1.333490 0.000000 0.000000 0.000000 0.000000 1.333490 0.000000 220.563004 96.069801 52.234699 1.000000
+position 0 0 0
+frontDir 0 -1 0
+upDir 0 0 1
 newModel 5 17ecaa23513996c034d6aa31914c287d
 transform 0.000000 0.444690 0.000000 0.000000 -0.444690 0.000000 0.000000 0.000000 0.000000 0.000000 0.444690 0.000000 219.181000 43.216000 52.537399 1.000000
+position 0 0 0
+frontDir 0 -1 0
+upDir 0 0 1
 newModel 6 a13ef0041a92be7ccc663a435e9de4a5
 transform 0.000000 0.068145 0.000000 0.000000 -0.068145 0.000000 0.000000 0.000000 0.000000 0.000000 0.068145 0.000000 223.429993 66.675102 52.183601 1.000000
+position 0.8885 0.1056 0.75
+frontDir 0 -1 0
+upDir 0 0 1
 newModel 7 5128910785490905c58e834f0b160845
 transform 0.000000 1.774430 0.000000 0.000000 -1.774430 0.000000 0.000000 0.000000 0.000000 0.000000 1.774430 0.000000 216.500000 64.380600 52.234699 1.000000
+position 2.51969 2.51969 0
+frontDir 0 -1 0
+upDir 0 0 1
 newModel 8 a13ef0041a92be7ccc663a435e9de4a5
 transform 0.000000 0.068145 0.000000 0.000000 -0.068145 0.000000 0.000000 0.000000 0.000000 0.000000 0.068145 0.000000 199.720993 72.743896 52.183601 1.000000
+position 0.8885 0.1056 0.75
+frontDir 0 -1 0
+upDir 0 0 1
 newModel 9 51731636209cfef6c7dfd0abdac98748
 transform 0.000000 0.074412 0.000000 0.000000 -0.074412 0.000000 0.000000 0.000000 0.000000 0.000000 0.074412 0.000000 152.384003 66.640800 52.234699 1.000000
+position 16.2429 16.2428 0
+frontDir 0 -1 0
+upDir 0 0 1
 newModel 10 51731636209cfef6c7dfd0abdac98748
 transform 0.000000 0.074412 0.000000 0.000000 -0.074412 0.000000 0.000000 0.000000 0.000000 0.000000 0.074412 0.000000 148.205002 70.389397 52.234699 1.000000
+position 16.2429 16.2428 0
+frontDir 0 -1 0
+upDir 0 0 1
 newModel 11 74fba9d6c2914d172d9fe390e23fd20f
 transform 0.000000 0.031119 0.000000 0.000000 -0.031119 0.000000 0.000000 0.000000 0.000000 0.000000 0.031119 0.000000 167.587997 73.422501 52.234699 1.000000
+position 120.179 282.01 0
+frontDir 0 -1 0
+upDir 0 0 1
 newModel 12 4e300f10506f23f86e57243d49772ed8
 transform -0.014303 0.014303 0.000000 0.000000 -0.014303 -0.014303 0.000000 0.000000 0.000000 0.000000 0.020228 0.000000 159.332001 88.886101 52.234699 1.000000
+position 469.392 256.916 0
+frontDir 0 -1 0
+upDir 0 0 1
 newModel 13 81d289cf00a544f62d9fe390e23fd20f
 transform 0.000000 0.024364 0.000000 0.000000 -0.024364 0.000000 0.000000 0.000000 0.000000 0.000000 0.024364 0.000000 176.748993 64.316101 52.234699 1.000000
+position 0 0 0
+frontDir 0 -1 0
+upDir 0 0 1
 newModel 14 51731636209cfef6c7dfd0abdac98748
 transform 0.000000 0.074412 0.000000 0.000000 -0.074412 0.000000 0.000000 0.000000 0.000000 0.000000 0.074412 0.000000 182.585999 61.611301 52.234699 1.000000
+position 16.2429 16.2428 0
+frontDir 0 -1 0
+upDir 0 0 1
 newModel 15 51731636209cfef6c7dfd0abdac98748
 transform 0.000000 0.074412 0.000000 0.000000 -0.074412 0.000000 0.000000 0.000000 0.000000 0.000000 0.074412 0.000000 191.294998 62.204498 52.234699 1.000000
+position 16.2429 16.2428 0
+frontDir 0 -1 0
+upDir 0 0 1
 newModel 16 89c7cc9f23c67ed6978cd0e4ce91ea2b
 transform 0.000000 0.114563 0.000000 0.000000 -0.114563 0.000000 0.000000 0.000000 0.000000 0.000000 0.114563 0.000000 186.856995 96.059700 55.987999 1.000000
+position 0 0 0
+frontDir 0 0 1
+upDir -1 0 0
 newModel 17 755b328c69569ed95a28dd75e68785d3
 transform 0.000357 -0.000000 0.009223 0.000000 -0.000357 -0.009223 0.000014 0.000000 0.009217 -0.000357 -0.000357 0.000000 165.320999 93.606003 53.262699 1.000000
+position 0 0 0
+frontDir 0 -1 0
+upDir 0 0 1
 newModel 18 abe7d4239af7db4f69efbadfeeff28b7
 transform -1.098170 -0.057553 0.000000 0.000000 0.057553 -1.098170 0.000000 0.000000 0.000000 0.000000 1.099680 0.000000 188.569000 94.451202 52.234699 1.000000
+position 0 0 0
+frontDir 0 0 1
+upDir 0 1 0
 newModel 19 9ff1c3a225933646d95cbd7188c1a0ec
 transform 0.465453 0.465453 0.000000 0.000000 0.000000 0.000000 -0.658250 0.000000 -0.465453 0.465453 0.000000 0.000000 182.007004 77.714302 52.514301 1.000000
+position 0 0 0
+frontDir 0 -1 0
+upDir 0 0 1
 newModel 20 6e2c31e3337f70b733b83271594612d0
 transform 1.384930 0.072581 0.000000 0.000000 -0.072581 1.384930 0.000000 0.000000 0.000000 0.000000 1.386830 0.000000 155.740997 108.337997 8.206700 1.000000
+position 0 0 0
+frontDir 0 -1 0
+upDir 0 0 1
 newModel 21 da90b8fce8258aede2a86cd88980413b
 transform -0.338261 -0.955222 0.000000 0.000000 0.955222 -0.338261 0.000000 0.000000 0.000000 0.000000 1.013350 0.000000 117.463997 75.026802 8.124020 1.000000
-nodeNum 22
-0,object,room,,
-1,object,stool,,
-2,object,book,,
-3,object,desk,,
-4,object,microscope,,
-5,object,lamp,,
-6,object,erlenmeyer flask,,
-7,object,tissuebox,,
-8,object,erlenmeyer flask,,
-9,object,glass,,
-10,object,glass,,
-11,object,holder,,
-12,object,bunsen burner,,
-13,object,erlenmeyer flask,,
-14,object,glass,,
-15,object,glass,,
-16,object,book,,
+position 11.5313 11.9688 0
+frontDir 0 -1 0
+upDir 0 0 1
+nodeNum 62
+0,object,room,22 23 24 25,
+1,object,stool,26 42 43 46 48,22 44 45 47 49 50
+2,object,book,,26
+3,object,desk,27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 44 45 51 52 55 56,23 42 43 53 54 57 58
+4,object,microscope,,27
+5,object,lamp,,28
+6,object,erlenmeyer flask,,29
+7,object,tissuebox,,30
+8,object,erlenmeyer flask,,31
+9,object,glass,,32
+10,object,glass,,33
+11,object,holder,,34
+12,object,bunsen burner,,35
+13,object,erlenmeyer flask,,36
+14,object,glass,,37
+15,object,glass,,38
+16,object,book,,39
 17,object,pen,,
-18,object,calculator,,
-19,object,pencil,,
-20,object,stool,,
-21,object,paperbox,,
-edgeNum 0
-anfordscenedbmodels,,
-16,object,book,,
-17,object,pen,,
-18,object,_stanfordscenedbmodels,,
-19,object,pencil,,
-20,object,stool,,
-21,object,_stanfordscenedbmodels,,
-edgeNum 0
+18,object,calculator,,40
+19,object,pencil,,41
+20,object,stool,47 53 54 59,24 46 51 52 60 61
+21,object,paperbox,49 50 57 58 60 61,25 48 55 56 59
+22,pairwise_relationship,vert_support,1,0
+23,pairwise_relationship,vert_support,3,0
+24,pairwise_relationship,vert_support,20,0
+25,pairwise_relationship,vert_support,21,0
+26,pairwise_relationship,vert_support,2,1
+27,pairwise_relationship,vert_support,4,3
+28,pairwise_relationship,vert_support,5,3
+29,pairwise_relationship,vert_support,6,3
+30,pairwise_relationship,vert_support,7,3
+31,pairwise_relationship,vert_support,8,3
+32,pairwise_relationship,vert_support,9,3
+33,pairwise_relationship,vert_support,10,3
+34,pairwise_relationship,vert_support,11,3
+35,pairwise_relationship,vert_support,12,3
+36,pairwise_relationship,vert_support,13,3
+37,pairwise_relationship,vert_support,14,3
+38,pairwise_relationship,vert_support,15,3
+39,pairwise_relationship,vert_support,16,3
+40,pairwise_relationship,vert_support,18,3
+41,pairwise_relationship,vert_support,19,3
+42,pairwise_relationship,near,3,1
+43,pairwise_relationship,back,3,1
+44,pairwise_relationship,near,1,3
+45,pairwise_relationship,back,1,3
+46,pairwise_relationship,near,20,1
+47,pairwise_relationship,near,1,20
+48,pairwise_relationship,near,21,1
+49,pairwise_relationship,near,1,21
+50,pairwise_relationship,leftside,1,21
+51,pairwise_relationship,near,20,3
+52,pairwise_relationship,back,20,3
+53,pairwise_relationship,near,3,20
+54,pairwise_relationship,back,3,20
+55,pairwise_relationship,near,21,3
+56,pairwise_relationship,back,21,3
+57,pairwise_relationship,near,3,21
+58,pairwise_relationship,rightside,3,21
+59,pairwise_relationship,near,21,20
+60,pairwise_relationship,near,20,21
+61,pairwise_relationship,leftside,20,21
+edgeNum 80
+0,1,22
+1,22,0
+2,3,23
+3,23,0
+4,20,24
+5,24,0
+6,21,25
+7,25,0
+8,2,26
+9,26,1
+10,4,27
+11,27,3
+12,5,28
+13,28,3
+14,6,29
+15,29,3
+16,7,30
+17,30,3
+18,8,31
+19,31,3
+20,9,32
+21,32,3
+22,10,33
+23,33,3
+24,11,34
+25,34,3
+26,12,35
+27,35,3
+28,13,36
+29,36,3
+30,14,37
+31,37,3
+32,15,38
+33,38,3
+34,16,39
+35,39,3
+36,18,40
+37,40,3
+38,19,41
+39,41,3
+40,3,42
+41,42,1
+42,3,43
+43,43,1
+44,1,44
+45,44,3
+46,1,45
+47,45,3
+48,20,46
+49,46,1
+50,1,47
+51,47,20
+52,21,48
+53,48,1
+54,1,49
+55,49,21
+56,1,50
+57,50,21
+58,20,51
+59,51,3
+60,20,52
+61,52,3
+62,3,53
+63,53,20
+64,3,54
+65,54,20
+66,21,55
+67,55,3
+68,21,56
+69,56,3
+70,3,57
+71,57,21
+72,3,58
+73,58,21
+74,21,59
+75,59,20
+76,20,60
+77,60,21
+78,20,61
+79,61,21

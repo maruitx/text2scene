@@ -40,6 +40,8 @@ vector<SceneSemGraph*> SemGraphMatcher::alignmentTSGWithDatabaseSSGs(int topMatc
 	cout << "SemGraphMatcher: start graph matching.\n";
 
 	vector<pair<double, SceneSemGraph *>> scoredDBSubSSGs;
+	double exactMatchScore = m_currTextSemGraph->m_nodes.size();
+	int exactMatchNum = 0;
 
 	for (int i = 0; i < m_sceneSemGraphManager->m_ssgNum; i++)
 	{
@@ -51,6 +53,10 @@ vector<SceneSemGraph*> SemGraphMatcher::alignmentTSGWithDatabaseSSGs(int topMatc
 		if (matchingScore > 0)
 		{
 			scoredDBSubSSGs.push_back(make_pair(matchingScore, subSSG));
+			if (matchingScore == exactMatchScore)
+			{
+				exactMatchNum++;
+			}
 		}
 	}
 
@@ -72,7 +78,9 @@ vector<SceneSemGraph*> SemGraphMatcher::alignmentTSGWithDatabaseSSGs(int topMatc
 		}
 	}
 
-	cout << "SemGraphMatcher: graph matching done, found instance number " << matchedSSGNum << ", shown instance number " << matchedSubSSGs.size() << ".\n";
+	cout << "SemGraphMatcher: graph matching done, found instance num " << matchedSSGNum << 
+		", exact match num " << exactMatchNum
+		<< ", shown instance num " << matchedSubSSGs.size() << ".\n";
 	return matchedSubSSGs;
 }
 

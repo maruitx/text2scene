@@ -55,67 +55,61 @@ transform 0.003897 0.000000 0.000000 0.000000 0.000000 0.003897 0.000000 0.00000
 position 1025.02 1338.87 -0.005
 frontDir 0 -1 0
 upDir 0 0 1
-nodeNum 28
-0,object,room,,11
-1,object,bookcase,11 27,12 13 14 15 16 17 18 19 25 26
-2,object,books,12,20
-3,object,books,13 20,
-4,object,books,14,21 22
-5,object,books,15 21,
-6,object,books,25 26,23 24 27
-7,object,books,16 22,
-8,object,printer,17,
-9,object,camera,18 23,
-10,object,pottedplant,19 24,
-11,pairwise_relationship,vert_support,0,1
-12,pairwise_relationship,vert_support,1,2
-13,pairwise_relationship,vert_support,1,3
-14,pairwise_relationship,vert_support,1,4
-15,pairwise_relationship,vert_support,1,5
-16,pairwise_relationship,vert_support,1,7
-17,pairwise_relationship,vert_support,1,8
-18,pairwise_relationship,vert_support,1,9
-19,pairwise_relationship,vert_support,1,10
-20,pairwise_relationship,vert_support,2,3
-21,pairwise_relationship,vert_support,4,5
-22,pairwise_relationship,vert_support,4,7
-23,pairwise_relationship,vert_support,6,9
-24,pairwise_relationship,vert_support,6,10
-25,pairwise_relationship,near,1,6
-26,pairwise_relationship,leftside,1,6
-27,pairwise_relationship,rightside,6,1
-edgeNum 34
-0,0,11
-1,11,1
-2,1,12
-3,12,2
-4,1,13
-5,13,3
-6,1,14
-7,14,4
-8,1,15
-9,15,5
-10,1,16
-11,16,7
-12,1,17
-13,17,8
-14,1,18
-15,18,9
-16,1,19
-17,19,10
-18,2,20
-19,20,3
-20,4,21
-21,21,5
-22,4,22
-23,22,7
-24,6,23
-25,23,9
-26,6,24
-27,24,10
-28,1,25
-29,25,6
-30,1,26
-31,26,6
-32,6,27
-33,27,1
+nodeNum 26
+0,object,room,11,
+1,object,bookcase,12 13 14 15 16 17 18 19 25,11
+2,object,books,20,12
+3,object,books,,13 20
+4,object,books,21 22,14
+5,object,books,,15 21
+6,object,books,23 24,25
+7,object,books,,16 22
+8,object,printer,,17
+9,object,camera,,18 23
+10,object,pottedplant,,19 24
+11,pairwise_relationship,vert_support,1,0
+12,pairwise_relationship,vert_support,2,1
+13,pairwise_relationship,vert_support,3,1
+14,pairwise_relationship,vert_support,4,1
+15,pairwise_relationship,vert_support,5,1
+16,pairwise_relationship,vert_support,7,1
+17,pairwise_relationship,vert_support,8,1
+18,pairwise_relationship,vert_support,9,1
+19,pairwise_relationship,vert_support,10,1
+20,pairwise_relationship,vert_support,3,2
+21,pairwise_relationship,vert_support,5,4
+22,pairwise_relationship,vert_support,7,4
+23,pairwise_relationship,vert_support,9,6
+24,pairwise_relationship,vert_support,10,6
+25,pairwise_relationship,vert_support,6,1
+edgeNum 30
+0,1,11
+1,11,0
+2,2,12
+3,12,1
+4,3,13
+5,13,1
+6,4,14
+7,14,1
+8,5,15
+9,15,1
+10,7,16
+11,16,1
+12,8,17
+13,17,1
+14,9,18
+15,18,1
+16,10,19
+17,19,1
+18,3,20
+19,20,2
+20,5,21
+21,21,4
+22,7,22
+23,22,4
+24,9,23
+25,23,6
+26,10,24
+27,24,6
+28,6,25
+29,25,1

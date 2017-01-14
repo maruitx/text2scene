@@ -70,58 +70,55 @@ transform -0.000000 -1.386830 0.000000 0.000000 1.386830 -0.000000 0.000000 0.00
 position 11.5857 9.79195 0
 frontDir 0 -1 0
 upDir 0 0 1
-nodeNum 27
-0,object,room,,14
-1,object,rug,14,15 16 17 18 26
-2,object,table,15,19 20 21 22 23 24 25
-3,object,holder,19,
-4,object,candle,20,
-5,object,computer,21,
-6,object,book,22,
-7,object,calculator,26,
-8,object,bowl,23,
-9,object,bowl,24,
-10,object,foodplate,25,
-11,object,chair,16,
-12,object,chair,17,
-13,object,chair,18,
-14,pairwise_relationship,vert_support,0,1
-15,pairwise_relationship,vert_support,1,2
-16,pairwise_relationship,vert_support,1,11
-17,pairwise_relationship,vert_support,1,12
-18,pairwise_relationship,vert_support,1,13
-19,pairwise_relationship,vert_support,2,3
-20,pairwise_relationship,vert_support,2,4
-21,pairwise_relationship,vert_support,2,5
-22,pairwise_relationship,vert_support,2,6
-23,pairwise_relationship,vert_support,2,8
-24,pairwise_relationship,vert_support,2,9
-25,pairwise_relationship,vert_support,2,10
-26,pairwise_relationship,near,1,7
-edgeNum 26
-0,0,14
-1,14,1
-2,1,15
-3,15,2
-4,1,16
-5,16,11
-6,1,17
-7,17,12
-8,1,18
-9,18,13
-10,2,19
-11,19,3
-12,2,20
-13,20,4
-14,2,21
-15,21,5
-16,2,22
-17,22,6
-18,2,23
-19,23,8
-20,2,24
-21,24,9
-22,2,25
-23,25,10
-24,1,26
-25,26,7
+nodeNum 26
+0,object,room,14,
+1,object,rug,15 16 17 18,14
+2,object,table,19 20 21 22 23 24 25,15
+3,object,holder,,19
+4,object,candle,,20
+5,object,computer,,21
+6,object,book,,22
+7,object,calculator,,
+8,object,bowl,,23
+9,object,bowl,,24
+10,object,foodplate,,25
+11,object,chair,,16
+12,object,chair,,17
+13,object,chair,,18
+14,pairwise_relationship,vert_support,1,0
+15,pairwise_relationship,vert_support,2,1
+16,pairwise_relationship,vert_support,11,1
+17,pairwise_relationship,vert_support,12,1
+18,pairwise_relationship,vert_support,13,1
+19,pairwise_relationship,vert_support,3,2
+20,pairwise_relationship,vert_support,4,2
+21,pairwise_relationship,vert_support,5,2
+22,pairwise_relationship,vert_support,6,2
+23,pairwise_relationship,vert_support,8,2
+24,pairwise_relationship,vert_support,9,2
+25,pairwise_relationship,vert_support,10,2
+edgeNum 24
+0,1,14
+1,14,0
+2,2,15
+3,15,1
+4,11,16
+5,16,1
+6,12,17
+7,17,1
+8,13,18
+9,18,1
+10,3,19
+11,19,2
+12,4,20
+13,20,2
+14,5,21
+15,21,2
+16,6,22
+17,22,2
+18,8,23
+19,23,2
+20,9,24
+21,24,2
+22,10,25
+23,25,2

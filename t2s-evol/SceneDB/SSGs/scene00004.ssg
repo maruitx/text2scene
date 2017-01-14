@@ -21,17 +21,17 @@ position 110.281 43.4089 29.9213
 frontDir 0 -1 0
 upDir 0 0 1
 nodeNum 7
-0,object,room,,4
-1,object,desk,4,5 6
-2,object,computer,5,
-3,object,monitor,6,
-4,pairwise_relationship,vert_support,0,1
-5,pairwise_relationship,vert_support,1,2
-6,pairwise_relationship,vert_support,1,3
+0,object,room,4,
+1,object,desk,5 6,4
+2,object,computer,,5
+3,object,monitor,,6
+4,pairwise_relationship,vert_support,1,0
+5,pairwise_relationship,vert_support,2,1
+6,pairwise_relationship,vert_support,3,1
 edgeNum 6
-0,0,4
-1,4,1
-2,1,5
-3,5,2
-4,1,6
-5,6,3
+0,1,4
+1,4,0
+2,2,5
+3,5,1
+4,3,6
+5,6,1
