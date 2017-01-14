@@ -31,6 +31,9 @@
     <ClInclude Include="SELUtil.h">
       <Filter>SEL</Filter>
     </ClInclude>
+    <ClInclude Include="scene.h">
+      <Filter>scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="app.cpp">
@@ -47,6 +50,9 @@
     </ClCompile>
     <ClCompile Include="SELParser.cpp">
       <Filter>SEL</Filter>
+    </ClCompile>
+    <ClCompile Include="scene.cpp">
+      <Filter>scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -89,6 +95,9 @@
     </Filter>
     <Filter Include="SEL">
       <UniqueIdentifier>{5f44275c-4bcf-4ab3-a18a-bf20aa75ccef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scene">
+      <UniqueIdentifier>{5e74ff7f-50ba-4b9a-99a5-8488fb5b9edb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

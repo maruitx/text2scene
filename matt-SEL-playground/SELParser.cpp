@@ -513,6 +513,18 @@ void SELParser::assignRelationships(ParsedSentence &s)
 		addRelationship(s, r.tokens[1], r.tokens[2], s.tokens[r.tokens[3]].text);
 	}
 
+	//There are two monitors, two speakers, a keyboard and a mouse on the desk.
+	//conj:and(monitors-4, speakers-7~NNS)
+	//conj:and(monitors-4, mouse-13~NN)
+	//nmod:on(mouse-13, desk-16~NN)
+	//conj:and(0-NN, 1-NN)
+	//conj:and(0-NN, 2-NN)
+	//nmod:(2-NN, 3-NN)
+	for (auto &r : PatternMatcher::match(s, PatternMatchQuery("conj:and(0-NN, 1-NN)", "conj:and(0-NN, 2-NN)", "nmod:(2-NN, 3-NN)")))
+	{
+		addRelationship(s, r.tokens[1], r.tokens[3], s.units[r.units[2]].getTypeSuffix());
+	}
+
 	//There are cream-colored built-in shelves displaying many knick-knacks
 	//acl(shelves-5, displaying-6~VBG)
 	//dobj(displaying-6, knick-knacks-8~NNS)
