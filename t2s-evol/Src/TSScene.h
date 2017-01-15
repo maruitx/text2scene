@@ -23,7 +23,7 @@ public:
 
 	void countLoadedModelNum(); // count loaded model number by finding model in loaded modelDB
     void computeSceneBB();
-    bool checkCollision(const BoundingBox &bb, int cidx);
+	bool checkCollision(Model *testModel, const BoundingBox &bb, int cidx);
     bool intersectAABB(const vec3 &miA, const vec3 &maA, const vec3 &miB, const vec3 &maB, double delta = 0);
 
 	bool resolveCollision(int modelId);
@@ -36,6 +36,8 @@ public:
 	SceneSemGraph *m_ssg;
 	bool m_isLoadFromFile;
 	bool m_isRenderRoom;
+
+	int m_previewId;
 
 private:
 	unordered_map<string, Model*> &m_models;   // current loaded object DB

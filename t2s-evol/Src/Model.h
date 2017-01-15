@@ -56,7 +56,10 @@ public:
 	void render(const Transform &trans, const mat4 &initTrans, bool applyShadow = false, const string &textureDir = "");
 	void renderDepth(const Transform &trans, const mat4 &initTrans);
     void buildBBVBO();
-	bool checkCollisionBBTriangles(const BoundingBox &bb, const mat4 &transMat, double delta = 0);  // transMat is the transformation to place the model in current scene
+	bool checkCollisionBBTriangles(const BoundingBox &testBB, const mat4 &testModelTransMat, const mat4 &refModelTransMat, double delta = 0);  // transMat is the transformation to place the model in current scene
+	bool checkCollisionTrianglesTriangles(Model *testModel, const mat4 &testModelTransMat, const mat4 &refModelTransMat, double delta = 0);
+
+	vector<ModelMesh>& getModelMeshs() { return m_meshes; };
 
     //vec3 m_collisionTrans;
 	vec3 m_sceneCenter;

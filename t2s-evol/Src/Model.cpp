@@ -492,34 +492,43 @@ bool triangleTriangleWrapper(const vec3 &a1, const vec3 &a2, const vec3 &a3, con
     r1[1] = a3.y;
     r1[2] = a3.z;
 
-    p1[0] = b1.x;
-    p1[1] = b1.y;
-    p1[2] = b1.z;
+    p2[0] = b1.x;
+    p2[1] = b1.y;
+    p2[2] = b1.z;
 
-    q1[0] = b2.x;
-    q1[1] = b2.y;
-    q1[2] = b2.z;
+    q2[0] = b2.x;
+    q2[1] = b2.y;
+    q2[2] = b2.z;
 
-    r1[0] = b3.x;
-    r1[1] = b3.y;
-    r1[2] = b3.z;
+    r2[0] = b3.x;
+    r2[1] = b3.y;
+    r2[2] = b3.z;
     
     return tri_tri_intersect(p1, q1, r1, p2, q2, r2);
 }
 
-bool Model::checkCollisionBBTriangles(const BoundingBox &bb, const mat4 &transMat, double delta)
+bool Model::checkCollisionBBTriangles(const BoundingBox &testBB, const mat4 &testModelTransMat, const mat4 &refModelTransMat, double delta /*= 0*/)
 {	
     //box triangle collision as triangle triangle collision
 
-    vec3 b1 = vec3(bb.mi().x, bb.mi().y, bb.mi().z);
-    vec3 b2 = vec3(bb.ma().x, bb.mi().y, bb.mi().z);
-    vec3 b3 = vec3(bb.ma().x, bb.mi().y, bb.ma().z);
-    vec3 b4 = vec3(bb.mi().x, bb.mi().y, bb.ma().z);
+    vec3 b1 = vec3(testBB.mi().x, testBB.mi().y, testBB.mi().z);
+    vec3 b2 = vec3(testBB.ma().x, testBB.mi().y, testBB.mi().z);
+    vec3 b3 = vec3(testBB.ma().x, testBB.mi().y, testBB.ma().z);
+    vec3 b4 = vec3(testBB.mi().x, testBB.mi().y, testBB.ma().z);
 
-    vec3 b5 = vec3(bb.mi().x, bb.ma().y, bb.mi().z);
-    vec3 b6 = vec3(bb.ma().x, bb.ma().y, bb.mi().z);
-    vec3 b7 = vec3(bb.ma().x, bb.ma().y, bb.ma().z);
-    vec3 b8 = vec3(bb.mi().x, bb.ma().y, bb.ma().z);
+    vec3 b5 = vec3(testBB.mi().x, testBB.ma().y, testBB.mi().z);
+    vec3 b6 = vec3(testBB.ma().x, testBB.ma().y, testBB.mi().z);
+    vec3 b7 = vec3(testBB.ma().x, testBB.ma().y, testBB.ma().z);
+    vec3 b8 = vec3(testBB.mi().x, testBB.ma().y, testBB.ma().z);
+
+	b1 = TransformPoint(testModelTransMat, b1);
+	b2 = TransformPoint(testModelTransMat, b2);
+	b3 = TransformPoint(testModelTransMat, b3);
+	b4 = TransformPoint(testModelTransMat, b4);
+	b5 = TransformPoint(testModelTransMat, b5);
+	b6 = TransformPoint(testModelTransMat, b6);
+	b7 = TransformPoint(testModelTransMat, b7);
+	b8 = TransformPoint(testModelTransMat, b8);
 
     vector<tuple<vec3, vec3, vec3>> triangles;
     
@@ -562,9 +571,9 @@ bool Model::checkCollisionBBTriangles(const BoundingBox &bb, const mat4 &transMa
             VertexBufferObject::DATA &d2 = vertices[indices[j+1]];
             VertexBufferObject::DATA &d3 = vertices[indices[j+2]];
 
-            vec3 v1 = TransformPoint(transMat, vec3(d1.vx, d1.vy, d1.vz));
-            vec3 v2 = TransformPoint(transMat, vec3(d2.vx, d2.vy, d2.vz));
-            vec3 v3 = TransformPoint(transMat, vec3(d3.vx, d3.vy, d3.vz));
+            vec3 v1 = TransformPoint(refModelTransMat, vec3(d1.vx, d1.vy, d1.vz));
+            vec3 v2 = TransformPoint(refModelTransMat, vec3(d2.vx, d2.vy, d2.vz));
+            vec3 v3 = TransformPoint(refModelTransMat, vec3(d3.vx, d3.vy, d3.vz));
 
             for(int k=0; k<triangles.size(); ++k)
             {
@@ -580,24 +589,83 @@ bool Model::checkCollisionBBTriangles(const BoundingBox &bb, const mat4 &transMa
                     return true;
             }
         }                
-
-        //point in box test
-        //bool isCollide = false;
-
-		//for (int j = 0; j < vertices.size(); ++j)
-		//{
-		//	VertexBufferObject::DATA d = vertices[j];
-		//	
-		//	vec3 p = TransformPoint(transMat, vec3(d.vx, d.vy, d.vz));
-	
-		//	isCollide = bb.inside(p, delta);
-
-		//	if (isCollide)
-		//	{
-		//		return true;
-		//	}
-		//}
 	}
 
 	return false;
+}
+
+bool Model::checkCollisionTrianglesTriangles(Model *testModel, const mat4 &testModelTransMat, const mat4 &refModelTransMat, double delta /*= 0*/)
+{
+	vector<ModelMesh>& testModelMeshes = testModel->getModelMeshs();
+
+	for (int ti = 0; ti < testModelMeshes.size();ti++)
+	{
+		vector<VertexBufferObject::DATA> &testVertices = testModelMeshes[ti].m_vertices;
+		vector<uint> &testIndices = testModelMeshes[ti].m_indices;
+
+		for (int tj = 0; tj < testIndices.size()-3; tj+=3)
+		{
+			VertexBufferObject::DATA &d1 = testVertices[testIndices[tj]];
+			VertexBufferObject::DATA &d2 = testVertices[testIndices[tj + 1]];
+			VertexBufferObject::DATA &d3 = testVertices[testIndices[tj + 2]];
+
+			vec3 v1 = TransformPoint(testModelTransMat, vec3(d1.vx, d1.vy, d1.vz));
+			vec3 v2 = TransformPoint(testModelTransMat, vec3(d2.vx, d2.vy, d2.vz));
+			vec3 v3 = TransformPoint(testModelTransMat, vec3(d3.vx, d3.vy, d3.vz));
+
+			for (int ri = 0; ri < m_meshes.size(); ri++)
+			{
+				vector<VertexBufferObject::DATA> &vertices = m_meshes[ri].m_vertices;
+				vector<uint> &indices = m_meshes[ri].m_indices;
+
+				for (int rj = 0; rj < indices.size() - 3; rj += 3)
+				{
+					VertexBufferObject::DATA &d1 = vertices[indices[rj]];
+					VertexBufferObject::DATA &d2 = vertices[indices[rj + 1]];
+					VertexBufferObject::DATA &d3 = vertices[indices[rj + 2]];
+
+					vec3 w1 = TransformPoint(refModelTransMat, vec3(d1.vx, d1.vy, d1.vz));
+					vec3 w2 = TransformPoint(refModelTransMat, vec3(d2.vx, d2.vy, d2.vz));
+					vec3 w3 = TransformPoint(refModelTransMat, vec3(d3.vx, d3.vy, d3.vz));
+
+					bool iscollide = triangleTriangleWrapper(v1, v2, v3, w1, w2, w3);
+
+					if (iscollide)
+					{
+						//qDebug() << "\nv1 ";
+						//v1.print();
+						//qDebug() << "v2 ";
+						//v2.print();
+						//qDebug() << "v3 ";
+						//v3.print();
+
+						//qDebug() << "w1 ";
+						//w1.print();
+						//qDebug() << "w2 ";
+						//w2.print();
+						//qDebug() << "w3 ";
+						//w3.print();
+
+						//qDebug() << QString("d1 %1 %2 %3\n").arg(d1.vx).arg(d1.vy).arg(d1.vz);
+						//qDebug() << QString("d2 %1 %2 %3\n").arg(d2.vx).arg(d2.vy).arg(d2.vz);
+						//qDebug() << QString("d3 %1 %2 %3\n").arg(d3.vx).arg(d3.vy).arg(d3.vz);
+
+						//qDebug() << "RefModelTransMat ";
+						//mat4 refM(refModelTransMat);
+						//refM.print();
+
+						//qDebug() << "TestModelTransMat ";
+						//mat4 testM(testModelTransMat);
+						//testM.print();
+
+						return true;
+					}
+						
+				}
+			}
+		}
+	}
+
+	return false;
+
 }

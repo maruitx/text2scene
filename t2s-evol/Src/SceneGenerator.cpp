@@ -202,6 +202,7 @@ SceneSemGraph* SceneGenerator::alignToCurrTSScene(SceneSemGraph *matchedSg)
 
 void SceneGenerator::geometryAlignment(SceneSemGraph *matchedSg, SceneSemGraph *targetSg)
 {
+	// geometry align of the matched nodes
 	for (int mi = 0; mi < matchedSg->m_nodeNum; mi++)
 	{
 		SemNode& matchedSgNode = matchedSg->m_nodes[mi];
@@ -235,28 +236,64 @@ void SceneGenerator::geometryAlignment(SceneSemGraph *matchedSg, SceneSemGraph *
 
 			// compute transformation matrix based on the ref nodes
 			int mRefModelId = matchedSg->m_objectGraphNodeIdToModelSceneIdMap[mRefNodeId];
-			int tarRefModeId = targetSg->m_objectGraphNodeIdToModelSceneIdMap[tarRefNodeId];
+			int tarRefModelId = targetSg->m_objectGraphNodeIdToModelSceneIdMap[tarRefNodeId];
 
 			MetaModel &mRefModel = matchedSg->m_metaScene.m_metaModellList[mRefModelId];
-			MetaModel &tarRefModel = targetSg->m_metaScene.m_metaModellList[tarRefModeId];
+			MetaModel &tarRefModel = targetSg->m_metaScene.m_metaModellList[tarRefModelId];
 
-			mat4 transMat = computeTransMat(mRefModel, tarRefModel);
+			// initial alignment; align the rotation etc.	
+			mat4 alignTransMat = computeTransMat(mRefModel, tarRefModel);
 
 			// transform active model by initial alignment
 			// initial alignment will make the relative orientation between the new active model and the target active model right
 			int newActiveModelId = targetSg->m_objectGraphNodeIdToModelSceneIdMap[newActiveNodeId];
 			MetaModel &newActiveModel = targetSg->m_metaScene.m_metaModellList[newActiveModelId];
-			newActiveModel.transformation = transMat*newActiveModel.transformation;
-			newActiveModel.position = TransformPoint(transMat, newActiveModel.position);
-			newActiveModel.frontDir = TransformVector(transMat, newActiveModel.frontDir);
-			newActiveModel.upDir = TransformVector(transMat, newActiveModel.upDir);
+
+			vec3 initPositionInScene = newActiveModel.position; // get the pos of model in current scene
+	
+			// find the position after initial alignment
+			vec3 alignedPosition = TransformPoint(alignTransMat, initPositionInScene); // position after initial alignment
+
+			// find the target position on new ref obj using the U, V w.r.t the original parent
+			MetaModel &mActiveNode = matchedSg->m_metaScene.m_metaModellList[mActiveNodeId];
+			vec3 mUVH = mActiveNode.parentPlaneUVH;
+			//qDebug() << QString("UVH %1 %2 %3").arg(mUVH.x).arg(mUVH.y).arg(mUVH.z) <<"\n";
+
+			SuppPlane& tarRefSuppPlane = tarRefModel.suppPlane;
+			vec3 targetPosition = tarRefSuppPlane.getPointByUV(mUVH.x, mUVH.y); // position in the current scene, support plane is already transformed
+			//for (int ci = 0; ci < 4; ci++)
+			//{
+			//	qDebug() << QString("corner%1 %2 %3 %4").arg(ci).arg(tarRefSuppPlane.m_corners[ci].x).arg(tarRefSuppPlane.m_corners[ci].y).arg(tarRefSuppPlane.m_corners[ci].z) << "\n";
+			//}
+
+			vec3 translationVec = targetPosition - alignedPosition;
+			//qDebug() << QString("alignedPosition %1 %2 %3").arg(alignedPosition.x).arg(alignedPosition.y).arg(alignedPosition.z) << "\n";
+			//qDebug() << QString("targetPosition %1 %2 %3").arg(targetPosition.x).arg(targetPosition.y).arg(targetPosition.z) << "\n";
+			//qDebug() << QString("translationVec %1 %2 %3").arg(translationVec.x).arg(translationVec.y).arg(translationVec.z) << "\n";
+
+			mat4 adjustTransMat;
+			adjustTransMat = adjustTransMat.translate(translationVec);
+			//qDebug() << QString("adjustTransMat %1 %2 %3 %4 ").arg(adjustTransMat.a11).arg(adjustTransMat.a21).arg(adjustTransMat.a31).arg(adjustTransMat.a41) <<
+			//	QString("%1 %2 %3 %4 ").arg(adjustTransMat.a12).arg(adjustTransMat.a22).arg(adjustTransMat.a32).arg(adjustTransMat.a42) <<
+			//	QString("%1 %2 %3 %4 ").arg(adjustTransMat.a13).arg(adjustTransMat.a23).arg(adjustTransMat.a33).arg(adjustTransMat.a43) <<
+			//	QString("%1 %2 %3 %4 ").arg(adjustTransMat.a14).arg(adjustTransMat.a24).arg(adjustTransMat.a34).arg(adjustTransMat.a44) <<"\n";
+
+			mat4 finalTransMat = adjustTransMat*alignTransMat;
+
+			newActiveModel.position = finalTransMat*newActiveModel.position;
+			newActiveModel.transformation = finalTransMat*newActiveModel.transformation;
+			newActiveModel.frontDir = TransformVector(finalTransMat, newActiveModel.frontDir);
+			newActiveModel.upDir = TransformVector(finalTransMat, newActiveModel.upDir);
+			newActiveModel.suppPlane.tranfrom(finalTransMat);
 
 			// adjust position of transformed active model
 			// sample a position on the support plane on the target reference model using it's UV parameters from the original ref model
 
-
 		}
 	}
+
+	// TODO: geometry align of the inferred nodes
+
 }
 
 

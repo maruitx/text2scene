@@ -167,7 +167,8 @@ void Scene::renderSynScene(const Transform &trans, int var, bool applyShadow)
 	int varNum = m_variations.size();
 
 	if (var < varNum)
-	{        
+	{   
+		m_variations[var]->m_previewId = var;
 		m_variations[var]->render(trans, applyShadow);        
         //m_variations[var]->computeSceneBB();
 	}	
