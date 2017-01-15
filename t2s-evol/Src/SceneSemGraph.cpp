@@ -101,7 +101,7 @@ void SceneSemGraph::loadGraph(const QString &filename)
 
 		if (currLine.contains("frontDir "))
 		{
-			// position saves models frontDir in current scene after transformed
+			// frontDir saves models frontDir in current scene after transformed
 			std::vector<int> dirElementList = StringToIntegerList(currLine.toStdString(), "frontDir ");
 			vec3 initFrontDir(dirElementList[0], dirElementList[1], dirElementList[2]);
 			m_metaScene.m_metaModellList[currModelID].frontDir = TransformVector(m_metaScene.m_metaModellList[currModelID].transformation, initFrontDir);
@@ -110,7 +110,7 @@ void SceneSemGraph::loadGraph(const QString &filename)
 
 		if (currLine.contains("upDir "))
 		{
-			// position saves models upDir in current scene after transformed
+			// upDir saves models upDir in current scene after transformed
 			std::vector<int> dirElementList = StringToIntegerList(currLine.toStdString(), "upDir ");
 			vec3 initUpDir(dirElementList[0], dirElementList[1], dirElementList[2]);
 			m_metaScene.m_metaModellList[currModelID].upDir = TransformVector(m_metaScene.m_metaModellList[currModelID].transformation, initUpDir);
@@ -118,7 +118,7 @@ void SceneSemGraph::loadGraph(const QString &filename)
 
 		if (currLine.contains("suppPlane "))
 		{
-			// for support plane, we use save the original data and do not transform it now
+			// for support plane, the data saved in ssg is already transformed
 			std::vector<float> floatElementList = StringToFloatList(currLine.toStdString(), "suppPlane ");
 			std::vector<vec3> corners(4); 
 			for (int v = 0; v < 4; v++)
