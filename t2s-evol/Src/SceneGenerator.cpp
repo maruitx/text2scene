@@ -240,20 +240,47 @@ void SceneGenerator::geometryAlignment(SceneSemGraph *matchedSg, SceneSemGraph *
 			MetaModel &mRefModel = matchedSg->m_metaScene.m_metaModellList[mRefModelId];
 			MetaModel &tarRefModel = targetSg->m_metaScene.m_metaModellList[tarRefModeId];
 
-			mat4 transMat = computeTransMat(mRefModel, tarRefModel);
+			// initial alignment; align the rotation etc.	
+			mat4 alignTransMat = computeTransMat(mRefModel, tarRefModel);
 
 			// transform active model by initial alignment
 			// initial alignment will make the relative orientation between the new active model and the target active model right
 			int newActiveModelId = targetSg->m_objectGraphNodeIdToModelSceneIdMap[newActiveNodeId];
 			MetaModel &newActiveModel = targetSg->m_metaScene.m_metaModellList[newActiveModelId];
-			newActiveModel.transformation = transMat*newActiveModel.transformation;
-			newActiveModel.position = TransformPoint(transMat, newActiveModel.position);
-			newActiveModel.frontDir = TransformVector(transMat, newActiveModel.frontDir);
-			newActiveModel.upDir = TransformVector(transMat, newActiveModel.upDir);
+
+			//vec3 initPositionInScene = TransformPoint(newActiveModel.transformation, newActiveModel.position); // get the pos of model in current scene
+			vec3 initPositionInScene = newActiveModel.position;
+	
+			// find the position after initial alignment
+			vec3 alignedPosition = TransformPoint(alignTransMat, initPositionInScene); // position after initial alignment
+
+			// find the target position on new ref obj using the U, V w.r.t the original parent
+			MetaModel &mActiveNode = matchedSg->m_metaScene.m_metaModellList[mActiveNodeId];
+			vec3 mUVH = mActiveNode.parentPlaneUVH;
+			qDebug() << QString("UVH %1 %2 %3").arg(mUVH.x).arg(mUVH.y).arg(mUVH.z) <<"\n";
+
+			SuppPlane& newRefSuppPlane = tarRefModel.suppPlane;
+			vec3 targetPosition = newRefSuppPlane.getPointByUV(mUVH.x, mUVH.y); // position in the object space
+			targetPosition = TransformPoint(tarRefModel.transformation, targetPosition); // need to transform into current scene
+
+			vec3 translationVec = targetPosition - alignedPosition;
+			qDebug() << QString("alignedPosition %1 %2 %3").arg(alignedPosition.x).arg(alignedPosition.y).arg(alignedPosition.z) << "\n";
+			qDebug() << QString("targetPosition %1 %2 %3").arg(targetPosition.x).arg(targetPosition.y).arg(targetPosition.z) << "\n";
+			qDebug() << QString("translationVec %1 %2 %3").arg(translationVec.x).arg(translationVec.y).arg(translationVec.z) << "\n";
+
+			mat4 adjustTransMat;
+			adjustTransMat.translate(translationVec);
+
+			//mat4 finalTransMat = adjustTransMat*alignTransMat;
+			mat4 finalTransMat = alignTransMat;
+
+			newActiveModel.position = finalTransMat*newActiveModel.position;
+			newActiveModel.transformation = finalTransMat*newActiveModel.transformation;
+			newActiveModel.frontDir = TransformVector(finalTransMat, newActiveModel.frontDir);
+			newActiveModel.upDir = TransformVector(finalTransMat, newActiveModel.upDir);
 
 			// adjust position of transformed active model
 			// sample a position on the support plane on the target reference model using it's UV parameters from the original ref model
-
 
 		}
 	}

@@ -168,11 +168,11 @@ void TSScene::render(const Transform &trans, bool applyShadow)
 		{
 			if (iter->second->m_loadingDone)
 			{
-				if (!m_isLoadFromFile && checkCollision(iter->second->m_bb, i))
-				{
-					resolveCollision(i);
-				}
-				else
+				//if (!m_isLoadFromFile && checkCollision(iter->second, iter->second->m_bb, i))
+				//{
+				//	resolveCollision(i);
+				//}
+				//else
 				{
 					md.isAlreadyPlaced = true;
 					iter->second->render(tt, md.transformation, applyShadow, md.textureDir);
@@ -419,7 +419,7 @@ void TSScene::updateRoomModel(MetaModel m)
 	}
 }
 
-bool TSScene::checkCollision(const BoundingBox &bb, int cidx)
+bool TSScene::checkCollision(Model *testModel, const BoundingBox &testBB, int cidx)
 {
 	bool isCollide = false;
 
@@ -431,10 +431,10 @@ bool TSScene::checkCollision(const BoundingBox &bb, int cidx)
 
 	mat4 cTransMat = m_metaScene.m_metaModellList[cidx].transformation;
 	
-	// compute the new transformed BB
-	BoundingBox transBB = bb.transformBoudingBox(cTransMat);
-	vec3 cmi = transBB.mi();
-	vec3 cma = transBB.ma();
+	// compute the new transformed AABB
+	BoundingBox transTestBB = testBB.transformBoudingBox(cTransMat);
+	vec3 cmi = transTestBB.mi();
+	vec3 cma = transTestBB.ma();
 
 	double delta = 0.01 / params::inst()->globalSceneUnitScale;
 
@@ -443,7 +443,7 @@ bool TSScene::checkCollision(const BoundingBox &bb, int cidx)
 		bool isModelAlreadyPlaced = m_metaScene.m_metaModellList[i].isAlreadyPlaced;
 
 		// only check collision with model that is already placed in the scene
-		if (i != cidx)// && isModelAlreadyPlaced)
+		if (i != cidx && isModelAlreadyPlaced)
         {          		
 		    MetaModel &md = m_metaScene.m_metaModellList[i];
 		    auto &iter = m_models.find(md.name);
@@ -455,20 +455,26 @@ bool TSScene::checkCollision(const BoundingBox &bb, int cidx)
 				vec3 mmi = newTransBB.mi();
 				vec3 mma = newTransBB.ma();
 
-                bool coarse = intersectAABB(cmi, cma, mmi, mma, delta);
-                bool fine = false;
+                bool isAABBCollide = intersectAABB(cmi, cma, mmi, mma, delta);
+                bool isOBBMeshCollide = false;
+				bool isMeshMeshCollide = false;
 
                 //Testing Fine Collision
 			    //fine = iter->second->checkCollisionBBTriangles(transBB, md.transformation, delta);                    
                 //qDebug() << "IntTest:" << coarse << fine;
 
-                if(coarse)
+                if(isAABBCollide)
                 {
 					// test transformed BB to model with current scene transformation
-					fine = iter->second->checkCollisionBBTriangles(transBB, md.transformation, delta);                                      
+					isOBBMeshCollide = iter->second->checkCollisionBBTriangles(testBB, cTransMat, md.transformation, delta); 
+
+					if (isOBBMeshCollide)
+					{
+						isMeshMeshCollide = iter->second->checkCollisionTrianglesTriangles(testModel, cTransMat, md.transformation, delta);
+					}
                 }
 
-				isCollide = coarse && fine;
+				isCollide = isAABBCollide && isOBBMeshCollide && isMeshMeshCollide;
 				//isCollide = coarse;
 
 				if (isCollide)
@@ -494,6 +500,14 @@ bool TSScene::resolveCollision(int modelId)
 {
 
 	//testModel->m_collisionTrans += vec3(0, 2, 0);
+
+	//int parentId = m_ssg->findParentNodeId(modelId);
+	//MetaModel &parentMd = m_metaScene.m_metaModellList[parentId];
+	//MetaModel &md = m_metaScene.m_metaModellList[modelId];
+
+	//SuppPlane &parentSuppPlane = parentMd.suppPlane;
+	//vec3 currUVH = md.parentPlaneUVH; // UV, and H w.r.t to parent support plane
+
 
 	return true;
 }

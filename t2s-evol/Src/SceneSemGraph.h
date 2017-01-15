@@ -21,6 +21,8 @@ public:
 
 	SceneSemGraph* getSubGraph(const vector<int> &nodeList, bool useContext = false);
 
+	int findParentNodeId(int modelId);
+
 public:
 	MetaScene m_metaScene;
 

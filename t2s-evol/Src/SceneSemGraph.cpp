@@ -57,112 +57,134 @@ void SceneSemGraph::loadGraph(const QString &filename)
 		m_metaScene.m_sceneFilePath = m_metaScene.m_sceneDBPath + "/scenes";
 		m_metaScene.m_modelRepository = m_metaScene.m_sceneDBPath + "/models";
 	}
-	
-	while (!ifs.atEnd())
-	{
-		QString currLine = ifs.readLine();
 
-		// load model info
+	int currModelID = -1;
+	QString currLine;
+	while (!ifs.atEnd() && !currLine.contains("nodeNum"))
+	{
+		currLine = ifs.readLine();
+
+		//	load model info
 		if (currLine.contains("modelCount "))
 		{
 			m_modelNum = StringToIntegerList(currLine.toStdString(), "modelCount ")[0];
 			m_metaScene.m_metaModellList.resize(m_modelNum);
-
-			for (int i = 0; i < m_modelNum; i++)
-			{
-				currLine = ifs.readLine();
-				if (currLine.contains("newModel "))
-				{
-					std::vector<std::string> parts = PartitionString(currLine.toStdString(), " ");
-					int modelIndex = StringToInt(parts[1]);
-
-					m_metaScene.m_metaModellList[i].id = modelIndex;
-					m_metaScene.m_metaModellList[i].name = parts[2];
-					m_metaScene.m_metaModellList[i].path = m_metaScene.m_modelRepository.toStdString() + "/" + parts[2] + ".obj";					
-				}
-
-				currLine = ifs.readLine();
-				if (currLine.contains("transform "))
-				{
-					std::vector<float> transformVec = StringToFloatList(currLine.toStdString(), "transform ");  // transformation vector in stanford scene file is column-wise
-					mat4 transMat(transformVec.data());
-					transMat = transMat.transpose();
-					m_metaScene.m_metaModellList[i].transformation = transMat;					
-				}
-
-				currLine = ifs.readLine();
-				if (currLine.contains("position "))
-				{
-					std::vector<float> elementList = StringToFloatList(currLine.toStdString(), "position ");
-					vec3 initPos(elementList[0], elementList[1], elementList[2]);
-					m_metaScene.m_metaModellList[i].position = TransformPoint(m_metaScene.m_metaModellList[i].transformation, initPos);
-				}
-
-				currLine = ifs.readLine();
-				if (currLine.contains("frontDir "))
-				{
-					std::vector<int> dirElementList = StringToIntegerList(currLine.toStdString(), "frontDir ");
-					vec3 initFrontDir(dirElementList[0], dirElementList[1], dirElementList[2]);
-					m_metaScene.m_metaModellList[i].frontDir = TransformVector(m_metaScene.m_metaModellList[i].transformation, initFrontDir);
-					
-				}
-
-				currLine = ifs.readLine();
-				if (currLine.contains("upDir "))
-				{
-					std::vector<int> dirElementList = StringToIntegerList(currLine.toStdString(), "upDir ");
-					vec3 initUpDir(dirElementList[0], dirElementList[1], dirElementList[2]);
-					m_metaScene.m_metaModellList[i].upDir = TransformVector(m_metaScene.m_metaModellList[i].transformation, initUpDir);			
-				}
-			}
 		}
 
-		// load nodes
-		int metaModelId = 0;
-		if (currLine.contains("nodeNum "))
+		if (currLine.contains("newModel "))
 		{
-			int nodeNum = StringToIntegerList(currLine.toStdString(), "nodeNum ")[0];
-			for (int i = 0; i < nodeNum; i++)
-			{
-				currLine = ifs.readLine();
-				std::vector<std::string> parts = PartitionString(currLine.toStdString(), ",");
-				
-				// object node
-				if (QString(parts[1].c_str()) == "object")
-				{
-					if (parts.size() > 2)
-					{
-						addNode(QString(parts[1].c_str()), QString(parts[2].c_str()));
-					}
-					else
-					{
-						addNode(QString(parts[1].c_str()), "noname");
-					}
+			currModelID++;
 
-					m_objectGraphNodeIdToModelSceneIdMap[m_nodeNum - 1] = metaModelId;
-					metaModelId++;
-				}
-				else
+			std::vector<std::string> parts = PartitionString(currLine.toStdString(), " ");
+			int modelIndex = StringToInt(parts[1]);
+
+			m_metaScene.m_metaModellList[currModelID].id = modelIndex;
+			m_metaScene.m_metaModellList[currModelID].name = parts[2];
+			m_metaScene.m_metaModellList[currModelID].path = m_metaScene.m_modelRepository.toStdString() + "/" + parts[2] + ".obj";
+		}
+
+		if (currLine.contains("transform "))
+		{
+			std::vector<float> transformVec = StringToFloatList(currLine.toStdString(), "transform ");  // transformation vector in stanford scene file is column-wise
+			mat4 transMat(transformVec.data());
+			transMat = transMat.transpose();
+			m_metaScene.m_metaModellList[currModelID].transformation = transMat;
+		}
+
+		if (currLine.contains("position "))
+		{
+			// position saves models position in current scene after transformed
+			std::vector<float> elementList = StringToFloatList(currLine.toStdString(), "position ");
+			vec3 initPos(elementList[0], elementList[1], elementList[2]);
+			m_metaScene.m_metaModellList[currModelID].position = TransformPoint(m_metaScene.m_metaModellList[currModelID].transformation, initPos);
+		}
+
+		if (currLine.contains("frontDir "))
+		{
+			// position saves models frontDir in current scene after transformed
+			std::vector<int> dirElementList = StringToIntegerList(currLine.toStdString(), "frontDir ");
+			vec3 initFrontDir(dirElementList[0], dirElementList[1], dirElementList[2]);
+			m_metaScene.m_metaModellList[currModelID].frontDir = TransformVector(m_metaScene.m_metaModellList[currModelID].transformation, initFrontDir);
+
+		}
+
+		if (currLine.contains("upDir "))
+		{
+			// position saves models upDir in current scene after transformed
+			std::vector<int> dirElementList = StringToIntegerList(currLine.toStdString(), "upDir ");
+			vec3 initUpDir(dirElementList[0], dirElementList[1], dirElementList[2]);
+			m_metaScene.m_metaModellList[currModelID].upDir = TransformVector(m_metaScene.m_metaModellList[currModelID].transformation, initUpDir);
+		}
+
+		if (currLine.contains("suppPlane "))
+		{
+			// for support plane, we use save the original data and do not transform it now
+			std::vector<float> floatElementList = StringToFloatList(currLine.toStdString(), "suppPlane ");
+			std::vector<vec3> corners(4); 
+			for (int v = 0; v < 4; v++)
+			{
+				corners[v] = vec3(floatElementList[3 * v], floatElementList[3 * v + 1], floatElementList[3 * v + 2]);
+			}
+
+			// for support plane, we use save the original data and do not transform it now
+			m_metaScene.m_metaModellList[currModelID].suppPlane = SuppPlane(corners);
+		}
+
+		if (currLine.contains("parentPlaneUVH "))
+		{
+			std::vector<float> floatElementList = StringToFloatList(currLine.toStdString(), "parentPlaneUVH ");
+			vec3 uvh(floatElementList[0], floatElementList[1], floatElementList[2]);
+
+			m_metaScene.m_metaModellList[currModelID].parentPlaneUVH = uvh;
+		}
+	}
+
+	//	load nodes
+	int metaModelId = 0;
+	if (currLine.contains("nodeNum "))
+	{
+		int nodeNum = StringToIntegerList(currLine.toStdString(), "nodeNum ")[0];
+		for (int i = 0; i < nodeNum; i++)
+		{
+			currLine = ifs.readLine();
+			std::vector<std::string> parts = PartitionString(currLine.toStdString(), ",");
+
+			// object node
+			if (QString(parts[1].c_str()) == "object")
+			{
+				if (parts.size() > 2)
 				{
 					addNode(QString(parts[1].c_str()), QString(parts[2].c_str()));
 				}
-				
-			}
-		} 
+				else
+				{
+					addNode(QString(parts[1].c_str()), "noname");
+				}
 
-		// load edges
-		if (currLine.contains("edgeNum "))
-		{
-			int edgeNum = StringToIntegerList(currLine.toStdString(), "edgeNum ")[0];
-			for (int i = 0; i < edgeNum; i++)
+				m_objectGraphNodeIdToModelSceneIdMap[m_nodeNum - 1] = metaModelId;
+				metaModelId++;
+			}
+			else
 			{
-				currLine = ifs.readLine();
-				std::vector<int> parts = StringToIntegerList(currLine.toStdString(), "", ",");
-				addEdge(parts[1], parts[2]);
+				addNode(QString(parts[1].c_str()), QString(parts[2].c_str()));
 			}
 		}
 	}
-	
+
+	currLine = ifs.readLine();
+
+	// load edges
+	if (currLine.contains("edgeNum "))
+	{
+		int edgeNum = StringToIntegerList(currLine.toStdString(), "edgeNum ")[0];
+		for (int i = 0; i < edgeNum; i++)
+		{
+			currLine = ifs.readLine();
+			std::vector<int> parts = StringToIntegerList(currLine.toStdString(), "", ",");
+			addEdge(parts[1], parts[2]);
+		}
+	}
+
 	inFile.close();
 }
 
@@ -189,14 +211,14 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, bool useC
 
 		SemNode oldNode = m_nodes[nodeList[i]];
 		subGraph->addNode(oldNode.nodeType, oldNode.nodeName);
-	}	
+	}
 
 	// build graph edges
 	for (int i = 0; i < m_edgeNum; i++)
 	{
 		SemEdge oldEdge = m_edges[i];
 
-		if (oldToNewNodeIdMap.find(oldEdge.sourceNodeId) != oldToNewNodeIdMap.end() 
+		if (oldToNewNodeIdMap.find(oldEdge.sourceNodeId) != oldToNewNodeIdMap.end()
 			&& oldToNewNodeIdMap.find(oldEdge.targetNodeId) != oldToNewNodeIdMap.end())
 		{
 			int newSourceId = oldToNewNodeIdMap[oldEdge.sourceNodeId];
@@ -205,7 +227,7 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, bool useC
 		}
 	}
 
-   // enrich subgraph with context
+	// enrich subgraph with context
 	std::vector<int> enrichedNodeList = nodeList;
 	if (useContext)
 	{
@@ -282,7 +304,7 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, bool useC
 
 
 	// Debug
-	if (subGraph->m_edgeNum %2 != 0 )
+	if (subGraph->m_edgeNum % 2 != 0)
 	{
 		delete subGraph;
 		subGraph = NULL;
@@ -311,6 +333,29 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, bool useC
 	}
 
 	return subGraph;
+}
+
+int SceneSemGraph::findParentNodeId(int modelId)
+{
+	int currModelNodeId;
+
+	// find graph node id w.r.t to the model id
+	for (auto iter = m_objectGraphNodeIdToModelSceneIdMap.begin(); iter != m_objectGraphNodeIdToModelSceneIdMap.end(); iter++)
+	{
+		if (iter->second == modelId)
+		{
+			currModelNodeId = iter->first;
+			break;
+		}
+	}
+
+	int relationNodeId = m_nodes[currModelNodeId].outEdgeNodeList[0]; // monitor -> on
+
+	int refModelNodeId = m_nodes[refModelNodeId].outEdgeNodeList[0]; // on -> desk
+
+	int refModelId = m_objectGraphNodeIdToModelSceneIdMap[refModelNodeId];
+
+	return refModelId;
 }
 
 
