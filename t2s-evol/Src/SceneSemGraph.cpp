@@ -128,6 +128,7 @@ void SceneSemGraph::loadGraph(const QString &filename)
 
 			// for support plane, we use save the original data and do not transform it now
 			m_metaScene.m_metaModellList[currModelID].suppPlane = SuppPlane(corners);
+			m_metaScene.m_metaModellList[currModelID].suppPlane.m_sceneMetric = 0.0254;
 		}
 
 		if (currLine.contains("parentPlaneUVH "))
@@ -284,14 +285,17 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, bool useC
 							{
 								subGraph->addNode(m_nodes[suppParentNodeId].nodeType, m_nodes[suppParentNodeId].nodeName);
 								int currNodeId = subGraph->m_nodeNum - 1;
+								subGraph->m_nodes[currNodeId].inferedType = SemNode::InferBySupport;
+								subGraph->m_nodes[currNodeId].isInferredObj = true;
+								subGraph->m_nodes[currNodeId].inferRefNodeId = oldToNewNodeIdMap[oldNodeId];
+
 								oldToNewNodeIdMap[suppParentNodeId] = currNodeId;
 								enrichedNodeList.push_back(suppParentNodeId);
 
 								//subGraph->addEdge(currNodeId, oldToNewNodeIdMap[outNodeId]);
 								subGraph->addEdge(oldToNewNodeIdMap[outNodeId], currNodeId); // e.g. (support, tv_stand)
 
-								subGraph->m_nodes[currNodeId].isInferredObj = true;
-								subGraph->m_nodes[currNodeId].inferRefObjId = oldToNewNodeIdMap[oldNodeId];
+							
 							}
 						}
 					}
@@ -337,25 +341,44 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, bool useC
 
 int SceneSemGraph::findParentNodeId(int modelId)
 {
-	int currModelNodeId;
+	int currNodeId = getNodeIdWithModelId(modelId);
+
+	if (m_nodes[currNodeId].outEdgeNodeList.empty())
+	{
+		return -1;
+	}
+	else
+	{
+		int relationNodeId = m_nodes[currNodeId].outEdgeNodeList[0]; // monitor -> on
+
+		if (m_nodes[relationNodeId].outEdgeNodeList.empty())
+		{
+			return -1;
+		}
+		else
+		{
+			int refNodeId = m_nodes[relationNodeId].outEdgeNodeList[0]; // on -> desk
+
+			return refNodeId;
+		}
+	}
+}
+
+int SceneSemGraph::getNodeIdWithModelId(int modelId)
+{
+	int currNodeId;
 
 	// find graph node id w.r.t to the model id
 	for (auto iter = m_objectGraphNodeIdToModelSceneIdMap.begin(); iter != m_objectGraphNodeIdToModelSceneIdMap.end(); iter++)
 	{
 		if (iter->second == modelId)
 		{
-			currModelNodeId = iter->first;
+			currNodeId = iter->first;
 			break;
 		}
 	}
 
-	int relationNodeId = m_nodes[currModelNodeId].outEdgeNodeList[0]; // monitor -> on
-
-	int refModelNodeId = m_nodes[refModelNodeId].outEdgeNodeList[0]; // on -> desk
-
-	int refModelId = m_objectGraphNodeIdToModelSceneIdMap[refModelNodeId];
-
-	return refModelId;
+	return currNodeId;
 }
 
 

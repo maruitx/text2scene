@@ -168,11 +168,11 @@ void TSScene::render(const Transform &trans, bool applyShadow)
 		{
 			if (iter->second->m_loadingDone)
 			{
-				//if (!m_isLoadFromFile && checkCollision(iter->second, iter->second->m_bb, i))
-				//{
-				//	resolveCollision(i);
-				//}
-				//else
+				if (!m_isLoadFromFile && checkCollision(iter->second, iter->second->m_bb, i))
+				{
+					//resolveCollision(i);
+				}
+				else
 				{
 					md.isAlreadyPlaced = true;
 					iter->second->render(tt, md.transformation, applyShadow, md.textureDir);
@@ -468,18 +468,20 @@ bool TSScene::checkCollision(Model *testModel, const BoundingBox &testBB, int ci
 					// test transformed BB to model with current scene transformation
 					isOBBMeshCollide = iter->second->checkCollisionBBTriangles(testBB, cTransMat, md.transformation, delta); 
 
-					if (isOBBMeshCollide)
-					{
-						isMeshMeshCollide = iter->second->checkCollisionTrianglesTriangles(testModel, cTransMat, md.transformation, delta);
-					}
+					//if (isOBBMeshCollide)
+					//{
+					//	isMeshMeshCollide = iter->second->checkCollisionTrianglesTriangles(testModel, cTransMat, md.transformation, delta);
+					//}
                 }
 
-				isCollide = isAABBCollide && isOBBMeshCollide && isMeshMeshCollide;
+				//isCollide = isAABBCollide && isOBBMeshCollide && isMeshMeshCollide;
+				isCollide = isAABBCollide && isOBBMeshCollide;
 				//isCollide = coarse;
 
 				if (isCollide)
 				{
-					//qDebug() << true;
+					//qDebug() << QString("RefModel:%1\n").arg(QString(md.name.c_str()));
+					//qDebug() << QString("TestModel:%1\n").arg(QString(m_metaScene.m_metaModellList[cidx].name.c_str()));
 					return isCollide;
 				}
             }
@@ -501,13 +503,46 @@ bool TSScene::resolveCollision(int modelId)
 
 	//testModel->m_collisionTrans += vec3(0, 2, 0);
 
-	//int parentId = m_ssg->findParentNodeId(modelId);
-	//MetaModel &parentMd = m_metaScene.m_metaModellList[parentId];
-	//MetaModel &md = m_metaScene.m_metaModellList[modelId];
+	int parentNodeId = m_ssg->findParentNodeId(modelId);
+	int parentModelId = m_ssg->m_objectGraphNodeIdToModelSceneIdMap[parentNodeId];
 
-	//SuppPlane &parentSuppPlane = parentMd.suppPlane;
-	//vec3 currUVH = md.parentPlaneUVH; // UV, and H w.r.t to parent support plane
+	int currNodeId = m_ssg->getNodeIdWithModelId(modelId);
 
+	MetaModel &currMd = m_metaScene.m_metaModellList[modelId];
+	mat4 transMat;
+	vec3 translateVec;
+
+	if (parentNodeId != -1)
+	{
+		MetaModel &parentMd = m_metaScene.m_metaModellList[parentNodeId];
+
+
+		SuppPlane &parentSuppPlane = parentMd.suppPlane;
+		vec3 currUVH = currMd.parentPlaneUVH; // UV, and H w.r.t to parent support plane
+
+		vec3 newPos = parentSuppPlane.samplePointByUVH(currUVH);
+		translateVec = newPos - currMd.position;
+
+
+		transMat = transMat.translate(translateVec);
+	
+	}
+	else
+	{
+		//qDebug() << "\t no parent found for model "<< m_ssg->m_nodes[currNodeId].nodeName<<"\n";
+		double sceneMetric = params::inst()->globalSceneUnitScale;
+		translateVec = GenShiftWithNormalDistribution(0.5 / sceneMetric, 0.5 / sceneMetric, 0);
+
+		transMat = transMat.translate(translateVec);
+	}
+
+	currMd.position = transMat*currMd.position;
+	currMd.transformation = transMat*currMd.transformation;
+	currMd.frontDir = TransformVector(transMat, currMd.frontDir);
+	currMd.upDir = TransformVector(transMat, currMd.upDir);
+	currMd.suppPlane.tranfrom(transMat);
+
+	qDebug() << QString("\t Shift model %1 - %2 in Preview %3 by %4 %5 %6 \n").arg(QString(currMd.name.c_str())).arg(m_ssg->m_nodes[currNodeId].nodeName).arg(m_previewId).arg(translateVec.x).arg(translateVec.y).arg(translateVec.z);
 
 	return true;
 }

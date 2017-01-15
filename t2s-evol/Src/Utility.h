@@ -6,6 +6,9 @@
 #include "Math.h"
 #include <QQuaternion>
 
+#include <random>
+#include <chrono>
+
 
 static std::vector<std::string> PartitionString(const std::string &s, const std::string &separator)
 {
@@ -143,4 +146,42 @@ static mat4 GetTransformationMat(const mat4 &rotMat, const vec3 &currPos, const 
 	transMat.a14 = transVec.x; transMat.a24 = transVec.y; transMat.a34 = transVec.z;
 
 	return transMat;
+}
+
+// cannot put generator inside loop
+static double GenNormalDistribution(double dMean, double dVar)
+{
+	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+
+	std::default_random_engine generator(seed);
+	std::normal_distribution<double> distribution(dMean, dVar);
+
+	return distribution(generator);
+}
+
+static double GetNormalDistributionProb(double x, double dMean, double dVar)
+{
+	return (1.0 / sqrt(2 * math_pi))*exp(-0.5*(x - dMean)*(x - dMean) / dVar);
+}
+
+
+static vec3 GenShiftWithNormalDistribution(double xVar, double yVar = 0, double zVar =0)
+{
+	double xShift, yShift, zShift;
+
+	xShift = GenNormalDistribution(0, xVar);
+
+	if (yShift!=0)
+	{
+		yShift = GenNormalDistribution(0, yVar);
+	}
+
+	if (zShift!=0)
+	{
+		zShift = GenNormalDistribution(0, zVar);
+	}
+	
+	
+	return vec3(xShift, yShift, zShift);
+
 }

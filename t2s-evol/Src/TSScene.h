@@ -37,6 +37,8 @@ public:
 	bool m_isLoadFromFile;
 	bool m_isRenderRoom;
 
+	int m_previewId;
+
 private:
 	unordered_map<string, Model*> &m_models;   // current loaded object DB
 	
