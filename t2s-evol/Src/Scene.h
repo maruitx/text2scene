@@ -38,6 +38,8 @@ public:
 	void initTextures();
 
 	void runOneEvolutionStep();
+    void toggleRenderMode();
+
 
 public:
     vector<Light *> m_lights;

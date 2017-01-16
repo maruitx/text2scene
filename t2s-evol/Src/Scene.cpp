@@ -225,3 +225,10 @@ void Scene::runOneEvolutionStep()
 	}
 }
 
+void Scene::toggleRenderMode()
+{
+	for (int i = 0; i < m_variations.size(); i++)
+	{
+		m_variations[i]->toggleRenderMode();
+	}
+}

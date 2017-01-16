@@ -31,6 +31,7 @@ public:
 	void loadModel(MetaModel m);
 
 	void updateRoomModel(MetaModel m);
+    void toggleRenderMode();
 
 public:
 	SceneSemGraph *m_ssg;
@@ -51,6 +52,6 @@ private:
 	int m_loadedModelNum;
 	bool m_isLoadingDone;
 
-
+    int m_renderMode;    
 };
 

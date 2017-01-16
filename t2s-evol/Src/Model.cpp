@@ -321,7 +321,7 @@ Model::Model(const string &fileName)
 	//	i.buildVBO();
 }
 
-void Model::render(const Transform &trans, const mat4 &initTrans, bool applyShadow, const string &textureDir)
+void Model::render(const Transform &trans, const mat4 &initTrans, bool applyShadow, const string &textureDir, int renderMode, bool isSelected)
 {
 	if (params::inst()->applyCulling)
 	{
@@ -341,6 +341,8 @@ void Model::render(const Transform &trans, const mat4 &initTrans, bool applyShad
 		shader->set3f("lightPos", params::inst()->lights[0]->position());
 		shader->setTexture("shadowMap", params::inst()->lights[0]->shadowMapBlurredId());
 		shader->seti("applyShadow", params::inst()->applyShadow && applyShadow ? 1 : 0);
+        shader->seti("renderMode", renderMode);
+        shader->seti("isSelected", isSelected);
 
 		for (auto &i : m_meshes)
 		{
@@ -492,17 +494,17 @@ bool triangleTriangleWrapper(const vec3 &a1, const vec3 &a2, const vec3 &a3, con
     r1[1] = a3.y;
     r1[2] = a3.z;
 
-    p1[0] = b1.x;
-    p1[1] = b1.y;
-    p1[2] = b1.z;
+    p2[0] = b1.x;
+    p2[1] = b1.y;
+    p2[2] = b1.z;
 
-    q1[0] = b2.x;
-    q1[1] = b2.y;
-    q1[2] = b2.z;
+    q2[0] = b2.x;
+    q2[1] = b2.y;
+    q2[2] = b2.z;
 
-    r1[0] = b3.x;
-    r1[1] = b3.y;
-    r1[2] = b3.z;
+    r2[0] = b3.x;
+    r2[1] = b3.y;
+    r2[2] = b3.z;
     
     return tri_tri_intersect(p1, q1, r1, p2, q2, r2);
 }
@@ -511,15 +513,25 @@ bool Model::checkCollisionBBTriangles(const BoundingBox &testBB, const mat4 &tes
 {	
     //box triangle collision as triangle triangle collision
 
-    vec3 b1 = vec3(testBB.mi().x, testBB.mi().y, testBB.mi().z);
-    vec3 b2 = vec3(testBB.ma().x, testBB.mi().y, testBB.mi().z);
-    vec3 b3 = vec3(testBB.ma().x, testBB.mi().y, testBB.ma().z);
-    vec3 b4 = vec3(testBB.mi().x, testBB.mi().y, testBB.ma().z);
+    //vec3 b1 = vec3(testBB.mi().x, testBB.mi().y, testBB.mi().z);
+    //vec3 b2 = vec3(testBB.ma().x, testBB.mi().y, testBB.mi().z);
+    //vec3 b3 = vec3(testBB.ma().x, testBB.mi().y, testBB.ma().z);
+    //vec3 b4 = vec3(testBB.mi().x, testBB.mi().y, testBB.ma().z);
 
-    vec3 b5 = vec3(testBB.mi().x, testBB.ma().y, testBB.mi().z);
-    vec3 b6 = vec3(testBB.ma().x, testBB.ma().y, testBB.mi().z);
-    vec3 b7 = vec3(testBB.ma().x, testBB.ma().y, testBB.ma().z);
-    vec3 b8 = vec3(testBB.mi().x, testBB.ma().y, testBB.ma().z);
+    //vec3 b5 = vec3(testBB.mi().x, testBB.ma().y, testBB.mi().z);
+    //vec3 b6 = vec3(testBB.ma().x, testBB.ma().y, testBB.mi().z);
+    //vec3 b7 = vec3(testBB.ma().x, testBB.ma().y, testBB.ma().z);
+    //vec3 b8 = vec3(testBB.mi().x, testBB.ma().y, testBB.ma().z);
+
+	vec3 b1 = vec3(testBB.mi().x, testBB.mi().y, testBB.mi().z);
+	vec3 b2 = vec3(testBB.ma().x, testBB.mi().y, testBB.mi().z);
+	vec3 b3 = vec3(testBB.ma().x, testBB.ma().y, testBB.mi().z);
+	vec3 b4 = vec3(testBB.mi().x, testBB.ma().y, testBB.mi().z);
+
+	vec3 b5 = vec3(testBB.mi().x, testBB.mi().y, testBB.ma().z);
+	vec3 b6 = vec3(testBB.ma().x, testBB.mi().y, testBB.ma().z);
+	vec3 b7 = vec3(testBB.ma().x, testBB.ma().y, testBB.ma().z);
+	vec3 b8 = vec3(testBB.mi().x, testBB.ma().y, testBB.ma().z);
 
 	b1 = TransformPoint(testModelTransMat, b1);
 	b2 = TransformPoint(testModelTransMat, b2);
@@ -631,7 +643,36 @@ bool Model::checkCollisionTrianglesTriangles(Model *testModel, const mat4 &testM
 					bool iscollide = triangleTriangleWrapper(v1, v2, v3, w1, w2, w3);
 
 					if (iscollide)
+					{
+						//qDebug() << "\nv1 ";
+						//v1.print();
+						//qDebug() << "v2 ";
+						//v2.print();
+						//qDebug() << "v3 ";
+						//v3.print();
+
+						//qDebug() << "w1 ";
+						//w1.print();
+						//qDebug() << "w2 ";
+						//w2.print();
+						//qDebug() << "w3 ";
+						//w3.print();
+
+						//qDebug() << QString("d1 %1 %2 %3\n").arg(d1.vx).arg(d1.vy).arg(d1.vz);
+						//qDebug() << QString("d2 %1 %2 %3\n").arg(d2.vx).arg(d2.vy).arg(d2.vz);
+						//qDebug() << QString("d3 %1 %2 %3\n").arg(d3.vx).arg(d3.vy).arg(d3.vz);
+
+						//qDebug() << "RefModelTransMat ";
+						//mat4 refM(refModelTransMat);
+						//refM.print();
+
+						//qDebug() << "TestModelTransMat ";
+						//mat4 testM(testModelTransMat);
+						//testM.print();
+
 						return true;
+					}
+						
 				}
 			}
 		}

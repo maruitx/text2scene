@@ -412,6 +412,7 @@ void GLWidget::keyPressEvent(QKeyEvent *event)
             //Camera Back
             break;
         case Qt::Key_T:
+            m_scene->toggleRenderMode();
             break;
         case Qt::Key_V:
             break;

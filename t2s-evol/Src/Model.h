@@ -53,7 +53,7 @@ class Model : public QObject
 
 public:
 	Model(const string &fileName);
-	void render(const Transform &trans, const mat4 &initTrans, bool applyShadow = false, const string &textureDir = "");
+	void render(const Transform &trans, const mat4 &initTrans, bool applyShadow = false, const string &textureDir = "", int renderMode = 0, bool isSelected = false);
 	void renderDepth(const Transform &trans, const mat4 &initTrans);
     void buildBBVBO();
 	bool checkCollisionBBTriangles(const BoundingBox &testBB, const mat4 &testModelTransMat, const mat4 &refModelTransMat, double delta = 0);  // transMat is the transformation to place the model in current scene

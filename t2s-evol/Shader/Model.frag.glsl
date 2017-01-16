@@ -15,6 +15,8 @@ uniform vec3 Kd;
 uniform vec3 lightPos;
 uniform float shadowIntensity = 0.5;
 uniform int applyShadow = 1;
+uniform int renderMode = 0;
+uniform int isSelected = 0;
 
 float VSM(vec4 smcoord, sampler2D smb)
 {
@@ -64,6 +66,14 @@ void main()
 
    float d = abs(dot(N, normalize(L-P)));
    color.rgb = (texColor.rgb * 0.25 + Kd * d * 0.75) * shadow;
+
+   if(renderMode == 1)   
+   {
+       color.rgb = vec3(0.9) * abs(dot(N, normalize(L-P))) * shadow;
+
+       if(isSelected == 1)
+           color.rgb *= vec3(1, 0, 0);
+   }
 
    FragColor = vec4(color.rgb, 1);
 }

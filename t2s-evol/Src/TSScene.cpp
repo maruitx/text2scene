@@ -14,7 +14,8 @@ TSScene::TSScene(unordered_map<string, Model*> &models)
 	m_isRenderRoom(true),
 	m_isLoadFromFile(false),
 	m_ssg(NULL), 
-    m_camTrans(0.0f, 0.0f, 0.0f)
+    m_camTrans(0.0f, 0.0f, 0.0f), 
+    m_renderMode(0)
 {
 	
 }
@@ -29,7 +30,8 @@ TSScene::TSScene(unordered_map<string, Model*> &models, const QString &fileName)
   m_isRenderRoom(true),
   m_isLoadFromFile(false),
   m_ssg(NULL), 
-  m_camTrans(0.0f, 0.0f, 0.0f)
+  m_camTrans(0.0f, 0.0f, 0.0f), 
+  m_renderMode(0)
 {
 	loadSceneFile(fileName);
 	countLoadedModelNum();
@@ -45,7 +47,8 @@ TSScene::TSScene(unordered_map<string, Model*> &models, MetaScene &ms)
 	m_isRenderRoom(true),
 	m_isLoadFromFile(false),
 	m_ssg(NULL), 
-    m_camTrans(0.0f, 0.0f, 0.0f)
+    m_camTrans(0.0f, 0.0f, 0.0f), 
+    m_renderMode(0)
 {
 	m_modelNum = m_metaScene.m_metaModellList.size();
 	countLoadedModelNum();
@@ -175,7 +178,7 @@ void TSScene::render(const Transform &trans, bool applyShadow)
 				//else
 				{
 					md.isAlreadyPlaced = true;
-					iter->second->render(tt, md.transformation, applyShadow, md.textureDir);
+					iter->second->render(tt, md.transformation, applyShadow, md.textureDir, m_renderMode, md.isSelected);
 				}
 			}	
 		}
@@ -510,5 +513,10 @@ bool TSScene::resolveCollision(int modelId)
 
 
 	return true;
+}
+
+void TSScene::toggleRenderMode()
+{
+    loop(m_renderMode, 0, 1, 1);
 }
 
