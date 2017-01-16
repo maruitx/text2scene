@@ -123,8 +123,6 @@ void TextDialog::onButtonProcess()
 
 		QStringList sceneNameList = inputSentence.split(" ");
 		
-	
-
 		int sceneNum = sceneNameList.size();
 
 		if (sceneNum < 0) return;
@@ -262,6 +260,67 @@ void TextDialog::onButtonProcess()
 					cout << "Scene file " << sceneFileName.toStdString() << " does not exist\n";
 				}
 			}
+		}
+
+		return;
+	}
+
+	if (inputSentence.contains("ss "))
+	{
+
+		//save scene name with no extention, default extention of ".result" will be added
+
+		inputSentence.remove("ss ");
+
+		// load local sceneDB path
+		vector<string> localSceneDBPaths = getFileLines("./SceneDB/LocalSceneDBPath.txt", 3);
+		string resultPath;
+
+		for (int i = 0; i < localSceneDBPaths.size(); i++)
+		{
+			if (localSceneDBPaths[i][0] != '#')
+			{
+				if (localSceneDBPaths[i].find("ResultPath=") != string::npos)
+				{
+					resultPath = PartitionString(localSceneDBPaths[i], "ResultPath=")[0];
+					continue;
+				}
+			}
+		}
+
+		if (!dirExists(resultPath))
+		{
+			cout << "Please set your result path in SceneDB/LocalSceneDBPath.txt\n";
+			return;
+		}
+
+		QString  sceneFileName = QString(resultPath.c_str()) + inputSentence + ".result";
+		QFile outFile(sceneFileName);
+		QTextStream ofs(&outFile);
+
+		if (!outFile.open(QIODevice::ReadWrite | QIODevice::Text | QIODevice::Truncate))
+		{
+			cout << "Cannot open file " << sceneFileName.toStdString() << " to save the scene.\n";
+		}
+		else{
+			TSScene *tsscene = m_scene->m_variations[m_scene->m_activeVarationId];
+
+			ofs << "StanfordSceneDatabase\n";
+			MetaScene& metaScene = tsscene->getMetaScene();
+			int modelNum = metaScene.m_metaModellList.size();
+			ofs << "modelCount " << modelNum << "\n";
+			for (int i = 0; i < modelNum; i++)
+			{
+				MetaModel& md = metaScene.m_metaModellList[i];
+				ofs << "newModel " << i << " " << QString(md.name.c_str()) << "\n";
+				ofs << "transform " << QString("%1").arg(md.transformation.a11, 0, 'f') << " " << QString("%1").arg(md.transformation.a21, 0, 'f') << " " << QString("%1").arg(md.transformation.a31, 0, 'f') << " " << QString("%1").arg(md.transformation.a41, 0, 'f') << " "
+					<< QString("%1").arg(md.transformation.a12, 0, 'f') << " " << QString("%1").arg(md.transformation.a22, 0, 'f') << " " << QString("%1").arg(md.transformation.a32, 0, 'f') << " " << QString("%1").arg(md.transformation.a42, 0, 'f') << " "
+					<< QString("%1").arg(md.transformation.a13, 0, 'f') << " " << QString("%1").arg(md.transformation.a23, 0, 'f') << " " << QString("%1").arg(md.transformation.a33, 0, 'f') << " " << QString("%1").arg(md.transformation.a43, 0, 'f') << " "
+					<< QString("%1").arg(md.transformation.a14, 0, 'f') << " " << QString("%1").arg(md.transformation.a24, 0, 'f') << " " << QString("%1").arg(md.transformation.a34, 0, 'f') << " " << QString("%1").arg(md.transformation.a44, 0, 'f') <<"\n";
+			}
+
+			cout << "Save current scene to file " << sceneFileName.toStdString() << "\n";
+			outFile.close();
 		}
 
 		return;

@@ -32,6 +32,8 @@ public:
 
 	void updateRoomModel(MetaModel m);
 
+	MetaScene& getMetaScene() { return m_metaScene; };
+
 public:
 	SceneSemGraph *m_ssg;
 	bool m_isLoadFromFile;
