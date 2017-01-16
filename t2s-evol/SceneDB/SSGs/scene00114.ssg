@@ -52,7 +52,7 @@ nodeNum 11
 0,object,room,6,
 1,object,nightstand,7 8 9 10,6
 2,object,tableclock,,7
-3,object,lamp,,8
+3,object,desklamp,,8
 4,object,book,,9
 5,object,cup,,10
 6,pairwise_relationship,vert_support,1,0

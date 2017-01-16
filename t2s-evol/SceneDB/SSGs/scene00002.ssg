@@ -200,7 +200,7 @@ upDir 0 0 1
 suppPlane 43.0216 -0.374431 72.4928 43.0216 42.3025 72.4928 13.8004 42.3025 72.4928 13.8004 -0.374431 72.4928
 parentId 0
 parentPlaneUVH 0.115492 0.0862717 -131.75
-nodeNum 144
+nodeNum 145
 0,object,room,25 26 27 28 29 30 31 32 33 43,
 1,object,bed,44 45 46 49 51 52 55 57 59 62 64,25 47 48 50 53 54 56 58 60 61 63 65
 2,object,toyfigure,,44
@@ -211,21 +211,21 @@ nodeNum 144
 7,object,wallart,,
 8,object,stool,53 54 72 73 93 105 106 109 111 113 114 117 118,43 51 52 70 71 92 107 108 110 112 115 116 119 120
 9,object,poster,,
-10,object,dresser,36 37 38 39 40 41 56 76 77 96 97 107 108 121 123 126 127,28 55 74 75 94 95 105 106 122 124 125 128 129
+10,object,dresser,36 37 38 39 40 41 56 76 77 96 97 107 108 121 123 126 127,28 55 74 75 94 95 105 106 122 124 125 128 129 130
 11,object,toyfigure,,36
 12,object,toyfigure,,37
 13,object,toyfigure,,38
 14,object,toyfigure,,39
-15,object,computer,,40
+15,object,laptop,,40
 16,object,cellphone,,41
-17,object,pottedplant,58 79 99 110 122 130 132 134,29 57 78 98 109 121 131 133 135
-18,object,pottedplant,60 61 82 83 100 112 124 125 131 136 137 139 140,30 59 80 81 111 123 130 138 141
+17,object,pottedplant,58 79 99 110 122 131 133 135,29 57 78 98 109 121 132 134 136
+18,object,pottedplant,60 61 82 83 100 112 124 125 132 137 138 140 141,30 59 80 81 111 123 131 139 142
 19,object,walldecoration,,
 20,object,powersocket,,
-21,object,basket,42 63 86 87 102 115 116 128 129 133 138 142,31 62 84 85 101 113 114 126 127 132 136 137 143
+21,object,basket,42 63 86 87 102 115 116 128 129 134 139 143,31 62 84 85 101 113 114 126 127 133 137 138 144
 22,object,book,,32 42
 23,object,board,,
-24,object,basket,65 90 91 104 119 120 135 141 143,33 64 88 89 103 117 118 134 139 140 142
+24,object,basket,65 90 91 104 119 120 130 136 142 144,33 64 88 89 103 117 118 135 140 141 143
 25,pairwise_relationship,vert_support,1,0
 26,pairwise_relationship,vert_support,3,0
 27,pairwise_relationship,vert_support,4,0
@@ -331,21 +331,22 @@ nodeNum 144
 127,pairwise_relationship,back,21,10
 128,pairwise_relationship,near,10,21
 129,pairwise_relationship,front,10,21
-130,pairwise_relationship,near,18,17
-131,pairwise_relationship,near,17,18
-132,pairwise_relationship,near,21,17
-133,pairwise_relationship,near,17,21
-134,pairwise_relationship,near,24,17
-135,pairwise_relationship,near,17,24
-136,pairwise_relationship,near,21,18
-137,pairwise_relationship,back,21,18
-138,pairwise_relationship,near,18,21
-139,pairwise_relationship,near,24,18
-140,pairwise_relationship,back,24,18
-141,pairwise_relationship,near,18,24
-142,pairwise_relationship,near,24,21
-143,pairwise_relationship,near,21,24
-edgeNum 238
+130,pairwise_relationship,under,10,24
+131,pairwise_relationship,near,18,17
+132,pairwise_relationship,near,17,18
+133,pairwise_relationship,near,21,17
+134,pairwise_relationship,near,17,21
+135,pairwise_relationship,near,24,17
+136,pairwise_relationship,near,17,24
+137,pairwise_relationship,near,21,18
+138,pairwise_relationship,back,21,18
+139,pairwise_relationship,near,18,21
+140,pairwise_relationship,near,24,18
+141,pairwise_relationship,back,24,18
+142,pairwise_relationship,near,18,24
+143,pairwise_relationship,near,24,21
+144,pairwise_relationship,near,21,24
+edgeNum 240
 0,1,25
 1,25,0
 2,3,26
@@ -556,31 +557,33 @@ edgeNum 238
 207,128,21
 208,10,129
 209,129,21
-210,18,130
-211,130,17
-212,17,131
-213,131,18
-214,21,132
-215,132,17
-216,17,133
-217,133,21
-218,24,134
-219,134,17
-220,17,135
-221,135,24
-222,21,136
-223,136,18
+210,10,130
+211,130,24
+212,18,131
+213,131,17
+214,17,132
+215,132,18
+216,21,133
+217,133,17
+218,17,134
+219,134,21
+220,24,135
+221,135,17
+222,17,136
+223,136,24
 224,21,137
 225,137,18
-226,18,138
-227,138,21
-228,24,139
-229,139,18
+226,21,138
+227,138,18
+228,18,139
+229,139,21
 230,24,140
 231,140,18
-232,18,141
-233,141,24
-234,24,142
-235,142,21
-236,21,143
-237,143,24
+232,24,141
+233,141,18
+234,18,142
+235,142,24
+236,24,143
+237,143,21
+238,21,144
+239,144,24

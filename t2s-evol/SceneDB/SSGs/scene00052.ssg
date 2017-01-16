@@ -231,7 +231,7 @@ nodeNum 84
 3,object,plate,57,36
 4,object,foodplate,,37 57
 5,object,glasses,,38
-6,object,saucebottle,30,39
+6,object,bottle,30,39
 7,object,plate,58 66,40
 8,object,food,,41 58
 9,object,carrot,,66

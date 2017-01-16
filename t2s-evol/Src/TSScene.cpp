@@ -141,6 +141,12 @@ void TSScene::loadSceneFile(const QString &filename)
 				transMat = transMat.transpose();
 				m_metaScene.m_metaModellList[currModelID].transformation = transMat;
 			}
+
+			if (currLine.contains("renderingMode "))
+			{
+				int renderMode = StringToIntegerList(currLine.toStdString(), "renderingMode ")[0];  // transformation vector in stanford scene file is column-wise
+				m_metaScene.m_metaModellList[currModelID].isSelected = renderMode;
+			}
 		}
 	}
 
@@ -171,11 +177,17 @@ void TSScene::render(const Transform &trans, bool applyShadow)
 		{
 			if (iter->second->m_loadingDone)
 			{
-				//if (!m_isLoadFromFile)// && checkCollision(iter->second, iter->second->m_bb, i))
-				//{
-				//	//resolveCollision(i);
-				//}
-				//else
+				if (!m_isLoadFromFile && checkCollision(iter->second, iter->second->m_bb, i) && md.trialNum < 20)
+				{
+					resolveCollision(i);
+					md.trialNum++;
+
+					if (md.trialNum == 20)
+					{
+						md.isAlreadyPlaced = true; // although collision happens still set it to be placed
+					}
+				}
+				else
 				{
 					md.isAlreadyPlaced = true;
 					iter->second->render(tt, md.transformation, applyShadow, md.textureDir, m_renderMode, md.isSelected);
@@ -473,12 +485,12 @@ bool TSScene::checkCollision(Model *testModel, const BoundingBox &testBB, int ci
 
 					if (isOBBMeshCollide)
 					{
-						isMeshMeshCollide = iter->second->checkCollisionTrianglesTriangles(testModel, cTransMat, md.transformation, delta);
+						//isMeshMeshCollide = iter->second->checkCollisionTrianglesTriangles(testModel, cTransMat, md.transformation, delta);
 					}
                 }
 
-				isCollide = isAABBCollide && isOBBMeshCollide && isMeshMeshCollide;
-				//isCollide = isAABBCollide && isOBBMeshCollide;
+				//isCollide = isAABBCollide && isOBBMeshCollide && isMeshMeshCollide;
+				isCollide = isAABBCollide && isOBBMeshCollide;
 				//isCollide = coarse;
 
 				if (isCollide)
@@ -523,7 +535,7 @@ bool TSScene::resolveCollision(int modelId)
 		SuppPlane &parentSuppPlane = parentMd.suppPlane;
 		vec3 currUVH = currMd.parentPlaneUVH; // UV, and H w.r.t to parent support plane
 
-		vec3 newPos = parentSuppPlane.samplePointByUVH(currUVH);
+		vec3 newPos = parentSuppPlane.randomSamplePointByUVH(currUVH);
 		translateVec = newPos - currMd.position;
 
 
@@ -534,20 +546,28 @@ bool TSScene::resolveCollision(int modelId)
 	{
 		//qDebug() << "\t no parent found for model "<< m_ssg->m_nodes[currNodeId].nodeName<<"\n";
 		double sceneMetric = params::inst()->globalSceneUnitScale;
-		translateVec = GenShiftWithNormalDistribution(0.3 / sceneMetric, 0.3 / sceneMetric);
-
+		//translateVec = GenShiftWithNormalDistribution(0.3 / sceneMetric, 0.3 / sceneMetric);
+		std::vector<double> sft(2);
+		double xVar = 0.2;
+		double yVar = 0.2;
+		GenNRandomDouble(-1, 1, sft);
+		translateVec = translateVec + vec3(xVar*sft[0] / sceneMetric, yVar*sft[1] / sceneMetric, 0);
 		transMat = transMat.translate(translateVec);
 	}
 
 	currMd.position = transMat*currMd.position;
 	currMd.transformation = transMat*currMd.transformation;
+	currMd.frontDir = TransformVector(currMd.transformation, currMd.frontDir);
+	currMd.upDir = TransformVector(currMd.transformation, currMd.upDir);
+	currMd.suppPlane.tranfrom(transMat);
+
 	//currMd.frontDir = TransformVector(transMat, currMd.frontDir);
 	//currMd.upDir = TransformVector(transMat, currMd.upDir);
 	//currMd.suppPlane.tranfrom(transMat);
 
 
 	//qDebug() << QString("\t Shift model %1 - %2 in Preview %3 by %4 %5 %6 \n").arg(QString(currMd.name.c_str())).arg(m_ssg->m_nodes[currNodeId].nodeName).arg(m_previewId).arg(translateVec.x).arg(translateVec.y).arg(translateVec.z);
-	qDebug() << QString("\t Shift model %1 - %2 in Preview %3 by %4 %5 %6 \n").arg(QString(currMd.name.c_str())).arg(currNodeId).arg(m_previewId).arg(translateVec.x).arg(translateVec.y).arg(translateVec.z);
+	qDebug() << QString("\t Trial num:%1 Shift model %2 - %3 in Preview %4 by %5 %6 %7 \n").arg(currMd.trialNum).arg(QString(currMd.name.c_str())).arg(currNodeId).arg(m_previewId).arg(translateVec.x).arg(translateVec.y).arg(translateVec.z);
 	return true;
 }
 

@@ -228,7 +228,7 @@ nodeNum 82
 8,object,computermouse,,36 50
 9,object,monitor,,37
 10,object,speaker,,38
-11,object,lamp,,39
+11,object,desklamp,,39
 12,object,notepad,51,40
 13,object,pen,,41 51
 14,object,cellphone,,42

@@ -148,6 +148,22 @@ static mat4 GetTransformationMat(const mat4 &rotMat, const vec3 &currPos, const 
 	return transMat;
 }
 
+static int GenRandomInt(int minV, int maxV)
+{
+	// generate a random number between minV and maxV, not including maxV
+
+	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+
+	std::mt19937_64 rng(seed);
+	//// initialize the random number generator with time-dependent seed
+	//uint64_t timeSeed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+	//std::seed_seq ss{ uint32_t(timeSeed & 0xffffffff), uint32_t(timeSeed >> 32) };
+	//rng.seed(ss);
+	// initialize a uniform distribution between 0 and 1
+	std::uniform_int_distribution<int> unif(minV, maxV - 1);
+
+	return unif(rng);
+}
 
 static double GenRandomDouble(double minV, double maxV)
 {
@@ -163,12 +179,31 @@ static double GenRandomDouble(double minV, double maxV)
 	return unif(rng);
 };
 
+static void GenNRandomDouble(double minV, double maxV, std::vector<double> &vals)
+{
+	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+	std::mt19937_64 rng(seed);
+	//// initialize the random number generator with time-dependent seed
+	//uint64_t timeSeed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+	//std::seed_seq ss{ uint32_t(timeSeed & 0xffffffff), uint32_t(timeSeed >> 32) };
+	//rng.seed(ss);
+	// initialize a uniform distribution between 0 and 1
+	std::uniform_real_distribution<double> unif(minV, maxV);
+
+
+	for (int i = 0; i < vals.size(); i++)
+	{
+		vals[i] = unif(rng);
+	}
+};
+
+
 // cannot put generator inside loop
-static double GenNormalDistribution(double dMean, double dVar)
+static double GenNormalDistribution(double dMean, double dVar, unsigned seedShift)
 {
 	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 
-	std::default_random_engine generator(seed);
+	std::default_random_engine generator(seed + seedShift);
 	std::normal_distribution<double> distribution(dMean, dVar);
 
 	return distribution(generator);
@@ -182,18 +217,23 @@ static double GetNormalDistributionProb(double x, double dMean, double dVar)
 
 static vec3 GenShiftWithNormalDistribution(double xVar, double yVar = 0, double zVar =0)
 {
+	//Temp 
 	double xShift(0), yShift(0), zShift(0);
 
-	xShift = GenNormalDistribution(0, xVar);
+	int seedShift = GenRandomInt(1e4, 1e6);
+
+	xShift = GenNormalDistribution(0, xVar, seedShift);
 
 	if (yVar != 0)
 	{
-		yShift = GenNormalDistribution(0, yVar);
+		seedShift = GenRandomInt(1e4, 1e6);
+		yShift = GenNormalDistribution(0, yVar, seedShift);
 	}
 
 	if (zVar != 0)
 	{
-		zShift = GenNormalDistribution(0, zVar);
+		seedShift = GenRandomInt(1e4, 1e6);
+		zShift = GenNormalDistribution(0, zVar, seedShift);
 	}
 	
 	

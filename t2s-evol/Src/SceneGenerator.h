@@ -23,7 +23,9 @@ public:
 
 	// alignment
 	SceneSemGraph* alignToCurrTSScene(SceneSemGraph *matchedSg);
-	void geometryAlignment(SceneSemGraph *matchedSg, SceneSemGraph *targetSg);
+	void geometryAlignmentWithCurrScene(SceneSemGraph *matchedSg, SceneSemGraph *targetSg);
+	void alignBySynthesizedRelationships(SceneSemGraph *targetSg);
+
 
 	mat4 computeTransMat(const MetaModel &fromModel, const MetaModel &toModel);
 

@@ -197,7 +197,7 @@ nodeNum 60
 17,object,sodacan,,41
 18,object,chair,22 45 54 56,24 44 55 57
 19,object,trashbin,48 49 55 58,25 46 47 54 59
-20,object,lamp,52 53 57 59,26 50 51 56 58
+20,object,floorlamp,52 53 57 59,26 50 51 56 58
 21,object,powersocket,,
 22,per_obj_attribute,office,,18
 23,pairwise_relationship,vert_support,1,0

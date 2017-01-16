@@ -194,7 +194,7 @@ nodeNum 79
 6,object,pen,,
 7,object,pencil,,32
 8,object,battery,,33
-9,object,computer,,34
+9,object,laptop,,34
 10,object,usbstick,,35
 11,object,auxiliary storage,40,36
 12,object,erlenmeyer flask,,40

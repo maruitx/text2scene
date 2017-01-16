@@ -141,12 +141,12 @@ nodeNum 33
 1,object,desk,18 19 20 21 22 23 24 25 26 27,17
 2,object,computermouse,,18
 3,object,keyboard,,19
-4,object,computer,,20
+4,object,laptop,,20
 5,object,notepad,28 29 30,21
 6,object,cellphone,,28
 7,object,key,,29
 8,object,wallet,,30
-9,object,lamp,,22
+9,object,desklamp,,22
 10,object,headphones,,23
 11,object,computer,31,24
 12,object,computer,,31

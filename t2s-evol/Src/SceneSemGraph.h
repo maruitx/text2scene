@@ -21,6 +21,7 @@ public:
 
 	SceneSemGraph* getSubGraph(const vector<int> &nodeList, bool useContext = false);
 
+
 	int findParentNodeId(int modelId);
 	int getNodeIdWithModelId(int modelId);
 
@@ -28,6 +29,9 @@ public:
 	MetaScene m_metaScene;
 
 	std::map<int, int> m_objectGraphNodeIdToModelSceneIdMap;	
+
+	map<int, int> m_dbNodeToSubNodeMap;
+
 
 private:
 	int m_modelNum;

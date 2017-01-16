@@ -202,16 +202,16 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, bool useC
 {
 	SceneSemGraph *subGraph = new SceneSemGraph();
 
-	map<int, int> oldToNewNodeIdMap;
-
 	std::vector<int> enrichedNodeList = nodeList;
+
+	m_dbNodeToSubNodeMap.clear();
 
 	// build graph nodes
 	int currSubSSGNodeNum = 0;
 	for (int i = 0; i < nodeList.size(); i++)
 	{
 		int oldNodeId = nodeList[i];
-		oldToNewNodeIdMap[oldNodeId] = currSubSSGNodeNum;
+		m_dbNodeToSubNodeMap[oldNodeId] = currSubSSGNodeNum;
 
 		SemNode &oldNode = m_nodes[oldNodeId];
 		subGraph->addNode(oldNode.nodeType, oldNode.nodeName);
@@ -224,33 +224,50 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, bool useC
 				int refNodeId = oldNode.outEdgeNodeList[0];
 				SemNode &refNode = m_nodes[refNodeId]; // desk
 
-				std::vector<int> inNodeList = refNode.inEdgeNodeList;
+				//std::vector<int> inNodeList = refNode.inEdgeNodeList;
 
-				for (int r = 0; r < inNodeList.size(); r++)
+				//for (int r = 0; r < inNodeList.size(); r++)
+				//{
+				//	int relationId = inNodeList[r];
+
+				//	SemNode &relationNode = m_nodes[relationId];
+
+				//	if (relationNode.nodeName == "vert_support")
+				//	{
+				//		// add all support children
+				//		int childId = relationNode.inEdgeNodeList[0];
+				//		SemNode &childNode = m_nodes[childId];
+				//		double insertProb = GenRandomDouble(0, 1);
+
+				//		if (insertProb > 0.3)
+				//		{
+				//			subGraph->addNode(relationNode.nodeType, relationNode.nodeName);
+				//			oldToNewNodeIdMap[relationId] = currSubSSGNodeNum;							
+				//			enrichedNodeList.push_back(relationId);
+				//			currSubSSGNodeNum++;
+
+				//			subGraph->addNode(childNode.nodeType, childNode.nodeName);
+				//			oldToNewNodeIdMap[childId] = currSubSSGNodeNum;
+				//			enrichedNodeList.push_back(childId);
+				//			currSubSSGNodeNum++;
+				//		}
+				//	}
+				//}
+				std::vector<int> inNodeList  = oldNode.inEdgeNodeList;
+				for (int a = 0; a < inNodeList.size(); a++)
 				{
-					int relationId = inNodeList[r];
+					int actNodeId = inNodeList[a];
+					SemNode &actNode = m_nodes[actNodeId];
+					double insertProb = GenRandomDouble(0, 1);
 
-					SemNode &relationNode = m_nodes[relationId];
-
-					if (relationNode.nodeName == "vert_support")
+					//if (insertProb > 0.3)
 					{
-						// add all support children
-						int childId = relationNode.inEdgeNodeList[0];
-						SemNode &childNode = m_nodes[childId];
-						double insertProb = GenRandomDouble(0, 1);
+						subGraph->addNode(actNode.nodeType, actNode.nodeName);
+						m_dbNodeToSubNodeMap[actNodeId] = currSubSSGNodeNum;
+						enrichedNodeList.push_back(actNodeId);
+						currSubSSGNodeNum++;
 
-						if (insertProb > 0.3)
-						{
-							subGraph->addNode(relationNode.nodeType, relationNode.nodeName);
-							oldToNewNodeIdMap[relationId] = currSubSSGNodeNum;							
-							enrichedNodeList.push_back(relationId);
-							currSubSSGNodeNum++;
-
-							subGraph->addNode(childNode.nodeType, childNode.nodeName);
-							oldToNewNodeIdMap[childId] = currSubSSGNodeNum;
-							enrichedNodeList.push_back(childId);
-							currSubSSGNodeNum++;
-						}
+						actNode.isAnnotated = true;
 					}
 				}
 			}
@@ -263,11 +280,11 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, bool useC
 	{
 		SemEdge oldEdge = m_edges[i];
 
-		if (oldToNewNodeIdMap.find(oldEdge.sourceNodeId) != oldToNewNodeIdMap.end()
-			&& oldToNewNodeIdMap.find(oldEdge.targetNodeId) != oldToNewNodeIdMap.end())
+		if (m_dbNodeToSubNodeMap.find(oldEdge.sourceNodeId) != m_dbNodeToSubNodeMap.end()
+			&& m_dbNodeToSubNodeMap.find(oldEdge.targetNodeId) != m_dbNodeToSubNodeMap.end())
 		{
-			int newSourceId = oldToNewNodeIdMap[oldEdge.sourceNodeId];
-			int newTargetId = oldToNewNodeIdMap[oldEdge.targetNodeId];
+			int newSourceId = m_dbNodeToSubNodeMap[oldEdge.sourceNodeId];
+			int newTargetId = m_dbNodeToSubNodeMap[oldEdge.targetNodeId];
 			subGraph->addEdge(newSourceId, newTargetId);
 		}
 	}
@@ -292,7 +309,7 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, bool useC
 					int outNodeId = outNodeList[j];  // id of support node
 
 					// if there is support node missing
-					if (!oldToNewNodeIdMap.count(outNodeId) && m_nodes[outNodeId].nodeName.contains("support"))
+					if (!m_dbNodeToSubNodeMap.count(outNodeId) && m_nodes[outNodeId].nodeName.contains("support"))
 					{
 						std::vector<int> suppParentIdList = m_nodes[outNodeId].outEdgeNodeList; // should only have one support parent
 
@@ -310,35 +327,38 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, bool useC
 
 						if (parentIsRoom) break;
 
-						// add support node
-						subGraph->addNode(m_nodes[outNodeId].nodeType, m_nodes[outNodeId].nodeName);
-						int currNodeId = subGraph->m_nodeNum - 1;
-						oldToNewNodeIdMap[outNodeId] = currNodeId;
-						//subGraph->addEdge(currNodeId, oldToNewNodeIdMap[oldNodeId]);
-						subGraph->addEdge(oldToNewNodeIdMap[oldNodeId], currNodeId); // e.g., (tv, support)
-
-						enrichedNodeList.push_back(outNodeId);
-
-						// add support parent
-						for (int k = 0; k < suppParentIdList.size(); k++)
+						// add support node; TEMP, only add the support node for tv now
+						if (oldNode.nodeName == "tv" || oldNode.nodeName == "printer" || oldNode.nodeName == "books")
 						{
-							int suppParentNodeId = suppParentIdList[k];
+							subGraph->addNode(m_nodes[outNodeId].nodeType, m_nodes[outNodeId].nodeName);
+							int currNodeId = subGraph->m_nodeNum - 1;
+							m_dbNodeToSubNodeMap[outNodeId] = currNodeId;
+							//subGraph->addEdge(currNodeId, oldToNewNodeIdMap[oldNodeId]);
+							subGraph->addEdge(m_dbNodeToSubNodeMap[oldNodeId], currNodeId); // e.g., (tv, support)
 
-							if (!oldToNewNodeIdMap.count(suppParentNodeId) && m_nodes[suppParentNodeId].nodeType == "object")
+							enrichedNodeList.push_back(outNodeId);
+
+							// add support parent
+							for (int k = 0; k < suppParentIdList.size(); k++)
 							{
-								subGraph->addNode(m_nodes[suppParentNodeId].nodeType, m_nodes[suppParentNodeId].nodeName);
-								int currNodeId = subGraph->m_nodeNum - 1;
-								subGraph->m_nodes[currNodeId].inferedType = SemNode::InferBySupport;
-								subGraph->m_nodes[currNodeId].isInferredObj = true;
-								subGraph->m_nodes[currNodeId].inferRefNodeId = oldToNewNodeIdMap[oldNodeId];
+								int suppParentNodeId = suppParentIdList[k];
 
-								oldToNewNodeIdMap[suppParentNodeId] = currNodeId;
-								enrichedNodeList.push_back(suppParentNodeId);
+								if (!m_dbNodeToSubNodeMap.count(suppParentNodeId) && m_nodes[suppParentNodeId].nodeType == "object")
+								{
+									subGraph->addNode(m_nodes[suppParentNodeId].nodeType, m_nodes[suppParentNodeId].nodeName);
+									int currNodeId = subGraph->m_nodeNum - 1;
+									subGraph->m_nodes[currNodeId].inferedType = SemNode::InferBySupport;
+									subGraph->m_nodes[currNodeId].isInferredObj = true;
+									subGraph->m_nodes[currNodeId].inferRefNodeId = m_dbNodeToSubNodeMap[oldNodeId];
 
-								//subGraph->addEdge(currNodeId, oldToNewNodeIdMap[outNodeId]);
-								subGraph->addEdge(oldToNewNodeIdMap[outNodeId], currNodeId); // e.g. (support, tv_stand)
+									m_dbNodeToSubNodeMap[suppParentNodeId] = currNodeId;
+									enrichedNodeList.push_back(suppParentNodeId);
 
-							
+									//subGraph->addEdge(currNodeId, oldToNewNodeIdMap[outNodeId]);
+									subGraph->addEdge(m_dbNodeToSubNodeMap[outNodeId], currNodeId); // e.g. (support, tv_stand)
+
+
+								}
 							}
 						}
 					}
@@ -350,7 +370,7 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, bool useC
 	}
 
 	// set meta scene
-	int sceneId = 0;
+	int modelInSceneId = 0;
 	for (int i = 0; i < enrichedNodeList.size(); i++)
 	{
 		int oldNodeId = enrichedNodeList[i];
@@ -362,10 +382,11 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, bool useC
 
 			if (oldMetaModelId < m_modelNum)
 			{
+				m_metaScene.m_metaModellList[oldMetaModelId].isSelected = m_nodes[oldNodeId].isAnnotated;
 				subGraph->m_metaScene.m_metaModellList.push_back(m_metaScene.m_metaModellList[oldMetaModelId]);
-				int currNodeId = oldToNewNodeIdMap[oldNodeId];
-				subGraph->m_objectGraphNodeIdToModelSceneIdMap[currNodeId] = sceneId;
-				sceneId++;
+				int currNodeId = m_dbNodeToSubNodeMap[oldNodeId];
+				subGraph->m_objectGraphNodeIdToModelSceneIdMap[currNodeId] = modelInSceneId;
+				modelInSceneId++;
 			}
 		}
 	}
@@ -377,13 +398,26 @@ int SceneSemGraph::findParentNodeId(int modelId)
 {
 	int currNodeId = getNodeIdWithModelId(modelId);
 
-	if (currNodeId == -1)
+	if (currNodeId == -1 || m_nodes[currNodeId].nodeName == "chair" || m_nodes[currNodeId].nodeName == "desk" 
+		|| m_nodes[currNodeId].nodeName.contains("cabinet") || m_nodes[currNodeId].nodeName.contains("couch"))
 	{
 		return -1;
 	}
 
 	if (m_nodes[currNodeId].outEdgeNodeList.empty())
 	{
+		// try to find the potention parent node in current graph
+		for (int i = 0; i < m_nodes.size(); i++)
+		{
+			if (m_nodes[i].nodeName == "desk" || m_nodes[i].nodeName == "couch"
+				|| m_nodes[i].nodeName == "bookcase" || m_nodes[i].nodeName.contains("cabinet")
+				|| m_nodes[i].nodeName == "bed")
+			{
+				return i;
+			}
+		}
+
+
 		return -1;
 	}
 	else

@@ -61,6 +61,8 @@ SceneSemGraph* SceneGenerator::alignToCurrTSScene(SceneSemGraph *matchedSg)
 	if (currSg == NULL)
 	{
 		newSg = new SceneSemGraph(matchedSg);
+
+		alignBySynthesizedRelationships(newSg);
 		return newSg;
 	}
 
@@ -194,13 +196,15 @@ SceneSemGraph* SceneGenerator::alignToCurrTSScene(SceneSemGraph *matchedSg)
 	}
 
 	// geometry alignment
-	geometryAlignment(matchedSg, newSg);
+	geometryAlignmentWithCurrScene(matchedSg, newSg);
+
+	//alignBySynthesizedRelationships(newSg);
 
 	return newSg;
 }
 
 
-void SceneGenerator::geometryAlignment(SceneSemGraph *matchedSg, SceneSemGraph *targetSg)
+void SceneGenerator::geometryAlignmentWithCurrScene(SceneSemGraph *matchedSg, SceneSemGraph *targetSg)
 {
 	// geometry align of the matched nodes
 	for (int mi = 0; mi < matchedSg->m_nodeNum; mi++)
@@ -226,6 +230,7 @@ void SceneGenerator::geometryAlignment(SceneSemGraph *matchedSg, SceneSemGraph *
 				mRefNodeId = mOutNodeId;
 				mActiveNodeId = mInNodeId;
 			}
+			// if no reference node is aligned, just use the ref node in matchedSg, and align to it
 			else
 			{
 				break;
@@ -260,11 +265,13 @@ void SceneGenerator::geometryAlignment(SceneSemGraph *matchedSg, SceneSemGraph *
 			//qDebug() << QString("UVH %1 %2 %3").arg(mUVH.x).arg(mUVH.y).arg(mUVH.z) <<"\n";
 
 			SuppPlane& tarRefSuppPlane = tarRefModel.suppPlane;
-			vec3 targetPosition = tarRefSuppPlane.getPointByUV(mUVH.x, mUVH.y); // position in the current scene, support plane is already transformed
+			//vec3 targetPosition = tarRefSuppPlane.getPointByUV(mUVH.x, mUVH.y); // position in the current scene, support plane is already transformed
 			//for (int ci = 0; ci < 4; ci++)
 			//{
 			//	qDebug() << QString("corner%1 %2 %3 %4").arg(ci).arg(tarRefSuppPlane.m_corners[ci].x).arg(tarRefSuppPlane.m_corners[ci].y).arg(tarRefSuppPlane.m_corners[ci].z) << "\n";
 			//}
+
+			vec3 targetPosition = tarRefSuppPlane.randomSamplePointByUVH(mUVH);
 
 			vec3 translationVec = targetPosition - alignedPosition;
 			//qDebug() << QString("alignedPosition %1 %2 %3").arg(alignedPosition.x).arg(alignedPosition.y).arg(alignedPosition.z) << "\n";
@@ -303,6 +310,45 @@ mat4 SceneGenerator::computeTransMat(const MetaModel &fromModel, const MetaModel
 	mat4 transMat = GetTransformationMat(rotMat, fromModel.position, toModel.position);
 
 	return transMat;
+}
+
+void SceneGenerator::alignBySynthesizedRelationships(SceneSemGraph *targetSg)
+{
+	for (int mi = 0; mi < targetSg->m_nodeNum; mi++)
+	{
+		SemNode& targSgNode = targetSg->m_nodes[mi];
+		if (!targSgNode.isAligned && targSgNode.nodeType == "pairwise_relationship") //  synthesized relationship node
+		{
+			// edge dir: (active, relation), (relation, reference)
+
+			if (!targSgNode.outEdgeNodeList.empty())
+			{
+				int refNodeId = targSgNode.outEdgeNodeList[0];
+				int activeNodeId = targSgNode.inEdgeNodeList[0];
+
+				// compute transformation matrix based on the ref nodes
+				MetaModel &tarRefModel = targetSg->m_metaScene.m_metaModellList[refNodeId];
+				MetaModel &newActiveModel = targetSg->m_metaScene.m_metaModellList[activeNodeId];
+
+
+				SuppPlane &suppPlane = tarRefModel.suppPlane;
+				vec3 uvh = newActiveModel.parentPlaneUVH;
+
+				vec3 newPos = suppPlane.randomSamplePointByUVH(uvh);
+
+				mat4 transMat;
+				vec3 translateVec;
+				translateVec = newPos - newActiveModel.position;
+				transMat = transMat.translate(translateVec);
+
+				newActiveModel.position = transMat*newActiveModel.position;
+				newActiveModel.transformation = transMat*newActiveModel.transformation;
+				newActiveModel.frontDir = TransformVector(newActiveModel.transformation, newActiveModel.frontDir);
+				newActiveModel.upDir = TransformVector(newActiveModel.transformation, newActiveModel.upDir);
+				newActiveModel.suppPlane.tranfrom(transMat);
+			}
+		}
+	}
 }
 
 

@@ -32,8 +32,7 @@
    else no check is done (which is less robust)
 */
 #define USE_EPSILON_TEST TRUE  
-//#define EPSILON 0.000001
-#define EPSILON 0.3937 // 0.01/0.0254 = 1cm
+#define EPSILON 0.000001
 
 /* some macros */
 #define CROSS(dest,v1,v2)                      \

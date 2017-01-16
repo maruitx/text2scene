@@ -116,7 +116,7 @@ nodeNum 24
 8,object,ceramic,,21
 9,object,candle,,22
 10,object,candle,,23
-11,object,lamp,,15
+11,object,floorlamp,,15
 12,object,wallart,,
 13,pairwise_relationship,vert_support,1,0
 14,pairwise_relationship,vert_support,2,1

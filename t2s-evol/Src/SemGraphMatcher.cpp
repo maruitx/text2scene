@@ -113,26 +113,31 @@ SceneSemGraph* SemGraphMatcher::alignTSGWithSSG(TextSemGraph *tsg, SceneSemGraph
 					{
 						if (!tsgNode.inEdgeNodeList.empty())
 						{
-							int tsgAttNum = tsgNode.inEdgeNodeList.size();
+
 							int matchedAttNum = 0;
-							for (int tai = 0; tai < tsgAttNum; tai++)
+							int tsgAttNum = 0;
+							for (int tai = 0; tai < tsgNode.inEdgeNodeList.size(); tai++)
 							{
 								SemNode &taNode = tsg->m_nodes[tsgNode.inEdgeNodeList[tai]];
 
-								if (!dbSgNode.inEdgeNodeList.empty())
+								if (taNode.nodeType == "per_obj_attribute")
 								{
-									for (int dai = 0; dai < dbSgNode.inEdgeNodeList.size(); dai++)
+									tsgAttNum++;
+									if (!dbSgNode.inEdgeNodeList.empty())
 									{
-										SemNode &daNode = databaseSSG->m_nodes[dbSgNode.inEdgeNodeList[dai]];
+										for (int dai = 0; dai < dbSgNode.inEdgeNodeList.size(); dai++)
+										{
+											SemNode &daNode = databaseSSG->m_nodes[dbSgNode.inEdgeNodeList[dai]];
 
-										if (taNode.nodeType == daNode.nodeType && taNode.nodeName == daNode.nodeName)
-										{ 
-											matchedAttNum++;
+											if (taNode.nodeType == daNode.nodeType && taNode.nodeName == daNode.nodeName)
+											{
+												matchedAttNum++;
 
-											taNode.isMatched = true;
-											daNode.isMatched = true;
-											mapFromTsgToDBSsgNodeId[tai] = dni; // save aligned object node map		
-											matchingScore += 1;
+												taNode.isMatched = true;
+												daNode.isMatched = true;
+												mapFromTsgToDBSsgNodeId[tai] = dni; // save aligned object node map		
+												matchingScore += 1;
+											}
 										}
 									}
 								}
@@ -281,9 +286,57 @@ SceneSemGraph* SemGraphMatcher::alignTSGWithSSG(TextSemGraph *tsg, SceneSemGraph
 		}
 	}
 
-	// add nodes by scene context
+	// add nodes by exact match and scene context
 	bool useContext = true;
 	matchedSubSSG = databaseSSG->getSubGraph(matchedDBSsgNodeList, useContext);
+
+	//// add synthesized node
+	//// first find the DB-SSG node corresponding to the text node, then find the Sub-SSG node for the text node
+	////  set up map
+	//std::map<int, int> tsgNodeToSubNodeMap;
+	//for (int tni = 0; tni < tsg->m_nodeNum; tni++)
+	//{
+	//	SemNode& tsgNode = tsg->m_nodes[tni];
+
+	//	if (tsgNode.isMatched && mapFromTsgToDBSsgNodeId.count(tni))
+	//	{
+	//		int dbNodeId = mapFromTsgToDBSsgNodeId[tni];
+	//		tsgNodeToSubNodeMap[tni] = matchedSubSSG->m_dbNodeToSubNodeMap[dbNodeId];
+	//	}
+	//}
+
+	//// insert synthesized object node
+	//for (int tni = 0; tni < tsg->m_nodeNum; tni++)
+	//{
+	//	SemNode& tsgNode = tsg->m_nodes[tni];
+
+	//	if (!tsgNode.isMatched && !mapFromTsgToDBSsgNodeId.count(tni))
+	//	{
+	//		if (tsgNode.nodeType == "object")
+	//		{
+	//			matchedSubSSG->addNode(tsgNode.nodeType, tsgNode.nodeName);
+
+	//			tsgNodeToSubNodeMap[tni] = matchedSubSSG->m_nodeNum-1;
+	//		}
+	//	}
+	//}
+
+	//// insert synthesized attribute and relation node
+	//for (int tni = 0; tni < tsg->m_nodeNum; tni++)
+	//{
+	//	SemNode& tsgNode = tsg->m_nodes[tni];
+
+	//	if (tsgNode.nodeType == "per_obj_attribute" || tsgNode.nodeType == "group_attribute")
+	//	{
+	//		if (!tsgNode.outEdgeNodeList.empty())
+	//		{
+	//			int refNodeId = tsgNode.outEdgeNodeList[0];
+
+	//		}
+	//	}
+	//}
+
+
 
 	return matchedSubSSG;
 }

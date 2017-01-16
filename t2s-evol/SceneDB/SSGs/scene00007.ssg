@@ -65,10 +65,10 @@ suppPlane 362.062 191.395 108.801 362.062 166.277 108.801 362.75 166.277 108.801
 parentId 0
 parentPlaneUVH 0.990188 0.735949 -79.8498
 nodeNum 15
-0,object,room,9,13 14
+0,object,room,9,
 1,object,bed,8 10 11 12 13 14,9
 2,object,pants,,10 14
-3,object,computer,,8 14
+3,object,laptop,,8 14
 4,object,pillow,,14
 5,object,bear,,11 14
 6,object,shirt,,12 14
@@ -78,9 +78,9 @@ nodeNum 15
 10,pairwise_relationship,vert_support,2,1
 11,pairwise_relationship,vert_support,5,1
 12,pairwise_relationship,vert_support,6,1
-13,group_attribute,decorative,7 0,1
-14,group_attribute,messy,3 2 6 5 4 0,1
-edgeNum 20
+13,group_attribute,decorative,7,1
+14,group_attribute,messy,3 2 6 5 4,1
+edgeNum 18
 0,3,8
 1,8,1
 2,1,9
@@ -93,11 +93,9 @@ edgeNum 20
 9,12,1
 10,13,1
 11,7,13
-12,0,13
-13,14,1
-14,3,14
-15,2,14
-16,6,14
-17,5,14
-18,4,14
-19,0,14
+12,14,1
+13,3,14
+14,2,14
+15,6,14
+16,5,14
+17,4,14

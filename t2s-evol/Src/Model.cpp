@@ -321,7 +321,7 @@ Model::Model(const string &fileName)
 	//	i.buildVBO();
 }
 
-void Model::render(const Transform &trans, const mat4 &initTrans, bool applyShadow, const string &textureDir, int renderMode, bool isSelected)
+void Model::render(const Transform &trans, const mat4 &initTrans, bool applyShadow, const string &textureDir, int renderMode, int isSelected)
 {
 	if (params::inst()->applyCulling)
 	{

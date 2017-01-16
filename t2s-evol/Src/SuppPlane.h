@@ -10,7 +10,7 @@ public:
 	SuppPlane(const std::vector<vec3> &corners);
 
 	vec3 getPointByUV(double u, double v);
-	vec3 samplePointByUVH(const vec3 &uvh);
+	vec3 randomSamplePointByUVH(const vec3 &uvh);
 
 	void computeParas();
 	void tranfrom(const mat4 &transMat);

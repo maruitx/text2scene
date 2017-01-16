@@ -117,7 +117,7 @@ nodeNum 42
 9,object,key,,22
 10,object,plant,30 31 37 38 39,15 28 29 36 40 41
 11,object,wallart,,
-12,object,lamp,34 35 40 41,16 32 33 38 39
+12,object,floorlamp,34 35 40 41,16 32 33 38 39
 13,pairwise_relationship,vert_support,1,0
 14,pairwise_relationship,vert_support,2,0
 15,pairwise_relationship,vert_support,10,0

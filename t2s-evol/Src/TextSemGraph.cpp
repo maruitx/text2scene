@@ -25,15 +25,24 @@ void TextSemGraph::buildGraphFromSEL()
 
 		if (m_sentence.m_entities[i].isPlural)
 		{
-			entityName = convertToSinglarForm(entityName);
-			
 			QString instanceCountString = m_sentence.m_entities[i].instanceCountString;
 
+			if (entityName != "book" && entityName != "books" && instanceCountString != "some")
+			{
+				entityName = convertToSinglarForm(entityName);
+			}
+
 			bool isNumber;
-			m_sentence.m_entities[i].instanceCount = instanceCountString.toInt(&isNumber);
+			int instCount = instanceCountString.toInt(&isNumber);
 
 			if (isNumber)
 			{
+				if (instCount == 1 && entityName != "books")
+				{
+					instCount = GenRandomInt(2, 5);
+				}
+
+				m_sentence.m_entities[i].instanceCount = instCount;
 				for (int j = 0; j < m_sentence.m_entities[i].instanceCount; j++)
 				{
 					addNode("object", entityName);
@@ -44,14 +53,17 @@ void TextSemGraph::buildGraphFromSEL()
 			}
 			else
 			{
-				// Debug: temp set instance number to be 4 for uncertain node 
-				m_sentence.m_entities[i].instanceCount = 4;
-				for (int j = 0; j < m_sentence.m_entities[i].instanceCount; j++)
+				if (instanceCountString == "some")
 				{
-					addNode("object", entityName);
-					m_isNodeCertain.push_back(0);
-
-					m_sentence.m_entities[i].m_instanceNodeIds.push_back(m_nodeNum - 1);
+					// Debug: temp set instance number to be 4 for uncertain node
+					instCount = GenRandomInt(2, 4);
+					m_sentence.m_entities[i].instanceCount = instCount;
+					for (int j = 0; j < m_sentence.m_entities[i].instanceCount; j++)
+					{
+						addNode("object", entityName);
+						m_isNodeCertain.push_back(0);
+						m_sentence.m_entities[i].m_instanceNodeIds.push_back(m_nodeNum - 1);
+					}
 				}
 			}
 
@@ -192,7 +204,7 @@ void TextSemGraph::mapToFixedObjSet(QString &nodeName)
 		return;
 	}
 
-	if (nodeName == "bookshelf")
+	if (nodeName.contains("shelf"))
 	{
 		nodeName = "bookcase";
 		return;
@@ -218,7 +230,20 @@ void TextSemGraph::mapToFixedObjSet(QString &nodeName)
 
 	if (nodeName == "frame")
 	{
-		nodeName = "picturefame";
+		//nodeName = "picturefame";
+		nodeName = "framework";
+		return;
+	}
+
+	if (nodeName == "lamp")
+	{
+		nodeName = "desklamp";
+		return;
+	}
+
+	if (nodeName == "cabinet")
+	{
+		nodeName = "filecabinet";
 		return;
 	}
 }
@@ -241,6 +266,8 @@ void TextSemGraph::mapToFixedRelationSet(SemNode &currNode, QString &nodeName, Q
 
 	if (nodeName.contains("with"))
 	{
+		// TO-FIX instance missing
+
 		nodeType = "pairwise_relationship";
 		nodeName = "vert_support";
 
@@ -298,7 +325,7 @@ void TextSemGraph::mapToFixedRelationSet(SemNode &currNode, QString &nodeName, Q
 		return;
 	}
 
-	if (nodeName.contains("under"))
+	if (nodeName.contains("under || below"))
 	{
 		nodeName = "under";
 		nodeType = "pairwise_relationship";
@@ -427,7 +454,6 @@ void TextSemGraph::mapToFixedAttributeSet(QString &nodeName, QString &nodeType /
 		return;
 	}
 }
-
 
 void TextSemGraph::checkEdgeDir()
 {

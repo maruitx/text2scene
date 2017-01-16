@@ -40,12 +40,12 @@ upDir 0 0 1
 suppPlane 164.199 100.592 50.3711 162.925 76.2856 50.3711 189.933 74.8702 50.3711 191.207 99.177 50.3711
 parentId 0
 parentPlaneUVH 0.723521 0.361034 -131.75
-nodeNum 21
+nodeNum 22
 0,object,room,7 8 9,
-1,object,table,5 6 10 11 12 15 16,7 13 14 17 18
+1,object,table,5 6 10 11 12 15 16,7 13 14 17 18 19
 2,object,bowl,,10
-3,object,chair,13 14 19,8 11 12 20
-4,object,chair,17 18 20,9 15 16 19
+3,object,chair,13 14 20,8 11 12 21
+4,object,chair,17 18 19 21,9 15 16 20
 5,per_obj_attribute,dining,,1
 6,per_obj_attribute,round,,1
 7,pairwise_relationship,vert_support,1,0
@@ -60,9 +60,10 @@ nodeNum 21
 16,pairwise_relationship,front,4,1
 17,pairwise_relationship,near,1,4
 18,pairwise_relationship,back,1,4
-19,pairwise_relationship,near,4,3
-20,pairwise_relationship,near,3,4
-edgeNum 30
+19,pairwise_relationship,under,1,4
+20,pairwise_relationship,near,4,3
+21,pairwise_relationship,near,3,4
+edgeNum 32
 0,5,1
 1,6,1
 2,1,7
@@ -89,7 +90,9 @@ edgeNum 30
 23,17,4
 24,1,18
 25,18,4
-26,4,19
-27,19,3
-28,3,20
-29,20,4
+26,1,19
+27,19,4
+28,4,20
+29,20,3
+30,3,21
+31,21,4

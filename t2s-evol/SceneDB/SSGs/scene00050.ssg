@@ -149,7 +149,7 @@ nodeNum 49
 9,object,plate,32,26
 10,object,breadslice,,27 32
 11,object,cream pitcher,,28
-12,object,saucebottle,19,29
+12,object,bottle,19,29
 13,object,chair,38 43 45,34 37 44 46
 14,object,chair,40 44 47,35 39 43 48
 15,object,hat,,
