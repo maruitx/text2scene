@@ -214,7 +214,7 @@ nodeNum 54
 18,object,speaker,,42
 19,object,computermouse,,43
 20,object,cellphone,,44
-21,object,,,45
+21,object,noname,,45
 22,object,wallart,,
 23,object,chair,52 53,25 50 51
 24,pairwise_relationship,vert_support,1,0

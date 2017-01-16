@@ -125,7 +125,7 @@ nodeNum 29
 9,object,toyfigure,,21
 10,object,toyfigure,,22
 11,object,toyfigure,,23 26
-12,object,,,28
+12,object,noname,,28
 13,object,noble metal,,24
 14,pairwise_relationship,vert_support,1,0
 15,pairwise_relationship,vert_support,3,1

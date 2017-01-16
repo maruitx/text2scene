@@ -168,11 +168,11 @@ void TSScene::render(const Transform &trans, bool applyShadow)
 		{
 			if (iter->second->m_loadingDone)
 			{
-				if (!m_isLoadFromFile && checkCollision(iter->second, iter->second->m_bb, i))
-				{
-					//resolveCollision(i);
-				}
-				else
+				//if (!m_isLoadFromFile)// && checkCollision(iter->second, iter->second->m_bb, i))
+				//{
+				//	//resolveCollision(i);
+				//}
+				//else
 				{
 					md.isAlreadyPlaced = true;
 					iter->second->render(tt, md.transformation, applyShadow, md.textureDir);
@@ -468,14 +468,14 @@ bool TSScene::checkCollision(Model *testModel, const BoundingBox &testBB, int ci
 					// test transformed BB to model with current scene transformation
 					isOBBMeshCollide = iter->second->checkCollisionBBTriangles(testBB, cTransMat, md.transformation, delta); 
 
-					//if (isOBBMeshCollide)
-					//{
-					//	isMeshMeshCollide = iter->second->checkCollisionTrianglesTriangles(testModel, cTransMat, md.transformation, delta);
-					//}
+					if (isOBBMeshCollide)
+					{
+						isMeshMeshCollide = iter->second->checkCollisionTrianglesTriangles(testModel, cTransMat, md.transformation, delta);
+					}
                 }
 
-				//isCollide = isAABBCollide && isOBBMeshCollide && isMeshMeshCollide;
-				isCollide = isAABBCollide && isOBBMeshCollide;
+				isCollide = isAABBCollide && isOBBMeshCollide && isMeshMeshCollide;
+				//isCollide = isAABBCollide && isOBBMeshCollide;
 				//isCollide = coarse;
 
 				if (isCollide)
@@ -531,19 +531,20 @@ bool TSScene::resolveCollision(int modelId)
 	{
 		//qDebug() << "\t no parent found for model "<< m_ssg->m_nodes[currNodeId].nodeName<<"\n";
 		double sceneMetric = params::inst()->globalSceneUnitScale;
-		translateVec = GenShiftWithNormalDistribution(0.5 / sceneMetric, 0.5 / sceneMetric, 0);
+		translateVec = GenShiftWithNormalDistribution(0.3 / sceneMetric, 0.3 / sceneMetric);
 
 		transMat = transMat.translate(translateVec);
 	}
 
 	currMd.position = transMat*currMd.position;
 	currMd.transformation = transMat*currMd.transformation;
-	currMd.frontDir = TransformVector(transMat, currMd.frontDir);
-	currMd.upDir = TransformVector(transMat, currMd.upDir);
-	currMd.suppPlane.tranfrom(transMat);
+	//currMd.frontDir = TransformVector(transMat, currMd.frontDir);
+	//currMd.upDir = TransformVector(transMat, currMd.upDir);
+	//currMd.suppPlane.tranfrom(transMat);
 
-	qDebug() << QString("\t Shift model %1 - %2 in Preview %3 by %4 %5 %6 \n").arg(QString(currMd.name.c_str())).arg(m_ssg->m_nodes[currNodeId].nodeName).arg(m_previewId).arg(translateVec.x).arg(translateVec.y).arg(translateVec.z);
 
+	//qDebug() << QString("\t Shift model %1 - %2 in Preview %3 by %4 %5 %6 \n").arg(QString(currMd.name.c_str())).arg(m_ssg->m_nodes[currNodeId].nodeName).arg(m_previewId).arg(translateVec.x).arg(translateVec.y).arg(translateVec.z);
+	qDebug() << QString("\t Shift model %1 - %2 in Preview %3 by %4 %5 %6 \n").arg(QString(currMd.name.c_str())).arg(currNodeId).arg(m_previewId).arg(translateVec.x).arg(translateVec.y).arg(translateVec.z);
 	return true;
 }
 

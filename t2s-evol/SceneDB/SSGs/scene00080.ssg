@@ -576,79 +576,79 @@ upDir 0 0 1
 suppPlane 130.339 95.7236 35.9428 153.459 95.7236 35.9428 153.459 118.843 35.9428 130.339 118.843 35.9428
 parentId 0
 parentPlaneUVH 0.497387 0.692984 -90.7305
-nodeNum 128
-0,object,room,72 73 74 75 76 77 78 79 80 81,
-1,object,4shelves,82 83 84 85 86 87 88 89 90 91 92 123 124 125,72
-2,object,toyfigure,,82
-3,object,toyfigure,,83
-4,object,unknown,,123
-5,object,toyfigure,,84
-6,object,toyfigure,,124
-7,object,toyfigure,,85
-8,object,lamp,,86
-9,object,ship,,125
-10,object,cup,,87
-11,object,toyfigure,,88
-12,object,toyfigure,,89
+nodeNum 157
+0,object,room,72 73 74 75 76 77 78 79 80 81,128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143 144 145 146 147 148 149 150 151 152 153 154 155 156
+1,object,4shelves,82 83 84 85 86 87 88 89 90 91 92 123 124 125 141 142 143,72
+2,object,toyfigure,,82 141 142 143
+3,object,toyfigure,,83 141 142 143
+4,object,unknown,,123 141 142 143
+5,object,toyfigure,,84 141 142 143
+6,object,toyfigure,,124 141 142 143
+7,object,toyfigure,,85 141 142 143
+8,object,lamp,,86 141 142 143
+9,object,ship,,125 141 142 143
+10,object,cup,,87 141 142 143
+11,object,toyfigure,,88 141 142 143
+12,object,toyfigure,,89 141 142 143
 13,object,toyfigure,,90
 14,object,toyfigure,,91
-15,object,glass,,92
-16,object,bed,126 127,73
-17,object,pillow,,126
-18,object,pillow,,127
-19,object,dartboard,,
+15,object,glass,,92 141 142 143
+16,object,bed,126 127 147 148 149 150,73 154 155 156
+17,object,pillow,,126 147 148 149 150
+18,object,pillow,,127 147 148 149 150
+19,object,dartboard,,154 155 156
 20,object,dart,,
-21,object,dresser,93 94 95 96 97 98 99 100,
-22,object,dart,,93
-23,object,dart,101 102,94
+21,object,dresser,93 94 95 96 97 98 99 100 144 145 146 154 155 156,
+22,object,dart,,93 144 145 146
+23,object,dart,101 102,94 144 145 146
 24,object,dart,103,95 101
-25,object,dart,,96 102 103
-26,object,dart,,97
+25,object,dart,,96 102 103 144 145 146
+26,object,dart,,97 144 145 146
 27,object,lamp,,98
 28,object,tableclock,,99
-29,object,toyfigure,,100
-30,object,shelf,104 105 106 107 108 109 110 111 112 113 114 115,
-31,object,toyfigure,,
-32,object,toyfigure,,
+29,object,toyfigure,,100 144 145 146
+30,object,shelf,104 105 106 107 108 109 110 111 112 113 114 115 134 135 136,
+31,object,toyfigure,,134 135 136
+32,object,toyfigure,,134 135 136
 33,object,toyfigure,,
-34,object,toyfigure,,104
-35,object,toyfigure,,
-36,object,toyfigure,,105
-37,object,toyfigure,,
+34,object,toyfigure,,104 134 135 136
+35,object,toyfigure,,134 135 136
+36,object,toyfigure,,105 134 135 136
+37,object,toyfigure,,134 135 136
 38,object,coca cola,,106
-39,object,ball,,107
-40,object,toyfigure,,108
-41,object,toyfigure,,
+39,object,ball,,107 134 135 136
+40,object,toyfigure,,108 134 135 136
+41,object,toyfigure,,134 135 136
 42,object,launcher,,
-43,object,toyfigure,,109
-44,object,toyfigure,,110
+43,object,toyfigure,,109 134 135 136
+44,object,toyfigure,,110 134 135 136
 45,object,toyfigure,,111
-46,object,toyfigure,,
+46,object,toyfigure,,134 135 136
 47,object,pillbottle,,112
 48,object,toyfigure,,113
 49,object,toyfigure,,114
 50,object,toyfigure,,115
-51,object,post horse,,
-52,object,dresser,116 117 118 119 120,74
-53,object,lamp,,116
-54,object,vase,,117
-55,object,tape,,118
-56,object,rule,,119
-57,object,cube,,120
-58,object,head,,
-59,object,clock,,
-60,object,ottoman,121,75
-61,object,helmet,,121
-62,object,tape,,76
-63,object,chestofdrawers,,77
-64,object,chestofdrawers,122,78
-65,object,cellphone,,122
-66,object,game,,79
-67,object,ball,,
+51,object,post horse,,154 155 156
+52,object,dresser,116 117 118 119 120 128 129 130,74 131 132 133
+53,object,lamp,,116 128 129 130
+54,object,vase,,117 128 129 130
+55,object,tape,,118 128 129 130
+56,object,rule,,119 128 129 130
+57,object,cube,,120 128 129 130
+58,object,head,,154 155 156
+59,object,clock,,154 155 156
+60,object,ottoman,121,75 131 132 133
+61,object,helmet,,121 131 132 133
+62,object,tape,,76 131 132 133
+63,object,chestofdrawers,,77 151 152 153
+64,object,chestofdrawers,122 137 138 139 140,78
+65,object,cellphone,,122 137 138 139 140
+66,object,game,131 132 133,79 140
+67,object,ball,,140
 68,object,wallart,,
 69,object,ceilingfan,,80
-70,object,trashbin,,81
-71,object,shackle,,
+70,object,trashbin,151 152 153,81
+71,object,shackle,,131 132 133
 72,pairwise_relationship,vert_support,1,0
 73,pairwise_relationship,vert_support,16,0
 74,pairwise_relationship,vert_support,52,0
@@ -705,7 +705,36 @@ nodeNum 128
 125,pairwise_relationship,vert_support,9,1
 126,pairwise_relationship,vert_support,17,16
 127,pairwise_relationship,vert_support,18,16
-edgeNum 112
+128,group_attribute,narrow,57 55 56 54 53 0,52
+129,group_attribute, casual,57 55 56 54 53 0,52
+130,group_attribute, messy,57 55 56 54 53 0,52
+131,group_attribute,messy,71 62 52 60 61 0,66
+132,group_attribute, wide,71 62 52 60 61 0,66
+133,group_attribute, casual,71 62 52 60 61 0,66
+134,group_attribute,organized,32 31 43 44 41 39 46 37 35 36 40 34 0,30
+135,group_attribute, formal,32 31 43 44 41 39 46 37 35 36 40 34 0,30
+136,group_attribute, narrow,32 31 43 44 41 39 46 37 35 36 40 34 0,30
+137,group_attribute,narrow,65 0,64
+138,group_attribute, casual,65 0,64
+139,group_attribute, clean,65 0,64
+140,group_attribute,casual,65 66 67 0,64
+141,group_attribute,organzed,15 11 10 9 8 4 3 7 6 5 2 12 0,1
+142,group_attribute, narrow,15 11 10 9 8 4 3 7 6 5 2 12 0,1
+143,group_attribute, formal,15 11 10 9 8 4 3 7 6 5 2 12 0,1
+144,group_attribute,narrow,23 22 25 26 29 0,21
+145,group_attribute, casual,23 22 25 26 29 0,21
+146,group_attribute, messy,23 22 25 26 29 0,21
+147,group_attribute,narrow,17 18 0,16
+148,group_attribute, clean,17 18 0,16
+149,group_attribute, organized,17 18 0,16
+150,group_attribute, casual,17 18 0,16
+151,group_attribute,narrow,63 0,70
+152,group_attribute, disorganized,63 0,70
+153,group_attribute, casual,63 0,70
+154,group_attribute,organized,16 59 19 51 58 0,21
+155,group_attribute, casual,16 59 19 51 58 0,21
+156,group_attribute, wide,16 59 19 51 58 0,21
+edgeNum 319
 0,1,72
 1,72,0
 2,16,73
@@ -818,3 +847,210 @@ edgeNum 112
 109,126,16
 110,18,127
 111,127,16
+112,128,52
+113,57,128
+114,55,128
+115,56,128
+116,54,128
+117,53,128
+118,0,128
+119,129,52
+120,57,129
+121,55,129
+122,56,129
+123,54,129
+124,53,129
+125,0,129
+126,130,52
+127,57,130
+128,55,130
+129,56,130
+130,54,130
+131,53,130
+132,0,130
+133,131,66
+134,71,131
+135,62,131
+136,52,131
+137,60,131
+138,61,131
+139,0,131
+140,132,66
+141,71,132
+142,62,132
+143,52,132
+144,60,132
+145,61,132
+146,0,132
+147,133,66
+148,71,133
+149,62,133
+150,52,133
+151,60,133
+152,61,133
+153,0,133
+154,134,30
+155,32,134
+156,31,134
+157,43,134
+158,44,134
+159,41,134
+160,39,134
+161,46,134
+162,37,134
+163,35,134
+164,36,134
+165,40,134
+166,34,134
+167,0,134
+168,135,30
+169,32,135
+170,31,135
+171,43,135
+172,44,135
+173,41,135
+174,39,135
+175,46,135
+176,37,135
+177,35,135
+178,36,135
+179,40,135
+180,34,135
+181,0,135
+182,136,30
+183,32,136
+184,31,136
+185,43,136
+186,44,136
+187,41,136
+188,39,136
+189,46,136
+190,37,136
+191,35,136
+192,36,136
+193,40,136
+194,34,136
+195,0,136
+196,137,64
+197,65,137
+198,0,137
+199,138,64
+200,65,138
+201,0,138
+202,139,64
+203,65,139
+204,0,139
+205,140,64
+206,65,140
+207,66,140
+208,67,140
+209,0,140
+210,141,1
+211,15,141
+212,11,141
+213,10,141
+214,9,141
+215,8,141
+216,4,141
+217,3,141
+218,7,141
+219,6,141
+220,5,141
+221,2,141
+222,12,141
+223,0,141
+224,142,1
+225,15,142
+226,11,142
+227,10,142
+228,9,142
+229,8,142
+230,4,142
+231,3,142
+232,7,142
+233,6,142
+234,5,142
+235,2,142
+236,12,142
+237,0,142
+238,143,1
+239,15,143
+240,11,143
+241,10,143
+242,9,143
+243,8,143
+244,4,143
+245,3,143
+246,7,143
+247,6,143
+248,5,143
+249,2,143
+250,12,143
+251,0,143
+252,144,21
+253,23,144
+254,22,144
+255,25,144
+256,26,144
+257,29,144
+258,0,144
+259,145,21
+260,23,145
+261,22,145
+262,25,145
+263,26,145
+264,29,145
+265,0,145
+266,146,21
+267,23,146
+268,22,146
+269,25,146
+270,26,146
+271,29,146
+272,0,146
+273,147,16
+274,17,147
+275,18,147
+276,0,147
+277,148,16
+278,17,148
+279,18,148
+280,0,148
+281,149,16
+282,17,149
+283,18,149
+284,0,149
+285,150,16
+286,17,150
+287,18,150
+288,0,150
+289,151,70
+290,63,151
+291,0,151
+292,152,70
+293,63,152
+294,0,152
+295,153,70
+296,63,153
+297,0,153
+298,154,21
+299,16,154
+300,59,154
+301,19,154
+302,51,154
+303,58,154
+304,0,154
+305,155,21
+306,16,155
+307,59,155
+308,19,155
+309,51,155
+310,58,155
+311,0,155
+312,156,21
+313,16,156
+314,59,156
+315,19,156
+316,51,156
+317,58,156
+318,0,156

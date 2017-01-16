@@ -13,11 +13,12 @@ public:
 	void buildGraphFromSEL();
 	void mapNodeNameToFixedNameSet();
 	void mapToFixedObjSet(QString &s);
-	void mapToFixedRelationSet(QString &nodeName, QString &nodeType = QString(""));
+	void mapToFixedRelationSet(SemNode &currNode, QString &nodeName, QString &nodeType = QString(""));
 	void mapToFixedAttributeSet(QString &nodeName, QString &nodeType = QString(""));
 	void checkEdgeDir();
 
 	QString convertToSinglarForm(const QString &s);
+
 
 private:
 	int m_sentence_id;

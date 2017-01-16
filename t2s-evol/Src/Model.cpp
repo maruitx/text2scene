@@ -511,15 +511,25 @@ bool Model::checkCollisionBBTriangles(const BoundingBox &testBB, const mat4 &tes
 {	
     //box triangle collision as triangle triangle collision
 
-    vec3 b1 = vec3(testBB.mi().x, testBB.mi().y, testBB.mi().z);
-    vec3 b2 = vec3(testBB.ma().x, testBB.mi().y, testBB.mi().z);
-    vec3 b3 = vec3(testBB.ma().x, testBB.mi().y, testBB.ma().z);
-    vec3 b4 = vec3(testBB.mi().x, testBB.mi().y, testBB.ma().z);
+    //vec3 b1 = vec3(testBB.mi().x, testBB.mi().y, testBB.mi().z);
+    //vec3 b2 = vec3(testBB.ma().x, testBB.mi().y, testBB.mi().z);
+    //vec3 b3 = vec3(testBB.ma().x, testBB.mi().y, testBB.ma().z);
+    //vec3 b4 = vec3(testBB.mi().x, testBB.mi().y, testBB.ma().z);
 
-    vec3 b5 = vec3(testBB.mi().x, testBB.ma().y, testBB.mi().z);
-    vec3 b6 = vec3(testBB.ma().x, testBB.ma().y, testBB.mi().z);
-    vec3 b7 = vec3(testBB.ma().x, testBB.ma().y, testBB.ma().z);
-    vec3 b8 = vec3(testBB.mi().x, testBB.ma().y, testBB.ma().z);
+    //vec3 b5 = vec3(testBB.mi().x, testBB.ma().y, testBB.mi().z);
+    //vec3 b6 = vec3(testBB.ma().x, testBB.ma().y, testBB.mi().z);
+    //vec3 b7 = vec3(testBB.ma().x, testBB.ma().y, testBB.ma().z);
+    //vec3 b8 = vec3(testBB.mi().x, testBB.ma().y, testBB.ma().z);
+
+	vec3 b1 = vec3(testBB.mi().x, testBB.mi().y, testBB.mi().z);
+	vec3 b2 = vec3(testBB.ma().x, testBB.mi().y, testBB.mi().z);
+	vec3 b3 = vec3(testBB.ma().x, testBB.ma().y, testBB.mi().z);
+	vec3 b4 = vec3(testBB.mi().x, testBB.ma().y, testBB.mi().z);
+
+	vec3 b5 = vec3(testBB.mi().x, testBB.mi().y, testBB.ma().z);
+	vec3 b6 = vec3(testBB.ma().x, testBB.mi().y, testBB.ma().z);
+	vec3 b7 = vec3(testBB.ma().x, testBB.ma().y, testBB.ma().z);
+	vec3 b8 = vec3(testBB.mi().x, testBB.ma().y, testBB.ma().z);
 
 	b1 = TransformPoint(testModelTransMat, b1);
 	b2 = TransformPoint(testModelTransMat, b2);

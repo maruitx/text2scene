@@ -96,7 +96,7 @@ SceneSemGraph* SemGraphMatcher::alignTSGWithSSG(TextSemGraph *tsg, SceneSemGraph
 		databaseSSG->m_nodes[i].isMatched = false;
 	}
 
-	// first match object node
+	// first match object node and per-object attribute node
 	for (int tni = 0; tni < tsg->m_nodeNum; tni++)
 	{
 		SemNode& tsgNode = tsg->m_nodes[tni];
@@ -111,13 +111,66 @@ SceneSemGraph* SemGraphMatcher::alignTSGWithSSG(TextSemGraph *tsg, SceneSemGraph
 				{
 					if (tsgNode.nodeName == dbSgNode.nodeName)
 					{
-						tsgNode.isMatched = true;
-						dbSgNode.isMatched = true;
-						mapFromTsgToDBSsgNodeId[tni] = dni; // save aligned object node map
-						matchingScore += 1;
-						break;
+						if (!tsgNode.inEdgeNodeList.empty())
+						{
+							int tsgAttNum = tsgNode.inEdgeNodeList.size();
+							int matchedAttNum = 0;
+							for (int tai = 0; tai < tsgAttNum; tai++)
+							{
+								SemNode &taNode = tsg->m_nodes[tsgNode.inEdgeNodeList[tai]];
+
+								if (!dbSgNode.inEdgeNodeList.empty())
+								{
+									for (int dai = 0; dai < dbSgNode.inEdgeNodeList.size(); dai++)
+									{
+										SemNode &daNode = databaseSSG->m_nodes[dbSgNode.inEdgeNodeList[dai]];
+
+										if (taNode.nodeType == daNode.nodeType && taNode.nodeName == daNode.nodeName)
+										{ 
+											matchedAttNum++;
+
+											taNode.isMatched = true;
+											daNode.isMatched = true;
+											mapFromTsgToDBSsgNodeId[tai] = dni; // save aligned object node map		
+											matchingScore += 1;
+										}
+									}
+								}
+							}
+
+							//  if all attribute nodes matched, then the node is matched
+							if (matchedAttNum == tsgAttNum)
+							{
+								tsgNode.isMatched = true;
+								dbSgNode.isMatched = true;
+								mapFromTsgToDBSsgNodeId[tni] = dni; // save aligned object node map									
+								matchingScore += 1;
+								break;
+							}
+							else
+							{
+								tsgNode.isMatched = true;
+								dbSgNode.isMatched = true;
+								mapFromTsgToDBSsgNodeId[tni] = dni; // save aligned object node map									
+								matchingScore += 0.5;
+								break;
+							}
+						}
+						else
+						{						
+							tsgNode.isMatched = true;
+							dbSgNode.isMatched = true;
+							mapFromTsgToDBSsgNodeId[tni] = dni; // save aligned object node map
+							matchingScore += 1;
+							break;
+						}
 					}
 				}
+			}
+
+			if (tsgNode.isMatched == false)
+			{
+				qDebug() << QString("SemGraphMatcher: cannot match for entity - %1").arg(tsgNode.nodeName);
 			}
 		}
 	}
@@ -127,14 +180,13 @@ SceneSemGraph* SemGraphMatcher::alignTSGWithSSG(TextSemGraph *tsg, SceneSemGraph
 		return NULL; 
 	}
 
-	// align per-object attribute node
 
 
-	// align pair-wise relationship node
 	for (int tni = 0; tni < tsg->m_nodeNum; tni++)
 	{
 		SemNode& tsgNode = tsg->m_nodes[tni];
 
+		// align pair-wise relationship node
 		if (tsgNode.nodeType == "pairwise_relationship")
 		{
 			// To test whether in and out node exist
@@ -160,6 +212,49 @@ SceneSemGraph* SemGraphMatcher::alignTSGWithSSG(TextSemGraph *tsg, SceneSemGraph
 				{
 					if (dbSgNode.inEdgeNodeList[0] == mapFromTsgToDBSsgNodeId[tInNodeId]
 						&& dbSgNode.outEdgeNodeList[0] == mapFromTsgToDBSsgNodeId[tOutNodeId])
+					{
+						tsgNode.isMatched = true;
+						dbSgNode.isMatched = true;
+						mapFromTsgToDBSsgNodeId[tni] = dni;  // save aligned pairwise relationship node map
+
+						matchingScore += 1;
+						break;
+					}
+				}
+			}
+
+			if (tsgNode.isMatched == false)
+			{
+				qDebug() << QString("SemGraphMatcher: cannot match for relationship - %1").arg(tsgNode.nodeName);
+			}
+		}
+
+		if (tsgNode.nodeType == "group_attribute")
+		{
+			if (tsgNode.outEdgeNodeList.empty())
+			{
+				break;
+			}
+
+			int refNodeIdInTsg = tsgNode.outEdgeNodeList[0];
+			if (!mapFromTsgToDBSsgNodeId.count(refNodeIdInTsg))
+			{
+				break;
+			}
+
+			SemNode &tsgRefNode = tsg->m_nodes[refNodeIdInTsg];
+
+			for (int dni = 0; dni < databaseSSG->m_nodeNum; dni++)
+			{
+				SemNode& dbSgNode = databaseSSG->m_nodes[dni];
+				// skip the aligned nodes
+				if (!dbSgNode.isMatched && dbSgNode.nodeType == "group_attribute" && dbSgNode.nodeName == tsgNode.nodeName)
+				{
+					//if (dbSgNode.outEdgeNodeList[0] == mapFromTsgToDBSsgNodeId[refNodeIdInTsg])
+
+					int dbRefId = dbSgNode.outEdgeNodeList[0];
+					SemNode& dbRefNode = databaseSSG->m_nodes[dbRefId];
+					if (dbRefNode.nodeName == tsgRefNode.nodeName)
 					{
 						tsgNode.isMatched = true;
 						dbSgNode.isMatched = true;

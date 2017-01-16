@@ -55,6 +55,11 @@ vec3 SuppPlane::getPointByUV(double u, double v)
 
 void SuppPlane::tranfrom(const mat4 &transMat)
 {
+	if (m_corners.empty())
+	{
+		return;
+	}
+
 	for (int i = 0; i < m_corners.size(); i++)
 	{
 		m_corners[i] = TransformPoint(transMat, m_corners[i]);
