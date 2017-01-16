@@ -112,55 +112,149 @@ upDir 0 0 1
 suppPlane 105.544 168.791 58.9399 105.544 136.656 58.9399 132.704 136.656 58.9399 132.704 168.791 58.9399
 parentId 1
 parentPlaneUVH 0.816687 0.459008 0.250002
-nodeNum 26
-0,object,room,14,
-1,object,rug,15 16 17 18,14
-2,object,table,19 20 21 22 23 24 25,15
-3,object,holder,,19
-4,object,candle,,20
-5,object,computer,,21
-6,object,book,,22
+nodeNum 40
+0,object,room,16,28 29 30 31 32 33 34 35 36 37 38 39
+1,object,rug,17 18 19 20,16
+2,object,table,14 15 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36,17 37 38 39
+3,object,holder,,21 31 32 33
+4,object,candle,,22 31 32 33
+5,object,computer,,23 31 32 33 37 38 39
+6,object,book,,24 37 38 39
 7,object,calculator,,
-8,object,bowl,,23
-9,object,bowl,,24
-10,object,foodplate,,25
-11,object,chair,,16
-12,object,chair,,17
-13,object,chair,,18
-14,pairwise_relationship,vert_support,1,0
-15,pairwise_relationship,vert_support,2,1
-16,pairwise_relationship,vert_support,11,1
-17,pairwise_relationship,vert_support,12,1
-18,pairwise_relationship,vert_support,13,1
-19,pairwise_relationship,vert_support,3,2
-20,pairwise_relationship,vert_support,4,2
-21,pairwise_relationship,vert_support,5,2
-22,pairwise_relationship,vert_support,6,2
-23,pairwise_relationship,vert_support,8,2
-24,pairwise_relationship,vert_support,9,2
-25,pairwise_relationship,vert_support,10,2
-edgeNum 24
-0,1,14
-1,14,0
-2,2,15
-3,15,1
-4,11,16
-5,16,1
-6,12,17
-7,17,1
-8,13,18
-9,18,1
-10,3,19
-11,19,2
-12,4,20
-13,20,2
-14,5,21
-15,21,2
-16,6,22
-17,22,2
-18,8,23
-19,23,2
-20,9,24
-21,24,2
-22,10,25
-23,25,2
+8,object,bowl,,25 31 32 33 34 35 36
+9,object,bowl,,26 31 32 33 34 35 36
+10,object,foodplate,,27 31 32 33 34 35 36
+11,object,chair,37 38 39,18 28 29 30 34 35 36
+12,object,chair,,19 28 29 30 34 35 36
+13,object,chair,,20 28 29 30 34 35 36
+14,per_obj_attribute,dining,,2
+15,per_obj_attribute,round,,2
+16,pairwise_relationship,vert_support,1,0
+17,pairwise_relationship,vert_support,2,1
+18,pairwise_relationship,vert_support,11,1
+19,pairwise_relationship,vert_support,12,1
+20,pairwise_relationship,vert_support,13,1
+21,pairwise_relationship,vert_support,3,2
+22,pairwise_relationship,vert_support,4,2
+23,pairwise_relationship,vert_support,5,2
+24,pairwise_relationship,vert_support,6,2
+25,pairwise_relationship,vert_support,8,2
+26,pairwise_relationship,vert_support,9,2
+27,pairwise_relationship,vert_support,10,2
+28,group_attribute,formal,11 13 12 0,2
+29,group_attribute,clean,11 13 12 0,2
+30,group_attribute,organized,11 13 12 0,2
+31,group_attribute,casual,8 5 3 9 10 4 0,2
+32,group_attribute,messy,8 5 3 9 10 4 0,2
+33,group_attribute,disorganized,8 5 3 9 10 4 0,2
+34,group_attribute,casual,10 8 9 13 11 12 0,2
+35,group_attribute,clean,10 8 9 13 11 12 0,2
+36,group_attribute,organized,10 8 9 13 11 12 0,2
+37,group_attribute,casual,5 2 6 0,11
+38,group_attribute,organized,5 2 6 0,11
+39,group_attribute,clean,5 2 6 0,11
+edgeNum 104
+0,14,2
+1,15,2
+2,1,16
+3,16,0
+4,2,17
+5,17,1
+6,11,18
+7,18,1
+8,12,19
+9,19,1
+10,13,20
+11,20,1
+12,3,21
+13,21,2
+14,4,22
+15,22,2
+16,5,23
+17,23,2
+18,6,24
+19,24,2
+20,8,25
+21,25,2
+22,9,26
+23,26,2
+24,10,27
+25,27,2
+26,28,2
+27,11,28
+28,13,28
+29,12,28
+30,0,28
+31,29,2
+32,11,29
+33,13,29
+34,12,29
+35,0,29
+36,30,2
+37,11,30
+38,13,30
+39,12,30
+40,0,30
+41,31,2
+42,8,31
+43,5,31
+44,3,31
+45,9,31
+46,10,31
+47,4,31
+48,0,31
+49,32,2
+50,8,32
+51,5,32
+52,3,32
+53,9,32
+54,10,32
+55,4,32
+56,0,32
+57,33,2
+58,8,33
+59,5,33
+60,3,33
+61,9,33
+62,10,33
+63,4,33
+64,0,33
+65,34,2
+66,10,34
+67,8,34
+68,9,34
+69,13,34
+70,11,34
+71,12,34
+72,0,34
+73,35,2
+74,10,35
+75,8,35
+76,9,35
+77,13,35
+78,11,35
+79,12,35
+80,0,35
+81,36,2
+82,10,36
+83,8,36
+84,9,36
+85,13,36
+86,11,36
+87,12,36
+88,0,36
+89,37,11
+90,5,37
+91,2,37
+92,6,37
+93,0,37
+94,38,11
+95,5,38
+96,2,38
+97,6,38
+98,0,38
+99,39,11
+100,5,39
+101,2,39
+102,6,39
+103,0,39

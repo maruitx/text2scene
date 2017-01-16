@@ -106,7 +106,7 @@ nodeNum 38
 6,object,disccase,,16
 7,object,videogameconsole,,17
 8,object,videogameconsole,,18
-9,object,,,19
+9,object,noname,,19
 10,object,speaker,26 32 33 36,22 25 31 37
 11,object,pottedplant,29 30 35 37,13 27 28 34 36
 12,pairwise_relationship,vert_support,2,0

@@ -148,8 +148,8 @@ nodeNum 79
 0,object,room,18 19 20 21 22 23,
 1,object,trashbin,34 35 38 39 42 43 46 47 50 51,18 36 37 40 41 44 45 48 49 52 53
 2,object,endtable,24 25 26 27 28 29 30 31 36 37 54 56 59,19 34 35 55 57 58 60
-3,object,,,24
-4,object,,,25
+3,object,noname,,24
+4,object,noname,,25
 5,object,book,,26
 6,object,pen,,
 7,object,book,32,27

@@ -33,10 +33,14 @@ public:
 	void updateRoomModel(MetaModel m);
     void toggleRenderMode();
 
+	MetaScene& getMetaScene() { return m_metaScene; };
+
 public:
 	SceneSemGraph *m_ssg;
 	bool m_isLoadFromFile;
 	bool m_isRenderRoom;
+
+	int m_previewId;
 
 private:
 	unordered_map<string, Model*> &m_models;   // current loaded object DB

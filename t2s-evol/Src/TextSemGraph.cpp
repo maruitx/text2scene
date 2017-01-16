@@ -21,6 +21,7 @@ void TextSemGraph::buildGraphFromSEL()
 		QString nameString = QString(m_sentence.m_entities[i].nameString);
 		std::vector<std::string> parts = PartitionString(nameString.toStdString(), "-");
 		QString entityName = QString(parts[0].c_str());
+		m_sentence.m_entities[i].nameString = entityName;
 
 		if (m_sentence.m_entities[i].isPlural)
 		{
@@ -88,14 +89,14 @@ void TextSemGraph::buildGraphFromSEL()
 					m_nodes[m_nodeNum - 1].nodeType = "relation:horizon_support";
 				}
 
-				std::vector<int> passiveNodeIds = findNodeWithName(passiveEntityName);
-				for (int k = 0; k < passiveNodeIds.size(); k++)
+				std::vector<int> refNodeIds = findNodeWithName(passiveEntityName);
+				for (int k = 0; k < refNodeIds.size(); k++)
 				{
 					int instanceNodeId = m_sentence.m_entities[i].m_instanceNodeIds[n];
 					//addEdge(m_nodeNum - 1, instanceNodeId);
 					//addEdge(passiveNodeIds[k], m_nodeNum - 1);
 					addEdge(instanceNodeId, m_nodeNum - 1);
-					addEdge(m_nodeNum - 1, passiveNodeIds[k]);
+					addEdge(m_nodeNum - 1, refNodeIds[k]);
 				}
 			}
 		}
@@ -105,16 +106,21 @@ void TextSemGraph::buildGraphFromSEL()
 	for (int i = 0; i < m_sentence.entityCount; i++)
 	{
 		int attributeCount = m_sentence.m_entities[i].attributeCount;
-		QString currEntityname = m_sentence.m_entities[i].nameString;
+		QString entityName = QString(m_sentence.m_entities[i].nameString);
 
 		for (int j = 0; j < attributeCount; j++)
 		{
-			addNode("attribute", m_sentence.m_entities[i].m_attributes[j].nameString);
 
-			std::vector<int> nodeIds = findNodeWithName(currEntityname);
-			for (int k = 0; k < nodeIds.size(); k++)
+			QString attriName = m_sentence.m_entities[i].m_attributes[j].nameString;
+
 			{
-				addEdge(m_nodeNum - 1, nodeIds[k]);
+				addNode("attribute", m_sentence.m_entities[i].m_attributes[j].nameString);
+
+				std::vector<int> nodeIds = findNodeWithName(entityName);
+				for (int k = 0; k < nodeIds.size(); k++)
+				{
+					addEdge(m_nodeNum - 1, nodeIds[k]);
+				}
 			}
 		}
 	}
@@ -133,7 +139,7 @@ void TextSemGraph::mapNodeNameToFixedNameSet()
 
 		if (m_nodes[i].nodeType.contains("relation"))
 		{
-			mapToFixedRelationSet(m_nodes[i].nodeName, m_nodes[i].nodeType);
+			mapToFixedRelationSet(m_nodes[i], m_nodes[i].nodeName, m_nodes[i].nodeType);
 		}
 
 		if (m_nodes[i].nodeType == "attribute")
@@ -171,25 +177,53 @@ void TextSemGraph::mapToFixedObjSet(QString &nodeName)
 	if (nodeName == "sofa")
 	{
 		nodeName = "couch";
+		return;
 	}
 
 	if (nodeName == "pc")
 	{
 		nodeName = "computer";
+		return;
 	}
 
 	if (nodeName == "mouse")
 	{
 		nodeName = "computermouse";
+		return;
 	}
 
 	if (nodeName == "bookshelf")
 	{
 		nodeName = "bookcase";
+		return;
+	}
+
+	if (nodeName == "headphone")
+	{
+		nodeName = "headphones";
+		return;
+	}
+
+	if (nodeName == "socket")
+	{
+		nodeName = "powersocket";
+		return;
+	}
+
+	if (nodeName == "clock")
+	{
+		nodeName = "tableclock";
+		return;
+	}
+
+	if (nodeName == "frame")
+	{
+		nodeName = "picturefame";
+		return;
 	}
 }
 
-void TextSemGraph::mapToFixedRelationSet(QString &nodeName, QString &nodeType /*= QString("")*/)
+void TextSemGraph::mapToFixedRelationSet(SemNode &currNode, QString &nodeName, QString &nodeType /*= QString("")*/)
 {
 	if (nodeName.contains("on"))
 	{
@@ -205,7 +239,31 @@ void TextSemGraph::mapToFixedRelationSet(QString &nodeName, QString &nodeType /*
 		return;
 	}
 
-	if (nodeName == "next to" || nodeName == "close to")
+	if (nodeName.contains("with"))
+	{
+		nodeType = "pairwise_relationship";
+		nodeName = "vert_support";
+
+		// reverse the ref and active obj
+		int refNodeId = currNode.inEdgeNodeList[0];
+		int actNodeId = currNode.outEdgeNodeList[0];
+		int currNodeId = currNode.nodeId;
+
+		// reverse for current node
+		currNode.inEdgeNodeList[0] = actNodeId;
+		currNode.outEdgeNodeList[0] = refNodeId;
+
+		EraseValueInVectorInt(m_nodes[refNodeId].outEdgeNodeList, currNodeId);
+		m_nodes[refNodeId].inEdgeNodeList.push_back(currNodeId);
+
+		EraseValueInVectorInt(m_nodes[refNodeId].inEdgeNodeList, currNodeId);
+		m_nodes[actNodeId].outEdgeNodeList.push_back(currNodeId);
+
+
+		return;
+	}
+
+	if (nodeName == "next to" || nodeName == "close to" || nodeName == "near")
 	{
 		nodeName = "near";
 		nodeType = "pairwise_relationship";
@@ -240,21 +298,141 @@ void TextSemGraph::mapToFixedRelationSet(QString &nodeName, QString &nodeType /*
 		return;
 	}
 
+	if (nodeName.contains("under"))
+	{
+		nodeName = "under";
+		nodeType = "pairwise_relationship";
+		return;
+	}
+
+	if (nodeName.contains("center"))
+	{
+		nodeName = "center";
+		nodeType = "pairwise_relationship";
+		return;
+	}
+
+	if (nodeName.contains("align"))
+	{
+		nodeName = "aligned";
+		nodeType = "group_relationship";
+		return;
+	}
+
+	if (nodeName.contains("stack"))
+	{
+		nodeName = "stacked";
+		nodeType = "group_relationship";
+		return;
+	}
+
+	if (nodeName.contains("each") && nodeName.contains("side"))
+	{
+		nodeName = "left";
+		nodeType = "pairwise_relationship";
+		return;
+	}
+
 	if (nodeName == "around")
 	{
 		nodeType = "group_relationship";
-		nodeType = "pairwise_relationship";
 		return;
 	}
 }
 
 void TextSemGraph::mapToFixedAttributeSet(QString &nodeName, QString &nodeType /*= QString("")*/)
 {
+	if (nodeName == "office")
+	{
+		nodeType = "per_obj_attribute";
+		return;
+	}
 
+	if (nodeName == "coffee")
+	{
+		nodeType = "per_obj_attribute";
+		return;
+	}
+
+	if (nodeName == "dining")
+	{
+		nodeType = "per_obj_attribute";
+		return;
+	}
+
+	if (nodeName == "file")
+	{
+		nodeType = "per_obj_attribute";
+		return;
+	}
+
+	if (nodeName == "round")
+	{
+		nodeType = "per_obj_attribute";
+		return;
+	}
+
+	if (nodeName == "rectangular")
+	{
+		nodeType = "per_obj_attribute";
+		return;
+	}
+
+	if (nodeName == "sauce")
+	{
+		nodeType = "per_obj_attribute";
+		return;
+	}
+
+	if (nodeName.contains("mess"))
+	{
+		nodeType = "group_attribute";
+		nodeName = "messy";
+		return;
+	}
+		
+
+	if (nodeName.contains("mess"))
+	{
+		nodeType = "group_attribute";
+		nodeName = "messy";
+		return;
+	}
+
+	if (nodeName.contains("formal"))
+	{
+		nodeType = "group_attribute";
+		nodeName = "formal";
+		return;
+	}
+
+	if (nodeName.contains("casual"))
+	{
+		nodeType = "group_attribute";
+		nodeName = "casual";
+		return;
+	}
+
+	if (nodeName.contains("organize"))
+	{
+		nodeType = "group_attribute";
+		nodeName = "organized";
+		return;
+	}
+
+	if (nodeName.contains("clean"))
+	{
+		nodeType = "group_attribute";
+		nodeName = "clean";
+		return;
+	}
 }
+
 
 void TextSemGraph::checkEdgeDir()
 {
 
 }
+
+
 

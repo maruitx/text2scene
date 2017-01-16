@@ -160,76 +160,80 @@ upDir 0 0 1
 suppPlane 49.0191 149.929 71.6453 58.564 158.987 71.6453 51.6998 166.22 71.6453 42.1549 157.163 71.6453
 parentId 12
 parentPlaneUVH 0.659538 0.279772 0.249988
-nodeNum 37
-0,object,room,20 21,
+nodeNum 39
+0,object,room,22 23,
 1,object,lightswitch,,
 2,object,lamp,,
-3,object,counter,22 23 24,20
-4,object,plate,25,22
-5,object,plate,26,25
-6,object,mug,,26
-7,object,plate,27 28 29,23
-8,object,cookie,,27
-9,object,cookie,,28
-10,object,cookie,,29
-11,object,plate,,24
-12,object,table,30 31 32 33 34 35,21
-13,object,food processor,,30
-14,object,glass,,31
-15,object,espresso maker,36,32
-16,object,mug,,36
-17,object,mug,,33
-18,object,mug,,34
-19,object,mug,,35
-20,pairwise_relationship,vert_support,3,0
-21,pairwise_relationship,vert_support,12,0
-22,pairwise_relationship,vert_support,4,3
-23,pairwise_relationship,vert_support,7,3
-24,pairwise_relationship,vert_support,11,3
-25,pairwise_relationship,vert_support,5,4
-26,pairwise_relationship,vert_support,6,5
-27,pairwise_relationship,vert_support,8,7
-28,pairwise_relationship,vert_support,9,7
-29,pairwise_relationship,vert_support,10,7
-30,pairwise_relationship,vert_support,13,12
-31,pairwise_relationship,vert_support,14,12
-32,pairwise_relationship,vert_support,15,12
-33,pairwise_relationship,vert_support,17,12
-34,pairwise_relationship,vert_support,18,12
-35,pairwise_relationship,vert_support,19,12
-36,pairwise_relationship,vert_support,16,15
-edgeNum 34
-0,3,20
-1,20,0
-2,12,21
-3,21,0
-4,4,22
-5,22,3
-6,7,23
-7,23,3
-8,11,24
-9,24,3
-10,5,25
-11,25,4
-12,6,26
-13,26,5
-14,8,27
-15,27,7
-16,9,28
-17,28,7
-18,10,29
-19,29,7
-20,13,30
-21,30,12
-22,14,31
-23,31,12
-24,15,32
-25,32,12
-26,17,33
-27,33,12
-28,18,34
-29,34,12
-30,19,35
-31,35,12
-32,16,36
-33,36,15
+3,object,counter,24 25 26,22
+4,object,plate,27,24
+5,object,plate,28,27
+6,object,mug,,28
+7,object,plate,29 30 31,25
+8,object,cookie,,29
+9,object,cookie,,30
+10,object,cookie,,31
+11,object,plate,,26
+12,object,table,20 21 32 33 34 35 36 37,23
+13,object,food processor,,32
+14,object,glass,,33
+15,object,espresso maker,38,34
+16,object,mug,,38
+17,object,mug,,35
+18,object,mug,,36
+19,object,mug,,37
+20,per_obj_attribute,dining,,12
+21,per_obj_attribute,rectangular,,12
+22,pairwise_relationship,vert_support,3,0
+23,pairwise_relationship,vert_support,12,0
+24,pairwise_relationship,vert_support,4,3
+25,pairwise_relationship,vert_support,7,3
+26,pairwise_relationship,vert_support,11,3
+27,pairwise_relationship,vert_support,5,4
+28,pairwise_relationship,vert_support,6,5
+29,pairwise_relationship,vert_support,8,7
+30,pairwise_relationship,vert_support,9,7
+31,pairwise_relationship,vert_support,10,7
+32,pairwise_relationship,vert_support,13,12
+33,pairwise_relationship,vert_support,14,12
+34,pairwise_relationship,vert_support,15,12
+35,pairwise_relationship,vert_support,17,12
+36,pairwise_relationship,vert_support,18,12
+37,pairwise_relationship,vert_support,19,12
+38,pairwise_relationship,vert_support,16,15
+edgeNum 36
+0,20,12
+1,21,12
+2,3,22
+3,22,0
+4,12,23
+5,23,0
+6,4,24
+7,24,3
+8,7,25
+9,25,3
+10,11,26
+11,26,3
+12,5,27
+13,27,4
+14,6,28
+15,28,5
+16,8,29
+17,29,7
+18,9,30
+19,30,7
+20,10,31
+21,31,7
+22,13,32
+23,32,12
+24,14,33
+25,33,12
+26,15,34
+27,34,12
+28,17,35
+29,35,12
+30,18,36
+31,36,12
+32,19,37
+33,37,12
+34,16,38
+35,38,15

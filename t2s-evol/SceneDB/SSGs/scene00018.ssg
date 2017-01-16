@@ -280,42 +280,42 @@ upDir 0 0 1
 suppPlane 123.118 225.703 34.433 131.455 217.367 34.433 142.09 228.001 34.433 133.753 236.338 34.433
 parentId 26
 parentPlaneUVH 0.539468 0.454511 -82.017
-nodeNum 78
-0,object,room,35 55 56,
-1,object,bottle,68 69 72 73,35 70 71 74 75
-2,object,wallart,,
-3,object,bookcase,36 37 38 39 40 41 42 43 44 45 46 53 54 57 58 59 60 61 62 63 64 65 70 71 76,55 68 69 77
-4,object,battery,,36
+nodeNum 87
+0,object,room,35 55 56,78 79 80 81 82 83 84 85 86
+1,object,bottle,68 69 72 73,35 70 71 74 75 78 79 80
+2,object,wallart,,81 82 83
+3,object,bookcase,36 37 38 39 40 41 42 43 44 45 46 53 54 57 58 59 60 61 62 63 64 65 70 71 76 84 85 86,55 68 69 77 78 79 80 81 82 83
+4,object,battery,,36 78 79 80
 5,object,bottle,,37
 6,object,bottle,,38
-7,object,bottle,,39
-8,object,bottle,,40
-9,object,bottle,,41
-10,object,bottle,,42
-11,object,bottle,,43
+7,object,bottle,,39 78 79 80
+8,object,bottle,,40 78 79 80
+9,object,bottle,,41 78 79 80
+10,object,bottle,,42 78 79 80
+11,object,bottle,,43 78 79 80
 12,object,bottle,,53
-13,object,perfume,,57
-14,object,bottle,,54
-15,object,cage,,44
-16,object,cap,,58
+13,object,perfume,,57 78 79 80
+14,object,bottle,,54 78 79 80
+15,object,cage,,44 78 79 80
+16,object,cap,,58 78 79 80
 17,object,cap,,59
 18,object,cap,,60
 19,object,cap,,61
 20,object,cap,,62
-21,object,bottle,,45
-22,object,telephone,,46
-23,object,ball,,63
-24,object,toyfigure,,64
-25,object,toyfigure,,65
-26,object,bookcase,47 48 49 66 67 74 75 77,56 72 73 76
-27,object,book,50,47
+21,object,bottle,,45 78 79 80
+22,object,telephone,,46 78 79 80
+23,object,ball,,63 78 79 80 84 85 86
+24,object,toyfigure,,64 84 85 86
+25,object,toyfigure,,65 78 79 80 84 85 86
+26,object,bookcase,47 48 49 66 67 74 75 77 78 79 80 81 82 83,56 72 73 76 84 85 86
+27,object,book,50,47 78 79 80
 28,object,book,51,50
-29,object,book,,51
-30,object,book,52,48
-31,object,bottle,,52
-32,object,books,,49
-33,object,helmet,,66
-34,object,cap,,67
+29,object,book,,51 78 79 80
+30,object,book,52,48 78 79 80
+31,object,bottle,,52 78 79 80
+32,object,books,,49 84 85 86
+33,object,helmet,,66 78 79 80
+34,object,cap,,67 78 79 80 84 85 86
 35,pairwise_relationship,vert_support,1,0
 36,pairwise_relationship,vert_support,4,3
 37,pairwise_relationship,vert_support,5,3
@@ -359,7 +359,16 @@ nodeNum 78
 75,pairwise_relationship,leftside,1,26
 76,pairwise_relationship,rightside,26,3
 77,pairwise_relationship,leftside,3,26
-edgeNum 86
+78,group_attribute,casual,3 34 33 30 31 27 29 10 8 9 11 7 14 21 22 4 15 25 23 16 13 1 0,26
+79,group_attribute,messy,3 34 33 30 31 27 29 10 8 9 11 7 14 21 22 4 15 25 23 16 13 1 0,26
+80,group_attribute,narrow,3 34 33 30 31 27 29 10 8 9 11 7 14 21 22 4 15 25 23 16 13 1 0,26
+81,group_attribute,formal,2 3 0,26
+82,group_attribute,clean,2 3 0,26
+83,group_attribute,organized,2 3 0,26
+84,group_attribute,casual,23 24 25 26 34 32 0,3
+85,group_attribute,clean,23 24 25 26 34 32 0,3
+86,group_attribute,organized,23 24 25 26 34 32 0,3
+edgeNum 194
 0,1,35
 1,35,0
 2,4,36
@@ -446,3 +455,111 @@ edgeNum 86
 83,76,3
 84,3,77
 85,77,26
+86,78,26
+87,3,78
+88,34,78
+89,33,78
+90,30,78
+91,31,78
+92,27,78
+93,29,78
+94,10,78
+95,8,78
+96,9,78
+97,11,78
+98,7,78
+99,14,78
+100,21,78
+101,22,78
+102,4,78
+103,15,78
+104,25,78
+105,23,78
+106,16,78
+107,13,78
+108,1,78
+109,0,78
+110,79,26
+111,3,79
+112,34,79
+113,33,79
+114,30,79
+115,31,79
+116,27,79
+117,29,79
+118,10,79
+119,8,79
+120,9,79
+121,11,79
+122,7,79
+123,14,79
+124,21,79
+125,22,79
+126,4,79
+127,15,79
+128,25,79
+129,23,79
+130,16,79
+131,13,79
+132,1,79
+133,0,79
+134,80,26
+135,3,80
+136,34,80
+137,33,80
+138,30,80
+139,31,80
+140,27,80
+141,29,80
+142,10,80
+143,8,80
+144,9,80
+145,11,80
+146,7,80
+147,14,80
+148,21,80
+149,22,80
+150,4,80
+151,15,80
+152,25,80
+153,23,80
+154,16,80
+155,13,80
+156,1,80
+157,0,80
+158,81,26
+159,2,81
+160,3,81
+161,0,81
+162,82,26
+163,2,82
+164,3,82
+165,0,82
+166,83,26
+167,2,83
+168,3,83
+169,0,83
+170,84,3
+171,23,84
+172,24,84
+173,25,84
+174,26,84
+175,34,84
+176,32,84
+177,0,84
+178,85,3
+179,23,85
+180,24,85
+181,25,85
+182,26,85
+183,34,85
+184,32,85
+185,0,85
+186,86,3
+187,23,86
+188,24,86
+189,25,86
+190,26,86
+191,34,86
+192,32,86
+193,0,86

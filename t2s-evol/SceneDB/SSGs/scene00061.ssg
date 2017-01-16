@@ -294,13 +294,13 @@ nodeNum 76
 10,object,videogameconsole,,43 48
 11,object,videogamecontroller,,49
 12,object,videogamecontroller,,50
-13,object,,,51
+13,object,noname,,51
 14,object,cart,,52
 15,object,toyfigure,,72
 16,object,videogameconsole,,53
 17,object,videogameconsole,,54
 18,object,psp,,55
-19,object,,,56
+19,object,noname,,56
 20,object,toyfigure,,57
 21,object,candle,,58
 22,object,videogameconsole,,44 59
