@@ -214,7 +214,7 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, bool useC
 		m_dbNodeToSubNodeMap[oldNodeId] = currSubSSGNodeNum;
 
 		SemNode &oldNode = m_nodes[oldNodeId];
-		subGraph->addNode(oldNode.nodeType, oldNode.nodeName);
+		subGraph->addNode(oldNode);
 		currSubSSGNodeNum++;
 
 		if (oldNode.nodeType == "group_attribute")
@@ -262,7 +262,7 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, bool useC
 
 					//if (insertProb > 0.3)
 					{
-						subGraph->addNode(actNode.nodeType, actNode.nodeName);
+						subGraph->addNode(actNode);
 						m_dbNodeToSubNodeMap[actNodeId] = currSubSSGNodeNum;
 						enrichedNodeList.push_back(actNodeId);
 						currSubSSGNodeNum++;
@@ -330,7 +330,7 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, bool useC
 						// add support node; TEMP, only add the support node for tv now
 						if (oldNode.nodeName == "tv" || oldNode.nodeName == "printer" || oldNode.nodeName == "books")
 						{
-							subGraph->addNode(m_nodes[outNodeId].nodeType, m_nodes[outNodeId].nodeName);
+							subGraph->addNode(m_nodes[outNodeId]);
 							int currNodeId = subGraph->m_nodeNum - 1;
 							m_dbNodeToSubNodeMap[outNodeId] = currNodeId;
 							//subGraph->addEdge(currNodeId, oldToNewNodeIdMap[oldNodeId]);
@@ -345,10 +345,10 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, bool useC
 
 								if (!m_dbNodeToSubNodeMap.count(suppParentNodeId) && m_nodes[suppParentNodeId].nodeType == "object")
 								{
-									subGraph->addNode(m_nodes[suppParentNodeId].nodeType, m_nodes[suppParentNodeId].nodeName);
+									subGraph->addNode(m_nodes[suppParentNodeId]);
 									int currNodeId = subGraph->m_nodeNum - 1;
 									subGraph->m_nodes[currNodeId].inferedType = SemNode::InferBySupport;
-									subGraph->m_nodes[currNodeId].isInferredObj = true;
+									subGraph->m_nodes[currNodeId].isInferred = true;
 									subGraph->m_nodes[currNodeId].inferRefNodeId = m_dbNodeToSubNodeMap[oldNodeId];
 
 									m_dbNodeToSubNodeMap[suppParentNodeId] = currNodeId;
@@ -356,8 +356,6 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, bool useC
 
 									//subGraph->addEdge(currNodeId, oldToNewNodeIdMap[outNodeId]);
 									subGraph->addEdge(m_dbNodeToSubNodeMap[outNodeId], currNodeId); // e.g. (support, tv_stand)
-
-
 								}
 							}
 						}

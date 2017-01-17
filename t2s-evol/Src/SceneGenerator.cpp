@@ -198,7 +198,7 @@ SceneSemGraph* SceneGenerator::alignToCurrTSScene(SceneSemGraph *matchedSg)
 	// geometry alignment
 	geometryAlignmentWithCurrScene(matchedSg, newSg);
 
-	//alignBySynthesizedRelationships(newSg);
+	alignBySynthesizedRelationships(newSg);
 
 	return newSg;
 }
@@ -314,10 +314,12 @@ mat4 SceneGenerator::computeTransMat(const MetaModel &fromModel, const MetaModel
 
 void SceneGenerator::alignBySynthesizedRelationships(SceneSemGraph *targetSg)
 {
+	return;
+
 	for (int mi = 0; mi < targetSg->m_nodeNum; mi++)
 	{
 		SemNode& targSgNode = targetSg->m_nodes[mi];
-		if (!targSgNode.isAligned && targSgNode.nodeType == "pairwise_relationship") //  synthesized relationship node
+		if (!targSgNode.isMatched && targSgNode.nodeType == "pairwise_relationship") //  synthesized relationship node
 		{
 			// edge dir: (active, relation), (relation, reference)
 
@@ -326,9 +328,12 @@ void SceneGenerator::alignBySynthesizedRelationships(SceneSemGraph *targetSg)
 				int refNodeId = targSgNode.outEdgeNodeList[0];
 				int activeNodeId = targSgNode.inEdgeNodeList[0];
 
+				int refModelId = targetSg->m_objectGraphNodeIdToModelSceneIdMap[refNodeId];
+				int activeModelId = targetSg->m_objectGraphNodeIdToModelSceneIdMap[activeNodeId];
+
 				// compute transformation matrix based on the ref nodes
-				MetaModel &tarRefModel = targetSg->m_metaScene.m_metaModellList[refNodeId];
-				MetaModel &newActiveModel = targetSg->m_metaScene.m_metaModellList[activeNodeId];
+				MetaModel &tarRefModel = targetSg->m_metaScene.m_metaModellList[refModelId];
+				MetaModel &newActiveModel = targetSg->m_metaScene.m_metaModellList[activeModelId];
 
 
 				SuppPlane &suppPlane = tarRefModel.suppPlane;

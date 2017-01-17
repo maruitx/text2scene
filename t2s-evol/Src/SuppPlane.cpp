@@ -2,6 +2,14 @@
 
 const double GridSize = 0.05;   // 5cm, NEED TO CONSIDER SCENE METRIC!!
 
+
+SuppPlane::SuppPlane(const SuppPlane &p)
+	: m_corners(p.m_corners), m_axis(p.m_axis), m_length(p.m_length), m_width(p.m_width), m_normal(p.m_normal), m_isInited(p.m_isInited)
+{
+
+}
+
+
 SuppPlane::SuppPlane()
 {
 	m_corners.resize(4);
@@ -9,6 +17,8 @@ SuppPlane::SuppPlane()
 	m_length = 0;
 	m_width = 0;
 	m_axis.resize(2);
+
+	m_isInited = false;
 }
 
 SuppPlane::SuppPlane(const std::vector<vec3> &corners)
@@ -20,6 +30,7 @@ SuppPlane::SuppPlane(const std::vector<vec3> &corners)
 	m_corners[1] = corners[1];
 	m_corners[2] = corners[2];
 	m_corners[3] = corners[3];
+
 
 	computeParas();
 	initGrid();
@@ -45,6 +56,8 @@ void SuppPlane::computeParas()
 	m_normal = m_axis[0].cross(m_axis[1]);
 
 	m_sceneMetric = params::inst()->globalSceneUnitScale;
+
+	m_isInited = true;
 }
 
 vec3 SuppPlane::getPointByUV(double u, double v)

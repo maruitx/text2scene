@@ -3,6 +3,9 @@
 #include "SceneSemGraph.h"
 #include "TextSemGraph.h"
 
+const bool useContext = true;
+const bool addSynthesizeNode = false;
+
 
 SemGraphMatcher::SemGraphMatcher(SceneSemGraphManager *ssgManager)
 	:m_sceneSemGraphManager(ssgManager)
@@ -75,6 +78,42 @@ vector<SceneSemGraph*> SemGraphMatcher::alignmentTSGWithDatabaseSSGs(int topMatc
 		if (ssg != NULL)
 		{
 			matchedSubSSGs.push_back(ssg);
+
+			int ssgId = 0;
+			for (int j = 0; j < ssg->m_nodeNum; j++)
+			{
+				SemNode &currNode = ssg->m_nodes[j];
+				if (currNode.nodeType == "object" && !currNode.isMatched)
+				{
+					qDebug() << QString("SemGraphMatcher: in Preview %1 entity - %2 is not matched").arg(ssgId).arg(currNode.nodeName);
+				}
+
+				if (currNode.nodeType == "pairwise_relationship" && !currNode.isMatched)
+				{
+					int inNodeId = currNode.inEdgeNodeList[0];
+					int outNodeId = currNode.outEdgeNodeList[0];
+
+					qDebug() << QString("SemGraphMatcher: in Preview %1 cannot match for relationship: %2 %3: %4").arg(ssgId).arg(ssg->m_nodes[inNodeId].nodeName).arg(currNode.nodeName).arg(ssg->m_nodes[outNodeId].nodeName);
+
+					if (currNode.isSynthesized)
+					{
+						qDebug() << QString("   synthesize node %1 for %2:%3").arg(currNode.nodeName).arg(ssg->m_nodes[inNodeId].nodeName).arg(ssg->m_nodes[outNodeId].nodeName);
+					}
+				}
+
+				if ((currNode.nodeType == "per_obj_attribute" || currNode.nodeType=="group_attribute") && !currNode.isMatched)
+				{
+					int outNodeId = currNode.outEdgeNodeList[0];
+
+					qDebug() << QString("SemGraphMatcher: in Preview %1 cannot match for attribute %2:%3").arg(ssgId).arg(ssg->m_nodes[outNodeId].nodeName).arg(currNode.nodeName);
+					
+					if (currNode.isSynthesized)
+					{
+						qDebug() << QString("   synthesize node %1 for %2").arg(currNode.nodeName).arg(ssg->m_nodes[outNodeId].nodeName);
+					}
+				}				
+			}
+			ssgId++;
 		}
 	}
 
@@ -172,11 +211,6 @@ SceneSemGraph* SemGraphMatcher::alignTSGWithSSG(TextSemGraph *tsg, SceneSemGraph
 					}
 				}
 			}
-
-			if (tsgNode.isMatched == false)
-			{
-				qDebug() << QString("SemGraphMatcher: cannot match for entity - %1").arg(tsgNode.nodeName);
-			}
 		}
 	}
 
@@ -226,11 +260,6 @@ SceneSemGraph* SemGraphMatcher::alignTSGWithSSG(TextSemGraph *tsg, SceneSemGraph
 						break;
 					}
 				}
-			}
-
-			if (tsgNode.isMatched == false)
-			{
-				qDebug() << QString("SemGraphMatcher: cannot match for relationship - %1").arg(tsgNode.nodeName);
 			}
 		}
 
@@ -287,55 +316,95 @@ SceneSemGraph* SemGraphMatcher::alignTSGWithSSG(TextSemGraph *tsg, SceneSemGraph
 	}
 
 	// add nodes by exact match and scene context
-	bool useContext = true;
 	matchedSubSSG = databaseSSG->getSubGraph(matchedDBSsgNodeList, useContext);
 
-	//// add synthesized node
-	//// first find the DB-SSG node corresponding to the text node, then find the Sub-SSG node for the text node
-	////  set up map
-	//std::map<int, int> tsgNodeToSubNodeMap;
-	//for (int tni = 0; tni < tsg->m_nodeNum; tni++)
-	//{
-	//	SemNode& tsgNode = tsg->m_nodes[tni];
+	// add synthesized node
+	// first find the DB-SSG node corresponding to the text node, then find the Sub-SSG node for the text node
+	//  set up map
 
-	//	if (tsgNode.isMatched && mapFromTsgToDBSsgNodeId.count(tni))
-	//	{
-	//		int dbNodeId = mapFromTsgToDBSsgNodeId[tni];
-	//		tsgNodeToSubNodeMap[tni] = matchedSubSSG->m_dbNodeToSubNodeMap[dbNodeId];
-	//	}
-	//}
+	if (addSynthesizeNode)
+	{
+		std::map<int, int> tsgNodeToSubNodeMap;
+		for (int tni = 0; tni < tsg->m_nodeNum; tni++)
+		{
+			SemNode& tsgNode = tsg->m_nodes[tni];
 
-	//// insert synthesized object node
-	//for (int tni = 0; tni < tsg->m_nodeNum; tni++)
-	//{
-	//	SemNode& tsgNode = tsg->m_nodes[tni];
+			if (tsgNode.isMatched && mapFromTsgToDBSsgNodeId.count(tni))
+			{
+				int dbNodeId = mapFromTsgToDBSsgNodeId[tni];
+				tsgNodeToSubNodeMap[tni] = matchedSubSSG->m_dbNodeToSubNodeMap[dbNodeId];
+			}
+		}
 
-	//	if (!tsgNode.isMatched && !mapFromTsgToDBSsgNodeId.count(tni))
-	//	{
-	//		if (tsgNode.nodeType == "object")
-	//		{
-	//			matchedSubSSG->addNode(tsgNode.nodeType, tsgNode.nodeName);
+		// insert synthesized object node
+		for (int tni = 0; tni < tsg->m_nodeNum; tni++)
+		{
+			SemNode& tsgNode = tsg->m_nodes[tni];
 
-	//			tsgNodeToSubNodeMap[tni] = matchedSubSSG->m_nodeNum-1;
-	//		}
-	//	}
-	//}
+			if (!tsgNode.isMatched && !mapFromTsgToDBSsgNodeId.count(tni))
+			{
+				if (tsgNode.nodeType == "object")
+				{
+					matchedSubSSG->addNode(tsgNode);
+					int currNodeId = matchedSubSSG->m_nodeNum - 1;
+					matchedSubSSG->m_nodes[currNodeId].isSynthesized = 1;
+					tsgNodeToSubNodeMap[tni] = currNodeId;
 
-	//// insert synthesized attribute and relation node
-	//for (int tni = 0; tni < tsg->m_nodeNum; tni++)
-	//{
-	//	SemNode& tsgNode = tsg->m_nodes[tni];
+					// set meta data
+					//matchedSubSSG->m_objectGraphNodeIdToModelSceneIdMap[matchedSubSSG->m_nodeNum - 1] = ;
 
-	//	if (tsgNode.nodeType == "per_obj_attribute" || tsgNode.nodeType == "group_attribute")
-	//	{
-	//		if (!tsgNode.outEdgeNodeList.empty())
-	//		{
-	//			int refNodeId = tsgNode.outEdgeNodeList[0];
+				}
+			}
+		}
 
-	//		}
-	//	}
-	//}
+		// insert synthesized attribute and relation node
+		for (int tni = 0; tni < tsg->m_nodeNum; tni++)
+		{
+			SemNode& tsgNode = tsg->m_nodes[tni];
 
+			if (!tsgNode.isMatched && (tsgNode.nodeType == "per_obj_attribute" || tsgNode.nodeType == "group_attribute"))
+			{
+				if (!tsgNode.outEdgeNodeList.empty())
+				{
+					int refNodeId = tsgNode.outEdgeNodeList[0];
+
+					// only insert the relationship node for the object that is matched
+					if (tsgNode.isMatched&&tsgNodeToSubNodeMap.count(refNodeId))
+					{
+						// insert node
+						matchedSubSSG->addNode(tsgNode);
+						int currNodeId = matchedSubSSG->m_nodeNum - 1;
+						matchedSubSSG->m_nodes[currNodeId].isSynthesized = 1;
+
+						matchedSubSSG->addEdge(matchedSubSSG->m_nodeNum - 1, tsgNodeToSubNodeMap[refNodeId]);
+						tsgNodeToSubNodeMap[tni] = matchedSubSSG->m_nodeNum - 1;
+					}
+				}
+			}
+
+			if (!tsgNode.isMatched && (tsgNode.nodeType == "pairwise_relationship"))
+			{
+				if (!tsgNode.outEdgeNodeList.empty())
+				{
+					int refNodeId = tsgNode.outEdgeNodeList[0];
+					int actNodeId = tsgNode.inEdgeNodeList[0];
+
+					if (tsgNodeToSubNodeMap.count(refNodeId) && tsgNodeToSubNodeMap.count(actNodeId))
+					{
+						// insert node
+						matchedSubSSG->addNode(tsgNode);
+						int currNodeId = matchedSubSSG->m_nodeNum - 1;
+						matchedSubSSG->m_nodes[currNodeId].isSynthesized = 1;
+
+						matchedSubSSG->addEdge(matchedSubSSG->m_nodeNum - 1, tsgNodeToSubNodeMap[refNodeId]);
+						matchedSubSSG->addEdge(tsgNodeToSubNodeMap[actNodeId], matchedSubSSG->m_nodeNum - 1);
+
+						tsgNodeToSubNodeMap[tni] = matchedSubSSG->m_nodeNum - 1;
+					}
+				}
+			}
+		}
+	}
 
 
 	return matchedSubSSG;

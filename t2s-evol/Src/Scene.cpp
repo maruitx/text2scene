@@ -145,7 +145,7 @@ void Scene::initSynScene()
 	params::inst()->textureDirectory = stanfordDBPath + "textures/";
 	params::inst()->globalSceneUnitScale = 0.0254; // default unit scale is inch to m
 
-	m_previewNum = 8;
+	m_previewNum = 5;
 	for (int i = 0; i < m_previewNum; ++i)
 	{
 		TSScene *s = new TSScene(m_models);

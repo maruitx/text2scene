@@ -5,6 +5,7 @@ class SuppPlane
 {
 public:
 	SuppPlane();
+	SuppPlane(const SuppPlane &p);
 	~SuppPlane();
 
 	SuppPlane(const std::vector<vec3> &corners);
@@ -27,6 +28,7 @@ public:
 
 	double m_sceneMetric;
 
+	bool m_isInited;
 	std::vector<std::vector<int>> m_planeGrid; // 
 };
 

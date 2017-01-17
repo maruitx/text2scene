@@ -4,7 +4,7 @@
 
 class SemNode{
 public:
-	SemNode(const QString &t, const QString &n, int id) { nodeType = t; nodeName = n; nodeId = id; isAligned = false; isMatched = false; isInferredObj = false;  inferedType = -1;  inferRefNodeId = -1; isAnnotated = false; };
+	SemNode(const QString &t, const QString &n, int id) { nodeType = t; nodeName = n; nodeId = id; isAligned = false; isMatched = false; isInferred = false;  inferedType = -1;  inferRefNodeId = -1; isAnnotated = false; };
 	~SemNode() {};
 
 	// node types: object, p_attribute, p_relation, g_relation, g_attribute, 
@@ -27,20 +27,14 @@ public:
 
 	bool isMatched;
 	bool isAligned;
-
-	enum NodeStatus
-	{
-		MatchedNode =0,
-		InferedNode,
-		SynthesizedNode
-	};
+	bool isSynthesized;
 
 	enum InferNodeType{
 		InferBySupport = 0,
 		InferByContext
 	};
 
-	bool isInferredObj;
+	bool isInferred;
 	int inferedType;
 	int inferRefNodeId;  // reference object id of the inferred object
 
@@ -67,6 +61,8 @@ public:
 	~SemanticGraph();
 
 	void addNode(const QString &nType, const QString &nName);
+	void addNode(const SemNode &node);
+
 	void addEdge(int s, int t);
 
 	std::vector<int> findNodeWithName(const QString &nName);

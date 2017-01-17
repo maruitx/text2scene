@@ -533,14 +533,15 @@ bool TSScene::resolveCollision(int modelId)
 
 
 		SuppPlane &parentSuppPlane = parentMd.suppPlane;
-		vec3 currUVH = currMd.parentPlaneUVH; // UV, and H w.r.t to parent support plane
+		if (parentSuppPlane.m_isInited)
+		{
+			vec3 currUVH = currMd.parentPlaneUVH; // UV, and H w.r.t to parent support plane
 
-		vec3 newPos = parentSuppPlane.randomSamplePointByUVH(currUVH);
-		translateVec = newPos - currMd.position;
+			vec3 newPos = parentSuppPlane.randomSamplePointByUVH(currUVH);
+			translateVec = newPos - currMd.position;
 
-
-		transMat = transMat.translate(translateVec);
-	
+			transMat = transMat.translate(translateVec);
+		}
 	}
 	else
 	{
