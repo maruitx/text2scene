@@ -98,7 +98,7 @@ void ModelMesh::render(const Transform &trans, Shader *shader, const string &tex
 			tex->setFilter(GL_LINEAR, GL_LINEAR);
 
 			params::inst()->textures.insert(make_pair(m_material.texName, tex));
-			cout << "\nLoading Texture: " << m_material.texName;
+			//cout << "\nLoading Texture: " << m_material.texName;
 		}
 
 		m_vbo->render();		
@@ -137,7 +137,7 @@ void ModelThread::load(const string &fileName)
 {
 	QFileInfo fi(QString(fileName.c_str()));
 	string baseName = fi.baseName().toStdString();
-	cout << "\nLoading Model: " << baseName;
+	cout << "\nLoading Model: " << baseName<<"\n";
 
 	//string modelFile = params::inst()->modelDirectory + baseName + string(".obj");
 	//string materialFile = params::inst()->modelDirectory + baseName + string(".mtl");

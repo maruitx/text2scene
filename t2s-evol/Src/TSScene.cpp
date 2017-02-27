@@ -184,6 +184,7 @@ void TSScene::render(const Transform &trans, bool applyShadow)
 
 					if (md.trialNum == 20)
 					{
+						qDebug() << "  Reach test trial limit; Place model anyway; Collision may exist";
 						md.isAlreadyPlaced = true; // reach trial limit, although collision happens still set it to be placed
 					}
 				}
@@ -482,7 +483,6 @@ bool TSScene::checkCollision(Model *testModel, const BoundingBox &testBB, int te
 
 					if (isOBBMeshCollide)
 					{
-						//isMeshMeshCollide = iter->second->checkCollisionTrianglesTriangles(testModel, testModelTransMat, md.transformation, delta);
 						isMeshMeshCollide = iter->second->checkCollisionTrianglesTriangles(testModel, testModelTransMat, md.transformation, delta);
 					}
                 }
@@ -517,9 +517,17 @@ bool TSScene::resolveCollision(int modelId)
 
 	int currNodeId = m_ssg->getNodeIdWithModelId(modelId);
 
+	if (currNodeId = -1)
+	{
+		qDebug() << QString(" Preview:%1 Error: cannot find model %2 in current SSG").arg(m_previewId).arg(modelId);
+		return false;
+	}
+
 	MetaModel &currMd = m_metaScene.m_metaModellList[modelId];
 	mat4 transMat;
 	vec3 translateVec;
+
+	QString sampleType;
 
 	if (parentNodeId != -1)
 	{
@@ -529,7 +537,7 @@ bool TSScene::resolveCollision(int modelId)
 		if (parentSuppPlane.m_isInited)
 		{
 			vec3 currUVH = currMd.parentPlaneUVH; // UV, and H w.r.t to parent support plane
-
+			sampleType = " on parent- " + m_ssg->m_nodes[parentNodeId].nodeName;
 			vec3 newPos = parentSuppPlane.randomSamplePointByUVH(currUVH);
 			translateVec = newPos - currMd.position;
 
@@ -538,12 +546,13 @@ bool TSScene::resolveCollision(int modelId)
 	}
 	else
 	{
-		//qDebug() << "\t no parent found for model "<< m_ssg->m_nodes[currNodeId].nodeName<<"\n";
 		double sceneMetric = params::inst()->globalSceneUnitScale;
 		//translateVec = GenShiftWithNormalDistribution(0.3 / sceneMetric, 0.3 / sceneMetric);
 		std::vector<double> sft(2);
 		double xVar = 0.2;
 		double yVar = 0.2;
+
+		sampleType = "on floor";
 		GenNRandomDouble(-1, 1, sft);
 		translateVec = translateVec + vec3(xVar*sft[0] / sceneMetric, yVar*sft[1] / sceneMetric, 0);
 		transMat = transMat.translate(translateVec);
@@ -559,9 +568,8 @@ bool TSScene::resolveCollision(int modelId)
 	//currMd.upDir = TransformVector(transMat, currMd.upDir);
 	//currMd.suppPlane.tranfrom(transMat);
 
+	qDebug() << QString("  Trial num:%1 Preview:%2 Type:%3 Vec:(%4,%5,%6) Name:%7").arg(currMd.trialNum).arg(m_previewId).arg(sampleType).arg(translateVec.x).arg(translateVec.y).arg(translateVec.z).arg(QString(m_ssg->m_nodes[currNodeId].nodeName));
 
-	//qDebug() << QString("\t Shift model %1 - %2 in Preview %3 by %4 %5 %6 \n").arg(QString(currMd.name.c_str())).arg(m_ssg->m_nodes[currNodeId].nodeName).arg(m_previewId).arg(translateVec.x).arg(translateVec.y).arg(translateVec.z);
-	qDebug() << QString("\t Trial num:%1 Shift model %2 - %3 in Preview %4 by %5 %6 %7 \n").arg(currMd.trialNum).arg(QString(currMd.name.c_str())).arg(currNodeId).arg(m_previewId).arg(translateVec.x).arg(translateVec.y).arg(translateVec.z);
 	return true;
 }
 
