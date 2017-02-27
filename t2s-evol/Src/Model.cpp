@@ -632,13 +632,13 @@ bool Model::checkCollisionTrianglesTriangles(Model *testModel, const mat4 &testM
 
 				for (int rj = 0; rj < indices.size() - 3; rj += 3)
 				{
-					VertexBufferObject::DATA &d1 = vertices[indices[rj]];
-					VertexBufferObject::DATA &d2 = vertices[indices[rj + 1]];
-					VertexBufferObject::DATA &d3 = vertices[indices[rj + 2]];
+					VertexBufferObject::DATA &rd1 = vertices[indices[rj]];
+					VertexBufferObject::DATA &rd2 = vertices[indices[rj + 1]];
+					VertexBufferObject::DATA &rd3 = vertices[indices[rj + 2]];
 
-					vec3 w1 = TransformPoint(refModelTransMat, vec3(d1.vx, d1.vy, d1.vz));
-					vec3 w2 = TransformPoint(refModelTransMat, vec3(d2.vx, d2.vy, d2.vz));
-					vec3 w3 = TransformPoint(refModelTransMat, vec3(d3.vx, d3.vy, d3.vz));
+					vec3 w1 = TransformPoint(refModelTransMat, vec3(rd1.vx, rd1.vy, rd1.vz));
+					vec3 w2 = TransformPoint(refModelTransMat, vec3(rd2.vx, rd2.vy, rd2.vz));
+					vec3 w3 = TransformPoint(refModelTransMat, vec3(rd3.vx, rd3.vy, rd3.vz));
 
 					bool iscollide = triangleTriangleWrapper(v1, v2, v3, w1, w2, w3);
 
@@ -671,8 +671,7 @@ bool Model::checkCollisionTrianglesTriangles(Model *testModel, const mat4 &testM
 						//testM.print();
 
 						return true;
-					}
-						
+					}						
 				}
 			}
 		}

@@ -63,7 +63,7 @@ public:
 
     //vec3 m_collisionTrans;
 	vec3 m_sceneCenter;
-    BoundingBox m_bb;
+    BoundingBox m_bb; // non-transformed model BB
 
 	bool m_loadingDone;
 

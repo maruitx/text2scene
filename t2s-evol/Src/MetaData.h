@@ -36,11 +36,11 @@ class MetaModel
 			string path;
 			string textureDir;
 
-			vec3 frontDir;
-			vec3 upDir;
-			vec3 position;
+			vec3 frontDir;  // transformed dir in current scene
+			vec3 upDir;     // transformed dir in current scene
+			vec3 position;  // transformed model pos in current scene
 
-			SuppPlane suppPlane;
+			SuppPlane suppPlane;  // transformed model support plane in current scene
 			vec3 parentPlaneUVH;
 
 			bool isInitLoaded; // whether the model is loaded at the beginning
