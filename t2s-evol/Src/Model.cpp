@@ -509,7 +509,7 @@ bool triangleTriangleWrapper(const vec3 &a1, const vec3 &a2, const vec3 &a3, con
     return tri_tri_intersect(p1, q1, r1, p2, q2, r2);
 }
 
-bool Model::checkCollisionBBTriangles(const BoundingBox &testBB, const mat4 &testModelTransMat, const mat4 &refModelTransMat, double delta /*= 0*/)
+bool Model::checkCollisionBBTriangles(const BoundingBox &testBB, const mat4 &testModelTransMat, const mat4 &refModelTransMat)
 {	
     //box triangle collision as triangle triangle collision
 
@@ -606,7 +606,7 @@ bool Model::checkCollisionBBTriangles(const BoundingBox &testBB, const mat4 &tes
 	return false;
 }
 
-bool Model::checkCollisionTrianglesTriangles(Model *testModel, const mat4 &testModelTransMat, const mat4 &refModelTransMat, double delta /*= 0*/)
+bool Model::checkCollisionTrianglesTriangles(Model *testModel, const mat4 &testModelTransMat, const mat4 &refModelTransMat)
 {
 	vector<ModelMesh>& testModelMeshes = testModel->getModelMeshs();
 

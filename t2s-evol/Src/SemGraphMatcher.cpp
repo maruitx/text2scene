@@ -51,7 +51,7 @@ vector<SceneSemGraph*> SemGraphMatcher::alignmentTSGWithDatabaseSSGs(int topMatc
 		SceneSemGraph *currDBSSG = m_sceneSemGraphManager->getGraph(i);
 
 		double matchingScore = 0;
-		SceneSemGraph *subSSG = alignTSGWithSSG(m_currTextSemGraph, currDBSSG, matchingScore);
+		SceneSemGraph *subSSG = alignTSGWithDBSSG(m_currTextSemGraph, currDBSSG, matchingScore);
 
 		if (matchingScore > 0)
 		{
@@ -124,7 +124,7 @@ vector<SceneSemGraph*> SemGraphMatcher::alignmentTSGWithDatabaseSSGs(int topMatc
 }
 
 
-SceneSemGraph* SemGraphMatcher::alignTSGWithSSG(TextSemGraph *tsg, SceneSemGraph *databaseSSG, double &matchingScore)
+SceneSemGraph* SemGraphMatcher::alignTSGWithDBSSG(TextSemGraph *tsg, SceneSemGraph *databaseSSG, double &matchingScore)
 {
 	std::map<int, int> mapFromTsgToDBSsgNodeId;
 	SceneSemGraph *matchedSubSSG;
@@ -155,9 +155,12 @@ SceneSemGraph* SemGraphMatcher::alignTSGWithSSG(TextSemGraph *tsg, SceneSemGraph
 
 							int matchedAttNum = 0;
 							int tsgAttNum = 0;
+
+							// align attribute node 
 							for (int tai = 0; tai < tsgNode.inEdgeNodeList.size(); tai++)
 							{
-								SemNode &taNode = tsg->m_nodes[tsgNode.inEdgeNodeList[tai]];
+								int taNodeId = tsgNode.inEdgeNodeList[tai];  // id of attribute node in tsg
+								SemNode &taNode = tsg->m_nodes[taNodeId];
 
 								if (taNode.nodeType == "per_obj_attribute")
 								{
@@ -166,7 +169,8 @@ SceneSemGraph* SemGraphMatcher::alignTSGWithSSG(TextSemGraph *tsg, SceneSemGraph
 									{
 										for (int dai = 0; dai < dbSgNode.inEdgeNodeList.size(); dai++)
 										{
-											SemNode &daNode = databaseSSG->m_nodes[dbSgNode.inEdgeNodeList[dai]];
+											int daNodeId = dbSgNode.inEdgeNodeList[dai]; // id of attribute node in dbssg
+											SemNode &daNode = databaseSSG->m_nodes[daNodeId];
 
 											if (taNode.nodeType == daNode.nodeType && taNode.nodeName == daNode.nodeName)
 											{
@@ -174,8 +178,8 @@ SceneSemGraph* SemGraphMatcher::alignTSGWithSSG(TextSemGraph *tsg, SceneSemGraph
 
 												taNode.isMatched = true;
 												daNode.isMatched = true;
-												mapFromTsgToDBSsgNodeId[tai] = dni; // save aligned object node map		
-												matchingScore += 1;
+												mapFromTsgToDBSsgNodeId[taNodeId] = daNodeId; // save aligned attribute node into map		
+												matchingScore += 0;  // attribute node does not contribute to matching score
 											}
 										}
 									}
@@ -187,7 +191,7 @@ SceneSemGraph* SemGraphMatcher::alignTSGWithSSG(TextSemGraph *tsg, SceneSemGraph
 							{
 								tsgNode.isMatched = true;
 								dbSgNode.isMatched = true;
-								mapFromTsgToDBSsgNodeId[tni] = dni; // save aligned object node map									
+								mapFromTsgToDBSsgNodeId[tni] = dni; // save aligned object node into map									
 								matchingScore += 1;
 								break;
 							}
@@ -195,7 +199,7 @@ SceneSemGraph* SemGraphMatcher::alignTSGWithSSG(TextSemGraph *tsg, SceneSemGraph
 							{
 								tsgNode.isMatched = true;
 								dbSgNode.isMatched = true;
-								mapFromTsgToDBSsgNodeId[tni] = dni; // save aligned object node map									
+								mapFromTsgToDBSsgNodeId[tni] = dni; // save partial aligned object node into map									
 								matchingScore += 0.5;
 								break;
 							}
@@ -254,7 +258,7 @@ SceneSemGraph* SemGraphMatcher::alignTSGWithSSG(TextSemGraph *tsg, SceneSemGraph
 					{
 						tsgNode.isMatched = true;
 						dbSgNode.isMatched = true;
-						mapFromTsgToDBSsgNodeId[tni] = dni;  // save aligned pairwise relationship node map
+						mapFromTsgToDBSsgNodeId[tni] = dni;  // save aligned pairwise relationship node into map
 
 						matchingScore += 1;
 						break;
@@ -284,8 +288,6 @@ SceneSemGraph* SemGraphMatcher::alignTSGWithSSG(TextSemGraph *tsg, SceneSemGraph
 				// skip the aligned nodes
 				if (!dbSgNode.isMatched && dbSgNode.nodeType == "group_attribute" && dbSgNode.nodeName == tsgNode.nodeName)
 				{
-					//if (dbSgNode.outEdgeNodeList[0] == mapFromTsgToDBSsgNodeId[refNodeIdInTsg])
-
 					int dbRefId = dbSgNode.outEdgeNodeList[0];
 					SemNode& dbRefNode = databaseSSG->m_nodes[dbRefId];
 					if (dbRefNode.nodeName == tsgRefNode.nodeName)

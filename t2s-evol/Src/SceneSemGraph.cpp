@@ -156,6 +156,9 @@ void SceneSemGraph::loadGraph(const QString &filename)
 				if (parts.size() > 2)
 				{
 					addNode(QString(parts[1].c_str()), QString(parts[2].c_str()));
+
+					// set model catgory in meta model
+					m_metaScene.m_metaModellList[metaModelId].catName = (parts[2].c_str());
 				}
 				else
 				{
@@ -189,9 +192,8 @@ void SceneSemGraph::loadGraph(const QString &filename)
 	inFile.close();
 }
 
-TSScene* SceneSemGraph::covertToTSScene(unordered_map<string, Model*> &models, const QString &sceneName)
+TSScene* SceneSemGraph::covertToTSScene(unordered_map<string, Model*> &models)
 {
-	m_metaScene.m_sceneFileName = sceneName;
 	TSScene* newScene = new TSScene(models, m_metaScene);
 	newScene->m_ssg = this;
 
@@ -388,6 +390,8 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, bool useC
 			}
 		}
 	}
+
+	subGraph->m_metaScene.m_sceneFileName = m_metaScene.m_sceneFileName;
 
 	return subGraph;
 }

@@ -90,7 +90,7 @@ vec3 SuppPlane::randomSamplePointByUVH(const vec3 &uvh)
 	double uVar, vVar, zVar;
 	uVar = 0.15 / m_sceneMetric;
 	vVar = 0.1 / m_sceneMetric;
-	zVar = 0.05 / m_sceneMetric;
+	zVar = 0.0 / m_sceneMetric;
 
 	//vec3 sft = GenShiftWithNormalDistribution(uVar, vVar, 0);
 	std::vector<double> sft(3);

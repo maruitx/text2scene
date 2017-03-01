@@ -37,10 +37,8 @@ std::vector<TSScene*> SceneGenerator::generateTSScenes(int num)
 
 	for (int i = 0; i < matchedSSGs.size(); i++)
 	{
-		QString sceneName = QString("Preview %1").arg(i);
-
 		SceneSemGraph *newSSG = alignToCurrTSScene(matchedSSGs[i]);
-		TSScene *s = newSSG->covertToTSScene(m_models, sceneName);
+		TSScene *s = newSSG->covertToTSScene(m_models);
 		tsscenes.push_back(s);
 	}
 
@@ -62,6 +60,8 @@ SceneSemGraph* SceneGenerator::alignToCurrTSScene(SceneSemGraph *matchedSg)
 	{
 		newSg = new SceneSemGraph(matchedSg);
 
+		// set scene file name that current match comes from
+		newSg->m_metaScene.m_sceneFileName = matchedSg->m_metaScene.m_sceneFileName;
 		alignBySynthesizedRelationships(newSg);
 		return newSg;
 	}
@@ -83,7 +83,7 @@ SceneSemGraph* SceneGenerator::alignToCurrTSScene(SceneSemGraph *matchedSg)
 
 	m_mapFromMatchToNewNodeId.clear();
 
-	// first match object node
+	// first align object node
 	for (int mi = 0; mi < matchedSg->m_nodeNum; mi++)
 	{
 		SemNode& matchedSgNode = matchedSg->m_nodes[mi];
@@ -200,6 +200,8 @@ SceneSemGraph* SceneGenerator::alignToCurrTSScene(SceneSemGraph *matchedSg)
 
 	alignBySynthesizedRelationships(newSg);
 
+	// set scene file name that current match comes from
+	newSg->m_metaScene.m_sceneFileName = matchedSg->m_metaScene.m_sceneFileName;
 	return newSg;
 }
 

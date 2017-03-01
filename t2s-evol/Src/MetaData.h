@@ -8,7 +8,7 @@
 class MetaModel
 	{
 		public:
-			MetaModel() : name(""), id(0), transformation(mat4::identitiy()), collisionTransVec(vec3()), material(), visible(true), path(""), textureDir(""), 
+			MetaModel() : name(""), catName(""), id(0), transformation(mat4::identitiy()), material(), visible(true), path(""), textureDir(""),
 				frontDir(vec3(0, -1, 0)), upDir(vec3(0, 0, 1)), position(vec3(0, 0, 0)), suppPlane(SuppPlane()), parentPlaneUVH(vec3(0.5,0.5,0)), 
 				isInitLoaded(false), isAlreadyPlaced(false), isSelected(false), renderMode(0), trialNum(0)
 			{
@@ -16,20 +16,20 @@ class MetaModel
                // isSelected = rand() % 2;
             }
 			MetaModel(const MetaModel &md) { 
-				name = md.name; id = md.id; transformation = md.transformation; collisionTransVec = md.collisionTransVec; material = md.material; visible = md.visible; path = md.path; textureDir = md.textureDir; 
+				name = md.name; catName = md.catName; id = md.id; transformation = md.transformation; material = md.material; visible = md.visible; path = md.path; textureDir = md.textureDir;
 				frontDir = md.frontDir; upDir = md.upDir; position = md.position; suppPlane = md.suppPlane; parentPlaneUVH = md.parentPlaneUVH;
 				isInitLoaded = md.isInitLoaded; isAlreadyPlaced = md.isAlreadyPlaced; renderMode = md.renderMode;  isSelected = md.isSelected; trialNum = md.trialNum;
 			};
 			MetaModel &operator = (const MetaModel &md) { 
-				name = md.name; id = md.id; transformation = md.transformation; collisionTransVec = md.collisionTransVec; material = md.material; visible = md.visible; path = md.path; textureDir = md.textureDir;
+				name = md.name; catName = md.catName; id = md.id; transformation = md.transformation; material = md.material; visible = md.visible; path = md.path; textureDir = md.textureDir;
 				frontDir = md.frontDir; upDir = md.upDir; position = md.position; suppPlane = md.suppPlane; parentPlaneUVH = md.parentPlaneUVH;
 				isInitLoaded = md.isInitLoaded; isAlreadyPlaced = md.isAlreadyPlaced;  isSelected = md.isSelected; renderMode = md.renderMode; trialNum = md.trialNum; return *this;
 			}
 
-			string name;
+			string name;  // file name (hash string) of the model
+			string catName; // category of model
 			int id;
-			mat4 transformation;
-			vec3 collisionTransVec;
+			mat4 transformation;			
 
 			Material material;		
 			bool visible;
