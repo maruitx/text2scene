@@ -81,16 +81,16 @@ void SuppPlane::tranfrom(const mat4 &transMat)
 	computeParas();
 }
 
-vec3 SuppPlane::randomSamplePointByUVH(const vec3 &uvh)
+vec3 SuppPlane::randomSamplePointByUVH(const vec3 &uvh, const double xRange, const double yRange, const double zRange)
 {
 	double u = uvh.x;
 	double v = uvh.y;
 
 	vec3 sampleCenter = getPointByUV(u, v);
 	double uVar, vVar, zVar;
-	uVar = 0.15 / m_sceneMetric;
-	vVar = 0.1 / m_sceneMetric;
-	zVar = 0.0 / m_sceneMetric;
+	uVar = xRange / m_sceneMetric;
+	vVar = yRange / m_sceneMetric;
+	zVar = zRange / m_sceneMetric;
 
 	//vec3 sft = GenShiftWithNormalDistribution(uVar, vVar, 0);
 	std::vector<double> sft(3);

@@ -335,7 +335,7 @@ void TSScene::countLoadedModelNum()
 	if (m_loadedModelNum == m_metaScene.m_metaModellList.size())
 	{
 		m_isLoadingDone = true;
-		cout << "\nFinish loading models for Preview "<<m_previewId<<"\n";
+		cout << "\nFinish loading models for Preview:"<<m_previewId<<" Matched DBSSG:"<<m_ssg->m_metaScene.m_sceneFileName.toStdString()<<"\n";
 	}
 }
 
@@ -531,6 +531,7 @@ bool TSScene::resolveCollision(int modelId)
 	int parentModelId = m_ssg->m_objectGraphNodeIdToModelSceneIdMap[parentNodeId];
 
 	QString sampleType;
+	double sceneMetric = params::inst()->globalSceneUnitScale;
 
 	if (parentNodeId != -1)
 	{
@@ -540,16 +541,13 @@ bool TSScene::resolveCollision(int modelId)
 		if (parentSuppPlane.m_isInited)
 		{
 			vec3 currUVH = currMd.parentPlaneUVH; // UV, and H w.r.t to parent support plane
-			sampleType = " on parent- " + m_ssg->m_nodes[parentNodeId].nodeName;
-			vec3 newPos = parentSuppPlane.randomSamplePointByUVH(currUVH);
+			sampleType = " on parent-" + m_ssg->m_nodes[parentNodeId].nodeName;
+			vec3 newPos = parentSuppPlane.randomSamplePointByUVH(currUVH, 0.2, 0.2, 0);
 			translateVec = newPos - currMd.position;
-
-			transMat = transMat.translate(translateVec);
 		}
 	}
 	else
 	{
-		double sceneMetric = params::inst()->globalSceneUnitScale;
 		//translateVec = GenShiftWithNormalDistribution(0.3 / sceneMetric, 0.3 / sceneMetric);
 		std::vector<double> sft(2);
 		double xVar = 0.2;
@@ -558,8 +556,9 @@ bool TSScene::resolveCollision(int modelId)
 		sampleType = "on floor";
 		GenNRandomDouble(-1, 1, sft);
 		translateVec = translateVec + vec3(xVar*sft[0] / sceneMetric, yVar*sft[1] / sceneMetric, 0);
-		transMat = transMat.translate(translateVec);
 	}
+
+	transMat = transMat.translate(translateVec);
 
 	currMd.position = transMat*currMd.position;
 	currMd.transformation = transMat*currMd.transformation;
@@ -567,7 +566,9 @@ bool TSScene::resolveCollision(int modelId)
 	currMd.upDir = TransformVector(currMd.transformation, currMd.upDir);
 	currMd.suppPlane.tranfrom(transMat);
 
-	qDebug() << QString("  Resolve trial:%1 Preview:%2 Type:%3 Vec:(%4,%5,%6) Name:%7").arg(currMd.trialNum).arg(m_previewId).arg(sampleType).arg(translateVec.x).arg(translateVec.y).arg(translateVec.z).arg(QString(m_ssg->m_metaScene.m_metaModellList[modelId].catName.c_str()));
+	qDebug() << QString("  Resolve trial:%1 Preview:%2 Type:%3 Vec:(%4,%5,%6) Name:%7").arg(currMd.trialNum).arg(m_previewId).arg(sampleType)
+		.arg(translateVec.x*sceneMetric).arg(translateVec.y*sceneMetric).arg(translateVec.z*sceneMetric)
+		.arg(QString(m_ssg->m_metaScene.m_metaModellList[modelId].catName.c_str()));
 
 	return true;
 }
