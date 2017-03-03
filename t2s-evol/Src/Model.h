@@ -59,6 +59,8 @@ public:
 	bool checkCollisionBBTriangles(const BoundingBox &testBB, const mat4 &testModelTransMat, const mat4 &refModelTransMat);  // transMat is the transformation to place the model in current scene
 	bool checkCollisionTrianglesTriangles(Model *testModel, const mat4 &testModelTransMat, const mat4 &refModelTransMat);
 
+	bool isTriDegenerate(const vec3 &v1, const vec3 &v2, const vec3 &v3);
+
 	vector<ModelMesh>& getModelMeshs() { return m_meshes; };
 
     //vec3 m_collisionTrans;

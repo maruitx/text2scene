@@ -199,14 +199,15 @@ static void GenNRandomDouble(double minV, double maxV, std::vector<double> &vals
 
 
 // cannot put generator inside loop
-static double GenNormalDistribution(double dMean, double dVar, unsigned seedShift)
+static double GenNormalDistribution(double dMean, double stdDev)
 {
 	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 
-	std::default_random_engine generator(seed + seedShift);
-	std::normal_distribution<double> distribution(dMean, dVar);
+	std::default_random_engine generator(seed);
+	std::normal_distribution<double> distribution(0, 1);
 
-	return distribution(generator);
+	// using transformation rule of normal distribution
+	return dMean + stdDev*distribution(generator);
 }
 
 static double GetNormalDistributionProb(double x, double dMean, double dVar)
@@ -214,31 +215,19 @@ static double GetNormalDistributionProb(double x, double dMean, double dVar)
 	return (1.0 / sqrt(2 * math_pi))*exp(-0.5*(x - dMean)*(x - dMean) / dVar);
 }
 
-
-static vec3 GenShiftWithNormalDistribution(double xVar, double yVar = 0, double zVar =0)
+static void GenNNormalDistribution(const std::vector<double> &dMeans, const std::vector<double> &stdDevs, std::vector<double> &vals)
 {
-	//Temp 
-	double xShift(0), yShift(0), zShift(0);
+	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 
-	int seedShift = GenRandomInt(1e4, 1e6);
+	std::default_random_engine generator(seed);
+	std::normal_distribution<double> distribution(0.0, 1.0);
 
-	xShift = GenNormalDistribution(0, xVar, seedShift);
+	int gNum = dMeans.size();
 
-	if (yVar != 0)
+	for (int i = 0; i < gNum; i++)
 	{
-		seedShift = GenRandomInt(1e4, 1e6);
-		yShift = GenNormalDistribution(0, yVar, seedShift);
+		vals.push_back(dMeans[i] + stdDevs[i] * distribution(generator));
 	}
-
-	if (zVar != 0)
-	{
-		seedShift = GenRandomInt(1e4, 1e6);
-		zShift = GenNormalDistribution(0, zVar, seedShift);
-	}
-	
-	
-	return vec3(xShift, yShift, zShift);
-
 }
 
 static void EraseValueInVectorInt(std::vector<int> &v, int valueToErase)

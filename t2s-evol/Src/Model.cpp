@@ -621,6 +621,12 @@ bool Model::checkCollisionTrianglesTriangles(Model *testModel, const mat4 &testM
 			VertexBufferObject::DATA &d2 = testVertices[testIndices[tj + 1]];
 			VertexBufferObject::DATA &d3 = testVertices[testIndices[tj + 2]];
 
+			// skip degenerate triangles
+			if (isTriDegenerate(vec3(d1.vx, d1.vy, d1.vz), vec3(d2.vx, d2.vy, d2.vz), vec3(d3.vx, d3.vy, d3.vz)))
+			{
+				continue;
+			}
+
 			vec3 v1 = TransformPoint(testModelTransMat, vec3(d1.vx, d1.vy, d1.vz));
 			vec3 v2 = TransformPoint(testModelTransMat, vec3(d2.vx, d2.vy, d2.vz));
 			vec3 v3 = TransformPoint(testModelTransMat, vec3(d3.vx, d3.vy, d3.vz));
@@ -635,6 +641,12 @@ bool Model::checkCollisionTrianglesTriangles(Model *testModel, const mat4 &testM
 					VertexBufferObject::DATA &rd1 = vertices[indices[rj]];
 					VertexBufferObject::DATA &rd2 = vertices[indices[rj + 1]];
 					VertexBufferObject::DATA &rd3 = vertices[indices[rj + 2]];
+
+					// skip degenerate triangles
+					if (isTriDegenerate(vec3(rd1.vx, rd1.vy, rd1.vz), vec3(rd2.vx, rd2.vy, rd2.vz), vec3(rd3.vx, rd3.vy, rd3.vz)))
+					{
+						continue;
+					}
 
 					vec3 w1 = TransformPoint(refModelTransMat, vec3(rd1.vx, rd1.vy, rd1.vz));
 					vec3 w2 = TransformPoint(refModelTransMat, vec3(rd2.vx, rd2.vy, rd2.vz));
@@ -658,9 +670,13 @@ bool Model::checkCollisionTrianglesTriangles(Model *testModel, const mat4 &testM
 						//qDebug() << "w3 ";
 						//w3.print();
 
-						//qDebug() << QString("d1 %1 %2 %3\n").arg(d1.vx).arg(d1.vy).arg(d1.vz);
-						//qDebug() << QString("d2 %1 %2 %3\n").arg(d2.vx).arg(d2.vy).arg(d2.vz);
-						//qDebug() << QString("d3 %1 %2 %3\n").arg(d3.vx).arg(d3.vy).arg(d3.vz);
+						//qDebug() << QString("d1 %1 %2 %3").arg(d1.vx).arg(d1.vy).arg(d1.vz);
+						//qDebug() << QString("d2 %1 %2 %3").arg(d2.vx).arg(d2.vy).arg(d2.vz);
+						//qDebug() << QString("d3 %1 %2 %3").arg(d3.vx).arg(d3.vy).arg(d3.vz);
+
+						//qDebug() << QString("rd1 %1 %2 %3").arg(rd1.vx).arg(rd1.vy).arg(rd1.vz);
+						//qDebug() << QString("rd2 %1 %2 %3").arg(rd2.vx).arg(rd2.vy).arg(rd2.vz);
+						//qDebug() << QString("rd3 %1 %2 %3").arg(rd3.vx).arg(rd3.vy).arg(rd3.vz);
 
 						//qDebug() << "RefModelTransMat ";
 						//mat4 refM(refModelTransMat);
@@ -679,4 +695,18 @@ bool Model::checkCollisionTrianglesTriangles(Model *testModel, const mat4 &testM
 
 	return false;
 
+}
+
+bool Model::isTriDegenerate(const vec3 &v1, const vec3 &v2, const vec3 &v3)
+{
+	vec3 a = v2 - v1;
+	vec3 b = v3 - v1;
+	vec3 c = v3 - v2;
+
+	if (a.cross(b).length() < 1e-8)
+	{
+		return true;
+	}
+
+	return false;
 }

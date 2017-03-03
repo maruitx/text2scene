@@ -81,25 +81,43 @@ void SuppPlane::tranfrom(const mat4 &transMat)
 	computeParas();
 }
 
-vec3 SuppPlane::randomSamplePointByUVH(const vec3 &uvh, const double xRange, const double yRange, const double zRange)
+vec3 SuppPlane::randomSamplePointByUV(const vec3 &uvh, const double xRange, const double yRange, const double zRange)
 {
 	double u = uvh.x;
 	double v = uvh.y;
 
 	vec3 sampleCenter = getPointByUV(u, v);
+
 	double uVar, vVar, zVar;
 	uVar = xRange / m_sceneMetric;
 	vVar = yRange / m_sceneMetric;
 	zVar = zRange / m_sceneMetric;
 
-	//vec3 sft = GenShiftWithNormalDistribution(uVar, vVar, 0);
-	std::vector<double> sft(3);
-	GenNRandomDouble(-1, 1, sft);
+	std::vector<double> shiftVals(3);
+	GenNRandomDouble(-1, 1, shiftVals);
 
-	vec3 sampledPos = sampleCenter + vec3(sft[0]*uVar, sft[1]*vVar, sft[2]*zVar);
-
+	vec3 sampledPos = sampleCenter + vec3(shiftVals[0]*uVar, shiftVals[1]*vVar, shiftVals[2]*zVar);
 	return sampledPos;
 }
+
+
+
+vec3 SuppPlane::randomGaussSamplePtByUV(const vec3 &uvh, const std::vector<double> &stdDevs)
+{
+	double u = uvh.x;
+	double v = uvh.y;
+
+	vec3 sampleCenter = getPointByUV(u, v);
+	std::vector<double> dMeans(2, 0);
+
+	std::vector<double> shiftVals;
+	GenNNormalDistribution(dMeans, stdDevs, shiftVals);
+
+	vec3 sampledPos = sampleCenter + vec3(shiftVals[0] / m_sceneMetric, shiftVals[1] / m_sceneMetric, 0);
+	return sampledPos;
+}
+
+
 
 void SuppPlane::initGrid()
 {

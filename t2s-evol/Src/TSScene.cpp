@@ -504,7 +504,7 @@ bool TSScene::checkCollision(Model *testModel, const BoundingBox &testBB, int te
 
 				if (isCollide)
 				{
-					qDebug() << QString(" Collide in Preview:%1 Type: %2 DBSSG:%3").arg(m_previewId).arg(collisionType).arg(m_ssg->m_metaScene.m_sceneFileName);
+					qDebug() << QString(" Preview:%1 Collide Type: %2 DBSSG:%3").arg(m_previewId).arg(collisionType).arg(m_ssg->m_metaScene.m_sceneFileName);
 					return isCollide;
 				}
             }
@@ -540,22 +540,25 @@ bool TSScene::resolveCollision(int modelId)
 		SuppPlane &parentSuppPlane = parentMd.suppPlane;
 		if (parentSuppPlane.m_isInited)
 		{
-			vec3 currUVH = currMd.parentPlaneUVH; // UV, and H w.r.t to parent support plane
 			sampleType = " on parent-" + m_ssg->m_nodes[parentNodeId].nodeName;
-			vec3 newPos = parentSuppPlane.randomSamplePointByUVH(currUVH, 0.2, 0.2, 0);
+
+			vec3 currUVH = currMd.parentPlaneUVH; // UV, and H w.r.t to parent support plane
+			std::vector<double> stdDevs(2, 0.1);
+
+			vec3 newPos = parentSuppPlane.randomGaussSamplePtByUV(currUVH, stdDevs);
 			translateVec = newPos - currMd.position;
 		}
 	}
 	else
 	{
-		//translateVec = GenShiftWithNormalDistribution(0.3 / sceneMetric, 0.3 / sceneMetric);
-		std::vector<double> sft(2);
-		double xVar = 0.2;
-		double yVar = 0.2;
-
 		sampleType = "on floor";
-		GenNRandomDouble(-1, 1, sft);
-		translateVec = translateVec + vec3(xVar*sft[0] / sceneMetric, yVar*sft[1] / sceneMetric, 0);
+
+		std::vector<double> shiftVals;
+		std::vector<double> dMeans(2, 0); // set mean to be (0,0)
+		std::vector<double> stdDevs(2, 0.2);
+		GenNNormalDistribution(dMeans, stdDevs, shiftVals);
+
+		translateVec = translateVec + vec3(shiftVals[0] / sceneMetric, shiftVals[1] / sceneMetric, 0);
 	}
 
 	transMat = transMat.translate(translateVec);
@@ -566,7 +569,7 @@ bool TSScene::resolveCollision(int modelId)
 	currMd.upDir = TransformVector(currMd.transformation, currMd.upDir);
 	currMd.suppPlane.tranfrom(transMat);
 
-	qDebug() << QString("  Resolve trial:%1 Preview:%2 Type:%3 Vec:(%4,%5,%6) Name:%7").arg(currMd.trialNum).arg(m_previewId).arg(sampleType)
+	qDebug() << QString("  Preview:%2 Resolve trial:%1 Type:%3 Vec:(%4,%5,%6) Name:%7").arg(currMd.trialNum).arg(m_previewId).arg(sampleType)
 		.arg(translateVec.x*sceneMetric).arg(translateVec.y*sceneMetric).arg(translateVec.z*sceneMetric)
 		.arg(QString(m_ssg->m_metaScene.m_metaModellList[modelId].catName.c_str()));
 
