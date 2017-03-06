@@ -9,6 +9,10 @@
 #include <random>
 #include <chrono>
 
+// undefine the max and min Macro defined in windows.h
+#undef max
+#undef min
+
 
 static std::vector<std::string> PartitionString(const std::string &s, const std::string &separator)
 {
@@ -235,4 +239,112 @@ static void EraseValueInVectorInt(std::vector<int> &v, int valueToErase)
 	auto it = std::find(v.begin(), v.end(), valueToErase);
 	if (it != v.end())
 		v.erase(it);
+}
+
+// math utility
+//////////////////////////////////////////////
+typedef struct
+{
+	uint x, y, z;
+} uint3;
+
+typedef struct
+{
+	float x, y, z;
+} float3;
+
+inline uint3 make_uint3(uint x, uint y, uint z) {
+	uint3 t;
+	t.x = x; t.y = y; t.z = z;
+	return t;
+}
+
+inline float3 make_float3(float f) {
+	float3 t;
+	t.x = f; t.y = f; t.z = f;
+	return t;
+}
+
+inline float3 make_float3(float x, float y, float z) {
+	float3 t;
+	t.x = x; t.y = y; t.z = z;
+	return t;
+}
+
+inline float3 make_float3(float3 f) {
+	float3 t;
+	t.x = f.x; t.y = f.y; t.z = f.z;
+	return t;
+}
+
+inline float3 normalize(float3 v) {
+	float length = v.x * v.x + v.y * v.y + v.z * v.z;
+	float oneOverLength = 1.0f / sqrtf(length);
+	v.x *= oneOverLength;
+	v.y *= oneOverLength;
+	v.z *= oneOverLength;
+	return v;
+}
+
+inline bool isnan3(float3 v) {
+	return std::isnan(v.x) || std::isnan(v.y) || std::isnan(v.z);
+}
+
+/////////////////////
+inline float3 make_float3(vec3 v)
+{
+	return make_float3(v.x, v.y, v.z);
+}
+
+inline float3 operator-(float3 f) {
+	return make_float3(-f.x, -f.y, -f.z);
+}
+
+inline float3 operator-(float3 a, float3 b) {
+	return make_float3(a.x - b.x, a.y - b.y, a.z - b.z);
+}
+
+inline float3 operator+(float3 a, float3 b) {
+	return make_float3(a.x + b.x, a.y + b.y, a.z + b.z);
+}
+
+/////////////////////
+inline float3 operator*(float3 a, float b) {
+	return make_float3(a.x * b, a.y * b, a.z * b);
+}
+
+inline float3 operator*(float b, float3 a) {
+	return make_float3(a.x * b, a.y * b, a.z * b);
+}
+
+inline float3 operator*(float3 a, float3 b) {
+	return make_float3(a.x * b.x, a.y * b.y, a.z * b.z);
+}
+
+/////////////////
+inline float3 operator/(float3 a, float b) {
+	return make_float3(a.x / b, a.y / b, a.z / b);
+}
+
+inline float3 operator/(float3 a, float3 b) {
+	return make_float3(a.x / b.x, a.y / b.y, a.z / b.z);
+}
+
+///////////
+inline float3 min(float3 a, float3 b) {
+	return make_float3(std::min(a.x, b.x), std::min(a.y, b.y), std::min(a.z, b.z));
+}
+
+inline float3 max(float3 a, float3 b) {
+	return make_float3(std::max(a.x, b.x), std::max(a.y, b.y), std::max(a.z, b.z));
+}
+
+
+//////////////
+inline float dot(float3 a, float3 b) {
+	return a.x * b.x + a.y * b.y + a.z * b.z;
+}
+
+inline float norm(float3 vec) {
+	return sqrtf(dot(vec, vec));
 }

@@ -6,6 +6,8 @@
 #include "Utility.h"
 #include "TriangleIntersection.h"
 
+#include "mesh_bvh.h"
+
 #include <sstream> 
 
 ModelMesh::ModelMesh(vector<VertexBufferObject::DATA> &vertices, vector<uint> &indices, const Material &material)
@@ -123,7 +125,7 @@ void ModelMesh::renderDepth(const Transform &trans, const mat4 &model)
 ModelThread::ModelThread(const string &fileName, vector<ModelMesh> &meshes, BoundingBox &bb)
 : m_fileName(fileName), 
   m_meshes(meshes), 
-  m_bb(bb)  
+  m_bb(bb)
 {
 
 }
@@ -131,6 +133,7 @@ ModelThread::ModelThread(const string &fileName, vector<ModelMesh> &meshes, Boun
 void ModelThread::run()
 {
 	load(m_fileName);
+	buildBVH();
 }
 
 void ModelThread::load(const string &fileName)
@@ -221,6 +224,9 @@ void ModelThread::load(const string &fileName)
                 ma.z = curVertex.vz;    
 
             m_bb.setMinMax(mi, ma);
+
+			// collect vertices for BVH build
+			m_triMesh->vertex_vec.push_back(make_float3(curVertex.vx, curVertex.vy, curVertex.vz));
 		}
 
 		if (curLine[0] == 'v' && curLine[1] == 't')
@@ -258,6 +264,9 @@ void ModelThread::load(const string &fileName)
 			indices.push_back(index0 - 1);
 			indices.push_back(index1 - 1);
 			indices.push_back(index2 - 1);
+
+			// collect indices for BVH build
+			m_triMesh->triangle_vec.push_back(make_uint3(index0 - 1, index1 - 1, index2 - 1));
 		}
 		if (curLine.find("usemtl ") == 0)
 		{
@@ -301,8 +310,21 @@ void ModelThread::load(const string &fileName)
 		m_meshes.push_back(m);		
 		indices.clear();
 	}
+
+
+
+
+	
+
+
 }
 
+void ModelThread::buildBVH()
+{
+	// need to collect geometry in m_triMesh before build bvh
+	m_meshBvh->build();
+	cout << "\t BVH built\n";
+}
 
 Model::Model(const string &fileName)
 : m_thread(fileName, m_meshes, m_bb), 
@@ -312,6 +334,12 @@ Model::Model(const string &fileName)
   //m_collisionTrans(vec3())
 {
 	//Code for parallel loading
+	m_triMesh = new TriangleMesh();
+	m_meshBvh = new MeshBvh(m_triMesh);
+
+	m_thread.m_triMesh = m_triMesh;
+	m_thread.m_meshBvh = m_meshBvh;
+
 	connect(&m_thread, SIGNAL(finished()), this, SLOT(loadingDone()));
 	m_thread.start();
 
@@ -710,3 +738,4 @@ bool Model::isTriDegenerate(const vec3 &v1, const vec3 &v2, const vec3 &v3)
 
 	return false;
 }
+

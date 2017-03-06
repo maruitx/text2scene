@@ -9,6 +9,9 @@
 #include "Mesh.h"
 #include "VertexBufferObject.h"
 
+class MeshBvh;
+class TriangleMesh;
+
 class Shader;
 class VertexBufferObject;
 
@@ -38,8 +41,13 @@ class ModelThread : public QThread
 
 public: 
 	ModelThread(const string &fileName, vector<ModelMesh> &meshes, BoundingBox &bb);
-	void load(const string &fileName);	
+	void load(const string &fileName);
+	void buildBVH();
+
 	void run();
+
+	MeshBvh *m_meshBvh;
+	TriangleMesh *m_triMesh;
 
 private:
 	string m_fileName;
@@ -77,6 +85,9 @@ private:
 
 	vector<ModelMesh> m_meshes;	
     VertexBufferObject *m_vboBB;
+
+	MeshBvh *m_meshBvh;
+	TriangleMesh *m_triMesh;
 };
 
 #endif

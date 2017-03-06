@@ -4,43 +4,104 @@
 #include "Math.h"
 #include <vector>
 #include "Utility.h"
+#include <algorithm>
+
+
+
+#define rz_min2(a, b) std::min(a, b)
+#define rz_max2(a, b) std::max(a, b)        
+#define rz_min4(a, b, c, d) (rz_min2(a, rz_min2(b, rz_min2(c, d))))
+#define rz_max4(a, b, c, d) (rz_max2(a, rz_max2(b, rz_max2(c, d))))
 
 class Camera;
 struct Transform;
 
+const float ZERO_EPSILON = 1e-6f;
+const float RAY_TMIN = 1e-3f;
+const float RAY_TMAX = 1e6f;
+
+class Ray {
+public:
+	Ray() : o(make_float3(0)), d(make_float3(0)), inv_d(make_float3(0)), org_inv_d(make_float3(0)) {}
+	Ray(const float3 &_o, const float3 &_d) : o(_o), d(normalize(_d)) {
+		// avoid NaN as this will cause traversal performance dropped a few hundred times 
+		if (isnan3(d))
+			d = make_float3(0.0f, 0.0f, 0.0f);
+
+		// avoid NaN here otherwise box hit checking is not accurate when one of elements in d is zero.                
+		float3 dd = make_float3(
+			fabs(d.x) < ZERO_EPSILON ? ZERO_EPSILON : d.x,
+			fabs(d.y) < ZERO_EPSILON ? ZERO_EPSILON : d.y,
+			fabs(d.z) < ZERO_EPSILON ? ZERO_EPSILON : d.z);
+
+		inv_d = make_float3(1.0f) / dd;
+		org_inv_d = -o * inv_d;
+	}
+	Ray(const Ray &r) { *this = r; }
+
+	float3 org() const { return o; }
+	float3 dir() const { return d; }
+	float3 point(float t) const { return o + t * d; }
+
+public:
+	float3 o, d, inv_d, org_inv_d;
+};
+
 class BoundingBox
 {
     public:
-        BoundingBox() : m_mi(vec3()), m_ma(vec3()) {}
-        BoundingBox(const vec3 &mi, const vec3 &ma) : m_mi(mi), m_ma(ma) {}
-        BoundingBox(const BoundingBox &bb) : m_mi(bb.mi()), m_ma(bb.ma()) {}        
+		BoundingBox() : m_mi(vec3()), m_ma(vec3()) { v_min = make_float3(0); v_max = make_float3(0); }
+		BoundingBox(const vec3 &mi, const vec3 &ma) : m_mi(mi), m_ma(ma) { v_min = make_float3(m_mi); v_max = make_float3(m_ma); }
+		BoundingBox(const BoundingBox &bb) : m_mi(bb.mi()), m_ma(bb.ma()) { v_min = make_float3(m_mi); v_max = make_float3(m_ma); }
+
+		BoundingBox(const float3 &p0, const float3 &p1, const float3 &p2) {
+			//v_min = min(min(p0, p1), p2);
+			//v_max = max(max(p0, p1), p2);
+
+			m_mi = vec3(v_min.x, v_min.y, v_min.z);
+			m_ma = vec3(v_max.x, v_max.y, v_max.z);
+		}
+
         ~BoundingBox() {}
 
-        BoundingBox &operator = (const BoundingBox &bb) { m_mi = bb.mi(); m_ma = bb.ma(); return *this; }
+        BoundingBox &operator = (const BoundingBox &bb) { m_mi = bb.mi(); m_ma = bb.ma();
+		v_min = make_float3(m_mi); v_max = make_float3(m_ma);
+		return *this; }
 
         vec3 mi() const { return m_mi; } 
         vec3 ma() const { return m_ma; }
         vec3 center() const { return ((m_mi + m_ma) * 0.5); }
 
-        void setMin(const vec3 &mi) { m_mi = mi; }
-        void setMax(const vec3 &ma) { m_ma = ma; }
-        void setMinMax(const vec3 &mi, const vec3 &ma) { m_mi = mi; m_ma = ma; }    
+		void setMin(const vec3 &mi) { m_mi = mi; v_min = make_float3(m_mi); }
+		void setMax(const vec3 &ma) { m_ma = ma; v_max = make_float3(m_ma); }
+		void setMinMax(const vec3 &mi, const vec3 &ma) { m_mi = mi; m_ma = ma; v_min = make_float3(m_mi); v_max = make_float3(m_ma); }
 
-        bool inside(const vec3 &p, double delta = 0) const 
-        {
-			if (p.x >= m_mi.x + delta && p.x <= m_ma.x - delta)
-            {
-				if (p.y >= m_mi.y + delta && p.y <= m_ma.y - delta)
-                {
-					if (p.z >= m_mi.z + delta&& p.z <= m_ma.z - delta)
-                    {
-                        return true;
-                    }
-                }
-            }
+		/**
+		* Return true if two boxes have intersection.
+		*/
+		bool overlap(const BoundingBox &b) const {
+			bool x = (m_ma.x >= b.m_mi.x) && (m_mi.x <= b.m_ma.x);
+			bool y = (m_ma.y >= b.m_mi.y) && (m_mi.y <= b.m_ma.y);
+			bool z = (m_ma.z >= b.m_mi.z) && (m_mi.z <= b.m_ma.z);
+			return (x && y && z);
+		}
 
-            return false;
-        }
+		void merge(const BoundingBox &b) {
+			//v_min = min(v_min, b.v_min);
+			//v_max = max(v_max, b.v_max);
+
+			m_mi = vec3(v_min.x, v_min.y, v_min.z);
+			m_ma = vec3(v_max.x, v_max.y, v_max.z);
+		}
+
+		bool inside(const vec3 &p, double delta = 0) const
+		{
+			bool xIn = (p.x >= m_mi.x + delta && p.x <= m_ma.x - delta);
+			bool yIn = (p.y >= m_mi.y + delta && p.y <= m_ma.y - delta);
+			bool zIn = (p.z >= m_mi.z + delta&& p.z <= m_ma.z - delta);
+
+			return xIn&&yIn&&zIn;
+		}
 
 		// a AABB from input AABB after transformation
 		BoundingBox transformBoudingBox(const mat4 &transMat) const
@@ -82,6 +143,29 @@ class BoundingBox
 
 			return BoundingBox(mi, ma);
 		}
+
+		bool hit(const Ray &r, float tmin, float tmax) const {
+			float t;
+			return hit(r, tmin, tmax, t);
+		}
+
+		bool hit(const Ray &r, float tmin, float tmax, float &t_hit) const {
+			// from Timo Aila's HPG'12 Understanding the efficiency of ray traversal on the GPUs
+			float3 v0 = v_min * r.inv_d + r.org_inv_d;
+			float3 v1 = v_max * r.inv_d + r.org_inv_d;
+			float x0 = v0.x, y0 = v0.y, z0 = v0.z,
+				x1 = v1.x, y1 = v1.y, z1 = v1.z;
+
+			float tminbox = rz_max4(tmin, rz_min2(x0, x1), rz_min2(y0, y1), rz_min2(z0, z1));
+			float tmaxbox = rz_min4(tmax, rz_max2(x0, x1), rz_max2(y0, y1), rz_max2(z0, z1));
+
+			t_hit = tminbox;
+			return (tminbox <= tmaxbox) &&
+				(tmax >= tminbox && tmaxbox >= tmin); /* some overlap of [tmin, tmax] and [tminbox, tmaxbox] */
+		}
+
+public:
+	float3 v_min, v_max;
 
     private:
         vec3 m_mi;
