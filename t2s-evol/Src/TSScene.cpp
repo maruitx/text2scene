@@ -2,6 +2,7 @@
 #include "Utility.h"
 #include "Model.h"
 #include "SceneSemGraph.h"
+#include "CollisionManager.h"
 
 
 TSScene::TSScene(unordered_map<string, Model*> &models)
@@ -17,7 +18,7 @@ TSScene::TSScene(unordered_map<string, Model*> &models)
     m_camTrans(0.0f, 0.0f, 0.0f), 
     m_renderMode(0)
 {
-	
+	m_collisionManager = new CollisionManager(this);
 }
 
 TSScene::TSScene(unordered_map<string, Model*> &models, const QString &fileName)
@@ -35,6 +36,8 @@ TSScene::TSScene(unordered_map<string, Model*> &models, const QString &fileName)
 {
 	loadSceneFile(fileName);
 	countLoadedModelNum();
+
+	m_collisionManager = new CollisionManager(this);
 }
 
 TSScene::TSScene(unordered_map<string, Model*> &models, MetaScene &ms)
@@ -52,10 +55,16 @@ TSScene::TSScene(unordered_map<string, Model*> &models, MetaScene &ms)
 {
 	m_modelNum = m_metaScene.m_metaModellList.size();
 	countLoadedModelNum();
+
+	m_collisionManager = new CollisionManager(this);
 }
 
 TSScene::~TSScene()
 {
+	if (m_collisionManager)
+	{
+		delete m_collisionManager;
+	}
 }
 
 void TSScene::loadSceneFile(const QString &filename)
@@ -162,8 +171,6 @@ void TSScene::render(const Transform &trans, bool applyShadow)
 
 	int nrLoaded = 0;
 
-	int trialNumLimit = 10;
-
 	for (int i = 0; i < m_metaScene.m_metaModellList.size(); i++)
 	{
 		MetaModel &md = m_metaScene.m_metaModellList[i];
@@ -179,12 +186,12 @@ void TSScene::render(const Transform &trans, bool applyShadow)
 		{
 			if (iter->second->m_loadingDone)
 			{
-				if (!m_isLoadFromFile && checkCollision(iter->second, iter->second->m_bb, i) && md.trialNum < trialNumLimit)
+				if (!m_isLoadFromFile && m_collisionManager->checkCollisionBVH(iter->second, i) && md.trialNum < m_collisionManager->m_trialNumLimit)
 				{
-					resolveCollision(i);
+					m_collisionManager->resolveCollision(i);
 					md.trialNum++;
 
-					if (md.trialNum == trialNumLimit)
+					if (md.trialNum == m_collisionManager->m_trialNumLimit)
 					{
 						qDebug() << QString("   Preview %1 Reach test trial limit; Place model anyway; Collision may exist").arg(m_previewId);
 						md.isAlreadyPlaced = true; // reach trial limit, although collision happens still set it to be placed
@@ -437,147 +444,19 @@ void TSScene::updateRoomModel(MetaModel m)
 	}
 }
 
-bool TSScene::checkCollision(Model *testModel, const BoundingBox &testBB, int textModelIdx)
-{
-	bool isCollide = false;
-
-	// do not check for model that is already placed in the scene
-	if (m_metaScene.m_metaModellList[textModelIdx].isAlreadyPlaced)
-	{
-		return false;
-	}
-
-	// trans mat that brings model at pos in current scene
-	mat4 testModelTransMat = m_metaScene.m_metaModellList[textModelIdx].transformation;
-	
-	// compute the new transformed AABB
-	BoundingBox transTestBB = testBB.transformBoudingBox(testModelTransMat);
-	vec3 testModelMi = transTestBB.mi();
-	vec3 testModelMa = transTestBB.ma();
-
-	double delta = 0.01 / params::inst()->globalSceneUnitScale;
-
-	QString collisionType;
-
-	for (int i = 0; i < m_metaScene.m_metaModellList.size(); i++)
-	{
-		bool isModelAlreadyPlaced = m_metaScene.m_metaModellList[i].isAlreadyPlaced;
-
-		// only check collision with model that is already placed in the scene
-		if (i != textModelIdx && isModelAlreadyPlaced)
-        {          		
-		    MetaModel &md = m_metaScene.m_metaModellList[i];
-		    auto &iter = m_models.find(md.name);
-
-            if (iter != m_models.end())
-            {
-				// compute the new transformed BB
-				BoundingBox transRefBB = iter->second->m_bb.transformBoudingBox(md.transformation);
-				vec3 refModelMi = transRefBB.mi();
-				vec3 refModelMa = transRefBB.ma();
-
-                bool isAABBCollide = intersectAABB(testModelMi, testModelMa, refModelMi, refModelMa, delta);
-                bool isOBBMeshCollide = false;
-				bool isMeshMeshCollide = false;
-
-                if(isAABBCollide)
-                {
-
-					collisionType = "AABB(true)";
-					// test transformed BB to model with current scene transformation
-					isOBBMeshCollide = iter->second->checkCollisionBBTriangles(testBB, testModelTransMat, md.transformation); 
-
-					if (isOBBMeshCollide)
-					{
-						collisionType += "_OBBMesh(true)";
-						isMeshMeshCollide = iter->second->checkCollisionTrianglesTriangles(testModel, testModelTransMat, md.transformation);
-						
-						if (isMeshMeshCollide)
-						{
-							collisionType += "_MeshMesh(true)";
-						}
-					}
-                }
-
-				//isCollide = isAABBCollide && isOBBMeshCollide;
-				isCollide = isAABBCollide && isOBBMeshCollide && isMeshMeshCollide;				
-
-				if (isCollide)
-				{
-					qDebug() << QString(" Preview:%1 Collide Type: %2 DBSSG:%3").arg(m_previewId).arg(collisionType).arg(m_ssg->m_metaScene.m_sceneFileName);
-					return isCollide;
-				}
-            }
-        }
-    }
-
-	return false;
-}
-
-bool TSScene::intersectAABB(const vec3 &miA, const vec3 &maA, const vec3 &miB, const vec3 &maB, double delta)
-{
-	return (miA.x + delta <= maB.x && maA.x  - delta >= miB.x) &&
-		(miA.y + delta <= maB.y && maA.y - delta >= miB.y) &&
-		(miA.z + delta <= maB.z && maA.z - delta >= miB.z);
-}
-
-bool TSScene::resolveCollision(int modelId)
-{
-	MetaModel &currMd = m_metaScene.m_metaModellList[modelId];
-	mat4 transMat;
-	vec3 translateVec;
-
-	int parentNodeId = m_ssg->findParentNodeId(modelId);
-	int parentModelId = m_ssg->m_objectGraphNodeIdToModelSceneIdMap[parentNodeId];
-
-	QString sampleType;
-	double sceneMetric = params::inst()->globalSceneUnitScale;
-
-	if (parentNodeId != -1)
-	{
-		MetaModel &parentMd = m_metaScene.m_metaModellList[parentModelId];
-
-		SuppPlane &parentSuppPlane = parentMd.suppPlane;
-		if (parentSuppPlane.m_isInited)
-		{
-			sampleType = " on parent-" + m_ssg->m_nodes[parentNodeId].nodeName;
-
-			vec3 currUVH = currMd.parentPlaneUVH; // UV, and H w.r.t to parent support plane
-			std::vector<double> stdDevs(2, 0.1);
-
-			vec3 newPos = parentSuppPlane.randomGaussSamplePtByUV(currUVH, stdDevs);
-			translateVec = newPos - currMd.position;
-		}
-	}
-	else
-	{
-		sampleType = "on floor";
-
-		std::vector<double> shiftVals;
-		std::vector<double> dMeans(2, 0); // set mean to be (0,0)
-		std::vector<double> stdDevs(2, 0.2);
-		GenNNormalDistribution(dMeans, stdDevs, shiftVals);
-
-		translateVec = translateVec + vec3(shiftVals[0] / sceneMetric, shiftVals[1] / sceneMetric, 0);
-	}
-
-	transMat = transMat.translate(translateVec);
-
-	currMd.position = transMat*currMd.position;
-	currMd.transformation = transMat*currMd.transformation;
-	currMd.frontDir = TransformVector(currMd.transformation, currMd.frontDir);
-	currMd.upDir = TransformVector(currMd.transformation, currMd.upDir);
-	currMd.suppPlane.tranfrom(transMat);
-
-	qDebug() << QString("  Preview:%2 Resolve trial:%1 Type:%3 Vec:(%4,%5,%6) Name:%7").arg(currMd.trialNum).arg(m_previewId).arg(sampleType)
-		.arg(translateVec.x*sceneMetric).arg(translateVec.y*sceneMetric).arg(translateVec.z*sceneMetric)
-		.arg(QString(m_ssg->m_metaScene.m_metaModellList[modelId].catName.c_str()));
-
-	return true;
-}
-
 void TSScene::toggleRenderMode()
 {
     loop(m_renderMode, 0, 1, 1);
+}
+
+Model* TSScene::getModel(const string &name)
+{
+	auto &iter = m_models.find(name);
+	if (iter != m_models.end())
+	{
+		return iter->second;
+	}
+	else
+		return NULL;
 }
 

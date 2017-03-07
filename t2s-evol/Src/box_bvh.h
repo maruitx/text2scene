@@ -1,6 +1,5 @@
 #pragma once
 
-//#include "common.h"
 #include "Geometry.h"
 
 extern "C" {
@@ -126,10 +125,10 @@ void BoxBvh<NodeData>::build() {
         box.merge(boxes[i]);
     }
 
-    cout << "BVH statistics:" << endl;
+    //cout << "BVH statistics:" << endl;
     //Stats stats;
 
-    cout << "Building Morton code..." << endl;
+    //cout << "Building Morton code..." << endl;
     //stats.tic();
     unsigned int *morton = new unsigned int[num_boxes];
     for (int i = 0; i < num_boxes; ++i) {
@@ -138,7 +137,7 @@ void BoxBvh<NodeData>::build() {
     //stats.toc();
     //stats.print_elapsed_milliseconds();
 
-    cout << "Sorting Morton array..." << endl;
+    //cout << "Sorting Morton array..." << endl;
     //stats.tic();
     MortonEntry *entries;
     sort_morton_array(morton, num_boxes, entries);
@@ -159,7 +158,7 @@ void BoxBvh<NodeData>::build() {
     //stats.toc();
     //stats.print_elapsed_milliseconds();
 
-    cout << "Building levels..." << endl;
+    //cout << "Building levels..." << endl;
     //stats.tic();
     // build all levels    
     int num_estimated_levels = (int)ceil(log(num_boxes) / log(2.0f));    // is it a good bound?
@@ -220,13 +219,13 @@ void BoxBvh<NodeData>::build() {
             }
         }
     }
-    cout << "BVH nodes/capacity : " << num_nodes << "/" << capacity << endl;
-    cout << "BVH levels         : " << levels.size() << endl;
+    //cout << "BVH nodes/capacity : " << num_nodes << "/" << capacity << endl;
+    //cout << "BVH levels         : " << levels.size() << endl;
     num_levels = levels.size();
     //stats.toc();
     //stats.print_elapsed_milliseconds();
 
-    cout << "Linking levels..." << endl;
+    //cout << "Linking levels..." << endl;
     //stats.tic();
     for (int i = levels.size() - 1; i >= 0; --i) {
         int first = levels[i].first;

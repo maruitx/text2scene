@@ -66,7 +66,8 @@ void GLWidget::initParams()
     GlobalObjectParams *p = params::inst();
 
     p->camPos              = vec3(0.0f, 0.0f, 0.0f);
-	p->blur                = vec2(2.0f, 1.0f);
+	//p->blur                = vec2(2.0f, 1.0f);
+	p->blur = vec2(4.0f, 1.0f);
     p->shadowMapSize       = vec2(1024, 1024);
     p->applyShadow         = true;
     p->gridRenderMode      = 3;

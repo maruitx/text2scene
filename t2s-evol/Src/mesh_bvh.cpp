@@ -9,10 +9,42 @@ using namespace Nvidia;
     //#include "../geometry/triangle_triangle_intersection.c"
 //}
 
+#include "triangle_triangle_intersection.h"
+#include "Model.h"
+
 #include <iostream>
 #include <queue>
 using namespace std;
 
+
+TrianglePredicate::TrianglePredicate(Model *first, mat4 &firstTransform, Model *second, mat4 &secondTransform)
+{
+	model[0] = first, model[1] = second;
+	transform[0] = firstTransform, transform[1] = secondTransform;
+}
+
+bool TrianglePredicate::operator()(const SimpleBoxNodeData &a, const SimpleBoxNodeData &b) const
+{
+	// retrieve triangle coordinates, transformed, and perform triangle test 
+	for (int i = 0; i < a.triangles.size(); ++i) {
+		vec3 p1, q1, r1;
+		model[0]->getTriangle(a.triangles[i], p1, q1, r1);
+		p1 = TransformPoint(transform[0], p1);
+		q1 = TransformPoint(transform[0], q1);
+		r1 = TransformPoint(transform[0], r1);
+		for (int j = 0; j < b.triangles.size(); ++j) {
+			vec3 p2, q2, r2;
+			model[1]->getTriangle(b.triangles[j], p2, q2, r2);
+			p2 = TransformPoint(transform[1], p2);
+			q2 = TransformPoint(transform[1], q2);
+			r2 = TransformPoint(transform[1], r2);
+
+			if (Guigue::tri_tri_overlap_test_3d(&p1.x, &q1.x, &r1.x,
+				&p2.x, &q2.x, &r2.x)) return true;
+		}
+	}
+	return false;
+}
 
 MeshBvh::MeshBvh(TriangleMesh *mesh) : mesh(mesh),
     sorted_triangles(NULL), sorted_morton(NULL), sorted_boxes(NULL),
@@ -45,10 +77,10 @@ void MeshBvh::build() {
         boxes[i] = mesh->get_triangle_bounding_box(triangles[i]);
     }
     
-    cout << "BVH statistics:" << endl;
+    //cout << "BVH statistics:" << endl;
     //Stats stats;
 
-    cout << "Building Morton code..." << endl;
+    //cout << "Building Morton code..." << endl;
     //stats.tic();
     unsigned int *morton = new unsigned int[num_triangles];
     for (int i = 0; i < num_triangles; ++i) {
@@ -57,7 +89,7 @@ void MeshBvh::build() {
     //stats.toc();
     //stats.print_elapsed_milliseconds();
         
-    cout << "Sorting Morton array..." << endl;
+    //cout << "Sorting Morton array..." << endl;
     //stats.tic();
     MortonEntry *entries;
     sort_morton_array(morton, num_triangles, entries);    
@@ -82,7 +114,7 @@ void MeshBvh::build() {
     //stats.toc();
     //stats.print_elapsed_milliseconds();
 
-    cout << "Building levels..." << endl;
+    //cout << "Building levels..." << endl;
     //stats.tic();
     // build all levels    
     int num_estimated_levels = (int)ceil(log(num_triangles) / log(2.0f));    // is it a good bound?
@@ -141,13 +173,13 @@ void MeshBvh::build() {
             }
         }
     }
-    cout << "BVH nodes/capacity : " << num_nodes << "/" << capacity << endl;
-    cout << "BVH levels         : " << levels.size() << endl;
+   // cout << "BVH nodes/capacity : " << num_nodes << "/" << capacity << endl;
+   // cout << "BVH levels         : " << levels.size() << endl;
     num_levels = levels.size();
     //stats.toc();
     //stats.print_elapsed_milliseconds();
 
-    cout << "Linking levels..." << endl;
+   // cout << "Linking levels..." << endl;
     //stats.tic();
     for (int i = levels.size() - 1; i >= 0; --i) {
         int first = levels[i].first;

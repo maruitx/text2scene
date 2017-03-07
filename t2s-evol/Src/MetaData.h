@@ -9,21 +9,27 @@ class MetaModel
 	{
 		public:
 			MetaModel() : name(""), catName(""), id(0), transformation(mat4::identitiy()), material(), visible(true), path(""), textureDir(""),
-				frontDir(vec3(0, -1, 0)), upDir(vec3(0, 0, 1)), position(vec3(0, 0, 0)), suppPlane(SuppPlane()), parentPlaneUVH(vec3(0.5,0.5,0)), 
-				isInitLoaded(false), isAlreadyPlaced(false), isSelected(false), renderMode(0), trialNum(0)
+				frontDir(vec3(0, -1, 0)), upDir(vec3(0, 0, 1)), position(vec3(0, 0, 0)), 
+				suppPlane(SuppPlane()), parentPlaneUVH(vec3(0.5,0.5,0)), 
+				isInitLoaded(false), isAlreadyPlaced(false), isBvhReady(false), isSelected(false), renderMode(0), trialNum(0)
 			{
                 //replace for proper selection rendering;
                // isSelected = rand() % 2;
             }
 			MetaModel(const MetaModel &md) { 
 				name = md.name; catName = md.catName; id = md.id; transformation = md.transformation; material = md.material; visible = md.visible; path = md.path; textureDir = md.textureDir;
-				frontDir = md.frontDir; upDir = md.upDir; position = md.position; suppPlane = md.suppPlane; parentPlaneUVH = md.parentPlaneUVH;
-				isInitLoaded = md.isInitLoaded; isAlreadyPlaced = md.isAlreadyPlaced; renderMode = md.renderMode;  isSelected = md.isSelected; trialNum = md.trialNum;
+				frontDir = md.frontDir; upDir = md.upDir; position = md.position; 
+				suppPlane = md.suppPlane; parentPlaneUVH = md.parentPlaneUVH;
+				isInitLoaded = md.isInitLoaded; isAlreadyPlaced = md.isAlreadyPlaced; isBvhReady = md.isBvhReady;
+				renderMode = md.renderMode;  isSelected = md.isSelected; trialNum = md.trialNum;
 			};
 			MetaModel &operator = (const MetaModel &md) { 
-				name = md.name; catName = md.catName; id = md.id; transformation = md.transformation; material = md.material; visible = md.visible; path = md.path; textureDir = md.textureDir;
-				frontDir = md.frontDir; upDir = md.upDir; position = md.position; suppPlane = md.suppPlane; parentPlaneUVH = md.parentPlaneUVH;
-				isInitLoaded = md.isInitLoaded; isAlreadyPlaced = md.isAlreadyPlaced;  isSelected = md.isSelected; renderMode = md.renderMode; trialNum = md.trialNum; return *this;
+				name = md.name; catName = md.catName; id = md.id; transformation = md.transformation; 
+				material = md.material; visible = md.visible; path = md.path; textureDir = md.textureDir;
+				frontDir = md.frontDir; upDir = md.upDir; position = md.position; 
+				suppPlane = md.suppPlane; parentPlaneUVH = md.parentPlaneUVH;
+				isInitLoaded = md.isInitLoaded; isAlreadyPlaced = md.isAlreadyPlaced;  isBvhReady = md.isBvhReady;
+				isSelected = md.isSelected; renderMode = md.renderMode; trialNum = md.trialNum; return *this;
 			}
 
 			string name;  // file name (hash string) of the model
@@ -45,6 +51,7 @@ class MetaModel
 
 			bool isInitLoaded; // whether the model is loaded at the beginning
 			bool isAlreadyPlaced; // whether the model is already placed in the scene
+			bool isBvhReady;  // whether the BVH is ready for collision detection
 
             bool isSelected;
 			int renderMode;

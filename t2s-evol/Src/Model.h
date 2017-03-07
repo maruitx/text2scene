@@ -9,6 +9,8 @@
 #include "Mesh.h"
 #include "VertexBufferObject.h"
 
+#include "box_bvh.h"
+
 class MeshBvh;
 class TriangleMesh;
 
@@ -70,6 +72,9 @@ public:
 	bool isTriDegenerate(const vec3 &v1, const vec3 &v2, const vec3 &v3);
 
 	vector<ModelMesh>& getModelMeshs() { return m_meshes; };
+
+	void getBvhLeafNodes(std::vector<BvhLeafNode> &nodes);
+	void getTriangle(int index, vec3 &p, vec3 &q, vec3 &r);
 
     //vec3 m_collisionTrans;
 	vec3 m_sceneCenter;

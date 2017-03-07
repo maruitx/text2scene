@@ -9,10 +9,7 @@
 #include <random>
 #include <chrono>
 
-// undefine the max and min Macro defined in windows.h
-#undef max
-#undef min
-
+#include <algorithm>
 
 static std::vector<std::string> PartitionString(const std::string &s, const std::string &separator)
 {
@@ -331,12 +328,12 @@ inline float3 operator/(float3 a, float3 b) {
 }
 
 ///////////
-inline float3 min(float3 a, float3 b) {
-	return make_float3(std::min(a.x, b.x), std::min(a.y, b.y), std::min(a.z, b.z));
+inline float3 float3Min(float3 a, float3 b) {
+	return make_float3((std::min)(a.x, b.x), (std::min)(a.y, b.y), (std::min)(a.z, b.z));
 }
 
-inline float3 max(float3 a, float3 b) {
-	return make_float3(std::max(a.x, b.x), std::max(a.y, b.y), std::max(a.z, b.z));
+inline float3 float3Max(float3 a, float3 b) {
+	return make_float3((std::max)(a.x, b.x), (std::max)(a.y, b.y), (std::max)(a.z, b.z));
 }
 
 

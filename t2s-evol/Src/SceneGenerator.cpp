@@ -76,6 +76,7 @@ SceneSemGraph* SceneGenerator::alignToCurrTSScene(SceneSemGraph *matchedSg)
 	for (int i = 0; i < currSg->m_metaScene.m_metaModellList.size(); i++)
 	{
 		currSg->m_metaScene.m_metaModellList[i].isAlreadyPlaced = true;
+		currSg->m_metaScene.m_metaModellList[i].isBvhReady = false;  // update BVH before each evolution
 	}
 
 	// copy from current sg

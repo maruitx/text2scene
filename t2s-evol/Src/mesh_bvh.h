@@ -10,6 +10,17 @@
 
 typedef uint3 TriangleIdx;
 
+class Model;
+
+struct TrianglePredicate : public GeometryPredicate<SimpleBoxNodeData>
+{
+	TrianglePredicate(Model *first, mat4 &firstTransform, Model *second, mat4 &secondTransform);
+	bool operator()(const SimpleBoxNodeData &a, const SimpleBoxNodeData &b) const;
+
+	Model* model[2];
+	mat4 transform[2];
+};
+
 struct TriangleHitRecord {
 	float t;
 	bool hit;

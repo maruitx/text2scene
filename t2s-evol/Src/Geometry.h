@@ -4,12 +4,9 @@
 #include "Math.h"
 #include <vector>
 #include "Utility.h"
-#include <algorithm>
 
-
-
-#define rz_min2(a, b) std::min(a, b)
-#define rz_max2(a, b) std::max(a, b)        
+#define rz_min2(a, b) (std::min)(a, b)
+#define rz_max2(a, b) (std::max)(a, b)        
 #define rz_min4(a, b, c, d) (rz_min2(a, rz_min2(b, rz_min2(c, d))))
 #define rz_max4(a, b, c, d) (rz_max2(a, rz_max2(b, rz_max2(c, d))))
 
@@ -55,8 +52,8 @@ class BoundingBox
 		BoundingBox(const BoundingBox &bb) : m_mi(bb.mi()), m_ma(bb.ma()) { v_min = make_float3(m_mi); v_max = make_float3(m_ma); }
 
 		BoundingBox(const float3 &p0, const float3 &p1, const float3 &p2) {
-			//v_min = min(min(p0, p1), p2);
-			//v_max = max(max(p0, p1), p2);
+			v_min = float3Min(float3Min(p0, p1), p2);
+			v_max = float3Max(float3Max(p0, p1), p2);
 
 			m_mi = vec3(v_min.x, v_min.y, v_min.z);
 			m_ma = vec3(v_max.x, v_max.y, v_max.z);
@@ -86,9 +83,16 @@ class BoundingBox
 			return (x && y && z);
 		}
 
+		bool contains(const BoundingBox &b) const {
+			bool x = ((m_mi.x <= b.m_mi.x && b.m_ma.x <= m_ma.x));
+			bool y = ((m_mi.y <= b.m_mi.y && b.m_ma.y <= m_ma.y));
+			bool z = ((m_mi.z <= b.m_mi.z && b.m_ma.z <= m_ma.z));
+			return (x && y && z);
+		}
+
 		void merge(const BoundingBox &b) {
-			//v_min = min(v_min, b.v_min);
-			//v_max = max(v_max, b.v_max);
+			v_min = float3Min(v_min, b.v_min);
+			v_max = float3Max(v_max, b.v_max);
 
 			m_mi = vec3(v_min.x, v_min.y, v_min.z);
 			m_ma = vec3(v_max.x, v_max.y, v_max.z);

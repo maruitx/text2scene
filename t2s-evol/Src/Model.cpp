@@ -7,7 +7,6 @@
 #include "TriangleIntersection.h"
 
 #include "mesh_bvh.h"
-
 #include <sstream> 
 
 ModelMesh::ModelMesh(vector<VertexBufferObject::DATA> &vertices, vector<uint> &indices, const Material &material)
@@ -120,7 +119,6 @@ void ModelMesh::renderDepth(const Transform &trans, const mat4 &model)
     	m_vbo->render();
 	}
 }
-
 
 ModelThread::ModelThread(const string &fileName, vector<ModelMesh> &meshes, BoundingBox &bb)
 : m_fileName(fileName), 
@@ -323,7 +321,6 @@ void ModelThread::buildBVH()
 {
 	// need to collect geometry in m_triMesh before build bvh
 	m_meshBvh->build();
-	cout << "\t BVH built\n";
 }
 
 Model::Model(const string &fileName)
@@ -737,5 +734,22 @@ bool Model::isTriDegenerate(const vec3 &v1, const vec3 &v2, const vec3 &v3)
 	}
 
 	return false;
+}
+
+void Model::getBvhLeafNodes(std::vector<BvhLeafNode> &nodes)
+{
+	nodes.clear();
+	if (m_meshBvh) m_meshBvh->getLeafNodes(nodes);
+}
+
+void Model::getTriangle(int index, vec3 &p, vec3 &q, vec3 &r)
+{
+	TriangleIdx tri = m_triMesh->triangle_vec[index];
+	float3 a = m_triMesh->vertex_vec[tri.x];
+	float3 b = m_triMesh->vertex_vec[tri.y];
+	float3 c = m_triMesh->vertex_vec[tri.z];
+	p = vec3(a.x, a.y, a.z);
+	q = vec3(b.x, b.y, b.z);
+	r = vec3(c.x, c.y, c.z);
 }
 

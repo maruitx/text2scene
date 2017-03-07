@@ -1,10 +1,13 @@
 #pragma once
 
 #include "MetaData.h"
+#include "box_bvh.h"
+#include "mesh_bvh.h"
 
 class Object;
 class Model;
 class SceneSemGraph;
+class CollisionManager;
 
 class TSScene
 {
@@ -23,8 +26,6 @@ public:
 
 	void countLoadedModelNum(); // count loaded model number by finding model in loaded modelDB
     void computeSceneBB();
-	bool checkCollision(Model *testModel, const BoundingBox &bb, int textModelIdx);
-    bool intersectAABB(const vec3 &miA, const vec3 &maA, const vec3 &miB, const vec3 &maB, double delta = 0);
 
 	bool resolveCollision(int modelId);
 
@@ -34,6 +35,10 @@ public:
     void toggleRenderMode();
 
 	MetaScene& getMetaScene() { return m_metaScene; };
+	MetaModel& getMetaModel(int idx) { return m_metaScene.m_metaModellList[idx]; };
+	int modelNum() { return m_modelNum; };
+
+	Model* getModel(const string &name);
 
 public:
 	SceneSemGraph *m_ssg;
@@ -41,6 +46,8 @@ public:
 	bool m_isRenderRoom;
 
 	int m_previewId;
+
+	CollisionManager *m_collisionManager;
 
 private:
 	unordered_map<string, Model*> &m_models;   // current loaded object DB
