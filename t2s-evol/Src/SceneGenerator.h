@@ -22,7 +22,7 @@ public:
 	std::vector<TSScene*> generateTSScenes(int num);
 
 	// alignment
-	SceneSemGraph* alignToCurrTSScene(SceneSemGraph *matchedSg);
+	SceneSemGraph* bindToCurrTSScene(SceneSemGraph *matchedSg);
 	void geometryAlignmentWithCurrScene(SceneSemGraph *matchedSg, SceneSemGraph *targetSg);
 	void alignBySynthesizedRelationships(SceneSemGraph *targetSg);
 
@@ -35,6 +35,8 @@ private:
 	SceneSemGraphManager *m_sceneSemGraphManager;
 
 	TSScene *m_currTSScene;
+	SceneSemGraph *m_currUserSSG;
+	TextSemGraph *m_textSSG;
 
 	std::map<int, int> m_mapFromMatchToNewNodeId;
 };

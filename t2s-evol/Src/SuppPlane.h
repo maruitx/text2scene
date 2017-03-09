@@ -29,6 +29,7 @@ public:
 	vector<vec3> m_axis; // x-axis (u), y-axis (v)
 
 	double m_sceneMetric;
+	double m_offset;
 
 	bool m_isInited;
 	std::vector<std::vector<int>> m_planeGrid; // 

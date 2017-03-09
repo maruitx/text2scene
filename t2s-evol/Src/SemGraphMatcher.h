@@ -4,7 +4,6 @@
 
 class SceneSemGraphManager;
 class SemanticGraph;
-class TextSemGraph;
 class SceneSemGraph;
 
 class SemGraphMatcher
@@ -13,15 +12,22 @@ public:
 	SemGraphMatcher(SceneSemGraphManager *ssgManager);
 	~SemGraphMatcher();
 
-	void updateCurrentTextSemGraph(TextSemGraph *tsg);
+	void updateQuerySSG(SemanticGraph *sg);
 
-	vector<SceneSemGraph*> alignmentTSGWithDatabaseSSGs(int topMatchNum);
-	SceneSemGraph* alignTSGWithDBSSG(TextSemGraph *tsg, SceneSemGraph *databaseSSG, double &matchingScore);
+	vector<SceneSemGraph*> alignmentSSGWithDatabaseSSGs(int topMatchNum);
 
-	double computeSimilarity(TextSemGraph *tsg, SceneSemGraph *ssg); // debug: simple compute similarity by matching node name
+	SceneSemGraph* alignSSGWithDBSSG(SemanticGraph *querySSG, SceneSemGraph *dbSSG, double &matchingScore);
+	void alignObjectNodes(SemanticGraph *querySSG, SceneSemGraph *dbSSG, double &matchingScore);
+	void alignRelationshipNodes(SemanticGraph *querySSG, SceneSemGraph *dbSSG, double &matchingScore);
+	void addSynthNodeToSubSSG(SemanticGraph *querySSG, SceneSemGraph *matchedSubSSG);  // add unmatched nodes as synth nodes to Sub-SSG
+
+	double computeSimilarity(SemanticGraph *tsg, SemanticGraph *ssg); // debug: simple compute similarity by matching node name
 
 private:
 	SceneSemGraphManager *m_sceneSemGraphManager;
-	TextSemGraph *m_currTextSemGraph;
+	SemanticGraph *m_querySSG;
+
+	std::map<int, int> m_queryToDBSsgNodeIdMap;
+
 };
 

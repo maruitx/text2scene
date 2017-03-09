@@ -1,10 +1,11 @@
 #include "SuppPlane.h"
 
 const double GridSize = 0.05;   // 5cm, NEED TO CONSIDER SCENE METRIC!!
+const double OffSet = 0.005;  // offset to avoid collision 
 
 
 SuppPlane::SuppPlane(const SuppPlane &p)
-	: m_corners(p.m_corners), m_axis(p.m_axis), m_length(p.m_length), m_width(p.m_width), m_normal(p.m_normal), m_isInited(p.m_isInited)
+	: m_corners(p.m_corners), m_axis(p.m_axis), m_length(p.m_length), m_width(p.m_width), m_normal(p.m_normal), m_isInited(p.m_isInited), m_offset(p.m_offset)
 {
 
 }
@@ -58,11 +59,13 @@ void SuppPlane::computeParas()
 	m_sceneMetric = params::inst()->globalSceneUnitScale;
 
 	m_isInited = true;
+
+	m_offset = OffSet / m_sceneMetric;
 }
 
 vec3 SuppPlane::getPointByUV(double u, double v)
 {
-	vec3 pt = m_corners[0] + u*m_axis[0]*m_length  + v*m_axis[1]*m_width;
+	vec3 pt = m_corners[0] + u*m_axis[0]*m_length  + v*m_axis[1]*m_width + m_offset*m_normal;
 	return pt; 
 }
 

@@ -342,7 +342,17 @@ void TSScene::countLoadedModelNum()
 	if (m_loadedModelNum == m_metaScene.m_metaModellList.size())
 	{
 		m_isLoadingDone = true;
-		cout << "\nFinish loading models for Preview:"<<m_previewId<<" Matched DBSSG:"<<m_ssg->m_metaScene.m_sceneFileName.toStdString()<<"\n";
+		QString sceneType;
+
+		if (m_ssg != NULL)
+		{
+			sceneType = " Matched DBSSG:" + m_ssg->m_metaScene.m_sceneFileName;
+		}
+		else
+		{
+			sceneType = " DBScene: " + m_metaScene.m_sceneFileName;
+		}
+		cout << "\nFinish loading models for Preview:" << m_previewId << sceneType.toStdString() << "\n";
 	}
 }
 
