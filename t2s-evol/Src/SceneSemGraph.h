@@ -21,6 +21,9 @@ public:
 
 	SceneSemGraph* getSubGraph(const vector<int> &nodeList, bool useContext = false);
 
+	SemanticGraph* mergeWithTSG(SemanticGraph *tsg);  // update current UserSSG with textSSG for retrieval
+	void mergeWithMatchedSSG(SceneSemGraph *matchedSg, std::map<int, int> &matchToNewUserSsgNodeMap); // update current USserSSG with retrieved subSSG
+
 
 	int findParentNodeId(int modelId);
 	int getNodeIdWithModelId(int modelId);

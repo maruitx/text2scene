@@ -4,7 +4,7 @@
 
 class SemNode{
 public:
-	SemNode(const QString &t, const QString &n, int id) { nodeType = t; nodeName = n; nodeId = id; isAligned = false; isMatched = false; isInferred = false;  inferedType = -1;  inferRefNodeId = -1; isAnnotated = false; };
+	SemNode(const QString &t, const QString &n, int id) { nodeType = t; nodeName = n; nodeId = id; isAligned = false; isInferred = false;  inferedType = -1;  inferRefNodeId = -1; isAnnotated = false; };
 	~SemNode() {};
 
 	// node types: object, p_attribute, p_relation, g_relation, g_attribute, 
@@ -25,7 +25,6 @@ public:
 	// for object: from passive object to relation/attribute node, e.g. table --> support
 	std::vector<int> outEdgeNodeList;
 
-	bool isMatched;
 	bool isAligned;
 	bool isSynthesized;
 
@@ -67,6 +66,13 @@ public:
 
 	std::vector<int> findNodeWithName(const QString &nName);
 	bool isEdgeExist(int s, int t);
+
+	void setNodesUnAligned();
+
+	void alignObjectNodesWithGraph(SemanticGraph *targetGraph, std::map<int, int> &queryToTargetNodeIdMap, double &alignScore);
+	void alignRelationNodesWithGraph(SemanticGraph *targetGraph, std::map<int, int> &queryToTargetNodeIdMap, double &alignScore);
+
+	void mergeWithGraph(SemanticGraph *inputGraph, std::map<int, int> &inputToNewSGNodeIdMap);
 
 public:
 	int m_nodeNum, m_edgeNum;

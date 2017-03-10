@@ -2,9 +2,10 @@
 
 #include "Headers.h"
 
-class SemGraphMatcher;
+class SemanticGraph;
 class TextSemGraph;
 class SceneSemGraph;
+class SemGraphMatcher;
 class SceneSemGraphManager;
 class TSScene;
 class Model;
@@ -19,12 +20,13 @@ public:
 	void updateCurrentTextGraph(TextSemGraph *tsg);
 	void updateCurrentTSScene(TSScene *ts);
 
+	SemanticGraph* prepareQuerySG();
 	std::vector<TSScene*> generateTSScenes(int num);
 
-	// alignment
+	// scene binding
 	SceneSemGraph* bindToCurrTSScene(SceneSemGraph *matchedSg);
 	void geometryAlignmentWithCurrScene(SceneSemGraph *matchedSg, SceneSemGraph *targetSg);
-	void alignBySynthesizedRelationships(SceneSemGraph *targetSg);
+	void bindBySynthesizedRelationships(SceneSemGraph *targetSg);
 
 
 	mat4 computeTransMat(const MetaModel &fromModel, const MetaModel &toModel);
@@ -38,6 +40,6 @@ private:
 	SceneSemGraph *m_currUserSSG;
 	TextSemGraph *m_textSSG;
 
-	std::map<int, int> m_mapFromMatchToNewNodeId;
+	std::map<int, int> m_matchToNewUserSsgNodeMap;
 };
 

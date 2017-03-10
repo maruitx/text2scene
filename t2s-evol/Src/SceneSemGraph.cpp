@@ -456,4 +456,42 @@ int SceneSemGraph::getNodeIdWithModelId(int modelId)
 	return currNodeId;
 }
 
+SemanticGraph* SceneSemGraph::mergeWithTSG(SemanticGraph *sg)
+{
+
+	std::map<int, int> queryToTargetNodeIdMap;
+	double alignScore;
+
+	sg->alignObjectNodesWithGraph(this, queryToTargetNodeIdMap, alignScore);
+	sg->alignRelationNodesWithGraph(this, queryToTargetNodeIdMap, alignScore);
+
+
+
+
+	return this;
+}
+
+void SceneSemGraph::mergeWithMatchedSSG(SceneSemGraph *matchedSg, std::map<int, int> &matchToNewUserSsgNodeMap)
+{
+	// insert nodes and edges
+	this->mergeWithGraph(matchedSg, matchToNewUserSsgNodeMap);
+
+
+	// insert unaligned objects to meta model list
+	for (int mi = 0; mi < matchedSg->m_nodeNum; mi++)
+	{
+		SemNode& matchedSgNode = matchedSg->m_nodes[mi];
+		if (!matchedSgNode.isAligned && matchedSgNode.nodeType == "object")
+		{
+			int mModelId = matchedSg->m_objectGraphNodeIdToModelSceneIdMap[mi];
+			MetaModel modelToInsert = matchedSg->m_metaScene.m_metaModellList[mModelId];
+			this->m_metaScene.m_metaModellList.push_back(modelToInsert);
+
+			int currMetaModelNum = this->m_metaScene.m_metaModellList.size();
+			int ci = matchToNewUserSsgNodeMap[mi];
+			this->m_objectGraphNodeIdToModelSceneIdMap[ci] = currMetaModelNum - 1;
+		}
+	}
+}
+
 

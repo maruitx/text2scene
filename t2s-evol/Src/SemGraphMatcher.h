@@ -12,9 +12,9 @@ public:
 	SemGraphMatcher(SceneSemGraphManager *ssgManager);
 	~SemGraphMatcher();
 
-	void updateQuerySSG(SemanticGraph *sg);
+	void updateQuerySG(SemanticGraph *sg);
 
-	vector<SceneSemGraph*> alignmentSSGWithDatabaseSSGs(int topMatchNum);
+	vector<SceneSemGraph*> alignWithDatabaseSSGs(int topMatchNum);
 
 	SceneSemGraph* alignSSGWithDBSSG(SemanticGraph *querySSG, SceneSemGraph *dbSSG, double &matchingScore);
 	void alignObjectNodes(SemanticGraph *querySSG, SceneSemGraph *dbSSG, double &matchingScore);

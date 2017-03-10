@@ -195,7 +195,7 @@ bool CollisionManager::checkCollision(Model *testModel, int testModelIdx)
 
 				if (isCollide)
 				{
-					qDebug() << QString(" Preview:%1 Collide Type: %2 DBSSG:%3").arg(m_scene->m_previewId).arg(collisionType).arg(m_scene->m_ssg->m_metaScene.m_sceneFileName);
+					//qDebug() << QString(" Preview:%1 Collide Type: %2 DBSSG:%3").arg(m_scene->m_previewId).arg(collisionType).arg(m_scene->m_ssg->m_metaScene.m_sceneFileName);
 					return isCollide;
 				}
 			}
