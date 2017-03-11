@@ -105,7 +105,7 @@ void Scene::resetSelection()
 
 void Scene::initTextures()
 {
-	QDir dir(QString(params::inst()->textureDirectory.c_str()));
+	QDir dir(toQString(params::inst()->textureDirectory));
 
 	QStringList filters;
 	filters << "*.jpg";

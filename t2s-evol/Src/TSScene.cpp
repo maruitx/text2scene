@@ -83,7 +83,7 @@ void TSScene::loadSceneFile(const QString &filename)
 	m_metaScene.m_sceneFileName = sceneFileInfo.baseName();   // scene_01.txt
 	m_metaScene.m_sceneFilePath = sceneFileInfo.absolutePath();
 
-	m_metaScene.m_sceneDBPath = QString(params::inst()->sceneDirectory.c_str());
+	m_metaScene.m_sceneDBPath = toQString(params::inst()->sceneDirectory);
 
 	QString databaseType;
 	QString modelFileName;
@@ -96,7 +96,7 @@ void TSScene::loadSceneFile(const QString &filename)
 
 	{
 		int currModelID = -1;
-		m_metaScene.m_modelRepository = QString(params::inst()->modelDirectory.c_str());
+		m_metaScene.m_modelRepository = toQString(params::inst()->modelDirectory);
 
 		while (!ifs.atEnd())
 		{
@@ -436,7 +436,7 @@ void TSScene::updateRoomModel(MetaModel m)
 		for (int i = 0; i < m_metaScene.m_metaModellList.size(); i++)
 		{
 			// if room exist, update with loaded room
-			QString modelName = QString(m_metaScene.m_metaModellList[i].name.c_str());
+			QString modelName = toQString(m_metaScene.m_metaModellList[i].name);
 			if (modelName.contains("room"))
 			{
 				m_metaScene.m_metaModellList[i] = m;

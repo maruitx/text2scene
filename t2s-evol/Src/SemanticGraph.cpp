@@ -6,6 +6,15 @@ SemanticGraph::SemanticGraph()
 {
 }
 
+SemanticGraph::SemanticGraph(SemanticGraph *sg)
+{
+	m_nodeNum = sg->m_nodeNum;
+	m_edgeNum = sg->m_edgeNum;
+
+	m_nodes = sg->m_nodes;
+	m_edges = sg->m_edges;
+}
+
 
 SemanticGraph::~SemanticGraph()
 {
@@ -270,4 +279,18 @@ void SemanticGraph::mergeWithGraph(SemanticGraph *inputGraph, std::map<int, int>
 			this->addEdge(s, t);
 		}
 	}
+}
+
+SemanticGraph* SemanticGraph::alignAndMergeWithGraph(SemanticGraph *sg)
+{
+	std::map<int, int> queryToTargetNodeIdMap;
+	double alignScore;
+
+	sg->alignObjectNodesWithGraph(this, queryToTargetNodeIdMap, alignScore);
+	sg->alignRelationNodesWithGraph(this, queryToTargetNodeIdMap, alignScore);
+
+	std::map<int, int> matchToNewSgNodeMap;
+	this->mergeWithGraph(sg, matchToNewSgNodeMap);
+
+	return this;
 }

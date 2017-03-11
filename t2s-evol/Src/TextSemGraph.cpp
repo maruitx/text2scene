@@ -20,7 +20,7 @@ void TextSemGraph::buildGraphFromSEL()
 	{
 		QString nameString = QString(m_sentence.m_entities[i].nameString);
 		std::vector<std::string> parts = PartitionString(nameString.toStdString(), "-");
-		QString entityName = QString(parts[0].c_str());
+		QString entityName = toQString(parts[0]);
 		m_sentence.m_entities[i].nameString = entityName;
 
 		if (m_sentence.m_entities[i].isPlural)
@@ -93,7 +93,7 @@ void TextSemGraph::buildGraphFromSEL()
 
 				QString entityRawString = m_sentence.m_entities[i].m_relationships[j].entityString;
 				std::vector<std::string> parts = PartitionString(entityRawString.toStdString(), "-");
-				QString passiveEntityName = QString(parts[0].c_str());
+				QString passiveEntityName = toQString(parts[0]);
 				passiveEntityName = convertToSinglarForm(passiveEntityName);
 
 				if (passiveEntityName == "wall")

@@ -4,6 +4,37 @@
 #include "Model.h"
 #include "SceneSemGraph.h"
 
+#include "triangle_triangle_intersection.h"
+
+TrianglePredicate::TrianglePredicate(Model *first, mat4 &firstTransform, Model *second, mat4 &secondTransform)
+{
+	model[0] = first, model[1] = second;
+	transform[0] = firstTransform, transform[1] = secondTransform;
+}
+
+bool TrianglePredicate::operator()(const SimpleBoxNodeData &a, const SimpleBoxNodeData &b) const
+{
+	// retrieve triangle coordinates, transformed, and perform triangle test 
+	for (int i = 0; i < a.triangles.size(); ++i) {
+		vec3 p1, q1, r1;
+		model[0]->getTriangle(a.triangles[i], p1, q1, r1);
+		p1 = TransformPoint(transform[0], p1);
+		q1 = TransformPoint(transform[0], q1);
+		r1 = TransformPoint(transform[0], r1);
+		for (int j = 0; j < b.triangles.size(); ++j) {
+			vec3 p2, q2, r2;
+			model[1]->getTriangle(b.triangles[j], p2, q2, r2);
+			p2 = TransformPoint(transform[1], p2);
+			q2 = TransformPoint(transform[1], q2);
+			r2 = TransformPoint(transform[1], r2);
+
+			if (Guigue::tri_tri_overlap_test_3d(&p1.x, &q1.x, &r1.x,
+				&p2.x, &q2.x, &r2.x)) return true;
+		}
+	}
+	return false;
+}
+
 CollisionManager::CollisionManager(TSScene *s)
 	:m_scene(s)
 {
@@ -16,7 +47,6 @@ CollisionManager::CollisionManager(TSScene *s)
 
 	m_sceneMetric = params::inst()->globalSceneUnitScale;
 }
-
 
 CollisionManager::~CollisionManager()
 {
@@ -78,7 +108,7 @@ bool CollisionManager::checkCollisionBVH(Model *testModel, int testMetaModelIdx)
 				if (isCollide)
 				{
 					qDebug() << QString(" Preview:%1 Collide Type: %2 Model:%3 DBSSG:%4").
-						arg(m_scene->m_previewId).arg("BVH").arg(refMetaModel.catName.c_str()).arg(m_scene->m_ssg->m_metaScene.m_sceneFileName);
+						arg(m_scene->m_previewId).arg("BVH").arg(toQString(refMetaModel.catName)).arg(m_scene->m_ssg->m_metaScene.m_sceneFileName);
 
 					testMetaModel.isBvhReady = false;
 
@@ -212,7 +242,7 @@ bool CollisionManager::resolveCollision(int metaModelID)
 	vec3 translateVec;
 
 	int parentNodeId = m_scene->m_ssg->findParentNodeId(metaModelID);
-	int parentMetaModelId = m_scene->m_ssg->m_objectGraphNodeIdToModelSceneIdMap[parentNodeId];
+	int parentMetaModelId = m_scene->m_ssg->m_objectGraphNodeToModelListIdMap[parentNodeId];
 
 	QString sampleType;
 	
@@ -267,8 +297,8 @@ bool CollisionManager::resolveCollision(int metaModelID)
 
 	currMd.position = transMat*currMd.position;
 	currMd.transformation = transMat*currMd.transformation;
-	currMd.frontDir = TransformVector(currMd.transformation, currMd.frontDir);
-	currMd.upDir = TransformVector(currMd.transformation, currMd.upDir);
+	currMd.frontDir = TransformVector(transMat, currMd.frontDir);
+	currMd.upDir = TransformVector(transMat, currMd.upDir);
 	currMd.suppPlane.tranfrom(transMat);
 
 	// update meta model in SSG
@@ -276,7 +306,7 @@ bool CollisionManager::resolveCollision(int metaModelID)
 
 	qDebug() << QString("  Preview:%2 Resolve trial:%1 Type:%3 Vec:(%4,%5,%6) Name:%7").arg(currMd.trialNum).arg(m_scene->m_previewId).arg(sampleType)
 		.arg(translateVec.x*m_sceneMetric).arg(translateVec.y*m_sceneMetric).arg(translateVec.z*m_sceneMetric)
-		.arg(QString(m_scene->m_ssg->m_metaScene.m_metaModellList[metaModelID].catName.c_str()));
+		.arg(toQString(m_scene->m_ssg->m_metaScene.m_metaModellList[metaModelID].catName));
 
 	return true;
 }
@@ -295,3 +325,4 @@ bool CollisionManager::isPosCloseToInvalidPos(const vec3 &pos, int metaModelId)
 
 	return false;
 }
+

@@ -17,7 +17,7 @@ SceneSemGraph::SceneSemGraph(const QString &s)
 
 SceneSemGraph::SceneSemGraph(SceneSemGraph *sg)
 	: m_metaScene(sg->m_metaScene),
-	m_objectGraphNodeIdToModelSceneIdMap(sg->m_objectGraphNodeIdToModelSceneIdMap),
+	m_objectGraphNodeToModelListIdMap(sg->m_objectGraphNodeToModelListIdMap),
 	m_modelNum(sg->m_modelNum)
 {
 	m_nodeNum = sg->m_nodeNum;
@@ -53,7 +53,7 @@ void SceneSemGraph::loadGraph(const QString &filename)
 	// set DB path for the SSG
 	if (m_metaScene.m_sceneFormat == "StanfordSceneDatabase" || m_metaScene.m_sceneFormat == "SceneNNConversionOutput")
 	{
-		m_metaScene.m_sceneDBPath = QString(params::inst()->localSceneDBDirectory.c_str());
+		m_metaScene.m_sceneDBPath = toQString(params::inst()->localSceneDBDirectory);
 		m_metaScene.m_sceneFilePath = m_metaScene.m_sceneDBPath + "/scenes";
 		m_metaScene.m_modelRepository = m_metaScene.m_sceneDBPath + "/models";
 	}
@@ -151,26 +151,26 @@ void SceneSemGraph::loadGraph(const QString &filename)
 			std::vector<std::string> parts = PartitionString(currLine.toStdString(), ",");
 
 			// object node
-			if (QString(parts[1].c_str()) == "object")
+			if (toQString(parts[1]) == "object")
 			{
 				if (parts.size() > 2)
 				{
-					addNode(QString(parts[1].c_str()), QString(parts[2].c_str()));
+					addNode(toQString(parts[1]), toQString(parts[2]));
 
 					// set model catgory in meta model
 					m_metaScene.m_metaModellList[metaModelId].catName = (parts[2].c_str());
 				}
 				else
 				{
-					addNode(QString(parts[1].c_str()), "noname");
+					addNode(toQString(parts[1]), "noname");
 				}
 
-				m_objectGraphNodeIdToModelSceneIdMap[m_nodeNum - 1] = metaModelId;
+				m_objectGraphNodeToModelListIdMap[m_nodeNum - 1] = metaModelId;
 				metaModelId++;
 			}
 			else
 			{
-				addNode(QString(parts[1].c_str()), QString(parts[2].c_str()));
+				addNode(toQString(parts[1]), toQString(parts[2]));
 			}
 		}
 	}
@@ -376,16 +376,16 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, bool useC
 		int oldNodeId = enrichedNodeList[i];
 
 		// non-object node is not saved in the map
-		if (m_objectGraphNodeIdToModelSceneIdMap.count(oldNodeId))
+		if (m_objectGraphNodeToModelListIdMap.count(oldNodeId))
 		{
-			int oldMetaModelId = m_objectGraphNodeIdToModelSceneIdMap[oldNodeId];
+			int oldMetaModelId = m_objectGraphNodeToModelListIdMap[oldNodeId];
 
 			if (oldMetaModelId < m_modelNum)
 			{
 				m_metaScene.m_metaModellList[oldMetaModelId].isSelected = m_nodes[oldNodeId].isAnnotated;
 				subGraph->m_metaScene.m_metaModellList.push_back(m_metaScene.m_metaModellList[oldMetaModelId]);
 				int currNodeId = m_dbNodeToSubNodeMap[oldNodeId];
-				subGraph->m_objectGraphNodeIdToModelSceneIdMap[currNodeId] = modelInSceneId;
+				subGraph->m_objectGraphNodeToModelListIdMap[currNodeId] = modelInSceneId;
 				modelInSceneId++;
 			}
 		}
@@ -444,7 +444,7 @@ int SceneSemGraph::getNodeIdWithModelId(int modelId)
 	int currNodeId = -1;
 
 	// find graph node id w.r.t to the model id
-	for (auto iter = m_objectGraphNodeIdToModelSceneIdMap.begin(); iter != m_objectGraphNodeIdToModelSceneIdMap.end(); iter++)
+	for (auto iter = m_objectGraphNodeToModelListIdMap.begin(); iter != m_objectGraphNodeToModelListIdMap.end(); iter++)
 	{
 		if (iter->second == modelId)
 		{
@@ -454,21 +454,6 @@ int SceneSemGraph::getNodeIdWithModelId(int modelId)
 	}
 
 	return currNodeId;
-}
-
-SemanticGraph* SceneSemGraph::mergeWithTSG(SemanticGraph *sg)
-{
-
-	std::map<int, int> queryToTargetNodeIdMap;
-	double alignScore;
-
-	sg->alignObjectNodesWithGraph(this, queryToTargetNodeIdMap, alignScore);
-	sg->alignRelationNodesWithGraph(this, queryToTargetNodeIdMap, alignScore);
-
-
-
-
-	return this;
 }
 
 void SceneSemGraph::mergeWithMatchedSSG(SceneSemGraph *matchedSg, std::map<int, int> &matchToNewUserSsgNodeMap)
@@ -483,13 +468,13 @@ void SceneSemGraph::mergeWithMatchedSSG(SceneSemGraph *matchedSg, std::map<int, 
 		SemNode& matchedSgNode = matchedSg->m_nodes[mi];
 		if (!matchedSgNode.isAligned && matchedSgNode.nodeType == "object")
 		{
-			int mModelId = matchedSg->m_objectGraphNodeIdToModelSceneIdMap[mi];
+			int mModelId = matchedSg->m_objectGraphNodeToModelListIdMap[mi];
 			MetaModel modelToInsert = matchedSg->m_metaScene.m_metaModellList[mModelId];
 			this->m_metaScene.m_metaModellList.push_back(modelToInsert);
 
 			int currMetaModelNum = this->m_metaScene.m_metaModellList.size();
 			int ci = matchToNewUserSsgNodeMap[mi];
-			this->m_objectGraphNodeIdToModelSceneIdMap[ci] = currMetaModelNum - 1;
+			this->m_objectGraphNodeToModelListIdMap[ci] = currMetaModelNum - 1;
 		}
 	}
 }

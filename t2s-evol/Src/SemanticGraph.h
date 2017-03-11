@@ -43,13 +43,12 @@ public:
 
 class SemEdge{
 public:
-	SemEdge(int s, int t, int id) { sourceNodeId = s; targetNodeId = t; edgeId = id; isAligned = false; isMatched = false; };
+	SemEdge(int s, int t, int id) { sourceNodeId = s; targetNodeId = t; edgeId = id; isAligned = false;};
 	~SemEdge() {};
 
 	int sourceNodeId, targetNodeId;
 	int edgeId;
 
-	bool isMatched;
 	bool isAligned;
 };
 
@@ -57,6 +56,7 @@ class SemanticGraph
 {
 public:
 	SemanticGraph();
+	SemanticGraph(SemanticGraph *sg);  // generate a copy of sg
 	~SemanticGraph();
 
 	void addNode(const QString &nType, const QString &nName);
@@ -73,6 +73,7 @@ public:
 	void alignRelationNodesWithGraph(SemanticGraph *targetGraph, std::map<int, int> &queryToTargetNodeIdMap, double &alignScore);
 
 	void mergeWithGraph(SemanticGraph *inputGraph, std::map<int, int> &inputToNewSGNodeIdMap);
+	SemanticGraph* alignAndMergeWithGraph(SemanticGraph *sg);
 
 public:
 	int m_nodeNum, m_edgeNum;

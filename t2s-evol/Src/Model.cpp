@@ -93,7 +93,7 @@ void ModelMesh::render(const Transform &trans, Shader *shader, const string &tex
 
 			string path = td + m_material.texName;
 			
-			Texture *tex = new Texture(QString(path.c_str()));
+			Texture *tex = new Texture(toQString(path));
 			tex->setEnvMode(GL_REPLACE);
 			tex->setWrapMode(GL_REPEAT);
 			tex->setFilter(GL_LINEAR, GL_LINEAR);
@@ -136,7 +136,7 @@ void ModelThread::run()
 
 void ModelThread::load(const string &fileName)
 {
-	QFileInfo fi(QString(fileName.c_str()));
+	QFileInfo fi(toQString(fileName));
 	string baseName = fi.baseName().toStdString();
 	cout << "\nLoading Model: " << baseName<<"\n";
 
@@ -177,7 +177,7 @@ void ModelThread::load(const string &fileName)
 		if (curLine.find("map_Kd ") == 0)
 		{
 			const std::string textureName = curLine.substr(7);
-			QString tmpStr = QString(textureName.c_str()).replace("../textures/", "");
+			QString tmpStr = toQString(textureName).replace("../textures/", "");
 			tmpStr.chop(4);
 			activeMaterial->texName = tmpStr.toStdString();
 		}

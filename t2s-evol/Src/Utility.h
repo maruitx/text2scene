@@ -238,6 +238,11 @@ static void EraseValueInVectorInt(std::vector<int> &v, int valueToErase)
 		v.erase(it);
 }
 
+static QString toQString(std::string s)
+{
+	return QString(s.c_str());
+}
+
 // math utility
 //////////////////////////////////////////////
 typedef struct

@@ -1,10 +1,7 @@
 #pragma once
 
-#include "Geometry.h"
+#include "bvh_common.h"
 
-extern "C" {
-    #include "morton.h"
-}
 using namespace Nvidia;
 
 #include <iostream>
@@ -12,18 +9,6 @@ using namespace Nvidia;
 #include <stack>
 using namespace std;
 
-
-struct BvhNode {
-	BoundingBox box;
-	int start, end;                 // index to the sorted morton array
-	int index_left, index_right;
-	int level;
-};
-
-struct BvhLeafNode {
-	std::vector<int> triangles;
-	BoundingBox box;
-};
 
 struct BoxHitRecord {
     float t;
@@ -70,17 +55,6 @@ protected:
     BoundingBox         *sorted_boxes;    
     int                 *org_index;
 }; 
-
-static unsigned int morton_box(BoundingBox *box, BoundingBox *scene_aabb) {
-    float3 c = (box->v_min + box->v_max) * 0.5f;
-    c = (c - scene_aabb->v_min) / (scene_aabb->v_max - scene_aabb->v_min);    // shift to [0, 1]
-    return Nvidia::morton3D(c.x, c.y, c.z);
-}
-
-static unsigned int morton_point(float3 p, BoundingBox *scene_aabb) {
-    p = (p - scene_aabb->v_min) / (scene_aabb->v_max - scene_aabb->v_min);
-    return Nvidia::morton3D(p.x, p.y, p.z);
-}
 
 template <class NodeData>
 BoxBvh<NodeData>::BoxBvh(const std::vector<NodeData> &data) : data(data),
@@ -257,47 +231,6 @@ void BoxBvh<NodeData>::build() {
     //stats.print_elapsed_milliseconds();
 }
 
-
-struct Stack {
-    int buffer[64];
-    int capacity;
-    int top;
-
-    Stack() {
-        this->capacity = 64;
-        top = -1;
-    }
-    ~Stack() {
-
-    }
-
-    void push(int val) {
-        if (top < capacity - 1) {
-            ++top;
-            buffer[top] = val;
-        }
-        else {
-            cout << "Stack out of capacity." << endl;
-        }
-    }
-
-    int pop() {
-        if (top >= 0) {
-            int val = buffer[top];
-            top--;
-            return val;
-        }
-        return -1;
-    }
-
-    bool is_empty() {
-        return top < 0;
-    }
-
-    int size() {
-        return top + 1;
-    }
-};
 
 template <class NodeData>
 bool BoxBvh<NodeData>::hit(const Ray &r, BoxHitRecord &record, float tmin, float tmax) const {

@@ -35,16 +35,22 @@ void SceneGenerator::updateCurrentTSScene(TSScene *ts)
 	}
 }
 
-
 SemanticGraph* SceneGenerator::prepareQuerySG()
 {
-	//if (m_currUserSSG != NULL)
-	//{
-	//	m_currUserSSG->mergeWithTSG(m_textSSG);
-	//}
+	SemanticGraph *querySG;
 
-	//else
-		return m_textSSG;
+	if (m_currUserSSG != NULL)
+	{
+		querySG = new SemanticGraph(m_currUserSSG);
+
+		// update current UserSSG with textSSG for retrieval
+		querySG->alignAndMergeWithGraph(m_textSSG);
+	}
+
+	else
+		querySG = new SemanticGraph(m_textSSG);
+
+	return querySG;
 }
 
 std::vector<TSScene*> SceneGenerator::generateTSScenes(int num)
@@ -61,6 +67,8 @@ std::vector<TSScene*> SceneGenerator::generateTSScenes(int num)
 		TSScene *s = newUserSsg->covertToTSScene(m_models);
 		tsscenes.push_back(s);
 	}
+
+	delete querySG;
 
 	return tsscenes;
 }
@@ -148,18 +156,23 @@ void SceneGenerator::geometryAlignmentWithCurrScene(SceneSemGraph *matchedSg, Sc
 			int newActiveNodeId = m_matchToNewUserSsgNodeMap[mActiveNodeId];
 
 			// compute transformation matrix based on the ref nodes
-			int mRefModelId = matchedSg->m_objectGraphNodeIdToModelSceneIdMap[mRefNodeId];
-			int tarRefModelId = targetSg->m_objectGraphNodeIdToModelSceneIdMap[tarRefNodeId];
+			int mRefModelId = matchedSg->m_objectGraphNodeToModelListIdMap[mRefNodeId];
+			int tarRefModelId = targetSg->m_objectGraphNodeToModelListIdMap[tarRefNodeId];
 
 			MetaModel &mRefModel = matchedSg->m_metaScene.m_metaModellList[mRefModelId];
 			MetaModel &tarRefModel = targetSg->m_metaScene.m_metaModellList[tarRefModelId];
 
 			// initial alignment; align the rotation etc.	
 			mat4 alignTransMat = computeTransMat(mRefModel, tarRefModel);
+			qDebug() << "Query anchor:";
+			mRefModel.transformation.print();
+
+			qDebug() << "Current anchor:";
+			tarRefModel.transformation.print();
 
 			// transform active model by initial alignment
 			// initial alignment will make the relative orientation between the new active model and the target active model right
-			int newActiveModelId = targetSg->m_objectGraphNodeIdToModelSceneIdMap[newActiveNodeId];
+			int newActiveModelId = targetSg->m_objectGraphNodeToModelListIdMap[newActiveNodeId];
 			MetaModel &newActiveModel = targetSg->m_metaScene.m_metaModellList[newActiveModelId];
 
 			vec3 initPositionInScene = newActiveModel.position; // get the pos of model in current scene
@@ -170,7 +183,6 @@ void SceneGenerator::geometryAlignmentWithCurrScene(SceneSemGraph *matchedSg, Sc
 			// find the target position on new ref obj using the U, V w.r.t the original parent
 			MetaModel &mActiveNode = matchedSg->m_metaScene.m_metaModellList[mActiveNodeId];
 			vec3 mUVH = mActiveNode.parentPlaneUVH;
-			//qDebug() << QString("UVH %1 %2 %3").arg(mUVH.x).arg(mUVH.y).arg(mUVH.z) <<"\n";
 
 			SuppPlane& tarRefSuppPlane = tarRefModel.suppPlane;
 			vec3 targetPosition = tarRefSuppPlane.getPointByUV(mUVH.x, mUVH.y); // position in the current scene, support plane is already transformed
@@ -180,9 +192,6 @@ void SceneGenerator::geometryAlignmentWithCurrScene(SceneSemGraph *matchedSg, Sc
 			//}
 
 			vec3 translationVec = targetPosition - alignedPosition;
-			//qDebug() << QString("alignedPosition %1 %2 %3").arg(alignedPosition.x).arg(alignedPosition.y).arg(alignedPosition.z) << "\n";
-			//qDebug() << QString("targetPosition %1 %2 %3").arg(targetPosition.x).arg(targetPosition.y).arg(targetPosition.z) << "\n";
-			//qDebug() << QString("translationVec %1 %2 %3").arg(translationVec.x).arg(translationVec.y).arg(translationVec.z) << "\n";
 
 			mat4 adjustTransMat;
 			adjustTransMat = adjustTransMat.translate(translationVec);
@@ -194,6 +203,13 @@ void SceneGenerator::geometryAlignmentWithCurrScene(SceneSemGraph *matchedSg, Sc
 			newActiveModel.frontDir = TransformVector(finalTransMat, newActiveModel.frontDir);
 			newActiveModel.upDir = TransformVector(finalTransMat, newActiveModel.upDir);
 			newActiveModel.suppPlane.tranfrom(finalTransMat);
+
+			qDebug() << QString("TSG-Anchor:%1 USG-Anchor:%2 Current:%3").arg(toQString(mRefModel.catName)).arg(toQString(tarRefModel.catName)).arg(toQString(newActiveModel.catName));
+				//qDebug() << QString("UVH %1 %2 %3").arg(mUVH.x).arg(mUVH.y).arg(mUVH.z) <<"\n";
+				//qDebug() << QString("alignedPosition %1 %2 %3").arg(alignedPosition.x).arg(alignedPosition.y).arg(alignedPosition.z) << "\n";
+				//qDebug() << QString("targetPosition %1 %2 %3").arg(targetPosition.x).arg(targetPosition.y).arg(targetPosition.z) << "\n";
+				//qDebug() << QString("translationVec %1 %2 %3").arg(translationVec.x).arg(translationVec.y).arg(translationVec.z) << "\n";
+
 		}
 	}
 
@@ -225,8 +241,8 @@ void SceneGenerator::bindBySynthesizedRelationships(SceneSemGraph *targetSg)
 				int refNodeId = targSgNode.outEdgeNodeList[0];
 				int activeNodeId = targSgNode.inEdgeNodeList[0];
 
-				int refModelId = targetSg->m_objectGraphNodeIdToModelSceneIdMap[refNodeId];
-				int activeModelId = targetSg->m_objectGraphNodeIdToModelSceneIdMap[activeNodeId];
+				int refModelId = targetSg->m_objectGraphNodeToModelListIdMap[refNodeId];
+				int activeModelId = targetSg->m_objectGraphNodeToModelListIdMap[activeNodeId];
 
 				// compute transformation matrix based on the ref nodes
 				MetaModel &tarRefModel = targetSg->m_metaScene.m_metaModellList[refModelId];

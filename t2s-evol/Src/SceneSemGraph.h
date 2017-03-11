@@ -13,7 +13,7 @@ class SceneSemGraph : public SemanticGraph
 public:
 	SceneSemGraph();
 	SceneSemGraph(const QString &s);
-	SceneSemGraph(SceneSemGraph *sg);
+	SceneSemGraph(SceneSemGraph *sg); // generate a copy of sg
 	~SceneSemGraph();
 
 	void loadGraph(const QString &filename);
@@ -21,7 +21,6 @@ public:
 
 	SceneSemGraph* getSubGraph(const vector<int> &nodeList, bool useContext = false);
 
-	SemanticGraph* mergeWithTSG(SemanticGraph *tsg);  // update current UserSSG with textSSG for retrieval
 	void mergeWithMatchedSSG(SceneSemGraph *matchedSg, std::map<int, int> &matchToNewUserSsgNodeMap); // update current USserSSG with retrieved subSSG
 
 
@@ -31,7 +30,7 @@ public:
 public:
 	MetaScene m_metaScene;
 
-	std::map<int, int> m_objectGraphNodeIdToModelSceneIdMap;	
+	std::map<int, int> m_objectGraphNodeToModelListIdMap;	
 
 	map<int, int> m_dbNodeToSubNodeMap;
 

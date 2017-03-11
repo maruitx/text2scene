@@ -9,7 +9,7 @@
 #include "Mesh.h"
 #include "VertexBufferObject.h"
 
-#include "box_bvh.h"
+#include "bvh_common.h"
 
 class MeshBvh;
 class TriangleMesh;
