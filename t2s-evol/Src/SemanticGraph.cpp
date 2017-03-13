@@ -81,6 +81,8 @@ bool SemanticGraph::isEdgeExist(int s, int t)
 
 void SemanticGraph::alignObjectNodesWithGraph(SemanticGraph *targetGraph, std::map<int, int> &queryToTargetNodeIdMap, double &alignScore)
 {
+	double NodeScore[] = { 0.5, 1 };
+
 	// first match object node and per-object attribute node
 	for (int qNi = 0; qNi < this->m_nodeNum; qNi++)
 	{
@@ -136,7 +138,7 @@ void SemanticGraph::alignObjectNodesWithGraph(SemanticGraph *targetGraph, std::m
 							sgNode.isAligned = true;
 							tarSgNode.isAligned = true;
 							queryToTargetNodeIdMap[qNi] = tarNi; // save aligned object node into map									
-							alignScore += 1;
+							alignScore += NodeScore[sgNode.matchingStatus];
 							break;
 						}
 						else
@@ -144,7 +146,7 @@ void SemanticGraph::alignObjectNodesWithGraph(SemanticGraph *targetGraph, std::m
 							sgNode.isAligned = true;
 							tarSgNode.isAligned = true;
 							queryToTargetNodeIdMap[qNi] = tarNi; // save partial aligned object node into map									
-							alignScore += 0.5;
+							alignScore += 0.5*NodeScore[sgNode.matchingStatus];;
 							break;
 						}
 					}
@@ -153,7 +155,7 @@ void SemanticGraph::alignObjectNodesWithGraph(SemanticGraph *targetGraph, std::m
 						sgNode.isAligned = true;
 						tarSgNode.isAligned = true;
 						queryToTargetNodeIdMap[qNi] = tarNi; // save aligned object node map
-						alignScore += 1;
+						alignScore += NodeScore[sgNode.matchingStatus];
 						break;
 					}
 				}
@@ -164,6 +166,8 @@ void SemanticGraph::alignObjectNodesWithGraph(SemanticGraph *targetGraph, std::m
 
 void SemanticGraph::alignRelationNodesWithGraph(SemanticGraph *targetGraph, std::map<int, int> &queryToTargetNodeIdMap, double &alignScore)
 {
+	double NodeScore[] = { 0.5, 1 };
+
 	for (int qNi = 0; qNi < this->m_nodeNum; qNi++)
 	{
 		SemNode& sgNode = this->m_nodes[qNi];
@@ -200,7 +204,7 @@ void SemanticGraph::alignRelationNodesWithGraph(SemanticGraph *targetGraph, std:
 						tarSgNode.isAligned = true;
 						queryToTargetNodeIdMap[qNi] = tarNi;  // save aligned pairwise relationship node into map
 
-						alignScore += 1;
+						alignScore += NodeScore[sgNode.matchingStatus];
 						break;
 					}
 				}
@@ -236,7 +240,7 @@ void SemanticGraph::alignRelationNodesWithGraph(SemanticGraph *targetGraph, std:
 						tarSgNode.isAligned = true;
 						queryToTargetNodeIdMap[qNi] = tarNi;  // save aligned pairwise relationship node map
 
-						alignScore += 1;
+						alignScore += NodeScore[sgNode.matchingStatus];
 						break;
 					}
 				}

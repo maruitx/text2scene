@@ -63,6 +63,7 @@ vector<SceneSemGraph*> SemGraphMatcher::alignWithDatabaseSSGs(int topMatchNum)
 
 		if (ssg != NULL)
 		{
+			ssg->m_matchListId = i;
 			matchedSubSSGs.push_back(ssg);
 
 			int ssgId = 0;

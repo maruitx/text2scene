@@ -35,7 +35,6 @@ TSScene::TSScene(unordered_map<string, Model*> &models, const QString &fileName)
   m_renderMode(0)
 {
 	loadSceneFile(fileName);
-	countLoadedModelNum();
 
 	m_collisionManager = new CollisionManager(this);
 }
@@ -54,7 +53,6 @@ TSScene::TSScene(unordered_map<string, Model*> &models, MetaScene &ms)
     m_renderMode(0)
 {
 	m_modelNum = m_metaScene.m_metaModellList.size();
-	countLoadedModelNum();
 
 	m_collisionManager = new CollisionManager(this);
 }
@@ -346,12 +344,13 @@ void TSScene::countLoadedModelNum()
 
 		if (m_ssg != NULL)
 		{
-			sceneType = " Matched DBSSG:" + m_ssg->m_metaScene.m_sceneFileName;
+			sceneType = " from Matched DBSSG:" + m_ssg->m_metaScene.m_sceneFileName;			
 		}
 		else
 		{
-			sceneType = " DBScene: " + m_metaScene.m_sceneFileName;
+			sceneType = " from DBScene: " + m_metaScene.m_sceneFileName;		
 		}
+
 		cout << "\nFinish loading models for Preview:" << m_previewId << sceneType.toStdString() << "\n";
 	}
 }

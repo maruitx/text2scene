@@ -13,6 +13,8 @@ SceneSemGraph::SceneSemGraph(const QString &s)
 	: m_fullFilename(s)
 {
 	loadGraph(m_fullFilename);
+
+	m_matchListId = -1;
 }
 
 SceneSemGraph::SceneSemGraph(SceneSemGraph *sg)
@@ -25,6 +27,8 @@ SceneSemGraph::SceneSemGraph(SceneSemGraph *sg)
 
 	m_nodes = sg->m_nodes;
 	m_edges = sg->m_edges;
+
+	m_matchListId = -1;
 }
 
 SceneSemGraph::~SceneSemGraph()

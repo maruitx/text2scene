@@ -34,6 +34,7 @@ public:
 
 	map<int, int> m_dbNodeToSubNodeMap;
 
+	int m_matchListId;
 
 private:
 	int m_modelNum;

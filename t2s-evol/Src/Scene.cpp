@@ -168,7 +168,6 @@ void Scene::renderSynScene(const Transform &trans, int var, bool applyShadow)
 
 	if (var < varNum)
 	{   
-		m_variations[var]->m_previewId = var;
 		m_variations[var]->render(trans, applyShadow);        
         //m_variations[var]->computeSceneBB();
 	}	
@@ -222,7 +221,9 @@ void Scene::runOneEvolutionStep()
 	for (int i = 0; i < tsscenes.size(); ++i)
 	{
 		tsscenes[i]->updateRoomModel(roomModel);
+
 		m_variations.push_back(tsscenes[i]);
+		m_variations[i]->m_previewId = i;
 	}
 }
 

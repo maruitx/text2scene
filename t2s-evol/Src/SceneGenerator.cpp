@@ -45,10 +45,31 @@ SemanticGraph* SceneGenerator::prepareQuerySG()
 
 		// update current UserSSG with textSSG for retrieval
 		querySG->alignAndMergeWithGraph(m_textSSG);
+
+		for (int i = 0; i < querySG->m_nodeNum; i++)
+		{
+			SemNode &sgNode = querySG->m_nodes[i];
+			if (sgNode.isAligned)
+			{
+				sgNode.matchingStatus = SemNode::ExplicitNode;
+			}
+			else
+			{
+				sgNode.matchingStatus = SemNode::ContextNode;
+			}
+		}
 	}
 
 	else
+	{
 		querySG = new SemanticGraph(m_textSSG);
+		
+		for (int i = 0; i < querySG->m_nodeNum; i++)
+		{
+			SemNode &sgNode = querySG->m_nodes[i];
+			sgNode.matchingStatus = SemNode::ExplicitNode;
+		}
+	}
 
 	return querySG;
 }
@@ -153,7 +174,6 @@ void SceneGenerator::geometryAlignmentWithCurrScene(SceneSemGraph *matchedSg, Sc
 			}
 
 			int tarRefNodeId = m_matchToNewUserSsgNodeMap[mRefNodeId];
-			int newActiveNodeId = m_matchToNewUserSsgNodeMap[mActiveNodeId];
 
 			// compute transformation matrix based on the ref nodes
 			int mRefModelId = matchedSg->m_objectGraphNodeToModelListIdMap[mRefNodeId];
@@ -164,25 +184,22 @@ void SceneGenerator::geometryAlignmentWithCurrScene(SceneSemGraph *matchedSg, Sc
 
 			// initial alignment; align the rotation etc.	
 			mat4 alignTransMat = computeTransMat(mRefModel, tarRefModel);
-			qDebug() << "Query anchor:";
-			mRefModel.transformation.print();
-
-			qDebug() << "Current anchor:";
-			tarRefModel.transformation.print();
 
 			// transform active model by initial alignment
 			// initial alignment will make the relative orientation between the new active model and the target active model right
+			int newActiveNodeId = m_matchToNewUserSsgNodeMap[mActiveNodeId];
 			int newActiveModelId = targetSg->m_objectGraphNodeToModelListIdMap[newActiveNodeId];
 			MetaModel &newActiveModel = targetSg->m_metaScene.m_metaModellList[newActiveModelId];
+
+			// find the target position on new ref obj using the U, V w.r.t the original parent
+			int mActiveModelId = matchedSg->m_objectGraphNodeToModelListIdMap[mActiveNodeId];
+			MetaModel &mActiveModel = matchedSg->m_metaScene.m_metaModellList[mActiveModelId];
+			vec3 mUVH = mActiveModel.parentPlaneUVH;
 
 			vec3 initPositionInScene = newActiveModel.position; // get the pos of model in current scene
 	
 			// find the position after initial alignment
 			vec3 alignedPosition = TransformPoint(alignTransMat, initPositionInScene); // position after initial alignment
-
-			// find the target position on new ref obj using the U, V w.r.t the original parent
-			MetaModel &mActiveNode = matchedSg->m_metaScene.m_metaModellList[mActiveNodeId];
-			vec3 mUVH = mActiveNode.parentPlaneUVH;
 
 			SuppPlane& tarRefSuppPlane = tarRefModel.suppPlane;
 			vec3 targetPosition = tarRefSuppPlane.getPointByUV(mUVH.x, mUVH.y); // position in the current scene, support plane is already transformed
@@ -202,14 +219,21 @@ void SceneGenerator::geometryAlignmentWithCurrScene(SceneSemGraph *matchedSg, Sc
 			newActiveModel.transformation = finalTransMat*newActiveModel.transformation;
 			newActiveModel.frontDir = TransformVector(finalTransMat, newActiveModel.frontDir);
 			newActiveModel.upDir = TransformVector(finalTransMat, newActiveModel.upDir);
-			newActiveModel.suppPlane.tranfrom(finalTransMat);
+			newActiveModel.suppPlane.tranfrom(finalTransMat);                    
 
-			qDebug() << QString("TSG-Anchor:%1 USG-Anchor:%2 Current:%3").arg(toQString(mRefModel.catName)).arg(toQString(tarRefModel.catName)).arg(toQString(newActiveModel.catName));
-				//qDebug() << QString("UVH %1 %2 %3").arg(mUVH.x).arg(mUVH.y).arg(mUVH.z) <<"\n";
-				//qDebug() << QString("alignedPosition %1 %2 %3").arg(alignedPosition.x).arg(alignedPosition.y).arg(alignedPosition.z) << "\n";
-				//qDebug() << QString("targetPosition %1 %2 %3").arg(targetPosition.x).arg(targetPosition.y).arg(targetPosition.z) << "\n";
-				//qDebug() << QString("translationVec %1 %2 %3").arg(translationVec.x).arg(translationVec.y).arg(translationVec.z) << "\n";
+			//qDebug() << QString("Preview:%1 Query anchor:%2").arg(matchedSg->m_matchListId).arg(toQString(mRefModel.catName));
+			//mRefModel.transformation.print();
+			//qDebug() << QString("Preview:%1 Current anchor:%2").arg(matchedSg->m_matchListId).arg(toQString(tarRefModel.catName));
+			//tarRefModel.transformation.print();
 
+			//qDebug() << QString("Preview:%1 Current active:%2").arg(matchedSg->m_matchListId).arg(toQString(newActiveModel.catName));
+			//qDebug() << QString("alignedPos");
+			//alignedPosition.print();
+			//qDebug() << QString("targetPos");
+			//targetPosition.print();
+			//qDebug() << QString("Parent UV:%1 %2").arg(mUVH.x).arg(mUVH.y);
+			//
+			//qDebug() << QString("TSG-Anchor:%1 USG-Anchor:%2 Current:%3").arg(toQString(mRefModel.catName)).arg(toQString(tarRefModel.catName)).arg(toQString(newActiveModel.catName));
 		}
 	}
 

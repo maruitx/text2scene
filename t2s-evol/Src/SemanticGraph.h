@@ -4,7 +4,7 @@
 
 class SemNode{
 public:
-	SemNode(const QString &t, const QString &n, int id) { nodeType = t; nodeName = n; nodeId = id; isAligned = false; isInferred = false;  inferedType = -1;  inferRefNodeId = -1; isAnnotated = false; };
+	SemNode(const QString &t, const QString &n, int id) { nodeType = t; nodeName = n; nodeId = id; isAligned = false; matchingStatus = 0;  isInferred = false;  inferedType = -1;  inferRefNodeId = -1; isAnnotated = false; };
 	~SemNode() {};
 
 	// node types: object, p_attribute, p_relation, g_relation, g_attribute, 
@@ -36,6 +36,14 @@ public:
 	bool isInferred;
 	int inferedType;
 	int inferRefNodeId;  // reference object id of the inferred object
+
+	enum NodeMatchingStatus
+	{
+		ContextNode=0,
+		ExplicitNode
+	};
+
+	int matchingStatus;
 
 	bool isAnnotated;
 
