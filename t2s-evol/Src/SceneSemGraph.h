@@ -23,9 +23,11 @@ public:
 
 	void mergeWithMatchedSSG(SceneSemGraph *matchedSg, std::map<int, int> &matchToNewUserSsgNodeMap); // update current USserSSG with retrieved subSSG
 
+	bool findRefNodeForRelationNode(const SemNode &sgNode, int &refNodeId, int &activeNodeId);
+	int findParentNodeIdForModel(int modelId);
 
-	int findParentNodeId(int modelId);
 	int getNodeIdWithModelId(int modelId);
+	MetaModel& getModelWithNodeId(int nodeId);
 
 public:
 	MetaScene m_metaScene;

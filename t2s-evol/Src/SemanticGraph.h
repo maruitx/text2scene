@@ -39,7 +39,7 @@ public:
 
 	enum NodeMatchingStatus
 	{
-		ContextNode=0,
+		ContextNode=1,
 		ExplicitNode
 	};
 

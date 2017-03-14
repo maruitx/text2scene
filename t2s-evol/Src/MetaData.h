@@ -57,6 +57,16 @@ class MetaModel
 			int renderMode;
 
 			int trialNum; // trialNum for re-location because of collision
+
+			void updateWithTransform(const mat4 &transMat)
+			{
+				position = transMat*position;				
+				frontDir = TransformVector(transMat, frontDir);
+				upDir = TransformVector(transMat, upDir);
+				suppPlane.tranfrom(transMat);
+
+				transformation = transMat*transformation;
+			}
 	};
 
 class MetaScene

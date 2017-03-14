@@ -3,6 +3,7 @@
 #include "TSScene.h"
 #include "Model.h"
 #include "SceneSemGraph.h"
+#include "LayoutPlanner.h"
 
 #include "triangle_triangle_intersection.h"
 
@@ -241,7 +242,7 @@ bool CollisionManager::resolveCollision(int metaModelID)
 	mat4 transMat;
 	vec3 translateVec;
 
-	int parentNodeId = m_scene->m_ssg->findParentNodeId(metaModelID);
+	int parentNodeId = m_scene->m_ssg->findParentNodeIdForModel(metaModelID);
 	int parentMetaModelId = m_scene->m_ssg->m_objectGraphNodeToModelListIdMap[parentNodeId];
 
 	QString sampleType;
@@ -295,11 +296,7 @@ bool CollisionManager::resolveCollision(int metaModelID)
 
 	transMat = transMat.translate(translateVec);
 
-	currMd.position = transMat*currMd.position;
-	currMd.transformation = transMat*currMd.transformation;
-	currMd.frontDir = TransformVector(transMat, currMd.frontDir);
-	currMd.upDir = TransformVector(transMat, currMd.upDir);
-	currMd.suppPlane.tranfrom(transMat);
+	currMd.updateWithTransform(transMat);
 
 	// update meta model in SSG
 	m_scene->m_ssg->m_metaScene.m_metaModellList[metaModelID] = currMd;

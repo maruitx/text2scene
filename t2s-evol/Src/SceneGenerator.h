@@ -10,6 +10,7 @@ class SceneSemGraphManager;
 class TSScene;
 class Model;
 class MetaModel;
+class LayoutPlanner;
 
 class SceneGenerator
 {
@@ -39,6 +40,8 @@ private:
 	TSScene *m_currTSScene;
 	SceneSemGraph *m_currUserSSG;
 	TextSemGraph *m_textSSG;
+
+	LayoutPlanner *m_layoutPlanner;
 
 	std::map<int, int> m_matchToNewUserSsgNodeMap;
 };

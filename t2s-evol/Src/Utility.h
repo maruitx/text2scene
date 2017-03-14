@@ -238,6 +238,20 @@ static void EraseValueInVectorInt(std::vector<int> &v, int valueToErase)
 		v.erase(it);
 }
 
+static bool isMapContainsValue(std::map<int, int> idMap, int value)
+{
+	bool found = false;
+	auto it = idMap.begin(); // internalMap is std::map
+	while (it != idMap.end())
+	{
+		found = (it->second == value);
+		if (found)
+			break;
+		++it;
+	}
+	return found;
+}
+
 static QString toQString(std::string s)
 {
 	return QString(s.c_str());

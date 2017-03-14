@@ -400,7 +400,7 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, bool useC
 	return subGraph;
 }
 
-int SceneSemGraph::findParentNodeId(int modelId)
+int SceneSemGraph::findParentNodeIdForModel(int modelId)
 {
 	int currNodeId = getNodeIdWithModelId(modelId);
 
@@ -460,6 +460,14 @@ int SceneSemGraph::getNodeIdWithModelId(int modelId)
 	return currNodeId;
 }
 
+
+MetaModel& SceneSemGraph::getModelWithNodeId(int nodeId)
+{
+	int modelId = m_objectGraphNodeToModelListIdMap[nodeId];
+	return m_metaScene.m_metaModellList[modelId];
+}
+
+
 void SceneSemGraph::mergeWithMatchedSSG(SceneSemGraph *matchedSg, std::map<int, int> &matchToNewUserSsgNodeMap)
 {
 	// insert nodes and edges
@@ -480,6 +488,35 @@ void SceneSemGraph::mergeWithMatchedSSG(SceneSemGraph *matchedSg, std::map<int, 
 			int ci = matchToNewUserSsgNodeMap[mi];
 			this->m_objectGraphNodeToModelListIdMap[ci] = currMetaModelNum - 1;
 		}
+	}
+}
+
+bool SceneSemGraph::findRefNodeForRelationNode(const SemNode &sgNode, int &refNodeId, int &activeNodeId)
+{
+	// edge dir: (active, relation), (relation, reference)
+	int inNodeId = sgNode.inEdgeNodeList[0];  // active
+	int outNodeId = sgNode.outEdgeNodeList[0]; // reference
+
+
+	// find the reference node
+	if (this->m_nodes[inNodeId].isAligned && !this->m_nodes[outNodeId].isAligned)
+	{
+		refNodeId = inNodeId;
+		activeNodeId = outNodeId;
+
+		return true;
+	}
+	else if (this->m_nodes[outNodeId].isAligned && !this->m_nodes[inNodeId].isAligned)
+	{
+		refNodeId = outNodeId;
+		activeNodeId = inNodeId;
+
+		return true;
+	}
+	// if no reference node is aligned, just use the ref node in matchedSg, and align to it
+	else
+	{
+		return false;
 	}
 }
 

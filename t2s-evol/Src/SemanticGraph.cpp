@@ -81,7 +81,7 @@ bool SemanticGraph::isEdgeExist(int s, int t)
 
 void SemanticGraph::alignObjectNodesWithGraph(SemanticGraph *targetGraph, std::map<int, int> &queryToTargetNodeIdMap, double &alignScore)
 {
-	double NodeScore[] = { 0.5, 1 };
+	double NodeScore[] = { 0, 1, 10};
 
 	// first match object node and per-object attribute node
 	for (int qNi = 0; qNi < this->m_nodeNum; qNi++)
@@ -146,7 +146,7 @@ void SemanticGraph::alignObjectNodesWithGraph(SemanticGraph *targetGraph, std::m
 							sgNode.isAligned = true;
 							tarSgNode.isAligned = true;
 							queryToTargetNodeIdMap[qNi] = tarNi; // save partial aligned object node into map									
-							alignScore += 0.5*NodeScore[sgNode.matchingStatus];;
+							alignScore += 0.5*NodeScore[sgNode.matchingStatus];
 							break;
 						}
 					}
@@ -166,7 +166,7 @@ void SemanticGraph::alignObjectNodesWithGraph(SemanticGraph *targetGraph, std::m
 
 void SemanticGraph::alignRelationNodesWithGraph(SemanticGraph *targetGraph, std::map<int, int> &queryToTargetNodeIdMap, double &alignScore)
 {
-	double NodeScore[] = { 0.5, 1 };
+	double NodeScore[] = { 0, 1, 10 };
 
 	for (int qNi = 0; qNi < this->m_nodeNum; qNi++)
 	{
@@ -191,6 +191,8 @@ void SemanticGraph::alignRelationNodesWithGraph(SemanticGraph *targetGraph, std:
 				break;
 			}
 
+			SemNode& queryActiveNode = m_nodes[inNodeId];
+
 			for (int tarNi = 0; tarNi < targetGraph->m_nodeNum; tarNi++)
 			{
 				SemNode& tarSgNode = targetGraph->m_nodes[tarNi];
@@ -204,7 +206,7 @@ void SemanticGraph::alignRelationNodesWithGraph(SemanticGraph *targetGraph, std:
 						tarSgNode.isAligned = true;
 						queryToTargetNodeIdMap[qNi] = tarNi;  // save aligned pairwise relationship node into map
 
-						alignScore += NodeScore[sgNode.matchingStatus];
+						alignScore += NodeScore[queryActiveNode.matchingStatus];
 						break;
 					}
 				}
@@ -293,8 +295,21 @@ SemanticGraph* SemanticGraph::alignAndMergeWithGraph(SemanticGraph *sg)
 	sg->alignObjectNodesWithGraph(this, queryToTargetNodeIdMap, alignScore);
 	sg->alignRelationNodesWithGraph(this, queryToTargetNodeIdMap, alignScore);
 
-	std::map<int, int> matchToNewSgNodeMap;
-	this->mergeWithGraph(sg, matchToNewSgNodeMap);
+	this->mergeWithGraph(sg, queryToTargetNodeIdMap);
+
+	// set node matching status
+
+	for (int i = 0; i < m_nodeNum; i++)
+	{
+		SemNode& tarSgNode = m_nodes[i];
+
+		if (isMapContainsValue(queryToTargetNodeIdMap, i))
+		{
+			tarSgNode.matchingStatus = SemNode::ExplicitNode;
+		}
+		else
+			tarSgNode.matchingStatus = SemNode::ContextNode;
+	}
 
 	return this;
 }
