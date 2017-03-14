@@ -77,15 +77,17 @@ public:
 
 	void setNodesUnAligned();
 
-	void alignObjectNodesWithGraph(SemanticGraph *targetGraph, std::map<int, int> &queryToTargetNodeIdMap, double &alignScore);
-	void alignRelationNodesWithGraph(SemanticGraph *targetGraph, std::map<int, int> &queryToTargetNodeIdMap, double &alignScore);
+	void alignObjectNodesWithGraph(SemanticGraph *targetGraph, double &alignScore);
+	void alignRelationNodesWithGraph(SemanticGraph *targetGraph, double &alignScore);
 
-	void mergeWithGraph(SemanticGraph *inputGraph, std::map<int, int> &inputToNewSGNodeIdMap);
+	void mergeWithGraph(SemanticGraph *inputGraph);
 	SemanticGraph* alignAndMergeWithGraph(SemanticGraph *sg);
 
 public:
 	int m_nodeNum, m_edgeNum;
 	std::vector<SemNode> m_nodes;
 	std::vector<SemEdge> m_edges;
+
+	std::map<int, int> m_toNewSgNodeIdMap;
 };
 

@@ -47,6 +47,19 @@ SemanticGraph* SceneGenerator::prepareQuerySG()
 
 		// update current UserSSG with textSSG for retrieval
 		querySG->alignAndMergeWithGraph(m_textSSG);
+
+		// set node matching status
+		for (int i = 0; i < querySG->m_nodeNum; i++)
+		{
+			SemNode& sgNode = querySG->m_nodes[i];
+
+			if (isMapContainsValue(m_textSSG->m_toNewSgNodeIdMap, i))
+			{
+				sgNode.matchingStatus = SemNode::ExplicitNode;
+			}
+			else
+				sgNode.matchingStatus = SemNode::ContextNode;
+		}
 	}
 
 	else
@@ -112,15 +125,14 @@ SceneSemGraph* SceneGenerator::bindToCurrTSScene(SceneSemGraph *matchedSg)
 	// copy from current sg
 	newUserSsg = new SceneSemGraph(m_currUserSSG);
 
-	m_matchToNewUserSsgNodeMap.clear();
-	double alignScore = 0;
-
 	// align object node and relationship node
-	matchedSg->alignObjectNodesWithGraph(newUserSsg, m_matchToNewUserSsgNodeMap, alignScore);
-	matchedSg->alignRelationNodesWithGraph(newUserSsg, m_matchToNewUserSsgNodeMap, alignScore);
+	double alignScore = 0;
+	matchedSg->m_toNewSgNodeIdMap.clear();
+	matchedSg->alignObjectNodesWithGraph(newUserSsg, alignScore);
+	matchedSg->alignRelationNodesWithGraph(newUserSsg, alignScore);
 
 	// merge matched ssg to current scene ssg
-	newUserSsg->mergeWithMatchedSSG(matchedSg, m_matchToNewUserSsgNodeMap);
+	newUserSsg->mergeWithMatchedSSG(matchedSg);
 
 	// geometry alignment
 	geometryAlignmentWithCurrScene(matchedSg, newUserSsg);
@@ -132,88 +144,18 @@ SceneSemGraph* SceneGenerator::bindToCurrTSScene(SceneSemGraph *matchedSg)
 	return newUserSsg;
 }
 
-void SceneGenerator::geometryAlignmentWithCurrScene(SceneSemGraph *matchedSg, SceneSemGraph *targetSg)
+void SceneGenerator::geometryAlignmentWithCurrScene(SceneSemGraph *matchedSg, SceneSemGraph *currSg)
 {
-	// geometry align of the matched nodes
-	for (int mi = 0; mi < matchedSg->m_nodeNum; mi++)
-	{
-		SemNode& matchedSgNode = matchedSg->m_nodes[mi];
-		if (!matchedSgNode.isAligned && matchedSgNode.nodeType == "pairwise_relationship")
-		{
-			int mRefNodeId, mActiveNodeId;
+	m_layoutPlanner->m_matchedSg = matchedSg;
+	m_layoutPlanner->m_currSg = currSg;
 
-			if (!matchedSg->findRefNodeForRelationNode(matchedSgNode, mRefNodeId, mActiveNodeId))
-			{
-				break;
-			}
+	m_layoutPlanner->initPlaceByAlignRelation();
 
-			int tarRefNodeId = m_matchToNewUserSsgNodeMap[mRefNodeId];
-			int tarActiveNodeId = m_matchToNewUserSsgNodeMap[mActiveNodeId];
-
-			// find ref models
-			MetaModel &mRefModel = matchedSg->getModelWithNodeId(mRefNodeId);
-			MetaModel &tarRefModel = targetSg->getModelWithNodeId(tarRefNodeId);
-
-			MetaModel &tarActiveModel = targetSg->getModelWithNodeId(tarActiveNodeId);
-			MetaModel &mActiveModel = matchedSg->getModelWithNodeId(mActiveNodeId);
-
-			// compute transformation matrix based on the ref models
-			// initial alignment; align the rotation etc.	
-			mat4 alignTransMat = computeTransMat(mRefModel, tarRefModel);
-
-			// find the target position on new ref obj using the U, V w.r.t the original parent
-			vec3 mUVH = mActiveModel.parentPlaneUVH;
-
-			vec3 initPositionInScene = tarActiveModel.position; // get the pos of model in current scene
-	
-			// find the position after initial alignment
-			vec3 alignedPosition = TransformPoint(alignTransMat, initPositionInScene); // position after initial alignment
-
-			SuppPlane& tarRefSuppPlane = tarRefModel.suppPlane;
-			vec3 targetPosition = tarRefSuppPlane.getPointByUV(mUVH.x, mUVH.y); // position in the current scene, support plane is already transformed
-			//for (int ci = 0; ci < 4; ci++)
-			//{
-			//	qDebug() << QString("corner%1 %2 %3 %4").arg(ci).arg(tarRefSuppPlane.m_corners[ci].x).arg(tarRefSuppPlane.m_corners[ci].y).arg(tarRefSuppPlane.m_corners[ci].z) << "\n";
-			//}
-
-			vec3 translationVec = targetPosition - alignedPosition;
-
-			mat4 adjustTransMat;
-			adjustTransMat = adjustTransMat.translate(translationVec);
-
-			mat4 finalTransMat = adjustTransMat*alignTransMat;
-             
-			// transform active model by initial alignment
-			// initial alignment will make the relative orientation between the new active model and the target active model right
-			tarActiveModel.updateWithTransform(finalTransMat);
-
-			//qDebug() << QString("Preview:%1 Query anchor:%2").arg(matchedSg->m_matchListId).arg(toQString(mRefModel.catName));
-			//mRefModel.transformation.print();
-			//qDebug() << QString("Preview:%1 Current anchor:%2").arg(matchedSg->m_matchListId).arg(toQString(tarRefModel.catName));
-			//tarRefModel.transformation.print();
-
-			//qDebug() << QString("Preview:%1 Current active:%2").arg(matchedSg->m_matchListId).arg(toQString(newActiveModel.catName));
-			//qDebug() << QString("alignedPos");
-			//alignedPosition.print();
-			//qDebug() << QString("targetPos");
-			//targetPosition.print();
-			//qDebug() << QString("Parent UV:%1 %2").arg(mUVH.x).arg(mUVH.y);
-			//
-			//qDebug() << QString("TSG-Anchor:%1 USG-Anchor:%2 Current:%3").arg(toQString(mRefModel.catName)).arg(toQString(tarRefModel.catName)).arg(toQString(newActiveModel.catName));
-		}
-	}
 
 	// TODO: geometry align of the inferred nodes
 
 }
 
-mat4 SceneGenerator::computeTransMat(const MetaModel &fromModel, const MetaModel &toModel)
-{
-	mat4 rotMat = GetRotationMatrix(fromModel.frontDir, toModel.frontDir);
-	mat4 transMat = GetTransformationMat(rotMat, fromModel.position, toModel.position);
-
-	return transMat;
-}
 
 void SceneGenerator::bindBySynthesizedRelationships(SceneSemGraph *targetSg)
 {
@@ -254,5 +196,4 @@ void SceneGenerator::bindBySynthesizedRelationships(SceneSemGraph *targetSg)
 		}
 	}
 }
-
 

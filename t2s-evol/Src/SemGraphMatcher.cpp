@@ -114,15 +114,14 @@ SceneSemGraph* SemGraphMatcher::alignSSGWithDBSSG(SemanticGraph *querySSG, Scene
 {
 	SceneSemGraph *matchedSubSSG;
 
-	m_queryToDBSsgNodeIdMap.clear();
-
 	// align object nodes
-	querySSG->alignObjectNodesWithGraph(dbSSG, m_queryToDBSsgNodeIdMap, matchingScore);
+	querySSG->m_toNewSgNodeIdMap.clear();
+	querySSG->alignObjectNodesWithGraph(dbSSG, matchingScore);
 
 	if (matchingScore == 0) return NULL;
 
 	// align relationship nodes
-	querySSG->alignRelationNodesWithGraph(dbSSG, m_queryToDBSsgNodeIdMap, matchingScore);
+	querySSG->alignRelationNodesWithGraph(dbSSG, matchingScore);
 
 	// collect matched nodes and generate subgraph
 	std::vector<int> matchedDBSsgNodeList;
@@ -130,9 +129,9 @@ SceneSemGraph* SemGraphMatcher::alignSSGWithDBSSG(SemanticGraph *querySSG, Scene
 	{
 		SemNode& sgNode = querySSG->m_nodes[ni];
 		
-		if (sgNode.isAligned && m_queryToDBSsgNodeIdMap.count(ni))
+		if (sgNode.isAligned && querySSG->m_toNewSgNodeIdMap.count(ni))
 		{
-			int matchedDBSsgId = m_queryToDBSsgNodeIdMap[ni];
+			int matchedDBSsgId = querySSG->m_toNewSgNodeIdMap[ni];
 			matchedDBSsgNodeList.push_back(matchedDBSsgId);
 		}
 	}
@@ -178,10 +177,10 @@ void SemGraphMatcher::addSynthNodeToSubSSG(SemanticGraph *querySSG, SceneSemGrap
 	{
 		SemNode& sgNode = querySSG->m_nodes[ni];
 
-		if (sgNode.isAligned && m_queryToDBSsgNodeIdMap.count(ni))
+		if (sgNode.isAligned && querySSG->m_toNewSgNodeIdMap.count(ni))
 		{
 			// first find the DB-SSG node corresponding to the query node
-			int dbNodeId = m_queryToDBSsgNodeIdMap[ni];
+			int dbNodeId = querySSG->m_toNewSgNodeIdMap[ni];
 
 			// then find the Sub-SSG node for the query node
 			queryToSubSsgNodeMap[ni] = matchedSubSSG->m_dbNodeToSubNodeMap[dbNodeId];
@@ -193,7 +192,7 @@ void SemGraphMatcher::addSynthNodeToSubSSG(SemanticGraph *querySSG, SceneSemGrap
 	{
 		SemNode& sgNode = querySSG->m_nodes[ni];
 
-		if (!sgNode.isAligned && !m_queryToDBSsgNodeIdMap.count(ni))
+		if (!sgNode.isAligned && !querySSG->m_toNewSgNodeIdMap.count(ni))
 		{
 			if (sgNode.nodeType == "object")
 			{

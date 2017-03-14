@@ -30,8 +30,6 @@ public:
 	void bindBySynthesizedRelationships(SceneSemGraph *targetSg);
 
 
-	mat4 computeTransMat(const MetaModel &fromModel, const MetaModel &toModel);
-
 private:
 	unordered_map<string, Model*> m_models;
 	SemGraphMatcher *m_semanticGraphMatcher;

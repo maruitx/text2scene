@@ -26,8 +26,5 @@ public:
 private:
 	SceneSemGraphManager *m_sceneSemGraphManager;
 	SemanticGraph *m_querySSG;
-
-	std::map<int, int> m_queryToDBSsgNodeIdMap;
-
 };
 

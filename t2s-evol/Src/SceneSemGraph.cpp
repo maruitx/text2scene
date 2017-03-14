@@ -468,10 +468,10 @@ MetaModel& SceneSemGraph::getModelWithNodeId(int nodeId)
 }
 
 
-void SceneSemGraph::mergeWithMatchedSSG(SceneSemGraph *matchedSg, std::map<int, int> &matchToNewUserSsgNodeMap)
+void SceneSemGraph::mergeWithMatchedSSG(SceneSemGraph *matchedSg)
 {
 	// insert nodes and edges
-	this->mergeWithGraph(matchedSg, matchToNewUserSsgNodeMap);
+	this->mergeWithGraph(matchedSg);
 
 
 	// insert unaligned objects to meta model list
@@ -485,7 +485,7 @@ void SceneSemGraph::mergeWithMatchedSSG(SceneSemGraph *matchedSg, std::map<int, 
 			this->m_metaScene.m_metaModellList.push_back(modelToInsert);
 
 			int currMetaModelNum = this->m_metaScene.m_metaModellList.size();
-			int ci = matchToNewUserSsgNodeMap[mi];
+			int ci = matchedSg->m_toNewSgNodeIdMap[mi];
 			this->m_objectGraphNodeToModelListIdMap[ci] = currMetaModelNum - 1;
 		}
 	}
