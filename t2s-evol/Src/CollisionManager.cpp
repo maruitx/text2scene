@@ -41,12 +41,10 @@ CollisionManager::CollisionManager(TSScene *s)
 {
 	// build BVH
 	m_boxBVHs.resize(m_scene->modelNum());
-	m_invalidPositions.resize(m_scene->modelNum());
+	m_collisionPositions.resize(m_scene->modelNum());
 
 	m_trialNumLimit = 20;
-	m_closeSampleTh = 0.02;
 
-	m_sceneMetric = params::inst()->globalSceneUnitScale;
 }
 
 CollisionManager::~CollisionManager()
@@ -58,11 +56,11 @@ CollisionManager::~CollisionManager()
 			delete m_boxBVHs[i];
 		}
 
-		m_invalidPositions[i].clear();
+		m_collisionPositions[i].clear();
 	}
 
 	m_boxBVHs.clear();
-	m_invalidPositions.clear();
+	m_collisionPositions.clear();
 }
 
 bool CollisionManager::checkCollisionBVH(Model *testModel, int testMetaModelIdx)
@@ -114,7 +112,7 @@ bool CollisionManager::checkCollisionBVH(Model *testModel, int testMetaModelIdx)
 					testMetaModel.isBvhReady = false;
 
 					// store invalid positions to speed up
-					m_invalidPositions[testMetaModelIdx].push_back(testMetaModel.position);
+					m_collisionPositions[testMetaModelIdx].push_back(testMetaModel.position);
 					return true;
 				}
 			}
@@ -238,88 +236,11 @@ bool CollisionManager::checkCollision(Model *testModel, int testModelIdx)
 
 bool CollisionManager::resolveCollision(int metaModelID)
 {
-	MetaModel &currMd = m_scene->getMetaModel(metaModelID);
-	mat4 transMat;
-	vec3 translateVec;
+	m_layoutPlanner->m_currScene = m_scene;
 
-	int parentNodeId = m_scene->m_ssg->findParentNodeIdForModel(metaModelID);
-	int parentMetaModelId = m_scene->m_ssg->m_objectGraphNodeToModelListIdMap[parentNodeId];
-
-	QString sampleType;
-	
-	if (parentNodeId != -1)
-	{
-		MetaModel &parentMd = m_scene->getMetaModel(parentMetaModelId);
-
-		SuppPlane &parentSuppPlane = parentMd.suppPlane;
-		if (parentSuppPlane.m_isInited)
-		{
-			sampleType = " on parent-" + m_scene->m_ssg->m_nodes[parentNodeId].nodeName;
-
-			vec3 currUVH = currMd.parentPlaneUVH; // UV, and H w.r.t to parent support plane
-			std::vector<double> stdDevs(2, 0.1);
-
-			bool candiFound = false;
-			while (!candiFound)
-			{
-				vec3 newPos = parentSuppPlane.randomGaussSamplePtByUV(currUVH, stdDevs);
-
-				if (!isPosCloseToInvalidPos(newPos, metaModelID))
-				{
-					candiFound = true;
-					translateVec = newPos - currMd.position;
-				}
-			}
-		}
-	}
-	else
-	{
-		sampleType = "on floor";
-
-		std::vector<double> shiftVals;
-		std::vector<double> dMeans(2, 0); // set mean to be (0,0)
-		std::vector<double> stdDevs(2, 0.2);
-
-		bool candiFound = false;
-		while (!candiFound)
-		{
-			GenNNormalDistribution(dMeans, stdDevs, shiftVals);
-			translateVec = vec3(shiftVals[0] / m_sceneMetric, shiftVals[1] / m_sceneMetric, 0);
-
-			vec3 newPos = currMd.position + translateVec;
-			if (!isPosCloseToInvalidPos(newPos, metaModelID))
-			{
-				candiFound = true;
-			}
-		}
-	}
-
-	transMat = transMat.translate(translateVec);
-
-	currMd.updateWithTransform(transMat);
-
-	// update meta model in SSG
-	m_scene->m_ssg->m_metaScene.m_metaModellList[metaModelID] = currMd;
-
-	qDebug() << QString("  Preview:%2 Resolve trial:%1 Type:%3 Vec:(%4,%5,%6) Name:%7").arg(currMd.trialNum).arg(m_scene->m_previewId).arg(sampleType)
-		.arg(translateVec.x*m_sceneMetric).arg(translateVec.y*m_sceneMetric).arg(translateVec.z*m_sceneMetric)
-		.arg(toQString(m_scene->m_ssg->m_metaScene.m_metaModellList[metaModelID].catName));
+	m_layoutPlanner->updateCollisionPostions(m_collisionPositions);
+	m_layoutPlanner->adjustPlacement(metaModelID);
 
 	return true;
-}
-
-bool CollisionManager::isPosCloseToInvalidPos(const vec3 &pos, int metaModelId)
-{
-	for (int i = 0; i < m_invalidPositions[metaModelId].size(); i++)
-	{
-		double d = (pos - m_invalidPositions[metaModelId][i]).length();
-
-		if (d < m_closeSampleTh/m_sceneMetric)
-		{
-			return true;
-		}
-	}
-
-	return false;
 }
 

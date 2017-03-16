@@ -76,6 +76,9 @@ public:
 	void getBvhLeafNodes(std::vector<BvhLeafNode> &nodes);
 	void getTriangle(int index, vec3 &p, vec3 &q, vec3 &r);
 
+	vec3 getBBRange(const mat4 &transMat);
+	int getAxisAlongDir(const vec3 &dir);
+
     //vec3 m_collisionTrans;
 	vec3 m_sceneCenter;
     BoundingBox m_bb; // non-transformed model BB

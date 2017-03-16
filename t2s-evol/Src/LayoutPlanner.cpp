@@ -1,10 +1,14 @@
 #include "LayoutPlanner.h"
 #include "SceneSemGraph.h"
+#include "TSScene.h"
+#include "Model.h"
 #include "Utility.h"
 
 
 LayoutPlanner::LayoutPlanner()
 {
+	m_closeSampleTh = 0.03;
+	m_sceneMetric = params::inst()->globalSceneUnitScale;
 }
 
 
@@ -18,7 +22,7 @@ void LayoutPlanner::initPlaceByAlignRelation()
 	for (int mi = 0; mi < m_matchedSg->m_nodeNum; mi++)
 	{
 		SemNode& m_matchedSgNode = m_matchedSg->m_nodes[mi];
-		if (!m_matchedSgNode.isAligned && m_matchedSgNode.nodeType == "pairwise_relationship")
+		if (!m_matchedSgNode.isAligned && m_matchedSgNode.nodeType == "relation")
 		{
 			int mRefNodeId, mActiveNodeId;
 
@@ -90,4 +94,113 @@ mat4 LayoutPlanner::computeTransMat(const MetaModel &fromModel, const MetaModel 
 	mat4 transMat = GetTransformationMat(rotMat, fromModel.position, toModel.position);
 
 	return transMat;
+}
+
+void LayoutPlanner::adjustPlacement(int metaModelID)
+{
+	MetaModel &currMd = m_currScene->getMetaModel(metaModelID);
+	mat4 transMat;
+	vec3 translateVec;
+
+	int parentNodeId = m_currScene->m_ssg->findParentNodeIdForModel(metaModelID);
+	int parentMetaModelId = m_currScene->m_ssg->m_objectGraphNodeToModelListIdMap[parentNodeId];
+
+	QString sampleType;
+
+	if (parentNodeId != -1)
+	{
+		MetaModel &parentMd = m_currScene->getMetaModel(parentMetaModelId);
+
+		SuppPlane &parentSuppPlane = parentMd.suppPlane;
+		if (parentSuppPlane.m_isInited)
+		{
+			sampleType = " on parent-" + m_currScene->m_ssg->m_nodes[parentNodeId].nodeName;
+
+			vec3 currUVH = currMd.parentPlaneUVH; // UV, and H w.r.t to parent support plane
+			std::vector<double> stdDevs(2, 0.1);
+
+			bool candiFound = false;
+			while (!candiFound)
+			{
+				vec3 newPos = parentSuppPlane.randomGaussSamplePtByUV(currUVH, stdDevs);
+
+				adjustPlacementForSpecialModel(currMd, newPos);
+
+				if (!isPosCloseToInvalidPos(newPos, metaModelID))
+				{
+					candiFound = true;
+					translateVec = newPos - currMd.position;
+				}
+			}
+		}
+	}
+	else
+	{
+		sampleType = "on floor";
+
+		std::vector<double> shiftVals;
+		std::vector<double> dMeans(2, 0); // set mean to be (0,0)
+		std::vector<double> stdDevs(2, 0.2);
+
+		bool candiFound = false;
+		while (!candiFound)
+		{
+			GenNNormalDistribution(dMeans, stdDevs, shiftVals);
+			translateVec = vec3(shiftVals[0] / m_sceneMetric, shiftVals[1] / m_sceneMetric, 0);
+
+			vec3 newPos = currMd.position + translateVec;
+			if (!isPosCloseToInvalidPos(newPos, metaModelID))
+			{
+				candiFound = true;
+			}
+		}
+	}
+
+	transMat = transMat.translate(translateVec);
+
+	currMd.updateWithTransform(transMat);
+
+	// update meta model in SSG
+	m_currScene->m_ssg->m_metaScene.m_metaModellList[metaModelID] = currMd;
+
+	qDebug() << QString("  Preview:%2 Resolve trial:%1 Type:%3 Vec:(%4,%5,%6) Name:%7").arg(currMd.trialNum).arg(m_currScene->m_previewId).arg(sampleType)
+		.arg(translateVec.x*m_sceneMetric).arg(translateVec.y*m_sceneMetric).arg(translateVec.z*m_sceneMetric)
+		.arg(toQString(m_currScene->m_ssg->m_metaScene.m_metaModellList[metaModelID].catName));
+}
+
+bool LayoutPlanner::isPosCloseToInvalidPos(const vec3 &pos, int metaModelId)
+{
+	for (int i = 0; i < m_collisionPositions[metaModelId].size(); i++)
+	{
+		double d = (pos - m_collisionPositions[metaModelId][i]).length();
+
+		if (d < m_closeSampleTh / m_sceneMetric)
+		{
+			return true;
+		}
+	}
+
+	// test for over-hang positions
+
+	return false;
+}
+
+void LayoutPlanner::updateCollisionPostions(const std::vector<std::vector<vec3>> &collisionPositions)
+{
+	m_collisionPositions.clear();
+	m_collisionPositions = collisionPositions;
+}
+
+void LayoutPlanner::adjustPlacementForSpecialModel(const MetaModel &currMd, vec3 &newPos)
+{
+	if (currMd.catName == "headphones")
+	{
+		Model *m = m_currScene->getModel(currMd.name);
+		vec3 bbRange = m->getBBRange(currMd.transformation);
+
+		// headphone is not aligned consistently
+		double zOffset = 0.5*min(bbRange.x, bbRange.y);
+
+		newPos.z += zOffset;
+	}
 }

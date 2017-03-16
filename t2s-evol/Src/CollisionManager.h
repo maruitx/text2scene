@@ -4,6 +4,7 @@
 
 class TSScene;
 class Model;
+class LayoutPlanner;
 
 struct TrianglePredicate : public GeometryPredicate<SimpleBoxNodeData>
 {
@@ -28,18 +29,17 @@ public:
 
 	bool resolveCollision(int metaModelID);
 
-	bool isPosCloseToInvalidPos(const vec3 &pos, int metaModelId);
-
 	int m_trialNumLimit;
+
+	LayoutPlanner *m_layoutPlanner;  // pointer to the singleton 
+
 
 private:
 	TSScene *m_scene;
-	double m_sceneMetric;
-	double m_closeSampleTh;  // threshold for avoiding close sample
 
 	std::vector<BoxBvh<SimpleBoxNodeData>*> m_boxBVHs;  // box bvhs for model list
 
-	std::vector<std::vector<vec3>> m_invalidPositions;  // invalid positions of models identified in previous collision detection
+	std::vector<std::vector<vec3>> m_collisionPositions;  // invalid positions of models identified in previous collision detection
 
 };
 

@@ -39,7 +39,7 @@ private:
 	SceneSemGraph *m_currUserSSG;
 	TextSemGraph *m_textSSG;
 
-	LayoutPlanner *m_layoutPlanner;
+	LayoutPlanner *m_layoutPlanner; // singleton, only one instance
 
 	std::map<int, int> m_matchToNewUserSsgNodeMap;
 };

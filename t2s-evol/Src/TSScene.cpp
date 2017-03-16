@@ -3,7 +3,6 @@
 #include "Model.h"
 #include "SceneSemGraph.h"
 #include "CollisionManager.h"
-#include "LayoutPlanner.h"
 
 
 TSScene::TSScene(unordered_map<string, Model*> &models)

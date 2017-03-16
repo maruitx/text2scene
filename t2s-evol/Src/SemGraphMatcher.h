@@ -14,14 +14,15 @@ public:
 
 	void updateQuerySG(SemanticGraph *sg);
 
-	vector<SceneSemGraph*> alignWithDatabaseSSGs(int topMatchNum);
+	vector<SceneSemGraph*> alignWithDatabaseSSGs(int targetMatchNum);
 
 	SceneSemGraph* alignSSGWithDBSSG(SemanticGraph *querySSG, SceneSemGraph *dbSSG, double &matchingScore);
 	void alignObjectNodes(SemanticGraph *querySSG, SceneSemGraph *dbSSG, double &matchingScore);
 	void alignRelationshipNodes(SemanticGraph *querySSG, SceneSemGraph *dbSSG, double &matchingScore);
 	void addSynthNodeToSubSSG(SemanticGraph *querySSG, SceneSemGraph *matchedSubSSG);  // add unmatched nodes as synth nodes to Sub-SSG
 
-	double computeSimilarity(SemanticGraph *tsg, SemanticGraph *ssg); // debug: simple compute similarity by matching node name
+	vector<int> findNonRepeatSSGs(const vector<pair<double, SceneSemGraph *>> &scoredDBSubSSGs, int targetNum);
+	double computeGeometrySimilarity(SceneSemGraph *testSSG, SceneSemGraph *refSSG); // debug: simple compute similarity by matching node name
 
 private:
 	SceneSemGraphManager *m_sceneSemGraphManager;

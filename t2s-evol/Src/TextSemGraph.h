@@ -15,7 +15,7 @@ public:
 	void mapToFixedObjSet(QString &s);
 	void mapToFixedRelationSet(SemNode &currNode, QString &nodeName, QString &nodeType = QString(""));
 	void mapToFixedAttributeSet(QString &nodeName, QString &nodeType = QString(""));
-	void checkEdgeDir();
+
 
 	QString convertToSinglarForm(const QString &s);
 

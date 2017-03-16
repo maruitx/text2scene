@@ -24,7 +24,19 @@ SemanticGraph::~SemanticGraph()
 
 void SemanticGraph::addNode(const QString &nType, const QString &nName)
 {
-	SemNode newNode = SemNode(nType, nName, m_nodeNum);
+	QString uniType = nType;
+
+	if (nType == "pairwise_relationship")
+	{
+		uniType = QString("relation");
+	}
+
+	if (nType == "per_obj_attribute")
+	{
+		uniType = QString("attribute");
+	}
+
+	SemNode newNode = SemNode(uniType, nName, m_nodeNum);
 	m_nodes.push_back(newNode);
 
 	m_nodeNum++;
@@ -51,6 +63,50 @@ void SemanticGraph::addEdge(int s, int t)
 	m_nodes[t].inEdgeNodeList.push_back(s);
 
 	m_edgeNum++;
+}
+
+void SemanticGraph::parseNodeNeighbors()
+{
+	for (int i = 0; i < m_nodeNum; i++)
+	{
+		SemNode& sgNode = m_nodes[i];
+
+		if (sgNode.nodeType == "object")
+		{
+			sgNode.nodeLabels.clear();
+
+			for (int ai = 0; ai < sgNode.inEdgeNodeList.size(); ai++)
+			{
+				int attNodeId = sgNode.inEdgeNodeList[ai];  // id of attribute node in tsg
+				SemNode &attNode = this->m_nodes[attNodeId];
+
+				if (attNode.nodeType == "attribute")
+				{
+					sgNode.nodeLabels.push_back(attNodeId);
+				}
+			}
+		}
+
+		if (sgNode.nodeType == "relation")
+		{
+			sgNode.activeNodeList.clear();
+			sgNode.anchorNodeList.clear();
+
+			// edge dir: (active, relation), (relation, reference)
+
+			for (int ai = 0; ai < sgNode.inEdgeNodeList.size(); ai++)
+			{
+				int inNodeId = sgNode.inEdgeNodeList[ai];
+				sgNode.activeNodeList.push_back(inNodeId);
+			}
+
+			for (int ai = 0; ai < sgNode.outEdgeNodeList.size(); ai++)
+			{
+				int outNodeId = sgNode.outEdgeNodeList[ai];
+				sgNode.anchorNodeList.push_back(outNodeId);
+			}
+		}
+	}
 }
 
 std::vector<int> SemanticGraph::findNodeWithName(const QString &nName)
@@ -98,37 +154,34 @@ void SemanticGraph::alignObjectNodesWithGraph(SemanticGraph *targetGraph, double
 				// skip the aligned nodes
 				if (!tarSgNode.isAligned && tarSgNode.nodeType == "object" && sgNode.nodeName == tarSgNode.nodeName)
 				{
-					if (!sgNode.inEdgeNodeList.empty())
+					if (!sgNode.nodeLabels.empty())
 					{
-
 						int matchedAttNum = 0;
 						int sgAttNum = 0;
 
-						// align attribute node 
-						for (int ai = 0; ai < sgNode.inEdgeNodeList.size(); ai++)
+						// align attribute node
+						for (int ai = 0; ai < sgNode.nodeLabels.size(); ai++)
 						{
-							int attNodeId = sgNode.inEdgeNodeList[ai];  // id of attribute node in tsg
+							int attNodeId = sgNode.nodeLabels[ai];
+
 							SemNode &attNode = this->m_nodes[attNodeId];
+							sgAttNum++;
 
-							if (attNode.nodeType == "per_obj_attribute")
+							if (!tarSgNode.nodeLabels.empty())
 							{
-								sgAttNum++;
-								if (!tarSgNode.inEdgeNodeList.empty())
+								for (int tarAi = 0; tarAi < tarSgNode.nodeLabels.size(); tarAi++)
 								{
-									for (int tarAi = 0; tarAi < tarSgNode.inEdgeNodeList.size(); tarAi++)
+									int tarAttNodeId = tarSgNode.nodeLabels[tarAi]; // id of attribute node in dbssg
+									SemNode &tarAttNode = targetGraph->m_nodes[tarAttNodeId];
+
+									if (attNode.nodeType == tarAttNode.nodeType && attNode.nodeName == tarAttNode.nodeName)
 									{
-										int tarAttNodeId = tarSgNode.inEdgeNodeList[tarAi]; // id of attribute node in dbssg
-										SemNode &tarAttNode = targetGraph->m_nodes[tarAttNodeId];
+										matchedAttNum++;
 
-										if (attNode.nodeType == tarAttNode.nodeType && attNode.nodeName == tarAttNode.nodeName)
-										{
-											matchedAttNum++;
-
-											attNode.isAligned = true;
-											tarAttNode.isAligned = true;
-											m_toNewSgNodeIdMap[attNodeId] = tarAttNodeId; // save aligned attribute node into map		
-											alignScore += 0;  // attribute node does not contribute to matching score
-										}
+										attNode.isAligned = true;
+										tarAttNode.isAligned = true;
+										m_toNewSgNodeIdMap[attNodeId] = tarAttNodeId; // save aligned attribute node into map		
+										alignScore += 0;  // attribute node does not contribute to matching score
 									}
 								}
 							}
@@ -175,28 +228,28 @@ void SemanticGraph::alignRelationNodesWithGraph(SemanticGraph *targetGraph, doub
 		SemNode& sgNode = this->m_nodes[qNi];
 
 		// align pair-wise relationship node
-		if (sgNode.nodeType == "pairwise_relationship")
+		if (sgNode.nodeType == "relation")
 		{
 			// To test whether in and out node exist
-			if (sgNode.inEdgeNodeList.empty() || sgNode.outEdgeNodeList.empty()) continue;
+			if (sgNode.activeNodeList.empty() || sgNode.anchorNodeList.empty()) continue;
 
 			// edge dir: (active, relation), (relation, reference)
-			int inNodeId = sgNode.inEdgeNodeList[0];
-			int outNodeId = sgNode.outEdgeNodeList[0];
+			int actNodeId = sgNode.activeNodeList[0];
+			int anchorNodeId = sgNode.anchorNodeList[0];
 
 			// if any object node is not in the matched map (not matched), then break
-			if (!m_toNewSgNodeIdMap.count(inNodeId) || !m_toNewSgNodeIdMap.count(outNodeId)) continue;
+			if (!m_toNewSgNodeIdMap.count(actNodeId) || !m_toNewSgNodeIdMap.count(anchorNodeId)) continue;
 
-			SemNode& queryActiveNode = m_nodes[inNodeId];
+			SemNode& queryActiveNode = m_nodes[actNodeId];
 
 			for (int tarNi = 0; tarNi < targetGraph->m_nodeNum; tarNi++)
 			{
 				SemNode& tarSgNode = targetGraph->m_nodes[tarNi];
 				// skip the aligned nodes
-				if (!tarSgNode.isAligned && tarSgNode.nodeType == "pairwise_relationship" && sgNode.nodeName == tarSgNode.nodeName)
+				if (!tarSgNode.isAligned && tarSgNode.nodeType == "relation" && sgNode.nodeName == tarSgNode.nodeName)
 				{
-					if (tarSgNode.inEdgeNodeList[0] == m_toNewSgNodeIdMap[inNodeId]
-						&& tarSgNode.outEdgeNodeList[0] == m_toNewSgNodeIdMap[outNodeId])
+					if (tarSgNode.activeNodeList[0] == m_toNewSgNodeIdMap[actNodeId]
+						&& tarSgNode.anchorNodeList[0] == m_toNewSgNodeIdMap[anchorNodeId])
 					{
 						sgNode.isAligned = true;
 						tarSgNode.isAligned = true;
@@ -211,9 +264,9 @@ void SemanticGraph::alignRelationNodesWithGraph(SemanticGraph *targetGraph, doub
 
 		if (sgNode.nodeType == "group_attribute")
 		{
-			if (sgNode.outEdgeNodeList.empty()) continue;
+			if (sgNode.anchorNodeList.empty()) continue;
 
-			int refNodeIdInQuery = sgNode.outEdgeNodeList[0];
+			int refNodeIdInQuery = sgNode.anchorNodeList[0];
 			if (!m_toNewSgNodeIdMap.count(refNodeIdInQuery)) continue;
 
 			SemNode &queryRefNode = this->m_nodes[refNodeIdInQuery];
@@ -224,7 +277,7 @@ void SemanticGraph::alignRelationNodesWithGraph(SemanticGraph *targetGraph, doub
 				// skip the aligned nodes
 				if (!tarSgNode.isAligned && tarSgNode.nodeType == "group_attribute" && sgNode.nodeName == tarSgNode.nodeName)
 				{
-					int tarRefId = tarSgNode.outEdgeNodeList[0];
+					int tarRefId = tarSgNode.anchorNodeList[0];
 					SemNode& tarRefNode = targetGraph->m_nodes[tarRefId];
 					if (tarRefNode.nodeName == queryRefNode.nodeName)
 					{
@@ -275,6 +328,9 @@ void SemanticGraph::mergeWithGraph(SemanticGraph *inputGraph)
 			this->addEdge(s, t);
 		}
 	}
+
+	// update node labels, active and anchor node list
+	this->parseNodeNeighbors();
 }
 
 SemanticGraph* SemanticGraph::alignAndMergeWithGraph(SemanticGraph *sg)

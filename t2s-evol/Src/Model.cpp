@@ -753,3 +753,48 @@ void Model::getTriangle(int index, vec3 &p, vec3 &q, vec3 &r)
 	r = vec3(c.x, c.y, c.z);
 }
 
+
+vec3 Model::getBBRange(const mat4 &transMat)
+{
+	vec3 cornerO = m_bb.mi();
+	vec3 cornerMax = m_bb.ma();
+
+	vec3 cornerX = vec3(cornerMax.x, cornerO.y, cornerO.z);
+	vec3 cornerY = vec3(cornerO.x, cornerMax.y, cornerO.z);
+	vec3 cornerZ = vec3(cornerO.x, cornerO.y, cornerMax.z);
+
+	cornerO = TransformPoint(transMat, cornerO);
+	cornerX = TransformPoint(transMat, cornerX);
+	cornerY = TransformPoint(transMat, cornerY);
+	cornerZ = TransformPoint(transMat, cornerZ);
+
+	double xRange, yRange, zRange;
+	xRange = (cornerO - cornerX).length();
+	yRange = (cornerO - cornerY).length();
+	zRange = (cornerO - cornerZ).length();
+
+	return vec3(xRange, yRange, zRange);
+}
+
+int Model::getAxisAlongDir(const vec3 &dir)
+{
+	vec3 x(1, 0, 0);
+	vec3 y(0, 1, 0);
+	vec3 z(0, 0, 1);
+
+	if (abs(x.dot(dir) > 0.99))
+	{
+		return 0;
+	}
+
+	if (abs(y.dot(dir) > 0.99))
+	{
+		return 1;
+	}
+
+	if (abs(z.dot(dir) > 0.99))
+	{
+		return 2;
+	}
+}
+

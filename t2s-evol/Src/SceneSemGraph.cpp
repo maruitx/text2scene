@@ -14,7 +14,7 @@ SceneSemGraph::SceneSemGraph(const QString &s)
 {
 	loadGraph(m_fullFilename);
 
-	m_matchListId = -1;
+	m_idInMatchList = -1;
 }
 
 SceneSemGraph::SceneSemGraph(SceneSemGraph *sg)
@@ -28,7 +28,7 @@ SceneSemGraph::SceneSemGraph(SceneSemGraph *sg)
 	m_nodes = sg->m_nodes;
 	m_edges = sg->m_edges;
 
-	m_matchListId = -1;
+	m_idInMatchList = -1;
 }
 
 SceneSemGraph::~SceneSemGraph()
@@ -193,6 +193,8 @@ void SceneSemGraph::loadGraph(const QString &filename)
 		}
 	}
 
+	parseNodeNeighbors();
+
 	inFile.close();
 }
 
@@ -230,7 +232,7 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, bool useC
 				int refNodeId = oldNode.outEdgeNodeList[0];
 				SemNode &refNode = m_nodes[refNodeId]; // desk
 
-				//std::vector<int> inNodeList = refNode.inEdgeNodeList;
+				//std::vector<int> inNodeList = refNode.activeNodeList;
 
 				//for (int r = 0; r < inNodeList.size(); r++)
 				//{
@@ -241,7 +243,7 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, bool useC
 				//	if (relationNode.nodeName == "vert_support")
 				//	{
 				//		// add all support children
-				//		int childId = relationNode.inEdgeNodeList[0];
+				//		int childId = relationNode.activeNodeList[0];
 				//		SemNode &childNode = m_nodes[childId];
 				//		double insertProb = GenRandomDouble(0, 1);
 
@@ -259,10 +261,10 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, bool useC
 				//		}
 				//	}
 				//}
-				std::vector<int> inNodeList  = oldNode.inEdgeNodeList;
-				for (int a = 0; a < inNodeList.size(); a++)
+				std::vector<int> actNodeList  = oldNode.activeNodeList;
+				for (int a = 0; a < actNodeList.size(); a++)
 				{
-					int actNodeId = inNodeList[a];
+					int actNodeId = actNodeList[a];
 					SemNode &actNode = m_nodes[actNodeId];
 					double insertProb = GenRandomDouble(0, 1);
 
@@ -397,6 +399,8 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, bool useC
 
 	subGraph->m_metaScene.m_sceneFileName = m_metaScene.m_sceneFileName;
 
+	subGraph->parseNodeNeighbors();
+
 	return subGraph;
 }
 
@@ -460,13 +464,11 @@ int SceneSemGraph::getNodeIdWithModelId(int modelId)
 	return currNodeId;
 }
 
-
 MetaModel& SceneSemGraph::getModelWithNodeId(int nodeId)
 {
 	int modelId = m_objectGraphNodeToModelListIdMap[nodeId];
 	return m_metaScene.m_metaModellList[modelId];
 }
-
 
 void SceneSemGraph::mergeWithMatchedSSG(SceneSemGraph *matchedSg)
 {
@@ -494,22 +496,22 @@ void SceneSemGraph::mergeWithMatchedSSG(SceneSemGraph *matchedSg)
 bool SceneSemGraph::findRefNodeForRelationNode(const SemNode &sgNode, int &refNodeId, int &activeNodeId)
 {
 	// edge dir: (active, relation), (relation, reference)
-	int inNodeId = sgNode.inEdgeNodeList[0];  // active
-	int outNodeId = sgNode.outEdgeNodeList[0]; // reference
+	int actNodeId = sgNode.activeNodeList[0];  // active
+	int anchorNodeId = sgNode.anchorNodeList[0]; // reference
 
 
 	// find the reference node
-	if (this->m_nodes[inNodeId].isAligned && !this->m_nodes[outNodeId].isAligned)
+	if (this->m_nodes[actNodeId].isAligned && !this->m_nodes[anchorNodeId].isAligned)
 	{
-		refNodeId = inNodeId;
-		activeNodeId = outNodeId;
+		refNodeId = actNodeId;
+		activeNodeId = anchorNodeId;
 
 		return true;
 	}
-	else if (this->m_nodes[outNodeId].isAligned && !this->m_nodes[inNodeId].isAligned)
+	else if (this->m_nodes[anchorNodeId].isAligned && !this->m_nodes[actNodeId].isAligned)
 	{
-		refNodeId = outNodeId;
-		activeNodeId = inNodeId;
+		refNodeId = anchorNodeId;
+		activeNodeId = actNodeId;
 
 		return true;
 	}

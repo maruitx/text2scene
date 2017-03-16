@@ -89,26 +89,24 @@ void TextSemGraph::buildGraphFromSEL()
 		{
 			for (int n = 0; n < m_sentence.m_entities[i].instanceCount; n++)
 			{
-				addNode("relation", m_sentence.m_entities[i].m_relationships[j].nameString);
-
 				QString entityRawString = m_sentence.m_entities[i].m_relationships[j].entityString;
 				std::vector<std::string> parts = PartitionString(entityRawString.toStdString(), "-");
-				QString passiveEntityName = toQString(parts[0]);
-				passiveEntityName = convertToSinglarForm(passiveEntityName);
+				QString anchorEntityName = toQString(parts[0]);
+				anchorEntityName = convertToSinglarForm(anchorEntityName);
 
-				if (passiveEntityName == "wall")
-				{
-					m_nodes[m_nodeNum - 1].nodeType = "relation:horizon_support";
-				}
-
-				std::vector<int> refNodeIds = findNodeWithName(passiveEntityName);
+				std::vector<int> refNodeIds = findNodeWithName(anchorEntityName);
 				for (int k = 0; k < refNodeIds.size(); k++)
 				{
+					addNode("relation", m_sentence.m_entities[i].m_relationships[j].nameString);
+
 					int instanceNodeId = m_sentence.m_entities[i].m_instanceNodeIds[n];
-					//addEdge(m_nodeNum - 1, instanceNodeId);
-					//addEdge(passiveNodeIds[k], m_nodeNum - 1);
 					addEdge(instanceNodeId, m_nodeNum - 1);
 					addEdge(m_nodeNum - 1, refNodeIds[k]);
+
+					if (anchorEntityName == "wall")
+					{
+						m_nodes[m_nodeNum - 1].nodeType = "relation:horizon_support";
+					}
 				}
 			}
 		}
@@ -136,6 +134,8 @@ void TextSemGraph::buildGraphFromSEL()
 			}
 		}
 	}
+
+	this->parseNodeNeighbors();
 
 	mapNodeNameToFixedNameSet();
 }
@@ -260,32 +260,30 @@ void TextSemGraph::mapToFixedRelationSet(SemNode &currNode, QString &nodeName, Q
 		{
 			nodeName = "vert_support";
 		}
-		nodeType = "pairwise_relationship";
+		nodeType = "relation";
 		return;
 	}
 
 	if (nodeName.contains("with"))
 	{
-		// TO-FIX instance missing
 
-		nodeType = "pairwise_relationship";
+		nodeType = "relation";
 		nodeName = "vert_support";
 
-		// reverse the ref and active obj
-		int refNodeId = currNode.inEdgeNodeList[0];
-		int actNodeId = currNode.outEdgeNodeList[0];
-		int currNodeId = currNode.nodeId;
-
 		// reverse for current node
-		currNode.inEdgeNodeList[0] = actNodeId;
-		currNode.outEdgeNodeList[0] = refNodeId;
+		std::swap(currNode.activeNodeList, currNode.anchorNodeList);
+		std::swap(currNode.inEdgeNodeList, currNode.outEdgeNodeList);
 
+		int refNodeId = currNode.anchorNodeList[0];
+		int actNodeId = currNode.activeNodeList[0];
+
+		// correct relationship node id saved in the object node
+		int currNodeId = currNode.nodeId;
 		EraseValueInVectorInt(m_nodes[refNodeId].outEdgeNodeList, currNodeId);
 		m_nodes[refNodeId].inEdgeNodeList.push_back(currNodeId);
 
 		EraseValueInVectorInt(m_nodes[refNodeId].inEdgeNodeList, currNodeId);
 		m_nodes[actNodeId].outEdgeNodeList.push_back(currNodeId);
-
 
 		return;
 	}
@@ -293,49 +291,49 @@ void TextSemGraph::mapToFixedRelationSet(SemNode &currNode, QString &nodeName, Q
 	if (nodeName == "next to" || nodeName == "close to" || nodeName == "near")
 	{
 		nodeName = "near";
-		nodeType = "pairwise_relationship";
+		nodeType = "relation";
 		return;
 	}
 
 	if (nodeName.contains("front"))
 	{
 		nodeName = "front";
-		nodeType = "pairwise_relationship";
+		nodeType = "relation";
 		return;
 	}
 
 	if (nodeName.contains("back") || nodeName.contains("behind"))
 	{
 		nodeName = "back";
-		nodeType = "pairwise_relationship";
+		nodeType = "relation";
 		return;
 	}
 
 	if (nodeName.contains("left"))
 	{
 		nodeName = "left";
-		nodeType = "pairwise_relationship";
+		nodeType = "relation";
 		return;
 	}
 
 	if (nodeName.contains("right"))
 	{
 		nodeName = "right";
-		nodeType = "pairwise_relationship";
+		nodeType = "relation";
 		return;
 	}
 
 	if (nodeName.contains("under || below"))
 	{
 		nodeName = "under";
-		nodeType = "pairwise_relationship";
+		nodeType = "relation";
 		return;
 	}
 
 	if (nodeName.contains("center"))
 	{
 		nodeName = "center";
-		nodeType = "pairwise_relationship";
+		nodeType = "relation";
 		return;
 	}
 
@@ -356,7 +354,7 @@ void TextSemGraph::mapToFixedRelationSet(SemNode &currNode, QString &nodeName, Q
 	if (nodeName.contains("each") && nodeName.contains("side"))
 	{
 		nodeName = "left";
-		nodeType = "pairwise_relationship";
+		nodeType = "relation";
 		return;
 	}
 
@@ -455,10 +453,7 @@ void TextSemGraph::mapToFixedAttributeSet(QString &nodeName, QString &nodeType /
 	}
 }
 
-void TextSemGraph::checkEdgeDir()
-{
 
-}
 
 
 

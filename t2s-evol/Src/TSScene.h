@@ -8,7 +8,6 @@ class Object;
 class Model;
 class SceneSemGraph;
 class CollisionManager;
-class LayoutPlanner;
 
 class TSScene
 {
@@ -48,8 +47,7 @@ public:
 
 	int m_previewId;
 
-	CollisionManager *m_collisionManager;
-	LayoutPlanner *m_layoutPlanner;
+	CollisionManager *m_collisionManager;  // each scene has its own collision manager
 
 private:
 	unordered_map<string, Model*> &m_models;   // current loaded object DB
