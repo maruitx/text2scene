@@ -1,4 +1,5 @@
 #include "LayoutPlanner.h"
+#include "RelationModelManager.h"
 #include "SceneSemGraph.h"
 #include "TSScene.h"
 #include "Model.h"
@@ -9,8 +10,9 @@ LayoutPlanner::LayoutPlanner()
 {
 	m_closeSampleTh = 0.03;
 	m_sceneMetric = params::inst()->globalSceneUnitScale;
-}
 
+	m_relModelManager = new RelationModelManager();
+}
 
 LayoutPlanner::~LayoutPlanner()
 {
@@ -43,7 +45,8 @@ void LayoutPlanner::initPlaceByAlignRelation()
 
 			// compute transformation matrix based on the ref models
 			// initial alignment; align the rotation etc.	
-			mat4 alignTransMat = computeTransMat(mRefModel, tarRefModel);
+			//mat4 alignTransMat = computeTransMat(mRefModel, tarRefModel);
+			mat4 dirRotMat = GetRotationMatrix(mRefModel.frontDir, tarRefModel.frontDir);
 
 			// find the target position on new ref obj using the U, V w.r.t the original parent
 			vec3 mUVH = mActiveModel.parentPlaneUVH;
@@ -51,7 +54,7 @@ void LayoutPlanner::initPlaceByAlignRelation()
 			vec3 initPositionInScene = currActiveModel.position; // get the pos of model in current scene
 
 			// find the position after initial alignment
-			vec3 alignedPosition = TransformPoint(alignTransMat, initPositionInScene); // position after initial alignment
+			//vec3 alignedPosition = TransformPoint(alignTransMat, initPositionInScene); // position after initial alignment
 
 			SuppPlane& tarRefSuppPlane = tarRefModel.suppPlane;
 			vec3 targetPosition = tarRefSuppPlane.getPointByUV(mUVH.x, mUVH.y); // position in the current scene, support plane is already transformed
@@ -60,12 +63,14 @@ void LayoutPlanner::initPlaceByAlignRelation()
 			//	qDebug() << QString("corner%1 %2 %3 %4").arg(ci).arg(tarRefSuppPlane.m_corners[ci].x).arg(tarRefSuppPlane.m_corners[ci].y).arg(tarRefSuppPlane.m_corners[ci].z) << "\n";
 			//}
 
-			vec3 translationVec = targetPosition - alignedPosition;
+			//vec3 translationVec = targetPosition - alignedPosition;
+			vec3 translationVec = targetPosition - dirRotMat*initPositionInScene;
 
 			mat4 adjustTransMat;
 			adjustTransMat = adjustTransMat.translate(translationVec);
 
-			mat4 finalTransMat = adjustTransMat*alignTransMat;
+			//mat4 finalTransMat = adjustTransMat*alignTransMat;
+			mat4 finalTransMat = adjustTransMat*dirRotMat;
 
 			// transform active model by initial alignment
 			// initial alignment will make the relative orientation between the new active model and the target active model right

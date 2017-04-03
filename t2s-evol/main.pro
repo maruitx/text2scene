@@ -29,6 +29,7 @@ QMAKE_CXXFLAGS_DEBUG += /MDd
 INCLUDEPATH += \
 ./ThirdParty/glew-1.12.0/include \
 ./ThirdParty/freeglut-MSVC-3.0.0-2.mp/freeglut/include \
+./ThirdParty/eigen3.3.3
 
 
 CONFIG(release, debug | release){

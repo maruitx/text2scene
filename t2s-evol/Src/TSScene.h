@@ -27,8 +27,6 @@ public:
 	void countLoadedModelNum(); // count loaded model number by finding model in loaded modelDB
     void computeSceneBB();
 
-	bool resolveCollision(int modelId);
-
 	void loadModel(MetaModel m);
 
 	void updateRoomModel(MetaModel m);
