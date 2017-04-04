@@ -2,20 +2,20 @@
 
 #include "MetaData.h"
 
-class RelationModelManager;
 class SceneSemGraph;
 class TSScene;
+class RelationModelManager;
 
 class LayoutPlanner
 {
 public:
-	LayoutPlanner();
+	LayoutPlanner(RelationModelManager *relManager);
 	~LayoutPlanner();
 
 	void initPlaceByAlignRelation();
 
-	void adjustPlacement(int metaModelID);
-	void adjustPlacementForSpecialModel(const MetaModel &currMd, vec3 &pos);
+	void adjustPlacement(int metaModelID, const std::vector<std::vector<vec3>> &collisonPositions);
+	void adjustPlacementForSpecificModel(const MetaModel &currMd, vec3 &pos);
 
 
 	mat4 computeTransMat(const MetaModel &fromModel, const MetaModel &toModel);
@@ -25,7 +25,7 @@ public:
 
 public:
 
-	RelationModelManager *m_relModelManager;
+	RelationModelManager *m_relModelManager;  // pointer to the singleton; instance saved in SceneGenerator
 
 	// SSG used for alignment
 	SceneSemGraph *m_matchedSg;

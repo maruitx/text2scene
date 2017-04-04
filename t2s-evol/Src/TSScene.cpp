@@ -3,6 +3,8 @@
 #include "Model.h"
 #include "SceneSemGraph.h"
 #include "CollisionManager.h"
+#include "LayoutPlanner.h"
+#include "RelationModelManager.h"
 
 
 TSScene::TSScene(unordered_map<string, Model*> &models)
@@ -11,7 +13,7 @@ TSScene::TSScene(unordered_map<string, Model*> &models)
 	m_modelNum(0),
 	m_frameCount(0),
 	m_loadedModelNum(0),
-	m_isLoadingDone(false),
+	m_sceneLoadingDone(false),
 	m_isRenderRoom(true),
 	m_isLoadFromFile(false),
 	m_ssg(NULL), 
@@ -27,7 +29,7 @@ TSScene::TSScene(unordered_map<string, Model*> &models, const QString &fileName)
   m_modelNum(0),
   m_frameCount(0),
   m_loadedModelNum(0),
-  m_isLoadingDone(false),
+  m_sceneLoadingDone(false),
   m_isRenderRoom(true),
   m_isLoadFromFile(false),
   m_ssg(NULL), 
@@ -45,7 +47,7 @@ TSScene::TSScene(unordered_map<string, Model*> &models, MetaScene &ms)
 	m_sceneBB(vec3(math_maxfloat), vec3(math_minfloat)),
 	m_frameCount(0),
 	m_loadedModelNum(0),
-	m_isLoadingDone(false),
+	m_sceneLoadingDone(false),
 	m_isRenderRoom(true),
 	m_isLoadFromFile(false),
 	m_ssg(NULL), 
@@ -167,8 +169,33 @@ void TSScene::render(const Transform &trans, bool applyShadow)
     tt.view *= mat4::translate(m_camTrans);
     tt.lightViews[0] *= mat4::translate(m_camTrans);
 
-	int nrLoaded = 0;
+	// load models
+	if (!m_sceneLoadingDone)
+	{
 
+		for (int i = 0; i < m_metaScene.m_metaModellList.size(); i++)
+		{
+			MetaModel &md = m_metaScene.m_metaModellList[i];
+			auto &iter = m_models.find(md.name);
+
+			// if a model is not loaded
+			if (iter == m_models.end() && md.path.size() > 0 && m_frameCount % 20 == 0)
+			{
+				// if model exist
+				if (fileExists(md.path.c_str()) && md.name != "roomDefault")
+				{
+					Model *model = new Model(md.path.c_str());
+					m_models.insert(make_pair(md.name, model));
+
+					m_sceneLoadingDone = false; // when new insert a model, slow loading in another thread
+				}
+			}
+		}
+
+		countLoadedModelNum();
+	}
+
+	// render models
 	for (int i = 0; i < m_metaScene.m_metaModellList.size(); i++)
 	{
 		MetaModel &md = m_metaScene.m_metaModellList[i];
@@ -180,53 +207,114 @@ void TSScene::render(const Transform &trans, bool applyShadow)
 			continue;
 		}
 
+		// if model has been loaded, compute layout and render the model
 		if (iter != m_models.end())
 		{
-			if (iter->second->m_loadingDone)
+			Model *currModel = iter->second;
+			if (currModel->m_loadingDone)
 			{
-				if (!m_isLoadFromFile && m_collisionManager->checkCollisionBVH(iter->second, i) && md.trialNum < m_collisionManager->m_trialNumLimit)
+				bool isModelCollideWithScene = m_collisionManager->checkCollisionBVH(currModel, i);
+
+				if (!m_isLoadFromFile && isModelCollideWithScene && md.trialNum < m_collisionManager->m_trialNumLimit)
 				{
-					m_collisionManager->resolveCollision(i);
+					m_layoutPlanner->adjustPlacement(i, m_collisionManager->m_collisionPositions);
+					
 					md.trialNum++;
 
 					if (md.trialNum == m_collisionManager->m_trialNumLimit)
 					{
 						qDebug() << QString("   Preview %1 Reach test trial limit; Place model anyway; Collision may exist").arg(m_previewId);
 						md.isAlreadyPlaced = true; // reach trial limit, although collision happens still set it to be placed
+						m_placedObjIds.push_back(i);
 					}
 				}
-				else
+				else if (!isModelCollideWithScene)
 				{
-					md.isAlreadyPlaced = true;
-					iter->second->render(tt, md.transformation, applyShadow, md.textureDir, m_renderMode, md.isSelected);
+					bool isRelationVoilated = m_relModelManager->isRelationViolated(i);
+
+					if (isRelationVoilated)
+					{
+						m_layoutPlanner->adjustPlacement(i, m_collisionManager->m_collisionPositions);
+					}
+					else
+					{
+						md.isAlreadyPlaced = true;
+						m_placedObjIds.push_back(i);
+						currModel->render(tt, md.transformation, applyShadow, md.textureDir, m_renderMode, md.isSelected);
+					}
 				}
 			}	
 		}
-		else if (md.path.size() > 0)
-		{
-			if (nrLoaded == 0 && m_frameCount % 20 == 0)
-			{
-				// if model exist
-				if (fileExists(md.path.c_str()) && md.name != "roomDefault")
-				{
-					Model *model = new Model(md.path.c_str());
-					m_models.insert(make_pair(md.name, model));
-
-					m_isLoadingDone = false; // when new insert a model, slow loading in another thread
-					
-					nrLoaded++;					
-				}	
-			}			
-		}
 	}
+
+	//for (int i = 0; i < m_metaScene.m_metaModellList.size(); i++)
+	//{
+	//	MetaModel &md = m_metaScene.m_metaModellList[i];
+	//	auto &iter = m_models.find(md.name);
+
+	//	// if set as not render room, and current room is room, then skip
+	//	if (!m_isRenderRoom && md.name.find("room")!=std::string::npos)
+	//	{
+	//		continue;
+	//	}
+
+	//	// if model has been loaded, compute layout and render the model
+	//	if (iter != m_models.end())
+	//	{
+	//		Model *currModel = iter->second;
+	//		if (currModel->m_loadingDone)
+	//		{
+	//			bool isModelCollideWithScene = m_collisionManager->checkCollisionBVH(currModel, i);
+
+	//			if (!m_isLoadFromFile && isModelCollideWithScene && md.trialNum < m_collisionManager->m_trialNumLimit)
+	//			{
+	//				m_layoutPlanner->adjustPlacement(i, m_collisionManager->m_collisionPositions);
+	//				
+	//				md.trialNum++;
+
+	//				if (md.trialNum == m_collisionManager->m_trialNumLimit)
+	//				{
+	//					qDebug() << QString("   Preview %1 Reach test trial limit; Place model anyway; Collision may exist").arg(m_previewId);
+	//					md.isAlreadyPlaced = true; // reach trial limit, although collision happens still set it to be placed
+	//					m_placedObjIds.push_back(i);
+	//				}
+	//			}
+	//			else if (!isModelCollideWithScene)
+	//			{
+	//				bool isRelationVoilated = m_relModelManager->isRelationViolated(i);
+
+	//				if (isRelationVoilated)
+	//				{
+	//					m_layoutPlanner->adjustPlacement(i, m_collisionManager->m_collisionPositions);
+	//				}
+	//				else
+	//				{
+	//					md.isAlreadyPlaced = true;
+	//					m_placedObjIds.push_back(i);
+	//					currModel->render(tt, md.transformation, applyShadow, md.textureDir, m_renderMode, md.isSelected);
+	//				}
+	//			}
+	//		}	
+	//	}
+	//	// load the model if it is not loaded
+	//	else if (md.path.size() > 0)
+	//	{
+	//		if (m_frameCount % 20 == 0)
+	//		{
+	//			// if model exist
+	//			if (fileExists(md.path.c_str()) && md.name != "roomDefault")
+	//			{
+	//				Model *model = new Model(md.path.c_str());
+	//				m_models.insert(make_pair(md.name, model));
+
+	//				m_sceneLoadingDone = false; // when new insert a model, slow loading in another thread					
+	//			}	
+	//		}			
+	//	}
+	//}
 
 	computeSceneBB();
     //renderSceneBB(trans);
-
-	if (!m_isLoadingDone)
-	{
-		countLoadedModelNum();
-	}
 
 	m_frameCount++;
 }
@@ -320,7 +408,7 @@ void TSScene::countLoadedModelNum()
 {
 	if (m_metaScene.m_metaModellList.size() == 0)
 	{
-		m_isLoadingDone = true;
+		m_sceneLoadingDone = true;
 		return;
 	}
 
@@ -339,7 +427,7 @@ void TSScene::countLoadedModelNum()
 
 	if (m_loadedModelNum == m_metaScene.m_metaModellList.size())
 	{
-		m_isLoadingDone = true;
+		m_sceneLoadingDone = true;
 		QString sceneType;
 
 		if (m_ssg != NULL)
@@ -467,5 +555,14 @@ Model* TSScene::getModel(const string &name)
 	}
 	else
 		return NULL;
+}
+
+void TSScene::prepareForLayout(LayoutPlanner *p, RelationModelManager *m)
+{
+	m_layoutPlanner = p;
+	m_relModelManager = m;
+
+	m_layoutPlanner->m_currScene = this;
+	m_relModelManager->m_currScene = this;
 }
 

@@ -3,7 +3,6 @@
 #include "TSScene.h"
 #include "Model.h"
 #include "SceneSemGraph.h"
-#include "LayoutPlanner.h"
 
 #include "triangle_triangle_intersection.h"
 
@@ -233,14 +232,3 @@ bool CollisionManager::checkCollision(Model *testModel, int testModelIdx)
 
 	return false;
 }
-
-bool CollisionManager::resolveCollision(int metaModelID)
-{
-	m_layoutPlanner->m_currScene = m_scene;
-
-	m_layoutPlanner->updateCollisionPostions(m_collisionPositions);
-	m_layoutPlanner->adjustPlacement(metaModelID);
-
-	return true;
-}
-

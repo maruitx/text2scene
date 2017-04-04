@@ -44,7 +44,7 @@ public:
 	PairwiseRelationModel(const QString &anchorName, const QString &actName, const QString &conditionName, const QString & relationName = "general");
 	~PairwiseRelationModel() {};
 
-	void loadModel();
+	void loadFromStream(QTextStream &ifs);
 
 	int m_numGauss;
 	int m_numInstance;

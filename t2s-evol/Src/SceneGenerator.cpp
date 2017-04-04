@@ -3,6 +3,7 @@
 #include "SceneSemGraph.h"
 #include "TextSemGraph.h"
 #include "SemGraphMatcher.h"
+#include "RelationModelManager.h"
 #include "LayoutPlanner.h"
 #include "TSScene.h"
 #include "CollisionManager.h"
@@ -14,7 +15,9 @@ SceneGenerator::SceneGenerator(unordered_map<string, Model*> &models)
 {
 	m_sceneSemGraphManager = new SceneSemGraphManager();
 	m_semanticGraphMatcher = new SemGraphMatcher(m_sceneSemGraphManager);
-	m_layoutPlanner = new LayoutPlanner();
+
+	m_relModelManager = new RelationModelManager();
+	m_layoutPlanner = new LayoutPlanner(m_relModelManager);
 }
 
 SceneGenerator::~SceneGenerator()
@@ -89,8 +92,7 @@ std::vector<TSScene*> SceneGenerator::generateTSScenes(int num)
 	{
 		SceneSemGraph *newUserSsg = bindToCurrTSScene(matchedSSGs[i]);
 		TSScene *s = newUserSsg->covertToTSScene(m_models);
-
-		s->m_collisionManager->m_layoutPlanner = m_layoutPlanner;
+		s->prepareForLayout(m_layoutPlanner, m_relModelManager);
 
 		tsscenes.push_back(s);
 	}

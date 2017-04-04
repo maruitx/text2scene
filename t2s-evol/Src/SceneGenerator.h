@@ -10,6 +10,8 @@ class SceneSemGraphManager;
 class TSScene;
 class Model;
 class MetaModel;
+
+class RelationModelManager;
 class LayoutPlanner;
 
 class SceneGenerator
@@ -39,6 +41,7 @@ private:
 	SceneSemGraph *m_currUserSSG;
 	TextSemGraph *m_textSSG;
 
+	RelationModelManager *m_relModelManager;  // singleton, only one instance
 	LayoutPlanner *m_layoutPlanner; // singleton, only one instance
 
 	std::map<int, int> m_matchToNewUserSsgNodeMap;

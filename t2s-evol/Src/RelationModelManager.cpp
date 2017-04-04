@@ -1,4 +1,6 @@
 #include "RelationModelManager.h"
+#include "TSScene.h"
+#include "SceneSemGraph.h"
 
 
 RelationModelManager::RelationModelManager()
@@ -12,6 +14,45 @@ RelationModelManager::~RelationModelManager()
 }
 
 void RelationModelManager::loadRelationModels()
+{
+	loadRelativeRelationModels();
+	loadPairwiseRelationModels();
+	loadGroupRelationModels();
+}
+
+void RelationModelManager::loadRelativeRelationModels()
+{
+	QString sceneDBPath = "./SceneDB";
+	QString filename = sceneDBPath + "/Relative.model";
+
+	QFile inFile(filename);
+	QTextStream ifs(&inFile);
+
+	if (!inFile.open(QIODevice::ReadOnly | QIODevice::Text)) return;
+
+	while (!ifs.atEnd())
+	{
+		QString currLine = ifs.readLine();
+		std::vector<std::string> parts = PartitionString(currLine.toStdString(), "_");
+
+		QString anchorObjName = toQString(parts[0]);
+		QString actObjName = toQString(parts[1]);
+		QString conditionName = toQString(parts[2]);
+		QString relationName = toQString(parts[3]);
+
+		PairwiseRelationModel *newRelModel = new PairwiseRelationModel(anchorObjName, actObjName, conditionName, relationName);
+		m_relativeModels[newRelModel->m_relationKey] = newRelModel;
+
+		newRelModel->loadFromStream(ifs);
+	}
+}
+
+void RelationModelManager::loadPairwiseRelationModels()
+{
+
+}
+
+void RelationModelManager::loadGroupRelationModels()
 {
 	QString sceneDBPath = "./SceneDB";
 	QString filename = sceneDBPath + "/Group.model";
@@ -69,77 +110,64 @@ void RelationModelManager::loadRelationModels()
 				PairwiseRelationModel *newRelModel = new PairwiseRelationModel(anchorObjName, actObjName, conditionName, relationName);
 				newGroupModel->m_pairwiseModels[newRelModel->m_relationKey] = newRelModel;
 
-				currLine = ifs.readLine();   // gaussian num
-				std::vector<int> intList = StringToIntegerList(currLine.toStdString(), "");
-				int gaussNum = intList[0];
-				int instanceNum = intList[1];
-
-				newRelModel->m_numGauss = gaussNum;
-				newRelModel->m_numInstance = instanceNum;
-
-				if (gaussNum == 0)
-				{
-					currLine = ifs.readLine();
-					parts = PartitionString(currLine.toStdString(), ",");
-
-					newRelModel->m_instances.resize(instanceNum);
-
-					for (int t= 0 ; t <instanceNum; t++)
-					{
-						// observations
-						std::vector<float> floatList = StringToFloatList(parts[t], "");
-						RelativePos *newRelPos = new RelativePos();
-						newRelPos->pos = vec3(floatList[0], floatList[1], floatList[2]);
-						newRelPos->theta = floatList[3];
-						newRelPos->m_anchorObjName = anchorObjName;
-						newRelPos->m_actObjName = actObjName;
-						newRelPos->m_conditionName = conditionName;
-						
-						newRelModel->m_instances[t] = newRelPos;
-					}
-				}
-				else
-				{
-					newRelModel->m_gaussians.resize(gaussNum);
-
-					for (int g = 0; g < gaussNum; g++)
-					{
-						currLine = ifs.readLine();
-
-						parts = PartitionString(currLine.toStdString(), ",");
-						int gaussDim = StringToInt(parts[0]);
-						double gaussWeight = StringToFloat(parts[1]);
-
-						GaussianModel newGauss;
-						newGauss.dim = gaussDim;
-						newGauss.weight = gaussWeight;
-						newGauss.mean = Eigen::VectorXd(gaussDim);
-						newGauss.covarMat = Eigen::MatrixXd(gaussDim, gaussDim);
-
-						std::vector<float> floatList = StringToFloatList(parts[2], "");
-						
-						for (int d=0; d<gaussDim; d++)
-						{
-							newGauss.mean[d] = floatList[d];   // have to set the size before you can use the comma initializer.
-						}
-
-						floatList = StringToFloatList(parts[3], "");
-						for (int c = 0; c < gaussDim; c++)
-						{
-							for (int r = 0; r < gaussDim; r++)
-							{
-								newGauss.covarMat(r, c) = floatList[c*gaussDim +r];
-							}
-							 
-						}										
-						//newGauss.covarMat.transposeInPlace(); //  comma initializer in Eigen is row-wise
-						newRelModel->m_gaussians[g] = newGauss;
-
-
-					}
-				}
+				newRelModel->loadFromStream(ifs);
 			} 
 		}
 	}
+
+	inFile.close();
+}
+
+
+bool RelationModelManager::isRelationViolated(int metaModelId)
+{
+
+
+
+	return false;
+}
+
+mat4 RelationModelManager::sampleTransformByRelation(int metaModelId)
+{
+	SceneSemGraph *currSSG = m_currScene->m_ssg;
+	int currNodeId = currSSG->getNodeIdWithModelId(metaModelId);
+
+	SemNode &currNode = currSSG->m_nodes[currNodeId];
+
+	int parentNodeId = currSSG->findParentNodeIdForModel(metaModelId);
+
+	// collect constraints from existing objs
+
+
+
+	mat4  transMat;
+
+
+
+
+	return transMat;
+}
+
+void RelationModelManager::collectConstraintsForModel(int metaModelId)
+{
+	// find pairwise or group constraints
+	SceneSemGraph *currSSG = m_currScene->m_ssg;
+	int currNodeId = currSSG->getNodeIdWithModelId(metaModelId);
+
+	SemNode &currNode = currSSG->m_nodes[currNodeId];
+
+	if (!currNode.outEdgeNodeList.empty())
+	{
+		int relationNodeId = currNode.outEdgeNodeList[0];
+		SemNode &relationNode = currSSG->m_nodes[relationNodeId];
+
+		if (!relationNode.isAligned)
+		{
+
+		}
+	}
+
+
+	// find all relative constraints
 }
 

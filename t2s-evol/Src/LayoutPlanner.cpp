@@ -6,12 +6,11 @@
 #include "Utility.h"
 
 
-LayoutPlanner::LayoutPlanner()
+LayoutPlanner::LayoutPlanner(RelationModelManager *relManager)
+	:m_relModelManager(relManager)
 {
 	m_closeSampleTh = 0.03;
 	m_sceneMetric = params::inst()->globalSceneUnitScale;
-
-	m_relModelManager = new RelationModelManager();
 }
 
 LayoutPlanner::~LayoutPlanner()
@@ -43,19 +42,11 @@ void LayoutPlanner::initPlaceByAlignRelation()
 			MetaModel &currActiveModel = m_currSg->getModelWithNodeId(currActiveNodeId);
 			MetaModel &mActiveModel = m_matchedSg->getModelWithNodeId(mActiveNodeId);
 
-			// compute transformation matrix based on the ref models
-			// initial alignment; align the rotation etc.	
-			//mat4 alignTransMat = computeTransMat(mRefModel, tarRefModel);
+			// compute dir alignment matrix based on the ref models
 			mat4 dirRotMat = GetRotationMatrix(mRefModel.frontDir, tarRefModel.frontDir);
 
 			// find the target position on new ref obj using the U, V w.r.t the original parent
 			vec3 mUVH = mActiveModel.parentPlaneUVH;
-
-			vec3 initPositionInScene = currActiveModel.position; // get the pos of model in current scene
-
-			// find the position after initial alignment
-			//vec3 alignedPosition = TransformPoint(alignTransMat, initPositionInScene); // position after initial alignment
-
 			SuppPlane& tarRefSuppPlane = tarRefModel.suppPlane;
 			vec3 targetPosition = tarRefSuppPlane.getPointByUV(mUVH.x, mUVH.y); // position in the current scene, support plane is already transformed
 			//for (int ci = 0; ci < 4; ci++)
@@ -63,17 +54,15 @@ void LayoutPlanner::initPlaceByAlignRelation()
 			//	qDebug() << QString("corner%1 %2 %3 %4").arg(ci).arg(tarRefSuppPlane.m_corners[ci].x).arg(tarRefSuppPlane.m_corners[ci].y).arg(tarRefSuppPlane.m_corners[ci].z) << "\n";
 			//}
 
-			//vec3 translationVec = targetPosition - alignedPosition;
+			vec3 initPositionInScene = currActiveModel.position; // get the pos of model in current scene
 			vec3 translationVec = targetPosition - dirRotMat*initPositionInScene;
 
-			mat4 adjustTransMat;
-			adjustTransMat = adjustTransMat.translate(translationVec);
+			mat4 translateMat;
+			translateMat = translateMat.translate(translationVec);
 
 			//mat4 finalTransMat = adjustTransMat*alignTransMat;
-			mat4 finalTransMat = adjustTransMat*dirRotMat;
+			mat4 finalTransMat = translateMat*dirRotMat;
 
-			// transform active model by initial alignment
-			// initial alignment will make the relative orientation between the new active model and the target active model right
 			currActiveModel.updateWithTransform(finalTransMat);
 
 			//qDebug() << QString("Preview:%1 Query anchor:%2").arg(m_matchedSg->m_matchListId).arg(toQString(mRefModel.catName));
@@ -101,8 +90,10 @@ mat4 LayoutPlanner::computeTransMat(const MetaModel &fromModel, const MetaModel 
 	return transMat;
 }
 
-void LayoutPlanner::adjustPlacement(int metaModelID)
+void LayoutPlanner::adjustPlacement(int metaModelID, const std::vector<std::vector<vec3>> &collisonPositions)
 {
+	updateCollisionPostions(collisonPositions);
+
 	MetaModel &currMd = m_currScene->getMetaModel(metaModelID);
 	mat4 transMat;
 	vec3 translateVec;
@@ -129,7 +120,7 @@ void LayoutPlanner::adjustPlacement(int metaModelID)
 			{
 				vec3 newPos = parentSuppPlane.randomGaussSamplePtByUV(currUVH, stdDevs);
 
-				adjustPlacementForSpecialModel(currMd, newPos);
+				adjustPlacementForSpecificModel(currMd, newPos);
 
 				if (!isPosCloseToInvalidPos(newPos, metaModelID))
 				{
@@ -163,14 +154,16 @@ void LayoutPlanner::adjustPlacement(int metaModelID)
 
 	transMat = transMat.translate(translateVec);
 
+	//transMat = m_relModelManager->sampleTransformByRelation(metaModelID);
+	
 	currMd.updateWithTransform(transMat);
 
 	// update meta model in SSG
 	m_currScene->m_ssg->m_metaScene.m_metaModellList[metaModelID] = currMd;
 
-	qDebug() << QString("  Preview:%2 Resolve trial:%1 Type:%3 Vec:(%4,%5,%6) Name:%7").arg(currMd.trialNum).arg(m_currScene->m_previewId).arg(sampleType)
-		.arg(translateVec.x*m_sceneMetric).arg(translateVec.y*m_sceneMetric).arg(translateVec.z*m_sceneMetric)
-		.arg(toQString(m_currScene->m_ssg->m_metaScene.m_metaModellList[metaModelID].catName));
+	//qDebug() << QString("  Preview:%2 Resolve trial:%1 Type:%3 Vec:(%4,%5,%6) Name:%7").arg(currMd.trialNum).arg(m_currScene->m_previewId).arg(sampleType)
+	//	.arg(translateVec.x*m_sceneMetric).arg(translateVec.y*m_sceneMetric).arg(translateVec.z*m_sceneMetric)
+	//	.arg(toQString(m_currScene->m_ssg->m_metaScene.m_metaModellList[metaModelID].catName));
 }
 
 bool LayoutPlanner::isPosCloseToInvalidPos(const vec3 &pos, int metaModelId)
@@ -196,7 +189,7 @@ void LayoutPlanner::updateCollisionPostions(const std::vector<std::vector<vec3>>
 	m_collisionPositions = collisionPositions;
 }
 
-void LayoutPlanner::adjustPlacementForSpecialModel(const MetaModel &currMd, vec3 &newPos)
+void LayoutPlanner::adjustPlacementForSpecificModel(const MetaModel &currMd, vec3 &newPos)
 {
 	if (currMd.catName == "headphones")
 	{

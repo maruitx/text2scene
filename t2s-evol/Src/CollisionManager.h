@@ -4,7 +4,6 @@
 
 class TSScene;
 class Model;
-class LayoutPlanner;
 
 struct TrianglePredicate : public GeometryPredicate<SimpleBoxNodeData>
 {
@@ -27,19 +26,12 @@ public:
 	bool checkCollisionBVH(Model *testModel, int testMetaModelIdx);
 	void rebuildBVH(Model *testModel, int testModelIdx);
 
-	bool resolveCollision(int metaModelID);
 
+	std::vector<std::vector<vec3>> m_collisionPositions;  // invalid positions of models identified in previous collision detection
 	int m_trialNumLimit;
-
-	LayoutPlanner *m_layoutPlanner;  // pointer to the singleton 
-
 
 private:
 	TSScene *m_scene;
-
 	std::vector<BoxBvh<SimpleBoxNodeData>*> m_boxBVHs;  // box bvhs for model list
-
-	std::vector<std::vector<vec3>> m_collisionPositions;  // invalid positions of models identified in previous collision detection
-
 };
 

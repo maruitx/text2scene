@@ -11,7 +11,7 @@ class MetaModel
 			MetaModel() : name(""), catName(""), id(0), transformation(mat4::identitiy()), material(), visible(true), path(""), textureDir(""),
 				frontDir(vec3(0, -1, 0)), upDir(vec3(0, 0, 1)), position(vec3(0, 0, 0)), 
 				suppPlane(SuppPlane()), parentPlaneUVH(vec3(0.5,0.5,0)), 
-				isInitLoaded(false), isAlreadyPlaced(false), isBvhReady(false), isSelected(false), renderMode(0), trialNum(0)
+				isInitLoaded(false), isAlreadyPlaced(false), isBvhReady(false), isSelected(false), renderMode(0), layoutScore(0), trialNum(0)
 			{
                 //replace for proper selection rendering;
                // isSelected = rand() % 2;
@@ -21,7 +21,7 @@ class MetaModel
 				frontDir = md.frontDir; upDir = md.upDir; position = md.position; 
 				suppPlane = md.suppPlane; parentPlaneUVH = md.parentPlaneUVH;
 				isInitLoaded = md.isInitLoaded; isAlreadyPlaced = md.isAlreadyPlaced; isBvhReady = md.isBvhReady;
-				renderMode = md.renderMode;  isSelected = md.isSelected; trialNum = md.trialNum;
+				renderMode = md.renderMode;  isSelected = md.isSelected; layoutScore = md.layoutScore; trialNum = md.trialNum;
 			};
 			MetaModel &operator = (const MetaModel &md) { 
 				name = md.name; catName = md.catName; id = md.id; transformation = md.transformation; 
@@ -29,7 +29,7 @@ class MetaModel
 				frontDir = md.frontDir; upDir = md.upDir; position = md.position; 
 				suppPlane = md.suppPlane; parentPlaneUVH = md.parentPlaneUVH;
 				isInitLoaded = md.isInitLoaded; isAlreadyPlaced = md.isAlreadyPlaced;  isBvhReady = md.isBvhReady;
-				isSelected = md.isSelected; renderMode = md.renderMode; trialNum = md.trialNum; return *this;
+				isSelected = md.isSelected; renderMode = md.renderMode; layoutScore = md.layoutScore; trialNum = md.trialNum; return *this;
 			}
 
 			string name;  // file name (hash string) of the model
@@ -56,6 +56,7 @@ class MetaModel
             bool isSelected;
 			int renderMode;
 
+			double layoutScore;
 			int trialNum; // trialNum for re-location because of collision
 
 			void updateWithTransform(const mat4 &transMat)
