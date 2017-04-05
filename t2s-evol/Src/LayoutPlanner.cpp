@@ -17,30 +17,30 @@ LayoutPlanner::~LayoutPlanner()
 {
 }
 
-void LayoutPlanner::initPlaceByAlignRelation()
+void LayoutPlanner::initPlaceByAlignRelation(SceneSemGraph *matchedSg, SceneSemGraph *currSg)
 {
 	// geometry align of the matched nodes
-	for (int mi = 0; mi < m_matchedSg->m_nodeNum; mi++)
+	for (int mi = 0; mi < matchedSg->m_nodeNum; mi++)
 	{
-		SemNode& m_matchedSgNode = m_matchedSg->m_nodes[mi];
+		SemNode& m_matchedSgNode = matchedSg->m_nodes[mi];
 		if (!m_matchedSgNode.isAligned && m_matchedSgNode.nodeType == "relation")
 		{
 			int mRefNodeId, mActiveNodeId;
 
-			if (!m_matchedSg->findRefNodeForRelationNode(m_matchedSgNode, mRefNodeId, mActiveNodeId))
+			if (!matchedSg->findRefNodeForRelationNode(m_matchedSgNode, mRefNodeId, mActiveNodeId))
 			{
 				break;
 			}
 
-			int currRefNodeId = m_matchedSg->m_toNewSgNodeIdMap[mRefNodeId];
-			int currActiveNodeId = m_matchedSg->m_toNewSgNodeIdMap[mActiveNodeId];
+			int currRefNodeId = matchedSg->m_toNewSgNodeIdMap[mRefNodeId];
+			int currActiveNodeId = matchedSg->m_toNewSgNodeIdMap[mActiveNodeId];
 
 			// find ref models
-			MetaModel &mRefModel = m_matchedSg->getModelWithNodeId(mRefNodeId);
-			MetaModel &tarRefModel = m_currSg->getModelWithNodeId(currRefNodeId);
+			MetaModel &mRefModel = matchedSg->getModelWithNodeId(mRefNodeId);
+			MetaModel &tarRefModel = currSg->getModelWithNodeId(currRefNodeId);
 
-			MetaModel &currActiveModel = m_currSg->getModelWithNodeId(currActiveNodeId);
-			MetaModel &mActiveModel = m_matchedSg->getModelWithNodeId(mActiveNodeId);
+			MetaModel &currActiveModel = currSg->getModelWithNodeId(currActiveNodeId);
+			MetaModel &mActiveModel = matchedSg->getModelWithNodeId(mActiveNodeId);
 
 			// compute dir alignment matrix based on the ref models
 			mat4 dirRotMat = GetRotationMatrix(mRefModel.frontDir, tarRefModel.frontDir);
@@ -82,6 +82,78 @@ void LayoutPlanner::initPlaceByAlignRelation()
 	}
 }
 
+std::vector<int> LayoutPlanner::makePlacementOrder(TSScene *currScene)
+{
+	std::vector<int> orderedIds;
+	SceneSemGraph *currSSG = currScene->m_ssg;
+
+	if (currSSG == NULL)
+	{
+		return orderedIds;
+	}
+
+	// first collect already placed models
+	for (int i=0; i < currSSG->m_levelOfObjs.size(); i++)
+	{
+		for (int j=0;  j< currSSG->m_levelOfObjs[i].size(); j++)
+		{
+			int modelId = currSSG->m_levelOfObjs[i][j];
+			MetaModel& md = currScene->getMetaModel(modelId);
+
+			if (md.isAlreadyPlaced)
+			{
+				orderedIds.push_back(modelId);
+			}			
+		}
+	}
+
+	// collect explicit models
+	std::vector<int> explictModelIds;
+	for (int i = 0; i < currSSG->m_levelOfObjs.size(); i++)
+	{
+		for (int j = 0; j < currSSG->m_levelOfObjs[i].size(); j++)
+		{
+			int modelId = currSSG->m_levelOfObjs[i][j];
+			MetaModel& md = currScene->getMetaModel(modelId);
+
+			int nodeId = currSSG->getNodeIdWithModelId(modelId);
+			SemNode &sgNode = currSSG->m_nodes[nodeId];
+
+			if (!md.isAlreadyPlaced && sgNode.matchingStatus == SemNode::ExplicitNode)
+			{
+				explictModelIds.push_back(currSSG->m_levelOfObjs[i][j]);
+			}
+		}
+	}
+
+	////  
+	//for (int i=0; i < explictModelIds.size(); i++)
+	//{
+	//	int modelId = explictModelIds[i];
+	//	int nodeId = currSSG->getNodeIdWithModelId(modelId);		
+	//}
+
+	orderedIds.insert(orderedIds.end(), explictModelIds.begin(), explictModelIds.end());
+
+	// collect and order implicit models
+	std::vector<int> implicitModelIds;
+	for (int i = 0; i < currSSG->m_levelOfObjs.size(); i++)
+	{
+		for (int j = 0; j < currSSG->m_levelOfObjs[i].size(); j++)
+		{
+			int modelId = currSSG->m_levelOfObjs[i][j];		
+
+			if (std::find(orderedIds.begin(), orderedIds.end(), modelId) == orderedIds.end())
+			{
+				implicitModelIds.push_back(modelId);
+			}
+		}
+	}
+
+	orderedIds.insert(orderedIds.end(), implicitModelIds.begin(), implicitModelIds.end());
+	return orderedIds;
+}
+
 mat4 LayoutPlanner::computeTransMat(const MetaModel &fromModel, const MetaModel &toModel)
 {
 	mat4 rotMat = GetRotationMatrix(fromModel.frontDir, toModel.frontDir);
@@ -90,27 +162,27 @@ mat4 LayoutPlanner::computeTransMat(const MetaModel &fromModel, const MetaModel 
 	return transMat;
 }
 
-void LayoutPlanner::adjustPlacement(int metaModelID, const std::vector<std::vector<vec3>> &collisonPositions)
+void LayoutPlanner::adjustPlacement(TSScene *currScene, int metaModelID, const std::vector<std::vector<vec3>> &collisonPositions)
 {
 	updateCollisionPostions(collisonPositions);
 
-	MetaModel &currMd = m_currScene->getMetaModel(metaModelID);
+	MetaModel &currMd = currScene->getMetaModel(metaModelID);
 	mat4 transMat;
 	vec3 translateVec;
 
-	int parentNodeId = m_currScene->m_ssg->findParentNodeIdForModel(metaModelID);
-	int parentMetaModelId = m_currScene->m_ssg->m_objectGraphNodeToModelListIdMap[parentNodeId];
+	int parentNodeId = currScene->m_ssg->findParentNodeIdForModel(metaModelID);
+	int parentMetaModelId = currScene->m_ssg->m_graphNodeToModelListIdMap[parentNodeId];
 
 	QString sampleType;
 
 	if (parentNodeId != -1)
 	{
-		MetaModel &parentMd = m_currScene->getMetaModel(parentMetaModelId);
+		MetaModel &parentMd = currScene->getMetaModel(parentMetaModelId);
 
 		SuppPlane &parentSuppPlane = parentMd.suppPlane;
 		if (parentSuppPlane.m_isInited)
 		{
-			sampleType = " on parent-" + m_currScene->m_ssg->m_nodes[parentNodeId].nodeName;
+			sampleType = " on parent-" + currScene->m_ssg->m_nodes[parentNodeId].nodeName;
 
 			vec3 currUVH = currMd.parentPlaneUVH; // UV, and H w.r.t to parent support plane
 			std::vector<double> stdDevs(2, 0.1);
@@ -120,7 +192,7 @@ void LayoutPlanner::adjustPlacement(int metaModelID, const std::vector<std::vect
 			{
 				vec3 newPos = parentSuppPlane.randomGaussSamplePtByUV(currUVH, stdDevs);
 
-				adjustPlacementForSpecificModel(currMd, newPos);
+				adjustPlacementForSpecificModel(currScene, currMd, newPos);
 
 				if (!isPosCloseToInvalidPos(newPos, metaModelID))
 				{
@@ -159,7 +231,7 @@ void LayoutPlanner::adjustPlacement(int metaModelID, const std::vector<std::vect
 	currMd.updateWithTransform(transMat);
 
 	// update meta model in SSG
-	m_currScene->m_ssg->m_metaScene.m_metaModellList[metaModelID] = currMd;
+	currScene->m_ssg->m_metaScene.m_metaModellList[metaModelID] = currMd;
 
 	//qDebug() << QString("  Preview:%2 Resolve trial:%1 Type:%3 Vec:(%4,%5,%6) Name:%7").arg(currMd.trialNum).arg(m_currScene->m_previewId).arg(sampleType)
 	//	.arg(translateVec.x*m_sceneMetric).arg(translateVec.y*m_sceneMetric).arg(translateVec.z*m_sceneMetric)
@@ -189,11 +261,11 @@ void LayoutPlanner::updateCollisionPostions(const std::vector<std::vector<vec3>>
 	m_collisionPositions = collisionPositions;
 }
 
-void LayoutPlanner::adjustPlacementForSpecificModel(const MetaModel &currMd, vec3 &newPos)
+void LayoutPlanner::adjustPlacementForSpecificModel(TSScene *currScene, const MetaModel &currMd, vec3 &newPos)
 {
 	if (currMd.catName == "headphones")
 	{
-		Model *m = m_currScene->getModel(currMd.name);
+		Model *m = currScene->getModel(currMd.name);
 		vec3 bbRange = m->getBBRange(currMd.transformation);
 
 		// headphone is not aligned consistently

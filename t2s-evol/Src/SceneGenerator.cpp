@@ -32,8 +32,7 @@ void SceneGenerator::updateCurrentTextGraph(TextSemGraph *tsg)
 
 void SceneGenerator::updateCurrentTSScene(TSScene *ts)
 {
-	m_currTSScene = ts;
-	m_currUserSSG = m_currTSScene->m_ssg;
+	m_currUserSSG = ts->m_ssg;
 
 	if (m_currUserSSG != NULL)
 	{
@@ -92,7 +91,8 @@ std::vector<TSScene*> SceneGenerator::generateTSScenes(int num)
 	{
 		SceneSemGraph *newUserSsg = bindToCurrTSScene(matchedSSGs[i]);
 		TSScene *s = newUserSsg->covertToTSScene(m_models);
-		s->prepareForLayout(m_layoutPlanner, m_relModelManager);
+		s->m_layoutPlanner = m_layoutPlanner;
+		s->m_relModelManager = m_relModelManager;
 
 		tsscenes.push_back(s);
 	}
@@ -150,10 +150,7 @@ SceneSemGraph* SceneGenerator::bindToCurrTSScene(SceneSemGraph *matchedSg)
 
 void SceneGenerator::geometryAlignmentWithCurrScene(SceneSemGraph *matchedSg, SceneSemGraph *currSg)
 {
-	m_layoutPlanner->m_matchedSg = matchedSg;
-	m_layoutPlanner->m_currSg = currSg;
-
-	m_layoutPlanner->initPlaceByAlignRelation();
+	m_layoutPlanner->initPlaceByAlignRelation(matchedSg, currSg);
 
 
 	// TODO: geometry align of the inferred nodes
@@ -177,8 +174,8 @@ void SceneGenerator::bindBySynthesizedRelationships(SceneSemGraph *targetSg)
 				int refNodeId = targSgNode.outEdgeNodeList[0];
 				int activeNodeId = targSgNode.inEdgeNodeList[0];
 
-				int refModelId = targetSg->m_objectGraphNodeToModelListIdMap[refNodeId];
-				int activeModelId = targetSg->m_objectGraphNodeToModelListIdMap[activeNodeId];
+				int refModelId = targetSg->m_graphNodeToModelListIdMap[refNodeId];
+				int activeModelId = targetSg->m_graphNodeToModelListIdMap[activeNodeId];
 
 				// compute transformation matrix based on the ref nodes
 				MetaModel &tarRefModel = targetSg->m_metaScene.m_metaModellList[refModelId];

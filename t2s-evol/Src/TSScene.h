@@ -3,19 +3,20 @@
 #include "MetaData.h"
 #include "box_bvh.h"
 #include "mesh_bvh.h"
+#include "RelationModelManager.h"
 
 class Object;
 class Model;
 class SceneSemGraph;
 class CollisionManager;
 class LayoutPlanner;
-class RelationModelManager;
+
 
 class TSScene
 {
 public:
 	TSScene(unordered_map<string, Model*> &models); // empty scenes
-	TSScene(unordered_map<string, Model*> &models, MetaScene &ms); // init with current loaded object DB
+	TSScene(unordered_map<string, Model*> &models, SceneSemGraph *ssg); // init with current loaded object DB
 	TSScene(unordered_map<string, Model*> &models, const QString &fileName);    // init with current loaded object DB and scene file
 	~TSScene();
 
@@ -40,7 +41,7 @@ public:
 
 	Model* getModel(const string &name);
 
-	void prepareForLayout(LayoutPlanner *p, RelationModelManager *m);
+	
 
 public:
 	SceneSemGraph *m_ssg;
@@ -53,7 +54,11 @@ public:
 	LayoutPlanner *m_layoutPlanner;   // pointer to the singleton; instance saved in SceneGenerator
 	RelationModelManager *m_relModelManager;    // pointer to the singleton; instance saved in SceneGenerator
 
+	std::vector<RelationConstraint> m_explictConstraints;  // semantic pairwise or group constraint
+	std::vector<RelationConstraint> m_implicitConstraints;  // implicit relative constraints
+	
 	std::vector<int> m_placedObjIds;
+	std::vector<int> m_orderedModelIds;
 
 private:
 	unordered_map<string, Model*> &m_models;   // current loaded object DB

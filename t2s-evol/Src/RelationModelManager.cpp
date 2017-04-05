@@ -118,7 +118,6 @@ void RelationModelManager::loadGroupRelationModels()
 	inFile.close();
 }
 
-
 bool RelationModelManager::isRelationViolated(int metaModelId)
 {
 
@@ -129,7 +128,7 @@ bool RelationModelManager::isRelationViolated(int metaModelId)
 
 mat4 RelationModelManager::sampleTransformByRelation(int metaModelId)
 {
-	SceneSemGraph *currSSG = m_currScene->m_ssg;
+	SceneSemGraph *currSSG;// = m_currScene->m_ssg;
 	int currNodeId = currSSG->getNodeIdWithModelId(metaModelId);
 
 	SemNode &currNode = currSSG->m_nodes[currNodeId];
@@ -148,10 +147,14 @@ mat4 RelationModelManager::sampleTransformByRelation(int metaModelId)
 	return transMat;
 }
 
-void RelationModelManager::collectConstraintsForModel(int metaModelId)
+void RelationModelManager::collectConstraintsForModel(TSScene *currScene, int metaModelId)
 {
-	// find pairwise or group constraints
-	SceneSemGraph *currSSG = m_currScene->m_ssg;
+	currScene->m_explictConstraints.clear();
+	currScene->m_implicitConstraints.clear();
+
+	SceneSemGraph *currSSG = currScene->m_ssg;
+
+
 	int currNodeId = currSSG->getNodeIdWithModelId(metaModelId);
 
 	SemNode &currNode = currSSG->m_nodes[currNodeId];
@@ -163,11 +166,63 @@ void RelationModelManager::collectConstraintsForModel(int metaModelId)
 
 		if (!relationNode.isAligned)
 		{
+			int anchorObjId = relationNode.anchorNodeList[0];
+			SemNode &anchorObjNode = currSSG->m_nodes[anchorObjId];
 
+			QString relationName = relationNode.nodeName;
+			QString anchorObjName = anchorObjNode.nodeName;
+			QString actObjName = currNode.nodeName;
+
+			// find explicit constraints specified in the SSG
+			QString exRelationKey = anchorObjName + "_" + actObjName + "_" + relationName;
+			if (m_pairwiseRelModels.count(exRelationKey))
+			{
+				currScene->m_explictConstraints.push_back(RelationConstraint(m_pairwiseRelModels[exRelationKey], "pairwise"));
+			}
+
+			QString conditionName;
+
+			// find condition type
+			if (relationName.contains("support") || relationName.contains("on") || relationName.contains("with"))
+			{
+				// find sibling objs supported by the same parent
+				for (int i = 0; i < anchorObjNode.inEdgeNodeList.size(); i++)
+				{
+					int anchorRelNodeId = anchorObjNode.inEdgeNodeList[i];
+					if (anchorRelNodeId == relationNodeId) continue;					
+					SemNode &anchorRelNode = currSSG->m_nodes[anchorRelNodeId];
+					if (anchorRelNode.nodeName == relationName)
+					{
+						int sibActNodeId = anchorRelNode.activeNodeList[0];
+						SemNode &sibActNode = currSSG->m_nodes[sibActNodeId];
+
+						// use sibling obj as anchor in relative constraints if the sibling has been placed
+						MetaModel& sibModel = currSSG->getModelWithNodeId(sibActNodeId);
+						if (!sibModel.isAlreadyPlaced) continue;
+					
+						QString imRelationKey = sibActNode.nodeName + "_" + actObjName + "_" + "sibling" + "_general";
+						if (m_relativeModels.count(imRelationKey))
+						{
+							currScene->m_implicitConstraints.push_back(RelationConstraint(m_relativeModels[exRelationKey], "relative"));
+						}
+					}
+				}
+			}
+			//else if (currSSG->findParentNodeIdForModel(currNodeId) ==
+			//	currSSG->findParentNodeIdForNode(anchorObjId))
+			//{
+			//	conditionName = ConditionName[1];
+
+			//	// find other sibling objs 
+
+
+			//}
+			//else if (relationName.contains("near") || relationName.contains("next") ||
+			//	relationName.contains("close"))
+			//{
+			//	conditionName = ConditionName[2];
+			//}
 		}
-	}
-
-
-	// find all relative constraints
+	}	
 }
 

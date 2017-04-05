@@ -7,6 +7,8 @@ class ModelDatabase;
 class TSScene;
 class Model;
 
+const QString floorObjs[] = { "desk", "table", "bed", "chair", "couch", "cabinet", "dresser", "cabinet" };
+
 
 class SceneSemGraph : public SemanticGraph
 {
@@ -25,18 +27,26 @@ public:
 
 	bool findRefNodeForRelationNode(const SemNode &sgNode, int &refNodeId, int &activeNodeId);
 	int findParentNodeIdForModel(int modelId);
+	int findParentNodeIdForNode(int nodeId);
 
 	int getNodeIdWithModelId(int modelId);
 	MetaModel& getModelWithNodeId(int nodeId);
 
+	void buildSupportHierarchy();
+	bool isFloorObj(int nodeId);
+
 public:
 	MetaScene m_metaScene;
+	std::map<int, int> m_graphNodeToModelListIdMap;	
 
-	std::map<int, int> m_objectGraphNodeToModelListIdMap;	
-
+	// for matching
 	map<int, int> m_dbNodeToSubNodeMap;
+	int m_idInMatchList;  // idx of graph in matched graph list
 
-	int m_idInMatchList;
+	// support hierarchy
+	map<int, int> m_parentOfModel;  //  map to modelId of current model's parent
+	map<int, vector<int>> m_childListOfModel;  // map to modelIds of current model's children
+	std::vector<std::vector<int>> m_levelOfObjs;  // map to modelIds of objs in different support levels
 
 private:
 	int m_modelNum;

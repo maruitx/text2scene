@@ -37,7 +37,6 @@ private:
 	SemGraphMatcher *m_semanticGraphMatcher;
 	SceneSemGraphManager *m_sceneSemGraphManager;
 
-	TSScene *m_currTSScene;
 	SceneSemGraph *m_currUserSSG;
 	TextSemGraph *m_textSSG;
 

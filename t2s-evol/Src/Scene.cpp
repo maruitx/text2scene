@@ -13,6 +13,8 @@
 #include "SceneGenerator.h"
 #include "Utility.h"
 
+const int PreviewNum = 1;
+
 Scene::Scene(CameraManager *camManager)
 : m_cameraManager(camManager),
   m_activeIdx(-1)
@@ -145,7 +147,8 @@ void Scene::initSynScene()
 	params::inst()->textureDirectory = stanfordDBPath + "textures/";
 	params::inst()->globalSceneUnitScale = 0.0254; // default unit scale is inch to m
 
-	m_previewNum = 5;
+	
+	m_previewNum = PreviewNum;
 	for (int i = 0; i < m_previewNum; ++i)
 	{
 		TSScene *s = new TSScene(m_models);
