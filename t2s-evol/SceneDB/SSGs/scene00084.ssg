@@ -216,9 +216,9 @@ upDir 0 0 1
 suppPlane 17.2299 157.853 76.595 17.2299 176.978 76.595 11.9738 176.978 76.595 11.9738 157.853 76.595
 parentId 20
 parentPlaneUVH 0.329355 0.838424 -4.43
-nodeNum 40
+nodeNum 42
 0,object,room,27 28 29,
-1,object,counter,30 31,27
+1,object,counter,30 31 38 40,27 39 41
 2,object,chopping board,32,
 3,object,food,,
 4,object,food,,32
@@ -227,7 +227,7 @@ nodeNum 40
 7,object,holder,,31
 8,object,bowl,,
 9,object,kitchen appliance,,
-10,object,counter,33 34 38,28 39
+10,object,counter,33 34 39,28 38
 11,object,bottle,,
 12,object,coaster,,
 13,object,cup,,
@@ -237,27 +237,29 @@ nodeNum 40
 17,object,rack,,33
 18,object,kitchen appliance,,34
 19,object,walldecoration,,
-20,object,counter,35 36 37 39,29 38
+20,object,counter,35 36 37 41,29 40
 21,object,microwave,,
 22,object,foodplate,,35
 23,object,cerealbox,,36
 24,object,glass,,
 25,object,milkcarton,,37
 26,object,cerealbox,,
-27,pairwise_relationship,vert_support,1,0
-28,pairwise_relationship,vert_support,10,0
-29,pairwise_relationship,vert_support,20,0
-30,pairwise_relationship,vert_support,6,1
-31,pairwise_relationship,vert_support,7,1
-32,pairwise_relationship,vert_support,4,2
-33,pairwise_relationship,vert_support,17,10
-34,pairwise_relationship,vert_support,18,10
-35,pairwise_relationship,vert_support,22,20
-36,pairwise_relationship,vert_support,23,20
-37,pairwise_relationship,vert_support,25,20
-38,pairwise_relationship,near,20,10
-39,pairwise_relationship,near,10,20
-edgeNum 26
+27,pairwise_relationship,vertsupport,1,0
+28,pairwise_relationship,vertsupport,10,0
+29,pairwise_relationship,vertsupport,20,0
+30,pairwise_relationship,vertsupport,6,1
+31,pairwise_relationship,vertsupport,7,1
+32,pairwise_relationship,vertsupport,4,2
+33,pairwise_relationship,vertsupport,17,10
+34,pairwise_relationship,vertsupport,18,10
+35,pairwise_relationship,vertsupport,22,20
+36,pairwise_relationship,vertsupport,23,20
+37,pairwise_relationship,vertsupport,25,20
+38,pairwise_relationship,near,10,1
+39,pairwise_relationship,near,1,10
+40,pairwise_relationship,near,20,1
+41,pairwise_relationship,near,1,20
+edgeNum 30
 0,1,27
 1,27,0
 2,10,28
@@ -280,7 +282,11 @@ edgeNum 26
 19,36,20
 20,25,37
 21,37,20
-22,20,38
-23,38,10
-24,10,39
-25,39,20
+22,10,38
+23,38,1
+24,1,39
+25,39,10
+26,20,40
+27,40,1
+28,1,41
+29,41,20

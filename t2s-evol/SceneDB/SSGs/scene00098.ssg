@@ -288,12 +288,12 @@ upDir 0 0 1
 suppPlane 320.046 226.308 96.0994 385.768 226.308 96.0994 385.768 229.671 96.0994 320.046 229.671 96.0994
 parentId 0
 parentPlaneUVH 0.489153 0.0499885 -63.7704
-nodeNum 93
+nodeNum 85
 0,object,room,40 41 42 43 44,
 1,object,lightswitch,,
 2,object,wall socket,,
 3,object,fire alarm,,
-4,object,table,36 37 45 46 47 48 49 50 51 52 70 71 74 76 77,40 72 73 75 78 79
+4,object,table,36 37 45 46 47 48 49 50 51 52 70 72 74 76,40 71 73 75 77
 5,object,bunsen burner,,45
 6,object,vessel,,46
 7,object,flask,,47
@@ -302,7 +302,7 @@ nodeNum 93
 10,object,tube,,50
 11,object,book,,51
 12,object,pen,,52
-13,object,table,38 39 53 54 55 56 57 58 59 80 82,41 81 83 84
+13,object,table,38 39 53 54 55 56 57 58 59 71 78,41 70 79 80
 14,object,globe,,53
 15,object,erlenmeyer flask,,54
 16,object,holder,,55
@@ -310,7 +310,7 @@ nodeNum 93
 18,object,bunsen burner,,57
 19,object,paper,,58
 20,object,pen,,59
-21,object,desk,60 61 62 63 64 65 66 67 68 69 72 73 85 87 88,42 70 71 86 89 90
+21,object,desk,60 61 62 63 64 65 66 67 68 69 73 79 81 82,42 72 78 83 84
 22,object,beaker,,60
 23,object,beaker,,61
 24,object,bunsen burner,,62
@@ -321,68 +321,60 @@ nodeNum 93
 29,object,glass,,67
 30,object,glass,,68
 31,object,book,,69
-32,object,trashbin,75 81 86 91,43 74 80 85 92
-33,object,fire extinguisher,78 79 83 84 89 90 92,44 76 77 82 87 88 91
+32,object,trashbin,75,43 74
+33,object,fire extinguisher,77 80 83 84,44 76 81 82
 34,object,detector,,
 35,object,component,,
 36,per_obj_attribute,dining,,4
 37,per_obj_attribute,rectangular,,4
 38,per_obj_attribute,dining,,13
 39,per_obj_attribute,rectangular,,13
-40,pairwise_relationship,vert_support,4,0
-41,pairwise_relationship,vert_support,13,0
-42,pairwise_relationship,vert_support,21,0
-43,pairwise_relationship,vert_support,32,0
-44,pairwise_relationship,vert_support,33,0
-45,pairwise_relationship,vert_support,5,4
-46,pairwise_relationship,vert_support,6,4
-47,pairwise_relationship,vert_support,7,4
-48,pairwise_relationship,vert_support,8,4
-49,pairwise_relationship,vert_support,9,4
-50,pairwise_relationship,vert_support,10,4
-51,pairwise_relationship,vert_support,11,4
-52,pairwise_relationship,vert_support,12,4
-53,pairwise_relationship,vert_support,14,13
-54,pairwise_relationship,vert_support,15,13
-55,pairwise_relationship,vert_support,16,13
-56,pairwise_relationship,vert_support,17,13
-57,pairwise_relationship,vert_support,18,13
-58,pairwise_relationship,vert_support,19,13
-59,pairwise_relationship,vert_support,20,13
-60,pairwise_relationship,vert_support,22,21
-61,pairwise_relationship,vert_support,23,21
-62,pairwise_relationship,vert_support,24,21
-63,pairwise_relationship,vert_support,25,21
-64,pairwise_relationship,vert_support,26,21
-65,pairwise_relationship,vert_support,27,21
-66,pairwise_relationship,vert_support,28,21
-67,pairwise_relationship,vert_support,29,21
-68,pairwise_relationship,vert_support,30,21
-69,pairwise_relationship,vert_support,31,21
-70,pairwise_relationship,near,21,4
-71,pairwise_relationship,leftside,21,4
-72,pairwise_relationship,near,4,21
+40,pairwise_relationship,vertsupport,4,0
+41,pairwise_relationship,vertsupport,13,0
+42,pairwise_relationship,vertsupport,21,0
+43,pairwise_relationship,vertsupport,32,0
+44,pairwise_relationship,vertsupport,33,0
+45,pairwise_relationship,vertsupport,5,4
+46,pairwise_relationship,vertsupport,6,4
+47,pairwise_relationship,vertsupport,7,4
+48,pairwise_relationship,vertsupport,8,4
+49,pairwise_relationship,vertsupport,9,4
+50,pairwise_relationship,vertsupport,10,4
+51,pairwise_relationship,vertsupport,11,4
+52,pairwise_relationship,vertsupport,12,4
+53,pairwise_relationship,vertsupport,14,13
+54,pairwise_relationship,vertsupport,15,13
+55,pairwise_relationship,vertsupport,16,13
+56,pairwise_relationship,vertsupport,17,13
+57,pairwise_relationship,vertsupport,18,13
+58,pairwise_relationship,vertsupport,19,13
+59,pairwise_relationship,vertsupport,20,13
+60,pairwise_relationship,vertsupport,22,21
+61,pairwise_relationship,vertsupport,23,21
+62,pairwise_relationship,vertsupport,24,21
+63,pairwise_relationship,vertsupport,25,21
+64,pairwise_relationship,vertsupport,26,21
+65,pairwise_relationship,vertsupport,27,21
+66,pairwise_relationship,vertsupport,28,21
+67,pairwise_relationship,vertsupport,29,21
+68,pairwise_relationship,vertsupport,30,21
+69,pairwise_relationship,vertsupport,31,21
+70,pairwise_relationship,near,13,4
+71,pairwise_relationship,near,4,13
+72,pairwise_relationship,leftside,21,4
 73,pairwise_relationship,rightside,4,21
 74,pairwise_relationship,near,32,4
 75,pairwise_relationship,near,4,32
-76,pairwise_relationship,near,33,4
-77,pairwise_relationship,rightside,33,4
-78,pairwise_relationship,near,4,33
-79,pairwise_relationship,leftside,4,33
-80,pairwise_relationship,near,32,13
-81,pairwise_relationship,near,13,32
-82,pairwise_relationship,near,33,13
-83,pairwise_relationship,near,13,33
-84,pairwise_relationship,leftside,13,33
-85,pairwise_relationship,near,32,21
-86,pairwise_relationship,near,21,32
-87,pairwise_relationship,near,33,21
-88,pairwise_relationship,rightside,33,21
-89,pairwise_relationship,near,21,33
-90,pairwise_relationship,leftside,21,33
-91,pairwise_relationship,near,33,32
-92,pairwise_relationship,near,32,33
-edgeNum 110
+76,pairwise_relationship,rightside,33,4
+77,pairwise_relationship,leftside,4,33
+78,pairwise_relationship,near,21,13
+79,pairwise_relationship,near,13,21
+80,pairwise_relationship,leftside,13,33
+81,pairwise_relationship,near,33,21
+82,pairwise_relationship,rightside,33,21
+83,pairwise_relationship,near,21,33
+84,pairwise_relationship,leftside,21,33
+edgeNum 94
 0,36,4
 1,37,4
 2,38,13
@@ -447,12 +439,12 @@ edgeNum 110
 61,68,21
 62,31,69
 63,69,21
-64,21,70
+64,13,70
 65,70,4
-66,21,71
-67,71,4
-68,4,72
-69,72,21
+66,4,71
+67,71,13
+68,21,72
+69,72,4
 70,4,73
 71,73,21
 72,32,74
@@ -461,35 +453,19 @@ edgeNum 110
 75,75,32
 76,33,76
 77,76,4
-78,33,77
-79,77,4
-80,4,78
-81,78,33
-82,4,79
-83,79,33
-84,32,80
-85,80,13
-86,13,81
-87,81,32
+78,4,77
+79,77,33
+80,21,78
+81,78,13
+82,13,79
+83,79,21
+84,13,80
+85,80,33
+86,33,81
+87,81,21
 88,33,82
-89,82,13
-90,13,83
+89,82,21
+90,21,83
 91,83,33
-92,13,84
+92,21,84
 93,84,33
-94,32,85
-95,85,21
-96,21,86
-97,86,32
-98,33,87
-99,87,21
-100,33,88
-101,88,21
-102,21,89
-103,89,33
-104,21,90
-105,90,33
-106,33,91
-107,91,32
-108,32,92
-109,92,33

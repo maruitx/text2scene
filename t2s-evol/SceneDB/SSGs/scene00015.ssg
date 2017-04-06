@@ -127,21 +127,21 @@ nodeNum 29
 11,object,toyfigure,,23 26
 12,object,noname,,28
 13,object,noble metal,,24
-14,pairwise_relationship,vert_support,1,0
-15,pairwise_relationship,vert_support,3,1
-16,pairwise_relationship,vert_support,4,1
-17,pairwise_relationship,vert_support,5,1
-18,pairwise_relationship,vert_support,6,1
-19,pairwise_relationship,vert_support,7,1
-20,pairwise_relationship,vert_support,8,1
-21,pairwise_relationship,vert_support,9,1
-22,pairwise_relationship,vert_support,10,1
-23,pairwise_relationship,vert_support,11,1
-24,pairwise_relationship,vert_support,13,1
-25,pairwise_relationship,vert_support,3,2
-26,pairwise_relationship,vert_support,11,8
-27,pairwise_relationship,vert_support,2,1
-28,pairwise_relationship,vert_support,12,1
+14,pairwise_relationship,vertsupport,1,0
+15,pairwise_relationship,vertsupport,3,1
+16,pairwise_relationship,vertsupport,4,1
+17,pairwise_relationship,vertsupport,5,1
+18,pairwise_relationship,vertsupport,6,1
+19,pairwise_relationship,vertsupport,7,1
+20,pairwise_relationship,vertsupport,8,1
+21,pairwise_relationship,vertsupport,9,1
+22,pairwise_relationship,vertsupport,10,1
+23,pairwise_relationship,vertsupport,11,1
+24,pairwise_relationship,vertsupport,13,1
+25,pairwise_relationship,vertsupport,3,2
+26,pairwise_relationship,vertsupport,11,8
+27,pairwise_relationship,vertsupport,2,1
+28,pairwise_relationship,vertsupport,12,1
 edgeNum 30
 0,1,14
 1,14,0

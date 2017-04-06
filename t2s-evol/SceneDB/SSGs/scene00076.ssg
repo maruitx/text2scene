@@ -17,7 +17,7 @@ suppPlane 69.7969 177.933 101.725 175.569 177.933 101.725 175.569 237.378 101.72
 parentId 0
 parentPlaneUVH 0.505005 0.854551 -131.75
 newModel 2 cf0af4e3801c6d7b2bf3161ae4fda942
-transform 1.329380 -0.104625 0.000000 0.000000 0.104625 1.329380 0.000000 0.000000 0.000000 0.000000 1.333490 0.000000 108.377998 198.919998 64.316696 1.000000
+transform 1.329380 -0.104625 0.000000 0.000000 0.104625 1.329380 0.000000 0.000000 0.000000 0.000000 1.333490 0.000000 108.377998 198.919998 64.316704 1.000000
 position 15.75 5.59419 -0.6811
 frontDir 0 -1 0
 upDir 0 0 1
@@ -182,27 +182,27 @@ nodeNum 44
 18,object,router,,35
 19,object,chair,20 43,21 42
 20,per_obj_attribute,office,,19
-21,pairwise_relationship,vert_support,19,0
-22,pairwise_relationship,vert_support,2,1
-23,pairwise_relationship,vert_support,3,1
-24,pairwise_relationship,vert_support,4,1
-25,pairwise_relationship,vert_support,5,1
-26,pairwise_relationship,vert_support,6,1
-27,pairwise_relationship,vert_support,7,1
-28,pairwise_relationship,vert_support,8,1
-29,pairwise_relationship,vert_support,10,1
-30,pairwise_relationship,vert_support,11,1
-31,pairwise_relationship,vert_support,12,1
-32,pairwise_relationship,vert_support,13,1
-33,pairwise_relationship,vert_support,15,1
-34,pairwise_relationship,vert_support,16,1
-35,pairwise_relationship,vert_support,18,1
-36,pairwise_relationship,vert_support,16,15
-37,pairwise_relationship,vert_support,17,15
-38,pairwise_relationship,vert_support,1,0
-39,pairwise_relationship,vert_support,9,1
-40,pairwise_relationship,vert_support,14,1
-41,pairwise_relationship,vert_support,17,1
+21,pairwise_relationship,vertsupport,19,0
+22,pairwise_relationship,vertsupport,2,1
+23,pairwise_relationship,vertsupport,3,1
+24,pairwise_relationship,vertsupport,4,1
+25,pairwise_relationship,vertsupport,5,1
+26,pairwise_relationship,vertsupport,6,1
+27,pairwise_relationship,vertsupport,7,1
+28,pairwise_relationship,vertsupport,8,1
+29,pairwise_relationship,vertsupport,10,1
+30,pairwise_relationship,vertsupport,11,1
+31,pairwise_relationship,vertsupport,12,1
+32,pairwise_relationship,vertsupport,13,1
+33,pairwise_relationship,vertsupport,15,1
+34,pairwise_relationship,vertsupport,16,1
+35,pairwise_relationship,vertsupport,18,1
+36,pairwise_relationship,vertsupport,16,15
+37,pairwise_relationship,vertsupport,17,15
+38,pairwise_relationship,vertsupport,1,0
+39,pairwise_relationship,vertsupport,9,1
+40,pairwise_relationship,vertsupport,14,1
+41,pairwise_relationship,vertsupport,17,1
 42,pairwise_relationship,near,19,1
 43,pairwise_relationship,near,1,19
 edgeNum 47

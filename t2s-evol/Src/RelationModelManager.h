@@ -3,15 +3,18 @@
 
 class GroupRelationModel;
 class TSScene;
+class MetaModel;
 
 const QString ConditionName[] = { "parentchild", "sibling", "proximity" };
 
 struct RelationConstraint
 {
-	RelationConstraint(PairwiseRelationModel *m, const QString t) { relModel = m; relationType = t; };
+	RelationConstraint(PairwiseRelationModel *m, const QString t, int anchorId) { relModel = m; relationType = t; anchorObjId = anchorId; };
 
 	PairwiseRelationModel *relModel;
 	QString relationType; // constraint belong to relative, pairwise or group
+
+	int anchorObjId; // id of anchor obj in modelList
 };
 
 
@@ -26,10 +29,13 @@ public:
 	void loadPairwiseRelationModels();
 	void loadGroupRelationModels();
 
-	bool isRelationViolated(int metaModelId);
-	mat4 sampleTransformByRelation(int metaModelId);
+	bool isRelationViolated(TSScene *currScene, int metaModelId);
+	mat4 sampleFromExplicitRelation(TSScene *currScene, int metaModelId);
 
 	void collectConstraintsForModel(TSScene *currScene, int metaModelId);
+	PairwiseRelationModel* retrievePairwiseModel(const QString &anchorObjName, const QString &actObjName, const QString &relationName);
+
+	void extractRelPosForModelPair(TSScene *currScene, const MetaModel &anchorModel, const MetaModel &actModel, RelativePos *relPos);
 
 
 public:

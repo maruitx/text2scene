@@ -25,21 +25,21 @@ suppPlane 81.1862 216.732 63.7577 88.5468 224.093 63.7577 82.384 230.256 63.7577
 parentId 1
 parentPlaneUVH 0.108339 0.620208 0.0848355
 newModel 3 dbd993a1e538ad05a465092f77585928
-transform 0.879218 -1.974750 0.000000 0.000000 1.974750 0.879218 0.000000 0.000000 0.000000 0.000000 2.161640 0.000000 85.705002 229.513992 48.085800 1.000000
+transform 0.879218 -1.974750 0.000000 0.000000 1.974750 0.879218 0.000000 0.000000 0.000000 0.000000 2.161640 0.000000 85.705002 229.514008 48.085800 1.000000
 position 0.75 3.625 0
 frontDir 0 -1 0
 upDir 0 0 1
 suppPlane 85.705 229.514 52.7117 87.0238 226.552 52.7117 101.341 232.926 52.7117 100.022 235.888 52.7117
 parentId 1
-parentPlaneUVH 0.229373 0.80283 0.0848568
+parentPlaneUVH 0.229373 0.802831 0.0848568
 nodeNum 7
 0,object,room,4,
 1,object,desk,5 6,4
 2,object,holder,,5
 3,object,stapler,,6
-4,pairwise_relationship,vert_support,1,0
-5,pairwise_relationship,vert_support,2,1
-6,pairwise_relationship,vert_support,3,1
+4,pairwise_relationship,vertsupport,1,0
+5,pairwise_relationship,vertsupport,2,1
+6,pairwise_relationship,vertsupport,3,1
 edgeNum 6
 0,1,4
 1,4,0

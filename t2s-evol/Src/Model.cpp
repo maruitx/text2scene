@@ -754,6 +754,25 @@ void Model::getTriangle(int index, vec3 &p, vec3 &q, vec3 &r)
 }
 
 
+vec3 Model::getBBRange()
+{
+	vec3 cornerO = m_bb.mi();
+	vec3 cornerMax = m_bb.ma();
+
+	vec3 cornerX = vec3(cornerMax.x, cornerO.y, cornerO.z);
+	vec3 cornerY = vec3(cornerO.x, cornerMax.y, cornerO.z);
+	vec3 cornerZ = vec3(cornerO.x, cornerO.y, cornerMax.z);
+
+	double xRange, yRange, zRange;
+	xRange = (cornerO - cornerX).length();
+	yRange = (cornerO - cornerY).length();
+	zRange = (cornerO - cornerZ).length();
+
+	return vec3(xRange, yRange, zRange);
+}
+
+
+
 vec3 Model::getBBRange(const mat4 &transMat)
 {
 	vec3 cornerO = m_bb.mi();

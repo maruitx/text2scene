@@ -154,17 +154,17 @@ nodeNum 40
 14,object,basket,27 30 31 36 37,18 28 29 38 39
 15,object,shirt,,27
 16,object,rug,34 35 38 39,19 32 33 36 37
-17,pairwise_relationship,vert_support,4,0
-18,pairwise_relationship,vert_support,14,0
-19,pairwise_relationship,vert_support,16,0
-20,pairwise_relationship,vert_support,5,4
-21,pairwise_relationship,vert_support,6,4
-22,pairwise_relationship,vert_support,7,4
-23,pairwise_relationship,vert_support,8,4
-24,pairwise_relationship,vert_support,10,4
-25,pairwise_relationship,vert_support,11,4
-26,pairwise_relationship,vert_support,12,4
-27,pairwise_relationship,vert_support,15,14
+17,pairwise_relationship,vertsupport,4,0
+18,pairwise_relationship,vertsupport,14,0
+19,pairwise_relationship,vertsupport,16,0
+20,pairwise_relationship,vertsupport,5,4
+21,pairwise_relationship,vertsupport,6,4
+22,pairwise_relationship,vertsupport,7,4
+23,pairwise_relationship,vertsupport,8,4
+24,pairwise_relationship,vertsupport,10,4
+25,pairwise_relationship,vertsupport,11,4
+26,pairwise_relationship,vertsupport,12,4
+27,pairwise_relationship,vertsupport,15,14
 28,pairwise_relationship,near,14,4
 29,pairwise_relationship,leftside,14,4
 30,pairwise_relationship,near,4,14

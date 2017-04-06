@@ -76,7 +76,8 @@ public:
 	void getBvhLeafNodes(std::vector<BvhLeafNode> &nodes);
 	void getTriangle(int index, vec3 &p, vec3 &q, vec3 &r);
 
-	vec3 getBBRange(const mat4 &transMat);
+	vec3 getBBRange();  // init AABB range
+	vec3 getBBRange(const mat4 &transMat);  // OBB range after transformation
 	int getAxisAlongDir(const vec3 &dir);
 
     //vec3 m_collisionTrans;

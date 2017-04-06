@@ -112,7 +112,7 @@ upDir 0 0 1
 suppPlane 171.15 215.751 38.5227 193.925 209.648 38.5227 198.937 228.355 38.5227 176.163 234.457 38.5227
 parentId 0
 parentPlaneUVH 0.755575 0.913797 -131.75
-nodeNum 33
+nodeNum 31
 0,object,room,14 15 16,
 1,object,cabinet,17 18 19 20 21 22 23 27 29,14 28 30
 2,object,tv,,17
@@ -125,28 +125,26 @@ nodeNum 33
 9,object,book,,26
 10,object,mediadiscs,,22
 11,object,videodisk,,23
-12,object,speaker,28 31,15 27 32
-13,object,speaker,30 32,16 29 31
-14,pairwise_relationship,vert_support,1,0
-15,pairwise_relationship,vert_support,12,0
-16,pairwise_relationship,vert_support,13,0
-17,pairwise_relationship,vert_support,2,1
-18,pairwise_relationship,vert_support,3,1
-19,pairwise_relationship,vert_support,5,1
-20,pairwise_relationship,vert_support,7,1
-21,pairwise_relationship,vert_support,8,1
-22,pairwise_relationship,vert_support,10,1
-23,pairwise_relationship,vert_support,11,1
-24,pairwise_relationship,vert_support,4,3
-25,pairwise_relationship,vert_support,6,5
-26,pairwise_relationship,vert_support,9,8
+12,object,speaker,28,15 27
+13,object,speaker,30,16 29
+14,pairwise_relationship,vertsupport,1,0
+15,pairwise_relationship,vertsupport,12,0
+16,pairwise_relationship,vertsupport,13,0
+17,pairwise_relationship,vertsupport,2,1
+18,pairwise_relationship,vertsupport,3,1
+19,pairwise_relationship,vertsupport,5,1
+20,pairwise_relationship,vertsupport,7,1
+21,pairwise_relationship,vertsupport,8,1
+22,pairwise_relationship,vertsupport,10,1
+23,pairwise_relationship,vertsupport,11,1
+24,pairwise_relationship,vertsupport,4,3
+25,pairwise_relationship,vertsupport,6,5
+26,pairwise_relationship,vertsupport,9,8
 27,pairwise_relationship,near,12,1
 28,pairwise_relationship,near,1,12
 29,pairwise_relationship,near,13,1
 30,pairwise_relationship,near,1,13
-31,pairwise_relationship,near,13,12
-32,pairwise_relationship,near,12,13
-edgeNum 38
+edgeNum 34
 0,1,14
 1,14,0
 2,12,15
@@ -181,7 +179,3 @@ edgeNum 38
 31,29,1
 32,1,30
 33,30,13
-34,13,31
-35,31,12
-36,12,32
-37,32,13

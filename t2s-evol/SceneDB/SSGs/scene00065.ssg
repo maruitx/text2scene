@@ -264,7 +264,7 @@ upDir 0 0 1
 suppPlane 6.96315 208.038 96.7939 18.2761 216.719 96.7939 11.3315 225.769 96.7939 0.0185331 217.088 96.7939
 parentId 0
 parentPlaneUVH 0.0488087 0.892607 -131.75
-nodeNum 75
+nodeNum 73
 0,object,room,33 34 35,
 1,object,mediastorage,36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 59 60 61 62 63 64 65 66 67 70 71,33 68 69 72
 2,object,videogameconsole,,36
@@ -296,41 +296,41 @@ nodeNum 75
 28,object,unknown,,65
 29,object,mediadiscs,,55
 30,object,pottedplant,,56
-31,object,speaker,68 69 73,34 66 67 74
-32,object,speaker,72 74,35 70 71 73
-33,pairwise_relationship,vert_support,1,0
-34,pairwise_relationship,vert_support,31,0
-35,pairwise_relationship,vert_support,32,0
-36,pairwise_relationship,vert_support,2,1
-37,pairwise_relationship,vert_support,3,1
-38,pairwise_relationship,vert_support,5,1
-39,pairwise_relationship,vert_support,6,1
-40,pairwise_relationship,vert_support,8,1
-41,pairwise_relationship,vert_support,9,1
-42,pairwise_relationship,vert_support,10,1
-43,pairwise_relationship,vert_support,11,1
-44,pairwise_relationship,vert_support,12,1
-45,pairwise_relationship,vert_support,14,1
-46,pairwise_relationship,vert_support,15,1
-47,pairwise_relationship,vert_support,16,1
-48,pairwise_relationship,vert_support,17,1
-49,pairwise_relationship,vert_support,18,1
-50,pairwise_relationship,vert_support,19,1
-51,pairwise_relationship,vert_support,20,1
-52,pairwise_relationship,vert_support,21,1
-53,pairwise_relationship,vert_support,22,1
-54,pairwise_relationship,vert_support,23,1
-55,pairwise_relationship,vert_support,29,1
-56,pairwise_relationship,vert_support,30,1
-57,pairwise_relationship,vert_support,4,3
-58,pairwise_relationship,vert_support,20,14
-59,pairwise_relationship,vert_support,7,1
-60,pairwise_relationship,vert_support,13,1
-61,pairwise_relationship,vert_support,24,1
-62,pairwise_relationship,vert_support,25,1
-63,pairwise_relationship,vert_support,26,1
-64,pairwise_relationship,vert_support,27,1
-65,pairwise_relationship,vert_support,28,1
+31,object,speaker,68 69,34 66 67
+32,object,speaker,72,35 70 71
+33,pairwise_relationship,vertsupport,1,0
+34,pairwise_relationship,vertsupport,31,0
+35,pairwise_relationship,vertsupport,32,0
+36,pairwise_relationship,vertsupport,2,1
+37,pairwise_relationship,vertsupport,3,1
+38,pairwise_relationship,vertsupport,5,1
+39,pairwise_relationship,vertsupport,6,1
+40,pairwise_relationship,vertsupport,8,1
+41,pairwise_relationship,vertsupport,9,1
+42,pairwise_relationship,vertsupport,10,1
+43,pairwise_relationship,vertsupport,11,1
+44,pairwise_relationship,vertsupport,12,1
+45,pairwise_relationship,vertsupport,14,1
+46,pairwise_relationship,vertsupport,15,1
+47,pairwise_relationship,vertsupport,16,1
+48,pairwise_relationship,vertsupport,17,1
+49,pairwise_relationship,vertsupport,18,1
+50,pairwise_relationship,vertsupport,19,1
+51,pairwise_relationship,vertsupport,20,1
+52,pairwise_relationship,vertsupport,21,1
+53,pairwise_relationship,vertsupport,22,1
+54,pairwise_relationship,vertsupport,23,1
+55,pairwise_relationship,vertsupport,29,1
+56,pairwise_relationship,vertsupport,30,1
+57,pairwise_relationship,vertsupport,4,3
+58,pairwise_relationship,vertsupport,20,14
+59,pairwise_relationship,vertsupport,7,1
+60,pairwise_relationship,vertsupport,13,1
+61,pairwise_relationship,vertsupport,24,1
+62,pairwise_relationship,vertsupport,25,1
+63,pairwise_relationship,vertsupport,26,1
+64,pairwise_relationship,vertsupport,27,1
+65,pairwise_relationship,vertsupport,28,1
 66,pairwise_relationship,near,31,1
 67,pairwise_relationship,front,31,1
 68,pairwise_relationship,near,1,31
@@ -338,9 +338,7 @@ nodeNum 75
 70,pairwise_relationship,near,32,1
 71,pairwise_relationship,front,32,1
 72,pairwise_relationship,near,1,32
-73,pairwise_relationship,near,32,31
-74,pairwise_relationship,near,31,32
-edgeNum 84
+edgeNum 80
 0,1,33
 1,33,0
 2,31,34
@@ -421,7 +419,3 @@ edgeNum 84
 77,71,1
 78,1,72
 79,72,32
-80,32,73
-81,73,31
-82,31,74
-83,74,32

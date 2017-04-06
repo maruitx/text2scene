@@ -33,7 +33,7 @@ suppPlane 354.214 108.453 24.5282 354.214 85.8949 24.5282 361.909 85.8949 24.528
 parentId 1
 parentPlaneUVH 0.651202 0.554224 -17.9207
 newModel 4 1f6a7f3705d791762c91206be77753e3
-transform 0.000000 -0.730690 0.000000 0.000000 0.730690 0.000000 0.000000 0.000000 0.000000 0.000000 0.730690 0.000000 354.248993 125.881996 16.479099 1.000000
+transform 0.000000 -0.730690 0.000000 0.000000 0.730690 0.000000 0.000000 0.000000 0.000000 0.000000 0.730690 0.000000 354.248993 125.882004 16.479099 1.000000
 position 8.2677 5.1181 0
 frontDir 0 -1 0
 upDir 0 0 1
@@ -100,21 +100,21 @@ nodeNum 26
 8,object,printer,,17
 9,object,camera,,18 23
 10,object,pottedplant,,19 24
-11,pairwise_relationship,vert_support,1,0
-12,pairwise_relationship,vert_support,2,1
-13,pairwise_relationship,vert_support,3,1
-14,pairwise_relationship,vert_support,4,1
-15,pairwise_relationship,vert_support,5,1
-16,pairwise_relationship,vert_support,7,1
-17,pairwise_relationship,vert_support,8,1
-18,pairwise_relationship,vert_support,9,1
-19,pairwise_relationship,vert_support,10,1
-20,pairwise_relationship,vert_support,3,2
-21,pairwise_relationship,vert_support,5,4
-22,pairwise_relationship,vert_support,7,4
-23,pairwise_relationship,vert_support,9,6
-24,pairwise_relationship,vert_support,10,6
-25,pairwise_relationship,vert_support,6,1
+11,pairwise_relationship,vertsupport,1,0
+12,pairwise_relationship,vertsupport,2,1
+13,pairwise_relationship,vertsupport,3,1
+14,pairwise_relationship,vertsupport,4,1
+15,pairwise_relationship,vertsupport,5,1
+16,pairwise_relationship,vertsupport,7,1
+17,pairwise_relationship,vertsupport,8,1
+18,pairwise_relationship,vertsupport,9,1
+19,pairwise_relationship,vertsupport,10,1
+20,pairwise_relationship,vertsupport,3,2
+21,pairwise_relationship,vertsupport,5,4
+22,pairwise_relationship,vertsupport,7,4
+23,pairwise_relationship,vertsupport,9,6
+24,pairwise_relationship,vertsupport,10,6
+25,pairwise_relationship,vertsupport,6,1
 edgeNum 30
 0,1,11
 1,11,0

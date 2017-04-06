@@ -36,8 +36,11 @@ TSScene::TSScene(unordered_map<string, Model*> &models, const QString &fileName)
   m_renderMode(0)
 {
 	loadSceneFile(fileName);
+	m_modelNum = m_metaScene.m_metaModellList.size();
 
 	m_collisionManager = new CollisionManager(this);
+	m_explictConstraints.resize(m_modelNum);
+	m_implicitConstraints.resize(m_modelNum);
 }
 
 TSScene::TSScene(unordered_map<string, Model*> &models, SceneSemGraph *ssg)
@@ -55,6 +58,9 @@ TSScene::TSScene(unordered_map<string, Model*> &models, SceneSemGraph *ssg)
 {
 	m_modelNum = m_metaScene.m_metaModellList.size();
 	m_collisionManager = new CollisionManager(this);
+
+	m_explictConstraints.resize(m_modelNum);
+	m_implicitConstraints.resize(m_modelNum);
 }
 
 TSScene::~TSScene()
@@ -170,7 +176,6 @@ void TSScene::render(const Transform &trans, bool applyShadow)
 	// load models
 	if (!m_sceneLoadingDone)
 	{
-
 		for (int i = 0; i < m_metaScene.m_metaModellList.size(); i++)
 		{
 			MetaModel &md = m_metaScene.m_metaModellList[i];
@@ -241,7 +246,7 @@ void TSScene::render(const Transform &trans, bool applyShadow)
 				}
 				else if (!isModelCollideWithScene)
 				{
-					bool isRelationVoilated = m_relModelManager->isRelationViolated(currModelId);
+					bool isRelationVoilated = m_relModelManager->isRelationViolated(this, currModelId);
 
 					if (isRelationVoilated)
 					{

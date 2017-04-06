@@ -338,7 +338,7 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, bool useC
 
 				//	SemNode &relationNode = m_nodes[relationId];
 
-				//	if (relationNode.nodeName == "vert_support")
+				//	if (relationNode.nodeName == "vertsupport")
 				//	{
 				//		// add all support children
 				//		int childId = relationNode.activeNodeList[0];

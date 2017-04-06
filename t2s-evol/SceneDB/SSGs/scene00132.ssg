@@ -85,7 +85,7 @@ transform 0.000000 -0.892104 0.000000 0.000000 0.892104 0.000000 0.000000 0.0000
 position 33.309 80.7461 -5.75
 frontDir 0 -1 0
 upDir 0 0 1
-suppPlane 116.466 38.9857 65.662 116.466 -0.0438647 65.662 137.719 -0.0438647 65.662 137.719 38.9857 65.662
+suppPlane 116.466 38.9857 65.662 116.466 -0.0438679 65.662 137.719 -0.0438679 65.662 137.719 38.9857 65.662
 parentId 0
 parentPlaneUVH 0.930568 0.133774 -99.407
 newModel 11 f35efdf00062e177962bfd5bcfc9bf86
@@ -200,19 +200,19 @@ upDir 0 0 1
 suppPlane 0.250519 54.1635 56.932 0.250519 43.6916 56.932 1.46596 43.6916 56.932 1.46596 54.1635 56.932
 parentId 0
 parentPlaneUVH 0.0459691 0.305532 -58.1968
-nodeNum 99
+nodeNum 83
 0,object,room,25 26 27 28 29 30 31 32 38 39,
 1,object,sink,40,
 2,object,soap dispenser,33 34,25 40
-3,object,washer,35 41 42 43 44 52 53 56 58 59 62 63 66 67,33 54 55 57 60 61 64 65 68 69
+3,object,washer,35 41 42 43 44 52 53 56 58 60,33 54 55 57 59 61
 4,object,bottle,36,26 41
 5,object,towel,37,27 42
 6,object,shirt,,28 43
 7,object,atomizer,,29 44
-8,object,bucket,45 54 55 70 71 74 75 78 79 82,52 53 72 73 76 77 80 81 83 84
+8,object,bucket,45 54 55 62 63 66 67 70,52 53 64 65 68 69 71 72
 9,object,swab,,30 45
-10,object,push broom,57 72 73 85 87 88 91 92,31 56 70 71 86 89 90 93 94
-11,object,ashcan,60 61 76 77 86 95 97,32 58 59 74 75 85 96 98
+10,object,push broom,64 65 73 74 77 79,31 62 63 75 76 78 80
+11,object,ashcan,57 68 69 75 76,32 56 66 67 73 74
 12,object,1shelves,46 47 48 49 50 51,34 35 36 37
 13,object,zebra,,46
 14,object,dustpan,,47
@@ -222,85 +222,69 @@ nodeNum 99
 18,object,towel,,51
 19,object,towel,,
 20,object,mirror,,
-21,object,vacuum,64 65 80 81 89 90 96,38 62 63 78 79 87 88 95
-22,object,coatrack,68 69 83 84 93 94 98,39 66 67 82 91 92 97
+21,object,vacuum,59 71 78 81,38 58 70 77 82
+22,object,coatrack,61 72 80 82,39 60 79 81
 23,object,ceilingfan,,
 24,object,lightswitch,,
-25,pairwise_relationship,vert_support,2,0
-26,pairwise_relationship,vert_support,4,0
-27,pairwise_relationship,vert_support,5,0
-28,pairwise_relationship,vert_support,6,0
-29,pairwise_relationship,vert_support,7,0
-30,pairwise_relationship,vert_support,9,0
-31,pairwise_relationship,vert_support,10,0
-32,pairwise_relationship,vert_support,11,0
-33,pairwise_relationship,vert_support,3,2
-34,pairwise_relationship,vert_support,12,2
-35,pairwise_relationship,vert_support,12,3
-36,pairwise_relationship,vert_support,12,4
-37,pairwise_relationship,vert_support,12,5
-38,pairwise_relationship,vert_support,21,0
-39,pairwise_relationship,vert_support,22,0
-40,pairwise_relationship,vert_support,2,1
-41,pairwise_relationship,vert_support,4,3
-42,pairwise_relationship,vert_support,5,3
-43,pairwise_relationship,vert_support,6,3
-44,pairwise_relationship,vert_support,7,3
-45,pairwise_relationship,vert_support,9,8
-46,pairwise_relationship,vert_support,13,12
-47,pairwise_relationship,vert_support,14,12
-48,pairwise_relationship,vert_support,15,12
-49,pairwise_relationship,vert_support,16,12
-50,pairwise_relationship,vert_support,17,12
-51,pairwise_relationship,vert_support,18,12
+25,pairwise_relationship,vertsupport,2,0
+26,pairwise_relationship,vertsupport,4,0
+27,pairwise_relationship,vertsupport,5,0
+28,pairwise_relationship,vertsupport,6,0
+29,pairwise_relationship,vertsupport,7,0
+30,pairwise_relationship,vertsupport,9,0
+31,pairwise_relationship,vertsupport,10,0
+32,pairwise_relationship,vertsupport,11,0
+33,pairwise_relationship,vertsupport,3,2
+34,pairwise_relationship,vertsupport,12,2
+35,pairwise_relationship,vertsupport,12,3
+36,pairwise_relationship,vertsupport,12,4
+37,pairwise_relationship,vertsupport,12,5
+38,pairwise_relationship,vertsupport,21,0
+39,pairwise_relationship,vertsupport,22,0
+40,pairwise_relationship,vertsupport,2,1
+41,pairwise_relationship,vertsupport,4,3
+42,pairwise_relationship,vertsupport,5,3
+43,pairwise_relationship,vertsupport,6,3
+44,pairwise_relationship,vertsupport,7,3
+45,pairwise_relationship,vertsupport,9,8
+46,pairwise_relationship,vertsupport,13,12
+47,pairwise_relationship,vertsupport,14,12
+48,pairwise_relationship,vertsupport,15,12
+49,pairwise_relationship,vertsupport,16,12
+50,pairwise_relationship,vertsupport,17,12
+51,pairwise_relationship,vertsupport,18,12
 52,pairwise_relationship,near,8,3
 53,pairwise_relationship,front,8,3
 54,pairwise_relationship,near,3,8
 55,pairwise_relationship,front,3,8
-56,pairwise_relationship,near,10,3
-57,pairwise_relationship,near,3,10
-58,pairwise_relationship,near,11,3
-59,pairwise_relationship,front,11,3
-60,pairwise_relationship,near,3,11
-61,pairwise_relationship,leftside,3,11
-62,pairwise_relationship,near,21,3
-63,pairwise_relationship,front,21,3
-64,pairwise_relationship,near,3,21
-65,pairwise_relationship,leftside,3,21
-66,pairwise_relationship,near,22,3
-67,pairwise_relationship,front,22,3
-68,pairwise_relationship,near,3,22
-69,pairwise_relationship,leftside,3,22
-70,pairwise_relationship,near,10,8
-71,pairwise_relationship,front,10,8
-72,pairwise_relationship,near,8,10
-73,pairwise_relationship,leftside,8,10
-74,pairwise_relationship,near,11,8
-75,pairwise_relationship,front,11,8
-76,pairwise_relationship,near,8,11
-77,pairwise_relationship,rightside,8,11
-78,pairwise_relationship,near,21,8
-79,pairwise_relationship,rightside,21,8
-80,pairwise_relationship,near,8,21
-81,pairwise_relationship,rightside,8,21
-82,pairwise_relationship,near,22,8
-83,pairwise_relationship,near,8,22
-84,pairwise_relationship,back,8,22
-85,pairwise_relationship,leftside,11,10
-86,pairwise_relationship,back,10,11
-87,pairwise_relationship,near,21,10
-88,pairwise_relationship,leftside,21,10
-89,pairwise_relationship,near,10,21
-90,pairwise_relationship,back,10,21
-91,pairwise_relationship,near,22,10
-92,pairwise_relationship,leftside,22,10
-93,pairwise_relationship,near,10,22
-94,pairwise_relationship,back,10,22
-95,pairwise_relationship,near,21,11
-96,pairwise_relationship,near,11,21
-97,pairwise_relationship,near,22,11
-98,pairwise_relationship,near,11,22
-edgeNum 148
+56,pairwise_relationship,front,11,3
+57,pairwise_relationship,leftside,3,11
+58,pairwise_relationship,front,21,3
+59,pairwise_relationship,leftside,3,21
+60,pairwise_relationship,front,22,3
+61,pairwise_relationship,leftside,3,22
+62,pairwise_relationship,near,10,8
+63,pairwise_relationship,front,10,8
+64,pairwise_relationship,near,8,10
+65,pairwise_relationship,leftside,8,10
+66,pairwise_relationship,near,11,8
+67,pairwise_relationship,front,11,8
+68,pairwise_relationship,near,8,11
+69,pairwise_relationship,rightside,8,11
+70,pairwise_relationship,rightside,21,8
+71,pairwise_relationship,rightside,8,21
+72,pairwise_relationship,back,8,22
+73,pairwise_relationship,near,11,10
+74,pairwise_relationship,leftside,11,10
+75,pairwise_relationship,near,10,11
+76,pairwise_relationship,back,10,11
+77,pairwise_relationship,leftside,21,10
+78,pairwise_relationship,back,10,21
+79,pairwise_relationship,leftside,22,10
+80,pairwise_relationship,back,10,22
+81,pairwise_relationship,near,22,21
+82,pairwise_relationship,near,21,22
+edgeNum 116
 0,2,25
 1,25,0
 2,4,26
@@ -363,89 +347,57 @@ edgeNum 148
 59,54,8
 60,3,55
 61,55,8
-62,10,56
+62,11,56
 63,56,3
 64,3,57
-65,57,10
-66,11,58
+65,57,11
+66,21,58
 67,58,3
-68,11,59
-69,59,3
-70,3,60
-71,60,11
+68,3,59
+69,59,21
+70,22,60
+71,60,3
 72,3,61
-73,61,11
-74,21,62
-75,62,3
-76,21,63
-77,63,3
-78,3,64
-79,64,21
-80,3,65
-81,65,21
-82,22,66
-83,66,3
-84,22,67
-85,67,3
-86,3,68
-87,68,22
-88,3,69
-89,69,22
-90,10,70
+73,61,22
+74,10,62
+75,62,8
+76,10,63
+77,63,8
+78,8,64
+79,64,10
+80,8,65
+81,65,10
+82,11,66
+83,66,8
+84,11,67
+85,67,8
+86,8,68
+87,68,11
+88,8,69
+89,69,11
+90,21,70
 91,70,8
-92,10,71
-93,71,8
+92,8,71
+93,71,21
 94,8,72
-95,72,10
-96,8,73
+95,72,22
+96,11,73
 97,73,10
 98,11,74
-99,74,8
-100,11,75
-101,75,8
-102,8,76
+99,74,10
+100,10,75
+101,75,11
+102,10,76
 103,76,11
-104,8,77
-105,77,11
-106,21,78
-107,78,8
-108,21,79
-109,79,8
-110,8,80
-111,80,21
-112,8,81
+104,21,77
+105,77,10
+106,10,78
+107,78,21
+108,22,79
+109,79,10
+110,10,80
+111,80,22
+112,22,81
 113,81,21
-114,22,82
-115,82,8
-116,8,83
-117,83,22
-118,8,84
-119,84,22
-120,11,85
-121,85,10
-122,10,86
-123,86,11
-124,21,87
-125,87,10
-126,21,88
-127,88,10
-128,10,89
-129,89,21
-130,10,90
-131,90,21
-132,22,91
-133,91,10
-134,22,92
-135,92,10
-136,10,93
-137,93,22
-138,10,94
-139,94,22
-140,21,95
-141,95,11
-142,11,96
-143,96,21
-144,22,97
-145,97,11
-146,11,98
-147,98,22
+114,21,82
+115,82,22

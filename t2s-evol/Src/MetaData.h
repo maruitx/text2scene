@@ -38,7 +38,7 @@ class MetaModel
 			string name;  // file name (hash string) of the model
 			string catName; // category of model
 			int id;
-			mat4 transformation;			
+			mat4 transformation;  // transform from loaded model to current model
 
 			Material material;		
 			bool visible;
@@ -68,6 +68,10 @@ class MetaModel
 				position = transMat*position;				
 				frontDir = TransformVector(transMat, frontDir);
 				upDir = TransformVector(transMat, upDir);
+
+				frontDir.normalize();
+				upDir.normalize();
+
 				suppPlane.tranfrom(transMat);
 
 				transformation = transMat*transformation;

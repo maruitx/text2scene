@@ -104,30 +104,30 @@ upDir 0 0 1
 suppPlane 57.8816 152.799 15.1304 42.9768 157.642 15.1304 40.7851 150.897 15.1304 55.6899 146.054 15.1304
 parentId 0
 parentPlaneUVH 0.21028 0.624888 -131.75
-nodeNum 47
+nodeNum 45
 0,object,room,13 14 15 16,
-1,object,bed,17 18 21 22 23 24 27 28 31 32 42 43 44 45 46,13 25 26 29 30 33
-2,object,pillow,,21 42 43 44 45 46
+1,object,bed,17 18 21 22 23 24 27 28 31 32 40 41 42 43 44,13 25 26 29 30 33
+2,object,pillow,,21 40 41 42 43 44
 3,object,book,,
-4,object,headphones,,22 42 43 44 45 46
-5,object,books,,17 42 43 44 45 46
+4,object,headphones,,22 40 41 42 43 44
+5,object,books,,17 40 41 42 43 44
 6,object,book,19,18
-7,object,book,20,19 42 43 44
-8,object,book,,20 42 43 44
+7,object,book,20,19 40 41 42
+8,object,book,,20 40 41 42
 9,object,dartboard,,
-10,object,trashbin,25 26 34 36 37,14 23 24 35 38 42 43 44
-11,object,milkcarton,29 30 35 39,15 27 28 34 40 41 42 43 44
-12,object,tissuebox,33 38 40 41,16 31 32 36 37 39 42 43 44
-13,pairwise_relationship,vert_support,1,0
-14,pairwise_relationship,vert_support,10,0
-15,pairwise_relationship,vert_support,11,0
-16,pairwise_relationship,vert_support,12,0
-17,pairwise_relationship,vert_support,5,1
-18,pairwise_relationship,vert_support,6,1
-19,pairwise_relationship,vert_support,7,6
-20,pairwise_relationship,vert_support,8,7
-21,pairwise_relationship,vert_support,2,1
-22,pairwise_relationship,vert_support,4,1
+10,object,trashbin,25 26 34 35,14 23 24 36 40 41 42
+11,object,milkcarton,29 30 37,15 27 28 38 39 40 41 42
+12,object,tissuebox,33 36 38 39,16 31 32 34 35 37 40 41 42
+13,pairwise_relationship,vertsupport,1,0
+14,pairwise_relationship,vertsupport,10,0
+15,pairwise_relationship,vertsupport,11,0
+16,pairwise_relationship,vertsupport,12,0
+17,pairwise_relationship,vertsupport,5,1
+18,pairwise_relationship,vertsupport,6,1
+19,pairwise_relationship,vertsupport,7,6
+20,pairwise_relationship,vertsupport,8,7
+21,pairwise_relationship,vertsupport,2,1
+22,pairwise_relationship,vertsupport,4,1
 23,pairwise_relationship,near,10,1
 24,pairwise_relationship,back,10,1
 25,pairwise_relationship,near,1,10
@@ -139,20 +139,18 @@ nodeNum 47
 31,pairwise_relationship,near,12,1
 32,pairwise_relationship,back,12,1
 33,pairwise_relationship,near,1,12
-34,pairwise_relationship,near,11,10
-35,pairwise_relationship,near,10,11
-36,pairwise_relationship,near,12,10
-37,pairwise_relationship,rightside,12,10
-38,pairwise_relationship,near,10,12
-39,pairwise_relationship,near,12,11
-40,pairwise_relationship,near,11,12
-41,pairwise_relationship,front,11,12
-42,group_attribute,messy,2 4 10 12 11 5 8 7,1
-43,group_attribute,casual,2 4 10 12 11 5 8 7,1
-44,group_attribute,disorganized,2 4 10 12 11 5 8 7,1
-45,group_attribute,messy,4 2 5,1
-46,group_attribute,casual,4 2 5,1
-edgeNum 93
+34,pairwise_relationship,near,12,10
+35,pairwise_relationship,rightside,12,10
+36,pairwise_relationship,near,10,12
+37,pairwise_relationship,near,12,11
+38,pairwise_relationship,near,11,12
+39,pairwise_relationship,front,11,12
+40,group_relationship_anno,messy,2 4 10 12 11 5 8 7,1
+41,group_relationship_anno,casual,2 4 10 12 11 5 8 7,1
+42,group_relationship_anno,disorganized,2 4 10 12 11 5 8 7,1
+43,group_relationship_anno,messy,4 2 5,1
+44,group_relationship_anno,casual,4 2 5,1
+edgeNum 89
 0,1,13
 1,13,0
 2,10,14
@@ -195,54 +193,50 @@ edgeNum 93
 39,32,1
 40,1,33
 41,33,12
-42,11,34
+42,12,34
 43,34,10
-44,10,35
-45,35,11
-46,12,36
-47,36,10
+44,12,35
+45,35,10
+46,10,36
+47,36,12
 48,12,37
-49,37,10
-50,10,38
+49,37,11
+50,11,38
 51,38,12
-52,12,39
-53,39,11
-54,11,40
-55,40,12
-56,11,41
-57,41,12
-58,42,1
-59,2,42
-60,4,42
-61,10,42
-62,12,42
-63,11,42
-64,5,42
-65,8,42
-66,7,42
-67,43,1
-68,2,43
-69,4,43
-70,10,43
-71,12,43
-72,11,43
-73,5,43
-74,8,43
-75,7,43
-76,44,1
-77,2,44
-78,4,44
-79,10,44
-80,12,44
-81,11,44
-82,5,44
-83,8,44
-84,7,44
-85,45,1
-86,4,45
-87,2,45
-88,5,45
-89,46,1
-90,4,46
-91,2,46
-92,5,46
+52,11,39
+53,39,12
+54,40,1
+55,2,40
+56,4,40
+57,10,40
+58,12,40
+59,11,40
+60,5,40
+61,8,40
+62,7,40
+63,41,1
+64,2,41
+65,4,41
+66,10,41
+67,12,41
+68,11,41
+69,5,41
+70,8,41
+71,7,41
+72,42,1
+73,2,42
+74,4,42
+75,10,42
+76,12,42
+77,11,42
+78,5,42
+79,8,42
+80,7,42
+81,43,1
+82,4,43
+83,2,43
+84,5,43
+85,44,1
+86,4,44
+87,2,44
+88,5,44

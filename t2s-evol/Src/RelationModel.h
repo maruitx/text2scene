@@ -1,6 +1,6 @@
 #pragma once
 #include "Headers.h"
-#include <Eigen/Dense>
+#include "GaussianMixtureModel.h"
 
 class RelativePos
 {
@@ -29,28 +29,20 @@ public:
 	bool isValid;
 };
 
-struct GaussianModel
-{
-	int dim;
-	Eigen::VectorXd mean;
-	Eigen::MatrixXd covarMat;
-
-	double weight;   // mixing weight
-};
 
 class PairwiseRelationModel
 {
 public:
 	PairwiseRelationModel(const QString &anchorName, const QString &actName, const QString &conditionName, const QString & relationName = "general");
-	~PairwiseRelationModel() {};
+	~PairwiseRelationModel();
 
 	void loadFromStream(QTextStream &ifs);
 
 	int m_numGauss;
-	int m_numInstance;
+	GaussianMixtureModel *m_GMM;
 
+	int m_numInstance;
 	std::vector<RelativePos*> m_instances;
-	std::vector<GaussianModel> m_gaussians;
 
 	QString m_relationKey;  // anchorName_actName_conditionName_relationName
 

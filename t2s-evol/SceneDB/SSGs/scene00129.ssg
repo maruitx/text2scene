@@ -168,7 +168,7 @@ upDir 0 0 1
 suppPlane 212.173 200.303 39.542 244.324 200.303 39.542 244.324 232.454 39.542 212.173 232.454 39.542
 parentId 0
 parentPlaneUVH 0.853316 0.650842 -167.75
-nodeNum 47
+nodeNum 45
 0,object,room,22 23 24,
 1,object,wallclock,,
 2,object,desk,25 26 27 28 29 30 31 32 33 37 38 41 42,22 39 40 43 44
@@ -185,27 +185,27 @@ nodeNum 47
 13,object,stapler,,31
 14,object,paperclip,,32
 15,object,toyfigure,,33
-16,object,chair,21 39 40 45,23 37 38 46
+16,object,chair,21 39 40,23 37 38
 17,object,wallart,,
 18,object,wallart,,
 19,object,powersocket,,
-20,object,trashbin,43 44 46,24 41 42 45
+20,object,trashbin,43 44,24 41 42
 21,per_obj_attribute,office,,16
-22,pairwise_relationship,vert_support,2,0
-23,pairwise_relationship,vert_support,16,0
-24,pairwise_relationship,vert_support,20,0
-25,pairwise_relationship,vert_support,3,2
-26,pairwise_relationship,vert_support,4,2
-27,pairwise_relationship,vert_support,5,2
-28,pairwise_relationship,vert_support,9,2
-29,pairwise_relationship,vert_support,11,2
-30,pairwise_relationship,vert_support,12,2
-31,pairwise_relationship,vert_support,13,2
-32,pairwise_relationship,vert_support,14,2
-33,pairwise_relationship,vert_support,15,2
-34,pairwise_relationship,vert_support,6,5
-35,pairwise_relationship,vert_support,7,5
-36,pairwise_relationship,vert_support,8,5
+22,pairwise_relationship,vertsupport,2,0
+23,pairwise_relationship,vertsupport,16,0
+24,pairwise_relationship,vertsupport,20,0
+25,pairwise_relationship,vertsupport,3,2
+26,pairwise_relationship,vertsupport,4,2
+27,pairwise_relationship,vertsupport,5,2
+28,pairwise_relationship,vertsupport,9,2
+29,pairwise_relationship,vertsupport,11,2
+30,pairwise_relationship,vertsupport,12,2
+31,pairwise_relationship,vertsupport,13,2
+32,pairwise_relationship,vertsupport,14,2
+33,pairwise_relationship,vertsupport,15,2
+34,pairwise_relationship,vertsupport,6,5
+35,pairwise_relationship,vertsupport,7,5
+36,pairwise_relationship,vertsupport,8,5
 37,pairwise_relationship,near,16,2
 38,pairwise_relationship,leftside,16,2
 39,pairwise_relationship,near,2,16
@@ -214,9 +214,7 @@ nodeNum 47
 42,pairwise_relationship,leftside,20,2
 43,pairwise_relationship,near,2,20
 44,pairwise_relationship,back,2,20
-45,pairwise_relationship,near,20,16
-46,pairwise_relationship,near,16,20
-edgeNum 51
+edgeNum 47
 0,21,16
 1,2,22
 2,22,0
@@ -264,7 +262,3 @@ edgeNum 51
 44,43,20
 45,2,44
 46,44,20
-47,20,45
-48,45,16
-49,16,46
-50,46,20

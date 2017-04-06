@@ -136,7 +136,7 @@ upDir 0 0 1
 suppPlane 39.6165 80.7655 59.4712 41.5258 105.027 59.4712 12.0192 107.349 59.4712 10.1099 83.0877 59.4712
 parentId 0
 parentPlaneUVH 0.117146 0.387067 -131.75
-nodeNum 49
+nodeNum 43
 0,object,room,33 34 35 36,
 1,object,table,17 18 20 21 22 23 24 25 26 27 28 29 37 39 41,33 38 40 42
 2,object,plate,30,20
@@ -150,43 +150,37 @@ nodeNum 49
 10,object,breadslice,,27 32
 11,object,cream pitcher,,28
 12,object,bottle,19,29
-13,object,chair,38 43 45,34 37 44 46
-14,object,chair,40 44 47,35 39 43 48
+13,object,chair,38,34 37
+14,object,chair,40,35 39
 15,object,hat,,
-16,object,chair,42 46 48,36 41 45 47
+16,object,chair,42,36 41
 17,per_obj_attribute,dining,,1
 18,per_obj_attribute,round,,1
 19,per_obj_attribute,sauce,,12
-20,pairwise_relationship,vert_support,2,1
-21,pairwise_relationship,vert_support,3,1
-22,pairwise_relationship,vert_support,4,1
-23,pairwise_relationship,vert_support,5,1
-24,pairwise_relationship,vert_support,7,1
-25,pairwise_relationship,vert_support,8,1
-26,pairwise_relationship,vert_support,9,1
-27,pairwise_relationship,vert_support,10,1
-28,pairwise_relationship,vert_support,11,1
-29,pairwise_relationship,vert_support,12,1
-30,pairwise_relationship,vert_support,3,2
-31,pairwise_relationship,vert_support,6,5
-32,pairwise_relationship,vert_support,10,9
-33,pairwise_relationship,vert_support,1,0
-34,pairwise_relationship,vert_support,13,0
-35,pairwise_relationship,vert_support,14,0
-36,pairwise_relationship,vert_support,16,0
+20,pairwise_relationship,vertsupport,2,1
+21,pairwise_relationship,vertsupport,3,1
+22,pairwise_relationship,vertsupport,4,1
+23,pairwise_relationship,vertsupport,5,1
+24,pairwise_relationship,vertsupport,7,1
+25,pairwise_relationship,vertsupport,8,1
+26,pairwise_relationship,vertsupport,9,1
+27,pairwise_relationship,vertsupport,10,1
+28,pairwise_relationship,vertsupport,11,1
+29,pairwise_relationship,vertsupport,12,1
+30,pairwise_relationship,vertsupport,3,2
+31,pairwise_relationship,vertsupport,6,5
+32,pairwise_relationship,vertsupport,10,9
+33,pairwise_relationship,vertsupport,1,0
+34,pairwise_relationship,vertsupport,13,0
+35,pairwise_relationship,vertsupport,14,0
+36,pairwise_relationship,vertsupport,16,0
 37,pairwise_relationship,near,13,1
 38,pairwise_relationship,near,1,13
 39,pairwise_relationship,near,14,1
 40,pairwise_relationship,near,1,14
 41,pairwise_relationship,near,16,1
 42,pairwise_relationship,near,1,16
-43,pairwise_relationship,near,14,13
-44,pairwise_relationship,near,13,14
-45,pairwise_relationship,near,16,13
-46,pairwise_relationship,near,13,16
-47,pairwise_relationship,near,16,14
-48,pairwise_relationship,near,14,16
-edgeNum 61
+edgeNum 49
 0,17,1
 1,18,1
 2,19,12
@@ -236,15 +230,3 @@ edgeNum 61
 46,41,1
 47,1,42
 48,42,16
-49,14,43
-50,43,13
-51,13,44
-52,44,14
-53,16,45
-54,45,13
-55,13,46
-56,46,16
-57,16,47
-58,47,14
-59,14,48
-60,48,16

@@ -157,7 +157,6 @@ void SceneGenerator::geometryAlignmentWithCurrScene(SceneSemGraph *matchedSg, Sc
 
 }
 
-
 void SceneGenerator::bindBySynthesizedRelationships(SceneSemGraph *targetSg)
 {
 	return;

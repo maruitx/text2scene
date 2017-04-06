@@ -54,8 +54,8 @@ public:
 	LayoutPlanner *m_layoutPlanner;   // pointer to the singleton; instance saved in SceneGenerator
 	RelationModelManager *m_relModelManager;    // pointer to the singleton; instance saved in SceneGenerator
 
-	std::vector<RelationConstraint> m_explictConstraints;  // semantic pairwise or group constraint
-	std::vector<RelationConstraint> m_implicitConstraints;  // implicit relative constraints
+	std::vector<std::vector<RelationConstraint>> m_explictConstraints;  // semantic pairwise or group constraint
+	std::vector<std::vector<RelationConstraint>> m_implicitConstraints;  // implicit relative constraints
 	
 	std::vector<int> m_placedObjIds;
 	std::vector<int> m_orderedModelIds;

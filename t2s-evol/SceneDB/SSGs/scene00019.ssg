@@ -249,7 +249,7 @@ suppPlane 7.78182 168.376 9.77198 7.78182 158.557 9.77198 3.79379 212.416 8.0393
 parentId 29
 parentPlaneUVH 0.491564 0.203594 8.68159
 newModel 31 40d4227c49152e32245318ed12f13c7
-transform -0.003955 0.075461 0.000000 0.000000 -0.075461 -0.003955 0.000000 0.000000 0.000000 0.000000 0.075564 0.000000 20.844799 159.080002 23.250299 1.000000
+transform -0.003955 0.075461 0.000000 0.000000 -0.075461 -0.003955 0.000000 0.000000 0.000000 0.000000 0.075564 0.000000 20.844801 159.080002 23.250299 1.000000
 position 304.838 70.7505 0
 frontDir 0 -1 0
 upDir 0 0 1
@@ -316,56 +316,56 @@ nodeNum 85
 32,object,guitarstand,71 72,62 69 70 73 74 75 82 83 84
 33,object,wallart,,73 74 75 76 77 78
 34,object,wallart,,73 74 75 76 77 78
-35,pairwise_relationship,vert_support,1,0
-36,pairwise_relationship,vert_support,2,1
-37,pairwise_relationship,vert_support,3,1
-38,pairwise_relationship,vert_support,6,1
-39,pairwise_relationship,vert_support,7,1
-40,pairwise_relationship,vert_support,9,1
-41,pairwise_relationship,vert_support,10,1
-42,pairwise_relationship,vert_support,13,1
-43,pairwise_relationship,vert_support,16,1
-44,pairwise_relationship,vert_support,19,1
-45,pairwise_relationship,vert_support,21,1
-46,pairwise_relationship,vert_support,22,1
-47,pairwise_relationship,vert_support,24,1
-48,pairwise_relationship,vert_support,25,1
-49,pairwise_relationship,vert_support,26,1
-50,pairwise_relationship,vert_support,27,1
-51,pairwise_relationship,vert_support,28,1
-52,pairwise_relationship,vert_support,29,1
-53,pairwise_relationship,vert_support,31,1
-54,pairwise_relationship,vert_support,4,3
-55,pairwise_relationship,vert_support,17,16
-56,pairwise_relationship,vert_support,18,17
-57,pairwise_relationship,vert_support,30,29
-58,pairwise_relationship,vert_support,5,1
-59,pairwise_relationship,vert_support,8,1
-60,pairwise_relationship,vert_support,8,7
-61,pairwise_relationship,vert_support,18,16
-62,pairwise_relationship,vert_support,32,0
-63,pairwise_relationship,vert_support,11,1
-64,pairwise_relationship,vert_support,12,1
-65,pairwise_relationship,vert_support,14,1
-66,pairwise_relationship,vert_support,15,1
-67,pairwise_relationship,vert_support,20,1
-68,pairwise_relationship,vert_support,23,1
+35,pairwise_relationship,vertsupport,1,0
+36,pairwise_relationship,vertsupport,2,1
+37,pairwise_relationship,vertsupport,3,1
+38,pairwise_relationship,vertsupport,6,1
+39,pairwise_relationship,vertsupport,7,1
+40,pairwise_relationship,vertsupport,9,1
+41,pairwise_relationship,vertsupport,10,1
+42,pairwise_relationship,vertsupport,13,1
+43,pairwise_relationship,vertsupport,16,1
+44,pairwise_relationship,vertsupport,19,1
+45,pairwise_relationship,vertsupport,21,1
+46,pairwise_relationship,vertsupport,22,1
+47,pairwise_relationship,vertsupport,24,1
+48,pairwise_relationship,vertsupport,25,1
+49,pairwise_relationship,vertsupport,26,1
+50,pairwise_relationship,vertsupport,27,1
+51,pairwise_relationship,vertsupport,28,1
+52,pairwise_relationship,vertsupport,29,1
+53,pairwise_relationship,vertsupport,31,1
+54,pairwise_relationship,vertsupport,4,3
+55,pairwise_relationship,vertsupport,17,16
+56,pairwise_relationship,vertsupport,18,17
+57,pairwise_relationship,vertsupport,30,29
+58,pairwise_relationship,vertsupport,5,1
+59,pairwise_relationship,vertsupport,8,1
+60,pairwise_relationship,vertsupport,8,7
+61,pairwise_relationship,vertsupport,18,16
+62,pairwise_relationship,vertsupport,32,0
+63,pairwise_relationship,vertsupport,11,1
+64,pairwise_relationship,vertsupport,12,1
+65,pairwise_relationship,vertsupport,14,1
+66,pairwise_relationship,vertsupport,15,1
+67,pairwise_relationship,vertsupport,20,1
+68,pairwise_relationship,vertsupport,23,1
 69,pairwise_relationship,near,32,1
 70,pairwise_relationship,back,32,1
 71,pairwise_relationship,near,1,32
 72,pairwise_relationship,front,1,32
-73,group_attribute,casual,32 33 34 23 25 24 26 31 10 20 2 6 5,1
-74,group_attribute,organized,32 33 34 23 25 24 26 31 10 20 2 6 5,1
-75,group_attribute,clean,32 33 34 23 25 24 26 31 10 20 2 6 5,1
-76,group_attribute,formal,33 34,1
-77,group_attribute,organized,33 34,1
-78,group_attribute,clean,33 34,1
-79,group_attribute,casual,20 31 26 9 30 27 10 11 12 22 21 8 4 2 6 5 14 15 13 28 16 19,1
-80,group_attribute,organized,20 31 26 9 30 27 10 11 12 22 21 8 4 2 6 5 14 15 13 28 16 19,1
-81,group_attribute,narrow,20 31 26 9 30 27 10 11 12 22 21 8 4 2 6 5 14 15 13 28 16 19,1
-82,group_attribute,formal,32,1
-83,group_attribute,organized,32,1
-84,group_attribute,clean,32,1
+73,group_relationship_anno,casual,32 33 34 23 25 24 26 31 10 20 2 6 5,1
+74,group_relationship_anno,organized,32 33 34 23 25 24 26 31 10 20 2 6 5,1
+75,group_relationship_anno,clean,32 33 34 23 25 24 26 31 10 20 2 6 5,1
+76,group_relationship_anno,formal,33 34,1
+77,group_relationship_anno,organized,33 34,1
+78,group_relationship_anno,clean,33 34,1
+79,group_relationship_anno,casual,20 31 26 9 30 27 10 11 12 22 21 8 4 2 6 5 14 15 13 28 16 19,1
+80,group_relationship_anno,organized,20 31 26 9 30 27 10 11 12 22 21 8 4 2 6 5 14 15 13 28 16 19,1
+81,group_relationship_anno,narrow,20 31 26 9 30 27 10 11 12 22 21 8 4 2 6 5 14 15 13 28 16 19,1
+82,group_relationship_anno,formal,32,1
+83,group_relationship_anno,organized,32,1
+84,group_relationship_anno,clean,32,1
 edgeNum 202
 0,1,35
 1,35,0

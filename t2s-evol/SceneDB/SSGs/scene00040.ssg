@@ -25,7 +25,7 @@ suppPlane 214.701 53.2774 20.6424 214.701 36.226 20.6424 232.167 36.226 20.6424 
 parentId 0
 parentPlaneUVH 0.909831 0.184163 -131.75
 newModel 3 d1636dd03ca268447fc288b9e5184661
-transform 0.000000 0.832896 0.000000 0.000000 -0.832896 0.000000 0.000000 0.000000 0.000000 0.000000 0.832896 0.000000 241.263992 57.929699 3.250000 1.000000
+transform 0.000000 0.832896 0.000000 0.000000 -0.832896 0.000000 0.000000 0.000000 0.000000 0.000000 0.832896 0.000000 241.264008 57.929699 3.250000 1.000000
 position 46.2755 17.0024 5e-05
 frontDir 0 1 0
 upDir 0 0 1
@@ -112,12 +112,12 @@ upDir 0 0 1
 suppPlane 239.05 28.9396 30.4295 239.05 14.4501 30.4295 239.75 14.4501 30.4295 239.75 28.9396 30.4295
 parentId 0
 parentPlaneUVH 0.973982 0.0892792 -117.743
-nodeNum 48
+nodeNum 46
 0,object,room,14 15 21 22,
 1,object,chair,26 27 30 31 34 35,21 28 29 32 33 36 37
-2,object,speaker,28 29 38 39 42 43,14 26 27 40 41 44 45
-3,object,case,32 33 40 41 46,22 30 31 38 39 47
-4,object,desk,16 17 18 19 20 23 24 25 36 37 44 45 47,15 34 35 42 43 46
+2,object,speaker,28 29 38 40 41,14 26 27 39 42 43
+3,object,case,32 33 39 44,22 30 31 38 45
+4,object,desk,16 17 18 19 20 23 24 25 36 37 42 43 45,15 34 35 40 41 44
 5,object,radio receiver,,16
 6,object,headphones,,23
 7,object,bowl,,17
@@ -127,18 +127,18 @@ nodeNum 48
 11,object,speaker,,25
 12,object,speaker,,20
 13,object,powersocket,,
-14,pairwise_relationship,vert_support,2,0
-15,pairwise_relationship,vert_support,4,0
-16,pairwise_relationship,vert_support,5,4
-17,pairwise_relationship,vert_support,7,4
-18,pairwise_relationship,vert_support,8,4
-19,pairwise_relationship,vert_support,10,4
-20,pairwise_relationship,vert_support,12,4
-21,pairwise_relationship,vert_support,1,0
-22,pairwise_relationship,vert_support,3,0
-23,pairwise_relationship,vert_support,6,4
-24,pairwise_relationship,vert_support,9,4
-25,pairwise_relationship,vert_support,11,4
+14,pairwise_relationship,vertsupport,2,0
+15,pairwise_relationship,vertsupport,4,0
+16,pairwise_relationship,vertsupport,5,4
+17,pairwise_relationship,vertsupport,7,4
+18,pairwise_relationship,vertsupport,8,4
+19,pairwise_relationship,vertsupport,10,4
+20,pairwise_relationship,vertsupport,12,4
+21,pairwise_relationship,vertsupport,1,0
+22,pairwise_relationship,vertsupport,3,0
+23,pairwise_relationship,vertsupport,6,4
+24,pairwise_relationship,vertsupport,9,4
+25,pairwise_relationship,vertsupport,11,4
 26,pairwise_relationship,near,2,1
 27,pairwise_relationship,front,2,1
 28,pairwise_relationship,near,1,2
@@ -151,17 +151,15 @@ nodeNum 48
 35,pairwise_relationship,front,4,1
 36,pairwise_relationship,near,1,4
 37,pairwise_relationship,front,1,4
-38,pairwise_relationship,near,3,2
-39,pairwise_relationship,back,3,2
-40,pairwise_relationship,near,2,3
-41,pairwise_relationship,front,2,3
-42,pairwise_relationship,near,4,2
-43,pairwise_relationship,leftside,4,2
-44,pairwise_relationship,near,2,4
-45,pairwise_relationship,rightside,2,4
-46,pairwise_relationship,near,4,3
-47,pairwise_relationship,near,3,4
-edgeNum 68
+38,pairwise_relationship,back,3,2
+39,pairwise_relationship,front,2,3
+40,pairwise_relationship,near,4,2
+41,pairwise_relationship,leftside,4,2
+42,pairwise_relationship,near,2,4
+43,pairwise_relationship,rightside,2,4
+44,pairwise_relationship,near,4,3
+45,pairwise_relationship,near,3,4
+edgeNum 64
 0,2,14
 1,14,0
 2,4,15
@@ -212,21 +210,17 @@ edgeNum 68
 47,37,4
 48,3,38
 49,38,2
-50,3,39
-51,39,2
-52,2,40
-53,40,3
-54,2,41
-55,41,3
-56,4,42
-57,42,2
-58,4,43
-59,43,2
-60,2,44
-61,44,4
-62,2,45
+50,2,39
+51,39,3
+52,4,40
+53,40,2
+54,4,41
+55,41,2
+56,2,42
+57,42,4
+58,2,43
+59,43,4
+60,4,44
+61,44,3
+62,3,45
 63,45,4
-64,4,46
-65,46,3
-66,3,47
-67,47,4

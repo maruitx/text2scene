@@ -100,16 +100,16 @@ nodeNum 21
 8,object,wrench,,18
 9,object,duct tape,,19
 10,object,tape,,20
-11,pairwise_relationship,vert_support,1,0
-12,pairwise_relationship,vert_support,2,1
-13,pairwise_relationship,vert_support,3,1
-14,pairwise_relationship,vert_support,4,1
-15,pairwise_relationship,vert_support,5,1
-16,pairwise_relationship,vert_support,6,1
-17,pairwise_relationship,vert_support,7,1
-18,pairwise_relationship,vert_support,8,1
-19,pairwise_relationship,vert_support,9,1
-20,pairwise_relationship,vert_support,10,1
+11,pairwise_relationship,vertsupport,1,0
+12,pairwise_relationship,vertsupport,2,1
+13,pairwise_relationship,vertsupport,3,1
+14,pairwise_relationship,vertsupport,4,1
+15,pairwise_relationship,vertsupport,5,1
+16,pairwise_relationship,vertsupport,6,1
+17,pairwise_relationship,vertsupport,7,1
+18,pairwise_relationship,vertsupport,8,1
+19,pairwise_relationship,vertsupport,9,1
+20,pairwise_relationship,vertsupport,10,1
 edgeNum 20
 0,1,11
 1,11,0

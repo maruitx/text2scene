@@ -137,6 +137,22 @@ static mat4 GetRotationMatrix(const vec3 &fromVec, const vec3 &toVec)
 	return rotMat;
 }
 
+static double GetRotAngleR(vec3 beforeDir, vec3 afterDir, vec3 zDir)
+{
+	beforeDir.normalize();
+	afterDir.normalize();
+
+	double angle = acos(beforeDir.dot(afterDir));
+	vec3 crossDir = beforeDir.cross(afterDir);
+
+	if (crossDir.dot(zDir) < 0)
+	{
+		angle = -angle;
+	}
+
+	return angle;
+}
+
 static mat4 GetTransformationMat(const mat4 &rotMat, const vec3 &currPos, const vec3 &tarPos)
 {
 	mat4 transMat;

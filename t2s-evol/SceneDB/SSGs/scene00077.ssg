@@ -128,19 +128,19 @@ nodeNum 30
 12,object,chair,14 29,27 28
 13,object,wallclock,,
 14,per_obj_attribute,office,,12
-15,pairwise_relationship,vert_support,1,0
-16,pairwise_relationship,vert_support,2,1
-17,pairwise_relationship,vert_support,3,1
-18,pairwise_relationship,vert_support,4,1
-19,pairwise_relationship,vert_support,5,1
-20,pairwise_relationship,vert_support,6,1
-21,pairwise_relationship,vert_support,8,1
-22,pairwise_relationship,vert_support,9,1
-23,pairwise_relationship,vert_support,10,1
-24,pairwise_relationship,vert_support,11,1
-25,pairwise_relationship,vert_support,7,6
-26,pairwise_relationship,vert_support,11,10
-27,pairwise_relationship,vert_support,12,0
+15,pairwise_relationship,vertsupport,1,0
+16,pairwise_relationship,vertsupport,2,1
+17,pairwise_relationship,vertsupport,3,1
+18,pairwise_relationship,vertsupport,4,1
+19,pairwise_relationship,vertsupport,5,1
+20,pairwise_relationship,vertsupport,6,1
+21,pairwise_relationship,vertsupport,8,1
+22,pairwise_relationship,vertsupport,9,1
+23,pairwise_relationship,vertsupport,10,1
+24,pairwise_relationship,vertsupport,11,1
+25,pairwise_relationship,vertsupport,7,6
+26,pairwise_relationship,vertsupport,11,10
+27,pairwise_relationship,vertsupport,12,0
 28,pairwise_relationship,near,12,1
 29,pairwise_relationship,near,1,12
 edgeNum 31

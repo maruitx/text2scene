@@ -6,8 +6,17 @@ PairwiseRelationModel::PairwiseRelationModel(const QString &anchorName, const QS
 
 {
 	m_relationKey = m_anchorObjName + "_" + m_actObjName + "_" + m_conditionName + "_" + m_relationName;
+	m_GMM = NULL;
 }
 
+
+PairwiseRelationModel::~PairwiseRelationModel()
+{
+	if (m_GMM != NULL)
+	{
+		delete m_GMM;
+	}
+}
 
 void PairwiseRelationModel::loadFromStream(QTextStream &ifs)
 {
@@ -44,7 +53,7 @@ void PairwiseRelationModel::loadFromStream(QTextStream &ifs)
 	}
 	else
 	{
-		m_gaussians.resize(m_numGauss);
+		m_GMM = new GaussianMixtureModel(m_numGauss);
 
 		for (int g = 0; g < m_numGauss; g++)
 		{
@@ -54,17 +63,14 @@ void PairwiseRelationModel::loadFromStream(QTextStream &ifs)
 			int gaussDim = StringToInt(parts[0]);
 			double gaussWeight = StringToFloat(parts[1]);
 
-			GaussianModel newGauss;
-			newGauss.dim = gaussDim;
-			newGauss.weight = gaussWeight;
-			newGauss.mean = Eigen::VectorXd(gaussDim);
-			newGauss.covarMat = Eigen::MatrixXd(gaussDim, gaussDim);
+			Eigen::VectorXd mean(gaussDim);
+			Eigen::MatrixXd covarMat(gaussDim, gaussDim);
 
 			std::vector<float> floatList = StringToFloatList(parts[2], "");
 
 			for (int d = 0; d < gaussDim; d++)
 			{
-				newGauss.mean[d] = floatList[d];   // have to set the size before you can use the comma initializer.
+				mean[d] = floatList[d];   // have to set the size before you can use the comma initializer.
 			}
 
 			floatList = StringToFloatList(parts[3], "");
@@ -72,12 +78,12 @@ void PairwiseRelationModel::loadFromStream(QTextStream &ifs)
 			{
 				for (int r = 0; r < gaussDim; r++)
 				{
-					newGauss.covarMat(r, c) = floatList[c*gaussDim + r];
+					covarMat(r, c) = floatList[c*gaussDim + r];
 				}
-
 			}
-
-			m_gaussians[g] = newGauss;
+			
+			GaussianModel* newGauss = new GaussianModel(gaussDim, gaussWeight, mean, covarMat);
+			m_GMM->m_gaussians[g] = newGauss;
 		}
 	}
 }

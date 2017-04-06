@@ -9,7 +9,7 @@ suppPlane 0 -2.84217e-14 135 245.625 -2.84217e-14 135 245.625 243 135 0 243 135
 parentId -1
 parentPlaneUVH 0.5 0.5 -1
 newModel 1 198683c1a50cebd134d6aa31914c287d
-transform 0.000000 0.623223 0.000000 0.000000 -0.623223 0.000000 0.000000 0.000000 0.000000 0.000000 0.623223 0.000000 45.342602 113.719002 53.439598 1.000000
+transform 0.000000 0.623223 0.000000 0.000000 -0.623223 0.000000 0.000000 0.000000 0.000000 0.000000 0.623223 0.000000 45.342602 113.719002 53.439602 1.000000
 position 146.144 65.0169 47.7426
 frontDir 0 -1 0
 upDir 0 0 1
@@ -181,46 +181,46 @@ nodeNum 60
 17,object,book,,32 51 52 53
 18,object,chair,,33 51 52 53
 19,object,pottedplant,,34 45 46 47 48 49 50 51 52 53
-20,pairwise_relationship,vert_support,2,0
-21,pairwise_relationship,vert_support,3,2
-22,pairwise_relationship,vert_support,4,2
-23,pairwise_relationship,vert_support,5,2
-24,pairwise_relationship,vert_support,7,2
-25,pairwise_relationship,vert_support,8,2
-26,pairwise_relationship,vert_support,9,2
-27,pairwise_relationship,vert_support,12,2
-28,pairwise_relationship,vert_support,13,2
-29,pairwise_relationship,vert_support,14,2
-30,pairwise_relationship,vert_support,15,2
-31,pairwise_relationship,vert_support,16,2
-32,pairwise_relationship,vert_support,17,2
-33,pairwise_relationship,vert_support,18,2
-34,pairwise_relationship,vert_support,19,2
-35,pairwise_relationship,vert_support,8,4
-36,pairwise_relationship,vert_support,14,6
-37,pairwise_relationship,vert_support,9,8
-38,pairwise_relationship,vert_support,12,9
-39,pairwise_relationship,vert_support,11,10
-40,pairwise_relationship,vert_support,14,10
-41,pairwise_relationship,vert_support,15,10
-42,pairwise_relationship,vert_support,6,2
-43,pairwise_relationship,vert_support,10,2
-44,pairwise_relationship,vert_support,11,2
-45,group_attribute,formal,19 1,2
-46,group_attribute,clean,19 1,2
-47,group_attribute,organized,19 1,2
-48,group_attribute,formal,19 1 5 3,2
-49,group_attribute,clean,19 1 5 3,2
-50,group_attribute,organized,19 1 5 3,2
-51,group_attribute,clean,5 19 3 6 7 14 9 12 8 17 16 13 11 10 4 18,2
-52,group_attribute,organized,5 19 3 6 7 14 9 12 8 17 16 13 11 10 4 18,2
-53,group_attribute,casual,5 19 3 6 7 14 9 12 8 17 16 13 11 10 4 18,2
-54,group_attribute,clean,6 7 11 12,2
-55,group_attribute,casual,6 7 11 12,2
-56,group_attribute,organized,6 7 11 12,2
-57,group_attribute,clean,3 5 1 11,2
-58,group_attribute,organized,3 5 1 11,2
-59,group_attribute,casual,3 5 1 11,2
+20,pairwise_relationship,vertsupport,2,0
+21,pairwise_relationship,vertsupport,3,2
+22,pairwise_relationship,vertsupport,4,2
+23,pairwise_relationship,vertsupport,5,2
+24,pairwise_relationship,vertsupport,7,2
+25,pairwise_relationship,vertsupport,8,2
+26,pairwise_relationship,vertsupport,9,2
+27,pairwise_relationship,vertsupport,12,2
+28,pairwise_relationship,vertsupport,13,2
+29,pairwise_relationship,vertsupport,14,2
+30,pairwise_relationship,vertsupport,15,2
+31,pairwise_relationship,vertsupport,16,2
+32,pairwise_relationship,vertsupport,17,2
+33,pairwise_relationship,vertsupport,18,2
+34,pairwise_relationship,vertsupport,19,2
+35,pairwise_relationship,vertsupport,8,4
+36,pairwise_relationship,vertsupport,14,6
+37,pairwise_relationship,vertsupport,9,8
+38,pairwise_relationship,vertsupport,12,9
+39,pairwise_relationship,vertsupport,11,10
+40,pairwise_relationship,vertsupport,14,10
+41,pairwise_relationship,vertsupport,15,10
+42,pairwise_relationship,vertsupport,6,2
+43,pairwise_relationship,vertsupport,10,2
+44,pairwise_relationship,vertsupport,11,2
+45,group_relationship_anno,formal,19 1,2
+46,group_relationship_anno,clean,19 1,2
+47,group_relationship_anno,organized,19 1,2
+48,group_relationship_anno,formal,19 1 5 3,2
+49,group_relationship_anno,clean,19 1 5 3,2
+50,group_relationship_anno,organized,19 1 5 3,2
+51,group_relationship_anno,clean,5 19 3 6 7 14 9 12 8 17 16 13 11 10 4 18,2
+52,group_relationship_anno,organized,5 19 3 6 7 14 9 12 8 17 16 13 11 10 4 18,2
+53,group_relationship_anno,casual,5 19 3 6 7 14 9 12 8 17 16 13 11 10 4 18,2
+54,group_relationship_anno,clean,6 7 11 12,2
+55,group_relationship_anno,casual,6 7 11 12,2
+56,group_relationship_anno,organized,6 7 11 12,2
+57,group_relationship_anno,clean,3 5 1 11,2
+58,group_relationship_anno,organized,3 5 1 11,2
+59,group_relationship_anno,casual,3 5 1 11,2
 edgeNum 155
 0,2,20
 1,20,0

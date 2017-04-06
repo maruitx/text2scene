@@ -104,7 +104,7 @@ upDir 0 0 1
 suppPlane 174.45 125.383 48.5587 189.65 143.18 48.5587 169.875 160.069 48.5587 154.676 142.272 48.5587
 parentId 0
 parentPlaneUVH 0.699849 0.539368 -131.75
-nodeNum 42
+nodeNum 36
 0,object,room,15 16 17 18,
 1,object,wallart,,
 2,object,wallart,,
@@ -115,21 +115,21 @@ nodeNum 42
 7,object,food,,22
 8,object,candle,,23
 9,object,pottedplant,,24
-10,object,chair,27 28 36 38,16 25 26 37 39
-11,object,chair,31 32 37 40,17 29 30 36 41
-12,object,chair,35 39 41,18 33 34 38 40
+10,object,chair,27 28,16 25 26
+11,object,chair,31 32,17 29 30
+12,object,chair,35,18 33 34
 13,per_obj_attribute,dining,,3
 14,per_obj_attribute,rectangular,,3
-15,pairwise_relationship,vert_support,3,0
-16,pairwise_relationship,vert_support,10,0
-17,pairwise_relationship,vert_support,11,0
-18,pairwise_relationship,vert_support,12,0
-19,pairwise_relationship,vert_support,4,3
-20,pairwise_relationship,vert_support,5,3
-21,pairwise_relationship,vert_support,6,3
-22,pairwise_relationship,vert_support,7,3
-23,pairwise_relationship,vert_support,8,3
-24,pairwise_relationship,vert_support,9,3
+15,pairwise_relationship,vertsupport,3,0
+16,pairwise_relationship,vertsupport,10,0
+17,pairwise_relationship,vertsupport,11,0
+18,pairwise_relationship,vertsupport,12,0
+19,pairwise_relationship,vertsupport,4,3
+20,pairwise_relationship,vertsupport,5,3
+21,pairwise_relationship,vertsupport,6,3
+22,pairwise_relationship,vertsupport,7,3
+23,pairwise_relationship,vertsupport,8,3
+24,pairwise_relationship,vertsupport,9,3
 25,pairwise_relationship,near,10,3
 26,pairwise_relationship,front,10,3
 27,pairwise_relationship,near,3,10
@@ -141,13 +141,7 @@ nodeNum 42
 33,pairwise_relationship,near,12,3
 34,pairwise_relationship,front,12,3
 35,pairwise_relationship,near,3,12
-36,pairwise_relationship,near,11,10
-37,pairwise_relationship,near,10,11
-38,pairwise_relationship,near,12,10
-39,pairwise_relationship,near,10,12
-40,pairwise_relationship,near,12,11
-41,pairwise_relationship,near,11,12
-edgeNum 56
+edgeNum 44
 0,13,3
 1,14,3
 2,3,15
@@ -192,15 +186,3 @@ edgeNum 56
 41,34,3
 42,3,35
 43,35,12
-44,11,36
-45,36,10
-46,10,37
-47,37,11
-48,12,38
-49,38,10
-50,10,39
-51,39,12
-52,12,40
-53,40,11
-54,11,41
-55,41,12

@@ -55,11 +55,11 @@ nodeNum 11
 3,object,desklamp,,8
 4,object,book,,9
 5,object,cup,,10
-6,pairwise_relationship,vert_support,1,0
-7,pairwise_relationship,vert_support,2,1
-8,pairwise_relationship,vert_support,3,1
-9,pairwise_relationship,vert_support,4,1
-10,pairwise_relationship,vert_support,5,1
+6,pairwise_relationship,vertsupport,1,0
+7,pairwise_relationship,vertsupport,2,1
+8,pairwise_relationship,vertsupport,3,1
+9,pairwise_relationship,vertsupport,4,1
+10,pairwise_relationship,vertsupport,5,1
 edgeNum 10
 0,1,6
 1,6,0

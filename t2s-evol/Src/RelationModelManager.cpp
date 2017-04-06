@@ -1,7 +1,8 @@
 #include "RelationModelManager.h"
 #include "TSScene.h"
+#include "Model.h"
 #include "SceneSemGraph.h"
-
+#include <Eigen/Dense>
 
 RelationModelManager::RelationModelManager()
 {
@@ -49,7 +50,29 @@ void RelationModelManager::loadRelativeRelationModels()
 
 void RelationModelManager::loadPairwiseRelationModels()
 {
+	QString sceneDBPath = "./SceneDB";
+	QString filename = sceneDBPath + "/Pairwise.model";
 
+	QFile inFile(filename);
+	QTextStream ifs(&inFile);
+
+	if (!inFile.open(QIODevice::ReadOnly | QIODevice::Text)) return;
+
+	while (!ifs.atEnd())
+	{
+		QString currLine = ifs.readLine();
+		std::vector<std::string> parts = PartitionString(currLine.toStdString(), "_");
+
+		QString anchorObjName = toQString(parts[0]);
+		QString actObjName = toQString(parts[1]);
+		QString conditionName = toQString(parts[2]);
+		QString relationName = toQString(parts[3]);
+
+		PairwiseRelationModel *newRelModel = new PairwiseRelationModel(anchorObjName, actObjName, conditionName, relationName);
+		m_pairwiseRelModels[newRelModel->m_relationKey] = newRelModel;
+
+		newRelModel->loadFromStream(ifs);
+	}
 }
 
 void RelationModelManager::loadGroupRelationModels()
@@ -118,15 +141,50 @@ void RelationModelManager::loadGroupRelationModels()
 	inFile.close();
 }
 
-bool RelationModelManager::isRelationViolated(int metaModelId)
+bool RelationModelManager::isRelationViolated(TSScene *currScene, int metaModelId)
 {
+	return false;
 
+	double exTh = 0.5;
+	double imTh = 0.3;
+
+	MetaModel &md = currScene->getMetaModel(metaModelId);
+
+	std::vector<RelationConstraint> &exConstraints = currScene->m_explictConstraints[metaModelId];
+	std::vector<RelationConstraint> &imConstraints = currScene->m_implicitConstraints[metaModelId];
+
+	for (int i=0;  i < exConstraints.size(); i++)
+	{
+		PairwiseRelationModel *pairModel = exConstraints[i].relModel;
+		if (pairModel->m_numGauss == 0) continue;
+
+		int anchorObjId = exConstraints[i].anchorObjId;
+
+		MetaModel &anchorMd = currScene->getMetaModel(anchorObjId);
+
+		RelativePos *newRelPos = new RelativePos();
+
+		extractRelPosForModelPair(currScene, anchorMd, md, newRelPos);
+
+		Eigen::VectorXd observation(4);
+		observation[0] = newRelPos->pos.x;
+		observation[1] = newRelPos->pos.y;
+		observation[2] = newRelPos->pos.z;
+		observation[3] = newRelPos->theta;
+		
+		double prob = pairModel->m_GMM->probability(observation);
+
+		if (prob < exTh)
+		{
+			return true;
+		}
+	}
 
 
 	return false;
 }
 
-mat4 RelationModelManager::sampleTransformByRelation(int metaModelId)
+mat4 RelationModelManager::sampleFromExplicitRelation(TSScene *currScene, int metaModelId)
 {
 	SceneSemGraph *currSSG;// = m_currScene->m_ssg;
 	int currNodeId = currSSG->getNodeIdWithModelId(metaModelId);
@@ -149,11 +207,8 @@ mat4 RelationModelManager::sampleTransformByRelation(int metaModelId)
 
 void RelationModelManager::collectConstraintsForModel(TSScene *currScene, int metaModelId)
 {
-	currScene->m_explictConstraints.clear();
-	currScene->m_implicitConstraints.clear();
 
 	SceneSemGraph *currSSG = currScene->m_ssg;
-
 
 	int currNodeId = currSSG->getNodeIdWithModelId(metaModelId);
 
@@ -174,10 +229,10 @@ void RelationModelManager::collectConstraintsForModel(TSScene *currScene, int me
 			QString actObjName = currNode.nodeName;
 
 			// find explicit constraints specified in the SSG
-			QString exRelationKey = anchorObjName + "_" + actObjName + "_" + relationName;
-			if (m_pairwiseRelModels.count(exRelationKey))
+			PairwiseRelationModel *pairwiseModel = retrievePairwiseModel(anchorObjName, actObjName, relationName);
+			if (pairwiseModel!=NULL)
 			{
-				currScene->m_explictConstraints.push_back(RelationConstraint(m_pairwiseRelModels[exRelationKey], "pairwise"));
+				currScene->m_explictConstraints[metaModelId].push_back(RelationConstraint(pairwiseModel, "pairwise", anchorObjId));
 			}
 
 			QString conditionName;
@@ -197,13 +252,15 @@ void RelationModelManager::collectConstraintsForModel(TSScene *currScene, int me
 						SemNode &sibActNode = currSSG->m_nodes[sibActNodeId];
 
 						// use sibling obj as anchor in relative constraints if the sibling has been placed
-						MetaModel& sibModel = currSSG->getModelWithNodeId(sibActNodeId);
+						int sibModelId = currSSG->m_graphNodeToModelListIdMap[sibActNodeId];
+						MetaModel& sibModel = currScene->getMetaModel(sibModelId);
+
 						if (!sibModel.isAlreadyPlaced) continue;
 					
 						QString imRelationKey = sibActNode.nodeName + "_" + actObjName + "_" + "sibling" + "_general";
 						if (m_relativeModels.count(imRelationKey))
 						{
-							currScene->m_implicitConstraints.push_back(RelationConstraint(m_relativeModels[exRelationKey], "relative"));
+							currScene->m_implicitConstraints[metaModelId].push_back(RelationConstraint(m_relativeModels[imRelationKey], "relative", sibModelId));
 						}
 					}
 				}
@@ -224,5 +281,50 @@ void RelationModelManager::collectConstraintsForModel(TSScene *currScene, int me
 			//}
 		}
 	}	
+}
+
+PairwiseRelationModel* RelationModelManager::retrievePairwiseModel(const QString &anchorObjName, const QString &actObjName, const QString &relationName)
+{
+	for (auto iter = m_pairwiseRelModels.begin(); iter != m_pairwiseRelModels.end(); iter++)
+	{
+		QString relationKey = iter->first;
+
+		if (relationKey.contains(anchorObjName + "_" + actObjName))
+		{
+			if (relationKey.contains(relationName))
+			{
+				return m_pairwiseRelModels[relationKey];
+			}
+		}
+	}
+
+	return NULL;
+}
+
+void RelationModelManager::extractRelPosForModelPair(TSScene *currScene, const MetaModel &anchorModel, const MetaModel &actModel, RelativePos *relPos)
+{
+	vec3 anchorPos = anchorModel.position;
+	vec3 actPos = actModel.position;
+	vec3 anchorFront = anchorModel.frontDir;
+	vec3 actFront = actModel.frontDir;
+
+	mat4 transMat = anchorModel.transformation;
+	mat4 invTransMat = transMat.inverse();
+
+	vec3 anchorInitPos = TransformPoint(invTransMat, anchorPos);
+	vec3 anchorInitFront = TransformVector(invTransMat, anchorFront);
+
+	// compute unitize transform for anchor model
+	Model *loadedAnchorModel = currScene->getModel(anchorModel.name);
+	vec3 bbRange = loadedAnchorModel->getBBRange();
+
+	mat4 translateMat, scaleMat, rotMat;
+	translateMat = mat4::translate(vec3(0, 0, -0.5) - anchorInitPos);
+	scaleMat = mat4::scale(1 / bbRange.x, 1 / bbRange.y, 1 / bbRange.z);
+	rotMat = GetRotationMatrix(anchorInitFront, vec3(0, 1, 0));
+
+	mat4 alignMat = rotMat*scaleMat*translateMat*invTransMat;
+	relPos->pos = TransformPoint(alignMat, actPos);
+	relPos->theta = GetRotAngleR(anchorFront, actFront, vec3(0, 0, 1));
 }
 

@@ -17,13 +17,13 @@ suppPlane 82.5936 75.5883 53.2521 159.22 75.5883 53.2521 159.22 152.215 53.2521 
 parentId 0
 parentPlaneUVH 0.497868 0.468731 -131.75
 newModel 2 7f81a942c7f8fdb242ca7cc070f21ed3
-transform -0.611778 0.654099 0.000000 0.000000 -0.654099 -0.611778 0.000000 0.000000 0.000000 0.000000 0.895611 0.000000 156.052002 97.207901 53.502098 1.000000
+transform -0.611778 0.654099 0.000000 0.000000 -0.654099 -0.611778 0.000000 0.000000 0.000000 0.000000 0.895611 0.000000 156.052002 97.207901 53.502102 1.000000
 position 3.93701 5.5118 0
 frontDir 0 0 1
 upDir 0 1 0
 suppPlane 156.052 97.2079 54.7009 151.235 102.358 54.7009 156.052 97.2079 53.5021 156.052 97.2079 53.5021
 parentId 1
-parentPlaneUVH 0.880172 0.271744 0.250029
+parentPlaneUVH 0.880172 0.271744 0.250032
 newModel 3 f151b5b32400054bebe0518a81e2c5c8
 transform 0.003878 -0.041976 0.000000 0.000000 0.041976 0.003878 0.000000 0.000000 0.000000 0.000000 0.042155 0.000000 87.694901 86.020203 54.187099 1.000000
 position 34.282 329.756 -16.25
@@ -49,13 +49,13 @@ suppPlane 101.857 83.6416 61.3289 107.421 83.7996 61.3289 107.263 89.3628 61.328
 parentId 3
 parentPlaneUVH 0.475663 0.691424 -0.803849
 newModel 6 f9244dc91aebf77ba4c322790a683350
-transform 0.952871 0.979849 0.000000 0.000000 -0.979849 0.952871 0.000000 0.000000 0.000000 0.000000 1.366770 0.000000 122.599998 17.406099 53.502098 1.000000
+transform 0.952871 0.979849 0.000000 0.000000 -0.979849 0.952871 0.000000 0.000000 0.000000 0.000000 1.366770 0.000000 122.599998 17.406099 53.502102 1.000000
 position 43.2874 27.9242 0
 frontDir 0 -1 0
 upDir 0 0 1
 suppPlane 136.535 82.9118 61.7593 140.003 86.4785 61.7593 136.437 89.9469 61.7593 132.968 86.3803 61.7593
 parentId 1
-parentPlaneUVH 0.70331 0.141479 0.250029
+parentPlaneUVH 0.70331 0.141479 0.250032
 newModel 7 b46a9c35587a38f6e87dab59b7e63362
 transform -0.017041 -0.333688 0.000000 0.000000 0.333688 -0.017041 0.000000 0.000000 0.000000 0.000000 0.334123 0.000000 39.017700 127.764000 53.403500 1.000000
 position 80.0139 174.923 0.29508
@@ -65,21 +65,21 @@ suppPlane 92.1897 101.253 58.5112 91.8868 95.3215 58.5112 98.8382 94.9665 58.511
 parentId 1
 parentPlaneUVH 0.175269 0.293568 0.250023
 newModel 8 38c6a54843046bef5bbc469684caa508
-transform -0.000673 -0.026031 0.000000 0.000000 0.026031 -0.000673 0.000000 0.000000 0.000000 0.000000 0.026039 0.000000 118.561996 111.949997 53.502098 1.000000
+transform -0.000673 -0.026031 0.000000 0.000000 0.026031 -0.000673 0.000000 0.000000 0.000000 0.000000 0.026039 0.000000 118.561996 111.949997 53.502102 1.000000
 position 33.111 305.177 0
 frontDir 0 -1 0
 upDir 0 0 1
 suppPlane 124.992 114.238 58.8467 124.82 107.609 58.8467 127.976 107.527 58.8467 128.147 114.156 58.8467
 parentId 1
-parentPlaneUVH 0.572779 0.460602 0.250029
+parentPlaneUVH 0.572779 0.460602 0.250032
 newModel 9 2149ef35092881bef54e1b6f41fdd78a
-transform -1.096210 0.014077 0.000000 0.000000 -0.014077 -1.096210 0.000000 0.000000 0.000000 0.000000 1.096300 0.000000 130.643997 92.477898 53.503498 1.000000
+transform -1.096210 0.014077 0.000000 0.000000 -0.014077 -1.096210 0.000000 0.000000 0.000000 0.000000 1.096300 0.000000 130.643997 92.477898 53.503502 1.000000
 position 8.986 6.493 -0.00125
 frontDir 0 -1 0
 upDir 0 0 1
 suppPlane 130.644 92.4779 54.591 110.943 92.7309 54.591 110.76 78.4955 54.591 130.461 78.2425 54.591
 parentId 1
-parentPlaneUVH 0.497327 0.129177 0.250058
+parentPlaneUVH 0.497327 0.129177 0.250062
 newModel 10 d92f30d9e38cf61ce69bbdea737daae6
 transform -0.142860 -0.026152 0.000000 0.000000 0.026152 -0.142860 0.000000 0.000000 0.000000 0.000000 0.145234 0.000000 120.728996 85.063004 53.788601 1.000000
 position 22.8174 15.9192 0
@@ -87,7 +87,7 @@ frontDir 0 -1 0
 upDir 0 0 1
 suppPlane 120.711 85.0317 54.3695 114.139 83.8286 54.3695 114.945 79.4252 54.3695 121.517 80.6282 54.3695
 parentId 9
-parentPlaneUVH 0.640787 0.733942 -0.802427
+parentPlaneUVH 0.640787 0.733942 -0.802431
 newModel 11 2ddf6075c2e4fe46b5de9f9c43608e2e
 transform 0.000270 -0.002760 0.000000 0.000000 0.002760 0.000270 0.000000 0.000000 0.000000 0.000000 0.002773 0.000000 113.652000 92.794098 53.788601 1.000000
 position 1474.77 2642.29 0.0005
@@ -95,15 +95,15 @@ frontDir 0 -1 0
 upDir 0 0 1
 suppPlane 118.451 91.8432 56.4819 118.97 86.5388 56.4819 124.362 87.0661 56.4819 123.843 92.3704 56.4819
 parentId 9
-parentPlaneUVH 0.470015 0.22201 -0.802425
+parentPlaneUVH 0.470015 0.22201 -0.802429
 newModel 12 2ddf6075c2e4fe46b5de9f9c43608e2e
-transform -0.000380 0.002747 0.000000 0.000000 -0.002747 -0.000380 0.000000 0.000000 0.000000 0.000000 0.002773 0.000000 123.120003 86.751396 53.788601 1.000000
+transform -0.000380 0.002747 0.000000 0.000000 -0.002747 -0.000380 0.000000 0.000000 0.000000 0.000000 0.002773 0.000000 123.120003 86.751404 53.788601 1.000000
 position 1474.77 2642.29 0.0005
 frontDir 0 -1 0
 upDir 0 0 1
-suppPlane 118.287 87.5094 56.4819 117.556 92.7887 56.4819 112.189 92.0461 56.4819 112.92 86.7667 56.4819
+suppPlane 118.287 87.5094 56.4819 117.556 92.7888 56.4819 112.189 92.0461 56.4819 112.92 86.7667 56.4819
 parentId 9
-parentPlaneUVH 0.776958 0.202031 -0.802425
+parentPlaneUVH 0.776958 0.20203 -0.802429
 newModel 13 af584f93677603f9168825f3d0ad04fa
 transform -0.294100 -0.410935 0.000000 0.000000 0.410935 -0.294100 0.000000 0.000000 0.000000 0.000000 0.505334 0.000000 155.792999 110.450996 53.788601 1.000000
 position 77.1146 -17.9433 0
@@ -111,7 +111,7 @@ frontDir 0 -1 0
 upDir 0 0 1
 suppPlane 126.123 88.214 54.5352 122.155 82.6706 54.5352 125.604 80.2024 54.5352 129.571 85.7458 54.5352
 parentId 9
-parentPlaneUVH 0.243376 0.597134 -0.802427
+parentPlaneUVH 0.243376 0.597134 -0.802431
 newModel 14 dc3e5c0457defe87a52821bf1aa3b19a
 transform 0.030274 0.030274 0.000000 0.000000 -0.030274 0.030274 0.000000 0.000000 0.000000 0.000000 0.042814 0.000000 90.322899 114.925003 53.466400 1.000000
 position 172.914 122.4 0.8342
@@ -121,13 +121,13 @@ suppPlane 82.9118 122.336 59.2637 90.3229 114.925 59.2637 100.793 125.395 59.263
 parentId 1
 parentPlaneUVH 0.120827 0.630031 0.250046
 newModel 15 1f8275f1c106144ff11c3739edd52fa3
-transform -1.801780 -1.813130 0.000000 0.000000 1.813130 -1.801780 0.000000 0.000000 0.000000 0.000000 2.556140 0.000000 120.397003 112.750999 53.502098 1.000000
+transform -1.801780 -1.813130 0.000000 0.000000 1.813130 -1.801780 0.000000 0.000000 0.000000 0.000000 2.556140 0.000000 120.397003 112.750999 53.502102 1.000000
 position -0.036952 -0.754767 5e-06
 frontDir 0 -1 0
 upDir 0 0 1
 suppPlane 117.869 123.931 75.9256 106.692 112.683 75.9256 119.124 100.329 75.9256 130.301 111.577 75.9256
 parentId 1
-parentPlaneUVH 0.476356 0.503606 0.250041
+parentPlaneUVH 0.476356 0.503606 0.250045
 newModel 16 95ac294f47fd7d87e0b49f27ced29e3
 transform 0.063529 -0.001046 0.000000 0.000000 0.001046 0.063529 0.000000 0.000000 0.000000 0.000000 0.063538 0.000000 135.154999 102.716003 53.139400 1.000000
 position 0 0 5.70865
@@ -161,13 +161,13 @@ suppPlane 99.3146 107.557 55.34 99.3761 113.691 55.34 93.4819 113.75 55.34 93.42
 parentId 1
 parentPlaneUVH 0.180155 0.457613 0.250083
 newModel 20 17079f40cfdc719a3f7d5255ff865380
-transform 0.039646 1.218120 0.000000 0.000000 -1.218120 0.039646 0.000000 0.000000 0.000000 0.000000 1.218760 0.000000 163.959000 100.054001 53.502098 1.000000
+transform 0.039646 1.218120 0.000000 0.000000 -1.218120 0.039646 0.000000 0.000000 0.000000 0.000000 1.218760 0.000000 163.959000 100.054001 53.502102 1.000000
 position 11.4807 11.8558 0
 frontDir 0 -1 0
 upDir 0 0 1
 suppPlane 157.174 106.91 53.9591 157.652 121.604 53.9591 142.768 122.088 53.9591 142.29 107.395 53.9591
 parentId 1
-parentPlaneUVH 0.879314 0.507926 0.250029
+parentPlaneUVH 0.879314 0.507926 0.250032
 newModel 21 2e5a331b7d16f263d9e1e44903fea4a9
 transform -0.009686 -0.009686 0.000000 0.000000 0.009686 -0.009686 0.000000 0.000000 0.000000 0.000000 0.013698 0.000000 142.541000 125.755997 54.010601 1.000000
 position 221.915 941.783 -7.7495
@@ -175,7 +175,7 @@ frontDir 0 -1 0
 upDir 0 0 1
 suppPlane 149.514 123.673 57.4368 140.325 114.484 57.4368 149.514 105.295 57.4368 158.703 114.484 57.4368
 parentId 20
-parentPlaneUVH 0.497967 0.530647 -0.0546886
+parentPlaneUVH 0.497967 0.530647 -0.0546924
 newModel 22 934f911815518a12862ec27465061d4
 transform 0.000000 1.500000 0.000000 0.000000 -1.500000 0.000000 0.000000 0.000000 0.000000 0.000000 1.500000 0.000000 80.128998 100.053001 3.250000 1.000000
 position 10.444 10.455 0
@@ -202,7 +202,7 @@ parentId 0
 parentPlaneUVH 0.736299 0.472247 -131.75
 nodeNum 84
 0,object,room,26 27 28 29,
-1,object,table,30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83,26
+1,object,table,30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 58 60 62 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83,26 59 61 63
 2,object,book,,30 75 76 77 78 79 80
 3,object,plate,50 51,31 75 76 77
 4,object,sandwich,,32 50 75 76 77
@@ -223,68 +223,68 @@ nodeNum 84
 19,object,glasses,,47 75 76 77
 20,object,plate,57,48
 21,object,foodplate,,49 57 72 73 74 75 76 77
-22,object,chair,58 60,27 59 61 64 65 66 67 68 69 70 71 81 82 83
-23,object,chair,59 62,28 58 63 64 65 66 67 68 69 70 71 78 79 80
-24,object,chair,61 63,29 60 62 64 65 66 67 68 69 70 71
+22,object,chair,59,27 58 64 65 66 67 68 69 70 71 81 82 83
+23,object,chair,61,28 60 64 65 66 67 68 69 70 71 78 79 80
+24,object,chair,63,29 62 64 65 66 67 68 69 70 71
 25,per_obj_attribute,sauce,,8
-26,pairwise_relationship,vert_support,1,0
-27,pairwise_relationship,vert_support,22,0
-28,pairwise_relationship,vert_support,23,0
-29,pairwise_relationship,vert_support,24,0
-30,pairwise_relationship,vert_support,2,1
-31,pairwise_relationship,vert_support,3,1
-32,pairwise_relationship,vert_support,4,1
-33,pairwise_relationship,vert_support,5,1
-34,pairwise_relationship,vert_support,6,1
-35,pairwise_relationship,vert_support,7,1
-36,pairwise_relationship,vert_support,8,1
-37,pairwise_relationship,vert_support,9,1
-38,pairwise_relationship,vert_support,10,1
-39,pairwise_relationship,vert_support,11,1
-40,pairwise_relationship,vert_support,12,1
-41,pairwise_relationship,vert_support,13,1
-42,pairwise_relationship,vert_support,14,1
-43,pairwise_relationship,vert_support,15,1
-44,pairwise_relationship,vert_support,16,1
-45,pairwise_relationship,vert_support,17,1
-46,pairwise_relationship,vert_support,18,1
-47,pairwise_relationship,vert_support,19,1
-48,pairwise_relationship,vert_support,20,1
-49,pairwise_relationship,vert_support,21,1
-50,pairwise_relationship,vert_support,4,3
-51,pairwise_relationship,vert_support,5,3
-52,pairwise_relationship,vert_support,10,9
-53,pairwise_relationship,vert_support,11,9
-54,pairwise_relationship,vert_support,12,9
-55,pairwise_relationship,vert_support,13,9
-56,pairwise_relationship,vert_support,17,16
-57,pairwise_relationship,vert_support,21,20
-58,pairwise_relationship,near,23,22
-59,pairwise_relationship,near,22,23
-60,pairwise_relationship,near,24,22
-61,pairwise_relationship,near,22,24
-62,pairwise_relationship,near,24,23
-63,pairwise_relationship,near,23,24
-64,group_attribute,formal,24 23 22,1
-65,group_attribute,organized,24 23 22,1
-66,group_attribute,clean,24 23 22,1
-67,group_attribute,narrow,24 23 22,1
-68,group_attribute,formal,24 23 22 15,1
-69,group_attribute,organized,24 23 22 15,1
-70,group_attribute,clean,24 23 22 15,1
-71,group_attribute,narrow,24 23 22 15,1
-72,group_attribute,formal,9 13 10 11 12 15 21 8,1
-73,group_attribute,organized,9 13 10 11 12 15 21 8,1
-74,group_attribute,clean,9 13 10 11 12 15 21 8,1
-75,group_attribute,casual,9 13 10 11 12 15 21 8 2 6 16 3 5 4 7 18 14 19,1
-76,group_attribute,organized,9 13 10 11 12 15 21 8 2 6 16 3 5 4 7 18 14 19,1
-77,group_attribute,messy,9 13 10 11 12 15 21 8 2 6 16 3 5 4 7 18 14 19,1
-78,group_attribute,casual,23 6 9 13 10 11 15 8 2,1
-79,group_attribute,organized,23 6 9 13 10 11 15 8 2,1
-80,group_attribute,clean,23 6 9 13 10 11 15 8 2,1
-81,group_attribute,casual,7 22 15 14,1
-82,group_attribute,organized,7 22 15 14,1
-83,group_attribute,clean,7 22 15 14,1
+26,pairwise_relationship,vertsupport,1,0
+27,pairwise_relationship,vertsupport,22,0
+28,pairwise_relationship,vertsupport,23,0
+29,pairwise_relationship,vertsupport,24,0
+30,pairwise_relationship,vertsupport,2,1
+31,pairwise_relationship,vertsupport,3,1
+32,pairwise_relationship,vertsupport,4,1
+33,pairwise_relationship,vertsupport,5,1
+34,pairwise_relationship,vertsupport,6,1
+35,pairwise_relationship,vertsupport,7,1
+36,pairwise_relationship,vertsupport,8,1
+37,pairwise_relationship,vertsupport,9,1
+38,pairwise_relationship,vertsupport,10,1
+39,pairwise_relationship,vertsupport,11,1
+40,pairwise_relationship,vertsupport,12,1
+41,pairwise_relationship,vertsupport,13,1
+42,pairwise_relationship,vertsupport,14,1
+43,pairwise_relationship,vertsupport,15,1
+44,pairwise_relationship,vertsupport,16,1
+45,pairwise_relationship,vertsupport,17,1
+46,pairwise_relationship,vertsupport,18,1
+47,pairwise_relationship,vertsupport,19,1
+48,pairwise_relationship,vertsupport,20,1
+49,pairwise_relationship,vertsupport,21,1
+50,pairwise_relationship,vertsupport,4,3
+51,pairwise_relationship,vertsupport,5,3
+52,pairwise_relationship,vertsupport,10,9
+53,pairwise_relationship,vertsupport,11,9
+54,pairwise_relationship,vertsupport,12,9
+55,pairwise_relationship,vertsupport,13,9
+56,pairwise_relationship,vertsupport,17,16
+57,pairwise_relationship,vertsupport,21,20
+58,pairwise_relationship,near,22,1
+59,pairwise_relationship,near,1,22
+60,pairwise_relationship,near,23,1
+61,pairwise_relationship,near,1,23
+62,pairwise_relationship,near,24,1
+63,pairwise_relationship,near,1,24
+64,group_relationship_anno,formal,24 23 22,1
+65,group_relationship_anno,organized,24 23 22,1
+66,group_relationship_anno,clean,24 23 22,1
+67,group_relationship_anno,narrow,24 23 22,1
+68,group_relationship_anno,formal,24 23 22 15,1
+69,group_relationship_anno,organized,24 23 22 15,1
+70,group_relationship_anno,clean,24 23 22 15,1
+71,group_relationship_anno,narrow,24 23 22 15,1
+72,group_relationship_anno,formal,9 13 10 11 12 15 21 8,1
+73,group_relationship_anno,organized,9 13 10 11 12 15 21 8,1
+74,group_relationship_anno,clean,9 13 10 11 12 15 21 8,1
+75,group_relationship_anno,casual,9 13 10 11 12 15 21 8 2 6 16 3 5 4 7 18 14 19,1
+76,group_relationship_anno,organized,9 13 10 11 12 15 21 8 2 6 16 3 5 4 7 18 14 19,1
+77,group_relationship_anno,messy,9 13 10 11 12 15 21 8 2 6 16 3 5 4 7 18 14 19,1
+78,group_relationship_anno,casual,23 6 9 13 10 11 15 8 2,1
+79,group_relationship_anno,organized,23 6 9 13 10 11 15 8 2,1
+80,group_relationship_anno,clean,23 6 9 13 10 11 15 8 2,1
+81,group_relationship_anno,casual,7 22 15 14,1
+82,group_relationship_anno,organized,7 22 15 14,1
+83,group_relationship_anno,clean,7 22 15 14,1
 edgeNum 242
 0,25,8
 1,1,26
@@ -351,17 +351,17 @@ edgeNum 242
 62,56,16
 63,21,57
 64,57,20
-65,23,58
-66,58,22
-67,22,59
-68,59,23
-69,24,60
-70,60,22
-71,22,61
-72,61,24
+65,22,58
+66,58,1
+67,1,59
+68,59,22
+69,23,60
+70,60,1
+71,1,61
+72,61,23
 73,24,62
-74,62,23
-75,23,63
+74,62,1
+75,1,63
 76,63,24
 77,64,1
 78,24,64

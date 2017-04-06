@@ -254,11 +254,11 @@ void TextSemGraph::mapToFixedRelationSet(SemNode &currNode, QString &nodeName, Q
 	{
 		if (nodeType.contains("horizon"))
 		{
-			nodeName = "horizon_support";
+			nodeName = "horizonsupport";
 		}
 		else
 		{
-			nodeName = "vert_support";
+			nodeName = "vertsupport";
 		}
 		nodeType = "relation";
 		return;
@@ -268,7 +268,7 @@ void TextSemGraph::mapToFixedRelationSet(SemNode &currNode, QString &nodeName, Q
 	{
 
 		nodeType = "relation";
-		nodeName = "vert_support";
+		nodeName = "vertsupport";
 
 		// reverse for current node
 		std::swap(currNode.activeNodeList, currNode.anchorNodeList);
