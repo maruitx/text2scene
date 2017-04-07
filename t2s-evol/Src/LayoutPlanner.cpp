@@ -167,66 +167,104 @@ void LayoutPlanner::adjustPlacement(TSScene *currScene, int metaModelID, const s
 	updateCollisionPostions(collisonPositions);
 
 	MetaModel &currMd = currScene->getMetaModel(metaModelID);
+
+	bool collisionFlag = true;
+	bool implicitFlag = true;
+
 	mat4 transMat;
-	vec3 translateVec;
 
-	int parentNodeId = currScene->m_ssg->findParentNodeIdForModel(metaModelID);
-	int parentMetaModelId = currScene->m_ssg->m_graphNodeToModelListIdMap[parentNodeId];
-
-	QString sampleType;
-
-	if (parentNodeId != -1)
+	while (collisionFlag)
 	{
-		MetaModel &parentMd = currScene->getMetaModel(parentMetaModelId);
+		// propose position from the explicit constraint
+		// candidate position in world frame
+		int anchorModelId;
+		Eigen::VectorXd candiPos = m_relModelManager->sampleFromExplicitRelation(currScene, metaModelID, anchorModelId);
+		vec3 newPos(candiPos[0], candiPos[1], candiPos[2]);
+		adjustPlacementForSpecificModel(currScene, currMd, newPos);
 
-		SuppPlane &parentSuppPlane = parentMd.suppPlane;
-		if (parentSuppPlane.m_isInited)
+		if (!isPosCloseToInvalidPos(newPos, metaModelID))
 		{
-			sampleType = " on parent-" + currScene->m_ssg->m_nodes[parentNodeId].nodeName;
+			collisionFlag = false;
 
-			vec3 currUVH = currMd.parentPlaneUVH; // UV, and H w.r.t to parent support plane
-			std::vector<double> stdDevs(2, 0.1);
+			//
+			MetaModel &anchorMd = currScene->getMetaModel(anchorModelId);
+			vec3 anchorFront = anchorMd.frontDir;
 
-			bool candiFound = false;
-			while (!candiFound)
-			{
-				vec3 newPos = parentSuppPlane.randomGaussSamplePtByUV(currUVH, stdDevs);
+			double initTheta = GetRotAngleR(anchorFront, currMd.frontDir, vec3(0,0,1));
+			double currTheta = candiPos[3];
+			double rotTheta = currTheta - initTheta;
 
-				adjustPlacementForSpecificModel(currScene, currMd, newPos);
+			mat4 rotMat = GetRotationMatrix(vec3(0, 0, 1), rotTheta);
 
-				if (!isPosCloseToInvalidPos(newPos, metaModelID))
-				{
-					candiFound = true;
-					translateVec = newPos - currMd.position;
-				}
-			}
-		}
-	}
-	else
-	{
-		sampleType = "on floor";
+			// test whether candidate pos is valid for all implicit constraint
+			vec3 translateVec = newPos - TransformPoint(rotMat, currMd.position);
+			transMat = rotMat;
+			transMat.a14 = translateVec.x;
+			transMat.a24 = translateVec.y;
+			transMat.a34 = translateVec.z;
 
-		std::vector<double> shiftVals;
-		std::vector<double> dMeans(2, 0); // set mean to be (0,0)
-		std::vector<double> stdDevs(2, 0.2);
-
-		bool candiFound = false;
-		while (!candiFound)
-		{
-			GenNNormalDistribution(dMeans, stdDevs, shiftVals);
-			translateVec = vec3(shiftVals[0] / m_sceneMetric, shiftVals[1] / m_sceneMetric, 0);
-
-			vec3 newPos = currMd.position + translateVec;
-			if (!isPosCloseToInvalidPos(newPos, metaModelID))
-			{
-				candiFound = true;
-			}
+			break;
 		}
 	}
 
-	transMat = transMat.translate(translateVec);
 
-	//transMat = m_relModelManager->sampleTransformByRelation(metaModelID);
+	//vec3 translateVec;
+
+	//int parentNodeId = currScene->m_ssg->findParentNodeIdForModel(metaModelID);
+	//int parentMetaModelId = currScene->m_ssg->m_graphNodeToModelListIdMap[parentNodeId];
+
+	//QString sampleType;
+
+	//if (parentNodeId != -1)
+	//{
+	//	MetaModel &parentMd = currScene->getMetaModel(parentMetaModelId);
+
+	//	SuppPlane &parentSuppPlane = parentMd.suppPlane;
+	//	if (parentSuppPlane.m_isInited)
+	//	{
+	//		sampleType = " on parent-" + currScene->m_ssg->m_nodes[parentNodeId].nodeName;
+
+	//		vec3 currUVH = currMd.parentPlaneUVH; // UV, and H w.r.t to parent support plane
+	//		std::vector<double> stdDevs(2, 0.1);
+
+	//		bool candiFound = false;
+	//		while (!candiFound)
+	//		{
+	//			vec3 newPos = parentSuppPlane.randomGaussSamplePtByUV(currUVH, stdDevs);
+
+	//			adjustPlacementForSpecificModel(currScene, currMd, newPos);
+
+	//			if (!isPosCloseToInvalidPos(newPos, metaModelID))
+	//			{
+	//				candiFound = true;
+	//				translateVec = newPos - currMd.position;
+	//			}
+	//		}
+	//	}
+	//}
+	//else
+	//{
+	//	sampleType = "on floor";
+
+	//	std::vector<double> shiftVals;
+	//	std::vector<double> dMeans(2, 0); // set mean to be (0,0)
+	//	std::vector<double> stdDevs(2, 0.2);
+
+	//	bool candiFound = false;
+	//	while (!candiFound)
+	//	{
+	//		GenNNormalDistribution(dMeans, stdDevs, shiftVals);
+	//		translateVec = vec3(shiftVals[0] / m_sceneMetric, shiftVals[1] / m_sceneMetric, 0);
+
+	//		vec3 newPos = currMd.position + translateVec;
+	//		if (!isPosCloseToInvalidPos(newPos, metaModelID))
+	//		{
+	//			candiFound = true;
+	//		}
+	//	}
+	//}
+
+	//transMat = transMat.translate(translateVec);
 	
 	currMd.updateWithTransform(transMat);
 

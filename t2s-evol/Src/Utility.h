@@ -122,6 +122,22 @@ static vec3 TransformVector(const mat4 &transMat, const vec3 &v)
 	return transV;
 }
 
+// angle should be in radians
+static mat4 GetRotationMatrix(vec3 rotAxis, double angle)
+{
+	mat4 rotMat;
+	rotMat = mat4::identitiy();
+
+	QQuaternion rotQ = QQuaternion::fromAxisAndAngle(QVector3D(rotAxis.x, rotAxis.y, rotAxis.z), angle);
+	QMatrix3x3 qrotMat = rotQ.toRotationMatrix();
+
+	rotMat.a11 = qrotMat(0, 0); rotMat.a12 = qrotMat(0, 1); rotMat.a13 = qrotMat(0, 2);
+	rotMat.a21 = qrotMat(1, 0); rotMat.a22 = qrotMat(1, 1); rotMat.a23 = qrotMat(1, 2);
+	rotMat.a31 = qrotMat(2, 0); rotMat.a32 = qrotMat(2, 1); rotMat.a33 = qrotMat(2, 2);
+
+	return rotMat;
+}
+
 static mat4 GetRotationMatrix(const vec3 &fromVec, const vec3 &toVec)
 {
 	QQuaternion rotQ = QQuaternion::rotationTo(QVector3D(fromVec.x, fromVec.y, fromVec.z), QVector3D(toVec.x, toVec.y, toVec.z));

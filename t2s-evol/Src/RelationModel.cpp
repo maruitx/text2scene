@@ -24,9 +24,15 @@ void PairwiseRelationModel::loadFromStream(QTextStream &ifs)
 
 	// gaussNum instanceNum
 	currLine = ifs.readLine();
-	std::vector<int> intList = StringToIntegerList(currLine.toStdString(), "");
-	m_numGauss = intList[0];
-	m_numInstance = intList[1];
+	std::vector<float> floatList = StringToFloatList(currLine.toStdString(), "");
+	m_numGauss = (int) floatList[0];
+	m_numInstance = (int) floatList[1];
+
+	Eigen::VectorXd probTh(floatList.size() - 2);
+	for (int i=0; i < probTh.rows(); i++)
+	{
+		probTh[i] = floatList[i + 2];
+	}
 
 	std::vector<string> parts;
 
@@ -54,6 +60,7 @@ void PairwiseRelationModel::loadFromStream(QTextStream &ifs)
 	else
 	{
 		m_GMM = new GaussianMixtureModel(m_numGauss);
+		m_GMM->m_probTh = probTh;
 
 		for (int g = 0; g < m_numGauss; g++)
 		{
@@ -85,6 +92,26 @@ void PairwiseRelationModel::loadFromStream(QTextStream &ifs)
 			GaussianModel* newGauss = new GaussianModel(gaussDim, gaussWeight, mean, covarMat);
 			m_GMM->m_gaussians[g] = newGauss;
 		}
+	}
+}
+
+Eigen::VectorXd PairwiseRelationModel::sample()
+{
+	if (m_GMM != NULL)
+	{
+		return m_GMM->sample();
+	}
+	else
+	{
+		int id = GenRandomInt(0, m_instances.size());
+		RelativePos *relPos = m_instances[id];
+		Eigen::VectorXd randObservation(4);
+		randObservation[0] = relPos->pos.x;
+		randObservation[1] = relPos->pos.y;
+		randObservation[2] = relPos->pos.z;
+		randObservation[3] = relPos->theta;
+
+		return randObservation;
 	}
 }
 

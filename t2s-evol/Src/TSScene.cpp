@@ -222,6 +222,13 @@ void TSScene::render(const Transform &trans, bool applyShadow)
 			Model *currModel = iter->second;
 			if (currModel->m_loadingDone)
 			{
+				// directly render placed model
+				if (md.isAlreadyPlaced)
+				{
+					currModel->render(tt, md.transformation, applyShadow, md.textureDir, m_renderMode, md.isSelected);
+					continue;
+				}
+
 				// extract relation constraints
 				if (!md.isAlreadyPlaced && !md.isConstranitsExtracted)
 				{
@@ -256,7 +263,7 @@ void TSScene::render(const Transform &trans, bool applyShadow)
 					{
 						md.isAlreadyPlaced = true;
 						m_placedObjIds.push_back(currModelId);
-						currModel->render(tt, md.transformation, applyShadow, md.textureDir, m_renderMode, md.isSelected);
+//						currModel->render(tt, md.transformation, applyShadow, md.textureDir, m_renderMode, md.isSelected);
 					}
 				}
 			}	

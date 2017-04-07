@@ -143,9 +143,8 @@ void RelationModelManager::loadGroupRelationModels()
 
 bool RelationModelManager::isRelationViolated(TSScene *currScene, int metaModelId)
 {
-	return false;
+	//return false;
 
-	double exTh = 0.5;
 	double imTh = 0.3;
 
 	MetaModel &md = currScene->getMetaModel(metaModelId);
@@ -159,7 +158,6 @@ bool RelationModelManager::isRelationViolated(TSScene *currScene, int metaModelI
 		if (pairModel->m_numGauss == 0) continue;
 
 		int anchorObjId = exConstraints[i].anchorObjId;
-
 		MetaModel &anchorMd = currScene->getMetaModel(anchorObjId);
 
 		RelativePos *newRelPos = new RelativePos();
@@ -173,36 +171,88 @@ bool RelationModelManager::isRelationViolated(TSScene *currScene, int metaModelI
 		observation[3] = newRelPos->theta;
 		
 		double prob = pairModel->m_GMM->probability(observation);
-
+		double exTh = pairModel->m_GMM->m_probTh[0]; // use 50% percentile
+		
 		if (prob < exTh)
 		{
 			return true;
 		}
 	}
 
-
 	return false;
 }
 
-mat4 RelationModelManager::sampleFromExplicitRelation(TSScene *currScene, int metaModelId)
+void RelationModelManager::extractRelPosForModelPair(TSScene *currScene, const MetaModel &anchorMd, const MetaModel &actMd, RelativePos *relPos)
+{	
+	// get unitize transform for anchor model
+	Model *loadedAnchorModel = currScene->getModel(anchorMd.name);
+	mat4 alignMat = getModelToUnitboxMat(loadedAnchorModel, anchorMd);
+
+	vec3 actPos = actMd.position;
+	vec3 actFront = actMd.frontDir;
+	vec3 anchorFront = anchorMd.frontDir;
+
+	relPos->pos = TransformPoint(alignMat, actPos);
+	relPos->theta = GetRotAngleR(anchorFront, actFront, vec3(0, 0, 1));
+}
+
+
+
+mat4 RelationModelManager::getModelToUnitboxMat(Model *m, const MetaModel &md)
+{	
+	if (!m_loadModelToUnitboxMat.count(md.name))
+	{
+		mat4 transMat = md.transformation;
+		mat4 invTransMat = transMat.inverse();
+
+		vec3 initPos = TransformPoint(invTransMat, md.position);
+		vec3 initFront = TransformVector(invTransMat, md.frontDir);
+
+		vec3 bbRange = m->getBBRange();
+
+		mat4 translateMat, scaleMat, rotMat;
+		translateMat = mat4::translate(vec3(0, 0, -0.5*bbRange.z) - initPos);
+		scaleMat = mat4::scale(1 / bbRange.x, 1 / bbRange.y, 1 / bbRange.z);
+		rotMat = GetRotationMatrix(initFront, vec3(0, 1, 0));
+
+		mat4 alignMat = rotMat*scaleMat*translateMat*invTransMat;
+		m_loadModelToUnitboxMat[md.name] = alignMat;
+
+		return alignMat; 
+	}
+	else
+	{
+		return m_loadModelToUnitboxMat[md.name];
+	}
+}
+
+Eigen::VectorXd RelationModelManager::sampleFromExplicitRelation(TSScene *currScene, int metaModelId, int &anchorModelId)
 {
-	SceneSemGraph *currSSG;// = m_currScene->m_ssg;
-	int currNodeId = currSSG->getNodeIdWithModelId(metaModelId);
+	// use the first explicit constraint
+	RelationConstraint& exConstraint = currScene->m_explictConstraints[metaModelId][0]; 
 
-	SemNode &currNode = currSSG->m_nodes[currNodeId];
+	// about anchor obj																					 
+	anchorModelId = exConstraint.anchorObjId;
+	MetaModel &anchorMd = currScene->getMetaModel(anchorModelId);
+	Model *anchorModel = currScene->getModel(anchorMd.name);
+	mat4 alignMat = getModelToUnitboxMat(anchorModel, anchorMd);
+	mat4 transMat = alignMat.inverse();  // transform from unit frame to world frame
 
-	int parentNodeId = currSSG->findParentNodeIdForModel(metaModelId);
+	// sample in the unit frame
+	Eigen::VectorXd newSample = exConstraint.relModel->sample();
+	vec3 pos = vec3(newSample[0], newSample[1], newSample[2]);
 
-	// collect constraints from existing objs
+	pos = TransformPoint(transMat, pos);
 
+	// convert to world frame
+	MetaModel &md = currScene->getMetaModel(metaModelId);
+	Eigen::VectorXd  relPos(4);
+	relPos[0] = pos.x;
+	relPos[1] = pos.y;
+	relPos[2] = md.position.z;  // keep Z value
+	relPos[3] = newSample[3];   // theta is not affected by transformation	
 
-
-	mat4  transMat;
-
-
-
-
-	return transMat;
+	return relPos;
 }
 
 void RelationModelManager::collectConstraintsForModel(TSScene *currScene, int metaModelId)
@@ -299,32 +349,5 @@ PairwiseRelationModel* RelationModelManager::retrievePairwiseModel(const QString
 	}
 
 	return NULL;
-}
-
-void RelationModelManager::extractRelPosForModelPair(TSScene *currScene, const MetaModel &anchorModel, const MetaModel &actModel, RelativePos *relPos)
-{
-	vec3 anchorPos = anchorModel.position;
-	vec3 actPos = actModel.position;
-	vec3 anchorFront = anchorModel.frontDir;
-	vec3 actFront = actModel.frontDir;
-
-	mat4 transMat = anchorModel.transformation;
-	mat4 invTransMat = transMat.inverse();
-
-	vec3 anchorInitPos = TransformPoint(invTransMat, anchorPos);
-	vec3 anchorInitFront = TransformVector(invTransMat, anchorFront);
-
-	// compute unitize transform for anchor model
-	Model *loadedAnchorModel = currScene->getModel(anchorModel.name);
-	vec3 bbRange = loadedAnchorModel->getBBRange();
-
-	mat4 translateMat, scaleMat, rotMat;
-	translateMat = mat4::translate(vec3(0, 0, -0.5) - anchorInitPos);
-	scaleMat = mat4::scale(1 / bbRange.x, 1 / bbRange.y, 1 / bbRange.z);
-	rotMat = GetRotationMatrix(anchorInitFront, vec3(0, 1, 0));
-
-	mat4 alignMat = rotMat*scaleMat*translateMat*invTransMat;
-	relPos->pos = TransformPoint(alignMat, actPos);
-	relPos->theta = GetRotAngleR(anchorFront, actFront, vec3(0, 0, 1));
 }
 

@@ -42,7 +42,7 @@ CollisionManager::CollisionManager(TSScene *s)
 	m_boxBVHs.resize(m_scene->modelNum());
 	m_collisionPositions.resize(m_scene->modelNum());
 
-	m_trialNumLimit = 20;
+	m_trialNumLimit = 100;
 
 }
 

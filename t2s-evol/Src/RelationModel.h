@@ -37,6 +37,7 @@ public:
 	~PairwiseRelationModel();
 
 	void loadFromStream(QTextStream &ifs);
+	Eigen::VectorXd sample();
 
 	int m_numGauss;
 	GaussianMixtureModel *m_GMM;
