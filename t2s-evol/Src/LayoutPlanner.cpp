@@ -3,6 +3,7 @@
 #include "SceneSemGraph.h"
 #include "TSScene.h"
 #include "Model.h"
+#include "CollisionManager.h"
 #include "Utility.h"
 
 
@@ -82,6 +83,61 @@ void LayoutPlanner::initPlaceByAlignRelation(SceneSemGraph *matchedSg, SceneSemG
 	}
 }
 
+void LayoutPlanner::computeLayout(TSScene *currScene)
+{
+	if (currScene->m_orderedModelIds.empty())
+	{
+		currScene->m_orderedModelIds = makePlacementOrder(currScene);
+	}
+
+	for (int i = 0; i < currScene->m_orderedModelIds.size(); i++)
+	{
+		int currModelId = currScene->m_orderedModelIds[i];
+		MetaModel &md = currScene->getMetaModel(currModelId);
+		Model *currModel = currScene->getModel(md.name);
+
+		if (currModel == NULL || !currModel->m_loadingDone || md.isAlreadyPlaced) continue;
+
+		if (!md.isConstranitsExtracted)
+		{
+			m_relModelManager->collectConstraintsForModel(currScene, currModelId);
+			md.isConstranitsExtracted = true;
+		}
+
+		CollisionManager *currCM = currScene->m_collisionManager;
+
+		bool isModelCollideWithScene = currCM->checkCollisionBVH(currModel, currModelId);
+
+		if (!currScene->m_isLoadFromFile && isModelCollideWithScene && md.trialNum < currCM->m_trialNumLimit)
+		{
+			adjustPlacement(currScene, currModelId, currCM->m_collisionPositions);
+
+			md.trialNum++;
+
+			if (md.trialNum == currCM->m_trialNumLimit)
+			{
+				qDebug() << QString("   Preview %1 Reach test trial limit; Place model anyway; Collision may exist").arg(currScene->m_previewId);
+				md.isAlreadyPlaced = true; // reach trial limit, although collision happens still set it to be placed
+
+			}
+		}
+		else if (!isModelCollideWithScene)
+		{
+			bool isRelationVoilated = m_relModelManager->isRelationsViolated(currScene, currModelId);
+
+			if (isRelationVoilated && md.trialNum < m_relModelManager->m_trialNumLimit)
+			{
+				adjustPlacement(currScene, currModelId, currCM->m_collisionPositions);
+				md.trialNum++;
+			}
+			else
+			{
+				md.isAlreadyPlaced = true;
+			}
+		}
+	}
+}
+
 std::vector<int> LayoutPlanner::makePlacementOrder(TSScene *currScene)
 {
 	std::vector<int> orderedIds;
@@ -154,7 +210,7 @@ std::vector<int> LayoutPlanner::makePlacementOrder(TSScene *currScene)
 	return orderedIds;
 }
 
-mat4 LayoutPlanner::computeTransMat(const MetaModel &fromModel, const MetaModel &toModel)
+mat4 LayoutPlanner::computeAlignTransMat(const MetaModel &fromModel, const MetaModel &toModel)
 {
 	mat4 rotMat = GetRotationMatrix(fromModel.frontDir, toModel.frontDir);
 	mat4 transMat = GetTransformationMat(rotMat, fromModel.position, toModel.position);
@@ -172,109 +228,73 @@ void LayoutPlanner::adjustPlacement(TSScene *currScene, int metaModelID, const s
 	bool implicitFlag = true;
 
 	mat4 transMat;
+	int count = 0; 
 
-	while (collisionFlag)
+	while (collisionFlag && count < 100)
 	{
 		// propose position from the explicit constraint
 		// candidate position in world frame
 		int anchorModelId;
-		Eigen::VectorXd candiPos = m_relModelManager->sampleFromExplicitRelation(currScene, metaModelID, anchorModelId);
+		Eigen::VectorXd candiPos = m_relModelManager->sampleNewPosFromConstraints(currScene, metaModelID, anchorModelId);
 		vec3 newPos(candiPos[0], candiPos[1], candiPos[2]);
-		adjustPlacementForSpecificModel(currScene, currMd, newPos);
 
 		if (!isPosCloseToInvalidPos(newPos, metaModelID))
 		{
 			collisionFlag = false;
-
-			//
-			MetaModel &anchorMd = currScene->getMetaModel(anchorModelId);
-			vec3 anchorFront = anchorMd.frontDir;
-
-			double initTheta = GetRotAngleR(anchorFront, currMd.frontDir, vec3(0,0,1));
-			double currTheta = candiPos[3];
-			double rotTheta = currTheta - initTheta;
-
-			mat4 rotMat = GetRotationMatrix(vec3(0, 0, 1), rotTheta);
-
-			// test whether candidate pos is valid for all implicit constraint
-			vec3 translateVec = newPos - TransformPoint(rotMat, currMd.position);
-			transMat = rotMat;
-			transMat.a14 = translateVec.x;
-			transMat.a24 = translateVec.y;
-			transMat.a34 = translateVec.z;
-
+			transMat = computeTransMat(currScene, anchorModelId, metaModelID, newPos, candiPos[3]);
 			break;
 		}
-	}
 
-
-	//vec3 translateVec;
-
-	//int parentNodeId = currScene->m_ssg->findParentNodeIdForModel(metaModelID);
-	//int parentMetaModelId = currScene->m_ssg->m_graphNodeToModelListIdMap[parentNodeId];
-
-	//QString sampleType;
-
-	//if (parentNodeId != -1)
-	//{
-	//	MetaModel &parentMd = currScene->getMetaModel(parentMetaModelId);
-
-	//	SuppPlane &parentSuppPlane = parentMd.suppPlane;
-	//	if (parentSuppPlane.m_isInited)
-	//	{
-	//		sampleType = " on parent-" + currScene->m_ssg->m_nodes[parentNodeId].nodeName;
-
-	//		vec3 currUVH = currMd.parentPlaneUVH; // UV, and H w.r.t to parent support plane
-	//		std::vector<double> stdDevs(2, 0.1);
-
-	//		bool candiFound = false;
-	//		while (!candiFound)
-	//		{
-	//			vec3 newPos = parentSuppPlane.randomGaussSamplePtByUV(currUVH, stdDevs);
-
-	//			adjustPlacementForSpecificModel(currScene, currMd, newPos);
-
-	//			if (!isPosCloseToInvalidPos(newPos, metaModelID))
-	//			{
-	//				candiFound = true;
-	//				translateVec = newPos - currMd.position;
-	//			}
-	//		}
-	//	}
-	//}
-	//else
-	//{
-	//	sampleType = "on floor";
-
-	//	std::vector<double> shiftVals;
-	//	std::vector<double> dMeans(2, 0); // set mean to be (0,0)
-	//	std::vector<double> stdDevs(2, 0.2);
-
-	//	bool candiFound = false;
-	//	while (!candiFound)
-	//	{
-	//		GenNNormalDistribution(dMeans, stdDevs, shiftVals);
-	//		translateVec = vec3(shiftVals[0] / m_sceneMetric, shiftVals[1] / m_sceneMetric, 0);
-
-	//		vec3 newPos = currMd.position + translateVec;
-	//		if (!isPosCloseToInvalidPos(newPos, metaModelID))
-	//		{
-	//			candiFound = true;
-	//		}
-	//	}
-	//}
-
-	//transMat = transMat.translate(translateVec);
+		count++;
+	}	
 	
 	currMd.updateWithTransform(transMat);
 
 	// update meta model in SSG
 	currScene->m_ssg->m_metaScene.m_metaModellList[metaModelID] = currMd;
 
+
 	//qDebug() << QString("  Preview:%2 Resolve trial:%1 Type:%3 Vec:(%4,%5,%6) Name:%7").arg(currMd.trialNum).arg(m_currScene->m_previewId).arg(sampleType)
 	//	.arg(translateVec.x*m_sceneMetric).arg(translateVec.y*m_sceneMetric).arg(translateVec.z*m_sceneMetric)
 	//	.arg(toQString(m_currScene->m_ssg->m_metaScene.m_metaModellList[metaModelID].catName));
 }
+
+
+mat4 LayoutPlanner::computeTransMat(TSScene *currScene, int anchorModelId, int currModelID, vec3 newPos, double newTheta)
+{
+	mat4 transMat;
+
+	MetaModel &currMd = currScene->getMetaModel(currModelID);
+
+	mat4 rotMat;
+	if (anchorModelId != -1)
+	{
+		MetaModel &anchorMd = currScene->getMetaModel(anchorModelId);
+		vec3 anchorFront = anchorMd.frontDir;
+		double initTheta = GetRotAngleR(anchorFront, currMd.frontDir, vec3(0, 0, 1));
+		double currTheta = newTheta;
+		double rotTheta = currTheta - initTheta;
+
+		rotMat = GetRotationMatrix(vec3(0, 0, 1), rotTheta);
+	}
+	else
+	{
+		rotMat = mat4::identitiy();
+	}
+
+	// test whether candidate pos is valid for all implicit constraint
+
+	adjustPlacementForSpecificModel(currScene, currMd, newPos);
+
+	vec3 translateVec = newPos - TransformPoint(rotMat, currMd.position);
+	transMat = rotMat;
+	transMat.a14 = translateVec.x;
+	transMat.a24 = translateVec.y;
+	transMat.a34 = translateVec.z;
+
+	return transMat;
+}
+
 
 bool LayoutPlanner::isPosCloseToInvalidPos(const vec3 &pos, int metaModelId)
 {

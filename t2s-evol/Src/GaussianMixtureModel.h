@@ -28,7 +28,7 @@ public:
 	GaussianMixtureModel(int n);
 	~GaussianMixtureModel();
 
-	Eigen::VectorXd sample();
+	Eigen::VectorXd sample(double th = 0.5);
 	double probability(const Eigen::VectorXd &observation);
 
 	std::vector<GaussianModel*> m_gaussians;

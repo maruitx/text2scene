@@ -103,8 +103,6 @@ vec3 SuppPlane::randomSamplePointByUV(const vec3 &uvh, const double xRange, cons
 	return sampledPos;
 }
 
-
-
 vec3 SuppPlane::randomGaussSamplePtByUV(const vec3 &uvh, const std::vector<double> &stdDevs)
 {
 	double u = uvh.x;
@@ -120,7 +118,14 @@ vec3 SuppPlane::randomGaussSamplePtByUV(const vec3 &uvh, const std::vector<doubl
 	return sampledPos;
 }
 
+vec3 SuppPlane::randomSamplePoint(double boundWidth)
+{
+	std::vector<double> newUV(2);
+	GenNRandomDouble(-1+boundWidth, 1-boundWidth, newUV);
 
+	vec3 sampledPos = getPointByUV(newUV[0], newUV[1]);
+	return sampledPos;
+}
 
 void SuppPlane::initGrid()
 {

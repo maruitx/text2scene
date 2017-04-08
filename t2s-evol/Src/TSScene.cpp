@@ -13,6 +13,7 @@ TSScene::TSScene(unordered_map<string, Model*> &models)
 	m_frameCount(0),
 	m_loadedModelNum(0),
 	m_sceneLoadingDone(false),
+	m_sceneLayoutDone(false),
 	m_isRenderRoom(true),
 	m_isLoadFromFile(false),
 	m_ssg(NULL), 
@@ -29,6 +30,7 @@ TSScene::TSScene(unordered_map<string, Model*> &models, const QString &fileName)
   m_frameCount(0),
   m_loadedModelNum(0),
   m_sceneLoadingDone(false),
+  m_sceneLayoutDone(false),
   m_isRenderRoom(true),
   m_isLoadFromFile(false),
   m_ssg(NULL), 
@@ -49,6 +51,7 @@ TSScene::TSScene(unordered_map<string, Model*> &models, SceneSemGraph *ssg)
 	m_frameCount(0),
 	m_loadedModelNum(0),
 	m_sceneLoadingDone(false),
+	m_sceneLayoutDone(false),
 	m_isRenderRoom(true),
 	m_isLoadFromFile(false),
 	m_ssg(ssg), 
@@ -198,75 +201,26 @@ void TSScene::render(const Transform &trans, bool applyShadow)
 		countLoadedModelNum();
 	}
 
-	if (m_orderedModelIds.empty())
+	// compute layout if layout is not done
+	if (!m_sceneLayoutDone)
 	{
-		m_orderedModelIds = m_layoutPlanner->makePlacementOrder(this);
+		m_layoutPlanner->computeLayout(this);
+		m_sceneLayoutDone = isLayoutDone();
 	}
 
 	// render models
-	for (int i = 0; i < m_orderedModelIds.size(); i++)
+	for (int i=0; i <  m_metaScene.m_metaModellList.size(); i++)
 	{
-		int currModelId = m_orderedModelIds[i];
-		MetaModel &md = m_metaScene.m_metaModellList[currModelId];
-		auto &iter = m_models.find(md.name);
+		MetaModel &md = m_metaScene.m_metaModellList[i];
 
 		// if set as not render room, and current room is room, then skip
-		if (!m_isRenderRoom && md.name.find("room")!=std::string::npos)
+		if (!m_isRenderRoom && md.name.find("room") != std::string::npos) continue;
+
+		Model *currModel = getModel(md.name);
+
+		if (currModel!= NULL && currModel->m_loadingDone && md.isAlreadyPlaced)
 		{
-			continue;
-		}
-
-		// if model has been loaded, compute layout and render the model
-		if (iter != m_models.end())
-		{
-			Model *currModel = iter->second;
-			if (currModel->m_loadingDone)
-			{
-				// directly render placed model
-				if (md.isAlreadyPlaced)
-				{
-					currModel->render(tt, md.transformation, applyShadow, md.textureDir, m_renderMode, md.isSelected);
-					continue;
-				}
-
-				// extract relation constraints
-				if (!md.isAlreadyPlaced && !md.isConstranitsExtracted)
-				{
-					m_relModelManager->collectConstraintsForModel(this, currModelId);
-					md.isConstranitsExtracted = true;
-				}
-
-				bool isModelCollideWithScene = m_collisionManager->checkCollisionBVH(currModel, currModelId);
-
-				if (!m_isLoadFromFile && isModelCollideWithScene && md.trialNum < m_collisionManager->m_trialNumLimit)
-				{
-					m_layoutPlanner->adjustPlacement(this, currModelId, m_collisionManager->m_collisionPositions);
-					
-					md.trialNum++;
-
-					if (md.trialNum == m_collisionManager->m_trialNumLimit)
-					{
-						qDebug() << QString("   Preview %1 Reach test trial limit; Place model anyway; Collision may exist").arg(m_previewId);
-						md.isAlreadyPlaced = true; // reach trial limit, although collision happens still set it to be placed
-						m_placedObjIds.push_back(currModelId);
-					}
-				}
-				else if (!isModelCollideWithScene)
-				{
-					bool isRelationVoilated = m_relModelManager->isRelationViolated(this, currModelId);
-
-					if (isRelationVoilated)
-					{
-						m_layoutPlanner->adjustPlacement(this, currModelId, m_collisionManager->m_collisionPositions);
-					}
-					else
-					{
-						md.isAlreadyPlaced = true;
-						m_placedObjIds.push_back(currModelId);
-//						currModel->render(tt, md.transformation, applyShadow, md.textureDir, m_renderMode, md.isSelected);
-					}
-				}
-			}	
+			currModel->render(tt, md.transformation, applyShadow, md.textureDir, m_renderMode, md.isSelected);
 		}
 	}
 
@@ -275,6 +229,30 @@ void TSScene::render(const Transform &trans, bool applyShadow)
 
 	m_frameCount++;
 }
+
+
+bool TSScene::isLayoutDone()
+{
+	int count = 0;
+	for (int i = 0; i < m_metaScene.m_metaModellList.size(); i++)
+	{
+		MetaModel &md = m_metaScene.m_metaModellList[i];
+		if (md.isAlreadyPlaced)
+		{
+			count++;
+		}
+	}
+
+	if (count == m_metaScene.m_metaModellList.size())
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 
 void TSScene::renderSceneBB(const Transform &trans)
 {

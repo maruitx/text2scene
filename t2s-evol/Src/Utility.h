@@ -181,66 +181,42 @@ static mat4 GetTransformationMat(const mat4 &rotMat, const vec3 &currPos, const 
 	return transMat;
 }
 
+static std::random_device rd;
+static std::mt19937_64 generator(rd());
+static std::uniform_real_distribution<double> unifReal(0.0, 1.0);
+
 static int GenRandomInt(int minV, int maxV)
 {
 	// generate a random number between minV and maxV, not including maxV
-
-	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-
-	std::mt19937_64 rng(seed);
-	//// initialize the random number generator with time-dependent seed
-	//uint64_t timeSeed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
-	//std::seed_seq ss{ uint32_t(timeSeed & 0xffffffff), uint32_t(timeSeed >> 32) };
-	//rng.seed(ss);
-	// initialize a uniform distribution between 0 and 1
-	std::uniform_int_distribution<int> unif(minV, maxV - 1);
-
-	return unif(rng);
+	std::uniform_int_distribution<> unifInt(minV, maxV-1);	
+	return unifInt(generator);
 }
 
 static double GenRandomDouble(double minV, double maxV)
 {
-	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-	std::mt19937_64 rng(seed);
-	//// initialize the random number generator with time-dependent seed
-	//uint64_t timeSeed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
-	//std::seed_seq ss{ uint32_t(timeSeed & 0xffffffff), uint32_t(timeSeed >> 32) };
-	//rng.seed(ss);
-	// initialize a uniform distribution between 0 and 1
-	std::uniform_real_distribution<double> unif(minV, maxV);
+	//static bool firstCall = true;
+	//if (firstCall) {
+	//	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+	//	generator.seed(seed);
+	//	firstCall = false;
+	//}
 
-	return unif(rng);
+	return minV + (maxV-minV)*unifReal(generator);
 };
 
 static void GenNRandomDouble(double minV, double maxV, std::vector<double> &vals)
 {
-	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-	std::mt19937_64 rng(seed);
-	//// initialize the random number generator with time-dependent seed
-	//uint64_t timeSeed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
-	//std::seed_seq ss{ uint32_t(timeSeed & 0xffffffff), uint32_t(timeSeed >> 32) };
-	//rng.seed(ss);
-	// initialize a uniform distribution between 0 and 1
-	std::uniform_real_distribution<double> unif(minV, maxV);
-
-
 	for (int i = 0; i < vals.size(); i++)
 	{
-		vals[i] = unif(rng);
+		vals[i] = minV + (maxV - minV)*unifReal(generator);
 	}
 };
-
 
 // cannot put generator inside loop
 static double GenNormalDistribution(double dMean, double stdDev)
 {
-	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-
-	std::default_random_engine generator(seed);
-	std::normal_distribution<double> distribution(0, 1);
-
 	// using transformation rule of normal distribution
-	return dMean + stdDev*distribution(generator);
+	return dMean + stdDev*unifReal(generator);
 }
 
 static double GetNormalDistributionProb(double x, double dMean, double dVar)
@@ -250,16 +226,12 @@ static double GetNormalDistributionProb(double x, double dMean, double dVar)
 
 static void GenNNormalDistribution(const std::vector<double> &dMeans, const std::vector<double> &stdDevs, std::vector<double> &vals)
 {
-	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-
-	std::default_random_engine generator(seed);
-	std::normal_distribution<double> distribution(0.0, 1.0);
-
+	// generate N independent normal distribution
 	int gNum = dMeans.size();
 
 	for (int i = 0; i < gNum; i++)
 	{
-		vals.push_back(dMeans[i] + stdDevs[i] * distribution(generator));
+		vals.push_back(dMeans[i] + stdDevs[i] * unifReal(generator));
 	}
 }
 

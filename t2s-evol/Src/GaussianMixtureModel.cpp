@@ -46,26 +46,36 @@ GaussianMixtureModel::~GaussianMixtureModel()
 	m_gaussians.clear();
 }
 
-Eigen::VectorXd GaussianMixtureModel::sample()
+Eigen::VectorXd GaussianMixtureModel::sample(double th)
 {
-	double randWeight = GenRandomDouble(0, 1);
 	int selectGaussId = 0;
+	
+	double sampleProb = 0;
+	Eigen::VectorXd samplePt;
 
-	// Determine which Gaussian it will be coming from.
-	double sumProb = 0;
-	for (size_t g = 0; g < m_numGauss; g++)
+	while (sampleProb < th)
 	{
-		sumProb += m_gaussians[g]->weight;
+		double randWeight = GenRandomDouble(0, 1);
 
-		if (randWeight <= sumProb)
+		// Determine which Gaussian it will be coming from.
+		double sumProb = 0;
+		for (size_t g = 0; g < m_numGauss; g++)
 		{
-			selectGaussId = g;
-			break;
+			sumProb += m_gaussians[g]->weight;
+
+			if (randWeight <= sumProb)
+			{
+				selectGaussId = g;
+				break;
+			}
 		}
+
+		Eigen::MatrixXd vMat = m_gaussians[selectGaussId]->sample(1);
+		samplePt = Eigen::VectorXd(Eigen::Map<Eigen::VectorXd>(vMat.data(), vMat.rows()*vMat.cols()));
+		sampleProb = probability(samplePt);
 	}
 
-	Eigen::MatrixXd vMat = m_gaussians[selectGaussId]->sample(1);
-	return Eigen::VectorXd(Eigen::Map<Eigen::VectorXd>(vMat.data(), vMat.rows()*vMat.cols()));
+	return samplePt;
 }
 
 double GaussianMixtureModel::probability(const Eigen::VectorXd &observation)

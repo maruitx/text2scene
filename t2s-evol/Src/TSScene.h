@@ -41,6 +41,7 @@ public:
 
 	Model* getModel(const string &name);
 
+	bool isLayoutDone();
 	
 
 public:
@@ -73,6 +74,8 @@ private:
 
 	int m_loadedModelNum;
 	bool m_sceneLoadingDone;
+
+	bool m_sceneLayoutDone;
 
     int m_renderMode;    
 };

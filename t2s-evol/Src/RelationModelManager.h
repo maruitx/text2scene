@@ -30,8 +30,15 @@ public:
 	void loadPairwiseRelationModels();
 	void loadGroupRelationModels();
 
-	bool isRelationViolated(TSScene *currScene, int metaModelId);
-	Eigen::VectorXd sampleFromExplicitRelation(TSScene *currScene, int metaModelId, int &anchorModelId);
+	bool isRelationsViolated(TSScene *currScene, int metaModelId);
+	bool isConstraintViolated(TSScene *currScene, const MetaModel &md, const RelationConstraint &relConstraint);
+
+	Eigen::VectorXd sampleNewPosFromConstraints(TSScene *currScene, int metaModelId, int &anchorModelId);
+
+	void sampleFromRelationModel(TSScene *currScene, const RelationConstraint &relConstraint, int metaModelId, 
+		int &anchorModelId, vec3 &newPos, double &newTheta);
+	void randomSampleOnParent(TSScene *currScene, int metaModelId, vec3 &newPos);
+	double findClosestSuppPlaneZ(TSScene *currScene, int metaModelId, const vec3 &newPos);
 
 	void collectConstraintsForModel(TSScene *currScene, int metaModelId);
 	PairwiseRelationModel* retrievePairwiseModel(const QString &anchorObjName, const QString &actObjName, const QString &relationName);
@@ -45,4 +52,6 @@ public:
 	std::map<QString, GroupRelationModel*> m_groupRelModels;  // all group relations
 
 	std::map<std::string, mat4> m_loadModelToUnitboxMat;
+
+	int m_trialNumLimit;
 };

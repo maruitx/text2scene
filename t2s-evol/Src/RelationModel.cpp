@@ -99,7 +99,7 @@ Eigen::VectorXd PairwiseRelationModel::sample()
 {
 	if (m_GMM != NULL)
 	{
-		return m_GMM->sample();
+		return m_GMM->sample(m_GMM->m_probTh[0]);
 	}
 	else
 	{
