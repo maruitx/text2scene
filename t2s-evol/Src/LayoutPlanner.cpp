@@ -142,10 +142,10 @@ void LayoutPlanner::computeSingleObjLayout(TSScene *currScene, int metaModelId)
 		{
 			int anchorModelId;
 			Eigen::VectorXd newPlacement = computeNewPlacement(currScene, metaModelId, currCM->m_collisionPositions, anchorModelId);			
-			double newPlacementScore = m_relModelManager->computeRelationScore(currScene, metaModelId, newPlacement);
+			double newPlacementScore = m_relModelManager->computeRelationScore(currScene, metaModelId, newPlacement);			
 
 			if (newPlacementScore > md.layoutScore)
-			{
+			{				
 				updateWithNewPlacement(currScene, anchorModelId, metaModelId, newPlacement);
 				md.layoutScore = newPlacementScore;
 			}
@@ -333,6 +333,7 @@ void LayoutPlanner::updateWithNewPlacement(TSScene *currScene, int anchorModelId
 	mat4 transMat = computeTransMatFromPos(currScene, anchorModelId, currModelID, newPos, newPlacement[3]);
 	currMd.updateWithTransform(transMat);
 	currMd.theta = newPlacement[3];
+	currMd.isBvhReady = false;
 
 	// update meta model in SSG
 	currScene->m_ssg->m_metaScene.m_metaModellList[currModelID] = currMd;

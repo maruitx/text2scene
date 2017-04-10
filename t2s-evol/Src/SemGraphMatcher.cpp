@@ -123,6 +123,11 @@ vector<int> SemGraphMatcher::findNonRepeatSSGs(const vector<pair<double, SceneSe
 	{
 		bool isRepeat = false;
 
+		if (nonRepeatSSGids.size() == targetNum)
+		{
+			break;
+		}
+
 		for (int ni = 0; ni < nonRepeatSSGids.size(); ni++)
 		{
 			int refSSGId = nonRepeatSSGids[ni];
@@ -138,11 +143,6 @@ vector<int> SemGraphMatcher::findNonRepeatSSGs(const vector<pair<double, SceneSe
 		if (!isRepeat)
 		{
 			nonRepeatSSGids.push_back(i);
-		}
-
-		if (nonRepeatSSGids.size() == targetNum)
-		{
-			break;
 		}
 	}
 

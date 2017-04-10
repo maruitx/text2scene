@@ -510,7 +510,7 @@ void RelationModelManager::randomSampleOnParent(TSScene *currScene, int metaMode
 		if (parentSuppPlane.m_isInited)
 		{
 			sampleType = " on parent-" + currScene->m_ssg->m_nodes[parentNodeId].nodeName;
-			newPos = parentSuppPlane.randomSamplePoint(0.2);
+			newPos = parentSuppPlane.randomSamplePoint(0.1);
 		}
 	}
 	else

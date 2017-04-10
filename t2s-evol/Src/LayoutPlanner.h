@@ -6,6 +6,7 @@
 class SceneSemGraph;
 class TSScene;
 class RelationModelManager;
+class CollisionManager;
 
 class LayoutPlanner
 {

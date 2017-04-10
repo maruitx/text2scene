@@ -6,7 +6,6 @@
 #include "RelationModelManager.h"
 #include "LayoutPlanner.h"
 #include "TSScene.h"
-#include "CollisionManager.h"
 #include "Utility.h"
 #include "Headers.h"
 

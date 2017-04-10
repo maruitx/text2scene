@@ -208,7 +208,8 @@ void Scene::runOneEvolutionStep()
 
 	m_sceneGenerator->updateCurrentTextGraph(activeTextSemGraph);
 	m_sceneGenerator->updateCurrentTSScene(m_variations[m_activeVarationId]);
-
+	
+	m_previewNum = PreviewNum;
 	int topSSGNum = m_previewNum;
 
 	std::vector<TSScene*> tsscenes = m_sceneGenerator->generateTSScenes(topSSGNum);
