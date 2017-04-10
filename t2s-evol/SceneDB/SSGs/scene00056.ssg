@@ -100,18 +100,18 @@ nodeNum 23
 8,object,toyfigure,,18
 9,object,trashbin,21 22,12 19 20
 10,object,wallart,,
-11,pairwise_relationship,vertsupport,1,0
-12,pairwise_relationship,vertsupport,9,0
-13,pairwise_relationship,vertsupport,2,1
-14,pairwise_relationship,vertsupport,3,1
-15,pairwise_relationship,vertsupport,4,1
-16,pairwise_relationship,vertsupport,5,1
-17,pairwise_relationship,vertsupport,7,1
-18,pairwise_relationship,vertsupport,8,1
-19,pairwise_relationship,near,9,1
-20,pairwise_relationship,front,9,1
-21,pairwise_relationship,near,1,9
-22,pairwise_relationship,back,1,9
+11,pair_relation,vertsupport,1,0
+12,pair_relation,vertsupport,9,0
+13,pair_relation,vertsupport,2,1
+14,pair_relation,vertsupport,3,1
+15,pair_relation,vertsupport,4,1
+16,pair_relation,vertsupport,5,1
+17,pair_relation,vertsupport,7,1
+18,pair_relation,vertsupport,8,1
+19,pair_relation,near,9,1
+20,pair_relation,front,9,1
+21,pair_relation,near,1,9
+22,pair_relation,back,1,9
 edgeNum 24
 0,1,11
 1,11,0

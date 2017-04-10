@@ -10,8 +10,7 @@
 LayoutPlanner::LayoutPlanner(RelationModelManager *relManager)
 	:m_relModelManager(relManager)
 {
-	m_closeSampleTh = 0.03;
-	m_sceneMetric = params::inst()->globalSceneUnitScale;
+	m_trialNumLimit = 1000;
 }
 
 LayoutPlanner::~LayoutPlanner()
@@ -24,7 +23,7 @@ void LayoutPlanner::initPlaceByAlignRelation(SceneSemGraph *matchedSg, SceneSemG
 	for (int mi = 0; mi < matchedSg->m_nodeNum; mi++)
 	{
 		SemNode& m_matchedSgNode = matchedSg->m_nodes[mi];
-		if (!m_matchedSgNode.isAligned && m_matchedSgNode.nodeType == "relation")
+		if (!m_matchedSgNode.isAligned && m_matchedSgNode.nodeType == "pair_relation")
 		{
 			int mRefNodeId, mActiveNodeId;
 
@@ -65,69 +64,195 @@ void LayoutPlanner::initPlaceByAlignRelation(SceneSemGraph *matchedSg, SceneSemG
 			mat4 finalTransMat = translateMat*dirRotMat;
 
 			currActiveModel.updateWithTransform(finalTransMat);
-
-			//qDebug() << QString("Preview:%1 Query anchor:%2").arg(m_matchedSg->m_matchListId).arg(toQString(mRefModel.catName));
-			//mRefModel.transformation.print();
-			//qDebug() << QString("Preview:%1 Current anchor:%2").arg(m_matchedSg->m_matchListId).arg(toQString(tarRefModel.catName));
-			//tarRefModel.transformation.print();
-
-			//qDebug() << QString("Preview:%1 Current active:%2").arg(m_matchedSg->m_matchListId).arg(toQString(newActiveModel.catName));
-			//qDebug() << QString("alignedPos");
-			//alignedPosition.print();
-			//qDebug() << QString("targetPos");
-			//targetPosition.print();
-			//qDebug() << QString("Parent UV:%1 %2").arg(mUVH.x).arg(mUVH.y);
-			//
-			//qDebug() << QString("TSG-Anchor:%1 USG-Anchor:%2 Current:%3").arg(toQString(mRefModel.catName)).arg(toQString(tarRefModel.catName)).arg(toQString(newActiveModel.catName));
+			currActiveModel.theta = GetRotAngleR(tarRefModel.frontDir , currActiveModel.frontDir, vec3(0,0,1));			
 		}
 	}
 }
 
 void LayoutPlanner::computeLayout(TSScene *currScene)
 {
-	if (currScene->m_orderedModelIds.empty())
+	if (currScene->m_toPlaceModelIds.empty())
 	{
-		currScene->m_orderedModelIds = makePlacementOrder(currScene);
+		currScene->m_toPlaceModelIds = makeToPlaceModelIds(currScene);		
 	}
 
-	for (int i = 0; i < currScene->m_orderedModelIds.size(); i++)
+	if (currScene->m_toPlaceModelIds.size() == 1)
 	{
-		int currModelId = currScene->m_orderedModelIds[i];
-		MetaModel &md = currScene->getMetaModel(currModelId);
+		computeSingleObjLayout(currScene, currScene->m_toPlaceModelIds[0]);
+	}
+	else
+	{
+		computeGroupObjLayout(currScene, currScene->m_toPlaceModelIds);
+	}
+}
+
+void LayoutPlanner::computeSingleObjLayout(TSScene *currScene, int metaModelId)
+{
+	MetaModel &md = currScene->getMetaModel(metaModelId);
+	Model *currModel = currScene->getModel(md.name);
+
+	if (currModel == NULL || !currModel->m_loadingDone) return;
+
+	if (!md.isConstranitsExtracted)
+	{
+		m_relModelManager->collectConstraintsForModel(currScene, metaModelId);
+		md.isConstranitsExtracted = true;
+
+		md.layoutPassScore = m_relModelManager->computeLayoutPassScore(currScene, metaModelId);		
+	}
+
+	CollisionManager *currCM = currScene->m_collisionManager;
+
+	if (md.trialNum > m_trialNumLimit)
+	{
+		qDebug() << QString("   Preview %1 Reach test trial limit; Place model anyway; Collision may exist").arg(currScene->m_previewId);
+		md.isAlreadyPlaced = true; // reach trial limit, although collision happens still set it to be placed
+		return;
+	}
+
+	bool isModelCollideWithScene = currCM->checkCollisionBVH(currModel, metaModelId);
+	if (isModelCollideWithScene)
+	{
+		int anchorModelId;
+		Eigen::VectorXd newPlacement = computeNewPlacement(currScene, metaModelId, currCM->m_collisionPositions, anchorModelId);
+		updateWithNewPlacement(currScene, anchorModelId, metaModelId, newPlacement);
+		md.trialNum++;
+	}
+	else
+	{
+		//bool isRelationVoilated = m_relModelManager->isRelationsViolated(currScene, metaModelId);
+
+		//if (isRelationVoilated && md.trialNum < m_trialNumLimit)
+		//{
+		//	adjustPlacement(currScene, metaModelId, currCM->m_collisionPositions);
+		//	md.trialNum++;
+		//}
+		//else
+		//{
+		//	md.isAlreadyPlaced = true;
+		//}
+
+
+		if (md.layoutScore == 0 && !md.isAlreadyPlaced)
+		{
+			md.layoutScore = m_relModelManager->computeRelationScore(currScene, metaModelId, makePlacementVec(md.position, md.theta));
+		}
+
+		if (md.layoutScore < md.layoutPassScore && md.trialNum < m_trialNumLimit)
+		{
+			int anchorModelId;
+			Eigen::VectorXd newPlacement = computeNewPlacement(currScene, metaModelId, currCM->m_collisionPositions, anchorModelId);			
+			double newPlacementScore = m_relModelManager->computeRelationScore(currScene, metaModelId, newPlacement);
+
+			if (newPlacementScore > md.layoutScore)
+			{
+				updateWithNewPlacement(currScene, anchorModelId, metaModelId, newPlacement);
+				md.layoutScore = newPlacementScore;
+			}
+
+			md.trialNum++;
+		}
+		else
+		{
+			md.isAlreadyPlaced = true;
+		}
+	}
+}
+
+void LayoutPlanner::computeGroupObjLayout(TSScene *currScene, const std::vector<int> &modelIds)
+{
+	for (int i = 0; i < modelIds.size(); i++)
+	{
+		int metaModelId = modelIds[i];
+		MetaModel &md = currScene->getMetaModel(metaModelId);
 		Model *currModel = currScene->getModel(md.name);
 
-		if (currModel == NULL || !currModel->m_loadingDone || md.isAlreadyPlaced) continue;
+		if (md.isAlreadyPlaced) continue;	
+
+		if (currModel == NULL || !currModel->m_loadingDone) return;
 
 		if (!md.isConstranitsExtracted)
 		{
-			m_relModelManager->collectConstraintsForModel(currScene, currModelId);
+			m_relModelManager->collectConstraintsForModel(currScene, metaModelId);
 			md.isConstranitsExtracted = true;
+
+			md.layoutPassScore = m_relModelManager->computeLayoutPassScore(currScene, metaModelId);
 		}
 
 		CollisionManager *currCM = currScene->m_collisionManager;
 
-		bool isModelCollideWithScene = currCM->checkCollisionBVH(currModel, currModelId);
-
-		if (!currScene->m_isLoadFromFile && isModelCollideWithScene && md.trialNum < currCM->m_trialNumLimit)
+		if (md.trialNum > m_trialNumLimit)
 		{
-			adjustPlacement(currScene, currModelId, currCM->m_collisionPositions);
-
-			md.trialNum++;
-
-			if (md.trialNum == currCM->m_trialNumLimit)
-			{
-				qDebug() << QString("   Preview %1 Reach test trial limit; Place model anyway; Collision may exist").arg(currScene->m_previewId);
-				md.isAlreadyPlaced = true; // reach trial limit, although collision happens still set it to be placed
-
-			}
+			qDebug() << QString("   Preview %1 Reach test trial limit; Place model anyway; Collision may exist").arg(currScene->m_previewId);
+			md.isAlreadyPlaced = true; // reach trial limit, although collision happens still set it to be placed
+			continue;
 		}
-		else if (!isModelCollideWithScene)
-		{
-			bool isRelationVoilated = m_relModelManager->isRelationsViolated(currScene, currModelId);
 
-			if (isRelationVoilated && md.trialNum < m_relModelManager->m_trialNumLimit)
+		//bool isModelCollideWithScene = currCM->checkCollisionBVH(currModel, metaModelId);
+		//if (isModelCollideWithScene)
+		//{
+		//	int anchorModelId;
+		//	Eigen::VectorXd newPlacement = computeNewPlacement(currScene, metaModelId, currCM->m_collisionPositions, anchorModelId);
+		//	updateWithNewPlacement(currScene, anchorModelId, metaModelId, newPlacement);
+		//	md.trialNum++;
+		//}
+		//else
+		//{
+		//	bool isRelationVoilated = m_relModelManager->isRelationsViolated(currScene, metaModelId);
+
+		//	if (isRelationVoilated && md.trialNum < m_trialNumLimit)
+		//	{
+		//		int anchorModelId;
+		//		Eigen::VectorXd newPlacement = computeNewPlacement(currScene, metaModelId, currCM->m_collisionPositions, anchorModelId);
+		//		updateWithNewPlacement(currScene, anchorModelId, metaModelId, newPlacement);
+		//		md.trialNum++;
+		//	}
+		//	else
+		//	{
+		//		md.isAlreadyPlaced = true;
+		//	}
+		//}
+
+		bool isModelCollideWithScene = currCM->checkCollisionBVH(currModel, metaModelId);
+		if (isModelCollideWithScene)
+		{
+			int anchorModelId;
+			Eigen::VectorXd newPlacement = computeNewPlacement(currScene, metaModelId, currCM->m_collisionPositions, anchorModelId);
+			updateWithNewPlacement(currScene, anchorModelId, metaModelId, newPlacement);
+			md.trialNum++;
+		}
+		else
+		{
+			//bool isRelationVoilated = m_relModelManager->isRelationsViolated(currScene, metaModelId);
+
+			//if (isRelationVoilated && md.trialNum < m_trialNumLimit)
+			//{
+			//	adjustPlacement(currScene, metaModelId, currCM->m_collisionPositions);
+			//	md.trialNum++;
+			//}
+			//else
+			//{
+			//	md.isAlreadyPlaced = true;
+			//}
+
+
+			if (md.layoutScore == 0 && !md.isAlreadyPlaced)
 			{
-				adjustPlacement(currScene, currModelId, currCM->m_collisionPositions);
+				md.layoutScore = m_relModelManager->computeRelationScore(currScene, metaModelId, makePlacementVec(md.position, md.theta));
+			}
+
+			if (md.layoutScore < md.layoutPassScore && md.trialNum < m_trialNumLimit)
+			{
+				int anchorModelId;
+				Eigen::VectorXd newPlacement = computeNewPlacement(currScene, metaModelId, currCM->m_collisionPositions, anchorModelId);
+				double newPlacementScore = m_relModelManager->computeRelationScore(currScene, metaModelId, newPlacement);
+
+				if (newPlacementScore > md.layoutScore)
+				{
+					updateWithNewPlacement(currScene, anchorModelId, metaModelId, newPlacement);
+					md.layoutScore = newPlacementScore;
+				}
+
 				md.trialNum++;
 			}
 			else
@@ -138,7 +263,7 @@ void LayoutPlanner::computeLayout(TSScene *currScene)
 	}
 }
 
-std::vector<int> LayoutPlanner::makePlacementOrder(TSScene *currScene)
+std::vector<int> LayoutPlanner::makeToPlaceModelIds(TSScene *currScene)
 {
 	std::vector<int> orderedIds;
 	SceneSemGraph *currSSG = currScene->m_ssg;
@@ -146,21 +271,6 @@ std::vector<int> LayoutPlanner::makePlacementOrder(TSScene *currScene)
 	if (currSSG == NULL)
 	{
 		return orderedIds;
-	}
-
-	// first collect already placed models
-	for (int i=0; i < currSSG->m_levelOfObjs.size(); i++)
-	{
-		for (int j=0;  j< currSSG->m_levelOfObjs[i].size(); j++)
-		{
-			int modelId = currSSG->m_levelOfObjs[i][j];
-			MetaModel& md = currScene->getMetaModel(modelId);
-
-			if (md.isAlreadyPlaced)
-			{
-				orderedIds.push_back(modelId);
-			}			
-		}
 	}
 
 	// collect explicit models
@@ -182,13 +292,6 @@ std::vector<int> LayoutPlanner::makePlacementOrder(TSScene *currScene)
 		}
 	}
 
-	////  
-	//for (int i=0; i < explictModelIds.size(); i++)
-	//{
-	//	int modelId = explictModelIds[i];
-	//	int nodeId = currSSG->getNodeIdWithModelId(modelId);		
-	//}
-
 	orderedIds.insert(orderedIds.end(), explictModelIds.begin(), explictModelIds.end());
 
 	// collect and order implicit models
@@ -197,9 +300,10 @@ std::vector<int> LayoutPlanner::makePlacementOrder(TSScene *currScene)
 	{
 		for (int j = 0; j < currSSG->m_levelOfObjs[i].size(); j++)
 		{
-			int modelId = currSSG->m_levelOfObjs[i][j];		
+			int modelId = currSSG->m_levelOfObjs[i][j];
+			MetaModel &md = currScene->getMetaModel(modelId);
 
-			if (std::find(orderedIds.begin(), orderedIds.end(), modelId) == orderedIds.end())
+			if (!md.isAlreadyPlaced && std::find(orderedIds.begin(), orderedIds.end(), modelId) == orderedIds.end())
 			{
 				implicitModelIds.push_back(modelId);
 			}
@@ -210,57 +314,45 @@ std::vector<int> LayoutPlanner::makePlacementOrder(TSScene *currScene)
 	return orderedIds;
 }
 
-mat4 LayoutPlanner::computeAlignTransMat(const MetaModel &fromModel, const MetaModel &toModel)
+Eigen::VectorXd LayoutPlanner::computeNewPlacement(TSScene *currScene, int metaModelID, const std::vector<std::vector<vec3>> &collisonPositions, int &anchorModelId)
 {
-	mat4 rotMat = GetRotationMatrix(fromModel.frontDir, toModel.frontDir);
-	mat4 transMat = GetTransformationMat(rotMat, fromModel.position, toModel.position);
+	m_relModelManager->updateCollisionPostions(collisonPositions);
 
-	return transMat;
+	// propose position from the explicit constraint
+	// candidate position is in world frame
+	return m_relModelManager->sampleNewPosFromConstraints(currScene, metaModelID, anchorModelId);
 }
 
-void LayoutPlanner::adjustPlacement(TSScene *currScene, int metaModelID, const std::vector<std::vector<vec3>> &collisonPositions)
+void LayoutPlanner::updateWithNewPlacement(TSScene *currScene, int anchorModelId, int currModelID, const Eigen::VectorXd &newPlacement)
 {
-	updateCollisionPostions(collisonPositions);
+	MetaModel &currMd = currScene->getMetaModel(currModelID);
+	//mat4 transMat = currMd.transformation;
 
-	MetaModel &currMd = currScene->getMetaModel(metaModelID);
+	vec3 newPos(newPlacement[0], newPlacement[1], newPlacement[2]);
 
-	bool collisionFlag = true;
-	bool implicitFlag = true;
-
-	mat4 transMat;
-	int count = 0; 
-
-	while (collisionFlag && count < 100)
-	{
-		// propose position from the explicit constraint
-		// candidate position in world frame
-		int anchorModelId;
-		Eigen::VectorXd candiPos = m_relModelManager->sampleNewPosFromConstraints(currScene, metaModelID, anchorModelId);
-		vec3 newPos(candiPos[0], candiPos[1], candiPos[2]);
-
-		if (!isPosCloseToInvalidPos(newPos, metaModelID))
-		{
-			collisionFlag = false;
-			transMat = computeTransMat(currScene, anchorModelId, metaModelID, newPos, candiPos[3]);
-			break;
-		}
-
-		count++;
-	}	
-	
+	mat4 transMat = computeTransMatFromPos(currScene, anchorModelId, currModelID, newPos, newPlacement[3]);
 	currMd.updateWithTransform(transMat);
+	currMd.theta = newPlacement[3];
 
 	// update meta model in SSG
-	currScene->m_ssg->m_metaScene.m_metaModellList[metaModelID] = currMd;
-
-
-	//qDebug() << QString("  Preview:%2 Resolve trial:%1 Type:%3 Vec:(%4,%5,%6) Name:%7").arg(currMd.trialNum).arg(m_currScene->m_previewId).arg(sampleType)
-	//	.arg(translateVec.x*m_sceneMetric).arg(translateVec.y*m_sceneMetric).arg(translateVec.z*m_sceneMetric)
-	//	.arg(toQString(m_currScene->m_ssg->m_metaScene.m_metaModellList[metaModelID].catName));
+	currScene->m_ssg->m_metaScene.m_metaModellList[currModelID] = currMd;
 }
 
+void LayoutPlanner::adjustPlacementForSpecificModel(TSScene *currScene, const MetaModel &currMd, vec3 &newPos)
+{
+	if (currMd.catName == "headphones")
+	{
+		Model *m = currScene->getModel(currMd.name);
+		vec3 bbRange = m->getBBRange(currMd.transformation);
 
-mat4 LayoutPlanner::computeTransMat(TSScene *currScene, int anchorModelId, int currModelID, vec3 newPos, double newTheta)
+		// headphone is not aligned consistently
+		double zOffset = 0.5*min(bbRange.x, bbRange.y);
+
+		newPos.z += zOffset;
+	}
+}
+
+mat4 LayoutPlanner::computeTransMatFromPos(TSScene *currScene, int anchorModelId, int currModelID, vec3 newPos, double newTheta)
 {
 	mat4 transMat;
 
@@ -271,9 +363,13 @@ mat4 LayoutPlanner::computeTransMat(TSScene *currScene, int anchorModelId, int c
 	{
 		MetaModel &anchorMd = currScene->getMetaModel(anchorModelId);
 		vec3 anchorFront = anchorMd.frontDir;
-		double initTheta = GetRotAngleR(anchorFront, currMd.frontDir, vec3(0, 0, 1));
-		double currTheta = newTheta;
-		double rotTheta = currTheta - initTheta;
+
+		//mat4 invMat = currMd.transformation.inverse();
+		// vec3 initModelDir = TransformVector(invMat, currMd.frontDir);
+		//double initTheta = GetRotAngleR(anchorFront, initModelDir, vec3(0, 0, 1));
+		// double rotTheta = newTheta - initTheta;
+
+		double rotTheta = newTheta - GetRotAngleR(anchorFront, currMd.frontDir, vec3(0, 0, 1));;
 
 		rotMat = GetRotationMatrix(vec3(0, 0, 1), rotTheta);
 	}
@@ -295,40 +391,23 @@ mat4 LayoutPlanner::computeTransMat(TSScene *currScene, int anchorModelId, int c
 	return transMat;
 }
 
-
-bool LayoutPlanner::isPosCloseToInvalidPos(const vec3 &pos, int metaModelId)
+mat4 LayoutPlanner::computeModelAlignTransMat(const MetaModel &fromModel, const MetaModel &toModel)
 {
-	for (int i = 0; i < m_collisionPositions[metaModelId].size(); i++)
-	{
-		double d = (pos - m_collisionPositions[metaModelId][i]).length();
+	mat4 rotMat = GetRotationMatrix(fromModel.frontDir, toModel.frontDir);
+	mat4 transMat = GetTransformationMat(rotMat, fromModel.position, toModel.position);
 
-		if (d < m_closeSampleTh / m_sceneMetric)
-		{
-			return true;
-		}
-	}
-
-	// test for over-hang positions
-
-	return false;
+	return transMat;
 }
 
-void LayoutPlanner::updateCollisionPostions(const std::vector<std::vector<vec3>> &collisionPositions)
+Eigen::VectorXd LayoutPlanner::makePlacementVec(vec3 pos, double theta)
 {
-	m_collisionPositions.clear();
-	m_collisionPositions = collisionPositions;
+	Eigen::VectorXd newPlacement(4);
+
+	newPlacement[0] = pos.x;
+	newPlacement[1] = pos.y;
+	newPlacement[2] = pos.z;
+	newPlacement[3] = theta;
+
+	return newPlacement;
 }
 
-void LayoutPlanner::adjustPlacementForSpecificModel(TSScene *currScene, const MetaModel &currMd, vec3 &newPos)
-{
-	if (currMd.catName == "headphones")
-	{
-		Model *m = currScene->getModel(currMd.name);
-		vec3 bbRange = m->getBBRange(currMd.transformation);
-
-		// headphone is not aligned consistently
-		double zOffset = 0.5*min(bbRange.x, bbRange.y);
-
-		newPos.z += zOffset;
-	}
-}

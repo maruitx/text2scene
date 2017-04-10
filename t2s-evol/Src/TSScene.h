@@ -59,7 +59,7 @@ public:
 	std::vector<std::vector<RelationConstraint>> m_implicitConstraints;  // implicit relative constraints
 	
 	std::vector<int> m_placedObjIds;
-	std::vector<int> m_orderedModelIds;
+	std::vector<int> m_toPlaceModelIds;
 
 private:
 	unordered_map<string, Model*> &m_models;   // current loaded object DB

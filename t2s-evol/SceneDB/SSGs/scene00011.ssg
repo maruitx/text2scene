@@ -100,15 +100,15 @@ nodeNum 20
 8,object,toyfigure,,17
 9,object,airplane,,18
 10,object,tolkien,,19
-11,pairwise_relationship,vertsupport,2,1
-12,pairwise_relationship,vertsupport,3,1
-13,pairwise_relationship,vertsupport,4,1
-14,pairwise_relationship,vertsupport,5,1
-15,pairwise_relationship,vertsupport,6,1
-16,pairwise_relationship,vertsupport,7,1
-17,pairwise_relationship,vertsupport,8,1
-18,pairwise_relationship,vertsupport,9,1
-19,pairwise_relationship,vertsupport,10,1
+11,pair_relation,vertsupport,2,1
+12,pair_relation,vertsupport,3,1
+13,pair_relation,vertsupport,4,1
+14,pair_relation,vertsupport,5,1
+15,pair_relation,vertsupport,6,1
+16,pair_relation,vertsupport,7,1
+17,pair_relation,vertsupport,8,1
+18,pair_relation,vertsupport,9,1
+19,pair_relation,vertsupport,10,1
 edgeNum 18
 0,2,11
 1,11,1

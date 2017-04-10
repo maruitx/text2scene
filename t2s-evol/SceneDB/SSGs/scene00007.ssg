@@ -73,13 +73,13 @@ nodeNum 15
 5,object,bear,,11 14
 6,object,shirt,,12 14
 7,object,wallart,,13
-8,pairwise_relationship,vertsupport,3,1
-9,pairwise_relationship,vertsupport,1,0
-10,pairwise_relationship,vertsupport,2,1
-11,pairwise_relationship,vertsupport,5,1
-12,pairwise_relationship,vertsupport,6,1
-13,group_relationship_anno,decorative,7,1
-14,group_relationship_anno,messy,3 2 6 5 4,1
+8,pair_relation,vertsupport,3,1
+9,pair_relation,vertsupport,1,0
+10,pair_relation,vertsupport,2,1
+11,pair_relation,vertsupport,5,1
+12,pair_relation,vertsupport,6,1
+13,group_relation_anno,decorative,7,1
+14,group_relation_anno,messy,3 2 6 5 4,1
 edgeNum 18
 0,3,8
 1,8,1

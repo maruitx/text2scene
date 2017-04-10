@@ -118,31 +118,31 @@ nodeNum 38
 10,object,chair,,18 30 31 36 37
 11,object,purse,,19 36 37
 12,object,chair,28 29,16 27 30 31 36 37
-13,per_obj_attribute,round,,2
-14,per_obj_attribute,dining,,2
-15,pairwise_relationship,vertsupport,1,0
-16,pairwise_relationship,vertsupport,12,0
-17,pairwise_relationship,vertsupport,2,1
-18,pairwise_relationship,vertsupport,10,1
-19,pairwise_relationship,vertsupport,11,1
-20,pairwise_relationship,vertsupport,3,2
-21,pairwise_relationship,vertsupport,4,2
-22,pairwise_relationship,vertsupport,5,2
-23,pairwise_relationship,vertsupport,6,2
-24,pairwise_relationship,vertsupport,7,2
-25,pairwise_relationship,vertsupport,8,2
-26,pairwise_relationship,vertsupport,9,2
-27,pairwise_relationship,near,12,1
-28,pairwise_relationship,near,1,12
-29,pairwise_relationship,back,1,12
-30,group_relationship_anno,relax,12 10,2
-31,group_relationship_anno,casual,12 10,2
-32,group_relationship_anno,relax,9 6 3 4 7 5 8,2
-33,group_relationship_anno,messy,9 6 3 4 7 5 8,2
-34,group_relationship_anno,relax,6 3 7 4 5 8,9
-35,group_relationship_anno,messy,6 3 7 4 5 8,9
-36,group_relationship_anno,casual,11 12 10,2
-37,group_relationship_anno,messy,11 12 10,2
+13,attribute,round,,2
+14,attribute,dining,,2
+15,pair_relation,vertsupport,1,0
+16,pair_relation,vertsupport,12,0
+17,pair_relation,vertsupport,2,1
+18,pair_relation,vertsupport,10,1
+19,pair_relation,vertsupport,11,1
+20,pair_relation,vertsupport,3,2
+21,pair_relation,vertsupport,4,2
+22,pair_relation,vertsupport,5,2
+23,pair_relation,vertsupport,6,2
+24,pair_relation,vertsupport,7,2
+25,pair_relation,vertsupport,8,2
+26,pair_relation,vertsupport,9,2
+27,pair_relation,near,12,1
+28,pair_relation,near,1,12
+29,pair_relation,back,1,12
+30,group_relation_anno,relax,12 10,2
+31,group_relation_anno,casual,12 10,2
+32,group_relation_anno,relax,9 6 3 4 7 5 8,2
+33,group_relation_anno,messy,9 6 3 4 7 5 8,2
+34,group_relation_anno,relax,6 3 7 4 5 8,9
+35,group_relation_anno,messy,6 3 7 4 5 8,9
+36,group_relation_anno,casual,11 12 10,2
+37,group_relation_anno,messy,11 12 10,2
 edgeNum 76
 0,13,2
 1,14,2

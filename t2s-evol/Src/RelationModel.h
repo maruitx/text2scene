@@ -38,6 +38,8 @@ public:
 
 	void loadFromStream(QTextStream &ifs);
 	Eigen::VectorXd sample();
+	bool hasCandiInstances();
+	void updateCandiInstanceIds();
 
 	int m_numGauss;
 	GaussianMixtureModel *m_GMM;
@@ -52,6 +54,9 @@ public:
 
 	QString m_conditionName; // parent-child, sibling, proximity, or text-specified relation
 	QString m_relationName;  // none, left, right, etc.
+
+	std::vector<int> m_candidateInstanceIds;
+	int m_lastSampleInstanceId;
 };
 
 class OccurrenceModel

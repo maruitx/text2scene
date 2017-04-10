@@ -100,20 +100,20 @@ nodeNum 25
 8,object,vessel,,20
 9,object,bunsen burner,,19
 10,object,fire extinguisher,23 24,12 21 22
-11,pairwise_relationship,vertsupport,1,0
-12,pairwise_relationship,vertsupport,10,0
-13,pairwise_relationship,vertsupport,2,1
-14,pairwise_relationship,vertsupport,3,1
-15,pairwise_relationship,vertsupport,4,1
-16,pairwise_relationship,vertsupport,5,1
-17,pairwise_relationship,vertsupport,6,1
-18,pairwise_relationship,vertsupport,7,1
-19,pairwise_relationship,vertsupport,9,1
-20,pairwise_relationship,vertsupport,8,1
-21,pairwise_relationship,near,10,1
-22,pairwise_relationship,rightside,10,1
-23,pairwise_relationship,near,1,10
-24,pairwise_relationship,leftside,1,10
+11,pair_relation,vertsupport,1,0
+12,pair_relation,vertsupport,10,0
+13,pair_relation,vertsupport,2,1
+14,pair_relation,vertsupport,3,1
+15,pair_relation,vertsupport,4,1
+16,pair_relation,vertsupport,5,1
+17,pair_relation,vertsupport,6,1
+18,pair_relation,vertsupport,7,1
+19,pair_relation,vertsupport,9,1
+20,pair_relation,vertsupport,8,1
+21,pair_relation,near,10,1
+22,pair_relation,rightside,10,1
+23,pair_relation,near,1,10
+24,pair_relation,leftside,1,10
 edgeNum 28
 0,1,11
 1,11,0

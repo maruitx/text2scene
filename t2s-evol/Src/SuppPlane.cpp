@@ -38,6 +38,11 @@ SuppPlane::SuppPlane(const std::vector<vec3> &corners)
 }
 
 
+double SuppPlane::getZ()
+{
+	return m_center.z + m_offset;
+}
+
 SuppPlane::~SuppPlane()
 {
 }
@@ -120,8 +125,10 @@ vec3 SuppPlane::randomGaussSamplePtByUV(const vec3 &uvh, const std::vector<doubl
 
 vec3 SuppPlane::randomSamplePoint(double boundWidth)
 {
+	// from left-bottom corner
+
 	std::vector<double> newUV(2);
-	GenNRandomDouble(-1+boundWidth, 1-boundWidth, newUV);
+	GenNRandomDouble(boundWidth, 1.0-boundWidth, newUV);
 
 	vec3 sampledPos = getPointByUV(newUV[0], newUV[1]);
 	return sampledPos;

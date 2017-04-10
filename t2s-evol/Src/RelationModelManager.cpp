@@ -8,7 +8,8 @@ RelationModelManager::RelationModelManager()
 {
 	loadRelationModels();
 
-	m_trialNumLimit = 100;
+	m_closeSampleTh = 0.03;
+	m_sceneMetric = params::inst()->globalSceneUnitScale;
 }
 
 RelationModelManager::~RelationModelManager()
@@ -145,7 +146,6 @@ void RelationModelManager::loadGroupRelationModels()
 
 bool RelationModelManager::isRelationsViolated(TSScene *currScene, int metaModelId)
 {
-	return false;
 	MetaModel &md = currScene->getMetaModel(metaModelId);
 
 	std::vector<RelationConstraint> &exConstraints = currScene->m_explictConstraints[metaModelId];
@@ -159,13 +159,13 @@ bool RelationModelManager::isRelationsViolated(TSScene *currScene, int metaModel
 		}
 	}
 
-	//for (int i=0; i< imConstraints.size(); i++)
-	//{
-	//	if (isConstraintViolated(currScene, md, imConstraints[i]))
-	//	{
-	//		return true;
-	//	}
-	//}
+	for (int i = 0; i < imConstraints.size(); i++)
+	{
+		if (isConstraintViolated(currScene, md, imConstraints[i]))
+		{
+			return true;
+		}
+	}
 
 	return false;
 }
@@ -173,7 +173,8 @@ bool RelationModelManager::isRelationsViolated(TSScene *currScene, int metaModel
 bool RelationModelManager::isConstraintViolated(TSScene *currScene, const MetaModel &md, const RelationConstraint &relConstraint)
 {
 	PairwiseRelationModel *pairModel = relConstraint.relModel;
-	if (pairModel->m_numGauss == 0) return false;
+	if (pairModel->m_numGauss == 0) 
+		return false;
 
 	int anchorObjId = relConstraint.anchorObjId;
 	MetaModel &anchorMd = currScene->getMetaModel(anchorObjId);
@@ -193,11 +194,108 @@ bool RelationModelManager::isConstraintViolated(TSScene *currScene, const MetaMo
 
 	if (prob < exTh)
 	{
+		delete newRelPos;
 		return true;
 	}
 
+	delete newRelPos;
 	return false;
 }
+
+double RelationModelManager::computeRelationScore(TSScene *currScene, int metaModelId, const Eigen::VectorXd &currPlacement)
+{
+	MetaModel &md = currScene->getMetaModel(metaModelId);
+
+	std::vector<RelationConstraint> &exConstraints = currScene->m_explictConstraints[metaModelId];
+	std::vector<RelationConstraint> &imConstraints = currScene->m_implicitConstraints[metaModelId];
+
+	double score = 0;
+
+	for (int i = 0; i < exConstraints.size(); i++)
+	{
+		RelationConstraint &relConstraint = exConstraints[i];
+		score += computeScoreForConstraint(currScene, relConstraint, currPlacement);
+	}
+
+	for (int i = 0; i < imConstraints.size(); i++)
+	{
+		RelationConstraint &relConstraint = imConstraints[i];
+		score += computeScoreForConstraint(currScene, relConstraint, currPlacement);
+	}
+
+	return score;
+}
+
+
+double RelationModelManager::computeScoreForConstraint(TSScene *currScene, const RelationConstraint &relConstraint, const Eigen::VectorXd &currPlacement)
+{
+	PairwiseRelationModel *pairModel = relConstraint.relModel;
+	if (pairModel->m_numGauss == 0)
+	{
+		return 0;
+	}
+
+	int anchorObjId = relConstraint.anchorObjId;
+	MetaModel &anchorMd = currScene->getMetaModel(anchorObjId);
+
+	RelativePos *newRelPos = new RelativePos();
+
+	extractRelPosToAnchor(currScene, anchorMd, currPlacement, newRelPos);
+
+	Eigen::VectorXd observation(4);
+	observation[0] = newRelPos->pos.x;
+	observation[1] = newRelPos->pos.y;
+	observation[2] = newRelPos->pos.z;
+	observation[3] = newRelPos->theta;
+
+	double prob = pairModel->m_GMM->probability(observation);
+	
+	delete newRelPos;
+	return prob;
+}
+
+double RelationModelManager::computeLayoutPassScore(TSScene *currScene, int metaModelId)
+{
+	MetaModel &md = currScene->getMetaModel(metaModelId);
+
+	std::vector<RelationConstraint> &exConstraints = currScene->m_explictConstraints[metaModelId];
+	std::vector<RelationConstraint> &imConstraints = currScene->m_implicitConstraints[metaModelId];
+
+	double score = 0;
+
+	for (int i = 0; i < exConstraints.size(); i++)
+	{
+		RelationConstraint &relConstraint = exConstraints[i];
+		if (relConstraint.relModel->m_GMM != NULL)
+		{
+			score += relConstraint.relModel->m_GMM->m_probTh[0]; // use 20% percentile
+		}
+	}
+
+	for (int i = 0; i < imConstraints.size(); i++)
+	{
+		RelationConstraint &relConstraint = imConstraints[i];
+		if (relConstraint.relModel->m_GMM != NULL)
+		{
+			score += relConstraint.relModel->m_GMM->m_probTh[0]; // use 20% percentile
+		}
+	}
+
+	return score;
+}
+
+void RelationModelManager::extractRelPosToAnchor(TSScene *currScene, const MetaModel &anchorMd, const Eigen::VectorXd &currPlacement, RelativePos *relPos)
+{
+	// get unitize transform for anchor model
+	Model *loadedAnchorModel = currScene->getModel(anchorMd.name);
+	mat4 alignMat = getModelToUnitboxMat(loadedAnchorModel, anchorMd);
+
+	vec3 actPos = vec3(currPlacement[0], currPlacement[1], currPlacement[2]);
+
+	relPos->pos = TransformPoint(alignMat, actPos);
+	relPos->theta = currPlacement[3];
+}
+
 
 void RelationModelManager::extractRelPosForModelPair(TSScene *currScene, const MetaModel &anchorMd, const MetaModel &actMd, RelativePos *relPos)
 {	
@@ -241,6 +339,39 @@ mat4 RelationModelManager::getModelToUnitboxMat(Model *m, const MetaModel &md)
 	}
 }
 
+void RelationModelManager::updateCollisionPostions(const std::vector<std::vector<vec3>> &collisionPositions)
+{
+	m_collisionPositions.clear();
+	m_collisionPositions = collisionPositions;
+}
+
+bool RelationModelManager::isPosValid(TSScene *currScene, const vec3 &pos, int metaModelId)
+{
+	if (isPosCloseToInvalidPos(pos, metaModelId))
+	{
+		return false;
+	}
+
+	return true;
+}
+
+bool RelationModelManager::isPosCloseToInvalidPos(const vec3 &pos, int metaModelId)
+{
+	for (int i = 0; i < m_collisionPositions[metaModelId].size(); i++)
+	{
+		double d = (pos - m_collisionPositions[metaModelId][i]).length();
+
+		if (d < m_closeSampleTh / m_sceneMetric)
+		{
+			return true;
+		}
+	}
+
+	// test for over-hang positions
+
+	return false;
+}
+
 Eigen::VectorXd RelationModelManager::sampleNewPosFromConstraints(TSScene *currScene, int metaModelId, int &anchorModelId)
 {
 	vec3 newPos;
@@ -248,25 +379,44 @@ Eigen::VectorXd RelationModelManager::sampleNewPosFromConstraints(TSScene *currS
 
 	MetaModel &md = currScene->getMetaModel(metaModelId);
 
-	if (!currScene->m_explictConstraints[metaModelId].empty())
-	{
-		// use the first explicit constraint
-		sampleFromRelationModel(currScene, currScene->m_explictConstraints[metaModelId][0], metaModelId, 
-			anchorModelId, newPos, newTheta);
-	}
-	else if(!currScene->m_implicitConstraints[metaModelId].empty())
-	{
-		sampleFromRelationModel(currScene, currScene->m_implicitConstraints[metaModelId][0], metaModelId,
-			anchorModelId, newPos, newTheta);
-	}
-	else
-	{
-		randomSampleOnParent(currScene, metaModelId, newPos);
-		
-		newTheta = 0;
-		anchorModelId = -1;  // no anchor obj
-	}
+	QString constraintType;
 
+	int count = 0; 
+
+	while (count < 1000)
+	{
+		if (!currScene->m_explictConstraints[metaModelId].empty() 
+			&& currScene->m_explictConstraints[metaModelId][0].relModel->hasCandiInstances())
+		{
+			// use the first explicit constraint
+			RelationConstraint &exConstraint = currScene->m_explictConstraints[metaModelId][0];
+			sampleFromRelationModel(currScene, exConstraint, metaModelId,
+				anchorModelId, newPos, newTheta);
+
+			constraintType = "explicit";
+		}
+		else
+		{
+			randomSampleOnParent(currScene, metaModelId, newPos, anchorModelId);
+			newTheta = 0;
+
+			constraintType = "random";
+		}
+
+		if (isPosValid(currScene, newPos, metaModelId))
+		{
+			break;
+		}
+		else
+		{
+			if (constraintType == "explicit" && currScene->m_explictConstraints[metaModelId][0].relModel->m_lastSampleInstanceId!= -1)
+			{
+				currScene->m_explictConstraints[metaModelId][0].relModel->updateCandiInstanceIds();
+			}
+		}
+
+		count++;
+	}
 
 	// convert to world frame
 	Eigen::VectorXd  relPos(4);
@@ -281,6 +431,31 @@ Eigen::VectorXd RelationModelManager::sampleNewPosFromConstraints(TSScene *currS
 void RelationModelManager::sampleFromRelationModel(TSScene *currScene, const RelationConstraint &relConstraint, int metaModelId,
 	int &anchorModelId, vec3 &newPos, double &newTheta)
 {
+	// sample in the unit frame
+	Eigen::VectorXd newSample;
+
+	if (relConstraint.relModel->m_conditionName.contains("parent"))
+	{
+		double boundWidth = 0.1;
+		double minB = -0.5 + boundWidth;
+		double maxB = 0.5 - boundWidth;
+
+		// make sure no overhang when sampling
+		while (true)
+		{
+			newSample = relConstraint.relModel->sample();
+
+			if (newSample[0] > minB && newSample[0] < maxB && newSample[1] >minB && newSample[1] < maxB)
+			{
+				break;
+			}
+		}
+	}
+	else
+		newSample = relConstraint.relModel->sample();
+
+	newPos = vec3(newSample[0], newSample[1], newSample[2]);
+
 	// anchor obj																					 
 	anchorModelId = relConstraint.anchorObjId;
 	MetaModel &anchorMd = currScene->getMetaModel(anchorModelId);
@@ -288,10 +463,6 @@ void RelationModelManager::sampleFromRelationModel(TSScene *currScene, const Rel
 	mat4 alignMat = getModelToUnitboxMat(anchorModel, anchorMd);
 	mat4 transMat = alignMat.inverse();  // transform from unit frame to world frame
 
-	// sample in the unit frame
-	Eigen::VectorXd newSample = relConstraint.relModel->sample();
-
-	newPos = vec3(newSample[0], newSample[1], newSample[2]);
 	newPos = TransformPoint(transMat, newPos);
 
 	// update sampled position 
@@ -299,6 +470,8 @@ void RelationModelManager::sampleFromRelationModel(TSScene *currScene, const Rel
 	newPos.z = newZ;
 
 	newTheta = newSample[3];
+
+	// test whether is close to  collide pos
 
 }
 
@@ -320,18 +493,18 @@ double RelationModelManager::findClosestSuppPlaneZ(TSScene *currScene, int metaM
 	return newPos.z;
 }
 
-void RelationModelManager::randomSampleOnParent(TSScene *currScene, int metaModelId, vec3 &newPos)
+void RelationModelManager::randomSampleOnParent(TSScene *currScene, int metaModelId, vec3 &newPos, int &parentMetaModelId)
 {
 	double m_sceneMetric = params::inst()->globalSceneUnitScale;
 	MetaModel &md = currScene->getMetaModel(metaModelId);
 
 	int parentNodeId = currScene->m_ssg->findParentNodeIdForModel(metaModelId);
-	int parentMetaModelId = currScene->m_ssg->m_graphNodeToModelListIdMap[parentNodeId];
 
 	QString sampleType;
 
 	if (parentNodeId != -1)
 	{
+		parentMetaModelId = currScene->m_ssg->m_graphNodeToModelListIdMap[parentNodeId];
 		MetaModel &parentMd = currScene->getMetaModel(parentMetaModelId);
 		SuppPlane &parentSuppPlane = parentMd.suppPlane;
 		if (parentSuppPlane.m_isInited)
@@ -342,6 +515,7 @@ void RelationModelManager::randomSampleOnParent(TSScene *currScene, int metaMode
 	}
 	else
 	{
+		parentMetaModelId = -1;
 		sampleType = "on floor";
 
 		std::vector<double> shiftVals;
@@ -450,3 +624,7 @@ PairwiseRelationModel* RelationModelManager::retrievePairwiseModel(const QString
 	return NULL;
 }
 
+RelationConstraint::RelationConstraint(PairwiseRelationModel *m, const QString t, int anchorId)
+{
+	relModel = m; relationType = t; anchorObjId = anchorId;
+}

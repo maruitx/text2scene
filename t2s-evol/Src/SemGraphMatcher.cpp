@@ -75,7 +75,7 @@ vector<SceneSemGraph*> SemGraphMatcher::alignWithDatabaseSSGs(int targetMatchNum
 					qDebug() << QString("SemGraphMatcher: in Preview %1 entity - %2 is not matched").arg(i).arg(currNode.nodeName);
 				}
 
-				if (currNode.nodeType == "relation" && !currNode.isAligned)
+				if (currNode.nodeType.contains("relation") && !currNode.isAligned)
 				{
 					int actNodeId = currNode.activeNodeList[0];
 					int anchorNodeId = currNode.anchorNodeList[0];
@@ -88,7 +88,7 @@ vector<SceneSemGraph*> SemGraphMatcher::alignWithDatabaseSSGs(int targetMatchNum
 					}
 				}
 
-				if (currNode.nodeType.contains("attribute")&& !currNode.isAligned)
+				if (currNode.nodeType == "attribute"&& !currNode.isAligned)
 				{
 					int outNodeId = currNode.outEdgeNodeList[0];
 

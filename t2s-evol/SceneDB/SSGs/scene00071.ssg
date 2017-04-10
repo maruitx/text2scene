@@ -388,209 +388,209 @@ nodeNum 246
 40,object,noname,,
 41,object,wallart,236 237 238,
 42,object,wallclock,,236 237 238
-43,per_obj_attribute,round,,24
-44,per_obj_attribute,coffee,,29
-45,pairwise_relationship,vertsupport,1,0
-46,pairwise_relationship,vertsupport,15,0
-47,pairwise_relationship,vertsupport,16,0
-48,pairwise_relationship,vertsupport,17,0
-49,pairwise_relationship,vertsupport,18,0
-50,pairwise_relationship,vertsupport,19,0
-51,pairwise_relationship,vertsupport,20,0
-52,pairwise_relationship,vertsupport,21,0
-53,pairwise_relationship,vertsupport,22,0
-54,pairwise_relationship,vertsupport,29,0
-55,pairwise_relationship,vertsupport,38,0
-56,pairwise_relationship,vertsupport,39,0
-57,pairwise_relationship,vertsupport,2,1
-58,pairwise_relationship,vertsupport,3,1
-59,pairwise_relationship,vertsupport,5,1
-60,pairwise_relationship,vertsupport,7,1
-61,pairwise_relationship,vertsupport,9,1
-62,pairwise_relationship,vertsupport,11,1
-63,pairwise_relationship,vertsupport,13,1
-64,pairwise_relationship,vertsupport,4,3
-65,pairwise_relationship,vertsupport,6,5
-66,pairwise_relationship,vertsupport,8,7
-67,pairwise_relationship,vertsupport,10,9
-68,pairwise_relationship,vertsupport,23,22
-69,pairwise_relationship,vertsupport,25,24
-70,pairwise_relationship,vertsupport,26,24
-71,pairwise_relationship,vertsupport,27,24
-72,pairwise_relationship,vertsupport,28,24
-73,pairwise_relationship,vertsupport,28,27
-74,pairwise_relationship,vertsupport,30,29
-75,pairwise_relationship,vertsupport,31,29
-76,pairwise_relationship,vertsupport,33,29
-77,pairwise_relationship,vertsupport,34,29
-78,pairwise_relationship,vertsupport,35,29
-79,pairwise_relationship,vertsupport,36,29
-80,pairwise_relationship,vertsupport,31,30
-81,pairwise_relationship,vertsupport,32,30
-82,pairwise_relationship,vertsupport,32,31
-83,pairwise_relationship,vertsupport,34,33
-84,pairwise_relationship,vertsupport,24,0
-85,pairwise_relationship,vertsupport,12,1
-86,pairwise_relationship,vertsupport,14,1
-87,pairwise_relationship,vertsupport,37,29
-88,pairwise_relationship,rightside,15,1
-89,pairwise_relationship,back,16,1
-90,pairwise_relationship,back,1,16
-91,pairwise_relationship,near,17,1
-92,pairwise_relationship,near,1,17
-93,pairwise_relationship,near,18,1
-94,pairwise_relationship,near,1,18
-95,pairwise_relationship,rightside,1,18
-96,pairwise_relationship,rightside,19,1
-97,pairwise_relationship,rightside,1,19
-98,pairwise_relationship,back,20,1
-99,pairwise_relationship,leftside,21,1
-100,pairwise_relationship,rightside,22,1
-101,pairwise_relationship,leftside,1,22
-102,pairwise_relationship,rightside,24,1
-103,pairwise_relationship,leftside,1,24
-104,pairwise_relationship,leftside,29,1
-105,pairwise_relationship,leftside,1,29
-106,pairwise_relationship,rightside,38,1
-107,pairwise_relationship,leftside,1,38
-108,pairwise_relationship,rightside,1,39
-109,pairwise_relationship,rightside,16,15
-110,pairwise_relationship,back,15,16
-111,pairwise_relationship,rightside,17,15
-112,pairwise_relationship,rightside,18,15
-113,pairwise_relationship,rightside,15,18
-114,pairwise_relationship,leftside,19,15
-115,pairwise_relationship,rightside,15,19
-116,pairwise_relationship,rightside,20,15
-117,pairwise_relationship,leftside,15,20
-118,pairwise_relationship,under,15,21
-119,pairwise_relationship,near,22,15
-120,pairwise_relationship,leftside,22,15
-121,pairwise_relationship,near,15,22
-122,pairwise_relationship,leftside,15,22
-123,pairwise_relationship,leftside,24,15
-124,pairwise_relationship,leftside,15,24
-125,pairwise_relationship,leftside,15,29
-126,pairwise_relationship,near,38,15
-127,pairwise_relationship,leftside,38,15
-128,pairwise_relationship,near,15,38
-129,pairwise_relationship,leftside,15,38
-130,pairwise_relationship,rightside,39,15
-131,pairwise_relationship,rightside,17,16
-132,pairwise_relationship,rightside,16,17
-133,pairwise_relationship,rightside,18,16
-134,pairwise_relationship,rightside,16,18
-135,pairwise_relationship,back,19,16
-136,pairwise_relationship,under,19,16
-137,pairwise_relationship,near,21,16
-138,pairwise_relationship,near,16,21
-139,pairwise_relationship,back,22,16
-140,pairwise_relationship,under,22,16
-141,pairwise_relationship,leftside,16,22
-142,pairwise_relationship,back,24,16
-143,pairwise_relationship,under,24,16
-144,pairwise_relationship,front,16,29
-145,pairwise_relationship,back,38,16
-146,pairwise_relationship,back,39,16
-147,pairwise_relationship,front,16,39
-148,pairwise_relationship,rightside,17,19
-149,pairwise_relationship,rightside,20,17
-150,pairwise_relationship,front,21,17
-151,pairwise_relationship,back,17,21
-152,pairwise_relationship,leftside,17,22
-153,pairwise_relationship,leftside,17,24
-154,pairwise_relationship,front,29,17
-155,pairwise_relationship,leftside,17,38
-156,pairwise_relationship,front,17,39
-157,pairwise_relationship,rightside,19,18
-158,pairwise_relationship,rightside,18,19
-159,pairwise_relationship,rightside,20,18
-160,pairwise_relationship,back,18,21
-161,pairwise_relationship,rightside,22,18
-162,pairwise_relationship,leftside,18,22
-163,pairwise_relationship,rightside,24,18
-164,pairwise_relationship,leftside,18,24
-165,pairwise_relationship,rightside,38,18
-166,pairwise_relationship,leftside,18,38
-167,pairwise_relationship,rightside,39,18
-168,pairwise_relationship,front,18,39
-169,pairwise_relationship,leftside,19,20
-170,pairwise_relationship,near,21,19
-171,pairwise_relationship,rightside,21,19
-172,pairwise_relationship,near,19,21
-173,pairwise_relationship,rightside,22,19
-174,pairwise_relationship,rightside,24,19
-175,pairwise_relationship,rightside,19,24
-176,pairwise_relationship,rightside,29,19
-177,pairwise_relationship,leftside,19,29
-178,pairwise_relationship,rightside,39,19
-179,pairwise_relationship,leftside,22,20
-180,pairwise_relationship,leftside,20,22
-181,pairwise_relationship,leftside,24,20
-182,pairwise_relationship,front,20,29
-183,pairwise_relationship,near,38,20
-184,pairwise_relationship,leftside,38,20
-185,pairwise_relationship,near,20,38
-186,pairwise_relationship,leftside,39,20
-187,pairwise_relationship,front,20,39
-188,pairwise_relationship,under,22,21
-189,pairwise_relationship,leftside,21,22
-190,pairwise_relationship,leftside,21,24
-191,pairwise_relationship,back,29,21
-192,pairwise_relationship,under,29,21
-193,pairwise_relationship,leftside,21,29
-194,pairwise_relationship,leftside,21,38
-195,pairwise_relationship,near,39,21
-196,pairwise_relationship,under,39,21
-197,pairwise_relationship,near,21,39
-198,pairwise_relationship,rightside,21,39
-199,pairwise_relationship,leftside,22,24
-200,pairwise_relationship,leftside,29,22
-201,pairwise_relationship,leftside,22,29
-202,pairwise_relationship,back,38,22
-203,pairwise_relationship,front,22,38
-204,pairwise_relationship,leftside,39,22
-205,pairwise_relationship,leftside,29,24
-206,pairwise_relationship,leftside,24,29
-207,pairwise_relationship,near,39,24
-208,pairwise_relationship,leftside,39,24
-209,pairwise_relationship,near,24,39
-210,pairwise_relationship,leftside,38,29
-211,pairwise_relationship,leftside,29,38
-212,pairwise_relationship,leftside,39,29
-213,pairwise_relationship,rightside,29,39
-214,pairwise_relationship,leftside,39,38
-215,group_relationship_anno,organized,2 8 7 9 10 6 5 3 4 12 11 13 14,1
-216,group_relationship_anno,casual,2 8 7 9 10 6 5 3 4 12 11 13 14,1
-217,group_relationship_anno,narrow,2 8 7 9 10 6 5 3 4 12 11 13 14,1
-218,group_relationship_anno,organized,14 2 17 18,1
-219,group_relationship_anno,clean,14 2 17 18,1
-220,group_relationship_anno,casual,14 2 17 18,1
-221,group_relationship_anno,messy,36 34 32 35,29
-222,group_relationship_anno,casual,36 34 32 35,29
-223,group_relationship_anno,narrow,36 34 32 35,29
-224,group_relationship_anno,narrow,25 28 26,24
-225,group_relationship_anno,casual,25 28 26,24
-226,group_relationship_anno,wide,15 39 22 33,29
-227,group_relationship_anno,organized,15 39 22 33,29
-228,group_relationship_anno,casual,15 39 22 33,29
-229,group_relationship_anno,organized,19 16 17 18 2 14 1,20
-230,group_relationship_anno,clean,19 16 17 18 2 14 1,20
-231,group_relationship_anno,casual,19 16 17 18 2 14 1,20
-232,group_relationship_anno,wide,19 16 17 18 2 14 1,20
-233,group_relationship_anno,wide,13 11 12,21
-234,group_relationship_anno,casual,13 11 12,21
-235,group_relationship_anno,clean,13 11 12,21
-236,group_relationship_anno,wide,42,41
-237,group_relationship_anno,casual,42,41
-238,group_relationship_anno,organized,42,41
-239,group_relationship_anno,wide,2 39 15 33,29
-240,group_relationship_anno,organized,2 39 15 33,29
-241,group_relationship_anno,casual,2 39 15 33,29
-242,group_relationship_anno,organized,15 22 23,38
-243,group_relationship_anno,clean,15 22 23,38
-244,group_relationship_anno,narrow,15 22 23,38
-245,group_relationship_anno,casual,15 22 23,38
+43,attribute,round,,24
+44,attribute,coffee,,29
+45,pair_relation,vertsupport,1,0
+46,pair_relation,vertsupport,15,0
+47,pair_relation,vertsupport,16,0
+48,pair_relation,vertsupport,17,0
+49,pair_relation,vertsupport,18,0
+50,pair_relation,vertsupport,19,0
+51,pair_relation,vertsupport,20,0
+52,pair_relation,vertsupport,21,0
+53,pair_relation,vertsupport,22,0
+54,pair_relation,vertsupport,29,0
+55,pair_relation,vertsupport,38,0
+56,pair_relation,vertsupport,39,0
+57,pair_relation,vertsupport,2,1
+58,pair_relation,vertsupport,3,1
+59,pair_relation,vertsupport,5,1
+60,pair_relation,vertsupport,7,1
+61,pair_relation,vertsupport,9,1
+62,pair_relation,vertsupport,11,1
+63,pair_relation,vertsupport,13,1
+64,pair_relation,vertsupport,4,3
+65,pair_relation,vertsupport,6,5
+66,pair_relation,vertsupport,8,7
+67,pair_relation,vertsupport,10,9
+68,pair_relation,vertsupport,23,22
+69,pair_relation,vertsupport,25,24
+70,pair_relation,vertsupport,26,24
+71,pair_relation,vertsupport,27,24
+72,pair_relation,vertsupport,28,24
+73,pair_relation,vertsupport,28,27
+74,pair_relation,vertsupport,30,29
+75,pair_relation,vertsupport,31,29
+76,pair_relation,vertsupport,33,29
+77,pair_relation,vertsupport,34,29
+78,pair_relation,vertsupport,35,29
+79,pair_relation,vertsupport,36,29
+80,pair_relation,vertsupport,31,30
+81,pair_relation,vertsupport,32,30
+82,pair_relation,vertsupport,32,31
+83,pair_relation,vertsupport,34,33
+84,pair_relation,vertsupport,24,0
+85,pair_relation,vertsupport,12,1
+86,pair_relation,vertsupport,14,1
+87,pair_relation,vertsupport,37,29
+88,pair_relation,rightside,15,1
+89,pair_relation,back,16,1
+90,pair_relation,back,1,16
+91,pair_relation,near,17,1
+92,pair_relation,near,1,17
+93,pair_relation,near,18,1
+94,pair_relation,near,1,18
+95,pair_relation,rightside,1,18
+96,pair_relation,rightside,19,1
+97,pair_relation,rightside,1,19
+98,pair_relation,back,20,1
+99,pair_relation,leftside,21,1
+100,pair_relation,rightside,22,1
+101,pair_relation,leftside,1,22
+102,pair_relation,rightside,24,1
+103,pair_relation,leftside,1,24
+104,pair_relation,leftside,29,1
+105,pair_relation,leftside,1,29
+106,pair_relation,rightside,38,1
+107,pair_relation,leftside,1,38
+108,pair_relation,rightside,1,39
+109,pair_relation,rightside,16,15
+110,pair_relation,back,15,16
+111,pair_relation,rightside,17,15
+112,pair_relation,rightside,18,15
+113,pair_relation,rightside,15,18
+114,pair_relation,leftside,19,15
+115,pair_relation,rightside,15,19
+116,pair_relation,rightside,20,15
+117,pair_relation,leftside,15,20
+118,pair_relation,under,15,21
+119,pair_relation,near,22,15
+120,pair_relation,leftside,22,15
+121,pair_relation,near,15,22
+122,pair_relation,leftside,15,22
+123,pair_relation,leftside,24,15
+124,pair_relation,leftside,15,24
+125,pair_relation,leftside,15,29
+126,pair_relation,near,38,15
+127,pair_relation,leftside,38,15
+128,pair_relation,near,15,38
+129,pair_relation,leftside,15,38
+130,pair_relation,rightside,39,15
+131,pair_relation,rightside,17,16
+132,pair_relation,rightside,16,17
+133,pair_relation,rightside,18,16
+134,pair_relation,rightside,16,18
+135,pair_relation,back,19,16
+136,pair_relation,under,19,16
+137,pair_relation,near,21,16
+138,pair_relation,near,16,21
+139,pair_relation,back,22,16
+140,pair_relation,under,22,16
+141,pair_relation,leftside,16,22
+142,pair_relation,back,24,16
+143,pair_relation,under,24,16
+144,pair_relation,front,16,29
+145,pair_relation,back,38,16
+146,pair_relation,back,39,16
+147,pair_relation,front,16,39
+148,pair_relation,rightside,17,19
+149,pair_relation,rightside,20,17
+150,pair_relation,front,21,17
+151,pair_relation,back,17,21
+152,pair_relation,leftside,17,22
+153,pair_relation,leftside,17,24
+154,pair_relation,front,29,17
+155,pair_relation,leftside,17,38
+156,pair_relation,front,17,39
+157,pair_relation,rightside,19,18
+158,pair_relation,rightside,18,19
+159,pair_relation,rightside,20,18
+160,pair_relation,back,18,21
+161,pair_relation,rightside,22,18
+162,pair_relation,leftside,18,22
+163,pair_relation,rightside,24,18
+164,pair_relation,leftside,18,24
+165,pair_relation,rightside,38,18
+166,pair_relation,leftside,18,38
+167,pair_relation,rightside,39,18
+168,pair_relation,front,18,39
+169,pair_relation,leftside,19,20
+170,pair_relation,near,21,19
+171,pair_relation,rightside,21,19
+172,pair_relation,near,19,21
+173,pair_relation,rightside,22,19
+174,pair_relation,rightside,24,19
+175,pair_relation,rightside,19,24
+176,pair_relation,rightside,29,19
+177,pair_relation,leftside,19,29
+178,pair_relation,rightside,39,19
+179,pair_relation,leftside,22,20
+180,pair_relation,leftside,20,22
+181,pair_relation,leftside,24,20
+182,pair_relation,front,20,29
+183,pair_relation,near,38,20
+184,pair_relation,leftside,38,20
+185,pair_relation,near,20,38
+186,pair_relation,leftside,39,20
+187,pair_relation,front,20,39
+188,pair_relation,under,22,21
+189,pair_relation,leftside,21,22
+190,pair_relation,leftside,21,24
+191,pair_relation,back,29,21
+192,pair_relation,under,29,21
+193,pair_relation,leftside,21,29
+194,pair_relation,leftside,21,38
+195,pair_relation,near,39,21
+196,pair_relation,under,39,21
+197,pair_relation,near,21,39
+198,pair_relation,rightside,21,39
+199,pair_relation,leftside,22,24
+200,pair_relation,leftside,29,22
+201,pair_relation,leftside,22,29
+202,pair_relation,back,38,22
+203,pair_relation,front,22,38
+204,pair_relation,leftside,39,22
+205,pair_relation,leftside,29,24
+206,pair_relation,leftside,24,29
+207,pair_relation,near,39,24
+208,pair_relation,leftside,39,24
+209,pair_relation,near,24,39
+210,pair_relation,leftside,38,29
+211,pair_relation,leftside,29,38
+212,pair_relation,leftside,39,29
+213,pair_relation,rightside,29,39
+214,pair_relation,leftside,39,38
+215,group_relation_anno,organized,2 8 7 9 10 6 5 3 4 12 11 13 14,1
+216,group_relation_anno,casual,2 8 7 9 10 6 5 3 4 12 11 13 14,1
+217,group_relation_anno,narrow,2 8 7 9 10 6 5 3 4 12 11 13 14,1
+218,group_relation_anno,organized,14 2 17 18,1
+219,group_relation_anno,clean,14 2 17 18,1
+220,group_relation_anno,casual,14 2 17 18,1
+221,group_relation_anno,messy,36 34 32 35,29
+222,group_relation_anno,casual,36 34 32 35,29
+223,group_relation_anno,narrow,36 34 32 35,29
+224,group_relation_anno,narrow,25 28 26,24
+225,group_relation_anno,casual,25 28 26,24
+226,group_relation_anno,wide,15 39 22 33,29
+227,group_relation_anno,organized,15 39 22 33,29
+228,group_relation_anno,casual,15 39 22 33,29
+229,group_relation_anno,organized,19 16 17 18 2 14 1,20
+230,group_relation_anno,clean,19 16 17 18 2 14 1,20
+231,group_relation_anno,casual,19 16 17 18 2 14 1,20
+232,group_relation_anno,wide,19 16 17 18 2 14 1,20
+233,group_relation_anno,wide,13 11 12,21
+234,group_relation_anno,casual,13 11 12,21
+235,group_relation_anno,clean,13 11 12,21
+236,group_relation_anno,wide,42,41
+237,group_relation_anno,casual,42,41
+238,group_relation_anno,organized,42,41
+239,group_relation_anno,wide,2 39 15 33,29
+240,group_relation_anno,organized,2 39 15 33,29
+241,group_relation_anno,casual,2 39 15 33,29
+242,group_relation_anno,organized,15 22 23,38
+243,group_relation_anno,clean,15 22 23,38
+244,group_relation_anno,narrow,15 22 23,38
+245,group_relation_anno,casual,15 22 23,38
 edgeNum 518
 0,43,24
 1,44,29

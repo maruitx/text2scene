@@ -16,7 +16,6 @@ public:
 	void mapToFixedRelationSet(SemNode &currNode, QString &nodeName, QString &nodeType = QString(""));
 	void mapToFixedAttributeSet(QString &nodeName, QString &nodeType = QString(""));
 
-
 	QString convertToSinglarForm(const QString &s);
 
 

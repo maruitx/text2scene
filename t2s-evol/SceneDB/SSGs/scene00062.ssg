@@ -136,31 +136,31 @@ nodeNum 40
 12,object,speaker,31 36,16 30 37
 13,object,speaker,33 38,17 32 39
 14,object,rug,35 37 39,18 26 34 36 38
-15,pairwise_relationship,vertsupport,1,0
-16,pairwise_relationship,vertsupport,12,0
-17,pairwise_relationship,vertsupport,13,0
-18,pairwise_relationship,vertsupport,14,0
-19,pairwise_relationship,vertsupport,2,1
-20,pairwise_relationship,vertsupport,3,1
-21,pairwise_relationship,vertsupport,5,1
-22,pairwise_relationship,vertsupport,7,1
-23,pairwise_relationship,vertsupport,8,1
-24,pairwise_relationship,vertsupport,10,1
-25,pairwise_relationship,vertsupport,11,1
-26,pairwise_relationship,vertsupport,14,1
-27,pairwise_relationship,vertsupport,4,3
-28,pairwise_relationship,vertsupport,6,5
-29,pairwise_relationship,vertsupport,9,8
-30,pairwise_relationship,near,12,1
-31,pairwise_relationship,near,1,12
-32,pairwise_relationship,near,13,1
-33,pairwise_relationship,near,1,13
-34,pairwise_relationship,near,14,1
-35,pairwise_relationship,near,1,14
-36,pairwise_relationship,near,14,12
-37,pairwise_relationship,near,12,14
-38,pairwise_relationship,near,14,13
-39,pairwise_relationship,near,13,14
+15,pair_relation,vertsupport,1,0
+16,pair_relation,vertsupport,12,0
+17,pair_relation,vertsupport,13,0
+18,pair_relation,vertsupport,14,0
+19,pair_relation,vertsupport,2,1
+20,pair_relation,vertsupport,3,1
+21,pair_relation,vertsupport,5,1
+22,pair_relation,vertsupport,7,1
+23,pair_relation,vertsupport,8,1
+24,pair_relation,vertsupport,10,1
+25,pair_relation,vertsupport,11,1
+26,pair_relation,vertsupport,14,1
+27,pair_relation,vertsupport,4,3
+28,pair_relation,vertsupport,6,5
+29,pair_relation,vertsupport,9,8
+30,pair_relation,near,12,1
+31,pair_relation,near,1,12
+32,pair_relation,near,13,1
+33,pair_relation,near,1,13
+34,pair_relation,near,14,1
+35,pair_relation,near,1,14
+36,pair_relation,near,14,12
+37,pair_relation,near,12,14
+38,pair_relation,near,14,13
+39,pair_relation,near,13,14
 edgeNum 50
 0,1,15
 1,15,0

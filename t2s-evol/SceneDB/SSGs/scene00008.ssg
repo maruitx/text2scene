@@ -127,34 +127,34 @@ nodeNum 42
 11,object,chocolate,,37
 12,object,cabling,,20 37 38 39
 13,object,wallart,,21
-14,pairwise_relationship,vertsupport,3,0
-15,pairwise_relationship,vertsupport,4,0
-16,pairwise_relationship,vertsupport,5,4
-17,pairwise_relationship,vertsupport,6,4
-18,pairwise_relationship,vertsupport,8,4
-19,pairwise_relationship,vertsupport,9,4
-20,pairwise_relationship,vertsupport,12,4
-21,pairwise_relationship,vertsupport,13,4
-22,pairwise_relationship,vertsupport,9,8
-23,pairwise_relationship,vertsupport,10,8
-24,pairwise_relationship,vertsupport,1,0
-25,pairwise_relationship,vertsupport,2,0
-26,pairwise_relationship,vertsupport,7,4
-27,pairwise_relationship,near,2,1
-28,pairwise_relationship,near,1,2
-29,pairwise_relationship,front,3,1
-30,pairwise_relationship,near,4,1
-31,pairwise_relationship,near,1,4
-32,pairwise_relationship,front,3,2
-33,pairwise_relationship,near,4,2
-34,pairwise_relationship,near,2,4
-35,pairwise_relationship,near,4,3
-36,pairwise_relationship,near,3,4
-37,group_relationship_anno,messy,6 12 7 5 8 11 9 10,4
-38,group_relationship_anno,work,12 8 9 10,6
-39,group_relationship_anno,messy,12 8 9 10,6
-40,group_relationship_anno,work,9 10,8
-41,group_relationship_anno,messy,9 10,8
+14,pair_relation,vertsupport,3,0
+15,pair_relation,vertsupport,4,0
+16,pair_relation,vertsupport,5,4
+17,pair_relation,vertsupport,6,4
+18,pair_relation,vertsupport,8,4
+19,pair_relation,vertsupport,9,4
+20,pair_relation,vertsupport,12,4
+21,pair_relation,vertsupport,13,4
+22,pair_relation,vertsupport,9,8
+23,pair_relation,vertsupport,10,8
+24,pair_relation,vertsupport,1,0
+25,pair_relation,vertsupport,2,0
+26,pair_relation,vertsupport,7,4
+27,pair_relation,near,2,1
+28,pair_relation,near,1,2
+29,pair_relation,front,3,1
+30,pair_relation,near,4,1
+31,pair_relation,near,1,4
+32,pair_relation,front,3,2
+33,pair_relation,near,4,2
+34,pair_relation,near,2,4
+35,pair_relation,near,4,3
+36,pair_relation,near,3,4
+37,group_relation_anno,messy,6 12 7 5 8 11 9 10,4
+38,group_relation_anno,work,12 8 9 10,6
+39,group_relation_anno,messy,12 8 9 10,6
+40,group_relation_anno,work,9 10,8
+41,group_relation_anno,messy,9 10,8
 edgeNum 71
 0,3,14
 1,14,0

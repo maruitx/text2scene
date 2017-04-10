@@ -28,7 +28,6 @@ public:
 
 
 	std::vector<std::vector<vec3>> m_collisionPositions;  // invalid positions of models identified in previous collision detection
-	int m_trialNumLimit;
 
 private:
 	TSScene *m_scene;

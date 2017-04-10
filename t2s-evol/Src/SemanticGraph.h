@@ -2,6 +2,8 @@
 
 #include "Headers.h"
 
+const QString SSGNodeType[] = { "object", "attribute", "pair_relation", "group_relation"};
+
 class SemNode{
 public:
 	SemNode(const QString &t, const QString &n, int id) { nodeType = t; nodeName = n; nodeId = id; isAligned = false; matchingStatus = 0;  isInferred = false;  inferedType = -1;  inferRefNodeId = -1; isAnnotated = false; };

@@ -118,18 +118,18 @@ nodeNum 25
 10,object,bunsen burner,,20
 11,object,holder,,21
 12,object,tube,,22
-13,pairwise_relationship,vertsupport,1,0
-14,pairwise_relationship,vertsupport,2,1
-15,pairwise_relationship,vertsupport,3,1
-16,pairwise_relationship,vertsupport,4,1
-17,pairwise_relationship,vertsupport,5,1
-18,pairwise_relationship,vertsupport,8,1
-19,pairwise_relationship,vertsupport,9,1
-20,pairwise_relationship,vertsupport,10,1
-21,pairwise_relationship,vertsupport,11,1
-22,pairwise_relationship,vertsupport,12,1
-23,pairwise_relationship,vertsupport,6,5
-24,pairwise_relationship,vertsupport,7,5
+13,pair_relation,vertsupport,1,0
+14,pair_relation,vertsupport,2,1
+15,pair_relation,vertsupport,3,1
+16,pair_relation,vertsupport,4,1
+17,pair_relation,vertsupport,5,1
+18,pair_relation,vertsupport,8,1
+19,pair_relation,vertsupport,9,1
+20,pair_relation,vertsupport,10,1
+21,pair_relation,vertsupport,11,1
+22,pair_relation,vertsupport,12,1
+23,pair_relation,vertsupport,6,5
+24,pair_relation,vertsupport,7,5
 edgeNum 24
 0,1,13
 1,13,0

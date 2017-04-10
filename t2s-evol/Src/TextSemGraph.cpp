@@ -260,14 +260,14 @@ void TextSemGraph::mapToFixedRelationSet(SemNode &currNode, QString &nodeName, Q
 		{
 			nodeName = "vertsupport";
 		}
-		nodeType = "relation";
+		nodeType = SSGNodeType[2];
 		return;
 	}
 
 	if (nodeName.contains("with"))
 	{
 
-		nodeType = "relation";
+		nodeType = SSGNodeType[2];
 		nodeName = "vertsupport";
 
 		// reverse for current node
@@ -291,76 +291,76 @@ void TextSemGraph::mapToFixedRelationSet(SemNode &currNode, QString &nodeName, Q
 	if (nodeName == "next to" || nodeName == "close to" || nodeName == "near")
 	{
 		nodeName = "near";
-		nodeType = "relation";
+		nodeType = SSGNodeType[2];
 		return;
 	}
 
 	if (nodeName.contains("front"))
 	{
 		nodeName = "front";
-		nodeType = "relation";
+		nodeType = SSGNodeType[2];
 		return;
 	}
 
 	if (nodeName.contains("back") || nodeName.contains("behind"))
 	{
 		nodeName = "back";
-		nodeType = "relation";
+		nodeType = SSGNodeType[2];
 		return;
 	}
 
 	if (nodeName.contains("left"))
 	{
 		nodeName = "left";
-		nodeType = "relation";
+		nodeType = SSGNodeType[2];
 		return;
 	}
 
 	if (nodeName.contains("right"))
 	{
 		nodeName = "right";
-		nodeType = "relation";
+		nodeType = SSGNodeType[2];
 		return;
 	}
 
 	if (nodeName.contains("under || below"))
 	{
 		nodeName = "under";
-		nodeType = "relation";
+		nodeType = SSGNodeType[2];
 		return;
 	}
 
 	if (nodeName.contains("center"))
 	{
 		nodeName = "center";
-		nodeType = "relation";
+		nodeType = SSGNodeType[2];
 		return;
 	}
 
 	if (nodeName.contains("align"))
 	{
 		nodeName = "aligned";
-		nodeType = "group_relationship";
+		nodeType = SSGNodeType[3];
 		return;
 	}
 
 	if (nodeName.contains("stack"))
 	{
 		nodeName = "stacked";
-		nodeType = "group_relationship";
+		nodeType = SSGNodeType[3];
 		return;
 	}
 
 	if (nodeName.contains("each") && nodeName.contains("side"))
 	{
 		nodeName = "left";
-		nodeType = "relation";
+		nodeType = SSGNodeType[2];
 		return;
 	}
 
 	if (nodeName == "around")
 	{
-		nodeType = "group_relationship";
+		nodeType = SSGNodeType[3];
 		return;
 	}
 }
@@ -369,49 +369,49 @@ void TextSemGraph::mapToFixedAttributeSet(QString &nodeName, QString &nodeType /
 {
 	if (nodeName == "office")
 	{
-		nodeType = "per_obj_attribute";
+		nodeType = SSGNodeType[1];
 		return;
 	}
 
 	if (nodeName == "coffee")
 	{
-		nodeType = "per_obj_attribute";
+		nodeType = SSGNodeType[1];
 		return;
 	}
 
 	if (nodeName == "dining")
 	{
-		nodeType = "per_obj_attribute";
+		nodeType = SSGNodeType[1];
 		return;
 	}
 
 	if (nodeName == "file")
 	{
-		nodeType = "per_obj_attribute";
+		nodeType = SSGNodeType[1];
 		return;
 	}
 
 	if (nodeName == "round")
 	{
-		nodeType = "per_obj_attribute";
+		nodeType = SSGNodeType[1];
 		return;
 	}
 
 	if (nodeName == "rectangular")
 	{
-		nodeType = "per_obj_attribute";
+		nodeType = SSGNodeType[1];
 		return;
 	}
 
 	if (nodeName == "sauce")
 	{
-		nodeType = "per_obj_attribute";
+		nodeType = SSGNodeType[1];
 		return;
 	}
 
 	if (nodeName.contains("mess"))
 	{
-		nodeType = "group_attribute";
+		nodeType = SSGNodeType[3];
 		nodeName = "messy";
 		return;
 	}
@@ -419,35 +419,35 @@ void TextSemGraph::mapToFixedAttributeSet(QString &nodeName, QString &nodeType /
 
 	if (nodeName.contains("mess"))
 	{
-		nodeType = "group_attribute";
+		nodeType = SSGNodeType[3];
 		nodeName = "messy";
 		return;
 	}
 
 	if (nodeName.contains("formal"))
 	{
-		nodeType = "group_attribute";
+		nodeType = SSGNodeType[3];
 		nodeName = "formal";
 		return;
 	}
 
 	if (nodeName.contains("casual"))
 	{
-		nodeType = "group_attribute";
+		nodeType = SSGNodeType[3];
 		nodeName = "casual";
 		return;
 	}
 
 	if (nodeName.contains("organize"))
 	{
-		nodeType = "group_attribute";
+		nodeType = SSGNodeType[3];
 		nodeName = "organized";
 		return;
 	}
 
 	if (nodeName.contains("clean"))
 	{
-		nodeType = "group_attribute";
+		nodeType = SSGNodeType[3];
 		nodeName = "clean";
 		return;
 	}

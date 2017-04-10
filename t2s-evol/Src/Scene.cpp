@@ -13,7 +13,7 @@
 #include "SceneGenerator.h"
 #include "Utility.h"
 
-const int PreviewNum = 1;
+const int PreviewNum = 5;
 
 Scene::Scene(CameraManager *camManager)
 : m_cameraManager(camManager),

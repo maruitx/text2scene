@@ -118,38 +118,38 @@ nodeNum 45
 10,object,trashbin,25 26 34 35,14 23 24 36 40 41 42
 11,object,milkcarton,29 30 37,15 27 28 38 39 40 41 42
 12,object,tissuebox,33 36 38 39,16 31 32 34 35 37 40 41 42
-13,pairwise_relationship,vertsupport,1,0
-14,pairwise_relationship,vertsupport,10,0
-15,pairwise_relationship,vertsupport,11,0
-16,pairwise_relationship,vertsupport,12,0
-17,pairwise_relationship,vertsupport,5,1
-18,pairwise_relationship,vertsupport,6,1
-19,pairwise_relationship,vertsupport,7,6
-20,pairwise_relationship,vertsupport,8,7
-21,pairwise_relationship,vertsupport,2,1
-22,pairwise_relationship,vertsupport,4,1
-23,pairwise_relationship,near,10,1
-24,pairwise_relationship,back,10,1
-25,pairwise_relationship,near,1,10
-26,pairwise_relationship,rightside,1,10
-27,pairwise_relationship,near,11,1
-28,pairwise_relationship,back,11,1
-29,pairwise_relationship,near,1,11
-30,pairwise_relationship,front,1,11
-31,pairwise_relationship,near,12,1
-32,pairwise_relationship,back,12,1
-33,pairwise_relationship,near,1,12
-34,pairwise_relationship,near,12,10
-35,pairwise_relationship,rightside,12,10
-36,pairwise_relationship,near,10,12
-37,pairwise_relationship,near,12,11
-38,pairwise_relationship,near,11,12
-39,pairwise_relationship,front,11,12
-40,group_relationship_anno,messy,2 4 10 12 11 5 8 7,1
-41,group_relationship_anno,casual,2 4 10 12 11 5 8 7,1
-42,group_relationship_anno,disorganized,2 4 10 12 11 5 8 7,1
-43,group_relationship_anno,messy,4 2 5,1
-44,group_relationship_anno,casual,4 2 5,1
+13,pair_relation,vertsupport,1,0
+14,pair_relation,vertsupport,10,0
+15,pair_relation,vertsupport,11,0
+16,pair_relation,vertsupport,12,0
+17,pair_relation,vertsupport,5,1
+18,pair_relation,vertsupport,6,1
+19,pair_relation,vertsupport,7,6
+20,pair_relation,vertsupport,8,7
+21,pair_relation,vertsupport,2,1
+22,pair_relation,vertsupport,4,1
+23,pair_relation,near,10,1
+24,pair_relation,back,10,1
+25,pair_relation,near,1,10
+26,pair_relation,rightside,1,10
+27,pair_relation,near,11,1
+28,pair_relation,back,11,1
+29,pair_relation,near,1,11
+30,pair_relation,front,1,11
+31,pair_relation,near,12,1
+32,pair_relation,back,12,1
+33,pair_relation,near,1,12
+34,pair_relation,near,12,10
+35,pair_relation,rightside,12,10
+36,pair_relation,near,10,12
+37,pair_relation,near,12,11
+38,pair_relation,near,11,12
+39,pair_relation,front,11,12
+40,group_relation_anno,messy,2 4 10 12 11 5 8 7,1
+41,group_relation_anno,casual,2 4 10 12 11 5 8 7,1
+42,group_relation_anno,disorganized,2 4 10 12 11 5 8 7,1
+43,group_relation_anno,messy,4 2 5,1
+44,group_relation_anno,casual,4 2 5,1
 edgeNum 89
 0,1,13
 1,13,0

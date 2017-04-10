@@ -24,19 +24,14 @@ SemanticGraph::~SemanticGraph()
 
 void SemanticGraph::addNode(const QString &nType, const QString &nName)
 {
-	QString uniType = nType;
+	QString unifiedType = nType;
 
-	if (nType == "pairwise_relationship")
+	if (nType == "group_relation_anno")
 	{
-		uniType = QString("relation");
+		unifiedType = SSGNodeType[3];
 	}
 
-	if (nType == "per_obj_attribute")
-	{
-		uniType = QString("attribute");
-	}
-
-	SemNode newNode = SemNode(uniType, nName, m_nodeNum);
+	SemNode newNode = SemNode(unifiedType, nName, m_nodeNum);
 	m_nodes.push_back(newNode);
 
 	m_nodeNum++;
@@ -87,7 +82,7 @@ void SemanticGraph::parseNodeNeighbors()
 			}
 		}
 
-		if (sgNode.nodeType == "relation")
+		if (sgNode.nodeType.contains("relation"))
 		{
 			sgNode.activeNodeList.clear();
 			sgNode.anchorNodeList.clear();
@@ -236,7 +231,7 @@ void SemanticGraph::alignRelationNodesWithGraph(SemanticGraph *targetGraph, doub
 		SemNode& sgNode = this->m_nodes[qNi];
 
 		// align pair-wise relationship node
-		if (sgNode.nodeType == "relation")
+		if (sgNode.nodeType == "pair_relation")
 		{
 			// To test whether in and out node exist
 			if (sgNode.activeNodeList.empty() || sgNode.anchorNodeList.empty()) continue;
@@ -254,7 +249,7 @@ void SemanticGraph::alignRelationNodesWithGraph(SemanticGraph *targetGraph, doub
 			{
 				SemNode& tarSgNode = targetGraph->m_nodes[tarNi];
 				// skip the aligned nodes
-				if (!tarSgNode.isAligned && tarSgNode.nodeType == "relation" && sgNode.nodeName == tarSgNode.nodeName)
+				if (!tarSgNode.isAligned && tarSgNode.nodeType == "pair_relation" && sgNode.nodeName == tarSgNode.nodeName)
 				{
 					if (tarSgNode.activeNodeList[0] == m_toNewSgNodeIdMap[actNodeId]
 						&& tarSgNode.anchorNodeList[0] == m_toNewSgNodeIdMap[anchorNodeId])
@@ -272,7 +267,7 @@ void SemanticGraph::alignRelationNodesWithGraph(SemanticGraph *targetGraph, doub
 			}
 		}
 
-		if (sgNode.nodeType == "group_attribute")
+		if (sgNode.nodeType == "group_relation")
 		{
 			if (sgNode.anchorNodeList.empty()) continue;
 
@@ -285,7 +280,7 @@ void SemanticGraph::alignRelationNodesWithGraph(SemanticGraph *targetGraph, doub
 			{
 				SemNode& tarSgNode = targetGraph->m_nodes[tarNi];
 				// skip the aligned nodes
-				if (!tarSgNode.isAligned && tarSgNode.nodeType == "group_attribute" && sgNode.nodeName == tarSgNode.nodeName)
+				if (!tarSgNode.isAligned && tarSgNode.nodeType == "group_relation" && sgNode.nodeName == tarSgNode.nodeName)
 				{
 					int tarRefId = tarSgNode.anchorNodeList[0];
 					SemNode& tarRefNode = targetGraph->m_nodes[tarRefId];

@@ -10,7 +10,7 @@ public:
 
 	SuppPlane(const std::vector<vec3> &corners);
 
-	double getZ() { return m_center.z; };
+	double getZ();
 
 	vec3 getPointByUV(double u, double v);
 	vec3 randomSamplePointByUV(const vec3 &uvh, const double xRange, const double yRange, const double zRange);

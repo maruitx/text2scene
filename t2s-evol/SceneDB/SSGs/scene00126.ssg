@@ -325,58 +325,58 @@ nodeNum 88
 33,object,xbox360,,57 71 72
 34,object,case,70,58 86
 35,object,disccase,,70 75 76 79 80 81 82
-36,pairwise_relationship,vertsupport,1,0
-37,pairwise_relationship,vertsupport,2,1
-38,pairwise_relationship,vertsupport,3,1
-39,pairwise_relationship,vertsupport,4,1
-40,pairwise_relationship,vertsupport,5,1
-41,pairwise_relationship,vertsupport,6,1
-42,pairwise_relationship,vertsupport,7,1
-43,pairwise_relationship,vertsupport,8,1
-44,pairwise_relationship,vertsupport,15,1
-45,pairwise_relationship,vertsupport,16,1
-46,pairwise_relationship,vertsupport,17,1
-47,pairwise_relationship,vertsupport,18,1
-48,pairwise_relationship,vertsupport,19,1
-49,pairwise_relationship,vertsupport,21,1
-50,pairwise_relationship,vertsupport,22,1
-51,pairwise_relationship,vertsupport,23,1
-52,pairwise_relationship,vertsupport,24,1
-53,pairwise_relationship,vertsupport,25,1
-54,pairwise_relationship,vertsupport,26,1
-55,pairwise_relationship,vertsupport,27,1
-56,pairwise_relationship,vertsupport,30,1
-57,pairwise_relationship,vertsupport,33,1
-58,pairwise_relationship,vertsupport,34,1
-59,pairwise_relationship,vertsupport,9,8
-60,pairwise_relationship,vertsupport,14,8
-61,pairwise_relationship,vertsupport,10,9
-62,pairwise_relationship,vertsupport,11,10
-63,pairwise_relationship,vertsupport,12,10
-64,pairwise_relationship,vertsupport,13,10
-65,pairwise_relationship,vertsupport,20,19
-66,pairwise_relationship,vertsupport,28,27
-67,pairwise_relationship,vertsupport,29,27
-68,pairwise_relationship,vertsupport,31,30
-69,pairwise_relationship,vertsupport,32,30
-70,pairwise_relationship,vertsupport,35,34
-71,group_relationship_anno,work,2 33 6 5 4 16 3 22,1
-72,group_relationship_anno,organized,2 33 6 5 4 16 3 22,1
-73,group_relationship_anno,work,7 5 22 4,1
-74,group_relationship_anno,casual,7 5 22 4,1
-75,group_relationship_anno,work,7 23 22 18 5 16 3 21 24 12 30 27 28 32 31 10 11 13 14 9 19 17 35 25 4,1
-76,group_relationship_anno,messy,7 23 22 18 5 16 3 21 24 12 30 27 28 32 31 10 11 13 14 9 19 17 35 25 4,1
-77,group_relationship_anno,work,7 23 18 21 3 16 22,5
-78,group_relationship_anno,messy,7 23 18 21 3 16 22,5
-79,group_relationship_anno,work,5 23 22 18 15 3 21 24 12 19 17 25 35,7
-80,group_relationship_anno,messy,5 23 22 18 15 3 21 24 12 19 17 25 35,7
-81,group_relationship_anno,work,5 22 35 16 3 4,1
-82,group_relationship_anno,organized,5 22 35 16 3 4,1
-83,group_relationship_anno,work,30 9 10 14 11 13 27 29 24,1
-84,group_relationship_anno,casual,30 9 10 14 11 13 27 29 24,1
-85,group_relationship_anno,messy,30 9 10 14 11 13 27 29 24,1
-86,group_relationship_anno,messy,28 30 32 31 34 19 17,27
-87,group_relationship_anno,messy,9 8 14 11 13 24,10
+36,pair_relation,vertsupport,1,0
+37,pair_relation,vertsupport,2,1
+38,pair_relation,vertsupport,3,1
+39,pair_relation,vertsupport,4,1
+40,pair_relation,vertsupport,5,1
+41,pair_relation,vertsupport,6,1
+42,pair_relation,vertsupport,7,1
+43,pair_relation,vertsupport,8,1
+44,pair_relation,vertsupport,15,1
+45,pair_relation,vertsupport,16,1
+46,pair_relation,vertsupport,17,1
+47,pair_relation,vertsupport,18,1
+48,pair_relation,vertsupport,19,1
+49,pair_relation,vertsupport,21,1
+50,pair_relation,vertsupport,22,1
+51,pair_relation,vertsupport,23,1
+52,pair_relation,vertsupport,24,1
+53,pair_relation,vertsupport,25,1
+54,pair_relation,vertsupport,26,1
+55,pair_relation,vertsupport,27,1
+56,pair_relation,vertsupport,30,1
+57,pair_relation,vertsupport,33,1
+58,pair_relation,vertsupport,34,1
+59,pair_relation,vertsupport,9,8
+60,pair_relation,vertsupport,14,8
+61,pair_relation,vertsupport,10,9
+62,pair_relation,vertsupport,11,10
+63,pair_relation,vertsupport,12,10
+64,pair_relation,vertsupport,13,10
+65,pair_relation,vertsupport,20,19
+66,pair_relation,vertsupport,28,27
+67,pair_relation,vertsupport,29,27
+68,pair_relation,vertsupport,31,30
+69,pair_relation,vertsupport,32,30
+70,pair_relation,vertsupport,35,34
+71,group_relation_anno,work,2 33 6 5 4 16 3 22,1
+72,group_relation_anno,organized,2 33 6 5 4 16 3 22,1
+73,group_relation_anno,work,7 5 22 4,1
+74,group_relation_anno,casual,7 5 22 4,1
+75,group_relation_anno,work,7 23 22 18 5 16 3 21 24 12 30 27 28 32 31 10 11 13 14 9 19 17 35 25 4,1
+76,group_relation_anno,messy,7 23 22 18 5 16 3 21 24 12 30 27 28 32 31 10 11 13 14 9 19 17 35 25 4,1
+77,group_relation_anno,work,7 23 18 21 3 16 22,5
+78,group_relation_anno,messy,7 23 18 21 3 16 22,5
+79,group_relation_anno,work,5 23 22 18 15 3 21 24 12 19 17 25 35,7
+80,group_relation_anno,messy,5 23 22 18 15 3 21 24 12 19 17 25 35,7
+81,group_relation_anno,work,5 22 35 16 3 4,1
+82,group_relation_anno,organized,5 22 35 16 3 4,1
+83,group_relation_anno,work,30 9 10 14 11 13 27 29 24,1
+84,group_relation_anno,casual,30 9 10 14 11 13 27 29 24,1
+85,group_relation_anno,messy,30 9 10 14 11 13 27 29 24,1
+86,group_relation_anno,messy,28 30 32 31 34 19 17,27
+87,group_relation_anno,messy,9 8 14 11 13 24,10
 edgeNum 253
 0,1,36
 1,36,0

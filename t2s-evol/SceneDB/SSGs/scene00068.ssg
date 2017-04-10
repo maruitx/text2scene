@@ -127,23 +127,23 @@ nodeNum 31
 11,object,videodisk,,23
 12,object,speaker,28,15 27
 13,object,speaker,30,16 29
-14,pairwise_relationship,vertsupport,1,0
-15,pairwise_relationship,vertsupport,12,0
-16,pairwise_relationship,vertsupport,13,0
-17,pairwise_relationship,vertsupport,2,1
-18,pairwise_relationship,vertsupport,3,1
-19,pairwise_relationship,vertsupport,5,1
-20,pairwise_relationship,vertsupport,7,1
-21,pairwise_relationship,vertsupport,8,1
-22,pairwise_relationship,vertsupport,10,1
-23,pairwise_relationship,vertsupport,11,1
-24,pairwise_relationship,vertsupport,4,3
-25,pairwise_relationship,vertsupport,6,5
-26,pairwise_relationship,vertsupport,9,8
-27,pairwise_relationship,near,12,1
-28,pairwise_relationship,near,1,12
-29,pairwise_relationship,near,13,1
-30,pairwise_relationship,near,1,13
+14,pair_relation,vertsupport,1,0
+15,pair_relation,vertsupport,12,0
+16,pair_relation,vertsupport,13,0
+17,pair_relation,vertsupport,2,1
+18,pair_relation,vertsupport,3,1
+19,pair_relation,vertsupport,5,1
+20,pair_relation,vertsupport,7,1
+21,pair_relation,vertsupport,8,1
+22,pair_relation,vertsupport,10,1
+23,pair_relation,vertsupport,11,1
+24,pair_relation,vertsupport,4,3
+25,pair_relation,vertsupport,6,5
+26,pair_relation,vertsupport,9,8
+27,pair_relation,near,12,1
+28,pair_relation,near,1,12
+29,pair_relation,near,13,1
+30,pair_relation,near,1,13
 edgeNum 34
 0,1,14
 1,14,0

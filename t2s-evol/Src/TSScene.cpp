@@ -123,6 +123,7 @@ void TSScene::loadSceneFile(const QString &filename)
 
 				m_metaScene.m_metaModellList[currModelID].id = modelIndex;
 				m_metaScene.m_metaModellList[currModelID].name = parts[2];
+				m_metaScene.m_metaModellList[currModelID].isAlreadyPlaced = true;
 
 				string objPathName = m_metaScene.m_modelRepository.toStdString() + "/" + parts[2] + ".obj";
 				m_metaScene.m_metaModellList[currModelID].path = objPathName;
@@ -167,6 +168,7 @@ void TSScene::loadSceneFile(const QString &filename)
 	}
 
 	m_isLoadFromFile = true;
+	m_sceneLoadingDone = false;
 	cout << "done." << endl;
 }
 
@@ -198,11 +200,12 @@ void TSScene::render(const Transform &trans, bool applyShadow)
 			}
 		}
 
+		computeSceneBB();
 		countLoadedModelNum();
 	}
 
 	// compute layout if layout is not done
-	if (!m_sceneLayoutDone)
+	if (!m_isLoadFromFile && !m_sceneLayoutDone)
 	{
 		m_layoutPlanner->computeLayout(this);
 		m_sceneLayoutDone = isLayoutDone();
@@ -224,12 +227,10 @@ void TSScene::render(const Transform &trans, bool applyShadow)
 		}
 	}
 
-	computeSceneBB();
     //renderSceneBB(trans);
 
 	m_frameCount++;
 }
-
 
 bool TSScene::isLayoutDone()
 {
@@ -252,7 +253,6 @@ bool TSScene::isLayoutDone()
 		return false;
 	}
 }
-
 
 void TSScene::renderSceneBB(const Transform &trans)
 {

@@ -128,7 +128,7 @@ static mat4 GetRotationMatrix(vec3 rotAxis, double angle)
 	mat4 rotMat;
 	rotMat = mat4::identitiy();
 
-	QQuaternion rotQ = QQuaternion::fromAxisAndAngle(QVector3D(rotAxis.x, rotAxis.y, rotAxis.z), angle);
+	QQuaternion rotQ = QQuaternion::fromAxisAndAngle(QVector3D(rotAxis.x, rotAxis.y, rotAxis.z), angle*math_degrees);
 	QMatrix3x3 qrotMat = rotQ.toRotationMatrix();
 
 	rotMat.a11 = qrotMat(0, 0); rotMat.a12 = qrotMat(0, 1); rotMat.a13 = qrotMat(0, 2);

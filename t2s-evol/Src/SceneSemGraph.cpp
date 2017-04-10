@@ -323,7 +323,7 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, bool useC
 		subGraph->addNode(oldNode);
 		currSubSSGNodeNum++;
 
-		if (oldNode.nodeType == "group_attribute")
+		if (oldNode.nodeType == "group_relation")
 		{
 			if (!oldNode.outEdgeNodeList.empty())
 			{

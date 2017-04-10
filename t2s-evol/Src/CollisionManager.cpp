@@ -41,9 +41,6 @@ CollisionManager::CollisionManager(TSScene *s)
 	// build BVH
 	m_boxBVHs.resize(m_scene->modelNum());
 	m_collisionPositions.resize(m_scene->modelNum());
-
-	m_trialNumLimit = 20;
-
 }
 
 CollisionManager::~CollisionManager()
@@ -84,22 +81,19 @@ bool CollisionManager::checkCollisionBVH(Model *testModel, int testMetaModelIdx)
 	for (int i = 0; i < m_scene->modelNum(); i++)
 	{
 		MetaModel& refMetaModel = m_scene->getMetaModel(i);
-		bool isModelAlreadyPlaced = refMetaModel.isAlreadyPlaced;
 
 		// only check collision with model that is already placed in the scene
-		if (i != testMetaModelIdx && isModelAlreadyPlaced)
+		if (i != testMetaModelIdx && refMetaModel.isAlreadyPlaced)
 		{
 			Model* refModel = m_scene->getModel(refMetaModel.name);
 
 			if (refModel != NULL)
 			{
-				mat4 refModelTransMat = refMetaModel.transformation;
-
 				if (!refMetaModel.isBvhReady)
 				{
 					rebuildBVH(refModel, i);
 				}
-
+				mat4 refModelTransMat = refMetaModel.transformation;
 				TrianglePredicate predicate(testModel, testModelTransMat, refModel, refModelTransMat);
 				isCollide = m_boxBVHs[testMetaModelIdx]->hit(*m_boxBVHs[i], predicate);
 

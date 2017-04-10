@@ -7,6 +7,8 @@ PairwiseRelationModel::PairwiseRelationModel(const QString &anchorName, const QS
 {
 	m_relationKey = m_anchorObjName + "_" + m_actObjName + "_" + m_conditionName + "_" + m_relationName;
 	m_GMM = NULL;
+
+	m_lastSampleInstanceId = -1;
 }
 
 
@@ -42,6 +44,7 @@ void PairwiseRelationModel::loadFromStream(QTextStream &ifs)
 		parts = PartitionString(currLine.toStdString(), ",");
 
 		m_instances.resize(m_numInstance);
+		m_candidateInstanceIds.resize(m_numInstance);
 
 		for (int t = 0; t < m_numInstance; t++)
 		{
@@ -55,6 +58,7 @@ void PairwiseRelationModel::loadFromStream(QTextStream &ifs)
 			newRelPos->m_conditionName = m_conditionName;
 
 			m_instances[t] = newRelPos;
+			m_candidateInstanceIds[t] = t;
 		}
 	}
 	else
@@ -99,20 +103,44 @@ Eigen::VectorXd PairwiseRelationModel::sample()
 {
 	if (m_GMM != NULL)
 	{
-		return m_GMM->sample(m_GMM->m_probTh[0]);
+		return m_GMM->sample(m_GMM->m_probTh[0]);	
 	}
 	else
 	{
-		int id = GenRandomInt(0, m_instances.size());
-		RelativePos *relPos = m_instances[id];
+		
+		int randId = GenRandomInt(0, m_candidateInstanceIds.size());
+		int randInstId = m_candidateInstanceIds[randId];
+
+		RelativePos *relPos = m_instances[randInstId];
 		Eigen::VectorXd randObservation(4);
 		randObservation[0] = relPos->pos.x;
 		randObservation[1] = relPos->pos.y;
 		randObservation[2] = relPos->pos.z;
 		randObservation[3] = relPos->theta;
 
+		m_lastSampleInstanceId = randInstId;
+
 		return randObservation;
 	}
+}
+
+bool PairwiseRelationModel::hasCandiInstances()
+{
+	if (m_numGauss > 0)
+	{
+		return true;
+	}
+	else if (m_candidateInstanceIds.size())
+	{
+		return true;
+	}
+
+	return false;
+}
+
+void PairwiseRelationModel::updateCandiInstanceIds()
+{
+	EraseValueInVectorInt(m_candidateInstanceIds, m_lastSampleInstanceId);
 }
 
 OccurrenceModel::OccurrenceModel(const QString &objName, int objNum)

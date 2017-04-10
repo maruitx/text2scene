@@ -118,29 +118,29 @@ nodeNum 36
 10,object,chair,27 28,16 25 26
 11,object,chair,31 32,17 29 30
 12,object,chair,35,18 33 34
-13,per_obj_attribute,dining,,3
-14,per_obj_attribute,rectangular,,3
-15,pairwise_relationship,vertsupport,3,0
-16,pairwise_relationship,vertsupport,10,0
-17,pairwise_relationship,vertsupport,11,0
-18,pairwise_relationship,vertsupport,12,0
-19,pairwise_relationship,vertsupport,4,3
-20,pairwise_relationship,vertsupport,5,3
-21,pairwise_relationship,vertsupport,6,3
-22,pairwise_relationship,vertsupport,7,3
-23,pairwise_relationship,vertsupport,8,3
-24,pairwise_relationship,vertsupport,9,3
-25,pairwise_relationship,near,10,3
-26,pairwise_relationship,front,10,3
-27,pairwise_relationship,near,3,10
-28,pairwise_relationship,front,3,10
-29,pairwise_relationship,near,11,3
-30,pairwise_relationship,front,11,3
-31,pairwise_relationship,near,3,11
-32,pairwise_relationship,back,3,11
-33,pairwise_relationship,near,12,3
-34,pairwise_relationship,front,12,3
-35,pairwise_relationship,near,3,12
+13,attribute,dining,,3
+14,attribute,rectangular,,3
+15,pair_relation,vertsupport,3,0
+16,pair_relation,vertsupport,10,0
+17,pair_relation,vertsupport,11,0
+18,pair_relation,vertsupport,12,0
+19,pair_relation,vertsupport,4,3
+20,pair_relation,vertsupport,5,3
+21,pair_relation,vertsupport,6,3
+22,pair_relation,vertsupport,7,3
+23,pair_relation,vertsupport,8,3
+24,pair_relation,vertsupport,9,3
+25,pair_relation,near,10,3
+26,pair_relation,front,10,3
+27,pair_relation,near,3,10
+28,pair_relation,front,3,10
+29,pair_relation,near,11,3
+30,pair_relation,front,11,3
+31,pair_relation,near,3,11
+32,pair_relation,back,3,11
+33,pair_relation,near,12,3
+34,pair_relation,front,12,3
+35,pair_relation,near,3,12
 edgeNum 44
 0,13,3
 1,14,3

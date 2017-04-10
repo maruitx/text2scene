@@ -37,9 +37,9 @@ nodeNum 7
 1,object,desk,5 6,4
 2,object,computer,,5
 3,object,monitor,,6
-4,pairwise_relationship,vertsupport,1,0
-5,pairwise_relationship,vertsupport,2,1
-6,pairwise_relationship,vertsupport,3,1
+4,pair_relation,vertsupport,1,0
+5,pair_relation,vertsupport,2,1
+6,pair_relation,vertsupport,3,1
 edgeNum 6
 0,1,4
 1,4,0

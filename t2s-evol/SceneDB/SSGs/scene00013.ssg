@@ -100,21 +100,21 @@ nodeNum 26
 8,object,printer,,17
 9,object,camera,,18 23
 10,object,pottedplant,,19 24
-11,pairwise_relationship,vertsupport,1,0
-12,pairwise_relationship,vertsupport,2,1
-13,pairwise_relationship,vertsupport,3,1
-14,pairwise_relationship,vertsupport,4,1
-15,pairwise_relationship,vertsupport,5,1
-16,pairwise_relationship,vertsupport,7,1
-17,pairwise_relationship,vertsupport,8,1
-18,pairwise_relationship,vertsupport,9,1
-19,pairwise_relationship,vertsupport,10,1
-20,pairwise_relationship,vertsupport,3,2
-21,pairwise_relationship,vertsupport,5,4
-22,pairwise_relationship,vertsupport,7,4
-23,pairwise_relationship,vertsupport,9,6
-24,pairwise_relationship,vertsupport,10,6
-25,pairwise_relationship,vertsupport,6,1
+11,pair_relation,vertsupport,1,0
+12,pair_relation,vertsupport,2,1
+13,pair_relation,vertsupport,3,1
+14,pair_relation,vertsupport,4,1
+15,pair_relation,vertsupport,5,1
+16,pair_relation,vertsupport,7,1
+17,pair_relation,vertsupport,8,1
+18,pair_relation,vertsupport,9,1
+19,pair_relation,vertsupport,10,1
+20,pair_relation,vertsupport,3,2
+21,pair_relation,vertsupport,5,4
+22,pair_relation,vertsupport,7,4
+23,pair_relation,vertsupport,9,6
+24,pair_relation,vertsupport,10,6
+25,pair_relation,vertsupport,6,1
 edgeNum 30
 0,1,11
 1,11,0

@@ -369,9 +369,14 @@ void Model::render(const Transform &trans, const mat4 &initTrans, bool applyShad
         shader->seti("renderMode", renderMode);
         shader->seti("isSelected", isSelected);
 
-		for (auto &i : m_meshes)
+		//for (auto &i : m_meshes)
+		//{
+		//	i.render(trans, shader, textureDir);
+		//}
+
+		for (int i=0; i <m_meshes.size(); i++)
 		{
-			i.render(trans, shader, textureDir);
+			m_meshes[i].render(trans, shader, textureDir);
 		}
 
 	shader->release();
@@ -402,10 +407,15 @@ void Model::renderDepth(const Transform &trans, const mat4 &initTrans)
 	shader->bind();
 	    shader->setMatrices(trans, m, true, true, true, true, true);
 
-		    for (auto &i : m_meshes)
-		    {
-			    i.renderDepth(trans);
-		    }
+		    //for (auto &i : m_meshes)
+		    //{
+			   // i.renderDepth(trans);
+		    //}
+
+			for (int i = 0; i < m_meshes.size(); i++)
+			{
+				m_meshes[i].renderDepth(trans);
+			}
 
 	shader->release();
 }

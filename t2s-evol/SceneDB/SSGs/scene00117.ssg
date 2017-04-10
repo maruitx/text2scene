@@ -235,53 +235,53 @@ nodeNum 73
 23,object,wallart,,72
 24,object,floorlamp,56 62 63,29 54 55 61 68 69
 25,object,trashbin,59 60,30 57 58 63 68 69
-26,per_obj_attribute,office,,22
-27,pairwise_relationship,vertsupport,1,0
-28,pairwise_relationship,vertsupport,22,0
-29,pairwise_relationship,vertsupport,24,0
-30,pairwise_relationship,vertsupport,25,0
-31,pairwise_relationship,vertsupport,2,1
-32,pairwise_relationship,vertsupport,3,1
-33,pairwise_relationship,vertsupport,7,1
-34,pairwise_relationship,vertsupport,8,1
-35,pairwise_relationship,vertsupport,10,1
-36,pairwise_relationship,vertsupport,11,1
-37,pairwise_relationship,vertsupport,12,1
-38,pairwise_relationship,vertsupport,13,1
-39,pairwise_relationship,vertsupport,14,1
-40,pairwise_relationship,vertsupport,15,1
-41,pairwise_relationship,vertsupport,16,1
-42,pairwise_relationship,vertsupport,17,1
-43,pairwise_relationship,vertsupport,19,1
-44,pairwise_relationship,vertsupport,20,1
-45,pairwise_relationship,vertsupport,21,1
-46,pairwise_relationship,vertsupport,4,3
-47,pairwise_relationship,vertsupport,5,3
-48,pairwise_relationship,vertsupport,6,3
-49,pairwise_relationship,vertsupport,9,8
-50,pairwise_relationship,vertsupport,18,17
-51,pairwise_relationship,near,22,1
-52,pairwise_relationship,rightside,22,1
-53,pairwise_relationship,near,1,22
-54,pairwise_relationship,near,24,1
-55,pairwise_relationship,rightside,24,1
-56,pairwise_relationship,near,1,24
-57,pairwise_relationship,near,25,1
-58,pairwise_relationship,rightside,25,1
-59,pairwise_relationship,near,1,25
-60,pairwise_relationship,leftside,1,25
-61,pairwise_relationship,front,24,22
-62,pairwise_relationship,front,22,24
-63,pairwise_relationship,front,25,24
-64,group_relationship_anno,work,14 13 20 9 8,1
-65,group_relationship_anno,organized,14 13 20 9 8,1
-66,group_relationship_anno,work,14 13 20 9 8 12 16 2 10 18 7,1
-67,group_relationship_anno,messy,14 13 20 9 8 12 16 2 10 18 7,1
-68,group_relationship_anno,work,22 25 24,1
-69,group_relationship_anno,organized,22 25 24,1
-70,group_relationship_anno,work,8 9 19 7 20 14,1
-71,group_relationship_anno,organized,8 9 19 7 20 14,1
-72,group_relationship_anno,decorative,23,1
+26,attribute,office,,22
+27,pair_relation,vertsupport,1,0
+28,pair_relation,vertsupport,22,0
+29,pair_relation,vertsupport,24,0
+30,pair_relation,vertsupport,25,0
+31,pair_relation,vertsupport,2,1
+32,pair_relation,vertsupport,3,1
+33,pair_relation,vertsupport,7,1
+34,pair_relation,vertsupport,8,1
+35,pair_relation,vertsupport,10,1
+36,pair_relation,vertsupport,11,1
+37,pair_relation,vertsupport,12,1
+38,pair_relation,vertsupport,13,1
+39,pair_relation,vertsupport,14,1
+40,pair_relation,vertsupport,15,1
+41,pair_relation,vertsupport,16,1
+42,pair_relation,vertsupport,17,1
+43,pair_relation,vertsupport,19,1
+44,pair_relation,vertsupport,20,1
+45,pair_relation,vertsupport,21,1
+46,pair_relation,vertsupport,4,3
+47,pair_relation,vertsupport,5,3
+48,pair_relation,vertsupport,6,3
+49,pair_relation,vertsupport,9,8
+50,pair_relation,vertsupport,18,17
+51,pair_relation,near,22,1
+52,pair_relation,rightside,22,1
+53,pair_relation,near,1,22
+54,pair_relation,near,24,1
+55,pair_relation,rightside,24,1
+56,pair_relation,near,1,24
+57,pair_relation,near,25,1
+58,pair_relation,rightside,25,1
+59,pair_relation,near,1,25
+60,pair_relation,leftside,1,25
+61,pair_relation,front,24,22
+62,pair_relation,front,22,24
+63,pair_relation,front,25,24
+64,group_relation_anno,work,14 13 20 9 8,1
+65,group_relation_anno,organized,14 13 20 9 8,1
+66,group_relation_anno,work,14 13 20 9 8 12 16 2 10 18 7,1
+67,group_relation_anno,messy,14 13 20 9 8 12 16 2 10 18 7,1
+68,group_relation_anno,work,22 25 24,1
+69,group_relation_anno,organized,22 25 24,1
+70,group_relation_anno,work,8 9 19 7 20 14,1
+71,group_relation_anno,organized,8 9 19 7 20 14,1
+72,group_relation_anno,decorative,23,1
 edgeNum 135
 0,26,22
 1,1,27
