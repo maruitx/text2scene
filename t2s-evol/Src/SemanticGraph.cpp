@@ -82,7 +82,7 @@ void SemanticGraph::parseNodeNeighbors()
 			}
 		}
 
-		if (sgNode.nodeType.contains("relation"))
+		if (sgNode.nodeType.contains("relation") || sgNode.nodeType.contains("attribute"))
 		{
 			sgNode.activeNodeList.clear();
 			sgNode.anchorNodeList.clear();
@@ -134,7 +134,7 @@ bool SemanticGraph::isEdgeExist(int s, int t)
 
 void SemanticGraph::alignObjectNodesWithGraph(SemanticGraph *targetGraph, double &alignScore)
 {
-	double NodeScore[] = { 0, 1, 10};
+	double NodeScore[] = { 0, 1, 20};
 
 	// first match object node and per-object attribute node
 	for (int qNi = 0; qNi < this->m_nodeNum; qNi++)
@@ -224,7 +224,7 @@ void SemanticGraph::alignObjectNodesWithGraph(SemanticGraph *targetGraph, double
 
 void SemanticGraph::alignRelationNodesWithGraph(SemanticGraph *targetGraph, double &alignScore)
 {
-	double NodeScore[] = { 0, 1, 10 };
+	double NodeScore[] = { 0, 1, 20 };
 
 	for (int qNi = 0; qNi < this->m_nodeNum; qNi++)
 	{

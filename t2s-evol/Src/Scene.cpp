@@ -13,11 +13,12 @@
 #include "SceneGenerator.h"
 #include "Utility.h"
 
-const int PreviewNum = 5;
+const int PreviewNum = 1;
 
 Scene::Scene(CameraManager *camManager)
 : m_cameraManager(camManager),
-  m_activeIdx(-1)
+  m_activeIdx(-1),
+	m_rightAfterEvol(false)
 {
     init();   
 }
@@ -229,6 +230,8 @@ void Scene::runOneEvolutionStep()
 		m_variations.push_back(tsscenes[i]);
 		m_variations[i]->m_previewId = i;
 	}
+
+	m_rightAfterEvol = true;
 }
 
 void Scene::toggleRenderMode()

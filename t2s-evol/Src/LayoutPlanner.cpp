@@ -23,48 +23,50 @@ void LayoutPlanner::initPlaceByAlignRelation(SceneSemGraph *matchedSg, SceneSemG
 	for (int mi = 0; mi < matchedSg->m_nodeNum; mi++)
 	{
 		SemNode& m_matchedSgNode = matchedSg->m_nodes[mi];
-		if (!m_matchedSgNode.isAligned && m_matchedSgNode.nodeType == "pair_relation")
+		if (!m_matchedSgNode.isAligned && m_matchedSgNode.nodeType.contains("relation"))
 		{
 			int mRefNodeId, mActiveNodeId;
 
-			if (!matchedSg->findRefNodeForRelationNode(m_matchedSgNode, mRefNodeId, mActiveNodeId))
-			{
-				break;
-			}
-
-			int currRefNodeId = matchedSg->m_toNewSgNodeIdMap[mRefNodeId];
-			int currActiveNodeId = matchedSg->m_toNewSgNodeIdMap[mActiveNodeId];
-
-			// find ref models
-			MetaModel &mRefModel = matchedSg->getModelWithNodeId(mRefNodeId);
-			MetaModel &tarRefModel = currSg->getModelWithNodeId(currRefNodeId);
-
-			MetaModel &currActiveModel = currSg->getModelWithNodeId(currActiveNodeId);
-			MetaModel &mActiveModel = matchedSg->getModelWithNodeId(mActiveNodeId);
-
-			// compute dir alignment matrix based on the ref models
-			mat4 dirRotMat = GetRotationMatrix(mRefModel.frontDir, tarRefModel.frontDir);
-
-			// find the target position on new ref obj using the U, V w.r.t the original parent
-			vec3 mUVH = mActiveModel.parentPlaneUVH;
-			SuppPlane& tarRefSuppPlane = tarRefModel.suppPlane;
-			vec3 targetPosition = tarRefSuppPlane.getPointByUV(mUVH.x, mUVH.y); // position in the current scene, support plane is already transformed
-			//for (int ci = 0; ci < 4; ci++)
+			//if (!matchedSg->findRefNodeForRelationNode(m_matchedSgNode, mRefNodeId, mActiveNodeId))
 			//{
-			//	qDebug() << QString("corner%1 %2 %3 %4").arg(ci).arg(tarRefSuppPlane.m_corners[ci].x).arg(tarRefSuppPlane.m_corners[ci].y).arg(tarRefSuppPlane.m_corners[ci].z) << "\n";
+			//	break;
 			//}
+			if (m_matchedSgNode.anchorNodeList.empty()) break;
 
-			vec3 initPositionInScene = currActiveModel.position; // get the pos of model in current scene
-			vec3 translationVec = targetPosition - dirRotMat*initPositionInScene;
+			mRefNodeId = m_matchedSgNode.anchorNodeList[0];
+			for (int ti=0; ti < m_matchedSgNode.activeNodeList.size(); ti++)
+			{
+				mActiveNodeId = m_matchedSgNode.activeNodeList[ti];
+				int currRefNodeId = matchedSg->m_toNewSgNodeIdMap[mRefNodeId];
+				int currActiveNodeId = matchedSg->m_toNewSgNodeIdMap[mActiveNodeId];
 
-			mat4 translateMat;
-			translateMat = translateMat.translate(translationVec);
+				// find ref models
+				MetaModel &mRefModel = matchedSg->getModelWithNodeId(mRefNodeId);
+				MetaModel &tarRefModel = currSg->getModelWithNodeId(currRefNodeId);
 
-			//mat4 finalTransMat = adjustTransMat*alignTransMat;
-			mat4 finalTransMat = translateMat*dirRotMat;
+				MetaModel &currActiveModel = currSg->getModelWithNodeId(currActiveNodeId);
+				MetaModel &mActiveModel = matchedSg->getModelWithNodeId(mActiveNodeId);
 
-			currActiveModel.updateWithTransform(finalTransMat);
-			currActiveModel.theta = GetRotAngleR(tarRefModel.frontDir , currActiveModel.frontDir, vec3(0,0,1));			
+				// compute dir alignment matrix based on the ref models
+				mat4 dirRotMat = GetRotationMatrix(mRefModel.frontDir, tarRefModel.frontDir);
+
+				// find the target position on new ref obj using the U, V w.r.t the original parent
+				vec3 mUVH = mActiveModel.parentPlaneUVH;
+				SuppPlane& tarRefSuppPlane = tarRefModel.suppPlane;
+				vec3 targetPosition = tarRefSuppPlane.getPointByUV(mUVH.x, mUVH.y); // position in the current scene, support plane is already transformed
+
+				vec3 initPositionInScene = currActiveModel.position; // get the pos of model in current scene
+				vec3 translationVec = targetPosition - dirRotMat*initPositionInScene;
+
+				mat4 translateMat;
+				translateMat = translateMat.translate(translationVec);
+
+				//mat4 finalTransMat = adjustTransMat*alignTransMat;
+				mat4 finalTransMat = translateMat*dirRotMat;
+
+				currActiveModel.updateWithTransform(finalTransMat);
+				currActiveModel.theta = GetRotAngleR(tarRefModel.frontDir, currActiveModel.frontDir, vec3(0, 0, 1));
+			}	
 		}
 	}
 }
@@ -80,7 +82,7 @@ void LayoutPlanner::computeLayout(TSScene *currScene)
 	{
 		computeSingleObjLayout(currScene, currScene->m_toPlaceModelIds[0]);
 	}
-	else
+	else if (currScene->m_toPlaceModelIds.size() > 1) 
 	{
 		computeGroupObjLayout(currScene, currScene->m_toPlaceModelIds);
 	}
@@ -159,15 +161,19 @@ void LayoutPlanner::computeSingleObjLayout(TSScene *currScene, int metaModelId)
 	}
 }
 
-void LayoutPlanner::computeGroupObjLayout(TSScene *currScene, const std::vector<int> &modelIds)
+void LayoutPlanner::computeGroupObjLayout(TSScene *currScene, const std::vector<int> &toPlaceModelIds)
 {
-	for (int i = 0; i < modelIds.size(); i++)
+	// test collision	
+	CollisionManager *currCM = currScene->m_collisionManager;
+	bool isModelCollideWithScene = false;
+
+	for (int i = 0; i < toPlaceModelIds.size(); i++)
 	{
-		int metaModelId = modelIds[i];
+		int metaModelId = toPlaceModelIds[i];
 		MetaModel &md = currScene->getMetaModel(metaModelId);
 		Model *currModel = currScene->getModel(md.name);
 
-		if (md.isAlreadyPlaced) continue;	
+		if (md.isAlreadyPlaced) continue;
 
 		if (currModel == NULL || !currModel->m_loadingDone) return;
 
@@ -178,9 +184,7 @@ void LayoutPlanner::computeGroupObjLayout(TSScene *currScene, const std::vector<
 
 			md.layoutPassScore = m_relModelManager->computeLayoutPassScore(currScene, metaModelId);
 		}
-
-		CollisionManager *currCM = currScene->m_collisionManager;
-
+		
 		if (md.trialNum > m_trialNumLimit)
 		{
 			qDebug() << QString("   Preview %1 Reach test trial limit; Place model anyway; Collision may exist").arg(currScene->m_previewId);
@@ -188,77 +192,90 @@ void LayoutPlanner::computeGroupObjLayout(TSScene *currScene, const std::vector<
 			continue;
 		}
 
-		//bool isModelCollideWithScene = currCM->checkCollisionBVH(currModel, metaModelId);
-		//if (isModelCollideWithScene)
-		//{
-		//	int anchorModelId;
-		//	Eigen::VectorXd newPlacement = computeNewPlacement(currScene, metaModelId, currCM->m_collisionPositions, anchorModelId);
-		//	updateWithNewPlacement(currScene, anchorModelId, metaModelId, newPlacement);
-		//	md.trialNum++;
-		//}
-		//else
-		//{
-		//	bool isRelationVoilated = m_relModelManager->isRelationsViolated(currScene, metaModelId);
-
-		//	if (isRelationVoilated && md.trialNum < m_trialNumLimit)
-		//	{
-		//		int anchorModelId;
-		//		Eigen::VectorXd newPlacement = computeNewPlacement(currScene, metaModelId, currCM->m_collisionPositions, anchorModelId);
-		//		updateWithNewPlacement(currScene, anchorModelId, metaModelId, newPlacement);
-		//		md.trialNum++;
-		//	}
-		//	else
-		//	{
-		//		md.isAlreadyPlaced = true;
-		//	}
-		//}
-
-		bool isModelCollideWithScene = currCM->checkCollisionBVH(currModel, metaModelId);
+		isModelCollideWithScene = currCM->checkCollisionBVH(currModel, metaModelId);
 		if (isModelCollideWithScene)
 		{
+			break;
+		}		
+	}
+
+
+	if (isModelCollideWithScene)
+	{
+		// re-place all models if any model collides with current scene
+		for (int i = 0; i < toPlaceModelIds.size(); i++)
+		{
+			int metaModelId = toPlaceModelIds[i];
+			MetaModel &md = currScene->getMetaModel(metaModelId);
 			int anchorModelId;
 			Eigen::VectorXd newPlacement = computeNewPlacement(currScene, metaModelId, currCM->m_collisionPositions, anchorModelId);
 			updateWithNewPlacement(currScene, anchorModelId, metaModelId, newPlacement);
 			md.trialNum++;
 		}
-		else
+	}
+	else
+	{
+		// initialize layout score
+		MetaModel &firstMd = currScene->getMetaModel(toPlaceModelIds[0]);
+		if (firstMd.layoutScore == 0 && !firstMd.isAlreadyPlaced)
 		{
-			//bool isRelationVoilated = m_relModelManager->isRelationsViolated(currScene, metaModelId);
-
-			//if (isRelationVoilated && md.trialNum < m_trialNumLimit)
-			//{
-			//	adjustPlacement(currScene, metaModelId, currCM->m_collisionPositions);
-			//	md.trialNum++;
-			//}
-			//else
-			//{
-			//	md.isAlreadyPlaced = true;
-			//}
-
-
-			if (md.layoutScore == 0 && !md.isAlreadyPlaced)
+			std::vector<Eigen::VectorXd> currPlacements(toPlaceModelIds.size());
+			for (int i=0;  i <toPlaceModelIds.size(); i++)
 			{
-				md.layoutScore = m_relModelManager->computeRelationScore(currScene, metaModelId, makePlacementVec(md.position, md.theta));
+				int metaModelId = toPlaceModelIds[i];
+				MetaModel &md = currScene->getMetaModel(metaModelId);
+				currPlacements[i] = makePlacementVec(md.position, md.theta);
+				md.tempPlacement = currPlacements[i];
 			}
 
-			if (md.layoutScore < md.layoutPassScore && md.trialNum < m_trialNumLimit)
+			m_relModelManager->computeRelationScoreForGroup(currScene, toPlaceModelIds, currPlacements);
+		}
+
+		// compute current group score and layout pass score
+		double currGroupLayoutScore = 0;
+		double groupLayoutPassScore = 0;
+		for (int i = 0; i < toPlaceModelIds.size(); i++)
+		{
+			int metaModelId = toPlaceModelIds[i];
+			MetaModel &md = currScene->getMetaModel(metaModelId);
+			currGroupLayoutScore += md.layoutScore;
+			groupLayoutPassScore += md.layoutPassScore;
+		}
+
+		if (currGroupLayoutScore < groupLayoutPassScore && firstMd.trialNum < m_trialNumLimit)
+		{
+			std::vector<Eigen::VectorXd> newPlacements(toPlaceModelIds.size());
+			std::vector<int> anchorIds(toPlaceModelIds.size());
+			for (int i = 0;  i <toPlaceModelIds.size(); i++)
 			{
-				int anchorModelId;
-				Eigen::VectorXd newPlacement = computeNewPlacement(currScene, metaModelId, currCM->m_collisionPositions, anchorModelId);
-				double newPlacementScore = m_relModelManager->computeRelationScore(currScene, metaModelId, newPlacement);
+				int metaModelId = toPlaceModelIds[i];
+				Eigen::VectorXd newPlacement = computeNewPlacement(currScene, metaModelId, currCM->m_collisionPositions, anchorIds[i]);
+				newPlacements[i] = newPlacement;
 
-				if (newPlacementScore > md.layoutScore)
-				{
-					updateWithNewPlacement(currScene, anchorModelId, metaModelId, newPlacement);
-					md.layoutScore = newPlacementScore;
-				}
-
+				MetaModel &md = currScene->getMetaModel(metaModelId);
+				md.tempPlacement = newPlacement;
 				md.trialNum++;
 			}
-			else
+
+			double newGroupLayoutScore = m_relModelManager->computeRelationScoreForGroup(currScene, toPlaceModelIds, newPlacements);
+
+			if (newGroupLayoutScore > currGroupLayoutScore)
 			{
-				md.isAlreadyPlaced = true;
+				for (int i = 0; i < toPlaceModelIds.size(); i++)
+				{
+					int metaModelId = toPlaceModelIds[i];
+					updateWithNewPlacement(currScene, anchorIds[i], metaModelId, newPlacements[i]);
+				}
 			}
+		}
+		else
+		{
+			for (int i = 0; i < toPlaceModelIds.size(); i++)
+			{
+				int metaModelId = toPlaceModelIds[i];
+				MetaModel &md = currScene->getMetaModel(metaModelId);
+				md.isAlreadyPlaced = true;
+			}			
 		}
 	}
 }

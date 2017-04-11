@@ -3,8 +3,8 @@
 #include "SceneSemGraph.h"
 #include "TextSemGraph.h"
 
-const bool useContext = true;
-const bool addSynthesizeNode = false;
+const bool UseContext = false;
+const bool AddSynthesizeNode = false;
 
 
 SemGraphMatcher::SemGraphMatcher(SceneSemGraphManager *ssgManager)
@@ -176,9 +176,9 @@ SceneSemGraph* SemGraphMatcher::alignSSGWithDBSSG(SemanticGraph *querySSG, Scene
 	}
 
 	// add nodes by exact match and scene context
-	matchedSubSSG = dbSSG->getSubGraph(matchedDBSsgNodeList, useContext);
+	matchedSubSSG = dbSSG->getSubGraph(matchedDBSsgNodeList, UseContext);
 
-	if (addSynthesizeNode)
+	if (AddSynthesizeNode)
 	{
 		addSynthNodeToSubSSG(querySSG, matchedSubSSG);
 	}

@@ -105,6 +105,9 @@ SceneSemGraph* SceneGenerator::bindToCurrTSScene(SceneSemGraph *matchedSg)
 {
 	SceneSemGraph *newUserSsg;
 
+	// unalign nodes of matched ssg
+	matchedSg->setNodesUnAligned();
+
 	if (m_currUserSSG == NULL)
 	{
 		newUserSsg = new SceneSemGraph(matchedSg);
@@ -114,9 +117,6 @@ SceneSemGraph* SceneGenerator::bindToCurrTSScene(SceneSemGraph *matchedSg)
 		bindBySynthesizedRelationships(newUserSsg);
 		return newUserSsg;
 	}
-
-	// unalign nodes of matched ssg
-	matchedSg->setNodesUnAligned();
 
 	// set status for object already in current ssg
 	for (int i = 0; i < m_currUserSSG->m_metaScene.m_metaModellList.size(); i++)

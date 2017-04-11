@@ -50,6 +50,7 @@ public:
 	int m_activeVarationId;
 
 	MetaModel roomModel;
+	bool m_rightAfterEvol;  // if scene is right after an evolution step
 
 private:
 	
@@ -60,6 +61,8 @@ private:
 
     unordered_map<string, Model *> m_models;
 	int m_previewNum;
+
+
 };
 
 #endif

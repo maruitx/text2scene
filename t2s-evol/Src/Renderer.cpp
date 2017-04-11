@@ -53,7 +53,15 @@ void Renderer::render(Transform &trans)
             m_scene->m_lights[i]->setDirection(m_scene->m_lights[i]->position());
             m_scene->m_lights[i]->renderLightView(trans.lightViews[i], m_activePreview);
         }
-    }    
+    }
+
+	// reset to the first preview if right after evol
+	if (m_scene->m_rightAfterEvol)
+	{
+		m_prevYOffset = 0;
+		m_activePreview = 0;
+		m_scene->m_activeVarationId = 0;
+	}
     
     renderIntoMainFBO(trans);
     renderIntoPreviewFBOs(trans);
@@ -339,6 +347,8 @@ void Renderer::onMouseClick(int mx, int my)
     {
         if (m_previewFBOs[i].clicked(mx, my, m_prevYOffset))
         {
+			m_scene->m_rightAfterEvol = false;
+
             m_activePreview = i;
 			m_scene->m_activeVarationId = m_activePreview;
 

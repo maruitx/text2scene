@@ -83,7 +83,8 @@ bool CollisionManager::checkCollisionBVH(Model *testModel, int testMetaModelIdx)
 		MetaModel& refMetaModel = m_scene->getMetaModel(i);
 
 		// only check collision with model that is already placed in the scene
-		if (i != testMetaModelIdx && refMetaModel.isAlreadyPlaced)
+		//if (i != testMetaModelIdx && refMetaModel.isAlreadyPlaced)
+		if (i != testMetaModelIdx)
 		{
 			Model* refModel = m_scene->getModel(refMetaModel.name);
 

@@ -4,6 +4,8 @@
 #include "SceneSemGraph.h"
 #include <Eigen/Dense>
 
+const double ExWeight = 0.7;
+
 RelationModelManager::RelationModelManager()
 {
 	loadRelationModels();
@@ -202,6 +204,36 @@ bool RelationModelManager::isConstraintViolated(TSScene *currScene, const MetaMo
 	return false;
 }
 
+
+double RelationModelManager::computeLayoutPassScore(TSScene *currScene, int metaModelId)
+{
+	MetaModel &md = currScene->getMetaModel(metaModelId);
+
+	std::vector<RelationConstraint> &exConstraints = currScene->m_explictConstraints[metaModelId];
+	std::vector<RelationConstraint> &imConstraints = currScene->m_implicitConstraints[metaModelId];
+
+	double score = 0;
+
+	for (int i = 0; i < exConstraints.size(); i++)
+	{
+		RelationConstraint &relConstraint = exConstraints[i];
+		if (relConstraint.relModel->m_GMM != NULL)
+		{
+			score += ExWeight*relConstraint.relModel->m_GMM->m_probTh[0]; // use 20% percentile
+		}
+	}
+
+	for (int i = 0; i < imConstraints.size(); i++)
+	{
+		RelationConstraint &relConstraint = imConstraints[i];
+		if (relConstraint.relModel->m_GMM != NULL)
+		{
+			score += (1 - ExWeight)*relConstraint.relModel->m_GMM->m_probTh[0]; // use 20% percentile
+		}
+	}
+
+	return score;
+}
 double RelationModelManager::computeRelationScore(TSScene *currScene, int metaModelId, const Eigen::VectorXd &currPlacement)
 {
 	MetaModel &md = currScene->getMetaModel(metaModelId);
@@ -214,18 +246,32 @@ double RelationModelManager::computeRelationScore(TSScene *currScene, int metaMo
 	for (int i = 0; i < exConstraints.size(); i++)
 	{
 		RelationConstraint &relConstraint = exConstraints[i];
-		score += computeScoreForConstraint(currScene, relConstraint, currPlacement);
+		score += ExWeight*computeScoreForConstraint(currScene, relConstraint, currPlacement);
 	}
 
 	for (int i = 0; i < imConstraints.size(); i++)
 	{
 		RelationConstraint &relConstraint = imConstraints[i];
-		score += computeScoreForConstraint(currScene, relConstraint, currPlacement);
+		score += (1-ExWeight)*computeScoreForConstraint(currScene, relConstraint, currPlacement);
 	}
 
 	return score;
 }
 
+double RelationModelManager::computeRelationScoreForGroup(TSScene *currScene, std::vector<int> metaModelIds, const std::vector<Eigen::VectorXd> &currPlacements)
+{
+	double groupScore = 0;
+
+	for (int i=0; i < metaModelIds.size(); i++)
+	{
+		int metaModelId = metaModelIds[i];
+		MetaModel &md = currScene->getMetaModel(metaModelId);
+		md.layoutScore = computeRelationScore(currScene, metaModelIds[i], currPlacements[i]);
+		groupScore += md.layoutScore;
+	}
+
+	return groupScore;
+}
 
 double RelationModelManager::computeScoreForConstraint(TSScene *currScene, const RelationConstraint &relConstraint, const Eigen::VectorXd &currPlacement)
 {
@@ -254,35 +300,6 @@ double RelationModelManager::computeScoreForConstraint(TSScene *currScene, const
 	return prob;
 }
 
-double RelationModelManager::computeLayoutPassScore(TSScene *currScene, int metaModelId)
-{
-	MetaModel &md = currScene->getMetaModel(metaModelId);
-
-	std::vector<RelationConstraint> &exConstraints = currScene->m_explictConstraints[metaModelId];
-	std::vector<RelationConstraint> &imConstraints = currScene->m_implicitConstraints[metaModelId];
-
-	double score = 0;
-
-	for (int i = 0; i < exConstraints.size(); i++)
-	{
-		RelationConstraint &relConstraint = exConstraints[i];
-		if (relConstraint.relModel->m_GMM != NULL)
-		{
-			score += relConstraint.relModel->m_GMM->m_probTh[0]; // use 20% percentile
-		}
-	}
-
-	for (int i = 0; i < imConstraints.size(); i++)
-	{
-		RelationConstraint &relConstraint = imConstraints[i];
-		if (relConstraint.relModel->m_GMM != NULL)
-		{
-			score += relConstraint.relModel->m_GMM->m_probTh[0]; // use 20% percentile
-		}
-	}
-
-	return score;
-}
 
 void RelationModelManager::extractRelPosToAnchor(TSScene *currScene, const MetaModel &anchorMd, const Eigen::VectorXd &currPlacement, RelativePos *relPos)
 {
@@ -295,7 +312,6 @@ void RelationModelManager::extractRelPosToAnchor(TSScene *currScene, const MetaM
 	relPos->pos = TransformPoint(alignMat, actPos);
 	relPos->theta = currPlacement[3];
 }
-
 
 void RelationModelManager::extractRelPosForModelPair(TSScene *currScene, const MetaModel &anchorMd, const MetaModel &actMd, RelativePos *relPos)
 {	
@@ -544,6 +560,11 @@ void RelationModelManager::collectConstraintsForModel(TSScene *currScene, int me
 
 		if (!relationNode.isAligned)
 		{
+			if (relationNode.anchorNodeList.empty())
+			{
+				return;
+			}
+
 			int anchorObjId = relationNode.anchorNodeList[0];
 			SemNode &anchorObjNode = currSSG->m_nodes[anchorObjId];
 
@@ -556,9 +577,9 @@ void RelationModelManager::collectConstraintsForModel(TSScene *currScene, int me
 			if (pairwiseModel!=NULL)
 			{
 				currScene->m_explictConstraints[metaModelId].push_back(RelationConstraint(pairwiseModel, "pairwise", anchorObjId));
+				MetaModel &md = currScene->getMetaModel(metaModelId);
+				md.explicitAnchorId = anchorObjId;
 			}
-
-			QString conditionName;
 
 			// find condition type
 			if (relationName.contains("support") || relationName.contains("on") || relationName.contains("with"))
@@ -578,7 +599,7 @@ void RelationModelManager::collectConstraintsForModel(TSScene *currScene, int me
 						int sibModelId = currSSG->m_graphNodeToModelListIdMap[sibActNodeId];
 						MetaModel& sibModel = currScene->getMetaModel(sibModelId);
 
-						if (!sibModel.isAlreadyPlaced) continue;
+						//if (!sibModel.isAlreadyPlaced) continue;
 					
 						QString imRelationKey = sibActNode.nodeName + "_" + actObjName + "_" + "sibling" + "_general";
 						if (m_relativeModels.count(imRelationKey))
@@ -588,20 +609,6 @@ void RelationModelManager::collectConstraintsForModel(TSScene *currScene, int me
 					}
 				}
 			}
-			//else if (currSSG->findParentNodeIdForModel(currNodeId) ==
-			//	currSSG->findParentNodeIdForNode(anchorObjId))
-			//{
-			//	conditionName = ConditionName[1];
-
-			//	// find other sibling objs 
-
-
-			//}
-			//else if (relationName.contains("near") || relationName.contains("next") ||
-			//	relationName.contains("close"))
-			//{
-			//	conditionName = ConditionName[2];
-			//}
 		}
 	}	
 }

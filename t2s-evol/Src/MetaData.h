@@ -4,6 +4,7 @@
 #include "Mesh.h"
 
 #include "SuppPlane.h"
+#include <Eigen/Dense>
 
 class MetaModel
 	{
@@ -12,7 +13,7 @@ class MetaModel
 				frontDir(vec3(0, -1, 0)), upDir(vec3(0, 0, 1)), position(vec3(0, 0, 0)), theta(0),
 				suppPlane(SuppPlane()), parentPlaneUVH(vec3(0.5,0.5,0)), 
 				isInitLoaded(false), isAlreadyPlaced(false), isBvhReady(false), isSelected(false), renderMode(0), 
-				isConstranitsExtracted(false), layoutPassScore(0), layoutScore(0), trialNum(0)
+				isConstranitsExtracted(false), explicitAnchorId(-1), layoutPassScore(0), layoutScore(0), trialNum(0)
 			{
                 //replace for proper selection rendering;
                // isSelected = rand() % 2;
@@ -23,7 +24,7 @@ class MetaModel
 				suppPlane = md.suppPlane; parentPlaneUVH = md.parentPlaneUVH;
 				isInitLoaded = md.isInitLoaded; isAlreadyPlaced = md.isAlreadyPlaced; isBvhReady = md.isBvhReady;
 				renderMode = md.renderMode;  isSelected = md.isSelected; 
-				isConstranitsExtracted = md.isConstranitsExtracted; layoutPassScore = md.layoutPassScore; layoutScore = md.layoutScore; trialNum = md.trialNum;
+				isConstranitsExtracted = md.isConstranitsExtracted; explicitAnchorId = md.explicitAnchorId; layoutPassScore = md.layoutPassScore; layoutScore = md.layoutScore; trialNum = md.trialNum;
 			};
 			MetaModel &operator = (const MetaModel &md) { 
 				name = md.name; catName = md.catName; id = md.id; transformation = md.transformation; 
@@ -32,7 +33,7 @@ class MetaModel
 				suppPlane = md.suppPlane; parentPlaneUVH = md.parentPlaneUVH;
 				isInitLoaded = md.isInitLoaded; isAlreadyPlaced = md.isAlreadyPlaced;  isBvhReady = md.isBvhReady;
 				isSelected = md.isSelected; renderMode = md.renderMode; 
-				isConstranitsExtracted = md.isConstranitsExtracted; layoutPassScore = md.layoutPassScore; layoutScore = md.layoutScore; trialNum = md.trialNum; return *this;
+				isConstranitsExtracted = md.isConstranitsExtracted; explicitAnchorId = md.explicitAnchorId; layoutPassScore = md.layoutPassScore; layoutScore = md.layoutScore; trialNum = md.trialNum; return *this;
 			}
 
 			string name;  // file name (hash string) of the model
@@ -61,6 +62,9 @@ class MetaModel
 			int renderMode;
 
 			bool isConstranitsExtracted;
+			int explicitAnchorId;
+
+			Eigen::VectorXd tempPlacement;
 			double layoutPassScore;
 			double layoutScore;
 			int trialNum; // trialNum for re-location because of collision

@@ -39,6 +39,8 @@ public:
 	double computeRelationScore(TSScene *currScene, int metaModelId, const Eigen::VectorXd &currPlacement);
 	double computeScoreForConstraint(TSScene *currScene, const RelationConstraint &relConstraint, const Eigen::VectorXd &currPlacement);
 
+	double computeRelationScoreForGroup(TSScene *currScene, std::vector<int> metaModelIds, const std::vector<Eigen::VectorXd> &currPlacements);
+
 	double computeLayoutPassScore(TSScene *currScene, int metaModelId);
 
 	Eigen::VectorXd sampleNewPosFromConstraints(TSScene *currScene, int metaModelId, int &anchorModelId);

@@ -325,9 +325,9 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, bool useC
 
 		if (oldNode.nodeType == "group_relation")
 		{
-			if (!oldNode.outEdgeNodeList.empty())
+			if (!oldNode.anchorNodeList.empty())
 			{
-				int refNodeId = oldNode.outEdgeNodeList[0];
+				int refNodeId = oldNode.anchorNodeList[0];
 				SemNode &refNode = m_nodes[refNodeId]; // desk
 
 				//std::vector<int> inNodeList = refNode.activeNodeList;
@@ -374,6 +374,7 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, bool useC
 						currSubSSGNodeNum++;
 
 						actNode.isAnnotated = true;
+						actNode.isAligned = false;
 					}
 				}
 			}
