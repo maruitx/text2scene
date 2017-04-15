@@ -45,8 +45,10 @@ public:
 
 	Eigen::VectorXd sampleNewPosFromConstraints(TSScene *currScene, int metaModelId, int &anchorModelId);
 
-	void sampleFromRelationModel(TSScene *currScene, const RelationConstraint &relConstraint, int metaModelId, 
-		int &anchorModelId, vec3 &newPos, double &newTheta);
+	//void sampleFromRelationModel(TSScene *currScene, const RelationConstraint &relConstraint, int metaModelId, 
+	//	int &anchorModelId, vec3 &newPos, double &newTheta);
+	void sampleFromRelationModel(TSScene *currScene, PairwiseRelationModel *pairModel, const int metaModelId, const int anchorModelId, vec3 &newPos, double &newTheta);
+
 	void randomSampleOnParent(TSScene *currScene, int metaModelId, vec3 &newPos, int &parentMetaModelId);
 	double findClosestSuppPlaneZ(TSScene *currScene, int metaModelId, const vec3 &newPos);
 

@@ -16,6 +16,8 @@ public:
 
    void render(const Transform &trans, bool applyShadow = true);
 
+   void updatePostion(vec3 newPos) { m_position = newPos; };
+
 private:
     void buildVBO();
 

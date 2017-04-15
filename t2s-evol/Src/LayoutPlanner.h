@@ -15,6 +15,7 @@ public:
 	~LayoutPlanner();
 
 	void initPlaceByAlignRelation(SceneSemGraph *matchedSg, SceneSemGraph *currSg);
+	void initPlaceUsingSynthesizedRelations(TSScene *currScene);
 
 	void computeLayout(TSScene *currScene);
 	void computeSingleObjLayout(TSScene *currScene, int metaModelId);
@@ -26,6 +27,9 @@ public:
 	void adjustPlacementForSpecificModel(TSScene *currScene, const MetaModel &currMd, vec3 &pos);
 
 	void updateWithNewPlacement(TSScene *currScene, int anchorModelId, int currModelID, const Eigen::VectorXd &newPlacement);
+	void updatePlacementOfChildren(TSScene *currScene, int currModelID, mat4 transMat);
+	void initUpdatePlacementOfChildren(SceneSemGraph *currSSG, int currModelId, mat4 transMat);
+
 	mat4 computeTransMatFromPos(TSScene *currScene, int anchorModelId, int currModelID, vec3 newPos, double newTheta);
 
 	mat4 computeModelAlignTransMat(const MetaModel &fromModel, const MetaModel &toModel);

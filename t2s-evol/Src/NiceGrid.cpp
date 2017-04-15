@@ -26,7 +26,8 @@ void NiceGrid::render(const Transform &trans, bool applyShadow)
     glPushAttrib(GL_ALL_ATTRIB_BITS);
     glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);
 
-    mat4 model = mat4::translate(m_position);
+    //mat4 model = mat4::translate(m_position);
+	mat4 model = mat4::translate(params::inst()->globalSceneViewScale*m_position);
 
     glEnable(GL_TEXTURE_2D);
 

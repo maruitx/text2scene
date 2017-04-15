@@ -13,7 +13,7 @@
 #include "SceneGenerator.h"
 #include "Utility.h"
 
-const int PreviewNum = 1;
+const int PreviewNum = 5;
 
 Scene::Scene(CameraManager *camManager)
 : m_cameraManager(camManager),
@@ -172,6 +172,7 @@ void Scene::renderSynScene(const Transform &trans, int var, bool applyShadow)
 
 	if (var < varNum)
 	{   
+		m_niceGrid->updatePostion(vec3(0,m_variations[var]->m_floorHeight, 0));
 		m_variations[var]->render(trans, applyShadow);        
         //m_variations[var]->computeSceneBB();
 	}	

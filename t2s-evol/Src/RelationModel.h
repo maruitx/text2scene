@@ -80,8 +80,6 @@ public:
 	GroupRelationModel(const QString &anchorObjName, const QString &relationName);
 	~GroupRelationModel();
 
-	void loadModel();
-
 public:
 	std::map<QString, PairwiseRelationModel*> m_pairwiseModels;  // relation-conditioned relative model
 	std::map<QString, OccurrenceModel*> m_occurModels;

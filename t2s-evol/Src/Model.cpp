@@ -763,7 +763,6 @@ void Model::getTriangle(int index, vec3 &p, vec3 &q, vec3 &r)
 	r = vec3(c.x, c.y, c.z);
 }
 
-
 vec3 Model::getBBRange()
 {
 	vec3 cornerO = m_bb.mi();
@@ -780,8 +779,6 @@ vec3 Model::getBBRange()
 
 	return vec3(xRange, yRange, zRange);
 }
-
-
 
 vec3 Model::getBBRange(const mat4 &transMat)
 {

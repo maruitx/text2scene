@@ -1,14 +1,15 @@
 #include "SemGraphMatcher.h"
 #include "SceneSemGraphManager.h"
+#include "RelationModelManager.h"
 #include "SceneSemGraph.h"
 #include "TextSemGraph.h"
 
 const bool UseContext = false;
-const bool AddSynthesizeNode = false;
+const bool AddSynthesizeNode = true;
 
 
-SemGraphMatcher::SemGraphMatcher(SceneSemGraphManager *ssgManager)
-	:m_sceneSemGraphManager(ssgManager)
+SemGraphMatcher::SemGraphMatcher(SceneSemGraphManager *ssgManager, RelationModelManager *relManager)
+	:m_sceneSemGraphManager(ssgManager), m_relModelManager(relManager)
 {
 	cout << "\nSemGraphMatcher: loading semantic graphs number " << m_sceneSemGraphManager->m_ssgNum<<"\n";
 }
@@ -34,7 +35,6 @@ vector<SceneSemGraph*> SemGraphMatcher::alignWithDatabaseSSGs(int targetMatchNum
 	for (int i = 0; i < m_sceneSemGraphManager->m_ssgNum; i++)
 	{
 		SceneSemGraph *currDBSSG = m_sceneSemGraphManager->getGraph(i);
-		currDBSSG->setNodesUnAligned();
 
 		double matchingScore = 0;
 		SceneSemGraph *subSSG = alignSSGWithDBSSG(m_querySSG, currDBSSG, matchingScore);
@@ -67,39 +67,39 @@ vector<SceneSemGraph*> SemGraphMatcher::alignWithDatabaseSSGs(int targetMatchNum
 			ssg->m_idInMatchList = i;
 			matchedSubSSGs.push_back(ssg);
 
-			for (int j = 0; j < ssg->m_nodeNum; j++)
-			{
-				SemNode &currNode = ssg->m_nodes[j];
-				if (currNode.nodeType == "object" && !currNode.isAligned)
-				{
-					qDebug() << QString("SemGraphMatcher: in Preview %1 entity - %2 is not matched").arg(i).arg(currNode.nodeName);
-				}
+			//for (int j = 0; j < ssg->m_nodeNum; j++)
+			//{
+			//	SemNode &currNode = ssg->m_nodes[j];
+			//	if (currNode.nodeType == "object" && !currNode.isAligned)
+			//	{
+			//		qDebug() << QString("SemGraphMatcher: in Preview %1 entity - %2 is not matched").arg(i).arg(currNode.nodeName);
+			//	}
 
-				if (currNode.nodeType.contains("relation") && !currNode.isAligned)
-				{
-					int actNodeId = currNode.activeNodeList[0];
-					int anchorNodeId = currNode.anchorNodeList[0];
+			//	if (currNode.nodeType.contains("relation") && !currNode.isAligned)
+			//	{
+			//		int actNodeId = currNode.activeNodeList[0];
+			//		int anchorNodeId = currNode.anchorNodeList[0];
 
-					qDebug() << QString("SemGraphMatcher: in Preview %1 cannot match for relationship: %2 %3: %4").arg(i).arg(ssg->m_nodes[actNodeId].nodeName).arg(currNode.nodeName).arg(ssg->m_nodes[anchorNodeId].nodeName);
+			//		qDebug() << QString("SemGraphMatcher: in Preview %1 cannot match for relationship: %2 %3: %4").arg(i).arg(ssg->m_nodes[actNodeId].nodeName).arg(currNode.nodeName).arg(ssg->m_nodes[anchorNodeId].nodeName);
 
-					if (currNode.isSynthesized)
-					{
-						qDebug() << QString("   synthesize node %1 for %2:%3").arg(currNode.nodeName).arg(ssg->m_nodes[actNodeId].nodeName).arg(ssg->m_nodes[anchorNodeId].nodeName);
-					}
-				}
+			//		if (currNode.isSynthesized)
+			//		{
+			//			qDebug() << QString("   synthesize node %1 for %2:%3").arg(currNode.nodeName).arg(ssg->m_nodes[actNodeId].nodeName).arg(ssg->m_nodes[anchorNodeId].nodeName);
+			//		}
+			//	}
 
-				if (currNode.nodeType == "attribute"&& !currNode.isAligned)
-				{
-					int outNodeId = currNode.outEdgeNodeList[0];
+			//	if (currNode.nodeType == "attribute"&& !currNode.isAligned)
+			//	{
+			//		int outNodeId = currNode.outEdgeNodeList[0];
 
-					qDebug() << QString("SemGraphMatcher: in Preview %1 cannot match for attribute %2:%3").arg(i).arg(ssg->m_nodes[outNodeId].nodeName).arg(currNode.nodeName);
-					
-					if (currNode.isSynthesized)
-					{
-						qDebug() << QString("   synthesize node %1 for %2").arg(currNode.nodeName).arg(ssg->m_nodes[outNodeId].nodeName);
-					}
-				}				
-			}
+			//		qDebug() << QString("SemGraphMatcher: in Preview %1 cannot match for attribute %2:%3").arg(i).arg(ssg->m_nodes[outNodeId].nodeName).arg(currNode.nodeName);
+			//		
+			//		if (currNode.isSynthesized)
+			//		{
+			//			qDebug() << QString("   synthesize node %1 for %2").arg(currNode.nodeName).arg(ssg->m_nodes[outNodeId].nodeName);
+			//		}
+			//	}				
+			//}
 		}
 	}
 
@@ -155,6 +155,9 @@ SceneSemGraph* SemGraphMatcher::alignSSGWithDBSSG(SemanticGraph *querySSG, Scene
 
 	// align object nodes
 	querySSG->m_toNewSgNodeIdMap.clear();
+	querySSG->setNodesUnAligned();
+	dbSSG->setNodesUnAligned();
+
 	querySSG->alignObjectNodesWithGraph(dbSSG, matchingScore);
 
 	if (matchingScore == 0) return NULL;
@@ -176,11 +179,11 @@ SceneSemGraph* SemGraphMatcher::alignSSGWithDBSSG(SemanticGraph *querySSG, Scene
 	}
 
 	// add nodes by exact match and scene context
-	matchedSubSSG = dbSSG->getSubGraph(matchedDBSsgNodeList, UseContext);
+	matchedSubSSG = dbSSG->getSubGraph(matchedDBSsgNodeList, m_relModelManager, UseContext);
 
 	if (AddSynthesizeNode)
 	{
-		addSynthNodeToSubSSG(querySSG, matchedSubSSG);
+		addSynthNodeToSubSSG(querySSG, matchedSubSSG, dbSSG->m_dbNodeToSubNodeMap);
 	}
 
 	return matchedSubSSG;
@@ -231,7 +234,7 @@ double SemGraphMatcher::computeGeometrySimilarity(SceneSemGraph *testSSG, SceneS
 	return simVal;
 }
 
-void SemGraphMatcher::addSynthNodeToSubSSG(SemanticGraph *querySSG, SceneSemGraph *matchedSubSSG)
+void SemGraphMatcher::addSynthNodeToSubSSG(SemanticGraph *querySSG, SceneSemGraph *matchedSubSSG, std::map<int, int> &dbNodeToSubNodeMap)
 {
 	std::map<int, int> queryToSubSsgNodeMap;
 
@@ -244,9 +247,10 @@ void SemGraphMatcher::addSynthNodeToSubSSG(SemanticGraph *querySSG, SceneSemGrap
 		{
 			// first find the DB-SSG node corresponding to the query node
 			int dbNodeId = querySSG->m_toNewSgNodeIdMap[ni];
+			int subNodeId = dbNodeToSubNodeMap[dbNodeId];
 
 			// then find the Sub-SSG node for the query node
-			queryToSubSsgNodeMap[ni] = matchedSubSSG->m_dbNodeToSubNodeMap[dbNodeId];
+			queryToSubSsgNodeMap[ni] = subNodeId;
 		}
 	}
 
@@ -265,8 +269,21 @@ void SemGraphMatcher::addSynthNodeToSubSSG(SemanticGraph *querySSG, SceneSemGrap
 				queryToSubSsgNodeMap[ni] = currNodeId;
 
 				// set meta data
-				//matchedSubSSG->m_objectGraphNodeIdToModelSceneIdMap[matchedSubSSG->m_nodeNum - 1] = ;
+				std::vector<int> instanceIds = matchedSubSSG->findExistingInstanceIds(sgNode.nodeName);
 
+				if (!instanceIds.empty())
+				{
+					MetaModel& newMd = matchedSubSSG->m_metaScene.m_metaModellList[instanceIds[0]];
+					matchedSubSSG->m_metaScene.m_metaModellList.push_back(newMd);
+					matchedSubSSG->m_graphNodeToModelListIdMap[currNodeId] = matchedSubSSG->m_metaScene.m_metaModellList.size()-1;
+				}
+				else
+
+				{
+					MetaModel& newMd = retrieveForModelInstance(sgNode.nodeName);
+					matchedSubSSG->m_metaScene.m_metaModellList.push_back(newMd);
+					matchedSubSSG->m_graphNodeToModelListIdMap[currNodeId] = matchedSubSSG->m_metaScene.m_metaModellList.size() - 1;
+				}
 			}
 		}
 	}
@@ -276,27 +293,30 @@ void SemGraphMatcher::addSynthNodeToSubSSG(SemanticGraph *querySSG, SceneSemGrap
 	{
 		SemNode& sgNode = querySSG->m_nodes[ni];
 
-		if (!sgNode.isAligned && (sgNode.nodeType == "per_obj_attribute" || sgNode.nodeType == "group_attribute"))
+		if (!sgNode.isAligned && (sgNode.nodeType == "attribute" || sgNode.nodeType == "group_relation"))
 		{
 			if (!sgNode.outEdgeNodeList.empty())
 			{
 				int refNodeId = sgNode.outEdgeNodeList[0];
 
 				// only insert the relationship node for the object that is matched
-				if (sgNode.isAligned&&queryToSubSsgNodeMap.count(refNodeId))
+				if (queryToSubSsgNodeMap.count(refNodeId))
 				{
 					// insert node
 					matchedSubSSG->addNode(sgNode);
 					int currNodeId = matchedSubSSG->m_nodeNum - 1;
 					matchedSubSSG->m_nodes[currNodeId].isSynthesized = 1;
 
-					matchedSubSSG->addEdge(matchedSubSSG->m_nodeNum - 1, queryToSubSsgNodeMap[refNodeId]);
-					queryToSubSsgNodeMap[ni] = matchedSubSSG->m_nodeNum - 1;
+					matchedSubSSG->addEdge(currNodeId, queryToSubSsgNodeMap[refNodeId]);
+					queryToSubSsgNodeMap[ni] = currNodeId;
+
+					// TODO: add group objects
+
 				}
 			}
 		}
 
-		if (!sgNode.isAligned && (sgNode.nodeType == "pairwise_relationship"))
+		if (!sgNode.isAligned && (sgNode.nodeType == "pair_relation"))
 		{
 			if (!sgNode.anchorNodeList.empty())
 			{
@@ -310,10 +330,15 @@ void SemGraphMatcher::addSynthNodeToSubSSG(SemanticGraph *querySSG, SceneSemGrap
 					int currNodeId = matchedSubSSG->m_nodeNum - 1;
 					matchedSubSSG->m_nodes[currNodeId].isSynthesized = 1;
 
-					matchedSubSSG->addEdge(matchedSubSSG->m_nodeNum - 1, queryToSubSsgNodeMap[refNodeId]);
-					matchedSubSSG->addEdge(queryToSubSsgNodeMap[actNodeId], matchedSubSSG->m_nodeNum - 1);
+					matchedSubSSG->addEdge(currNodeId, queryToSubSsgNodeMap[refNodeId]);
+					matchedSubSSG->addEdge(queryToSubSsgNodeMap[actNodeId], currNodeId);
 
-					queryToSubSsgNodeMap[ni] = matchedSubSSG->m_nodeNum - 1;
+					if (queryToSubSsgNodeMap[refNodeId] == queryToSubSsgNodeMap[actNodeId])
+					{
+						qDebug();
+					}
+
+					queryToSubSsgNodeMap[ni] = currNodeId;
 				}
 			}
 		}
@@ -322,6 +347,31 @@ void SemGraphMatcher::addSynthNodeToSubSSG(SemanticGraph *querySSG, SceneSemGrap
 	matchedSubSSG->parseNodeNeighbors();
 }
 
+MetaModel& SemGraphMatcher::retrieveForModelInstance(const QString catName)
+{
+	std::vector<std::pair<int, int>> candiMdIds;
+
+	for (int i = 0; i < m_sceneSemGraphManager->m_ssgNum; i++)
+	{
+		SceneSemGraph *currDBSSG = m_sceneSemGraphManager->getGraph(i);
+
+		for (int qNi = 0; qNi < currDBSSG->m_nodeNum; qNi++)
+		{
+			SemNode& sgNode = currDBSSG->m_nodes[qNi];
+
+			if (sgNode.nodeType == "object" && sgNode.nodeName == catName)
+			{
+				int modelId = currDBSSG->m_graphNodeToModelListIdMap[qNi];
+				candiMdIds.push_back(std::make_pair(i, modelId));
+			}
+		}
+	}
+
+	int randId = GenRandomInt(0, candiMdIds.size());
+	std::pair<int, int> selectPair = candiMdIds[randId];
+	SceneSemGraph *currDBSSG = m_sceneSemGraphManager->getGraph(selectPair.first);
+	return currDBSSG->m_metaScene.m_metaModellList[selectPair.second];
+}
 
 
 

@@ -16,6 +16,7 @@ TSScene::TSScene(unordered_map<string, Model*> &models)
 	m_sceneLayoutDone(false),
 	m_isRenderRoom(true),
 	m_isLoadFromFile(false),
+	m_floorHeight(0),
 	m_ssg(NULL), 
     m_camTrans(0.0f, 0.0f, 0.0f), 
     m_renderMode(0)
@@ -33,6 +34,7 @@ TSScene::TSScene(unordered_map<string, Model*> &models, const QString &fileName)
   m_sceneLayoutDone(false),
   m_isRenderRoom(true),
   m_isLoadFromFile(false),
+  m_floorHeight(0),
   m_ssg(NULL), 
   m_camTrans(0.0f, 0.0f, 0.0f), 
   m_renderMode(0)
@@ -54,6 +56,7 @@ TSScene::TSScene(unordered_map<string, Model*> &models, SceneSemGraph *ssg)
 	m_sceneLayoutDone(false),
 	m_isRenderRoom(true),
 	m_isLoadFromFile(false),
+	m_floorHeight(0),
 	m_ssg(ssg), 
 	m_metaScene(ssg->m_metaScene),
     m_camTrans(0.0f, 0.0f, 0.0f), 
@@ -209,6 +212,8 @@ void TSScene::render(const Transform &trans, bool applyShadow)
 	{
 		m_layoutPlanner->computeLayout(this);
 		m_sceneLayoutDone = isLayoutDone();
+
+		updateFloorHeight();
 	}
 
 	// render models
@@ -449,6 +454,30 @@ void TSScene::loadModel(MetaModel m)
 {
 	m_metaScene.m_metaModellList.push_back(m);
 	m_modelNum++;
+}
+
+void TSScene::updateFloorHeight()
+{
+	double minZ = 1e6;
+	// use the min Z value of all models as floor height
+	for (int i=0; i < m_metaScene.m_metaModellList.size(); i++)
+	{
+		MetaModel &md = m_metaScene.m_metaModellList[i];
+		auto& iter = m_models.find(md.name);
+
+		if (iter!=m_models.end())
+		{
+			Model *model = iter->second;
+			vec3 bbMin = TransformPoint(md.transformation, model->m_bb.mi());
+
+			if (bbMin.z < minZ)
+			{
+				minZ = bbMin.z;
+			}
+		}
+	}
+
+	m_floorHeight = minZ - 0.01;
 }
 
 void TSScene::updateRoomModel(MetaModel m)

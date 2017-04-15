@@ -3,6 +3,7 @@
 #include "SemanticGraph.h"
 #include "MetaData.h"
 
+class RelationModelManager;
 class ModelDatabase;
 class TSScene;
 class Model;
@@ -21,7 +22,7 @@ public:
 	void loadGraph(const QString &filename);
 	TSScene* covertToTSScene(unordered_map<string, Model*> &models);
 
-	SceneSemGraph* getSubGraph(const vector<int> &nodeList, bool useContext = false);
+	SceneSemGraph* getSubGraph(const vector<int> &nodeList, RelationModelManager *relManager, bool useContext = false);
 
 	void mergeWithMatchedSSG(SceneSemGraph *matchedSg); // update current USserSSG with retrieved subSSG
 
@@ -33,7 +34,10 @@ public:
 	MetaModel& getModelWithNodeId(int nodeId);
 
 	void buildSupportHierarchy();
-	bool isFloorObj(int nodeId);
+	bool isBaseLevelObj(int nodeId);
+
+	std::vector<int> findExistingInstanceIds(const QString &catName);
+
 
 public:
 	MetaScene m_metaScene;
@@ -47,6 +51,8 @@ public:
 	map<int, int> m_parentOfModel;  //  map to modelId of current model's parent
 	map<int, vector<int>> m_childListOfModel;  // map to modelIds of current model's children
 	std::vector<std::vector<int>> m_levelOfObjs;  // map to modelIds of objs in different support levels
+
+	bool m_allSynthNodesInited;
 
 private:
 	int m_modelNum;

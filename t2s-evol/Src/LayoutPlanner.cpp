@@ -19,26 +19,24 @@ LayoutPlanner::~LayoutPlanner()
 
 void LayoutPlanner::initPlaceByAlignRelation(SceneSemGraph *matchedSg, SceneSemGraph *currSg)
 {
+	currSg->buildSupportHierarchy();
+
 	// geometry align of the matched nodes
 	for (int mi = 0; mi < matchedSg->m_nodeNum; mi++)
 	{
 		SemNode& m_matchedSgNode = matchedSg->m_nodes[mi];
-		if (!m_matchedSgNode.isAligned && m_matchedSgNode.nodeType.contains("relation"))
+		if (!m_matchedSgNode.isAligned && m_matchedSgNode.nodeType.contains("relation") && !m_matchedSgNode.isSynthesized)
 		{
-			int mRefNodeId, mActiveNodeId;
-
-			//if (!matchedSg->findRefNodeForRelationNode(m_matchedSgNode, mRefNodeId, mActiveNodeId))
-			//{
-			//	break;
-			//}
-			if (m_matchedSgNode.anchorNodeList.empty()) break;
-
-			mRefNodeId = m_matchedSgNode.anchorNodeList[0];
+			if (m_matchedSgNode.anchorNodeList.empty()) continue;
+	
+			int mRefNodeId = m_matchedSgNode.anchorNodeList[0];
 			for (int ti=0; ti < m_matchedSgNode.activeNodeList.size(); ti++)
 			{
-				mActiveNodeId = m_matchedSgNode.activeNodeList[ti];
+				int mActiveNodeId = m_matchedSgNode.activeNodeList[ti];
 				int currRefNodeId = matchedSg->m_toNewSgNodeIdMap[mRefNodeId];
 				int currActiveNodeId = matchedSg->m_toNewSgNodeIdMap[mActiveNodeId];
+
+				if (!matchedSg->m_nodes[currRefNodeId].isAligned || !currSg->m_nodes[currRefNodeId].isAligned) continue;
 
 				// find ref models
 				MetaModel &mRefModel = matchedSg->getModelWithNodeId(mRefNodeId);
@@ -51,38 +49,130 @@ void LayoutPlanner::initPlaceByAlignRelation(SceneSemGraph *matchedSg, SceneSemG
 				mat4 dirRotMat = GetRotationMatrix(mRefModel.frontDir, tarRefModel.frontDir);
 
 				// find the target position on new ref obj using the U, V w.r.t the original parent
-				vec3 mUVH = mActiveModel.parentPlaneUVH;
-				SuppPlane& tarRefSuppPlane = tarRefModel.suppPlane;
-				vec3 targetPosition = tarRefSuppPlane.getPointByUV(mUVH.x, mUVH.y); // position in the current scene, support plane is already transformed
-
-				vec3 initPositionInScene = currActiveModel.position; // get the pos of model in current scene
-				vec3 translationVec = targetPosition - dirRotMat*initPositionInScene;
-
 				mat4 translateMat;
-				translateMat = translateMat.translate(translationVec);
+				if (m_matchedSgNode.nodeName.contains("support"))
+				{
+					vec3 mUVH = mActiveModel.parentPlaneUVH;
+					SuppPlane& tarRefSuppPlane = tarRefModel.suppPlane;
+					vec3 targetPosition = tarRefSuppPlane.getPointByUV(mUVH.x, mUVH.y); // position in the current scene, support plane is already transformed
 
-				//mat4 finalTransMat = adjustTransMat*alignTransMat;
+					vec3 initPositionInScene = currActiveModel.position; // get the pos of model in current scene
+					vec3 translationVec = targetPosition - dirRotMat*initPositionInScene;
+					translateMat = translateMat.translate(translationVec);
+				}
+				else
+				{
+					vec3 targetPosition = tarRefModel.position;
+					vec3 translationVec = targetPosition - dirRotMat*mRefModel.position;
+					translateMat = translateMat.translate(translationVec);
+				}
+
 				mat4 finalTransMat = translateMat*dirRotMat;
 
 				currActiveModel.updateWithTransform(finalTransMat);
 				currActiveModel.theta = GetRotAngleR(tarRefModel.frontDir, currActiveModel.frontDir, vec3(0, 0, 1));
+
+				// TODO: update initial placement of children
+				initUpdatePlacementOfChildren(currSg, mActiveNodeId, finalTransMat);
+
+				m_matchedSgNode.isAligned = true;
 			}	
 		}
 	}
 }
 
+void LayoutPlanner::initPlaceUsingSynthesizedRelations(TSScene *currScene)
+{
+	SceneSemGraph *currSSG = currScene->m_ssg;
+
+	for (int mi = 0; mi <currSSG->m_nodeNum; mi++)
+	{
+		SemNode& relNode = currSSG->m_nodes[mi];
+		if (!relNode.isAligned && relNode.nodeType == "pair_relation" && relNode.isSynthesized)
+		{
+			// edge dir: (active, relation), (relation, reference)
+
+			if (!relNode.anchorNodeList.empty())
+			{
+				int refNodeId = relNode.anchorNodeList[0];
+				int activeNodeId = relNode.activeNodeList[0];
+
+				int refModelId = currSSG->m_graphNodeToModelListIdMap[refNodeId];
+				int activeModelId = currSSG->m_graphNodeToModelListIdMap[activeNodeId];
+
+				// compute transformation matrix based on the ref nodes
+				MetaModel &refMd = currScene->getMetaModel(refModelId);
+				MetaModel &actMd = currScene->getMetaModel(activeModelId);
+
+				Model *refModel = currScene->getModel(refMd.name);
+				if (!refModel->m_loadingDone) continue;
+
+				// find relation model and sample from the model
+				PairwiseRelationModel *pairModel = m_relModelManager->retrievePairwiseModel(toQString(refMd.catName), toQString(actMd.catName), relNode.nodeName);
+
+				mat4 transMat;
+				if (pairModel != NULL)
+				{
+					vec3 newPos;
+					double newTheta;
+					m_relModelManager->sampleFromRelationModel(currScene, pairModel, activeModelId, refModelId, newPos, newTheta);
+					transMat = computeTransMatFromPos(currScene, refModelId, activeModelId, newPos, newTheta);
+				}
+				else
+				{
+					// TODO: use similar pairwise model
+
+					SuppPlane &suppPlane = refMd.suppPlane;
+					vec3 uvh = actMd.parentPlaneUVH;
+					vec3 newPos = suppPlane.getPointByUV(uvh.x, uvh.y);					
+
+					vec3 translateVec;
+					translateVec = newPos - actMd.position;
+					transMat = transMat.translate(translateVec);					
+				}
+				actMd.updateWithTransform(transMat);
+				// update meta model in SSG
+				currScene->m_ssg->m_metaScene.m_metaModellList[activeModelId] = actMd;
+
+				updatePlacementOfChildren(currScene, activeModelId, transMat);
+			}
+
+			relNode.isAligned = true;
+		}
+	}
+
+	int count = 0;
+	for (int mi = 0; mi < currSSG->m_nodeNum; mi++)
+	{
+		SemNode& relNode = currSSG->m_nodes[mi];
+		if (!relNode.isAligned && relNode.nodeType == "pair_relation" && relNode.isSynthesized)
+		{
+			count++;
+		}
+	}
+	if (count==0)
+	{
+		currScene->m_ssg->m_allSynthNodesInited = true;
+	}
+}
+
 void LayoutPlanner::computeLayout(TSScene *currScene)
 {
+	if (currScene->m_ssg!= NULL && !currScene->m_ssg->m_allSynthNodesInited)
+	{
+		initPlaceUsingSynthesizedRelations(currScene);
+	}
+
 	if (currScene->m_toPlaceModelIds.empty())
 	{
-		currScene->m_toPlaceModelIds = makeToPlaceModelIds(currScene);		
+		currScene->m_toPlaceModelIds = makeToPlaceModelIds(currScene);
 	}
 
 	if (currScene->m_toPlaceModelIds.size() == 1)
 	{
 		computeSingleObjLayout(currScene, currScene->m_toPlaceModelIds[0]);
 	}
-	else if (currScene->m_toPlaceModelIds.size() > 1) 
+	else if (currScene->m_toPlaceModelIds.size() > 1)
 	{
 		computeGroupObjLayout(currScene, currScene->m_toPlaceModelIds);
 	}
@@ -350,10 +440,43 @@ void LayoutPlanner::updateWithNewPlacement(TSScene *currScene, int anchorModelId
 	mat4 transMat = computeTransMatFromPos(currScene, anchorModelId, currModelID, newPos, newPlacement[3]);
 	currMd.updateWithTransform(transMat);
 	currMd.theta = newPlacement[3];
-	currMd.isBvhReady = false;
 
 	// update meta model in SSG
 	currScene->m_ssg->m_metaScene.m_metaModellList[currModelID] = currMd;
+
+	// update all supported children
+	//updatePlacementOfChildren(currScene, currModelID, transMat);
+}
+
+void LayoutPlanner::updatePlacementOfChildren(TSScene *currScene, int currModelId, mat4 transMat)
+{
+	std::vector<int> childrenList = currScene->m_ssg->m_childListOfModel[currModelId];
+	if (!childrenList.empty())
+	{
+		for (int i = 0; i < childrenList.size(); i++)
+		{
+			int childModelId = childrenList[i];
+			MetaModel &childMd = currScene->getMetaModel(childModelId);
+			childMd.updateWithTransform(transMat);
+
+			// update MetaModel in SSG
+			currScene->m_ssg->m_metaScene.m_metaModellList[childModelId] = childMd;
+		}
+	}
+}
+
+void LayoutPlanner::initUpdatePlacementOfChildren(SceneSemGraph *currSSG, int currModelId, mat4 transMat)
+{
+	std::vector<int> childrenList = currSSG->m_childListOfModel[currModelId];
+	if (!childrenList.empty())
+	{
+		for (int i = 0; i < childrenList.size(); i++)
+		{
+			int childId = childrenList[i];
+			MetaModel &childMd = currSSG->m_metaScene.m_metaModellList[childId];			
+			childMd.updateWithTransform(transMat);
+		}
+	}
 }
 
 void LayoutPlanner::adjustPlacementForSpecificModel(TSScene *currScene, const MetaModel &currMd, vec3 &newPos)

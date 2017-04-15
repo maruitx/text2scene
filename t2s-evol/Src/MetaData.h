@@ -81,6 +81,8 @@ class MetaModel
 				suppPlane.tranfrom(transMat);
 
 				transformation = transMat*transformation;
+
+				isBvhReady = false;
 			}
 	};
 

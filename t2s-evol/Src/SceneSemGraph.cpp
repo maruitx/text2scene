@@ -1,4 +1,6 @@
 #include "SceneSemGraph.h"
+#include "RelationModelManager.h"
+#include "RelationModel.h"
 #include "Model.h"
 #include "TSScene.h"
 #include "Utility.h"
@@ -15,6 +17,7 @@ SceneSemGraph::SceneSemGraph(const QString &s)
 	loadGraph(m_fullFilename);
 
 	m_idInMatchList = -1;
+	m_allSynthNodesInited = false;
 }
 
 SceneSemGraph::SceneSemGraph(SceneSemGraph *sg)
@@ -29,6 +32,7 @@ SceneSemGraph::SceneSemGraph(SceneSemGraph *sg)
 	m_edges = sg->m_edges;
 
 	m_idInMatchList = -1;
+	m_allSynthNodesInited = false;
 }
 
 SceneSemGraph::~SceneSemGraph()
@@ -210,64 +214,68 @@ TSScene* SceneSemGraph::covertToTSScene(unordered_map<string, Model*> &models)
 
 void SceneSemGraph::buildSupportHierarchy()
 {
-	int count = 0;
-	std::vector<int> isNodeProcessed(m_nodes.size(), 0);
+	m_levelOfObjs.clear();
+	m_parentOfModel.clear();
+	m_childListOfModel.clear();
 
+
+	std::vector<int> isNodeProcessed(m_nodes.size(), 0);
 	std::vector<int> newLevelOfObjIds;
 
 	for (int i = 0; i < m_nodes.size(); i++)
 	{
 		SemNode &sgNode = m_nodes[i];
 
-		if (sgNode.nodeType == "object" && isFloorObj(i))
+		if (sgNode.nodeType == "object" && isBaseLevelObj(i))
 		{
 			int modelId = m_graphNodeToModelListIdMap[i];
 			newLevelOfObjIds.push_back(modelId);
 
 			m_parentOfModel[modelId] = -1;
-			count++;
 			isNodeProcessed[i] = 1;
 		}
 	}
 
 	m_levelOfObjs.push_back(newLevelOfObjIds);
 
-	while (count != m_modelNum)
+	if (m_modelNum == 1) return;
+
+	int passNum = 3;
+	for (int p=0; p < passNum; p++)
 	{
 		std::vector<int> lastLevelOfObjIds = m_levelOfObjs.back();
 		std::vector<int> newLevelOfObjIds;
 
-		for (int i=0; i < m_nodes.size(); i++)
+		for (int ni = 0; ni < m_nodes.size(); ni++)
 		{
-			SemNode &sgNode = m_nodes[i];
+			SemNode &sgNode = m_nodes[ni];
 
-			if (sgNode.nodeType == "object" && !isNodeProcessed[i])
+			if (sgNode.nodeType == "object" && !isNodeProcessed[ni])
 			{
-				int modelId = m_graphNodeToModelListIdMap[i];
+				int modelId = m_graphNodeToModelListIdMap[ni];
 
 				// find relation node
-				for (int i = 0; i < sgNode.outEdgeNodeList.size(); i++)
+				for (int ri = 0; ri < sgNode.outEdgeNodeList.size(); ri++)
 				{
-					int relationNodeId = sgNode.outEdgeNodeList[i];
+					int relationNodeId = sgNode.outEdgeNodeList[ri];
 					SemNode &relNode = m_nodes[relationNodeId];
 
 					// find anchor obj
 					if (relNode.nodeName.contains("support"))
 					{
-						int anchorObjId = relNode.anchorNodeList[0];
-						auto iter = std::find(lastLevelOfObjIds.begin(), lastLevelOfObjIds.end(), anchorObjId);
-							
-						if (iter != lastLevelOfObjIds.end())
-						{							
-							newLevelOfObjIds.push_back(modelId);
-							m_parentOfModel[modelId] = anchorObjId;
-							m_childListOfModel[anchorObjId].push_back(modelId);
+						int anchorNodeId = relNode.anchorNodeList[0];
+						int anchorModelId = m_graphNodeToModelListIdMap[anchorNodeId];
+						auto iter = std::find(lastLevelOfObjIds.begin(), lastLevelOfObjIds.end(), anchorModelId);
 
-							count++;
-							isNodeProcessed[i] = 1;
+						if (iter != lastLevelOfObjIds.end())
+						{
+							newLevelOfObjIds.push_back(modelId);
+							m_parentOfModel[modelId] = anchorModelId;
+							m_childListOfModel[anchorModelId].push_back(modelId);
+							isNodeProcessed[ni] = 1;
 						}
 					}
-				}			
+				}
 			}
 		}
 
@@ -276,13 +284,33 @@ void SceneSemGraph::buildSupportHierarchy()
 			m_levelOfObjs.push_back(newLevelOfObjIds);
 		}
 	}
+
+	// collect the remaining objs if there is any
+	newLevelOfObjIds.clear();
+	for (int ni = 0; ni < m_nodes.size(); ni++)
+	{
+		SemNode &sgNode = m_nodes[ni];
+
+		if (sgNode.nodeType == "object" && isNodeProcessed[ni] == 0)
+		{
+			int modelId = m_graphNodeToModelListIdMap[ni];
+			newLevelOfObjIds.push_back(modelId);
+		}
+	}
+
+	if (!newLevelOfObjIds.empty())
+	{
+		m_levelOfObjs.push_back(newLevelOfObjIds);
+	}
 }
 
-bool SceneSemGraph::isFloorObj(int nodeId)
+bool SceneSemGraph::isBaseLevelObj(int nodeId)
 {
 	QString objName = m_nodes[nodeId].nodeName;
 
 	SemNode &sgNode = m_nodes[nodeId];
+
+	// if no support rel node exist
 	if (sgNode.outEdgeNodeList.empty())
 	{
 		return true;
@@ -304,7 +332,23 @@ bool SceneSemGraph::isFloorObj(int nodeId)
 	return true;
 }
 
-SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, bool useContext /* = false*/)
+std::vector<int> SceneSemGraph::findExistingInstanceIds(const QString &catName)
+{
+	std::vector<int> ids;
+	for (int i=0; i< m_metaScene.m_metaModellList.size(); i++)
+	{
+		MetaModel &md = m_metaScene.m_metaModellList[i];
+
+		if (toQString(md.catName) == catName)
+		{
+			ids.push_back(i);
+		}
+	}
+
+	return ids;
+}
+
+SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, RelationModelManager *relManager, bool useContext /* = false*/)
 {
 	SceneSemGraph *subGraph = new SceneSemGraph();
 
@@ -323,50 +367,35 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, bool useC
 		subGraph->addNode(oldNode);
 		currSubSSGNodeNum++;
 
-		if (oldNode.nodeType == "group_relation")
+		// add nodes in a group
+		if (oldNode.nodeType == "group_relation" && !oldNode.anchorNodeList.empty())
 		{
-			if (!oldNode.anchorNodeList.empty())
+			int anchorObjId = oldNode.anchorNodeList[0];
+			SemNode &anchorNode = m_nodes[anchorObjId];
+
+			QString groupKey = oldNode.nodeName + "_" + anchorNode.nodeName;
+
+			GroupRelationModel *groupModel;
+			if (relManager->m_groupRelModels.count(groupKey))
 			{
-				int refNodeId = oldNode.anchorNodeList[0];
-				SemNode &refNode = m_nodes[refNodeId]; // desk
+				groupModel = relManager->m_groupRelModels[groupKey];
+			}
 
-				//std::vector<int> inNodeList = refNode.activeNodeList;
+			std::vector<int> actNodeList = oldNode.activeNodeList;
 
-				//for (int r = 0; r < inNodeList.size(); r++)
-				//{
-				//	int relationId = inNodeList[r];
+			for (int a = 0; a < actNodeList.size(); a++)
+			{
+				int actNodeId = actNodeList[a];
+				SemNode &actNode = m_nodes[actNodeId];
+				QString occKey =QString("%1_%2").arg(actNode.nodeName).arg(1);  // Temp, extend to multiple instances later
 
-				//	SemNode &relationNode = m_nodes[relationId];
+				double insertProb = GenRandomDouble(0, 1);
 
-				//	if (relationNode.nodeName == "vertsupport")
-				//	{
-				//		// add all support children
-				//		int childId = relationNode.activeNodeList[0];
-				//		SemNode &childNode = m_nodes[childId];
-				//		double insertProb = GenRandomDouble(0, 1);
-
-				//		if (insertProb > 0.3)
-				//		{
-				//			subGraph->addNode(relationNode.nodeType, relationNode.nodeName);
-				//			oldToNewNodeIdMap[relationId] = currSubSSGNodeNum;							
-				//			enrichedNodeList.push_back(relationId);
-				//			currSubSSGNodeNum++;
-
-				//			subGraph->addNode(childNode.nodeType, childNode.nodeName);
-				//			oldToNewNodeIdMap[childId] = currSubSSGNodeNum;
-				//			enrichedNodeList.push_back(childId);
-				//			currSubSSGNodeNum++;
-				//		}
-				//	}
-				//}
-				std::vector<int> actNodeList  = oldNode.activeNodeList;
-				for (int a = 0; a < actNodeList.size(); a++)
+				if (groupModel->m_occurModels.count(occKey))
 				{
-					int actNodeId = actNodeList[a];
-					SemNode &actNode = m_nodes[actNodeId];
-					double insertProb = GenRandomDouble(0, 1);
+					double probTh = groupModel->m_occurModels[occKey]->m_occurProb;
 
-					//if (insertProb > 0.3)
+					if (insertProb > probTh)
 					{
 						subGraph->addNode(actNode);
 						m_dbNodeToSubNodeMap[actNodeId] = currSubSSGNodeNum;
@@ -380,7 +409,6 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, bool useC
 			}
 		}
 	}
-
 
 	// build graph edges
 	for (int i = 0; i < m_edgeNum; i++)
@@ -512,40 +540,28 @@ int SceneSemGraph::findParentNodeIdForModel(int modelId)
 int SceneSemGraph::findParentNodeIdForNode(int currNodeId)
 {
 	if (currNodeId == -1 || m_nodes[currNodeId].nodeName == "chair" || m_nodes[currNodeId].nodeName == "desk"
-		|| m_nodes[currNodeId].nodeName.contains("cabinet") || m_nodes[currNodeId].nodeName.contains("couch"))
+		|| m_nodes[currNodeId].nodeName.contains("cabinet") || m_nodes[currNodeId].nodeName.contains("couch")
+		|| m_nodes[currNodeId].nodeName.contains("shelf"))
 	{
 		return -1;
 	}
 
 	if (m_nodes[currNodeId].outEdgeNodeList.empty())
 	{
-		// try to find the potention parent node in current graph
-		for (int i = 0; i < m_nodes.size(); i++)
-		{
-			if (m_nodes[i].nodeName == "desk" || m_nodes[i].nodeName == "couch"
-				|| m_nodes[i].nodeName == "bookcase" || m_nodes[i].nodeName.contains("cabinet")
-				|| m_nodes[i].nodeName == "bed")
-			{
-				return i;
-			}
-		}
-
-
 		return -1;
 	}
 	else
 	{
 		int relationNodeId = m_nodes[currNodeId].outEdgeNodeList[0]; // monitor -> on
-
-		if (m_nodes[relationNodeId].outEdgeNodeList.empty())
+		SemNode &relNode = m_nodes[relationNodeId];
+		if (!m_nodes[relationNodeId].outEdgeNodeList.empty() && relNode.nodeName.contains("support"))
 		{
-			return -1;
+			int refNodeId = m_nodes[relationNodeId].outEdgeNodeList[0]; // on -> desk
+			return refNodeId;			
 		}
 		else
 		{
-			int refNodeId = m_nodes[relationNodeId].outEdgeNodeList[0]; // on -> desk
-
-			return refNodeId;
+			return -1;
 		}
 	}
 }
@@ -594,6 +610,8 @@ void SceneSemGraph::mergeWithMatchedSSG(SceneSemGraph *matchedSg)
 			this->m_graphNodeToModelListIdMap[ci] = currMetaModelNum - 1;
 		}
 	}
+
+	m_modelNum = m_metaScene.m_metaModellList.size();
 }
 
 bool SceneSemGraph::findRefNodeForRelationNode(const SemNode &sgNode, int &refNodeId, int &activeNodeId)

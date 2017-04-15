@@ -29,7 +29,6 @@ public:
 	// scene binding
 	SceneSemGraph* bindToCurrTSScene(SceneSemGraph *matchedSg);
 	void geometryAlignmentWithCurrScene(SceneSemGraph *matchedSg, SceneSemGraph *targetSg);
-	void bindBySynthesizedRelationships(SceneSemGraph *targetSg);
 
 
 private:

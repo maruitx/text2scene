@@ -101,27 +101,42 @@ void PairwiseRelationModel::loadFromStream(QTextStream &ifs)
 
 Eigen::VectorXd PairwiseRelationModel::sample()
 {
+	Eigen::VectorXd newSample(4);
+
 	if (m_GMM != NULL)
 	{
-		return m_GMM->sample(m_GMM->m_probTh[0]);	
+		if (m_conditionName.contains("parent"))
+		{
+			double boundWidth = 0.1;
+			double minB = -0.5 + boundWidth;
+			double maxB = 0.5 - boundWidth;
+
+			// make sure no overhang when sampling
+			while (true)
+			{
+				newSample = m_GMM->sample(m_GMM->m_probTh[0]);
+
+				if (newSample[0] > minB && newSample[0] < maxB 
+					&& newSample[1] >minB && newSample[1] < maxB)
+					break;
+			}
+		}
 	}
 	else
 	{
-		
 		int randId = GenRandomInt(0, m_candidateInstanceIds.size());
 		int randInstId = m_candidateInstanceIds[randId];
 
 		RelativePos *relPos = m_instances[randInstId];
-		Eigen::VectorXd randObservation(4);
-		randObservation[0] = relPos->pos.x;
-		randObservation[1] = relPos->pos.y;
-		randObservation[2] = relPos->pos.z;
-		randObservation[3] = relPos->theta;
+		newSample[0] = relPos->pos.x;
+		newSample[1] = relPos->pos.y;
+		newSample[2] = relPos->pos.z;
+		newSample[3] = relPos->theta;
 
 		m_lastSampleInstanceId = randInstId;
-
-		return randObservation;
 	}
+
+	return newSample;
 }
 
 bool PairwiseRelationModel::hasCandiInstances()
@@ -159,11 +174,6 @@ GroupRelationModel::GroupRelationModel(const QString &anchorObjName, const QStri
 }
 
 GroupRelationModel::~GroupRelationModel()
-{
-
-}
-
-void GroupRelationModel::loadModel()
 {
 
 }

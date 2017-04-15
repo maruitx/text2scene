@@ -12,10 +12,11 @@
 SceneGenerator::SceneGenerator(unordered_map<string, Model*> &models)
 	:m_models(models)
 {
-	m_sceneSemGraphManager = new SceneSemGraphManager();
-	m_semanticGraphMatcher = new SemGraphMatcher(m_sceneSemGraphManager);
-
 	m_relModelManager = new RelationModelManager();
+
+	m_sceneSemGraphManager = new SceneSemGraphManager();
+	m_semanticGraphMatcher = new SemGraphMatcher(m_sceneSemGraphManager, m_relModelManager);
+
 	m_layoutPlanner = new LayoutPlanner(m_relModelManager);
 }
 
@@ -114,7 +115,6 @@ SceneSemGraph* SceneGenerator::bindToCurrTSScene(SceneSemGraph *matchedSg)
 
 		// set scene file name that current match comes from
 		newUserSsg->m_metaScene.m_sceneFileName = matchedSg->m_metaScene.m_sceneFileName;
-		bindBySynthesizedRelationships(newUserSsg);
 		return newUserSsg;
 	}
 
@@ -140,8 +140,6 @@ SceneSemGraph* SceneGenerator::bindToCurrTSScene(SceneSemGraph *matchedSg)
 	// geometry alignment
 	geometryAlignmentWithCurrScene(matchedSg, newUserSsg);
 
-	bindBySynthesizedRelationships(newUserSsg);
-
 	// set scene file name that current match comes from
 	newUserSsg->m_metaScene.m_sceneFileName = matchedSg->m_metaScene.m_sceneFileName;
 	return newUserSsg;
@@ -155,44 +153,3 @@ void SceneGenerator::geometryAlignmentWithCurrScene(SceneSemGraph *matchedSg, Sc
 	// TODO: geometry align of the inferred nodes
 
 }
-
-void SceneGenerator::bindBySynthesizedRelationships(SceneSemGraph *targetSg)
-{
-	return;
-
-	for (int mi = 0; mi < targetSg->m_nodeNum; mi++)
-	{
-		SemNode& targSgNode = targetSg->m_nodes[mi];
-		if (!targSgNode.isAligned && targSgNode.nodeType == "pairwise_relationship") //  synthesized relationship node
-		{
-			// edge dir: (active, relation), (relation, reference)
-
-			if (!targSgNode.outEdgeNodeList.empty())
-			{
-				int refNodeId = targSgNode.outEdgeNodeList[0];
-				int activeNodeId = targSgNode.inEdgeNodeList[0];
-
-				int refModelId = targetSg->m_graphNodeToModelListIdMap[refNodeId];
-				int activeModelId = targetSg->m_graphNodeToModelListIdMap[activeNodeId];
-
-				// compute transformation matrix based on the ref nodes
-				MetaModel &tarRefModel = targetSg->m_metaScene.m_metaModellList[refModelId];
-				MetaModel &newActiveModel = targetSg->m_metaScene.m_metaModellList[activeModelId];
-
-
-				SuppPlane &suppPlane = tarRefModel.suppPlane;
-				vec3 uvh = newActiveModel.parentPlaneUVH;
-
-				vec3 newPos = suppPlane.getPointByUV(uvh.x, uvh.y);
-
-				mat4 transMat;
-				vec3 translateVec;
-				translateVec = newPos - newActiveModel.position;
-				transMat = transMat.translate(translateVec);
-
-				newActiveModel.updateWithTransform(transMat);
-			}
-		}
-	}
-}
-

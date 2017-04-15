@@ -6,7 +6,9 @@ const QString SSGNodeType[] = { "object", "attribute", "pair_relation", "group_r
 
 class SemNode{
 public:
-	SemNode(const QString &t, const QString &n, int id) { nodeType = t; nodeName = n; nodeId = id; isAligned = false; matchingStatus = 0;  isInferred = false;  inferedType = -1;  inferRefNodeId = -1; isAnnotated = false; };
+	SemNode(const QString &t, const QString &n, int id) { nodeType = t; nodeName = n; nodeId = id; 
+	isAligned = false; isSynthesized = false; matchingStatus = 0;
+	isInferred = false;  inferedType = -1;  inferRefNodeId = -1; isAnnotated = false; };
 	~SemNode() {};
 
 	// node types: object, p_attribute, p_relation, g_relation, g_attribute, 
@@ -61,6 +63,8 @@ public:
 	SemEdge(int s, int t, int id) { sourceNodeId = s; targetNodeId = t; edgeId = id;};
 	~SemEdge() {};
 
+	void reverseEdgeDir();
+
 	int sourceNodeId, targetNodeId;
 	int edgeId;
 };
@@ -80,6 +84,8 @@ public:
 
 	std::vector<int> findNodeWithName(const QString &nName);
 	bool isEdgeExist(int s, int t);
+	SemEdge& getEdge(int s, int t);
+	
 
 	void setNodesUnAligned();
 

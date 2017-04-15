@@ -25,13 +25,9 @@ void TextSemGraph::buildGraphFromSEL()
 
 		if (m_sentence.m_entities[i].isPlural)
 		{
+			entityName = convertToSinglarForm(entityName);
+
 			QString instanceCountString = m_sentence.m_entities[i].instanceCountString;
-
-			if (entityName != "book" && entityName != "books" && instanceCountString != "some")
-			{
-				entityName = convertToSinglarForm(entityName);
-			}
-
 			bool isNumber;
 			int instCount = instanceCountString.toInt(&isNumber);
 
@@ -105,7 +101,7 @@ void TextSemGraph::buildGraphFromSEL()
 
 					if (anchorEntityName == "wall")
 					{
-						m_nodes[m_nodeNum - 1].nodeType = "relation:horizon_support";
+						m_nodes[m_nodeNum - 1].nodeName= "horizonsupport";
 					}
 				}
 			}
@@ -159,12 +155,18 @@ void TextSemGraph::mapNodeNameToFixedNameSet()
 			mapToFixedAttributeSet(m_nodes[i].nodeName, m_nodes[i].nodeType);
 		}
 	}
+
+	parseNodeNeighbors();
 }
 
 QString TextSemGraph::convertToSinglarForm(const QString &s)
 {
-	QString singleS;
+	if (s.contains("books"))
+	{
+		return s;
+	}
 
+	QString singleS;
 	// e.g. shelves
 	if (s.endsWith("ves"))
 	{
@@ -250,7 +252,7 @@ void TextSemGraph::mapToFixedObjSet(QString &nodeName)
 
 void TextSemGraph::mapToFixedRelationSet(SemNode &currNode, QString &nodeName, QString &nodeType /*= QString("")*/)
 {
-	if (nodeName.contains("on"))
+	if (nodeName == "on")
 	{
 		if (nodeType.contains("horizon"))
 		{
@@ -270,6 +272,12 @@ void TextSemGraph::mapToFixedRelationSet(SemNode &currNode, QString &nodeName, Q
 		nodeType = SSGNodeType[2];
 		nodeName = "vertsupport";
 
+		// reverse edge dir
+		SemEdge &inEdge = getEdge(currNode.activeNodeList[0], currNode.nodeId);
+		SemEdge &outEdge = getEdge(currNode.nodeId, currNode.anchorNodeList[0]);
+		inEdge.reverseEdgeDir();
+		outEdge.reverseEdgeDir();
+
 		// reverse for current node
 		std::swap(currNode.activeNodeList, currNode.anchorNodeList);
 		std::swap(currNode.inEdgeNodeList, currNode.outEdgeNodeList);
@@ -282,7 +290,7 @@ void TextSemGraph::mapToFixedRelationSet(SemNode &currNode, QString &nodeName, Q
 		EraseValueInVectorInt(m_nodes[refNodeId].outEdgeNodeList, currNodeId);
 		m_nodes[refNodeId].inEdgeNodeList.push_back(currNodeId);
 
-		EraseValueInVectorInt(m_nodes[refNodeId].inEdgeNodeList, currNodeId);
+		EraseValueInVectorInt(m_nodes[actNodeId].inEdgeNodeList, currNodeId);
 		m_nodes[actNodeId].outEdgeNodeList.push_back(currNodeId);
 
 		return;
