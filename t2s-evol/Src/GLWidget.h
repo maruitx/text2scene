@@ -31,6 +31,8 @@ public:
    void initParams();
    void initShaders();
 
+   void loadParams();
+
 private:       
     QPoint m_mouse;
 

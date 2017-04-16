@@ -12,7 +12,8 @@ class MetaModel
 			MetaModel() : name(""), catName(""), id(0), transformation(mat4::identitiy()), material(), visible(true), path(""), textureDir(""),
 				frontDir(vec3(0, -1, 0)), upDir(vec3(0, 0, 1)), position(vec3(0, 0, 0)), theta(0),
 				suppPlane(SuppPlane()), parentPlaneUVH(vec3(0.5,0.5,0)), 
-				isInitLoaded(false), isAlreadyPlaced(false), isBvhReady(false), isSelected(false), renderMode(0), 
+				isInitLoaded(false), isAlreadyPlaced(false), isJustRollbacked(false),
+				isBvhReady(false), isSelected(false), renderMode(0), 
 				isConstranitsExtracted(false), explicitAnchorId(-1), layoutPassScore(0), layoutScore(0), trialNum(0)
 			{
                 //replace for proper selection rendering;
@@ -22,8 +23,9 @@ class MetaModel
 				name = md.name; catName = md.catName; id = md.id; transformation = md.transformation; material = md.material; visible = md.visible; path = md.path; textureDir = md.textureDir;
 				frontDir = md.frontDir; upDir = md.upDir; position = md.position; theta = md.theta;
 				suppPlane = md.suppPlane; parentPlaneUVH = md.parentPlaneUVH;
-				isInitLoaded = md.isInitLoaded; isAlreadyPlaced = md.isAlreadyPlaced; isBvhReady = md.isBvhReady;
-				renderMode = md.renderMode;  isSelected = md.isSelected; 
+				isInitLoaded = md.isInitLoaded; isAlreadyPlaced = md.isAlreadyPlaced; 
+				isJustRollbacked = md.isJustRollbacked; isBvhReady = md.isBvhReady;
+				isSelected = md.isSelected; renderMode = md.renderMode;
 				isConstranitsExtracted = md.isConstranitsExtracted; explicitAnchorId = md.explicitAnchorId; layoutPassScore = md.layoutPassScore; layoutScore = md.layoutScore; trialNum = md.trialNum;
 			};
 			MetaModel &operator = (const MetaModel &md) { 
@@ -31,7 +33,8 @@ class MetaModel
 				material = md.material; visible = md.visible; path = md.path; textureDir = md.textureDir;
 				frontDir = md.frontDir; upDir = md.upDir; position = md.position; theta = md.theta;
 				suppPlane = md.suppPlane; parentPlaneUVH = md.parentPlaneUVH;
-				isInitLoaded = md.isInitLoaded; isAlreadyPlaced = md.isAlreadyPlaced;  isBvhReady = md.isBvhReady;
+				isInitLoaded = md.isInitLoaded; isAlreadyPlaced = md.isAlreadyPlaced;  
+				isJustRollbacked = md.isJustRollbacked; isBvhReady = md.isBvhReady;
 				isSelected = md.isSelected; renderMode = md.renderMode; 
 				isConstranitsExtracted = md.isConstranitsExtracted; explicitAnchorId = md.explicitAnchorId; layoutPassScore = md.layoutPassScore; layoutScore = md.layoutScore; trialNum = md.trialNum; return *this;
 			}
@@ -56,6 +59,8 @@ class MetaModel
 
 			bool isInitLoaded; // whether the model is loaded at the beginning
 			bool isAlreadyPlaced; // whether the model is already placed in the scene
+			bool isJustRollbacked; // whether the model is just rollback for placement
+
 			bool isBvhReady;  // whether the BVH is ready for collision detection
 
             bool isSelected;

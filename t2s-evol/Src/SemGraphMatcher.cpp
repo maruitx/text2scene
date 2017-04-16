@@ -11,6 +11,7 @@ const bool AddSynthesizeNode = true;
 SemGraphMatcher::SemGraphMatcher(SceneSemGraphManager *ssgManager, RelationModelManager *relManager)
 	:m_sceneSemGraphManager(ssgManager), m_relModelManager(relManager)
 {
+	loadModelBlackList();
 	cout << "\nSemGraphMatcher: loading semantic graphs number " << m_sceneSemGraphManager->m_ssgNum<<"\n";
 }
 
@@ -39,7 +40,7 @@ vector<SceneSemGraph*> SemGraphMatcher::alignWithDatabaseSSGs(int targetMatchNum
 		double matchingScore = 0;
 		SceneSemGraph *subSSG = alignSSGWithDBSSG(m_querySSG, currDBSSG, matchingScore);
 
-		if (matchingScore > 0)
+		if (matchingScore > 0 && !ssgContainsBlackListModel(subSSG))
 		{
 			scoredDBSubSSGs.push_back(make_pair(matchingScore, subSSG));
 			if (matchingScore == exactMatchScore)
@@ -64,42 +65,7 @@ vector<SceneSemGraph*> SemGraphMatcher::alignWithDatabaseSSGs(int targetMatchNum
 
 		if (ssg != NULL)
 		{
-			ssg->m_idInMatchList = i;
 			matchedSubSSGs.push_back(ssg);
-
-			//for (int j = 0; j < ssg->m_nodeNum; j++)
-			//{
-			//	SemNode &currNode = ssg->m_nodes[j];
-			//	if (currNode.nodeType == "object" && !currNode.isAligned)
-			//	{
-			//		qDebug() << QString("SemGraphMatcher: in Preview %1 entity - %2 is not matched").arg(i).arg(currNode.nodeName);
-			//	}
-
-			//	if (currNode.nodeType.contains("relation") && !currNode.isAligned)
-			//	{
-			//		int actNodeId = currNode.activeNodeList[0];
-			//		int anchorNodeId = currNode.anchorNodeList[0];
-
-			//		qDebug() << QString("SemGraphMatcher: in Preview %1 cannot match for relationship: %2 %3: %4").arg(i).arg(ssg->m_nodes[actNodeId].nodeName).arg(currNode.nodeName).arg(ssg->m_nodes[anchorNodeId].nodeName);
-
-			//		if (currNode.isSynthesized)
-			//		{
-			//			qDebug() << QString("   synthesize node %1 for %2:%3").arg(currNode.nodeName).arg(ssg->m_nodes[actNodeId].nodeName).arg(ssg->m_nodes[anchorNodeId].nodeName);
-			//		}
-			//	}
-
-			//	if (currNode.nodeType == "attribute"&& !currNode.isAligned)
-			//	{
-			//		int outNodeId = currNode.outEdgeNodeList[0];
-
-			//		qDebug() << QString("SemGraphMatcher: in Preview %1 cannot match for attribute %2:%3").arg(i).arg(ssg->m_nodes[outNodeId].nodeName).arg(currNode.nodeName);
-			//		
-			//		if (currNode.isSynthesized)
-			//		{
-			//			qDebug() << QString("   synthesize node %1 for %2").arg(currNode.nodeName).arg(ssg->m_nodes[outNodeId].nodeName);
-			//		}
-			//	}				
-			//}
 		}
 	}
 
@@ -147,6 +113,20 @@ vector<int> SemGraphMatcher::findNonRepeatSSGs(const vector<pair<double, SceneSe
 	}
 
 	return nonRepeatSSGids;
+}
+
+bool SemGraphMatcher::ssgContainsBlackListModel(SceneSemGraph *ssg)
+{
+	for (int i=0; i < ssg->m_metaScene.m_metaModellList.size(); i++)
+	{
+		MetaModel &md = ssg->m_metaScene.m_metaModellList[i];
+		if (isModelInBlackList(toQString(md.name)))
+		{
+			return true;
+		}
+	}
+
+	return false;
 }
 
 SceneSemGraph* SemGraphMatcher::alignSSGWithDBSSG(SemanticGraph *querySSG, SceneSemGraph *dbSSG, double &matchingScore)
@@ -232,6 +212,35 @@ double SemGraphMatcher::computeGeometrySimilarity(SceneSemGraph *testSSG, SceneS
 	simVal = simVal / testSSG->m_metaScene.m_metaModellList.size();
 
 	return simVal;
+}
+
+void SemGraphMatcher::loadModelBlackList()
+{
+	QString filename = "./SceneDB/model_blacklist.txt";
+	QFile inFile(filename);
+	QTextStream ifs(&inFile);
+
+	if (!inFile.open(QIODevice::ReadOnly | QIODevice::Text)) return;
+
+	while (!ifs.atEnd())
+	{
+		QString currLine = ifs.readLine();
+		QStringList parts = currLine.split(",");
+		m_modelBlackList.insert(parts[0]);
+	}
+	inFile.close();
+}
+
+bool SemGraphMatcher::isModelInBlackList(const QString &s)
+{
+	if (m_modelBlackList.count(s))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 void SemGraphMatcher::addSynthNodeToSubSSG(SemanticGraph *querySSG, SceneSemGraph *matchedSubSSG, std::map<int, int> &dbNodeToSubNodeMap)
@@ -362,7 +371,11 @@ MetaModel& SemGraphMatcher::retrieveForModelInstance(const QString catName)
 			if (sgNode.nodeType == "object" && sgNode.nodeName == catName)
 			{
 				int modelId = currDBSSG->m_graphNodeToModelListIdMap[qNi];
-				candiMdIds.push_back(std::make_pair(i, modelId));
+				MetaModel &md = currDBSSG->m_metaScene.m_metaModellList[modelId];
+				if (!isModelInBlackList(toQString(md.name)))
+				{
+					candiMdIds.push_back(std::make_pair(i, modelId));
+				}				
 			}
 		}
 	}

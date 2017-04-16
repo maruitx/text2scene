@@ -252,7 +252,7 @@ void TextSemGraph::mapToFixedObjSet(QString &nodeName)
 
 void TextSemGraph::mapToFixedRelationSet(SemNode &currNode, QString &nodeName, QString &nodeType /*= QString("")*/)
 {
-	if (nodeName == "on")
+	if (nodeName.contains("on") && !nodeName.contains("front"))
 	{
 		if (nodeType.contains("horizon"))
 		{

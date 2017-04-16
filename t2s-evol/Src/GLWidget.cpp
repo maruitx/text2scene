@@ -40,6 +40,7 @@ void GLWidget::initializeGL()
 
 	initParams();
     initShaders();
+	loadParams();
 
 	m_cameraManager = new CameraManager();
     m_scene = new Scene(m_cameraManager);
@@ -180,6 +181,25 @@ void GLWidget::initShaders()
 	shaders::inst()->modelDepth = new Shader("Shader/Model.vert.glsl", "Shader/ModelDepth.frag.glsl");
 	shaders::inst()->modelDepth->bindAttribLocations();
 
+}
+
+void GLWidget::loadParams()
+{
+	GlobalObjectParams *p = params::inst();
+
+	vector<string> paramLines = getFileLines("./params.txt", 3);
+
+	for (int i = 0; i < paramLines.size(); i++)
+	{
+		if (paramLines[i][0] != '#')
+		{
+			if (paramLines[i].find("PreviewNum=") != string::npos)
+			{
+				p->previewNum = StringToIntegerList(paramLines[i], "PreviewNum=")[0];
+				continue;
+			}
+		}
+	}
 }
 
 void GLWidget::paintGL()

@@ -657,6 +657,28 @@ PairwiseRelationModel* RelationModelManager::retrievePairwiseModel(const QString
 	return NULL;
 }
 
+PairwiseRelationModel* RelationModelManager::retrievePairModelFromGroup(const QString &anchorObjName, const QString &actObjName, const QString &groupRelationName, const QString &conditionName)
+{
+	QString groupKey = groupRelationName + "_" + anchorObjName;
+
+	if (!m_groupRelModels.count(groupKey)) return NULL;
+
+	GroupRelationModel *groupModel = m_groupRelModels[groupKey];
+
+	for (auto iter = groupModel->m_pairwiseModels.begin(); iter != groupModel->m_pairwiseModels.end(); iter++)
+	{
+		QString relationKey = iter->first;
+
+		if (relationKey.contains(anchorObjName + "_" + actObjName + "_" + conditionName))
+		{
+			return groupModel->m_pairwiseModels[relationKey];
+		}
+	}
+
+	return NULL;
+
+}
+
 RelationConstraint::RelationConstraint(PairwiseRelationModel *m, const QString t, int anchorId)
 {
 	relModel = m; relationType = t; anchorObjId = anchorId;

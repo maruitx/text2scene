@@ -45,7 +45,6 @@ public:
 
 	// for matching
 	map<int, int> m_dbNodeToSubNodeMap;
-	int m_idInMatchList;  // idx of graph in matched graph list
 
 	// support hierarchy
 	map<int, int> m_parentOfModel;  //  map to modelId of current model's parent

@@ -1,0 +1,2 @@
+df03b94777b1f0f9e4e3c2d62691be9,bookcase,scene00104
+84ee4277a86c173b8c4f202fffc87396,desk,scene00110

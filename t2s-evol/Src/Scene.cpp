@@ -13,8 +13,6 @@
 #include "SceneGenerator.h"
 #include "Utility.h"
 
-const int PreviewNum = 5;
-
 Scene::Scene(CameraManager *camManager)
 : m_cameraManager(camManager),
   m_activeIdx(-1),
@@ -149,7 +147,7 @@ void Scene::initSynScene()
 	params::inst()->globalSceneUnitScale = 0.0254; // default unit scale is inch to m
 
 	
-	m_previewNum = PreviewNum;
+	m_previewNum = params::inst()->previewNum;
 	for (int i = 0; i < m_previewNum; ++i)
 	{
 		TSScene *s = new TSScene(m_models);
@@ -211,7 +209,6 @@ void Scene::runOneEvolutionStep()
 	m_sceneGenerator->updateCurrentTextGraph(activeTextSemGraph);
 	m_sceneGenerator->updateCurrentTSScene(m_variations[m_activeVarationId]);
 	
-	m_previewNum = PreviewNum;
 	int topSSGNum = m_previewNum;
 
 	std::vector<TSScene*> tsscenes = m_sceneGenerator->generateTSScenes(topSSGNum);

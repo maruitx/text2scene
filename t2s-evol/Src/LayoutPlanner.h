@@ -19,7 +19,10 @@ public:
 
 	void computeLayout(TSScene *currScene);
 	void computeSingleObjLayout(TSScene *currScene, int metaModelId);
-	void computeGroupObjLayout(TSScene *currScene, const std::vector<int> &modelIds);
+	void computeGroupObjLayout(TSScene *currScene, const std::vector<int> &toPlaceModelIds);
+
+	void computeGroupObjLayoutSeq(TSScene *currScene, const std::vector<int> &toPlaceModelIds);
+	bool doRollback(TSScene *currScene, std::vector<int> &tempPlacedIds, int currModelId);
 
 	std::vector<int> makeToPlaceModelIds(TSScene *currScene);
 

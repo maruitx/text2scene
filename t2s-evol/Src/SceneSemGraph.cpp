@@ -15,8 +15,6 @@ SceneSemGraph::SceneSemGraph(const QString &s)
 	: m_fullFilename(s)
 {
 	loadGraph(m_fullFilename);
-
-	m_idInMatchList = -1;
 	m_allSynthNodesInited = false;
 }
 
@@ -31,7 +29,6 @@ SceneSemGraph::SceneSemGraph(SceneSemGraph *sg)
 	m_nodes = sg->m_nodes;
 	m_edges = sg->m_edges;
 
-	m_idInMatchList = -1;
 	m_allSynthNodesInited = false;
 }
 
@@ -389,13 +386,13 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, RelationM
 				SemNode &actNode = m_nodes[actNodeId];
 				QString occKey =QString("%1_%2").arg(actNode.nodeName).arg(1);  // Temp, extend to multiple instances later
 
-				double insertProb = GenRandomDouble(0, 1);
+				double randProb = GenRandomDouble(0, 1);
 
 				if (groupModel->m_occurModels.count(occKey))
 				{
 					double probTh = groupModel->m_occurModels[occKey]->m_occurProb;
 
-					if (insertProb > probTh)
+					if (probTh > randProb)
 					{
 						subGraph->addNode(actNode);
 						m_dbNodeToSubNodeMap[actNodeId] = currSubSSGNodeNum;

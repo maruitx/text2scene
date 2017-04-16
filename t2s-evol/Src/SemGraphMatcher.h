@@ -24,11 +24,17 @@ public:
 	MetaModel& retrieveForModelInstance(const QString catName);
 
 	vector<int> findNonRepeatSSGs(const vector<pair<double, SceneSemGraph *>> &scoredDBSubSSGs, int targetNum);
+	bool ssgContainsBlackListModel(SceneSemGraph *ssg);
 	double computeGeometrySimilarity(SceneSemGraph *testSSG, SceneSemGraph *refSSG); // debug: simple compute similarity by matching node name
+
+	void loadModelBlackList();
+	bool isModelInBlackList(const QString &s);
 
 private:
 	SceneSemGraphManager *m_sceneSemGraphManager;
 	RelationModelManager *m_relModelManager;
 	SemanticGraph *m_querySSG;
+
+	std::set<QString> m_modelBlackList;  // list of models that is irregular and need to be blacked
 };
 

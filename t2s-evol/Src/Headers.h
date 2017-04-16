@@ -97,6 +97,8 @@ struct GlobalObjectParams
 	std::string localSceneDBDirectory;
 	std::string shapeNetSemDirectory;
 
+	int previewNum;
+
 	unordered_map<string, Texture *> textures;
 
     BoundingBox sceneBB;

@@ -62,51 +62,51 @@ CollisionManager::~CollisionManager()
 bool CollisionManager::checkCollisionBVH(Model *testModel, int testMetaModelIdx)
 {
 	bool isCollide = false;
-	MetaModel& testMetaModel = m_scene->getMetaModel(testMetaModelIdx);
+	MetaModel& testMd = m_scene->getMetaModel(testMetaModelIdx);
 
-	if (!testMetaModel.isBvhReady)
+	if (!testMd.isBvhReady)
 	{
 		rebuildBVH(testModel, testMetaModelIdx);
 	}
 
 	// do not check for model that is already placed in the scene
-	if (testMetaModel.isAlreadyPlaced)
+	if (testMd.isAlreadyPlaced)
 	{
 		return false;
 	}
 
 	// trans mat that brings model at pos in current scene
-	mat4 testModelTransMat = testMetaModel.transformation;
+	mat4 testModelTransMat = testMd.transformation;
 
 	for (int i = 0; i < m_scene->modelNum(); i++)
 	{
-		MetaModel& refMetaModel = m_scene->getMetaModel(i);
+		MetaModel& refMd = m_scene->getMetaModel(i);
 
 		// only check collision with model that is already placed in the scene
-		//if (i != testMetaModelIdx && refMetaModel.isAlreadyPlaced)
-		if (i != testMetaModelIdx)
+		if (i != testMetaModelIdx && refMd.isAlreadyPlaced)
+		//if (i != testMetaModelIdx)
 		{
-			Model* refModel = m_scene->getModel(refMetaModel.name);
+			Model* refModel = m_scene->getModel(refMd.name);
 
 			if (refModel != NULL)
 			{
-				if (!refMetaModel.isBvhReady)
+				if (!refMd.isBvhReady)
 				{
 					rebuildBVH(refModel, i);
 				}
-				mat4 refModelTransMat = refMetaModel.transformation;
+				mat4 refModelTransMat = refMd.transformation;
 				TrianglePredicate predicate(testModel, testModelTransMat, refModel, refModelTransMat);
 				isCollide = m_boxBVHs[testMetaModelIdx]->hit(*m_boxBVHs[i], predicate);
 
 				if (isCollide)
 				{
-					qDebug() << QString(" Preview:%1 Collide Type: %2 Model:%3 DBSSG:%4").
-						arg(m_scene->m_previewId).arg("BVH").arg(toQString(refMetaModel.catName)).arg(m_scene->m_ssg->m_metaScene.m_sceneFileName);
+					qDebug() << QString(" Preview:%1 %6 Type: %2 Model:%3 DBSSG:%4 TrialNum:%5").
+						arg(m_scene->m_previewId).arg("BVH").arg(toQString(refMd.catName)).arg(m_scene->m_ssg->m_metaScene.m_sceneFileName).arg(testMd.trialNum).arg(toQString(testMd.catName));
 
-					testMetaModel.isBvhReady = false;
+					testMd.isBvhReady = false;
 
 					// store invalid positions to speed up
-					m_collisionPositions[testMetaModelIdx].push_back(testMetaModel.position);
+					m_collisionPositions[testMetaModelIdx].push_back(testMd.position);
 					return true;
 				}
 			}
