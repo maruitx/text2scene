@@ -192,31 +192,31 @@ upDir 0 0 1
 suppPlane 96.5834 237.763 83.5821 134.476 237.763 83.5821 134.476 239.75 83.5821 96.5834 239.75 83.5821
 parentId 0
 parentPlaneUVH 0.476264 0.982537 -79.4998
-nodeNum 55
-0,object,room,46,
-1,object,table,24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 47 48 49 50 51 52 53 54,46
-2,object,bowl,,25 52 53
-3,object,cellphone,,26 53
-4,object,pottedplant,,27 49 53
-5,object,book,44 45,28 50 51 53
-6,object,notepad,,44 50 51 53
-7,object,candle,,29 52 53
-8,object,mug,,30 52 53
-9,object,paperbox,,31 54
-10,object,bowl,,32 45 52 53
-11,object,toyfigure,,33 53
-12,object,decorativeaccessory,,34 49 53
-13,object,purse,,47 50 51 54
-14,object,coffee maker,,35 53
-15,object,tissuebox,,36 52 53
-16,object,donutbox,,37 53
-17,object,chestofdrawers,,38 53
-18,object,camera,,39 53
-19,object,books,,40 50 51
-20,object,books,,41 50 51 54
-21,object,books,,42 50 51 54
+nodeNum 56
+0,object,room,46 47,
+1,object,table,24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 48 49 50 51 52 53 54 55,46
+2,object,bowl,,25 53 54
+3,object,cellphone,,26 54
+4,object,pottedplant,,27 50 54
+5,object,book,44 45,28 51 52 54
+6,object,notepad,,44 51 52 54
+7,object,candle,,29 53 54
+8,object,mug,,30 53 54
+9,object,paperbox,,31 55
+10,object,bowl,,32 45 53 54
+11,object,toyfigure,,33 54
+12,object,decorativeaccessory,,34 50 54
+13,object,purse,,48 51 52 55
+14,object,coffee maker,,35 54
+15,object,tissuebox,,36 53 54
+16,object,donutbox,,37 54
+17,object,chestofdrawers,,38 54
+18,object,camera,,39 54
+19,object,books,,40 51 52
+20,object,books,,41 51 52 55
+21,object,books,,42 51 52 55
 22,object,pottedplant,,43
-23,object,wallart,,48 49
+23,object,wallart,,47 49 50
 24,attribute,coffee,,1
 25,pair_relation,vertsupport,2,1
 26,pair_relation,vertsupport,3,1
@@ -240,15 +240,16 @@ nodeNum 55
 44,pair_relation,vertsupport,6,5
 45,pair_relation,vertsupport,10,5
 46,pair_relation,vertsupport,1,0
-47,pair_relation,vertsupport,13,1
-48,group_relation_anno,decorative,23,1
-49,group_relation_anno,decorative,4 12 23,1
-50,group_relation_anno,work,5 21 20 19 13 6,1
-51,group_relation_anno,organized,5 21 20 19 13 6,1
-52,group_relation_anno,dining,8 2 10 7 15,1
-53,group_relation_anno,messy,16 8 3 2 15 7 10 6 18 5 12 17 11 4 14,1
-54,group_relation_anno,organized,21 20 9 13,1
-edgeNum 94
+47,pair_relation,horizonsupport,23,0
+48,pair_relation,vertsupport,13,1
+49,group_relation_anno,decorative,23,1
+50,group_relation_anno,decorative,4 12 23,1
+51,group_relation_anno,work,5 21 20 19 13 6,1
+52,group_relation_anno,organized,5 21 20 19 13 6,1
+53,group_relation_anno,dining,8 2 10 7 15,1
+54,group_relation_anno,messy,16 8 3 2 15 7 10 6 18 5 12 17 11 4 14,1
+55,group_relation_anno,organized,21 20 9 13,1
+edgeNum 96
 0,24,1
 1,2,25
 2,25,1
@@ -294,52 +295,54 @@ edgeNum 94
 42,45,5
 43,1,46
 44,46,0
-45,13,47
-46,47,1
-47,48,1
-48,23,48
+45,23,47
+46,47,0
+47,13,48
+48,48,1
 49,49,1
-50,4,49
-51,12,49
-52,23,49
-53,50,1
-54,5,50
-55,21,50
-56,20,50
-57,19,50
-58,13,50
-59,6,50
-60,51,1
-61,5,51
-62,21,51
-63,20,51
-64,19,51
-65,13,51
-66,6,51
-67,52,1
-68,8,52
-69,2,52
-70,10,52
-71,7,52
-72,15,52
-73,53,1
-74,16,53
-75,8,53
-76,3,53
-77,2,53
-78,15,53
-79,7,53
-80,10,53
-81,6,53
-82,18,53
-83,5,53
-84,12,53
-85,17,53
-86,11,53
-87,4,53
-88,14,53
-89,54,1
-90,21,54
-91,20,54
-92,9,54
-93,13,54
+50,23,49
+51,50,1
+52,4,50
+53,12,50
+54,23,50
+55,51,1
+56,5,51
+57,21,51
+58,20,51
+59,19,51
+60,13,51
+61,6,51
+62,52,1
+63,5,52
+64,21,52
+65,20,52
+66,19,52
+67,13,52
+68,6,52
+69,53,1
+70,8,53
+71,2,53
+72,10,53
+73,7,53
+74,15,53
+75,54,1
+76,16,54
+77,8,54
+78,3,54
+79,2,54
+80,15,54
+81,7,54
+82,10,54
+83,6,54
+84,18,54
+85,5,54
+86,12,54
+87,17,54
+88,11,54
+89,4,54
+90,14,54
+91,55,1
+92,21,55
+93,20,55
+94,9,55
+95,13,55

@@ -88,9 +88,9 @@ upDir 0 0 1
 suppPlane 21.0635 199.417 98.6304 11.0033 199.417 98.6304 11.0033 199.417 114.526 21.0635 199.417 114.526
 parentId 1
 parentPlaneUVH 0.247577 0.434694 -24.4772
-nodeNum 20
-0,object,room,,
-1,object,bookcase,11 12 13 14 15 16 17 18 19,
+nodeNum 21
+0,object,room,20,
+1,object,bookcase,11 12 13 14 15 16 17 18 19,20
 2,object,book,,11
 3,object,books,,12
 4,object,rubikscube,,13
@@ -109,7 +109,8 @@ nodeNum 20
 17,pair_relation,vertsupport,8,1
 18,pair_relation,vertsupport,9,1
 19,pair_relation,vertsupport,10,1
-edgeNum 18
+20,pair_relation,horizonsupport,1,0
+edgeNum 20
 0,2,11
 1,11,1
 2,3,12
@@ -128,3 +129,5 @@ edgeNum 18
 15,18,1
 16,10,19
 17,19,1
+18,1,20
+19,20,0

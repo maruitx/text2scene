@@ -280,23 +280,23 @@ upDir 0 0 1
 suppPlane 5.75222 78.5743 111.532 3.25 78.5743 111.532 3.25 50.2159 111.532 5.75222 50.2159 111.532
 parentId 0
 parentPlaneUVH 0.0170675 0.232894 -53.495
-nodeNum 76
-0,object,room,35,
+nodeNum 77
+0,object,room,35 68,
 1,object,rug,36 37 38 39 40 41 42 43 44,35
-2,object,mediastorage,45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75,36
+2,object,mediastorage,45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 69 70 71 72 73 74 75 76,36
 3,object,tv,,45
-4,object,work,,37 68
-5,object,videogameconsole,,38 69
+4,object,work,,37 69
+5,object,videogameconsole,,38 70
 6,object,videogamecontroller,,39 46
 7,object,videogamecontroller,,40 47
-8,object,videogamecontroller,,41 70
-9,object,videogamecontroller,,42 71
+8,object,videogamecontroller,,41 71
+9,object,videogamecontroller,,42 72
 10,object,videogameconsole,,43 48
 11,object,videogamecontroller,,49
 12,object,videogamecontroller,,50
 13,object,noname,,51
 14,object,cart,,52
-15,object,toyfigure,,72
+15,object,toyfigure,,73
 16,object,videogameconsole,,53
 17,object,videogameconsole,,54
 18,object,psp,,55
@@ -309,13 +309,13 @@ nodeNum 76
 25,object,toyfigure,,62
 26,object,toyfigure,,63
 27,object,videogamecontroller,,64
-28,object,toyfigure,,73
+28,object,toyfigure,,74
 29,object,toyfigure,,65
-30,object,toyfigure,,74
+30,object,toyfigure,,75
 31,object,videogameconsole,,66
-32,object,remote control,,75
+32,object,remote control,,76
 33,object,toyfigure,,67
-34,object,stained-glass window,,
+34,object,stained-glass window,,68
 35,pair_relation,vertsupport,1,0
 36,pair_relation,vertsupport,2,1
 37,pair_relation,vertsupport,4,1
@@ -349,15 +349,16 @@ nodeNum 76
 65,pair_relation,vertsupport,29,2
 66,pair_relation,vertsupport,31,2
 67,pair_relation,vertsupport,33,2
-68,pair_relation,vertsupport,4,2
-69,pair_relation,vertsupport,5,2
-70,pair_relation,vertsupport,8,2
-71,pair_relation,vertsupport,9,2
-72,pair_relation,vertsupport,15,2
-73,pair_relation,vertsupport,28,2
-74,pair_relation,vertsupport,30,2
-75,pair_relation,vertsupport,32,2
-edgeNum 82
+68,pair_relation,horizonsupport,34,0
+69,pair_relation,vertsupport,4,2
+70,pair_relation,vertsupport,5,2
+71,pair_relation,vertsupport,8,2
+72,pair_relation,vertsupport,9,2
+73,pair_relation,vertsupport,15,2
+74,pair_relation,vertsupport,28,2
+75,pair_relation,vertsupport,30,2
+76,pair_relation,vertsupport,32,2
+edgeNum 84
 0,1,35
 1,35,0
 2,2,36
@@ -424,19 +425,21 @@ edgeNum 82
 63,66,2
 64,33,67
 65,67,2
-66,4,68
-67,68,2
-68,5,69
+66,34,68
+67,68,0
+68,4,69
 69,69,2
-70,8,70
+70,5,70
 71,70,2
-72,9,71
+72,8,71
 73,71,2
-74,15,72
+74,9,72
 75,72,2
-76,28,73
+76,15,73
 77,73,2
-78,30,74
+78,28,74
 79,74,2
-80,32,75
+80,30,75
 81,75,2
+82,32,76
+83,76,2

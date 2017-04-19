@@ -14,7 +14,7 @@ SemanticGraph::SemanticGraph(SemanticGraph *sg)
 	m_nodes = sg->m_nodes;
 	m_edges = sg->m_edges;
 
-	m_toNewSgNodeIdMap = sg->m_toNewSgNodeIdMap;
+	m_nodeAlignMap = sg->m_nodeAlignMap;
 }
 
 
@@ -189,7 +189,7 @@ void SemanticGraph::alignObjectNodesWithGraph(SemanticGraph *targetGraph, double
 										tarAttNode.isAligned = true;
 										tarAttNode.matchingStatus = attNode.matchingStatus;
 
-										m_toNewSgNodeIdMap[attNodeId] = tarAttNodeId; // save aligned attribute node into map		
+										m_nodeAlignMap[attNodeId] = tarAttNodeId; // save aligned attribute node into map		
 										alignScore += 0;  // attribute node does not contribute to matching score
 									}
 								}
@@ -203,7 +203,7 @@ void SemanticGraph::alignObjectNodesWithGraph(SemanticGraph *targetGraph, double
 							tarSgNode.isAligned = true;
 							tarSgNode.matchingStatus = sgNode.matchingStatus;
 
-							m_toNewSgNodeIdMap[qNi] = tarNi; // save aligned object node into map									
+							m_nodeAlignMap[qNi] = tarNi; // save aligned object node into map									
 							alignScore += NodeScore[sgNode.matchingStatus];
 							break;
 						}
@@ -213,7 +213,7 @@ void SemanticGraph::alignObjectNodesWithGraph(SemanticGraph *targetGraph, double
 							tarSgNode.isAligned = true;
 							tarSgNode.matchingStatus = sgNode.matchingStatus;
 
-							m_toNewSgNodeIdMap[qNi] = tarNi; // save partial aligned object node into map									
+							m_nodeAlignMap[qNi] = tarNi; // save partial aligned object node into map									
 							alignScore += 0.5*NodeScore[sgNode.matchingStatus];
 							break;
 						}
@@ -224,7 +224,7 @@ void SemanticGraph::alignObjectNodesWithGraph(SemanticGraph *targetGraph, double
 						tarSgNode.isAligned = true;
 						tarSgNode.matchingStatus = sgNode.matchingStatus;
 
-						m_toNewSgNodeIdMap[qNi] = tarNi; // save aligned object node map
+						m_nodeAlignMap[qNi] = tarNi; // save aligned object node map
 						alignScore += NodeScore[sgNode.matchingStatus];
 						break;
 					}
@@ -253,7 +253,7 @@ void SemanticGraph::alignRelationNodesWithGraph(SemanticGraph *targetGraph, doub
 			int anchorNodeId = relNode.anchorNodeList[0];
 
 			// if any object node is not in the matched map (not matched), then break
-			if (!m_toNewSgNodeIdMap.count(actNodeId) || !m_toNewSgNodeIdMap.count(anchorNodeId)) continue;
+			if (!m_nodeAlignMap.count(actNodeId) || !m_nodeAlignMap.count(anchorNodeId)) continue;
 
 			SemNode& queryActiveNode = m_nodes[actNodeId];
 
@@ -263,14 +263,14 @@ void SemanticGraph::alignRelationNodesWithGraph(SemanticGraph *targetGraph, doub
 				// skip the aligned nodes
 				if (!tarRelNode.isAligned && tarRelNode.nodeType == "pair_relation" && relNode.nodeName == tarRelNode.nodeName)
 				{
-					if (tarRelNode.activeNodeList[0] == m_toNewSgNodeIdMap[actNodeId]
-						&& tarRelNode.anchorNodeList[0] == m_toNewSgNodeIdMap[anchorNodeId])
+					if (tarRelNode.activeNodeList[0] == m_nodeAlignMap[actNodeId]
+						&& tarRelNode.anchorNodeList[0] == m_nodeAlignMap[anchorNodeId])
 					{
 						relNode.isAligned = true;
 						tarRelNode.isAligned = true;
 						tarRelNode.matchingStatus = relNode.matchingStatus;
 
-						m_toNewSgNodeIdMap[qNi] = tarNi;  // save aligned pairwise relationship node into map
+						m_nodeAlignMap[qNi] = tarNi;  // save aligned pairwise relationship node into map
 
 						alignScore += NodeScore[queryActiveNode.matchingStatus];
 						break;
@@ -284,7 +284,7 @@ void SemanticGraph::alignRelationNodesWithGraph(SemanticGraph *targetGraph, doub
 			if (relNode.anchorNodeList.empty()) continue;
 
 			int refNodeIdInQuery = relNode.anchorNodeList[0];
-			if (!m_toNewSgNodeIdMap.count(refNodeIdInQuery)) continue;
+			if (!m_nodeAlignMap.count(refNodeIdInQuery)) continue;
 
 			SemNode &queryRefNode = this->m_nodes[refNodeIdInQuery];
 
@@ -302,8 +302,8 @@ void SemanticGraph::alignRelationNodesWithGraph(SemanticGraph *targetGraph, doub
 						tarRelNode.isAligned = true;
 						tarRelNode.matchingStatus = relNode.matchingStatus;
 
-						m_toNewSgNodeIdMap[qNi] = tarNi;  // save aligned pairwise relationship node map
-						m_toNewSgNodeIdMap[refNodeIdInQuery] = tarRefId;  // update the ref node id in the map, since multiple instances may exist in the scene and we use the one connected to the relation node
+						m_nodeAlignMap[qNi] = tarNi;  // save aligned pairwise relationship node map
+						m_nodeAlignMap[refNodeIdInQuery] = tarRefId;  // update the ref node id in the map, since multiple instances may exist in the scene and we use the one connected to the relation node
 
 						alignScore += NodeScore[relNode.matchingStatus];
 						break;
@@ -332,7 +332,7 @@ void SemanticGraph::mergeWithGraph(SemanticGraph *inputGraph)
 		{
 			// update graph
 			this->addNode(inputSgNode);
-			inputGraph->m_toNewSgNodeIdMap[mi] = this->m_nodeNum - 1;  // node id is the last node's id; save inserted node map
+			inputGraph->m_nodeAlignMap[mi] = this->m_nodeNum - 1;  // node id is the last node's id; save inserted node map
 		}
 	}
 
@@ -341,8 +341,8 @@ void SemanticGraph::mergeWithGraph(SemanticGraph *inputGraph)
 	{
 		SemEdge& inputSgEdge = inputGraph->m_edges[mei];
 
-		int s = inputGraph->m_toNewSgNodeIdMap[inputSgEdge.sourceNodeId];
-		int t = inputGraph->m_toNewSgNodeIdMap[inputSgEdge.targetNodeId];
+		int s = inputGraph->m_nodeAlignMap[inputSgEdge.sourceNodeId];
+		int t = inputGraph->m_nodeAlignMap[inputSgEdge.targetNodeId];
 		if (!this->isEdgeExist(s, t))
 		{
 			this->addEdge(s, t);

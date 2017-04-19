@@ -152,24 +152,24 @@ upDir 0 0 1
 suppPlane 84.654 115.522 12.5206 65.6289 134.547 12.5206 49.3205 118.239 12.4859 68.3456 99.2137 12.4859
 parentId 16
 parentPlaneUVH 0.743977 0.364379 0.177881
-nodeNum 45
-0,object,room,19 20,
-1,object,tvstand,21 22 23 24 25 26 27 28 37 38 39 40 41 42,19 43 44
-2,object,speaker,,37
-3,object,speaker,,38
+nodeNum 46
+0,object,room,19 20 37,
+1,object,tvstand,21 22 23 24 25 26 27 28 38 39 40 41 42 43,19 44 45
+2,object,speaker,,38
+3,object,speaker,,39
 4,object,tv,29,21
 5,object,videogameconsole,30 31,22
 6,object,videogamecontroller,,30
 7,object,videogamecontroller,,31
-8,object,videogameconsole,,39
+8,object,videogameconsole,,40
 9,object,chestofdrawers,32,23
 10,object,videogamecontroller,33,24
-11,object,toyfigure,34,40
+11,object,toyfigure,34,41
 12,object,videogamecontroller,,25
 13,object,remote control,,26 29
 14,object,remote control,,27
-15,object,powersocket,,
-16,object,rug,35 36 43 44,20 28 32 33 34 41 42
+15,object,powersocket,,37
+16,object,rug,35 36 44 45,20 28 32 33 34 42 43
 17,object,pillow,,35
 18,object,pillow,,36
 19,pair_relation,vertsupport,1,0
@@ -190,15 +190,16 @@ nodeNum 45
 34,pair_relation,vertsupport,16,11
 35,pair_relation,vertsupport,17,16
 36,pair_relation,vertsupport,18,16
-37,pair_relation,vertsupport,2,1
-38,pair_relation,vertsupport,3,1
-39,pair_relation,vertsupport,8,1
-40,pair_relation,vertsupport,11,1
-41,pair_relation,near,16,1
-42,pair_relation,leftside,16,1
-43,pair_relation,near,1,16
-44,pair_relation,front,1,16
-edgeNum 52
+37,pair_relation,horizonsupport,15,0
+38,pair_relation,vertsupport,2,1
+39,pair_relation,vertsupport,3,1
+40,pair_relation,vertsupport,8,1
+41,pair_relation,vertsupport,11,1
+42,pair_relation,near,16,1
+43,pair_relation,leftside,16,1
+44,pair_relation,near,1,16
+45,pair_relation,front,1,16
+edgeNum 54
 0,1,19
 1,19,0
 2,16,20
@@ -235,19 +236,21 @@ edgeNum 52
 33,35,16
 34,18,36
 35,36,16
-36,2,37
-37,37,1
-38,3,38
+36,15,37
+37,37,0
+38,2,38
 39,38,1
-40,8,39
+40,3,39
 41,39,1
-42,11,40
+42,8,40
 43,40,1
-44,16,41
+44,11,41
 45,41,1
 46,16,42
 47,42,1
-48,1,43
-49,43,16
+48,16,43
+49,43,1
 50,1,44
 51,44,16
+52,1,45
+53,45,16

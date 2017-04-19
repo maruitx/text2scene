@@ -57,6 +57,9 @@ public:
 
 	std::vector<int> m_candidateInstanceIds;
 	int m_lastSampleInstanceId;
+
+	int m_modelId;
+	std::vector<int> m_simModelIds; // list of similar relation model ids, sorted from high sim to low
 };
 
 class OccurrenceModel
@@ -82,6 +85,7 @@ public:
 
 public:
 	std::map<QString, PairwiseRelationModel*> m_pairwiseModels;  // relation-conditioned relative model
+	std::vector<QString> m_pairwiseModelKeys;
 	std::map<QString, OccurrenceModel*> m_occurModels;
 
 	QString m_anchorObjName;
@@ -89,5 +93,7 @@ public:
 
 	QString m_groupKey;  // relationName_anchorObjName
 	int m_numInstance;
+
+
 };
 

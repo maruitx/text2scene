@@ -365,7 +365,7 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, RelationM
 		currSubSSGNodeNum++;
 
 		// add nodes in a group
-		if (oldNode.nodeType == "group_relation" && !oldNode.anchorNodeList.empty())
+		if (oldNode.nodeType == "group_relation" && !oldNode.anchorNodeList.empty() && oldNode.matchingStatus == SemNode::ExplicitNode)
 		{
 			int anchorObjId = oldNode.anchorNodeList[0];
 			SemNode &anchorNode = m_nodes[anchorObjId];
@@ -603,7 +603,7 @@ void SceneSemGraph::mergeWithMatchedSSG(SceneSemGraph *matchedSg)
 			this->m_metaScene.m_metaModellList.push_back(modelToInsert);
 
 			int currMetaModelNum = this->m_metaScene.m_metaModellList.size();
-			int ci = matchedSg->m_toNewSgNodeIdMap[mi];
+			int ci = matchedSg->m_nodeAlignMap[mi];
 			this->m_graphNodeToModelListIdMap[ci] = currMetaModelNum - 1;
 		}
 	}

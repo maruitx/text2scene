@@ -192,9 +192,9 @@ upDir 0 0 1
 suppPlane 60.6609 175.034 64.3181 48.8845 141.778 64.3181 83.7994 129.414 64.3181 95.5758 162.67 64.3181
 parentId 0
 parentPlaneUVH 0.302281 0.626436 -131.75
-nodeNum 54
-0,object,room,24 25,
-1,object,desk,26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 50 51,24 52 53
+nodeNum 55
+0,object,room,24 25 50,
+1,object,desk,26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 51 52,24 53 54
 2,object,speaker,46,26
 3,object,compact disk,,27
 4,object,compact disk,,28
@@ -215,8 +215,8 @@ nodeNum 54
 19,object,computermouse,,43
 20,object,cellphone,,44
 21,object,noname,,45
-22,object,wallart,,
-23,object,chair,52 53,25 50 51
+22,object,wallart,,50
+23,object,chair,53 54,25 51 52
 24,pair_relation,vertsupport,1,0
 25,pair_relation,vertsupport,23,0
 26,pair_relation,vertsupport,2,1
@@ -243,11 +243,12 @@ nodeNum 54
 47,pair_relation,vertsupport,10,8
 48,pair_relation,vertsupport,12,8
 49,pair_relation,vertsupport,13,10
-50,pair_relation,near,23,1
-51,pair_relation,rightside,23,1
-52,pair_relation,near,1,23
-53,pair_relation,rightside,1,23
-edgeNum 60
+50,pair_relation,horizonsupport,22,0
+51,pair_relation,near,23,1
+52,pair_relation,rightside,23,1
+53,pair_relation,near,1,23
+54,pair_relation,rightside,1,23
+edgeNum 62
 0,1,24
 1,24,0
 2,23,25
@@ -300,11 +301,13 @@ edgeNum 60
 49,48,8
 50,13,49
 51,49,10
-52,23,50
-53,50,1
+52,22,50
+53,50,0
 54,23,51
 55,51,1
-56,1,52
-57,52,23
+56,23,52
+57,52,1
 58,1,53
 59,53,23
+60,1,54
+61,54,23

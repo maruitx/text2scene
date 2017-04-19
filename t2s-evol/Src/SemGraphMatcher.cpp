@@ -134,7 +134,7 @@ SceneSemGraph* SemGraphMatcher::alignSSGWithDBSSG(SemanticGraph *querySSG, Scene
 	SceneSemGraph *matchedSubSSG;
 
 	// align object nodes
-	querySSG->m_toNewSgNodeIdMap.clear();
+	querySSG->m_nodeAlignMap.clear();
 	querySSG->setNodesUnAligned();
 	dbSSG->setNodesUnAligned();
 
@@ -151,9 +151,9 @@ SceneSemGraph* SemGraphMatcher::alignSSGWithDBSSG(SemanticGraph *querySSG, Scene
 	{
 		SemNode& sgNode = querySSG->m_nodes[ni];
 		
-		if (sgNode.isAligned && querySSG->m_toNewSgNodeIdMap.count(ni))
+		if (sgNode.isAligned && querySSG->m_nodeAlignMap.count(ni))
 		{
-			int matchedDBSsgId = querySSG->m_toNewSgNodeIdMap[ni];
+			int matchedDBSsgId = querySSG->m_nodeAlignMap[ni];
 			matchedDBSsgNodeList.push_back(matchedDBSsgId);
 		}
 	}
@@ -252,10 +252,10 @@ void SemGraphMatcher::addSynthNodeToSubSSG(SemanticGraph *querySSG, SceneSemGrap
 	{
 		SemNode& sgNode = querySSG->m_nodes[ni];
 
-		if (sgNode.isAligned && querySSG->m_toNewSgNodeIdMap.count(ni))
+		if (sgNode.isAligned && querySSG->m_nodeAlignMap.count(ni))
 		{
 			// first find the DB-SSG node corresponding to the query node
-			int dbNodeId = querySSG->m_toNewSgNodeIdMap[ni];
+			int dbNodeId = querySSG->m_nodeAlignMap[ni];
 			int subNodeId = dbNodeToSubNodeMap[dbNodeId];
 
 			// then find the Sub-SSG node for the query node
@@ -268,7 +268,7 @@ void SemGraphMatcher::addSynthNodeToSubSSG(SemanticGraph *querySSG, SceneSemGrap
 	{
 		SemNode& sgNode = querySSG->m_nodes[ni];
 
-		if (!sgNode.isAligned && !querySSG->m_toNewSgNodeIdMap.count(ni))
+		if (!sgNode.isAligned && !querySSG->m_nodeAlignMap.count(ni))
 		{
 			if (sgNode.nodeType == "object")
 			{

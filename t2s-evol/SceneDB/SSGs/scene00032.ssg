@@ -200,11 +200,11 @@ upDir 0 0 1
 suppPlane 333.745 166.323 5.90737 352.97 166.323 5.90737 352.97 170.537 5.90737 333.745 170.537 5.90737
 parentId 0
 parentPlaneUVH 0.878071 0.921665 -128.984
-nodeNum 80
-0,object,room,26 27 28 29 50,
-1,object,computer,51 52 55 57 58,50 53 54 56 59 60
-2,object,speaker,53 54 61 62 65 66 68 69,26 51 52 63 64 67 70 71
-3,object,desk,30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 56 63 64 72 73 75,27 55 61 62 74 76
+nodeNum 81
+0,object,room,26 27 28 29 50 51,
+1,object,computer,52 53 56 58 59,50 54 55 57 60 61
+2,object,speaker,54 55 62 63 66 67 69 70,26 52 53 64 65 68 71 72
+3,object,desk,30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 57 64 65 73 74 76,27 56 62 63 75 77
 4,object,monitor,,30
 5,object,keyboard,,31
 6,object,speaker,,32
@@ -223,9 +223,9 @@ nodeNum 80
 19,object,mediadiscs,,45
 20,object,stapler,,46
 21,object,cellulose tape,,47
-22,object,chair,25 59 60 67 74 77 78,28 57 58 65 66 72 73 79
-23,object,powersocket,,
-24,object,powerstrip,70 71 76 79,29 68 69 75 77 78
+22,object,chair,25 60 61 68 75 78 79,28 58 59 66 67 73 74 80
+23,object,powersocket,,51
+24,object,powerstrip,71 72 77 80,29 69 70 76 78 79
 25,attribute,office,,22
 26,pair_relation,vertsupport,2,0
 27,pair_relation,vertsupport,3,0
@@ -252,36 +252,37 @@ nodeNum 80
 48,pair_relation,vertsupport,8,7
 49,pair_relation,vertsupport,13,12
 50,pair_relation,vertsupport,1,0
-51,pair_relation,near,2,1
-52,pair_relation,back,2,1
-53,pair_relation,near,1,2
-54,pair_relation,front,1,2
-55,pair_relation,near,3,1
-56,pair_relation,near,1,3
-57,pair_relation,near,22,1
-58,pair_relation,back,22,1
-59,pair_relation,near,1,22
-60,pair_relation,leftside,1,22
-61,pair_relation,near,3,2
-62,pair_relation,front,3,2
-63,pair_relation,near,2,3
-64,pair_relation,back,2,3
-65,pair_relation,near,22,2
-66,pair_relation,front,22,2
-67,pair_relation,near,2,22
-68,pair_relation,near,24,2
-69,pair_relation,front,24,2
-70,pair_relation,near,2,24
-71,pair_relation,back,2,24
-72,pair_relation,near,22,3
-73,pair_relation,rightside,22,3
-74,pair_relation,near,3,22
-75,pair_relation,near,24,3
-76,pair_relation,near,3,24
-77,pair_relation,near,24,22
-78,pair_relation,rightside,24,22
-79,pair_relation,near,22,24
-edgeNum 109
+51,pair_relation,horizonsupport,23,0
+52,pair_relation,near,2,1
+53,pair_relation,back,2,1
+54,pair_relation,near,1,2
+55,pair_relation,front,1,2
+56,pair_relation,near,3,1
+57,pair_relation,near,1,3
+58,pair_relation,near,22,1
+59,pair_relation,back,22,1
+60,pair_relation,near,1,22
+61,pair_relation,leftside,1,22
+62,pair_relation,near,3,2
+63,pair_relation,front,3,2
+64,pair_relation,near,2,3
+65,pair_relation,back,2,3
+66,pair_relation,near,22,2
+67,pair_relation,front,22,2
+68,pair_relation,near,2,22
+69,pair_relation,near,24,2
+70,pair_relation,front,24,2
+71,pair_relation,near,2,24
+72,pair_relation,back,2,24
+73,pair_relation,near,22,3
+74,pair_relation,rightside,22,3
+75,pair_relation,near,3,22
+76,pair_relation,near,24,3
+77,pair_relation,near,3,24
+78,pair_relation,near,24,22
+79,pair_relation,rightside,24,22
+80,pair_relation,near,22,24
+edgeNum 111
 0,25,22
 1,2,26
 2,26,0
@@ -333,61 +334,63 @@ edgeNum 109
 48,49,12
 49,1,50
 50,50,0
-51,2,51
-52,51,1
+51,23,51
+52,51,0
 53,2,52
 54,52,1
-55,1,53
-56,53,2
+55,2,53
+56,53,1
 57,1,54
 58,54,2
-59,3,55
-60,55,1
-61,1,56
-62,56,3
-63,22,57
-64,57,1
+59,1,55
+60,55,2
+61,3,56
+62,56,1
+63,1,57
+64,57,3
 65,22,58
 66,58,1
-67,1,59
-68,59,22
+67,22,59
+68,59,1
 69,1,60
 70,60,22
-71,3,61
-72,61,2
+71,1,61
+72,61,22
 73,3,62
 74,62,2
-75,2,63
-76,63,3
+75,3,63
+76,63,2
 77,2,64
 78,64,3
-79,22,65
-80,65,2
+79,2,65
+80,65,3
 81,22,66
 82,66,2
-83,2,67
-84,67,22
-85,24,68
-86,68,2
+83,22,67
+84,67,2
+85,2,68
+86,68,22
 87,24,69
 88,69,2
-89,2,70
-90,70,24
+89,24,70
+90,70,2
 91,2,71
 92,71,24
-93,22,72
-94,72,3
+93,2,72
+94,72,24
 95,22,73
 96,73,3
-97,3,74
-98,74,22
-99,24,75
-100,75,3
-101,3,76
-102,76,24
-103,24,77
-104,77,22
+97,22,74
+98,74,3
+99,3,75
+100,75,22
+101,24,76
+102,76,3
+103,3,77
+104,77,24
 105,24,78
 106,78,22
-107,22,79
-108,79,24
+107,24,79
+108,79,22
+109,22,80
+110,80,24

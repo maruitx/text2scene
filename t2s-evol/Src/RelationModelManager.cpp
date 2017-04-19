@@ -78,6 +78,8 @@ void RelationModelManager::loadPairwiseRelationModels()
 
 		newRelModel->loadFromStream(ifs);
 	}
+
+	loadPairModelSim();
 }
 
 void RelationModelManager::loadGroupRelationModels()
@@ -140,6 +142,84 @@ void RelationModelManager::loadGroupRelationModels()
 
 				newRelModel->loadFromStream(ifs);
 			} 
+		}
+	}
+
+	inFile.close();
+
+	loadGroupPariModelSim();
+}
+
+void RelationModelManager::loadPairModelSim()
+{
+	QString sceneDBPath = "./SceneDB";
+	QString filename = sceneDBPath + "/Pairwise.sim";
+
+	QFile inFile(filename);
+	QTextStream ifs(&inFile);
+
+	if (!inFile.open(QIODevice::ReadOnly | QIODevice::Text)) return;
+	
+	m_pairwiseModelKeys.resize(m_pairwiseRelModels.size());
+	for (int i=0; i < m_pairwiseRelModels.size(); i++)
+	{
+		QString currLine = ifs.readLine();
+		std::vector<std::string> parts = PartitionString(currLine.toStdString(), ",");
+		std::vector<std::string> subparts = PartitionString(parts[1], "_");
+		PairwiseRelationModel *relModel = m_pairwiseRelModels[toQString(parts[0])];
+		relModel->m_modelId = StringToInt(subparts[1]);
+		m_pairwiseModelKeys[i] = relModel->m_relationKey;
+
+		currLine = ifs.readLine();
+		parts = PartitionString(currLine.toStdString(), ",");
+		int simModelNum = StringToInt(parts[0]);
+		std::vector<int> intList = StringToIntegerList(parts[1], "");
+		relModel->m_simModelIds.resize(simModelNum);
+
+		for (int k=0; k < simModelNum; k++)
+		{
+			relModel->m_simModelIds[k] = intList[k];
+		}
+	}
+
+	inFile.close();
+}
+
+void RelationModelManager::loadGroupPariModelSim()
+{
+	QString sceneDBPath = "./SceneDB";
+	QString filename = sceneDBPath + "/Group.sim";
+
+	QFile inFile(filename);
+	QTextStream ifs(&inFile);
+
+	if (!inFile.open(QIODevice::ReadOnly | QIODevice::Text)) return;
+
+	for (int i=0; i < m_groupRelModels.size(); i++)
+	{
+		QString currLine = ifs.readLine();
+		GroupRelationModel *groupModel = m_groupRelModels[currLine];
+
+		groupModel->m_pairwiseModelKeys.resize(groupModel->m_pairwiseModels.size());
+		for (int p=0; p <groupModel->m_pairwiseModels.size(); p++)
+		{
+			currLine = ifs.readLine();
+			std::vector<std::string> parts = PartitionString(currLine.toStdString(), ",");
+			std::vector<std::string> subparts = PartitionString(parts[1], "_");
+			PairwiseRelationModel *relModel = groupModel->m_pairwiseModels[toQString(parts[0])];
+			relModel->m_modelId = StringToInt(subparts[1]);
+			groupModel->m_pairwiseModelKeys[p] = relModel->m_relationKey;
+
+			currLine = ifs.readLine();
+			parts = PartitionString(currLine.toStdString(), ",");
+			int simModelNum = StringToInt(parts[0]);
+			std::vector<int> intList = StringToIntegerList(parts[1], "");
+			relModel->m_simModelIds.resize(simModelNum);
+
+			for (int k = 0; k < simModelNum; k++)
+			{
+				relModel->m_simModelIds[k] = intList[k];
+			}
 		}
 	}
 
@@ -299,7 +379,6 @@ double RelationModelManager::computeScoreForConstraint(TSScene *currScene, const
 	return prob;
 }
 
-
 void RelationModelManager::extractRelPosToAnchor(TSScene *currScene, const MetaModel &anchorMd, const Eigen::VectorXd &currPlacement, RelativePos *relPos)
 {
 	// get unitize transform for anchor model
@@ -387,6 +466,30 @@ bool RelationModelManager::isPosCloseToInvalidPos(const vec3 &pos, int metaModel
 	return false;
 }
 
+PairwiseRelationModel* RelationModelManager::getPairModelById(int id)
+{
+	if (m_pairwiseRelModels.count(m_pairwiseModelKeys[id]))
+	{
+		return m_pairwiseRelModels[m_pairwiseModelKeys[id]];
+	}
+	else
+	{
+		return NULL;
+	}
+}
+
+PairwiseRelationModel* RelationModelManager::getPairModelInGroupById(GroupRelationModel *groupModel, int id)
+{
+	if (groupModel->m_pairwiseModels.count(groupModel->m_pairwiseModelKeys[id]))
+	{
+		return groupModel->m_pairwiseModels[groupModel->m_pairwiseModelKeys[id]];
+	}
+	else
+	{
+		return NULL;
+	}
+}
+
 Eigen::VectorXd RelationModelManager::sampleNewPosFromConstraints(TSScene *currScene, int metaModelId, int &anchorModelId)
 {
 	vec3 newPos;
@@ -400,23 +503,43 @@ Eigen::VectorXd RelationModelManager::sampleNewPosFromConstraints(TSScene *currS
 
 	while (count < 1000)
 	{
-		if (!currScene->m_explictConstraints[metaModelId].empty() 
-			&& currScene->m_explictConstraints[metaModelId][0].relModel->hasCandiInstances())
+		PairwiseRelationModel *currPairModel = NULL;
+
+		//if (!currScene->m_explictConstraints[metaModelId].empty() 
+		//	&& currScene->m_explictConstraints[metaModelId][0].relModel->hasCandiInstances())
+		//{
+		//	// use the first explicit constraint
+		//	RelationConstraint &exConstraint = currScene->m_explictConstraints[metaModelId][0];
+		//	anchorModelId = exConstraint.anchorObjId;
+		//	sampleFromRelationModel(currScene, exConstraint.relModel, metaModelId, anchorModelId, newPos, newTheta);
+		//	constraintType = "explicit";
+		//}
+		//else
+		//{
+		//	randomSampleOnParent(currScene, metaModelId, newPos, anchorModelId);
+		//	newTheta = 0;
+
+		//	constraintType = "random";
+		//}
+		bool isPairModelAvailable = false;
+		if (!currScene->m_explictConstraints[metaModelId].empty())
 		{
-			// use the first explicit constraint
-			RelationConstraint &exConstraint = currScene->m_explictConstraints[metaModelId][0];
-			anchorModelId = exConstraint.anchorObjId;
-			//sampleFromRelationModel(currScene, exConstraint, metaModelId,
-			//	anchorModelId, newPos, newTheta);
-			sampleFromRelationModel(currScene, exConstraint.relModel, metaModelId, anchorModelId, newPos, newTheta);
-			constraintType = "explicit";
+			currPairModel = findAvailablePairModels(currScene, currScene->m_explictConstraints[metaModelId][0], isPairModelAvailable);
+		}
+			
+		if (!isPairModelAvailable)
+		{
+				randomSampleOnParent(currScene, metaModelId, newPos, anchorModelId);
+				newTheta = 0;
+				constraintType = "random";
 		}
 		else
 		{
-			randomSampleOnParent(currScene, metaModelId, newPos, anchorModelId);
-			newTheta = 0;
+			RelationConstraint &exConstraint = currScene->m_explictConstraints[metaModelId][0];
+			anchorModelId = exConstraint.anchorObjId;
 
-			constraintType = "random";
+			sampleFromRelationModel(currScene, currPairModel, metaModelId, anchorModelId, newPos, newTheta);
+			constraintType = "explicit";
 		}
 
 		if (isPosValid(currScene, newPos, metaModelId))
@@ -425,9 +548,9 @@ Eigen::VectorXd RelationModelManager::sampleNewPosFromConstraints(TSScene *currS
 		}
 		else
 		{
-			if (constraintType == "explicit" && currScene->m_explictConstraints[metaModelId][0].relModel->m_lastSampleInstanceId!= -1)
+			if (constraintType == "explicit" &&currPairModel->m_lastSampleInstanceId != -1)
 			{
-				currScene->m_explictConstraints[metaModelId][0].relModel->updateCandiInstanceIds();
+				currPairModel->updateCandiInstanceIds();
 			}
 		}
 
@@ -444,52 +567,20 @@ Eigen::VectorXd RelationModelManager::sampleNewPosFromConstraints(TSScene *currS
 	return relPos;
 }
 
-//void RelationModelManager::sampleFromRelationModel(TSScene *currScene, const RelationConstraint &relConstraint, int metaModelId,
-//	int &anchorModelId, vec3 &newPos, double &newTheta)
-//{
-//	// sample in the unit frame
-//	Eigen::VectorXd newSample;
-//
-//	if (relConstraint.relModel->m_conditionName.contains("parent"))
-//	{
-//		double boundWidth = 0.1;
-//		double minB = -0.5 + boundWidth;
-//		double maxB = 0.5 - boundWidth;
-//
-//		// make sure no overhang when sampling
-//		while (true)
-//		{
-//			newSample = relConstraint.relModel->sample();
-//
-//			if (newSample[0] > minB && newSample[0] < maxB && newSample[1] >minB && newSample[1] < maxB)
-//			{
-//				break;
-//			}
-//		}
-//	}
-//	else
-//		newSample = relConstraint.relModel->sample();
-//
-//	newPos = vec3(newSample[0], newSample[1], newSample[2]);
-//
-//	// anchor obj																					 
-//	anchorModelId = relConstraint.anchorObjId;
-//	MetaModel &anchorMd = currScene->getMetaModel(anchorModelId);
-//	Model *anchorModel = currScene->getModel(anchorMd.name);
-//	mat4 alignMat = getModelToUnitboxMat(anchorModel, anchorMd);
-//	mat4 transMat = alignMat.inverse();  // transform from unit frame to world frame
-//
-//	newPos = TransformPoint(transMat, newPos);
-//
-//	// update sampled position 
-//	double newZ = findClosestSuppPlaneZ(currScene, metaModelId, newPos);
-//	newPos.z = newZ;
-//
-//	newTheta = newSample[3];
-//
-//	// test whether is close to  collide pos
-//
-//}
+
+PairwiseRelationModel*  RelationModelManager::findAvailablePairModels(TSScene *currScene, const RelationConstraint &relConstraint, bool &isPairModelAvailable)
+{
+	if (relConstraint.relModel->hasCandiInstances())
+	{
+		isPairModelAvailable = true;
+		return relConstraint.relModel;
+	}
+	else
+	{
+		isPairModelAvailable = false;
+		return NULL;
+	}
+}
 
 void RelationModelManager::sampleFromRelationModel(TSScene *currScene, PairwiseRelationModel *pairModel, const int metaModelId, const int anchorModelId, vec3 &newPos, double &newTheta)
 {
@@ -583,7 +674,8 @@ void RelationModelManager::collectConstraintsForModel(TSScene *currScene, int me
 		int relationNodeId = currNode.outEdgeNodeList[0];
 		SemNode &relationNode = currSSG->m_nodes[relationNodeId];
 
-		if (!relationNode.isAligned)
+		//if (!relationNode.isAligned)
+		if(relationNode.matchingStatus == SemNode::ExplicitNode)
 		{
 			if (relationNode.anchorNodeList.empty())
 			{
@@ -625,7 +717,7 @@ void RelationModelManager::collectConstraintsForModel(TSScene *currScene, int me
 						int sibModelId = currSSG->m_graphNodeToModelListIdMap[sibActNodeId];
 						MetaModel& sibModel = currScene->getMetaModel(sibModelId);
 
-						//if (!sibModel.isAlreadyPlaced) continue;
+						if (!sibModel.isAlreadyPlaced) continue;
 					
 						QString imRelationKey = sibActNode.nodeName + "_" + actObjName + "_" + "sibling" + "_general";
 						if (m_relativeModels.count(imRelationKey))

@@ -100,6 +100,6 @@ public:
 	std::vector<SemNode> m_nodes;
 	std::vector<SemEdge> m_edges;
 
-	std::map<int, int> m_toNewSgNodeIdMap;
+	std::map<int, int> m_nodeAlignMap;  // current to target node id alignment map
 };
 

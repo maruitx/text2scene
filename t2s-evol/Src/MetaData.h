@@ -14,7 +14,7 @@ class MetaModel
 				suppPlane(SuppPlane()), parentPlaneUVH(vec3(0.5,0.5,0)), 
 				isInitLoaded(false), isAlreadyPlaced(false), isJustRollbacked(false),
 				isBvhReady(false), isSelected(false), renderMode(0), 
-				isConstranitsExtracted(false), explicitAnchorId(-1), layoutPassScore(0), layoutScore(0), trialNum(0)
+				explicitAnchorId(-1), layoutPassScore(0), layoutScore(0), trialNum(0)
 			{
                 //replace for proper selection rendering;
                // isSelected = rand() % 2;
@@ -26,7 +26,7 @@ class MetaModel
 				isInitLoaded = md.isInitLoaded; isAlreadyPlaced = md.isAlreadyPlaced; 
 				isJustRollbacked = md.isJustRollbacked; isBvhReady = md.isBvhReady;
 				isSelected = md.isSelected; renderMode = md.renderMode;
-				isConstranitsExtracted = md.isConstranitsExtracted; explicitAnchorId = md.explicitAnchorId; layoutPassScore = md.layoutPassScore; layoutScore = md.layoutScore; trialNum = md.trialNum;
+				explicitAnchorId = md.explicitAnchorId; layoutPassScore = md.layoutPassScore; layoutScore = md.layoutScore; trialNum = md.trialNum;
 			};
 			MetaModel &operator = (const MetaModel &md) { 
 				name = md.name; catName = md.catName; id = md.id; transformation = md.transformation; 
@@ -36,7 +36,7 @@ class MetaModel
 				isInitLoaded = md.isInitLoaded; isAlreadyPlaced = md.isAlreadyPlaced;  
 				isJustRollbacked = md.isJustRollbacked; isBvhReady = md.isBvhReady;
 				isSelected = md.isSelected; renderMode = md.renderMode; 
-				isConstranitsExtracted = md.isConstranitsExtracted; explicitAnchorId = md.explicitAnchorId; layoutPassScore = md.layoutPassScore; layoutScore = md.layoutScore; trialNum = md.trialNum; return *this;
+				explicitAnchorId = md.explicitAnchorId; layoutPassScore = md.layoutPassScore; layoutScore = md.layoutScore; trialNum = md.trialNum; return *this;
 			}
 
 			string name;  // file name (hash string) of the model
@@ -66,7 +66,6 @@ class MetaModel
             bool isSelected;
 			int renderMode;
 
-			bool isConstranitsExtracted;
 			int explicitAnchorId;
 
 			Eigen::VectorXd tempPlacement;

@@ -46,6 +46,8 @@ SemanticGraph* SceneGenerator::prepareQuerySG()
 
 	if (m_currUserSSG != NULL)
 	{
+		//resetNodes(querySG);
+		m_currUserSSG->m_nodeAlignMap.clear();
 		querySG = new SemanticGraph(m_currUserSSG);
 
 		// update current UserSSG with textSSG for retrieval
@@ -56,7 +58,7 @@ SemanticGraph* SceneGenerator::prepareQuerySG()
 		{
 			SemNode& sgNode = querySG->m_nodes[i];
 
-			if (isMapContainsValue(m_textSSG->m_toNewSgNodeIdMap, i))
+			if (isMapContainsValue(m_textSSG->m_nodeAlignMap, i))
 			{
 				sgNode.matchingStatus = SemNode::ExplicitNode;
 			}
@@ -77,6 +79,12 @@ SemanticGraph* SceneGenerator::prepareQuerySG()
 	}
 
 	return querySG;
+}
+
+void SceneGenerator::resetNodes(SemanticGraph *sg)
+{
+	sg->m_nodeAlignMap.clear();
+
 }
 
 std::vector<TSScene*> SceneGenerator::generateTSScenes(int num)
@@ -130,7 +138,7 @@ SceneSemGraph* SceneGenerator::bindToCurrTSScene(SceneSemGraph *matchedSg)
 
 	// align object node and relationship node
 	double alignScore = 0;
-	matchedSg->m_toNewSgNodeIdMap.clear();
+	matchedSg->m_nodeAlignMap.clear();
 	matchedSg->alignObjectNodesWithGraph(newUserSsg, alignScore);
 	matchedSg->alignRelationNodesWithGraph(newUserSsg, alignScore);
 

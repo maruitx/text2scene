@@ -184,142 +184,154 @@ upDir -1 0 0
 suppPlane 131.421 428.261 19.2179 144.235 428.261 30.8673 131.421 428.879 30.8673 131.421 428.879 30.8673
 parentId 0
 parentPlaneUVH 0.010393 0.514828 -94.9551
-nodeNum 61
-0,object,room,23 24 25 26 27 28,
-1,object,dryer,,
-2,object,counter,29 30 31 32 33 34 35 36 37 38 39 41 43 45 47 49,23 42 44 46 48 50
-3,object,tissuebox,,29
-4,object,camera,,30
-5,object,book,,31
-6,object,pen,,
-7,object,pencil,,32
-8,object,battery,,33
-9,object,laptop,,34
-10,object,usbstick,,35
-11,object,auxiliary storage,40,36
-12,object,erlenmeyer flask,,40
-13,object,plug,,37
-14,object,toiletpaper,,38
-15,object,calculator,,39
-16,object,stool,42 51,24 41 52
-17,object,fire alarm,,
-18,object,book,44 52 53 55 57,25 43 51 54 56 58
-19,object,ashcan,46 54 59,26 45 53 60
-20,object,powerstrip,48 56 60,27 47 55 59
-21,object,powerstrip,50 58,28 49 57
-22,object,powersocket,,
-23,pair_relation,vertsupport,2,0
-24,pair_relation,vertsupport,16,0
-25,pair_relation,vertsupport,18,0
-26,pair_relation,vertsupport,19,0
-27,pair_relation,vertsupport,20,0
-28,pair_relation,vertsupport,21,0
-29,pair_relation,vertsupport,3,2
-30,pair_relation,vertsupport,4,2
-31,pair_relation,vertsupport,5,2
-32,pair_relation,vertsupport,7,2
-33,pair_relation,vertsupport,8,2
-34,pair_relation,vertsupport,9,2
-35,pair_relation,vertsupport,10,2
-36,pair_relation,vertsupport,11,2
-37,pair_relation,vertsupport,13,2
-38,pair_relation,vertsupport,14,2
-39,pair_relation,vertsupport,15,2
-40,pair_relation,vertsupport,12,11
-41,pair_relation,near,16,2
-42,pair_relation,near,2,16
-43,pair_relation,near,18,2
-44,pair_relation,near,2,18
-45,pair_relation,near,19,2
-46,pair_relation,near,2,19
-47,pair_relation,near,20,2
-48,pair_relation,near,2,20
-49,pair_relation,near,21,2
-50,pair_relation,near,2,21
-51,pair_relation,rightside,18,16
-52,pair_relation,rightside,16,18
-53,pair_relation,front,19,18
-54,pair_relation,back,18,19
-55,pair_relation,rightside,20,18
-56,pair_relation,leftside,18,20
-57,pair_relation,rightside,21,18
-58,pair_relation,back,18,21
-59,pair_relation,near,20,19
-60,pair_relation,near,19,20
-edgeNum 76
-0,2,23
+nodeNum 65
+0,object,room,23 24 25 26 27 28 29 30 31,
+1,object,dryer,,23
+2,object,counter,32 33 34 35 36 37 38 39 40 41 42 45 47 49 51 53,24 46 48 50 52 54
+3,object,tissuebox,,32
+4,object,camera,,33
+5,object,book,43,34
+6,object,pen,,43
+7,object,pencil,,35
+8,object,battery,,36
+9,object,laptop,,37
+10,object,usbstick,,38
+11,object,auxiliary storage,44,39
+12,object,erlenmeyer flask,,44
+13,object,plug,,40
+14,object,toiletpaper,,41
+15,object,calculator,,42
+16,object,stool,46 55,25 45 56
+17,object,fire alarm,,26
+18,object,book,48 56 57 59 61,27 47 55 58 60 62
+19,object,ashcan,50 58 63,28 49 57 64
+20,object,powerstrip,52 60 64,29 51 59 63
+21,object,powerstrip,54 62,30 53 61
+22,object,powersocket,,31
+23,pair_relation,horizonsupport,1,0
+24,pair_relation,vertsupport,2,0
+25,pair_relation,vertsupport,16,0
+26,pair_relation,horizonsupport,17,0
+27,pair_relation,vertsupport,18,0
+28,pair_relation,vertsupport,19,0
+29,pair_relation,vertsupport,20,0
+30,pair_relation,vertsupport,21,0
+31,pair_relation,horizonsupport,22,0
+32,pair_relation,vertsupport,3,2
+33,pair_relation,vertsupport,4,2
+34,pair_relation,vertsupport,5,2
+35,pair_relation,vertsupport,7,2
+36,pair_relation,vertsupport,8,2
+37,pair_relation,vertsupport,9,2
+38,pair_relation,vertsupport,10,2
+39,pair_relation,vertsupport,11,2
+40,pair_relation,vertsupport,13,2
+41,pair_relation,vertsupport,14,2
+42,pair_relation,vertsupport,15,2
+43,pair_relation,horizonsupport,6,5
+44,pair_relation,vertsupport,12,11
+45,pair_relation,near,16,2
+46,pair_relation,near,2,16
+47,pair_relation,near,18,2
+48,pair_relation,near,2,18
+49,pair_relation,near,19,2
+50,pair_relation,near,2,19
+51,pair_relation,near,20,2
+52,pair_relation,near,2,20
+53,pair_relation,near,21,2
+54,pair_relation,near,2,21
+55,pair_relation,rightside,18,16
+56,pair_relation,rightside,16,18
+57,pair_relation,front,19,18
+58,pair_relation,back,18,19
+59,pair_relation,rightside,20,18
+60,pair_relation,leftside,18,20
+61,pair_relation,rightside,21,18
+62,pair_relation,back,18,21
+63,pair_relation,near,20,19
+64,pair_relation,near,19,20
+edgeNum 84
+0,1,23
 1,23,0
-2,16,24
+2,2,24
 3,24,0
-4,18,25
+4,16,25
 5,25,0
-6,19,26
+6,17,26
 7,26,0
-8,20,27
+8,18,27
 9,27,0
-10,21,28
+10,19,28
 11,28,0
-12,3,29
-13,29,2
-14,4,30
-15,30,2
-16,5,31
-17,31,2
-18,7,32
+12,20,29
+13,29,0
+14,21,30
+15,30,0
+16,22,31
+17,31,0
+18,3,32
 19,32,2
-20,8,33
+20,4,33
 21,33,2
-22,9,34
+22,5,34
 23,34,2
-24,10,35
+24,7,35
 25,35,2
-26,11,36
+26,8,36
 27,36,2
-28,13,37
+28,9,37
 29,37,2
-30,14,38
+30,10,38
 31,38,2
-32,15,39
+32,11,39
 33,39,2
-34,12,40
-35,40,11
-36,16,41
+34,13,40
+35,40,2
+36,14,41
 37,41,2
-38,2,42
-39,42,16
-40,18,43
-41,43,2
-42,2,44
-43,44,18
-44,19,45
+38,15,42
+39,42,2
+40,6,43
+41,43,5
+42,12,44
+43,44,11
+44,16,45
 45,45,2
 46,2,46
-47,46,19
-48,20,47
+47,46,16
+48,18,47
 49,47,2
 50,2,48
-51,48,20
-52,21,49
+51,48,18
+52,19,49
 53,49,2
 54,2,50
-55,50,21
-56,18,51
-57,51,16
-58,16,52
-59,52,18
-60,19,53
-61,53,18
-62,18,54
-63,54,19
-64,20,55
-65,55,18
-66,18,56
-67,56,20
-68,21,57
+55,50,19
+56,20,51
+57,51,2
+58,2,52
+59,52,20
+60,21,53
+61,53,2
+62,2,54
+63,54,21
+64,18,55
+65,55,16
+66,16,56
+67,56,18
+68,19,57
 69,57,18
 70,18,58
-71,58,21
+71,58,19
 72,20,59
-73,59,19
-74,19,60
+73,59,18
+74,18,60
 75,60,20
+76,21,61
+77,61,18
+78,18,62
+79,62,21
+80,20,63
+81,63,19
+82,19,64
+83,64,20

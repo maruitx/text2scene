@@ -24,6 +24,8 @@ public:
 	void updateCurrentTSScene(TSScene *ts);
 
 	SemanticGraph* prepareQuerySG();
+	void resetNodes(SemanticGraph *sg);
+
 	std::vector<TSScene*> generateTSScenes(int num);
 
 	// scene binding

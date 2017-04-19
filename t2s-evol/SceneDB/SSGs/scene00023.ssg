@@ -112,7 +112,7 @@ upDir 0 0 1
 suppPlane 106.172 80.3431 25.3577 121.657 77.8904 25.3577 124.381 95.0876 25.3577 108.895 97.5402 25.3577
 parentId 1
 parentPlaneUVH 0.605542 0.444496 0.249991
-nodeNum 32
+nodeNum 33
 0,object,room,31,
 1,object,table,14 15 16 17 18 19 20 21 22 23 24 25 26,31
 2,object,coaster,27,16
@@ -122,9 +122,9 @@ nodeNum 32
 6,object,coaster,29,20
 7,object,mug,,21 29
 8,object,magazine,,22
-9,object,plate,30,23
+9,object,plate,30 32,23
 10,object,donut,,24 30
-11,object,donut,,
+11,object,donut,,32
 12,object,cerealbox,,25
 13,object,toy,,26
 14,attribute,coffee,,1
@@ -145,7 +145,8 @@ nodeNum 32
 29,pair_relation,vertsupport,7,6
 30,pair_relation,vertsupport,10,9
 31,pair_relation,vertsupport,1,0
-edgeNum 34
+32,pair_relation,horizonsupport,11,9
+edgeNum 36
 0,14,1
 1,15,1
 2,2,16
@@ -180,3 +181,5 @@ edgeNum 34
 31,30,9
 32,1,31
 33,31,0
+34,11,32
+35,32,9

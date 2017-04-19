@@ -32,6 +32,8 @@ public:
 	void loadRelativeRelationModels();
 	void loadPairwiseRelationModels();
 	void loadGroupRelationModels();
+	void loadPairModelSim();
+	void loadGroupPariModelSim();
 
 	bool isRelationsViolated(TSScene *currScene, int metaModelId);
 	bool isConstraintViolated(TSScene *currScene, const MetaModel &md, const RelationConstraint &relConstraint);
@@ -44,9 +46,8 @@ public:
 	double computeLayoutPassScore(TSScene *currScene, int metaModelId);
 
 	Eigen::VectorXd sampleNewPosFromConstraints(TSScene *currScene, int metaModelId, int &anchorModelId);
+	PairwiseRelationModel* findAvailablePairModels(TSScene *currScene, const RelationConstraint &relConstraint, bool &isPairModelAvailable);
 
-	//void sampleFromRelationModel(TSScene *currScene, const RelationConstraint &relConstraint, int metaModelId, 
-	//	int &anchorModelId, vec3 &newPos, double &newTheta);
 	void sampleFromRelationModel(TSScene *currScene, PairwiseRelationModel *pairModel, const int metaModelId, const int anchorModelId, vec3 &newPos, double &newTheta);
 
 	void randomSampleOnParent(TSScene *currScene, int metaModelId, vec3 &newPos, int &parentMetaModelId);
@@ -64,10 +65,15 @@ public:
 	bool isPosValid(TSScene *currScene, const vec3 &pos, int metaModelId);
 	bool isPosCloseToInvalidPos(const vec3 &pos, int metaModelId);
 
+	PairwiseRelationModel* getPairModelById(int id);
+	PairwiseRelationModel* getPairModelInGroupById(GroupRelationModel *groupModel, int id);
+
 public:
 	std::map<QString, PairwiseRelationModel*> m_relativeModels;  // all relative models with general relations
 	std::map<QString, PairwiseRelationModel*> m_pairwiseRelModels;  // all pairwise relation models
 	std::map<QString, GroupRelationModel*> m_groupRelModels;  // all group relations
+
+	std::vector<QString> m_pairwiseModelKeys;
 
 	std::map<std::string, mat4> m_loadModelToUnitboxMat;
 

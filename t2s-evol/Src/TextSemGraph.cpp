@@ -96,12 +96,13 @@ void TextSemGraph::buildGraphFromSEL()
 					addNode("relation", m_sentence.m_entities[i].m_relationships[j].nameString);
 
 					int instanceNodeId = m_sentence.m_entities[i].m_instanceNodeIds[n];
-					addEdge(instanceNodeId, m_nodeNum - 1);
-					addEdge(m_nodeNum - 1, refNodeIds[k]);
+					int currNodeId = m_nodeNum - 1;
+					addEdge(instanceNodeId, currNodeId);
+					addEdge(currNodeId, refNodeIds[k]);
 
 					if (anchorEntityName == "wall")
 					{
-						m_nodes[m_nodeNum - 1].nodeName= "horizonsupport";
+						m_nodes[currNodeId].nodeName= "horizonsupport";						
 					}
 				}
 			}
@@ -188,6 +189,12 @@ QString TextSemGraph::convertToSinglarForm(const QString &s)
 
 void TextSemGraph::mapToFixedObjSet(QString &nodeName)
 {
+	if (nodeName == "wall")
+	{
+		nodeName = "room";
+		return;
+	}
+
 	if (nodeName == "sofa")
 	{
 		nodeName = "couch";
@@ -319,14 +326,14 @@ void TextSemGraph::mapToFixedRelationSet(SemNode &currNode, QString &nodeName, Q
 
 	if (nodeName.contains("left"))
 	{
-		nodeName = "left";
+		nodeName = "leftside";
 		nodeType = SSGNodeType[2];
 		return;
 	}
 
 	if (nodeName.contains("right"))
 	{
-		nodeName = "right";
+		nodeName = "rightside";
 		nodeType = SSGNodeType[2];
 		return;
 	}
@@ -361,7 +368,7 @@ void TextSemGraph::mapToFixedRelationSet(SemNode &currNode, QString &nodeName, Q
 
 	if (nodeName.contains("each") && nodeName.contains("side"))
 	{
-		nodeName = "left";
+		nodeName = "leftside";
 		nodeType = SSGNodeType[2];
 		return;
 	}

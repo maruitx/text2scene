@@ -176,16 +176,16 @@ upDir -1 0 0
 suppPlane 232.528 236.027 7.48625 247.519 236.027 21.1144 232.528 236.75 21.1144 232.528 236.75 21.1144
 parentId 0
 parentPlaneUVH 0.656061 0.972793 -127.514
-nodeNum 56
-0,object,room,23 24 25 26,
-1,object,desk,27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 44 45 48 49 52 53,23 46 47 50 51 54 55
+nodeNum 58
+0,object,room,23 24 25 26 44,
+1,object,desk,27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 46 47 50 51 54 55,23 48 49 52 53 56 57
 2,object,computer,,27
 3,object,pictureframe,,28
 4,object,keyboard,,29
 5,object,mousepad,42,30
 6,object,computermouse,,31 42
-7,object,monitor,43,32
-8,object,paper,,
+7,object,monitor,43 45,32
+8,object,paper,,45
 9,object,powerstrip,,33
 10,object,speaker,,34
 11,object,speaker,,35
@@ -195,10 +195,10 @@ nodeNum 56
 15,object,notepad,,39 43
 16,object,book,,40
 17,object,sodacan,,41
-18,object,chair,22 46 47,24 44 45
-19,object,trashbin,50 51,25 48 49
-20,object,floorlamp,54 55,26 52 53
-21,object,powersocket,,
+18,object,chair,22 48 49,24 46 47
+19,object,trashbin,52 53,25 50 51
+20,object,floorlamp,56 57,26 54 55
+21,object,powersocket,,44
 22,attribute,office,,18
 23,pair_relation,vertsupport,1,0
 24,pair_relation,vertsupport,18,0
@@ -221,19 +221,21 @@ nodeNum 56
 41,pair_relation,vertsupport,17,1
 42,pair_relation,vertsupport,6,5
 43,pair_relation,vertsupport,15,7
-44,pair_relation,near,18,1
-45,pair_relation,rightside,18,1
-46,pair_relation,near,1,18
-47,pair_relation,rightside,1,18
-48,pair_relation,near,19,1
-49,pair_relation,rightside,19,1
-50,pair_relation,near,1,19
-51,pair_relation,leftside,1,19
-52,pair_relation,near,20,1
-53,pair_relation,rightside,20,1
-54,pair_relation,near,1,20
-55,pair_relation,leftside,1,20
-edgeNum 67
+44,pair_relation,horizonsupport,21,0
+45,pair_relation,horizonsupport,8,7
+46,pair_relation,near,18,1
+47,pair_relation,rightside,18,1
+48,pair_relation,near,1,18
+49,pair_relation,rightside,1,18
+50,pair_relation,near,19,1
+51,pair_relation,rightside,19,1
+52,pair_relation,near,1,19
+53,pair_relation,leftside,1,19
+54,pair_relation,near,20,1
+55,pair_relation,rightside,20,1
+56,pair_relation,near,1,20
+57,pair_relation,leftside,1,20
+edgeNum 71
 0,22,18
 1,1,23
 2,23,0
@@ -277,27 +279,31 @@ edgeNum 67
 40,42,5
 41,15,43
 42,43,7
-43,18,44
-44,44,1
-45,18,45
-46,45,1
-47,1,46
-48,46,18
-49,1,47
-50,47,18
-51,19,48
-52,48,1
-53,19,49
-54,49,1
-55,1,50
-56,50,19
-57,1,51
-58,51,19
-59,20,52
-60,52,1
-61,20,53
-62,53,1
-63,1,54
-64,54,20
-65,1,55
-66,55,20
+43,21,44
+44,44,0
+45,8,45
+46,45,7
+47,18,46
+48,46,1
+49,18,47
+50,47,1
+51,1,48
+52,48,18
+53,1,49
+54,49,18
+55,19,50
+56,50,1
+57,19,51
+58,51,1
+59,1,52
+60,52,19
+61,1,53
+62,53,19
+63,20,54
+64,54,1
+65,20,55
+66,55,1
+67,1,56
+68,56,20
+69,1,57
+70,57,20

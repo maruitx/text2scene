@@ -136,9 +136,9 @@ upDir 0 0 1
 suppPlane 39.6165 80.7655 59.4712 41.5258 105.027 59.4712 12.0192 107.349 59.4712 10.1099 83.0877 59.4712
 parentId 0
 parentPlaneUVH 0.117146 0.387067 -131.75
-nodeNum 43
+nodeNum 44
 0,object,room,33 34 35 36,
-1,object,table,17 18 20 21 22 23 24 25 26 27 28 29 37 39 41,33 38 40 42
+1,object,table,17 18 20 21 22 23 24 25 26 27 28 29 38 40 42,33 39 41 43
 2,object,plate,30,20
 3,object,food,,21 30
 4,object,pottedplant,,22
@@ -150,10 +150,10 @@ nodeNum 43
 10,object,breadslice,,27 32
 11,object,cream pitcher,,28
 12,object,bottle,19,29
-13,object,chair,38,34 37
-14,object,chair,40,35 39
-15,object,hat,,
-16,object,chair,42,36 41
+13,object,chair,39,34 38
+14,object,chair,37 41,35 40
+15,object,hat,,37
+16,object,chair,43,36 42
 17,attribute,dining,,1
 18,attribute,round,,1
 19,attribute,sauce,,12
@@ -174,13 +174,14 @@ nodeNum 43
 34,pair_relation,vertsupport,13,0
 35,pair_relation,vertsupport,14,0
 36,pair_relation,vertsupport,16,0
-37,pair_relation,near,13,1
-38,pair_relation,near,1,13
-39,pair_relation,near,14,1
-40,pair_relation,near,1,14
-41,pair_relation,near,16,1
-42,pair_relation,near,1,16
-edgeNum 49
+37,pair_relation,horizonsupport,15,14
+38,pair_relation,near,13,1
+39,pair_relation,near,1,13
+40,pair_relation,near,14,1
+41,pair_relation,near,1,14
+42,pair_relation,near,16,1
+43,pair_relation,near,1,16
+edgeNum 51
 0,17,1
 1,18,1
 2,19,12
@@ -218,15 +219,17 @@ edgeNum 49
 34,35,0
 35,16,36
 36,36,0
-37,13,37
-38,37,1
-39,1,38
-40,38,13
-41,14,39
-42,39,1
-43,1,40
-44,40,14
-45,16,41
-46,41,1
-47,1,42
-48,42,16
+37,15,37
+38,37,14
+39,13,38
+40,38,1
+41,1,39
+42,39,13
+43,14,40
+44,40,1
+45,1,41
+46,41,14
+47,16,42
+48,42,1
+49,1,43
+50,43,16

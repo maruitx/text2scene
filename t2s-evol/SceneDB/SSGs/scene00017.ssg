@@ -264,9 +264,9 @@ upDir 0 0 1
 suppPlane 0.76081 33.9089 26.8787 27.9263 33.9089 26.8787 27.9263 65.0775 26.8787 0.76081 65.0775 26.8787
 parentId 0
 parentPlaneUVH 0.0654912 0.144994 -167.75
-nodeNum 68
-0,object,room,33 50,
-1,object,bookcase,34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65,33 66 67
+nodeNum 69
+0,object,room,33 50 51,
+1,object,bookcase,34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66,33 67 68
 2,object,compass,,34
 3,object,shoes,,48
 4,object,shoes,,49
@@ -274,30 +274,30 @@ nodeNum 68
 6,object,pottedplant,,36
 7,object,toyfigure,,37
 8,object,toyfigure,,38
-9,object,toyfigure,,51
-10,object,toyfigure,,52
-11,object,personstanding,,53
+9,object,toyfigure,,52
+10,object,toyfigure,,53
+11,object,personstanding,,54
 12,object,toyfigure,,39
 13,object,elephant,,40
-14,object,child,,54
+14,object,child,,55
 15,object,collection,,41
-16,object,cap,,55
-17,object,car,,56
-18,object,toyfigure,,57
-19,object,teapot,,58
-20,object,toyfigure,,59
-21,object,toyfigure,,60
+16,object,cap,,56
+17,object,car,,57
+18,object,toyfigure,,58
+19,object,teapot,,59
+20,object,toyfigure,,60
+21,object,toyfigure,,61
 22,object,toyfigure,,42
-23,object,need,,61
+23,object,need,,62
 24,object,tank,,43
-25,object,chain,,62
+25,object,chain,,63
 26,object,mug,,44
 27,object,smokestack,,45
 28,object,mug,,46
 29,object,smokestack,,47
-30,object,pack,,63
-31,object,wallart,,
-32,object,pottedplant,66 67,50 64 65
+30,object,pack,,64
+31,object,wallart,,50
+32,object,pottedplant,67 68,51 65 66
 33,pair_relation,vertsupport,1,0
 34,pair_relation,vertsupport,2,1
 35,pair_relation,vertsupport,5,1
@@ -315,25 +315,26 @@ nodeNum 68
 47,pair_relation,vertsupport,29,1
 48,pair_relation,vertsupport,3,1
 49,pair_relation,vertsupport,4,1
-50,pair_relation,vertsupport,32,0
-51,pair_relation,vertsupport,9,1
-52,pair_relation,vertsupport,10,1
-53,pair_relation,vertsupport,11,1
-54,pair_relation,vertsupport,14,1
-55,pair_relation,vertsupport,16,1
-56,pair_relation,vertsupport,17,1
-57,pair_relation,vertsupport,18,1
-58,pair_relation,vertsupport,19,1
-59,pair_relation,vertsupport,20,1
-60,pair_relation,vertsupport,21,1
-61,pair_relation,vertsupport,23,1
-62,pair_relation,vertsupport,25,1
-63,pair_relation,vertsupport,30,1
-64,pair_relation,near,32,1
-65,pair_relation,front,32,1
-66,pair_relation,near,1,32
-67,pair_relation,rightside,1,32
-edgeNum 70
+50,pair_relation,horizonsupport,31,0
+51,pair_relation,vertsupport,32,0
+52,pair_relation,vertsupport,9,1
+53,pair_relation,vertsupport,10,1
+54,pair_relation,vertsupport,11,1
+55,pair_relation,vertsupport,14,1
+56,pair_relation,vertsupport,16,1
+57,pair_relation,vertsupport,17,1
+58,pair_relation,vertsupport,18,1
+59,pair_relation,vertsupport,19,1
+60,pair_relation,vertsupport,20,1
+61,pair_relation,vertsupport,21,1
+62,pair_relation,vertsupport,23,1
+63,pair_relation,vertsupport,25,1
+64,pair_relation,vertsupport,30,1
+65,pair_relation,near,32,1
+66,pair_relation,front,32,1
+67,pair_relation,near,1,32
+68,pair_relation,rightside,1,32
+edgeNum 72
 0,1,33
 1,33,0
 2,2,34
@@ -368,39 +369,41 @@ edgeNum 70
 31,48,1
 32,4,49
 33,49,1
-34,32,50
+34,31,50
 35,50,0
-36,9,51
-37,51,1
-38,10,52
+36,32,51
+37,51,0
+38,9,52
 39,52,1
-40,11,53
+40,10,53
 41,53,1
-42,14,54
+42,11,54
 43,54,1
-44,16,55
+44,14,55
 45,55,1
-46,17,56
+46,16,56
 47,56,1
-48,18,57
+48,17,57
 49,57,1
-50,19,58
+50,18,58
 51,58,1
-52,20,59
+52,19,59
 53,59,1
-54,21,60
+54,20,60
 55,60,1
-56,23,61
+56,21,61
 57,61,1
-58,25,62
+58,23,62
 59,62,1
-60,30,63
+60,25,63
 61,63,1
-62,32,64
+62,30,64
 63,64,1
 64,32,65
 65,65,1
-66,1,66
-67,66,32
+66,32,66
+67,66,1
 68,1,67
 69,67,32
+70,1,68
+71,68,32

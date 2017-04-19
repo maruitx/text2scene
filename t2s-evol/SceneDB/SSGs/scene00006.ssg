@@ -264,19 +264,19 @@ upDir 0 0 1
 suppPlane 41.3185 56.3772 1.2501 110.262 56.3772 1.2501 110.262 107.646 1.2501 41.3185 107.646 1.2501
 parentId 0
 parentPlaneUVH 0.428193 0.489629 -107.75
-nodeNum 65
-0,object,room,33 34 35 36 37,
+nodeNum 73
+0,object,room,33 34 35 36 37 65 66 67 68 69 70 71,
 1,object,toilet,,33
-2,object,toiletpaper,,
+2,object,toiletpaper,,65
 3,object,trashbin,,34
-4,object,vanity,38 39 40 41 42 43 44 45 46 47 48 49,35
+4,object,vanity,38 39 40 41 42 43 44 45 46 47 48 49 72,35
 5,object,cup,,38
 6,object,soapbar,,39
 7,object,soap dispenser,,40
 8,object,comb,,41
 9,object,toothbrush,,42
 10,object,scrub brush,,43
-11,object,toothpaste,,
+11,object,toothpaste,,72
 12,object,shampoo,,44
 13,object,cellphone,,45
 14,object,plate,,46
@@ -284,16 +284,16 @@ nodeNum 65
 16,object,pillbottle,,48
 17,object,pillbottle,,49
 18,object,bathtub,50 51 52 53 54,36
-19,object,showerhead,,
-20,object,1shelves,55 56 57 58,50
+19,object,showerhead,,66
+20,object,1shelves,55 56 57 58,50 67
 21,object,soapbar,59 60,51 55
 22,object,shampoo,,52 56 59
 23,object,shampoo,,53 57
 24,object,shampoo,,54 58 60
-25,object,holder,,
-26,object,towel,,
-27,object,holder,,
-28,object,1shelves,61 62 63,
+25,object,holder,,68
+26,object,towel,,69
+27,object,holder,,70
+28,object,1shelves,61 62 63,71
 29,object,box,,61
 30,object,scissors,64,62
 31,object,toiletpaper,,63 64
@@ -330,7 +330,15 @@ nodeNum 65
 62,pair_relation,vertsupport,30,28
 63,pair_relation,vertsupport,31,28
 64,pair_relation,vertsupport,31,30
-edgeNum 64
+65,pair_relation,horizonsupport,2,0
+66,pair_relation,horizonsupport,19,0
+67,pair_relation,horizonsupport,20,0
+68,pair_relation,horizonsupport,25,0
+69,pair_relation,horizonsupport,26,0
+70,pair_relation,horizonsupport,27,0
+71,pair_relation,horizonsupport,28,0
+72,pair_relation,horizonsupport,11,4
+edgeNum 80
 0,1,33
 1,33,0
 2,3,34
@@ -395,3 +403,19 @@ edgeNum 64
 61,63,28
 62,31,64
 63,64,30
+64,2,65
+65,65,0
+66,19,66
+67,66,0
+68,20,67
+69,67,0
+70,25,68
+71,68,0
+72,26,69
+73,69,0
+74,27,70
+75,70,0
+76,28,71
+77,71,0
+78,11,72
+79,72,4

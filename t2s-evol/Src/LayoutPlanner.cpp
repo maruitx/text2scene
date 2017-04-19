@@ -33,8 +33,8 @@ void LayoutPlanner::initPlaceByAlignRelation(SceneSemGraph *matchedSg, SceneSemG
 			for (int ti=0; ti < relNode.activeNodeList.size(); ti++)
 			{
 				int mActiveNodeId = relNode.activeNodeList[ti];
-				int currRefNodeId = matchedSg->m_toNewSgNodeIdMap[mRefNodeId];
-				int currActiveNodeId = matchedSg->m_toNewSgNodeIdMap[mActiveNodeId];
+				int currRefNodeId = matchedSg->m_nodeAlignMap[mRefNodeId];
+				int currActiveNodeId = matchedSg->m_nodeAlignMap[mActiveNodeId];
 
 				//if (!matchedSg->m_nodes[mRefNodeId].isAligned || !currSg->m_nodes[currRefNodeId].isAligned) continue;
 
@@ -89,8 +89,8 @@ void LayoutPlanner::initPlaceByAlignRelation(SceneSemGraph *matchedSg, SceneSemG
 				currActiveMd.updateWithTransform(finalTransMat);
 				currActiveMd.theta = GetRotAngleR(currRefMd.frontDir, currActiveMd.frontDir, vec3(0, 0, 1));
 
-				// TODO: update initial placement of children
-				initUpdatePlacementOfChildren(currSg, mActiveNodeId, finalTransMat);
+				int currActiveModelId = currSg->m_graphNodeToModelListIdMap[currActiveNodeId];
+				initAlignmentOfChildren(currSg, currActiveModelId, finalTransMat);
 
 				relNode.isAligned = true;
 			}	
@@ -183,6 +183,7 @@ void LayoutPlanner::computeLayout(TSScene *currScene)
 	if (currScene->m_toPlaceModelIds.empty())
 	{
 		currScene->m_toPlaceModelIds = makeToPlaceModelIds(currScene);
+		computeConstraintsForModels(currScene, currScene->m_toPlaceModelIds);
 	}
 
 	if (currScene->m_toPlaceModelIds.size() == 1)
@@ -201,14 +202,6 @@ void LayoutPlanner::computeSingleObjLayout(TSScene *currScene, int metaModelId)
 	Model *currModel = currScene->getModel(md.name);
 
 	if (currModel == NULL || !currModel->m_loadingDone) return;
-
-	if (!md.isConstranitsExtracted)
-	{
-		m_relModelManager->collectConstraintsForModel(currScene, metaModelId);
-		md.isConstranitsExtracted = true;
-
-		md.layoutPassScore = m_relModelManager->computeLayoutPassScore(currScene, metaModelId);		
-	}
 
 	CollisionManager *currCM = currScene->m_collisionManager;
 
@@ -284,14 +277,6 @@ void LayoutPlanner::computeGroupObjLayout(TSScene *currScene, const std::vector<
 		if (md.isAlreadyPlaced) continue;
 
 		if (currModel == NULL || !currModel->m_loadingDone) return;
-
-		if (!md.isConstranitsExtracted)
-		{
-			m_relModelManager->collectConstraintsForModel(currScene, metaModelId);
-			md.isConstranitsExtracted = true;
-
-			md.layoutPassScore = m_relModelManager->computeLayoutPassScore(currScene, metaModelId);
-		}
 
 		if (md.trialNum > m_trialNumLimit)
 		{
@@ -410,14 +395,6 @@ void LayoutPlanner::computeGroupObjLayoutSeq(TSScene *currScene, const std::vect
 		}
 
 		if (currModel == NULL || !currModel->m_loadingDone) return;
-
-		if (!md.isConstranitsExtracted)
-		{
-			m_relModelManager->collectConstraintsForModel(currScene, metaModelId);
-			md.isConstranitsExtracted = true;
-
-			md.layoutPassScore = m_relModelManager->computeLayoutPassScore(currScene, metaModelId);
-		}
 
 		restToPlaceModelIds.push_back(metaModelId);
 	}
@@ -590,6 +567,18 @@ std::vector<int> LayoutPlanner::makeToPlaceModelIds(TSScene *currScene)
 	return orderedIds;
 }
 
+void LayoutPlanner::computeConstraintsForModels(TSScene *currScene, const std::vector<int> &toPlaceModelIds)
+{
+	for (int i = 0; i < toPlaceModelIds.size(); i++)
+	{
+		int metaModelId = toPlaceModelIds[i];
+		MetaModel &md = currScene->getMetaModel(metaModelId);
+
+		m_relModelManager->collectConstraintsForModel(currScene, metaModelId);
+		md.layoutPassScore = m_relModelManager->computeLayoutPassScore(currScene, metaModelId);
+	}
+}
+
 Eigen::VectorXd LayoutPlanner::computeNewPlacement(TSScene *currScene, int metaModelID, const std::vector<std::vector<vec3>> &collisonPositions, int &anchorModelId)
 {
 	m_relModelManager->updateCollisionPostions(collisonPositions);
@@ -627,7 +616,7 @@ void LayoutPlanner::updateWithNewPlacement(TSScene *currScene, int anchorModelId
 	currScene->m_ssg->m_metaScene.m_metaModellList[currModelID] = currMd;
 
 	// update all supported children
-	//updatePlacementOfChildren(currScene, currModelID, transMat);
+	updatePlacementOfChildren(currScene, currModelID, transMat);
 }
 
 void LayoutPlanner::updatePlacementOfChildren(TSScene *currScene, int currModelId, mat4 transMat)
@@ -645,10 +634,38 @@ void LayoutPlanner::updatePlacementOfChildren(TSScene *currScene, int currModelI
 			currScene->m_ssg->m_metaScene.m_metaModellList[childModelId] = childMd;
 		}
 	}
+
+	// update active list in a group
+	SceneSemGraph *currSSG = currScene->m_ssg;
+	int anchorNodeId = currSSG->getNodeIdWithModelId(currModelId);
+	SemNode &anchorNode = currSSG->m_nodes[anchorNodeId];
+	if (!anchorNode.inEdgeNodeList.empty())
+	{
+		for (int ri = 0; ri < anchorNode.inEdgeNodeList.size(); ri++)
+		{
+			int relNodeId = anchorNode.inEdgeNodeList[ri];
+			SemNode &relNode = currSSG->m_nodes[relNodeId];
+
+			if (relNode.nodeType.contains("group"))
+			{
+				for (int i = 0; i < relNode.activeNodeList.size(); i++)
+				{
+					int actNodeId = relNode.activeNodeList[i];
+					MetaModel &actMd = currSSG->getModelWithNodeId(actNodeId);
+					actMd.updateWithTransform(transMat);
+
+					int actModelId = currSSG->m_graphNodeToModelListIdMap[actNodeId];
+					MetaModel &actMdInScene = currScene->getMetaModel(actModelId);
+					actMdInScene = actMd;
+				}
+			}
+		}
+	}
 }
 
-void LayoutPlanner::initUpdatePlacementOfChildren(SceneSemGraph *currSSG, int currModelId, mat4 transMat)
+void LayoutPlanner::initAlignmentOfChildren(SceneSemGraph *currSSG, int currModelId, mat4 transMat)
 {
+	// update support children
 	std::vector<int> childrenList = currSSG->m_childListOfModel[currModelId];
 	if (!childrenList.empty())
 	{
@@ -657,6 +674,28 @@ void LayoutPlanner::initUpdatePlacementOfChildren(SceneSemGraph *currSSG, int cu
 			int childId = childrenList[i];
 			MetaModel &childMd = currSSG->m_metaScene.m_metaModellList[childId];			
 			childMd.updateWithTransform(transMat);
+		}
+	}
+
+	// update active list in a group 
+	int anchorNodeId = currSSG->getNodeIdWithModelId(currModelId);
+	SemNode &anchorNode = currSSG->m_nodes[anchorNodeId];
+	if (!anchorNode.inEdgeNodeList.empty())
+	{
+		for (int ri=0; ri < anchorNode.inEdgeNodeList.size(); ri++)
+		{
+			int relNodeId = anchorNode.inEdgeNodeList[ri];
+			SemNode &relNode = currSSG->m_nodes[relNodeId];
+
+			if (relNode.nodeType.contains("group"))
+			{
+				for (int i = 0; i < relNode.activeNodeList.size(); i++)
+				{
+					int actNodeId = relNode.activeNodeList[i];
+					MetaModel &actMd = currSSG->getModelWithNodeId(actNodeId);
+					actMd.updateWithTransform(transMat);
+				}
+			}
 		}
 	}
 }
