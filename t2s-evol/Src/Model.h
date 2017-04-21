@@ -80,6 +80,8 @@ public:
 	vec3 getBBRange(const mat4 &transMat);  // OBB range after transformation
 	int getAxisAlongDir(const vec3 &dir);
 
+	std::vector<double> computeBBFeature(const mat4 &transMat);
+
     //vec3 m_collisionTrans;
 	vec3 m_sceneCenter;
     BoundingBox m_bb; // non-transformed model BB

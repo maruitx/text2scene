@@ -242,7 +242,7 @@ static void EraseValueInVectorInt(std::vector<int> &v, int valueToErase)
 		v.erase(it);
 }
 
-static bool isMapContainsValue(std::map<int, int> idMap, int value)
+static bool isMapContainsValue(const std::map<int, int> &idMap, int value)
 {
 	bool found = false;
 	auto it = idMap.begin(); // internalMap is std::map
@@ -255,6 +255,20 @@ static bool isMapContainsValue(std::map<int, int> idMap, int value)
 	}
 	return found;
 }
+
+static int getKeyForValueInMap(const std::map<int, int> &idMap, int value)
+{
+	auto it = idMap.begin(); // internalMap is std::map
+	while (it != idMap.end())
+	{
+		if (it->second == value)
+			return it->first;   // return the first found key
+		++it;
+	}
+
+	return -1;
+}
+
 
 static QString toQString(std::string s)
 {
@@ -358,7 +372,6 @@ inline float3 float3Min(float3 a, float3 b) {
 inline float3 float3Max(float3 a, float3 b) {
 	return make_float3((std::max)(a.x, b.x), (std::max)(a.y, b.y), (std::max)(a.z, b.z));
 }
-
 
 //////////////
 inline float dot(float3 a, float3 b) {

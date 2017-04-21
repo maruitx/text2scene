@@ -180,6 +180,21 @@ void RelationModelManager::loadPairModelSim()
 		{
 			relModel->m_simModelIds[k] = intList[k];
 		}
+
+		relModel->m_maxObjFeatures.resize(2);
+		relModel->m_avgObjFeatures.resize(2);
+
+		for (int m=0; m < 2; m++)
+		{
+			currLine = ifs.readLine();
+			relModel->m_maxObjFeatures[m] = StringToFloatList(currLine.toStdString(), "");
+		}
+
+		for (int m = 0; m < 2; m++)
+		{
+			currLine = ifs.readLine();
+			relModel->m_avgObjFeatures[m] = StringToFloatList(currLine.toStdString(), "");
+		}	
 	}
 
 	inFile.close();
@@ -355,7 +370,8 @@ double RelationModelManager::computeRelationScoreForGroup(TSScene *currScene, st
 double RelationModelManager::computeScoreForConstraint(TSScene *currScene, const RelationConstraint &relConstraint, const Eigen::VectorXd &currPlacement)
 {
 	PairwiseRelationModel *pairModel = relConstraint.relModel;
-	if (pairModel->m_numGauss == 0)
+
+	if (pairModel == NULL || pairModel->m_numGauss == 0)
 	{
 		return 0;
 	}
@@ -567,7 +583,6 @@ Eigen::VectorXd RelationModelManager::sampleNewPosFromConstraints(TSScene *currS
 	return relPos;
 }
 
-
 PairwiseRelationModel*  RelationModelManager::findAvailablePairModels(TSScene *currScene, const RelationConstraint &relConstraint, bool &isPairModelAvailable)
 {
 	if (relConstraint.relModel->hasCandiInstances())
@@ -577,6 +592,21 @@ PairwiseRelationModel*  RelationModelManager::findAvailablePairModels(TSScene *c
 	}
 	else
 	{
+		std::vector<int> simModelIds = relConstraint.relModel->m_simModelIds;
+
+		for (int i=0; i<simModelIds.size(); i++)
+		{
+			int pariModelId = simModelIds[i];
+			QString pairModelKey = m_pairwiseModelKeys[pariModelId];
+
+			PairwiseRelationModel *currRelModel = m_pairwiseRelModels[pairModelKey];
+			if (currRelModel->hasCandiInstances())
+			{
+				isPairModelAvailable = true;
+				return currRelModel;
+			}
+		}
+
 		isPairModelAvailable = false;
 		return NULL;
 	}
@@ -686,11 +716,15 @@ void RelationModelManager::collectConstraintsForModel(TSScene *currScene, int me
 			SemNode &anchorObjNode = currSSG->m_nodes[anchorObjNodeId];
 
 			QString relationName = relationNode.nodeName;
-			QString anchorObjName = anchorObjNode.nodeName;
-			QString actObjName = currNode.nodeName;
+			MetaModel &anchorMd = currScene->getMetaModel(currSSG->m_graphNodeToModelListIdMap[anchorObjNodeId]);
+			MetaModel &actMd = currScene->getMetaModel(currSSG->m_graphNodeToModelListIdMap[currNodeId]);
+
+			Model *refModel = currScene->getModel(anchorMd.name);
+			Model *actModel = currScene->getModel(actMd.name);
+			if (!refModel->m_loadingDone || !actModel->m_loadingDone) return;
 
 			// find explicit constraints specified in the SSG
-			PairwiseRelationModel *pairwiseModel = retrievePairwiseModel(anchorObjName, actObjName, relationName);
+			PairwiseRelationModel *pairwiseModel = retrievePairwiseModel(currScene, anchorMd, actMd, relationName);
 			if (pairwiseModel!=NULL)
 			{
 				int anchorModelId = currSSG->m_graphNodeToModelListIdMap[anchorObjNodeId];
@@ -719,7 +753,7 @@ void RelationModelManager::collectConstraintsForModel(TSScene *currScene, int me
 
 						if (!sibModel.isAlreadyPlaced) continue;
 					
-						QString imRelationKey = sibActNode.nodeName + "_" + actObjName + "_" + "sibling" + "_general";
+						QString imRelationKey = sibActNode.nodeName + "_" + currNode.nodeName + "_" + "sibling" + "_general";
 						if (m_relativeModels.count(imRelationKey))
 						{
 							currScene->m_implicitConstraints[metaModelId].push_back(RelationConstraint(m_relativeModels[imRelationKey], "relative", sibModelId));
@@ -727,12 +761,17 @@ void RelationModelManager::collectConstraintsForModel(TSScene *currScene, int me
 					}
 				}
 			}
+
+			actMd.isConstraintExtracted = true;
 		}
 	}	
 }
 
-PairwiseRelationModel* RelationModelManager::retrievePairwiseModel(const QString &anchorObjName, const QString &actObjName, const QString &relationName)
+PairwiseRelationModel* RelationModelManager::retrievePairwiseModel(TSScene *currScene, const MetaModel &anchorMd, const MetaModel &actMd, const QString &relationName)
 {
+	QString anchorObjName = toQString(anchorMd.catName);
+	QString actObjName = toQString(actMd.catName);
+
 	for (auto iter = m_pairwiseRelModels.begin(); iter != m_pairwiseRelModels.end(); iter++)
 	{
 		QString relationKey = iter->first;
@@ -741,12 +780,74 @@ PairwiseRelationModel* RelationModelManager::retrievePairwiseModel(const QString
 		{
 			if (relationKey.contains(relationName))
 			{
-				return m_pairwiseRelModels[relationKey];
+				PairwiseRelationModel *pairModel = m_pairwiseRelModels[relationKey];
+				if (pairModel->hasCandiInstances())
+				{
+					return pairModel;
+				}				
 			}
 		}
 	}
 
-	return NULL;
+	// retrieve similar models
+	Model *anchorModel = currScene->getModel(anchorMd.name);
+	Model *actModel = currScene->getModel(actMd.name);
+
+	std::vector<std::vector<double>> currBBFeatures(2);
+	currBBFeatures[0]= anchorModel->computeBBFeature(anchorMd.transformation);
+	currBBFeatures[1] = actModel->computeBBFeature(actMd.transformation);
+
+	int featureDim = currBBFeatures[0].size();
+
+	std::vector<std::pair<double, PairwiseRelationModel*>> simPairModels;
+	for (auto iter = m_pairwiseRelModels.begin(); iter != m_pairwiseRelModels.end(); iter++)
+	{
+		QString relationKey = iter->first;
+		if (relationKey.contains(relationName))
+		{
+			PairwiseRelationModel *dbPairModel = iter->second;
+
+			std::vector<double> simVal(2, 0);
+			std::vector<double> geoSim(2, 0);
+
+			std::vector<double> catSim(2, 0);
+			if (dbPairModel->m_anchorObjName == anchorObjName) catSim[0] = 1;
+			if (dbPairModel->m_actObjName == actObjName) catSim[1] = 1;
+			double catWeight = 0.5;
+
+			for (int m=0; m<2; m++)
+			{
+				for (int d=0; d<featureDim; d++)
+				{
+					geoSim[m] += exp(-pow((dbPairModel->m_avgObjFeatures[m][d] - currBBFeatures[m][d]) / (dbPairModel->m_maxObjFeatures[m][d] + 1e-3), 2));
+				}
+				geoSim[m] /= featureDim;
+				simVal[m] = catWeight*catSim[m] + (1 - catWeight)*geoSim[m];
+			}
+
+			double score = simVal[0] * simVal[1];
+			simPairModels.push_back(std::make_pair(score, dbPairModel));
+		}
+	}
+
+	std::sort(simPairModels.begin(), simPairModels.end());  // ascending order
+	std::reverse(simPairModels.begin(), simPairModels.end()); // descending order
+
+	if (!simPairModels.empty())
+	{
+		for (int i=0; i < simPairModels.size(); i++)
+		{
+			PairwiseRelationModel *pairModel = simPairModels[i].second;
+			if (pairModel->hasCandiInstances())
+			{
+				return pairModel;
+			}
+		}
+	}
+	else
+	{
+		return NULL;
+	}
 }
 
 PairwiseRelationModel* RelationModelManager::retrievePairModelFromGroup(const QString &anchorObjName, const QString &actObjName, const QString &groupRelationName, const QString &conditionName)

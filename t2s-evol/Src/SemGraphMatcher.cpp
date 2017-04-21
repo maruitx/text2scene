@@ -4,7 +4,6 @@
 #include "SceneSemGraph.h"
 #include "TextSemGraph.h"
 
-const bool UseContext = false;
 const bool AddSynthesizeNode = true;
 
 
@@ -40,7 +39,7 @@ vector<SceneSemGraph*> SemGraphMatcher::alignWithDatabaseSSGs(int targetMatchNum
 		double matchingScore = 0;
 		SceneSemGraph *subSSG = alignSSGWithDBSSG(m_querySSG, currDBSSG, matchingScore);
 
-		if (matchingScore > 0 && !ssgContainsBlackListModel(subSSG))
+		if (!ssgContainsBlackListModel(subSSG))
 		{
 			scoredDBSubSSGs.push_back(make_pair(matchingScore, subSSG));
 			if (matchingScore == exactMatchScore)
@@ -140,8 +139,6 @@ SceneSemGraph* SemGraphMatcher::alignSSGWithDBSSG(SemanticGraph *querySSG, Scene
 
 	querySSG->alignObjectNodesWithGraph(dbSSG, matchingScore);
 
-	if (matchingScore == 0) return NULL;
-
 	// align relationship nodes
 	querySSG->alignRelationNodesWithGraph(dbSSG, matchingScore);
 
@@ -159,11 +156,16 @@ SceneSemGraph* SemGraphMatcher::alignSSGWithDBSSG(SemanticGraph *querySSG, Scene
 	}
 
 	// add nodes by exact match and scene context
-	matchedSubSSG = dbSSG->getSubGraph(matchedDBSsgNodeList, m_relModelManager, UseContext);
+	matchedSubSSG = dbSSG->getSubGraph(matchedDBSsgNodeList, m_relModelManager);
 
 	if (AddSynthesizeNode)
 	{
 		addSynthNodeToSubSSG(querySSG, matchedSubSSG, dbSSG->m_dbNodeToSubNodeMap);
+	}
+
+	if (params::inst()->isUseContext)
+	{
+		addContextNodesToSubSSG(matchedSubSSG, dbSSG);
 	}
 
 	return matchedSubSSG;
@@ -356,6 +358,63 @@ void SemGraphMatcher::addSynthNodeToSubSSG(SemanticGraph *querySSG, SceneSemGrap
 	matchedSubSSG->parseNodeNeighbors();
 }
 
+// enrich subgraph with context
+void SemGraphMatcher::addContextNodesToSubSSG(SceneSemGraph *matchedSubSSG, SceneSemGraph *dbSSG)
+{
+	//// add support parent
+	int currNodeNum = matchedSubSSG->m_nodes.size();
+	for (int i = 0; i < currNodeNum; i++)
+	{
+		SemNode &mActNode = matchedSubSSG->m_nodes[i];
+
+		if (mActNode.nodeType == "object" && mActNode.nodeName == "tv")
+		{
+			int dbActNodeId = getKeyForValueInMap(dbSSG->m_dbNodeToSubNodeMap, i);
+			int dbActNodeParentNodeId = dbSSG->findParentNodeIdForNode(dbActNodeId);
+			int mActNodeParentNodeId = matchedSubSSG->findParentNodeIdForNode(i);
+
+			if (dbActNodeParentNodeId != -1 && mActNodeParentNodeId == -1)
+			{
+				SemNode &dbActNode = dbSSG->m_nodes[dbActNodeId];
+
+				for (int j = 0; j < dbActNode.outEdgeNodeList.size(); j++)
+				{
+					int dbRelNodeId = dbActNode.outEdgeNodeList[j];
+					SemNode &dbRelNode = dbSSG->m_nodes[dbRelNodeId];
+					if (dbRelNode.nodeName.contains("support"))
+					{
+						// add support node
+						matchedSubSSG->addNode(dbRelNode);
+						int currRelNodeId = matchedSubSSG->m_nodeNum - 1;
+						dbSSG->m_dbNodeToSubNodeMap[dbRelNodeId] = currRelNodeId;
+						matchedSubSSG->addEdge(i, currRelNodeId); // e.g., (tv, support)
+						matchedSubSSG->m_nodes[currRelNodeId].isAligned = true;
+						matchedSubSSG->m_nodes[currRelNodeId].isSynthesized = false;
+
+						// add parent node
+						matchedSubSSG->addNode(dbSSG->m_nodes[dbActNodeParentNodeId]);
+						int currAnchorNodeId = matchedSubSSG->m_nodeNum - 1;
+						matchedSubSSG->m_nodes[currAnchorNodeId].inferedType = SemNode::InferBySupport;
+						matchedSubSSG->m_nodes[currAnchorNodeId].isInferred = true;
+						matchedSubSSG->m_nodes[currAnchorNodeId].inferRefNodeId = i;
+						dbSSG->m_dbNodeToSubNodeMap[dbActNodeParentNodeId] = currAnchorNodeId;
+						matchedSubSSG->addEdge(currRelNodeId, currAnchorNodeId); // e.g. (support, tv_stand)
+
+						// add meta model
+						MetaModel& newMd = dbSSG->getModelWithNodeId(dbActNodeParentNodeId);
+						matchedSubSSG->m_metaScene.m_metaModellList.push_back(newMd);
+						matchedSubSSG->m_graphNodeToModelListIdMap[currAnchorNodeId] = matchedSubSSG->m_metaScene.m_metaModellList.size() - 1;
+					}
+				}
+			}
+		}
+
+		// add high co-occur objects with probability
+	}
+
+	matchedSubSSG->parseNodeNeighbors();
+}
+
 MetaModel& SemGraphMatcher::retrieveForModelInstance(const QString catName)
 {
 	std::vector<std::pair<int, int>> candiMdIds;
@@ -380,10 +439,18 @@ MetaModel& SemGraphMatcher::retrieveForModelInstance(const QString catName)
 		}
 	}
 
-	int randId = GenRandomInt(0, candiMdIds.size());
-	std::pair<int, int> selectPair = candiMdIds[randId];
-	SceneSemGraph *currDBSSG = m_sceneSemGraphManager->getGraph(selectPair.first);
-	return currDBSSG->m_metaScene.m_metaModellList[selectPair.second];
+	if (!candiMdIds.empty())
+	{
+		int randId = GenRandomInt(0, candiMdIds.size());
+		std::pair<int, int> selectPair = candiMdIds[randId];
+		SceneSemGraph *currDBSSG = m_sceneSemGraphManager->getGraph(selectPair.first);
+		return currDBSSG->m_metaScene.m_metaModellList[selectPair.second];
+	}
+	else
+	{
+		// Failure case: return a specific pencil holder for debug
+		return m_sceneSemGraphManager->getGraph(5)->m_metaScene.m_metaModellList[2];
+	}
 }
 
 

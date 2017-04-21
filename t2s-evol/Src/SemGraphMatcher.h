@@ -20,6 +20,7 @@ public:
 
 	SceneSemGraph* alignSSGWithDBSSG(SemanticGraph *querySSG, SceneSemGraph *dbSSG, double &matchingScore);
 	void addSynthNodeToSubSSG(SemanticGraph *querySSG, SceneSemGraph *matchedSubSSG, std::map<int, int> &dbNodeToSubNodeMap);  // add unmatched nodes as synth nodes to Sub-SSG
+	void addContextNodesToSubSSG(SceneSemGraph *matchedSubSSG, SceneSemGraph *dbSSG);
 
 	MetaModel& retrieveForModelInstance(const QString catName);
 

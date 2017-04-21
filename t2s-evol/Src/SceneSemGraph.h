@@ -22,9 +22,10 @@ public:
 	void loadGraph(const QString &filename);
 	TSScene* covertToTSScene(unordered_map<string, Model*> &models);
 
-	SceneSemGraph* getSubGraph(const vector<int> &nodeList, RelationModelManager *relManager, bool useContext = false);
+	SceneSemGraph* getSubGraph(const vector<int> &nodeList, RelationModelManager *relManager);
 
 	void mergeWithMatchedSSG(SceneSemGraph *matchedSg); // update current USserSSG with retrieved subSSG
+	void insertUnAlignedObjsFromGraph(SceneSemGraph *matchedSg);
 
 	bool findRefNodeForRelationNode(const SemNode &sgNode, int &refNodeId, int &activeNodeId);
 	int findParentNodeIdForModel(int modelId);

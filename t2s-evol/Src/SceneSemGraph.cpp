@@ -345,7 +345,7 @@ std::vector<int> SceneSemGraph::findExistingInstanceIds(const QString &catName)
 	return ids;
 }
 
-SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, RelationModelManager *relManager, bool useContext /* = false*/)
+SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, RelationModelManager *relManager)
 {
 	SceneSemGraph *subGraph = new SceneSemGraph();
 
@@ -421,84 +421,6 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, RelationM
 		}
 	}
 
-	// enrich subgraph with context
-	if (useContext)
-	{
-		// add support parent
-		for (int i = 0; i < nodeList.size(); i++)
-		{
-			int oldNodeId = nodeList[i];
-
-			SemNode &oldNode = m_nodes[oldNodeId];
-
-			if (oldNode.nodeType == "object")
-			{
-				std::vector<int> outNodeList = oldNode.outEdgeNodeList; // find its support node
-
-				// find support node
-				for (int j = 0; j < outNodeList.size(); j++)
-				{
-					int outNodeId = outNodeList[j];  // id of support node
-
-					// if there is support node missing
-					if (!m_dbNodeToSubNodeMap.count(outNodeId) && m_nodes[outNodeId].nodeName.contains("support"))
-					{
-						std::vector<int> suppParentIdList = m_nodes[outNodeId].outEdgeNodeList; // should only have one support parent
-
-						// find whether support parent is room
-						bool parentIsRoom = false;
-						for (int k = 0; k < suppParentIdList.size(); k++)
-						{
-							int suppParentNodeId = suppParentIdList[k];
-							if (m_nodes[suppParentNodeId].nodeName.contains("room"))
-							{
-								parentIsRoom = true;
-								break;
-							}
-						}
-
-						if (parentIsRoom) break;
-
-						// add support node; TEMP, only add the support node for tv now
-						if (oldNode.nodeName == "tv" || oldNode.nodeName == "printer" || oldNode.nodeName == "books")
-						{
-							subGraph->addNode(m_nodes[outNodeId]);
-							int currNodeId = subGraph->m_nodeNum - 1;
-							m_dbNodeToSubNodeMap[outNodeId] = currNodeId;
-							//subGraph->addEdge(currNodeId, oldToNewNodeIdMap[oldNodeId]);
-							subGraph->addEdge(m_dbNodeToSubNodeMap[oldNodeId], currNodeId); // e.g., (tv, support)
-
-							enrichedNodeList.push_back(outNodeId);
-
-							// add support parent
-							for (int k = 0; k < suppParentIdList.size(); k++)
-							{
-								int suppParentNodeId = suppParentIdList[k];
-
-								if (!m_dbNodeToSubNodeMap.count(suppParentNodeId) && m_nodes[suppParentNodeId].nodeType == "object")
-								{
-									subGraph->addNode(m_nodes[suppParentNodeId]);
-									int currNodeId = subGraph->m_nodeNum - 1;
-									subGraph->m_nodes[currNodeId].inferedType = SemNode::InferBySupport;
-									subGraph->m_nodes[currNodeId].isInferred = true;
-									subGraph->m_nodes[currNodeId].inferRefNodeId = m_dbNodeToSubNodeMap[oldNodeId];
-
-									m_dbNodeToSubNodeMap[suppParentNodeId] = currNodeId;
-									enrichedNodeList.push_back(suppParentNodeId);
-
-									//subGraph->addEdge(currNodeId, oldToNewNodeIdMap[outNodeId]);
-									subGraph->addEdge(m_dbNodeToSubNodeMap[outNodeId], currNodeId); // e.g. (support, tv_stand)
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-
-		// add high co-occur objects with probability
-	}
-
 	// set meta scene
 	int modelInSceneId = 0;
 	for (int i = 0; i < enrichedNodeList.size(); i++)
@@ -549,17 +471,17 @@ int SceneSemGraph::findParentNodeIdForNode(int currNodeId)
 	}
 	else
 	{
-		int relationNodeId = m_nodes[currNodeId].outEdgeNodeList[0]; // monitor -> on
-		SemNode &relNode = m_nodes[relationNodeId];
-		if (!m_nodes[relationNodeId].outEdgeNodeList.empty() && relNode.nodeName.contains("support"))
+		for (int i=0; i < m_nodes[currNodeId].outEdgeNodeList.size(); i++)
 		{
-			int refNodeId = m_nodes[relationNodeId].outEdgeNodeList[0]; // on -> desk
-			return refNodeId;			
+			int relationNodeId = m_nodes[currNodeId].outEdgeNodeList[i]; // monitor -> on
+			SemNode &relNode = m_nodes[relationNodeId];
+			if (!m_nodes[relationNodeId].outEdgeNodeList.empty() && relNode.nodeName.contains("support"))
+			{
+				int refNodeId = m_nodes[relationNodeId].outEdgeNodeList[0]; // on -> desk
+				return refNodeId;
+			}
 		}
-		else
-		{
-			return -1;
-		}
+		return -1;	
 	}
 }
 
@@ -590,8 +512,11 @@ void SceneSemGraph::mergeWithMatchedSSG(SceneSemGraph *matchedSg)
 {
 	// insert nodes and edges
 	this->mergeWithGraph(matchedSg);
+	insertUnAlignedObjsFromGraph(matchedSg);
+}
 
-
+void SceneSemGraph::insertUnAlignedObjsFromGraph(SceneSemGraph *matchedSg)
+{
 	// insert unaligned objects to meta model list
 	for (int mi = 0; mi < matchedSg->m_nodeNum; mi++)
 	{

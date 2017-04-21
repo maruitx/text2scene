@@ -198,6 +198,12 @@ void GLWidget::loadParams()
 				p->previewNum = StringToIntegerList(paramLines[i], "PreviewNum=")[0];
 				continue;
 			}
+
+			if (paramLines[i].find("UseContext=") != string::npos)
+			{
+				p->isUseContext = StringToIntegerList(paramLines[i], "UseContext=")[0];
+				continue;
+			}
 		}
 	}
 }

@@ -102,6 +102,17 @@ void LayoutPlanner::initPlaceUsingSynthesizedRelations(TSScene *currScene)
 {
 	SceneSemGraph *currSSG = currScene->m_ssg;
 
+	// all unaligned node will be treated as synthesized
+	for (int mi = 0; mi < currSSG->m_nodeNum; mi++)
+	{
+		SemNode& relNode = currSSG->m_nodes[mi];
+		if (!relNode.isAligned && relNode.nodeType == "pair_relation" && !relNode.isSynthesized)
+		{
+			relNode.isAligned = true;
+			relNode.isSynthesized = true;
+		}
+	}
+
 	for (int mi = 0; mi <currSSG->m_nodeNum; mi++)
 	{
 		SemNode& relNode = currSSG->m_nodes[mi];
@@ -122,10 +133,11 @@ void LayoutPlanner::initPlaceUsingSynthesizedRelations(TSScene *currScene)
 				MetaModel &actMd = currScene->getMetaModel(activeModelId);
 
 				Model *refModel = currScene->getModel(refMd.name);
-				if (!refModel->m_loadingDone) continue;
+				Model *actModel = currScene->getModel(actMd.name);
+				if (!refModel->m_loadingDone || !actModel->m_loadingDone) continue;
 
 				// find relation model and sample from the model
-				PairwiseRelationModel *pairModel = m_relModelManager->retrievePairwiseModel(toQString(refMd.catName), toQString(actMd.catName), relNode.nodeName);
+				PairwiseRelationModel *pairModel = m_relModelManager->retrievePairwiseModel(currScene, refMd, actMd, relNode.nodeName);
 
 				mat4 transMat;
 				if (pairModel != NULL)
@@ -137,7 +149,7 @@ void LayoutPlanner::initPlaceUsingSynthesizedRelations(TSScene *currScene)
 				}
 				else
 				{
-					// TODO: use similar pairwise model
+					// Failure case: don't know the relationship
 
 					SuppPlane &suppPlane = refMd.suppPlane;
 					vec3 uvh = actMd.parentPlaneUVH;
@@ -147,11 +159,19 @@ void LayoutPlanner::initPlaceUsingSynthesizedRelations(TSScene *currScene)
 					translateVec = newPos - actMd.position;
 					transMat = transMat.translate(translateVec);					
 				}
+				double previousActZ = actMd.position.z;
 				actMd.updateWithTransform(transMat);
 				// update meta model in SSG
 				currScene->m_ssg->m_metaScene.m_metaModellList[activeModelId] = actMd;
 
 				updatePlacementOfChildren(currScene, activeModelId, transMat);
+
+				if (!relNode.nodeName.contains("support"))
+				{
+					// only transform parent in xy plane
+					mat4 zMat = mat4::translate(vec3(0,0,previousActZ - actMd.position.z));
+					updatePlacementOfParent(currScene, activeModelId, zMat*transMat);
+				}
 			}
 
 			relNode.isAligned = true;
@@ -182,9 +202,17 @@ void LayoutPlanner::computeLayout(TSScene *currScene)
 
 	if (currScene->m_toPlaceModelIds.empty())
 	{
-		currScene->m_toPlaceModelIds = makeToPlaceModelIds(currScene);
-		computeConstraintsForModels(currScene, currScene->m_toPlaceModelIds);
+		currScene->m_toPlaceModelIds = makeToPlaceModelIds(currScene);		
 	}
+
+	if (currScene->m_allConstraintsExtracted)
+	{
+		computeLayoutPassScoreForModels(currScene, currScene->m_toPlaceModelIds);
+	}
+	else
+	{
+		computeConstraintsForModels(currScene, currScene->m_toPlaceModelIds);
+	}		
 
 	if (currScene->m_toPlaceModelIds.size() == 1)
 	{
@@ -574,7 +602,35 @@ void LayoutPlanner::computeConstraintsForModels(TSScene *currScene, const std::v
 		int metaModelId = toPlaceModelIds[i];
 		MetaModel &md = currScene->getMetaModel(metaModelId);
 
-		m_relModelManager->collectConstraintsForModel(currScene, metaModelId);
+		if (!md.isConstraintExtracted)
+		{
+			m_relModelManager->collectConstraintsForModel(currScene, metaModelId);
+		}		
+	}
+
+	int count = 0;
+	for (int i=0; i < toPlaceModelIds.size(); i++)
+	{
+		int metaModelId = toPlaceModelIds[i];
+		MetaModel &md = currScene->getMetaModel(metaModelId);
+		if (md.isConstraintExtracted)
+		{
+			count++;
+		}
+	}
+
+	if (count == toPlaceModelIds.size())
+	{
+		currScene->m_allConstraintsExtracted = true;
+	}
+}
+
+void LayoutPlanner::computeLayoutPassScoreForModels(TSScene *currScene, const std::vector<int> &toPlaceModelIds)
+{
+	for (int i = 0; i < toPlaceModelIds.size(); i++)
+	{
+		int metaModelId = toPlaceModelIds[i];
+		MetaModel &md = currScene->getMetaModel(metaModelId);
 		md.layoutPassScore = m_relModelManager->computeLayoutPassScore(currScene, metaModelId);
 	}
 }
@@ -698,6 +754,22 @@ void LayoutPlanner::initAlignmentOfChildren(SceneSemGraph *currSSG, int currMode
 			}
 		}
 	}
+}
+
+void LayoutPlanner::updatePlacementOfParent(TSScene *currScene, int currModelID, mat4 transMat)
+{
+	int parentModelId = currScene->m_ssg->m_parentOfModel[currModelID];
+
+	if (parentModelId!=-1)
+	{
+		MetaModel &parentMd = currScene->getMetaModel(parentModelId);
+		parentMd.updateWithTransform(transMat);
+
+		// update MetaModel in SSG
+		currScene->m_ssg->m_metaScene.m_metaModellList[parentModelId] = parentMd;
+	}
+
+	// TODO: update the rest children on current parent model
 }
 
 void LayoutPlanner::adjustPlacementForSpecificModel(TSScene *currScene, const MetaModel &currMd, vec3 &newPos)

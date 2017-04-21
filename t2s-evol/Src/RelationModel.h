@@ -60,6 +60,9 @@ public:
 
 	int m_modelId;
 	std::vector<int> m_simModelIds; // list of similar relation model ids, sorted from high sim to low
+
+	std::vector<std::vector<float>> m_avgObjFeatures;  // heightToFloor, modelHeight, modelVolume of anchor and act obj
+	std::vector<std::vector<float>> m_maxObjFeatures;
 };
 
 class OccurrenceModel

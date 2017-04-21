@@ -824,3 +824,21 @@ int Model::getAxisAlongDir(const vec3 &dir)
 	}
 }
 
+std::vector<double> Model::computeBBFeature(const mat4 &transMat)
+{
+	std::vector<double> featureVec;
+
+	vec3 bbMax = TransformPoint(transMat, m_bb.ma());
+	vec3 bbMin = TransformPoint(transMat, m_bb.mi());
+
+	featureVec.push_back(bbMin.z);  // heightToFloor
+
+	double modelHeight = std::abs(bbMax.z - bbMin.z);
+	featureVec.push_back(modelHeight);  // modelHeight
+
+	double modelVolume = std::abs((bbMax.x - bbMin.x)*(bbMax.y - bbMin.y)*(bbMax.z - bbMin.z));
+	featureVec.push_back(modelVolume);
+
+	return featureVec;
+}
+

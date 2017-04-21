@@ -26,6 +26,7 @@ public:
 
 	std::vector<int> makeToPlaceModelIds(TSScene *currScene);
 	void computeConstraintsForModels(TSScene *currScene, const std::vector<int> &toPlaceModelIds);
+	void computeLayoutPassScoreForModels(TSScene *currScene, const std::vector<int> &toPlaceModelIds);
 
 	Eigen::VectorXd computeNewPlacement(TSScene *currScene, int metaModelID, const std::vector<std::vector<vec3>> &collisonPositions, int &anchorModelId);
 	void adjustPlacementForSpecificModel(TSScene *currScene, const MetaModel &currMd, vec3 &pos);
@@ -33,6 +34,7 @@ public:
 	void updateWithNewPlacement(TSScene *currScene, int anchorModelId, int currModelID, const Eigen::VectorXd &newPlacement);
 	void updatePlacementOfChildren(TSScene *currScene, int currModelID, mat4 transMat);
 	void initAlignmentOfChildren(SceneSemGraph *currSSG, int currModelId, mat4 transMat);
+	void updatePlacementOfParent(TSScene *currScene, int currModelID, mat4 transMat);
 
 	mat4 computeTransMatFromPos(TSScene *currScene, int anchorModelId, int currModelID, vec3 newPos, double newTheta);
 

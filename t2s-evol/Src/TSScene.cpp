@@ -17,6 +17,7 @@ TSScene::TSScene(unordered_map<string, Model*> &models)
 	m_isRenderRoom(true),
 	m_isLoadFromFile(false),
 	m_floorHeight(0),
+	m_allConstraintsExtracted(false),
 	m_ssg(NULL), 
     m_camTrans(0.0f, 0.0f, 0.0f), 
     m_renderMode(0)
@@ -35,6 +36,7 @@ TSScene::TSScene(unordered_map<string, Model*> &models, const QString &fileName)
   m_isRenderRoom(true),
   m_isLoadFromFile(false),
   m_floorHeight(0),
+  m_allConstraintsExtracted(false),
   m_ssg(NULL), 
   m_camTrans(0.0f, 0.0f, 0.0f), 
   m_renderMode(0)
@@ -57,6 +59,7 @@ TSScene::TSScene(unordered_map<string, Model*> &models, SceneSemGraph *ssg)
 	m_isRenderRoom(true),
 	m_isLoadFromFile(false),
 	m_floorHeight(0),
+	m_allConstraintsExtracted(false),
 	m_ssg(ssg), 
 	m_metaScene(ssg->m_metaScene),
     m_camTrans(0.0f, 0.0f, 0.0f), 

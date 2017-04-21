@@ -8,7 +8,6 @@ m_sentence(s)
 	buildGraphFromSEL();
 }
 
-
 TextSemGraph::~TextSemGraph()
 {
 }
@@ -227,7 +226,7 @@ void TextSemGraph::mapToFixedObjSet(QString &nodeName)
 
 	if (nodeName == "socket")
 	{
-		nodeName = "powersocket";
+		nodeName = "powerstrip";
 		return;
 	}
 

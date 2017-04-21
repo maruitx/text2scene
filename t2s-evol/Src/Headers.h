@@ -98,6 +98,7 @@ struct GlobalObjectParams
 	std::string shapeNetSemDirectory;
 
 	int previewNum;
+	bool isUseContext;
 
 	unordered_map<string, Texture *> textures;
 
