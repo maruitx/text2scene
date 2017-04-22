@@ -351,9 +351,9 @@ nodeNum 88
 67,pair_relation,vertsupport,33,26
 68,pair_relation,vertsupport,34,26
 69,pair_relation,near,3,1
-70,pair_relation,leftside,3,1
+70,pair_relation,rightside,3,1
 71,pair_relation,near,1,3
-72,pair_relation,rightside,1,3
+72,pair_relation,leftside,1,3
 73,pair_relation,rightside,26,1
 74,pair_relation,leftside,1,26
 75,pair_relation,near,26,3

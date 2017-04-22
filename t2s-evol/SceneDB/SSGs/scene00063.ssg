@@ -196,9 +196,9 @@ nodeNum 46
 40,pair_relation,vertsupport,8,1
 41,pair_relation,vertsupport,11,1
 42,pair_relation,near,16,1
-43,pair_relation,leftside,16,1
+43,pair_relation,front,16,1
 44,pair_relation,near,1,16
-45,pair_relation,front,1,16
+45,pair_relation,rightside,1,16
 edgeNum 54
 0,1,19
 1,19,0

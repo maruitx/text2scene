@@ -111,9 +111,9 @@ nodeNum 25
 19,pair_relation,horizonsupport,10,0
 20,pair_relation,horizonsupport,6,5
 21,pair_relation,near,9,1
-22,pair_relation,front,9,1
+22,pair_relation,rightside,9,1
 23,pair_relation,near,1,9
-24,pair_relation,back,1,9
+24,pair_relation,leftside,1,9
 edgeNum 28
 0,1,11
 1,11,0

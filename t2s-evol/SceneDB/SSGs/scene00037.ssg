@@ -195,7 +195,7 @@ parentPlaneUVH 0.593302 0.745322 -98.5139
 nodeNum 65
 0,object,room,25 26 27 50,
 1,object,powersocket,,50
-2,object,desk,28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 51 54 55 59 61 62 63 64,25 52 53 56 57
+2,object,desk,28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 51 52 54 55 59 61 62 63 64,25 53 56 57
 3,object,speaker,,28 59 61 62
 4,object,toyfigure,,29 59 60
 5,object,monitor,,30 61 62
@@ -215,7 +215,7 @@ nodeNum 65
 19,object,orange toast,,44 59 60
 20,object,mediadiscs,,45 59 60
 21,object,speaker,,46 59 61 62
-22,object,chair,24 52 53 58,26 51 61 62
+22,object,chair,24 53 58,26 51 52 61 62
 23,object,computer,56 57,27 54 55 58 61 62 63 64
 24,attribute,office,,22
 25,pair_relation,vertsupport,2,0
@@ -245,13 +245,13 @@ nodeNum 65
 49,pair_relation,vertsupport,15,14
 50,pair_relation,horizonsupport,1,0
 51,pair_relation,near,22,2
-52,pair_relation,near,2,22
-53,pair_relation,leftside,2,22
+52,pair_relation,front,22,2
+53,pair_relation,near,2,22
 54,pair_relation,near,23,2
-55,pair_relation,back,23,2
+55,pair_relation,leftside,23,2
 56,pair_relation,near,2,23
-57,pair_relation,front,2,23
-58,pair_relation,front,23,22
+57,pair_relation,rightside,2,23
+58,pair_relation,rightside,23,22
 59,group_relation_anno,messy,6 7 10 12 13 18 21 3 20 19 4,2
 60,group_relation_anno,messy,10 7 4 13 12 18 20 19,6
 61,group_relation_anno,work,6 16 5 21 3 22 12 13 18 23,2
@@ -314,8 +314,8 @@ edgeNum 124
 52,50,0
 53,22,51
 54,51,2
-55,2,52
-56,52,22
+55,22,52
+56,52,2
 57,2,53
 58,53,22
 59,23,54

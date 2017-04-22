@@ -288,12 +288,12 @@ upDir 0 0 1
 suppPlane 320.046 226.308 96.0994 385.768 226.308 96.0994 385.768 229.671 96.0994 320.046 229.671 96.0994
 parentId 0
 parentPlaneUVH 0.489153 0.0499885 -63.7704
-nodeNum 90
+nodeNum 104
 0,object,room,40 41 42 43 44 45 46 47 48 49,
 1,object,lightswitch,,40
 2,object,wall socket,,41
 3,object,fire alarm,,42
-4,object,table,36 37 50 51 52 53 54 55 56 57 75 77 79 81,43 76 78 80 82
+4,object,table,36 37 50 51 52 53 54 55 56 57 75 76 79 81 82 85,43 77 78 80 83 84 86
 5,object,bunsen burner,,50
 6,object,vessel,,51
 7,object,flask,,52
@@ -302,7 +302,7 @@ nodeNum 90
 10,object,tube,,55
 11,object,book,,56
 12,object,pen,,57
-13,object,table,38 39 58 59 60 61 62 63 64 76 83,44 75 84 85
+13,object,table,38 39 58 59 60 61 62 63 64 77 78 87 88 91 93,44 75 76 89 90 92 94
 14,object,globe,,58
 15,object,erlenmeyer flask,,59
 16,object,holder,,60
@@ -310,7 +310,7 @@ nodeNum 90
 18,object,bunsen burner,,62
 19,object,paper,,63
 20,object,pen,,64
-21,object,desk,65 66 67 68 69 70 71 72 73 74 78 84 86 87,45 77 83 88 89
+21,object,desk,65 66 67 68 69 70 71 72 73 74 80 89 90 95 97 98,45 79 87 88 96 99 100 101
 22,object,beaker,,65
 23,object,beaker,,66
 24,object,bunsen burner,,67
@@ -321,9 +321,9 @@ nodeNum 90
 29,object,glass,,72
 30,object,glass,,73
 31,object,book,,74
-32,object,trashbin,80,46 79
-33,object,fire extinguisher,82 85 88 89,47 81 86 87
-34,object,detector,,48
+32,object,trashbin,83 84 92 96 102,46 81 82 91 95 103
+33,object,fire extinguisher,86 94 99 100 103,47 85 93 97 98 102
+34,object,detector,101,48
 35,object,component,,49
 36,attribute,dining,,4
 37,attribute,rectangular,,4
@@ -365,21 +365,35 @@ nodeNum 90
 73,pair_relation,vertsupport,30,21
 74,pair_relation,vertsupport,31,21
 75,pair_relation,near,13,4
-76,pair_relation,near,4,13
-77,pair_relation,leftside,21,4
-78,pair_relation,rightside,4,21
-79,pair_relation,near,32,4
-80,pair_relation,near,4,32
-81,pair_relation,rightside,33,4
-82,pair_relation,leftside,4,33
-83,pair_relation,near,21,13
-84,pair_relation,near,13,21
-85,pair_relation,leftside,13,33
-86,pair_relation,near,33,21
-87,pair_relation,rightside,33,21
-88,pair_relation,near,21,33
-89,pair_relation,leftside,21,33
-edgeNum 104
+76,pair_relation,leftside,13,4
+77,pair_relation,near,4,13
+78,pair_relation,leftside,4,13
+79,pair_relation,leftside,21,4
+80,pair_relation,rightside,4,21
+81,pair_relation,near,32,4
+82,pair_relation,rightside,32,4
+83,pair_relation,near,4,32
+84,pair_relation,leftside,4,32
+85,pair_relation,leftside,33,4
+86,pair_relation,rightside,4,33
+87,pair_relation,near,21,13
+88,pair_relation,rightside,21,13
+89,pair_relation,near,13,21
+90,pair_relation,rightside,13,21
+91,pair_relation,leftside,32,13
+92,pair_relation,leftside,13,32
+93,pair_relation,rightside,33,13
+94,pair_relation,rightside,13,33
+95,pair_relation,rightside,32,21
+96,pair_relation,leftside,21,32
+97,pair_relation,near,33,21
+98,pair_relation,leftside,33,21
+99,pair_relation,near,21,33
+100,pair_relation,rightside,21,33
+101,pair_relation,under,21,34
+102,pair_relation,leftside,33,32
+103,pair_relation,rightside,32,33
+edgeNum 132
 0,36,4
 1,37,4
 2,38,13
@@ -456,31 +470,59 @@ edgeNum 104
 73,74,21
 74,13,75
 75,75,4
-76,4,76
-77,76,13
-78,21,77
-79,77,4
+76,13,76
+77,76,4
+78,4,77
+79,77,13
 80,4,78
-81,78,21
-82,32,79
+81,78,13
+82,21,79
 83,79,4
 84,4,80
-85,80,32
-86,33,81
+85,80,21
+86,32,81
 87,81,4
-88,4,82
-89,82,33
-90,21,83
-91,83,13
-92,13,84
-93,84,21
-94,13,85
-95,85,33
-96,33,86
-97,86,21
-98,33,87
-99,87,21
+88,32,82
+89,82,4
+90,4,83
+91,83,32
+92,4,84
+93,84,32
+94,33,85
+95,85,4
+96,4,86
+97,86,33
+98,21,87
+99,87,13
 100,21,88
-101,88,33
-102,21,89
-103,89,33
+101,88,13
+102,13,89
+103,89,21
+104,13,90
+105,90,21
+106,32,91
+107,91,13
+108,13,92
+109,92,32
+110,33,93
+111,93,13
+112,13,94
+113,94,33
+114,32,95
+115,95,21
+116,21,96
+117,96,32
+118,33,97
+119,97,21
+120,33,98
+121,98,21
+122,21,99
+123,99,33
+124,21,100
+125,100,33
+126,21,101
+127,101,34
+128,33,102
+129,102,32
+130,32,103
+131,103,33

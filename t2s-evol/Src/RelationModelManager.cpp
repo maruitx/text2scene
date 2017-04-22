@@ -408,7 +408,7 @@ void RelationModelManager::extractRelPosToAnchor(TSScene *currScene, const MetaM
 }
 
 void RelationModelManager::extractRelPosForModelPair(TSScene *currScene, const MetaModel &anchorMd, const MetaModel &actMd, RelativePos *relPos)
-{	
+{
 	// get unitize transform for anchor model
 	Model *loadedAnchorModel = currScene->getModel(anchorMd.name);
 	mat4 alignMat = getModelToUnitboxMat(loadedAnchorModel, anchorMd);
@@ -422,31 +422,23 @@ void RelationModelManager::extractRelPosForModelPair(TSScene *currScene, const M
 }
 
 mat4 RelationModelManager::getModelToUnitboxMat(Model *m, const MetaModel &md)
-{	
-	if (!m_loadModelToUnitboxMat.count(md.name))
-	{
-		mat4 transMat = md.transformation;
-		mat4 invTransMat = transMat.inverse();
+{
+	mat4 transMat = md.transformation;
+	mat4 invTransMat = transMat.inverse();
 
-		vec3 initPos = TransformPoint(invTransMat, md.position);
-		vec3 initFront = TransformVector(invTransMat, md.frontDir);
+	vec3 initPos = TransformPoint(invTransMat, md.position);
+	vec3 initFront = TransformVector(invTransMat, md.frontDir);
 
-		vec3 bbRange = m->getBBRange();
+	vec3 bbRange = m->getBBRange();
 
-		mat4 translateMat, scaleMat, rotMat;
-		translateMat = mat4::translate(vec3(0, 0, -0.5*bbRange.z) - initPos);
-		scaleMat = mat4::scale(1 / bbRange.x, 1 / bbRange.y, 1 / bbRange.z);
-		rotMat = GetRotationMatrix(initFront, vec3(0, 1, 0));
+	mat4 translateMat, scaleMat, rotMat;
+	translateMat = mat4::translate(vec3(0, 0, -0.5*bbRange.z) - initPos);
+	scaleMat = mat4::scale(1 / bbRange.x, 1 / bbRange.y, 1 / bbRange.z);
+	rotMat = GetRotationMatrix(initFront, vec3(0, 1, 0));
 
-		mat4 alignMat = rotMat*scaleMat*translateMat*invTransMat;
-		m_loadModelToUnitboxMat[md.name] = alignMat;
+	mat4 alignMat = rotMat*scaleMat*translateMat*invTransMat;
 
-		return alignMat; 
-	}
-	else
-	{
-		return m_loadModelToUnitboxMat[md.name];
-	}
+	return alignMat;
 }
 
 void RelationModelManager::updateCollisionPostions(const std::vector<std::vector<vec3>> &collisionPositions)

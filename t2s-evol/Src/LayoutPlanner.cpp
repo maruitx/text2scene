@@ -93,6 +93,9 @@ void LayoutPlanner::initPlaceByAlignRelation(SceneSemGraph *matchedSg, SceneSemG
 				initAlignmentOfChildren(currSg, currActiveModelId, finalTransMat);
 
 				relNode.isAligned = true;
+				int currRelNodeId = matchedSg->m_nodeAlignMap[mi];
+				SemNode &currRelNode = currSg->m_nodes[currRelNodeId];
+				currRelNode.isAligned = true;
 			}	
 		}
 	}
@@ -647,7 +650,6 @@ Eigen::VectorXd LayoutPlanner::computeNewPlacement(TSScene *currScene, int metaM
 void LayoutPlanner::updateWithNewPlacement(TSScene *currScene, int anchorModelId, int currModelID, const Eigen::VectorXd &newPlacement)
 {
 	MetaModel &currMd = currScene->getMetaModel(currModelID);
-	//mat4 transMat = currMd.transformation;
 
 	vec3 newPos(newPlacement[0], newPlacement[1], newPlacement[2]);
 

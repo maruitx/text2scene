@@ -224,7 +224,7 @@ upDir 0 0 1
 suppPlane 128.771 104.488 48.0884 128.771 70.8841 48.0884 158.908 70.8841 48.0884 158.908 104.488 48.0884
 parentId 0
 parentPlaneUVH 0.596909 0.360848 -131.75
-nodeNum 80
+nodeNum 82
 0,object,room,31 32 33 34,
 1,object,table,28 29 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 68 69 72 73 76 77,31 70 71 74 75 78 79
 2,object,pottedplant,,35
@@ -250,8 +250,8 @@ nodeNum 80
 22,object,wallet,,54
 23,object,mug,,55
 24,object,cup,,56
-25,object,chair,70 71,32 68 69
-26,object,chair,74 75,33 72 73
+25,object,chair,70 71 80,32 68 69 81
+26,object,chair,74 75 81,33 72 73 80
 27,object,chair,78 79,34 76 77
 28,attribute,dining,,1
 29,attribute,round,,1
@@ -298,14 +298,16 @@ nodeNum 80
 70,pair_relation,near,1,25
 71,pair_relation,front,1,25
 72,pair_relation,near,26,1
-73,pair_relation,front,26,1
+73,pair_relation,back,26,1
 74,pair_relation,near,1,26
-75,pair_relation,back,1,26
+75,pair_relation,front,1,26
 76,pair_relation,near,27,1
-77,pair_relation,front,27,1
+77,pair_relation,leftside,27,1
 78,pair_relation,near,1,27
-79,pair_relation,rightside,1,27
-edgeNum 101
+79,pair_relation,front,1,27
+80,pair_relation,front,26,25
+81,pair_relation,front,25,26
+edgeNum 105
 0,28,1
 1,29,1
 2,30,6
@@ -407,3 +409,7 @@ edgeNum 101
 98,78,27
 99,1,79
 100,79,27
+101,26,80
+102,80,25
+103,25,81
+104,81,26

@@ -136,9 +136,9 @@ upDir 0 0 1
 suppPlane 90.2457 238.801 112.999 147.185 238.801 112.999 147.185 239.75 112.999 90.2457 239.75 112.999
 parentId 0
 parentPlaneUVH 0.489062 0.984673 -67.5526
-nodeNum 43
+nodeNum 42
 0,object,room,18 19 20 21,
-1,object,desk,22 23 24 25 26 27 28 29 30 31 32 34 35 38 39,18 36 37 40
+1,object,desk,22 23 24 25 26 27 28 29 30 31 32 34 35 38 39,18 36 37 40 41
 2,object,airplane,,22
 3,object,book,,23
 4,object,pen,,24
@@ -150,9 +150,9 @@ nodeNum 43
 10,object,binder,,30
 11,object,book,,31
 12,object,pencil,,32
-13,object,filecabinet,33 36 37 41,19 34 35 42
+13,object,filecabinet,33 36 37,19 34 35
 14,object,globe,,33
-15,object,chair,17 40 42,20 38 39 41
+15,object,chair,17 40 41,20 38 39
 16,object,artwork,,21
 17,attribute,office,,15
 18,pair_relation,vertsupport,1,0
@@ -172,15 +172,14 @@ nodeNum 43
 32,pair_relation,vertsupport,12,1
 33,pair_relation,vertsupport,14,13
 34,pair_relation,near,13,1
-35,pair_relation,rightside,13,1
+35,pair_relation,leftside,13,1
 36,pair_relation,near,1,13
-37,pair_relation,back,1,13
+37,pair_relation,front,1,13
 38,pair_relation,near,15,1
-39,pair_relation,rightside,15,1
+39,pair_relation,front,15,1
 40,pair_relation,near,1,15
-41,pair_relation,rightside,15,13
-42,pair_relation,back,13,15
-edgeNum 51
+41,pair_relation,front,1,15
+edgeNum 49
 0,17,15
 1,1,18
 2,18,0
@@ -228,7 +227,5 @@ edgeNum 51
 44,39,1
 45,1,40
 46,40,15
-47,15,41
-48,41,13
-49,13,42
-50,42,15
+47,1,41
+48,41,15

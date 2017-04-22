@@ -104,7 +104,7 @@ upDir 0 0 1
 suppPlane 174.45 125.383 48.5587 189.65 143.18 48.5587 169.875 160.069 48.5587 154.676 142.272 48.5587
 parentId 0
 parentPlaneUVH 0.699849 0.539368 -131.75
-nodeNum 38
+nodeNum 42
 0,object,room,15 16 17 18 25 26,
 1,object,wallart,,25
 2,object,wallart,,26
@@ -115,9 +115,9 @@ nodeNum 38
 7,object,food,,22
 8,object,candle,,23
 9,object,pottedplant,,24
-10,object,chair,29 30,16 27 28
-11,object,chair,33 34,17 31 32
-12,object,chair,37,18 35 36
+10,object,chair,29 30 38,16 27 28 39 40
+11,object,chair,33 34 39,17 31 32 38 41
+12,object,chair,37 40 41,18 35 36
 13,attribute,dining,,3
 14,attribute,rectangular,,3
 15,pair_relation,vertsupport,3,0
@@ -137,13 +137,17 @@ nodeNum 38
 29,pair_relation,near,3,10
 30,pair_relation,front,3,10
 31,pair_relation,near,11,3
-32,pair_relation,front,11,3
+32,pair_relation,back,11,3
 33,pair_relation,near,3,11
-34,pair_relation,back,3,11
+34,pair_relation,front,3,11
 35,pair_relation,near,12,3
-36,pair_relation,front,12,3
+36,pair_relation,rightside,12,3
 37,pair_relation,near,3,12
-edgeNum 48
+38,pair_relation,front,11,10
+39,pair_relation,front,10,11
+40,pair_relation,front,10,12
+41,pair_relation,leftside,11,12
+edgeNum 56
 0,13,3
 1,14,3
 2,3,15
@@ -192,3 +196,11 @@ edgeNum 48
 45,36,3
 46,3,37
 47,37,12
+48,11,38
+49,38,10
+50,10,39
+51,39,11
+52,10,40
+53,40,12
+54,11,41
+55,41,12

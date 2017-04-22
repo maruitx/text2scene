@@ -256,39 +256,39 @@ upDir 0 0 1
 suppPlane 45.9569 97.1273 55.8616 73.5694 66.4606 55.8616 107.595 97.0972 55.8616 79.9823 127.764 55.8616
 parentId 0
 parentPlaneUVH 0.400356 0.34648 -98.5138
-nodeNum 124
+nodeNum 120
 0,object,room,33 34 35 36 37 38 39 40 65 66 67 68,
-1,object,couch,69 70 74 76 114 122 123,33 71 72 73 75 77 78 79 80
-2,object,fan,71 72 81 84 86 87,34 69 70 82 83 85 122 123
+1,object,couch,69 71 74 110 118 119,33 70 72 73
+2,object,fan,70 76,34 69 75 118 119
 3,object,lightswitch,,65
-4,object,speaker,41 73 82 88 89 91,35 81 90 92 119
-5,object,desk,42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 75 90 93 94 97 100 113 115 117 118 119 120 121,36 41 74 88 89 95 96 98 99 101 102
-6,object,monitor,60 61,42 113 115 117 118 119 120 121
-7,object,webcam,,60 113
-8,object,monitor,62,43 113 115 117 118 119 120 121
-9,object,monitor,,44 113 115 117 118 119 120 121
-10,object,keyboard,116,45 113 117 118 119 120 121
+4,object,speaker,41 77 81,35 78 79 80 82 115
+5,object,desk,42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 78 83 84 87 89 90 92 93 109 111 113 114 115 116 117,36 41 77 85 86 88 91 94
+6,object,monitor,60 61,42 109 111 113 114 115 116 117
+7,object,webcam,,60 109
+8,object,monitor,62,43 109 111 113 114 115 116 117
+9,object,monitor,,44 109 111 113 114 115 116 117
+10,object,keyboard,112,45 109 113 114 115 116 117
 11,object,mediadiscs,,46
-12,object,compact disk,,47 116
-13,object,mediadiscs,,48 116
-14,object,sodacan,,49 116
-15,object,cabling,,50 117 118
-16,object,mousepad,63,51 113 120 121
-17,object,computermouse,,52 63 113 116 120 121
-18,object,notepad,64,53 117 118
-19,object,speaker,,54 64 117 118
-20,object,cellphone,,55 61 62 113 116
-21,object,usbstick,,56 117 118
-22,object,headphones,,57 113 116
-23,object,orange toast,,58 116
-24,object,toyfigure,,59 116
-25,object,computer,83 95 96 103 105,37 91 93 94 104 106 107 108 119 120 121
-26,object,sword,77 85 104 109,66 76 84 103 110 114 122 123
+12,object,compact disk,,47 112
+13,object,mediadiscs,,48 112
+14,object,sodacan,,49 112
+15,object,cabling,,50 113 114
+16,object,mousepad,63,51 109 116 117
+17,object,computermouse,,52 63 109 112 116 117
+18,object,notepad,64,53 113 114
+19,object,speaker,,54 64 113 114
+20,object,cellphone,,55 61 62 109 112
+21,object,usbstick,,56 113 114
+22,object,headphones,,57 109 112
+23,object,orange toast,,58 112
+24,object,toyfigure,,59 112
+25,object,computer,79 85 86 95 96 99,37 83 84 97 98 100 101 102 115 116 117
+26,object,sword,72 75 80 88 97 98 103 104,66 71 87 95 96 105 106 110 118 119
 27,object,lamp,,38
-28,object,wallart,,67 114 122 123
+28,object,wallart,,67 110 118 119
 29,object,powersocket,,68
-30,object,speaker,78 98 99 106 107 110 111,39 86 97 105 109 112 119
-31,object,chair,32 79 80 92 101 102 108 112,40 87 100 111 115 119 122 123
+30,object,speaker,73 91 100 101 105 107,39 89 90 99 103 104 108 115
+31,object,chair,32 82 94 102 106 108,40 74 76 81 92 93 107 111 115 118 119
 32,attribute,office,,31
 33,pair_relation,vertsupport,1,0
 34,pair_relation,vertsupport,2,0
@@ -327,61 +327,57 @@ nodeNum 124
 67,pair_relation,horizonsupport,28,0
 68,pair_relation,horizonsupport,29,0
 69,pair_relation,near,2,1
-70,pair_relation,front,2,1
-71,pair_relation,near,1,2
-72,pair_relation,back,1,2
-73,pair_relation,front,1,4
-74,pair_relation,front,5,1
-75,pair_relation,leftside,1,5
-76,pair_relation,near,26,1
-77,pair_relation,near,1,26
-78,pair_relation,leftside,1,30
-79,pair_relation,back,1,31
-80,pair_relation,under,1,31
-81,pair_relation,rightside,4,2
-82,pair_relation,front,2,4
-83,pair_relation,front,2,25
-84,pair_relation,rightside,26,2
-85,pair_relation,leftside,2,26
-86,pair_relation,rightside,30,2
-87,pair_relation,rightside,31,2
-88,pair_relation,near,5,4
-89,pair_relation,rightside,5,4
-90,pair_relation,near,4,5
-91,pair_relation,back,25,4
-92,pair_relation,front,4,31
-93,pair_relation,near,25,5
-94,pair_relation,back,25,5
-95,pair_relation,near,5,25
-96,pair_relation,front,5,25
-97,pair_relation,near,30,5
-98,pair_relation,near,5,30
-99,pair_relation,front,5,30
-100,pair_relation,near,31,5
-101,pair_relation,near,5,31
-102,pair_relation,leftside,5,31
-103,pair_relation,near,26,25
-104,pair_relation,near,25,26
-105,pair_relation,near,30,25
-106,pair_relation,near,25,30
-107,pair_relation,rightside,25,30
-108,pair_relation,front,25,31
-109,pair_relation,near,30,26
-110,pair_relation,near,26,30
-111,pair_relation,leftside,31,30
-112,pair_relation,front,30,31
-113,group_relation_anno,work,10 8 6 9 7 16 17 22 20,5
-114,group_relation_anno,decorative,28 26,1
-115,group_relation_anno,work,31 8 6 9,5
-116,group_relation_anno,messy,13 12 17 22 20 14 23 24,10
-117,group_relation_anno,work,18 19 21 15 10 6 8 9,5
-118,group_relation_anno,organized,18 19 21 15 10 6 8 9,5
-119,group_relation_anno,work,10 6 9 8 25 30 4 31,5
-120,group_relation_anno,work,25 9 6 8 10 17 16,5
-121,group_relation_anno,organized,25 9 6 8 10 17 16,5
-122,group_relation_anno,relax,2 31 28 26,1
-123,group_relation_anno,casual,2 31 28 26,1
-edgeNum 241
+70,pair_relation,near,1,2
+71,pair_relation,near,26,1
+72,pair_relation,near,1,26
+73,pair_relation,leftside,1,30
+74,pair_relation,front,31,1
+75,pair_relation,leftside,2,26
+76,pair_relation,front,31,2
+77,pair_relation,near,5,4
+78,pair_relation,near,4,5
+79,pair_relation,rightside,4,25
+80,pair_relation,front,4,26
+81,pair_relation,front,31,4
+82,pair_relation,front,4,31
+83,pair_relation,near,25,5
+84,pair_relation,leftside,25,5
+85,pair_relation,near,5,25
+86,pair_relation,rightside,5,25
+87,pair_relation,leftside,26,5
+88,pair_relation,front,5,26
+89,pair_relation,near,30,5
+90,pair_relation,leftside,30,5
+91,pair_relation,near,5,30
+92,pair_relation,near,31,5
+93,pair_relation,front,31,5
+94,pair_relation,near,5,31
+95,pair_relation,near,26,25
+96,pair_relation,leftside,26,25
+97,pair_relation,near,25,26
+98,pair_relation,front,25,26
+99,pair_relation,near,30,25
+100,pair_relation,near,25,30
+101,pair_relation,front,25,30
+102,pair_relation,rightside,25,31
+103,pair_relation,near,30,26
+104,pair_relation,front,30,26
+105,pair_relation,near,26,30
+106,pair_relation,rightside,26,31
+107,pair_relation,front,31,30
+108,pair_relation,rightside,30,31
+109,group_relation_anno,work,10 8 6 9 7 16 17 22 20,5
+110,group_relation_anno,decorative,28 26,1
+111,group_relation_anno,work,31 8 6 9,5
+112,group_relation_anno,messy,13 12 17 22 20 14 23 24,10
+113,group_relation_anno,work,18 19 21 15 10 6 8 9,5
+114,group_relation_anno,organized,18 19 21 15 10 6 8 9,5
+115,group_relation_anno,work,10 6 9 8 25 30 4 31,5
+116,group_relation_anno,work,25 9 6 8 10 17 16,5
+117,group_relation_anno,organized,25 9 6 8 10 17 16,5
+118,group_relation_anno,relax,2 31 28 26,1
+119,group_relation_anno,casual,2 31 28 26,1
+edgeNum 233
 0,32,31
 1,1,33
 2,33,0
@@ -457,169 +453,161 @@ edgeNum 241
 72,68,0
 73,2,69
 74,69,1
-75,2,70
-76,70,1
-77,1,71
-78,71,2
+75,1,70
+76,70,2
+77,26,71
+78,71,1
 79,1,72
-80,72,2
+80,72,26
 81,1,73
-82,73,4
-83,5,74
+82,73,30
+83,31,74
 84,74,1
-85,1,75
-86,75,5
-87,26,76
-88,76,1
-89,1,77
-90,77,26
-91,1,78
-92,78,30
-93,1,79
-94,79,31
-95,1,80
-96,80,31
-97,4,81
-98,81,2
-99,2,82
-100,82,4
-101,2,83
-102,83,25
-103,26,84
-104,84,2
-105,2,85
-106,85,26
-107,30,86
-108,86,2
-109,31,87
-110,87,2
+85,2,75
+86,75,26
+87,31,76
+88,76,2
+89,5,77
+90,77,4
+91,4,78
+92,78,5
+93,4,79
+94,79,25
+95,4,80
+96,80,26
+97,31,81
+98,81,4
+99,4,82
+100,82,31
+101,25,83
+102,83,5
+103,25,84
+104,84,5
+105,5,85
+106,85,25
+107,5,86
+108,86,25
+109,26,87
+110,87,5
 111,5,88
-112,88,4
-113,5,89
-114,89,4
-115,4,90
+112,88,26
+113,30,89
+114,89,5
+115,30,90
 116,90,5
-117,25,91
-118,91,4
-119,4,92
-120,92,31
-121,25,93
+117,5,91
+118,91,30
+119,31,92
+120,92,5
+121,31,93
 122,93,5
-123,25,94
-124,94,5
-125,5,95
+123,5,94
+124,94,31
+125,26,95
 126,95,25
-127,5,96
+127,26,96
 128,96,25
-129,30,97
-130,97,5
-131,5,98
-132,98,30
-133,5,99
-134,99,30
-135,31,100
-136,100,5
-137,5,101
-138,101,31
-139,5,102
+129,25,97
+130,97,26
+131,25,98
+132,98,26
+133,30,99
+134,99,25
+135,25,100
+136,100,30
+137,25,101
+138,101,30
+139,25,102
 140,102,31
-141,26,103
-142,103,25
-143,25,104
+141,30,103
+142,103,26
+143,30,104
 144,104,26
-145,30,105
-146,105,25
-147,25,106
-148,106,30
-149,25,107
+145,26,105
+146,105,30
+147,26,106
+148,106,31
+149,31,107
 150,107,30
-151,25,108
+151,30,108
 152,108,31
-153,30,109
-154,109,26
-155,26,110
-156,110,30
-157,31,111
-158,111,30
-159,30,112
-160,112,31
-161,113,5
-162,10,113
-163,8,113
-164,6,113
-165,9,113
-166,7,113
-167,16,113
-168,17,113
-169,22,113
-170,20,113
-171,114,1
-172,28,114
-173,26,114
-174,115,5
-175,31,115
-176,8,115
-177,6,115
-178,9,115
-179,116,10
-180,13,116
-181,12,116
-182,17,116
-183,22,116
-184,20,116
-185,14,116
-186,23,116
-187,24,116
-188,117,5
-189,18,117
-190,19,117
-191,21,117
-192,15,117
-193,10,117
-194,6,117
-195,8,117
-196,9,117
-197,118,5
-198,18,118
-199,19,118
-200,21,118
-201,15,118
-202,10,118
-203,6,118
-204,8,118
-205,9,118
-206,119,5
-207,10,119
-208,6,119
-209,9,119
-210,8,119
-211,25,119
-212,30,119
-213,4,119
-214,31,119
-215,120,5
-216,25,120
-217,9,120
-218,6,120
-219,8,120
-220,10,120
-221,17,120
-222,16,120
-223,121,5
-224,25,121
-225,9,121
-226,6,121
-227,8,121
-228,10,121
-229,17,121
-230,16,121
-231,122,1
-232,2,122
-233,31,122
-234,28,122
-235,26,122
-236,123,1
-237,2,123
-238,31,123
-239,28,123
-240,26,123
+153,109,5
+154,10,109
+155,8,109
+156,6,109
+157,9,109
+158,7,109
+159,16,109
+160,17,109
+161,22,109
+162,20,109
+163,110,1
+164,28,110
+165,26,110
+166,111,5
+167,31,111
+168,8,111
+169,6,111
+170,9,111
+171,112,10
+172,13,112
+173,12,112
+174,17,112
+175,22,112
+176,20,112
+177,14,112
+178,23,112
+179,24,112
+180,113,5
+181,18,113
+182,19,113
+183,21,113
+184,15,113
+185,10,113
+186,6,113
+187,8,113
+188,9,113
+189,114,5
+190,18,114
+191,19,114
+192,21,114
+193,15,114
+194,10,114
+195,6,114
+196,8,114
+197,9,114
+198,115,5
+199,10,115
+200,6,115
+201,9,115
+202,8,115
+203,25,115
+204,30,115
+205,4,115
+206,31,115
+207,116,5
+208,25,116
+209,9,116
+210,6,116
+211,8,116
+212,10,116
+213,17,116
+214,16,116
+215,117,5
+216,25,117
+217,9,117
+218,6,117
+219,8,117
+220,10,117
+221,17,117
+222,16,117
+223,118,1
+224,2,118
+225,31,118
+226,28,118
+227,26,118
+228,119,1
+229,2,119
+230,31,119
+231,28,119
+232,26,119

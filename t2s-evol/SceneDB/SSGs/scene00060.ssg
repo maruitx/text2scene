@@ -128,9 +128,9 @@ upDir 0 0 1
 suppPlane 24.9741 202.58 66.7742 43.0088 220.615 66.7742 24.974 238.65 66.7742 6.93932 220.615 66.7742
 parentId 0
 parentPlaneUVH 0.112402 0.90788 -131.75
-nodeNum 40
+nodeNum 39
 0,object,room,16 17 18 19 20 21,
-1,object,rug,22 23 24 25 26 36 37,16 38 39
+1,object,rug,22 23 24 25 26 36,16 37 38
 2,object,speaker,,17 22
 3,object,speaker,,18 23
 4,object,tvstand,27 28 29 30 31 32 33 34 35,19 24
@@ -144,7 +144,7 @@ nodeNum 40
 12,object,unknown,,35
 13,object,videodisk,,33
 14,object,couch,,20 25
-15,object,guitarstand,38 39,21 26 36 37
+15,object,guitarstand,37 38,21 26 36
 16,pair_relation,vertsupport,1,0
 17,pair_relation,vertsupport,2,0
 18,pair_relation,vertsupport,3,0
@@ -166,10 +166,9 @@ nodeNum 40
 34,pair_relation,vertsupport,11,4
 35,pair_relation,vertsupport,12,4
 36,pair_relation,near,15,1
-37,pair_relation,rightside,15,1
-38,pair_relation,near,1,15
-39,pair_relation,leftside,1,15
-edgeNum 48
+37,pair_relation,near,1,15
+38,pair_relation,front,1,15
+edgeNum 46
 0,1,16
 1,16,0
 2,2,17
@@ -212,9 +211,7 @@ edgeNum 48
 39,35,4
 40,15,36
 41,36,1
-42,15,37
-43,37,1
+42,1,37
+43,37,15
 44,1,38
 45,38,15
-46,1,39
-47,39,15

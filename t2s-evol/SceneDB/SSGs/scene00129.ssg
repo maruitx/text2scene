@@ -168,10 +168,10 @@ upDir 0 0 1
 suppPlane 212.173 200.303 39.542 244.324 200.303 39.542 244.324 232.454 39.542 212.173 232.454 39.542
 parentId 0
 parentPlaneUVH 0.853316 0.650842 -167.75
-nodeNum 50
+nodeNum 48
 0,object,room,22 23 24 25 26 27 28,
 1,object,wallclock,,22
-2,object,desk,29 30 31 32 33 34 35 36 37 42 43 46 47,23 44 45 48 49
+2,object,desk,29 30 31 32 33 34 35 36 37 42 44 45,23 43 46 47
 3,object,yttrium,,29
 4,object,lamp,,30
 5,object,organ,38 39 40,31
@@ -185,11 +185,11 @@ nodeNum 50
 13,object,stapler,,35
 14,object,paperclip,,36
 15,object,toyfigure,,37
-16,object,chair,21 44 45,24 42 43
+16,object,chair,21 43,24 42
 17,object,wallart,,25
 18,object,wallart,,26
 19,object,powersocket,,27
-20,object,trashbin,48 49,28 46 47
+20,object,trashbin,46 47,28 44 45
 21,attribute,office,,16
 22,pair_relation,horizonsupport,1,0
 23,pair_relation,vertsupport,2,0
@@ -212,14 +212,12 @@ nodeNum 50
 40,pair_relation,vertsupport,8,5
 41,pair_relation,horizonsupport,10,9
 42,pair_relation,near,16,2
-43,pair_relation,leftside,16,2
-44,pair_relation,near,2,16
-45,pair_relation,leftside,2,16
-46,pair_relation,near,20,2
-47,pair_relation,leftside,20,2
-48,pair_relation,near,2,20
-49,pair_relation,back,2,20
-edgeNum 57
+43,pair_relation,near,2,16
+44,pair_relation,near,20,2
+45,pair_relation,rightside,20,2
+46,pair_relation,near,2,20
+47,pair_relation,front,2,20
+edgeNum 53
 0,21,16
 1,1,22
 2,22,0
@@ -263,17 +261,13 @@ edgeNum 57
 40,41,9
 41,16,42
 42,42,2
-43,16,43
-44,43,2
-45,2,44
-46,44,16
-47,2,45
-48,45,16
-49,20,46
-50,46,2
-51,20,47
-52,47,2
-53,2,48
-54,48,20
-55,2,49
-56,49,20
+43,2,43
+44,43,16
+45,20,44
+46,44,2
+47,20,45
+48,45,2
+49,2,46
+50,46,20
+51,2,47
+52,47,20

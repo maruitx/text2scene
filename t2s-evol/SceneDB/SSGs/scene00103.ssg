@@ -134,7 +134,7 @@ nodeNum 38
 26,pair_relation,vertsupport,9,2
 27,pair_relation,near,12,1
 28,pair_relation,near,1,12
-29,pair_relation,back,1,12
+29,pair_relation,front,1,12
 30,group_relation_anno,relax,12 10,2
 31,group_relation_anno,casual,12 10,2
 32,group_relation_anno,relax,9 6 3 4 7 5 8,2

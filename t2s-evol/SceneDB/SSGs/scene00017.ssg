@@ -331,9 +331,9 @@ nodeNum 69
 63,pair_relation,vertsupport,25,1
 64,pair_relation,vertsupport,30,1
 65,pair_relation,near,32,1
-66,pair_relation,front,32,1
+66,pair_relation,rightside,32,1
 67,pair_relation,near,1,32
-68,pair_relation,rightside,1,32
+68,pair_relation,back,1,32
 edgeNum 72
 0,1,33
 1,33,0

@@ -88,9 +88,9 @@ upDir 0 0 1
 suppPlane 91.7346 392.278 43.2917 110.263 392.278 43.2917 110.263 403.514 43.2917 91.7346 403.514 43.2917
 parentId 0
 parentPlaneUVH 0.084551 0.377209 -106.049
-nodeNum 25
+nodeNum 23
 0,object,room,11 12,
-1,object,cabinet,13 14 15 16 17 18 19 20 21 22,11 23 24
+1,object,cabinet,13 14 15 16 17 18 19 20 21,11 22
 2,object,flask,,13
 3,object,flask,,14
 4,object,holder,,15
@@ -99,7 +99,7 @@ nodeNum 25
 7,object,glass,,18
 8,object,vessel,,20
 9,object,bunsen burner,,19
-10,object,fire extinguisher,23 24,12 21 22
+10,object,fire extinguisher,22,12 21
 11,pair_relation,vertsupport,1,0
 12,pair_relation,vertsupport,10,0
 13,pair_relation,vertsupport,2,1
@@ -111,10 +111,8 @@ nodeNum 25
 19,pair_relation,vertsupport,9,1
 20,pair_relation,vertsupport,8,1
 21,pair_relation,near,10,1
-22,pair_relation,rightside,10,1
-23,pair_relation,near,1,10
-24,pair_relation,leftside,1,10
-edgeNum 28
+22,pair_relation,near,1,10
+edgeNum 24
 0,1,11
 1,11,0
 2,10,12
@@ -137,9 +135,5 @@ edgeNum 28
 19,20,1
 20,10,21
 21,21,1
-22,10,22
-23,22,1
-24,1,23
-25,23,10
-26,1,24
-27,24,10
+22,1,22
+23,22,10

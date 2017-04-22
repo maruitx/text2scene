@@ -204,13 +204,13 @@ nodeNum 63
 40,pair_relation,vertsupport,15,7
 41,pair_relation,horizonsupport,8,7
 42,pair_relation,near,18,1
-43,pair_relation,rightside,18,1
+43,pair_relation,front,18,1
 44,pair_relation,near,1,18
-45,pair_relation,rightside,1,18
+45,pair_relation,front,1,18
 46,pair_relation,near,19,1
-47,pair_relation,rightside,19,1
+47,pair_relation,leftside,19,1
 48,pair_relation,near,1,19
-49,pair_relation,leftside,1,19
+49,pair_relation,rightside,1,19
 50,group_relation_anno,formal,2 18 7 4 5 6 11 10,1
 51,group_relation_anno,organized,2 18 7 4 5 6 11 10,1
 52,group_relation_anno,clean,2 18 7 4 5 6 11 10,1

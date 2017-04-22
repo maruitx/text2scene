@@ -353,9 +353,9 @@ nodeNum 87
 69,pair_relation,vertsupport,20,1
 70,pair_relation,vertsupport,23,1
 71,pair_relation,near,32,1
-72,pair_relation,back,32,1
+72,pair_relation,rightside,32,1
 73,pair_relation,near,1,32
-74,pair_relation,front,1,32
+74,pair_relation,leftside,1,32
 75,group_relation_anno,casual,32 33 34 23 25 24 26 31 10 20 2 6 5,1
 76,group_relation_anno,organized,32 33 34 23 25 24 26 31 10 20 2 6 5,1
 77,group_relation_anno,clean,32 33 34 23 25 24 26 31 10 20 2 6 5,1

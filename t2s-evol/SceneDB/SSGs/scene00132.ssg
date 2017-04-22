@@ -200,19 +200,19 @@ upDir 0 0 1
 suppPlane 0.250519 54.1635 56.932 0.250519 43.6916 56.932 1.46596 43.6916 56.932 1.46596 54.1635 56.932
 parentId 0
 parentPlaneUVH 0.0459691 0.305532 -58.1968
-nodeNum 93
+nodeNum 84
 0,object,room,25 26 27 28 29 30 31 32 33 34 35 36 44 45 46 47 48 49,
 1,object,sink,37 39 50,25
 2,object,soap dispenser,38 40,29 50
-3,object,washer,41 51 52 53 54 62 63 66 68 70,26 37 38 64 65 67 69 71
+3,object,washer,41 51 52 53 54 62 63 65,26 37 38 64 66
 4,object,bottle,42,30 51
 5,object,towel,43,31 52
 6,object,shirt,,32 53
 7,object,atomizer,,33 54
-8,object,bucket,55 64 65 72 73 76 77 80,27 62 63 74 75 78 79 81 82
+8,object,bucket,55 64 67 69 70 72 73,27 62 63 68 71
 9,object,swab,,34 55
-10,object,push broom,74 75 83 84 87 89,35 72 73 85 86 88 90
-11,object,ashcan,67 78 79 85 86,36 66 76 77 83 84
+10,object,push broom,66 68 74 75,35 65 67 76 77
+11,object,ashcan,71 76 77 78,36 69 70 74 75 79
 12,object,1shelves,56 57 58 59 60 61,28 39 40 41 42 43
 13,object,zebra,,56
 14,object,dustpan,,57
@@ -222,8 +222,8 @@ nodeNum 93
 18,object,towel,,61
 19,object,towel,,44
 20,object,mirror,,45
-21,object,vacuum,69 81 88 91,46 68 80 87 92
-22,object,coatrack,71 82 90 92,47 70 89 91
+21,object,vacuum,79 80 81,46 72 78 82 83
+22,object,coatrack,82 83,47 73 80 81
 23,object,ceilingfan,,48
 24,object,lightswitch,,49
 25,pair_relation,horizonsupport,1,0
@@ -264,37 +264,28 @@ nodeNum 93
 60,pair_relation,vertsupport,17,12
 61,pair_relation,vertsupport,18,12
 62,pair_relation,near,8,3
-63,pair_relation,front,8,3
+63,pair_relation,leftside,8,3
 64,pair_relation,near,3,8
-65,pair_relation,front,3,8
-66,pair_relation,front,11,3
-67,pair_relation,leftside,3,11
-68,pair_relation,front,21,3
-69,pair_relation,leftside,3,21
-70,pair_relation,front,22,3
-71,pair_relation,leftside,3,22
-72,pair_relation,near,10,8
-73,pair_relation,front,10,8
-74,pair_relation,near,8,10
-75,pair_relation,leftside,8,10
-76,pair_relation,near,11,8
-77,pair_relation,front,11,8
-78,pair_relation,near,8,11
-79,pair_relation,rightside,8,11
-80,pair_relation,rightside,21,8
-81,pair_relation,rightside,8,21
-82,pair_relation,back,8,22
-83,pair_relation,near,11,10
-84,pair_relation,leftside,11,10
-85,pair_relation,near,10,11
-86,pair_relation,back,10,11
-87,pair_relation,leftside,21,10
-88,pair_relation,back,10,21
-89,pair_relation,leftside,22,10
-90,pair_relation,back,10,22
-91,pair_relation,near,22,21
-92,pair_relation,near,21,22
-edgeNum 136
+65,pair_relation,leftside,10,3
+66,pair_relation,rightside,3,10
+67,pair_relation,near,10,8
+68,pair_relation,near,8,10
+69,pair_relation,near,11,8
+70,pair_relation,back,11,8
+71,pair_relation,near,8,11
+72,pair_relation,leftside,21,8
+73,pair_relation,leftside,22,8
+74,pair_relation,near,11,10
+75,pair_relation,front,11,10
+76,pair_relation,near,10,11
+77,pair_relation,leftside,10,11
+78,pair_relation,back,21,11
+79,pair_relation,front,11,21
+80,pair_relation,near,22,21
+81,pair_relation,front,22,21
+82,pair_relation,near,21,22
+83,pair_relation,back,21,22
+edgeNum 118
 0,1,25
 1,25,0
 2,3,26
@@ -375,59 +366,41 @@ edgeNum 136
 77,63,3
 78,3,64
 79,64,8
-80,3,65
-81,65,8
-82,11,66
-83,66,3
-84,3,67
-85,67,11
-86,21,68
-87,68,3
-88,3,69
-89,69,21
-90,22,70
-91,70,3
-92,3,71
-93,71,22
-94,10,72
+80,10,65
+81,65,3
+82,3,66
+83,66,10
+84,10,67
+85,67,8
+86,8,68
+87,68,10
+88,11,69
+89,69,8
+90,11,70
+91,70,8
+92,8,71
+93,71,11
+94,21,72
 95,72,8
-96,10,73
+96,22,73
 97,73,8
-98,8,74
+98,11,74
 99,74,10
-100,8,75
+100,11,75
 101,75,10
-102,11,76
-103,76,8
-104,11,77
-105,77,8
-106,8,78
+102,10,76
+103,76,11
+104,10,77
+105,77,11
+106,21,78
 107,78,11
-108,8,79
-109,79,11
-110,21,80
-111,80,8
-112,8,81
+108,11,79
+109,79,21
+110,22,80
+111,80,21
+112,22,81
 113,81,21
-114,8,82
+114,21,82
 115,82,22
-116,11,83
-117,83,10
-118,11,84
-119,84,10
-120,10,85
-121,85,11
-122,10,86
-123,86,11
-124,21,87
-125,87,10
-126,10,88
-127,88,21
-128,22,89
-129,89,10
-130,10,90
-131,90,22
-132,22,91
-133,91,21
-134,21,92
-135,92,22
+116,21,83
+117,83,22

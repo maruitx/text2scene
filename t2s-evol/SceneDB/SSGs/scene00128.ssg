@@ -208,10 +208,10 @@ upDir 0 0 1
 suppPlane 27.6061 50.3448 76.5896 22.5334 71.4742 76.5896 4.56479 67.1603 76.5896 9.63754 46.0309 76.5896
 parentId 0
 parentPlaneUVH 0.0590536 0.240219 -131.749
-nodeNum 80
+nodeNum 86
 0,object,room,27 28 29 30 31 32 33 34,
 1,object,powersocket,,27
-2,object,desk,35 36 37 38 39 40 41 42 43 44 45 46 47 52 53 56 58 59 62 63 66,28 54 55 57 60 61 64 65 67
+2,object,desk,35 36 37 38 39 40 41 42 43 44 45 46 47 52 53 54 57 58 60 61 64 65 68 69,28 55 56 59 62 63 66 67 70
 3,object,monitor,48,35
 4,object,webcam,,48
 5,object,monitor,,36
@@ -228,13 +228,13 @@ nodeNum 80
 16,object,sodacan,,46
 17,object,notepad,50,47
 18,object,pencil,,50
-19,object,computer,54 55 68 69 72 73 76,29 52 53 70 71 74 75 77
-20,object,speaker,57,30 56
-21,object,chair,26 51 60 61 70 71,31 58 59 68 69
+19,object,computer,55 56 71 72 74 75 78,29 52 53 54 73 76 77 79
+20,object,speaker,59 80,30 57 58 71 81 82
+21,object,chair,26 51 62 63 73,31 60 61 72 80
 22,object,headphones,,51
 23,object,wallclock,,32
-24,object,powerstrip,64 65 74 75 78,33 62 63 72 73 79
-25,object,speaker,67 77 79,34 66 76 78
+24,object,powerstrip,66 67 76 77 81 83,33 64 65 74 75 84 85
+25,object,speaker,70 79 82 84 85,34 68 69 78 83
 26,attribute,office,,21
 27,pair_relation,horizonsupport,1,0
 28,pair_relation,vertsupport,2,0
@@ -263,33 +263,39 @@ nodeNum 80
 51,pair_relation,horizonsupport,22,21
 52,pair_relation,near,19,2
 53,pair_relation,rightside,19,2
-54,pair_relation,near,2,19
-55,pair_relation,leftside,2,19
-56,pair_relation,near,20,2
-57,pair_relation,near,2,20
-58,pair_relation,near,21,2
-59,pair_relation,rightside,21,2
-60,pair_relation,near,2,21
-61,pair_relation,rightside,2,21
-62,pair_relation,near,24,2
-63,pair_relation,rightside,24,2
-64,pair_relation,near,2,24
-65,pair_relation,back,2,24
-66,pair_relation,near,25,2
-67,pair_relation,near,2,25
-68,pair_relation,near,21,19
-69,pair_relation,front,21,19
-70,pair_relation,near,19,21
-71,pair_relation,front,19,21
-72,pair_relation,near,24,19
-73,pair_relation,front,24,19
-74,pair_relation,near,19,24
-75,pair_relation,rightside,19,24
-76,pair_relation,near,25,19
-77,pair_relation,near,19,25
-78,pair_relation,near,25,24
-79,pair_relation,near,24,25
-edgeNum 107
+54,pair_relation,under,19,2
+55,pair_relation,near,2,19
+56,pair_relation,leftside,2,19
+57,pair_relation,near,20,2
+58,pair_relation,leftside,20,2
+59,pair_relation,near,2,20
+60,pair_relation,near,21,2
+61,pair_relation,front,21,2
+62,pair_relation,near,2,21
+63,pair_relation,front,2,21
+64,pair_relation,near,24,2
+65,pair_relation,rightside,24,2
+66,pair_relation,near,2,24
+67,pair_relation,back,2,24
+68,pair_relation,near,25,2
+69,pair_relation,rightside,25,2
+70,pair_relation,near,2,25
+71,pair_relation,leftside,20,19
+72,pair_relation,near,21,19
+73,pair_relation,near,19,21
+74,pair_relation,near,24,19
+75,pair_relation,rightside,24,19
+76,pair_relation,near,19,24
+77,pair_relation,back,19,24
+78,pair_relation,near,25,19
+79,pair_relation,near,19,25
+80,pair_relation,front,21,20
+81,pair_relation,back,20,24
+82,pair_relation,leftside,20,25
+83,pair_relation,near,25,24
+84,pair_relation,near,24,25
+85,pair_relation,front,24,25
+edgeNum 119
 0,26,21
 1,1,27
 2,27,0
@@ -345,55 +351,67 @@ edgeNum 107
 52,52,2
 53,19,53
 54,53,2
-55,2,54
-56,54,19
+55,19,54
+56,54,2
 57,2,55
 58,55,19
-59,20,56
-60,56,2
-61,2,57
-62,57,20
-63,21,58
+59,2,56
+60,56,19
+61,20,57
+62,57,2
+63,20,58
 64,58,2
-65,21,59
-66,59,2
-67,2,60
-68,60,21
-69,2,61
-70,61,21
-71,24,62
-72,62,2
-73,24,63
-74,63,2
-75,2,64
-76,64,24
-77,2,65
-78,65,24
-79,25,66
-80,66,2
+65,2,59
+66,59,20
+67,21,60
+68,60,2
+69,21,61
+70,61,2
+71,2,62
+72,62,21
+73,2,63
+74,63,21
+75,24,64
+76,64,2
+77,24,65
+78,65,2
+79,2,66
+80,66,24
 81,2,67
-82,67,25
-83,21,68
-84,68,19
-85,21,69
-86,69,19
-87,19,70
-88,70,21
-89,19,71
-90,71,21
-91,24,72
+82,67,24
+83,25,68
+84,68,2
+85,25,69
+86,69,2
+87,2,70
+88,70,25
+89,20,71
+90,71,19
+91,21,72
 92,72,19
-93,24,73
-94,73,19
-95,19,74
-96,74,24
-97,19,75
-98,75,24
-99,25,76
-100,76,19
+93,19,73
+94,73,21
+95,24,74
+96,74,19
+97,24,75
+98,75,19
+99,19,76
+100,76,24
 101,19,77
-102,77,25
+102,77,24
 103,25,78
-104,78,24
-105,24,79
+104,78,19
+105,19,79
 106,79,25
+107,21,80
+108,80,20
+109,20,81
+110,81,24
+111,20,82
+112,82,25
+113,25,83
+114,83,24
+115,24,84
+116,84,25
+117,24,85
+118,85,25

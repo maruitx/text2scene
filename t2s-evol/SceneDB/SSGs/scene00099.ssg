@@ -144,24 +144,24 @@ upDir 0 0 1
 suppPlane 212.41 318.438 38.4471 212.41 303.272 38.4471 235.328 303.272 38.4471 235.328 318.438 38.4471
 parentId 16
 parentPlaneUVH 0.542274 0.478876 0.24991
-nodeNum 54
+nodeNum 58
 0,object,room,20 21 22 23 24 25,
-1,object,table,18 19 26 27 37 39 40,20 38 41 42 43
+1,object,table,18 19 26 27 37 39 40 43,20 38 41 42 44
 2,object,microwave,28 29,26
 3,object,pot,,28
 4,object,beaker,,29
 5,object,microscope,,27
-6,object,paperbox,38 44 46,21 37 45 47
+6,object,paperbox,38 45 47 48,21 37 46 49 50
 7,object,lightswitch,,22
-8,object,endtable,30 31 32 33 34 35 41 42 45 48 49 52,23 39 40 44 50 51 53
+8,object,endtable,30 31 32 33 34 35 41 42 46 51 54 55,23 39 40 45 52 53 56 57
 9,object,aquarium,,30
 10,object,calculator,,31
 11,object,laptop,,32
 12,object,pencil,,33
 13,object,pencil,,34
 14,object,paper,,35
-15,object,stool,43 50 51,24 48 49
-16,object,paperbox,36 47 53,25 46 52
+15,object,stool,52 53,24 51
+16,object,paperbox,36 44 49 50 56 57,25 43 47 48 54 55
 17,object,books,,36
 18,attribute,dining,,1
 19,attribute,rectangular,,1
@@ -185,21 +185,25 @@ nodeNum 54
 37,pair_relation,rightside,6,1
 38,pair_relation,front,1,6
 39,pair_relation,near,8,1
-40,pair_relation,back,8,1
+40,pair_relation,rightside,8,1
 41,pair_relation,near,1,8
-42,pair_relation,front,1,8
-43,pair_relation,front,1,15
-44,pair_relation,leftside,8,6
-45,pair_relation,front,6,8
-46,pair_relation,near,16,6
-47,pair_relation,near,6,16
-48,pair_relation,near,15,8
-49,pair_relation,front,15,8
-50,pair_relation,near,8,15
-51,pair_relation,front,8,15
-52,pair_relation,near,16,8
-53,pair_relation,near,8,16
-edgeNum 70
+42,pair_relation,leftside,1,8
+43,pair_relation,rightside,16,1
+44,pair_relation,leftside,1,16
+45,pair_relation,front,8,6
+46,pair_relation,rightside,6,8
+47,pair_relation,near,16,6
+48,pair_relation,front,16,6
+49,pair_relation,near,6,16
+50,pair_relation,rightside,6,16
+51,pair_relation,near,15,8
+52,pair_relation,near,8,15
+53,pair_relation,front,8,15
+54,pair_relation,near,16,8
+55,pair_relation,rightside,16,8
+56,pair_relation,near,8,16
+57,pair_relation,leftside,8,16
+edgeNum 78
 0,18,1
 1,19,1
 2,1,20
@@ -248,25 +252,33 @@ edgeNum 70
 45,41,8
 46,1,42
 47,42,8
-48,1,43
-49,43,15
-50,8,44
-51,44,6
-52,6,45
-53,45,8
-54,16,46
-55,46,6
-56,6,47
-57,47,16
-58,15,48
-59,48,8
-60,15,49
-61,49,8
-62,8,50
-63,50,15
-64,8,51
-65,51,15
-66,16,52
-67,52,8
+48,16,43
+49,43,1
+50,1,44
+51,44,16
+52,8,45
+53,45,6
+54,6,46
+55,46,8
+56,16,47
+57,47,6
+58,16,48
+59,48,6
+60,6,49
+61,49,16
+62,6,50
+63,50,16
+64,15,51
+65,51,8
+66,8,52
+67,52,15
 68,8,53
-69,53,16
+69,53,15
+70,16,54
+71,54,8
+72,16,55
+73,55,8
+74,8,56
+75,56,16
+76,8,57
+77,57,16

@@ -184,9 +184,9 @@ upDir 0 0 1
 suppPlane 61.6942 205.333 43.1893 65.1392 218.021 43.1893 52.4619 221.463 43.1893 49.0169 208.776 43.1893
 parentId 21
 parentPlaneUVH 0.447618 0.398277 0.250036
-nodeNum 56
+nodeNum 60
 0,object,room,24 25 26 27,
-1,object,desk,28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 46 48 50,24 47 49 51
+1,object,desk,28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 46 47 50 51 54 55,24 48 49 52 53 56 57
 2,object,pencil,,28
 3,object,pencil,,29
 4,object,eraser,,30
@@ -204,9 +204,9 @@ nodeNum 56
 16,object,paper,,42
 17,object,file folder,,43
 18,object,battery,,44
-19,object,floorlamp,47 52,25 46 53
-20,object,chair,23 49 54,26 48 55
-21,object,filecabinet,45 51 53 55,27 50 52 54
+19,object,floorlamp,48 49 58,25 46 47 59
+20,object,chair,23 52 53,26 50 51
+21,object,filecabinet,45 56 57 59,27 54 55 58
 22,object,binder,,45
 23,attribute,office,,20
 24,pair_relation,vertsupport,1,0
@@ -232,16 +232,20 @@ nodeNum 56
 44,pair_relation,vertsupport,18,1
 45,pair_relation,vertsupport,22,21
 46,pair_relation,near,19,1
-47,pair_relation,near,1,19
-48,pair_relation,near,20,1
-49,pair_relation,near,1,20
-50,pair_relation,near,21,1
-51,pair_relation,near,1,21
-52,pair_relation,leftside,21,19
-53,pair_relation,rightside,19,21
-54,pair_relation,back,21,20
-55,pair_relation,back,20,21
-edgeNum 65
+47,pair_relation,leftside,19,1
+48,pair_relation,near,1,19
+49,pair_relation,rightside,1,19
+50,pair_relation,near,20,1
+51,pair_relation,front,20,1
+52,pair_relation,near,1,20
+53,pair_relation,front,1,20
+54,pair_relation,near,21,1
+55,pair_relation,rightside,21,1
+56,pair_relation,near,1,21
+57,pair_relation,leftside,1,21
+58,pair_relation,rightside,21,19
+59,pair_relation,leftside,19,21
+edgeNum 73
 0,23,20
 1,1,24
 2,24,0
@@ -289,21 +293,29 @@ edgeNum 65
 44,45,21
 45,19,46
 46,46,1
-47,1,47
-48,47,19
-49,20,48
-50,48,1
+47,19,47
+48,47,1
+49,1,48
+50,48,19
 51,1,49
-52,49,20
-53,21,50
+52,49,19
+53,20,50
 54,50,1
-55,1,51
-56,51,21
-57,21,52
-58,52,19
-59,19,53
-60,53,21
+55,20,51
+56,51,1
+57,1,52
+58,52,20
+59,1,53
+60,53,20
 61,21,54
-62,54,20
-63,20,55
-64,55,21
+62,54,1
+63,21,55
+64,55,1
+65,1,56
+66,56,21
+67,1,57
+68,57,21
+69,21,58
+70,58,19
+71,19,59
+72,59,21

@@ -136,7 +136,7 @@ upDir 0 0 1
 suppPlane 102.767 115.761 4.3085 102.767 19.7575 4.3085 198.771 19.7575 4.3085 198.771 115.761 4.3085
 parentId 0
 parentPlaneUVH 0.613819 0.278845 -131.75
-nodeNum 45
+nodeNum 43
 0,object,room,17 18 19 27 28 29 30,
 1,object,print,,27
 2,object,powersocket,,28
@@ -151,9 +151,9 @@ nodeNum 45
 11,object,cap,,25
 12,object,bottle,,26
 13,object,lightswitch,,30
-14,object,basket,32 35 36 41 42,18 33 34 43 44
+14,object,basket,32 35 36 41,18 33 34 42
 15,object,shirt,,32
-16,object,rug,39 40 43 44,19 37 38 41 42
+16,object,rug,39 40 42,19 37 38 41
 17,pair_relation,vertsupport,4,0
 18,pair_relation,vertsupport,14,0
 19,pair_relation,vertsupport,16,0
@@ -175,14 +175,12 @@ nodeNum 45
 35,pair_relation,near,4,14
 36,pair_relation,back,4,14
 37,pair_relation,near,16,4
-38,pair_relation,back,16,4
+38,pair_relation,front,16,4
 39,pair_relation,near,4,16
-40,pair_relation,front,4,16
+40,pair_relation,back,4,16
 41,pair_relation,near,16,14
-42,pair_relation,leftside,16,14
-43,pair_relation,near,14,16
-44,pair_relation,front,14,16
-edgeNum 56
+42,pair_relation,near,14,16
+edgeNum 52
 0,4,17
 1,17,0
 2,14,18
@@ -233,9 +231,5 @@ edgeNum 56
 47,40,16
 48,16,41
 49,41,14
-50,16,42
-51,42,14
-52,14,43
-53,43,16
-54,14,44
-55,44,16
+50,14,42
+51,42,16

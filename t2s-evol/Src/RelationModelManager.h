@@ -59,6 +59,7 @@ public:
 
 	void extractRelPosToAnchor(TSScene *currScene, const MetaModel &anchorMd, const Eigen::VectorXd &currPlacement, RelativePos *relPos);
 	void extractRelPosForModelPair(TSScene *currScene, const MetaModel &anchorMd, const MetaModel &actMd, RelativePos *relPos);
+
 	mat4 getModelToUnitboxMat(Model *m, const MetaModel &md);
 
 	void updateCollisionPostions(const std::vector<std::vector<vec3>> &collisionPositions);
@@ -74,8 +75,6 @@ public:
 	std::map<QString, GroupRelationModel*> m_groupRelModels;  // all group relations
 
 	std::vector<QString> m_pairwiseModelKeys;
-
-	std::map<std::string, mat4> m_loadModelToUnitboxMat;
 
 	std::vector<std::vector<vec3>> m_collisionPositions;  // invalid positions including collision, over-hang
 	

@@ -321,16 +321,16 @@ nodeNum 74
 61,pair_relation,vertsupport,20,17
 62,pair_relation,vertsupport,24,23
 63,pair_relation,vertsupport,27,26
-64,pair_relation,back,7,1
-65,pair_relation,back,1,7
+64,pair_relation,rightside,7,1
+65,pair_relation,rightside,1,7
 66,pair_relation,near,14,1
 67,pair_relation,rightside,14,1
 68,pair_relation,near,1,14
 69,pair_relation,leftside,1,14
 70,pair_relation,near,14,7
-71,pair_relation,back,14,7
+71,pair_relation,rightside,14,7
 72,pair_relation,near,7,14
-73,pair_relation,back,7,14
+73,pair_relation,rightside,7,14
 edgeNum 83
 0,32,14
 1,1,33
