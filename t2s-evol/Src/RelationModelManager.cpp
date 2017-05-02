@@ -24,12 +24,13 @@ void RelationModelManager::loadRelationModels()
 	loadRelativeRelationModels();
 	loadPairwiseRelationModels();
 	loadGroupRelationModels();
+	loadSupportRelationModels();
 }
 
 void RelationModelManager::loadRelativeRelationModels()
 {
 	QString sceneDBPath = "./SceneDB";
-	QString filename = sceneDBPath + "/Relative.model";
+	QString filename = sceneDBPath + QString("/Relative_%1.model").arg(params::inst()->sceneDBType);
 
 	QFile inFile(filename);
 	QTextStream ifs(&inFile);
@@ -56,7 +57,7 @@ void RelationModelManager::loadRelativeRelationModels()
 void RelationModelManager::loadPairwiseRelationModels()
 {
 	QString sceneDBPath = "./SceneDB";
-	QString filename = sceneDBPath + "/Pairwise.model";
+	QString filename = QString(sceneDBPath + "/Pairwise_%1.model").arg(params::inst()->sceneDBType);
 
 	QFile inFile(filename);
 	QTextStream ifs(&inFile);
@@ -85,7 +86,7 @@ void RelationModelManager::loadPairwiseRelationModels()
 void RelationModelManager::loadGroupRelationModels()
 {
 	QString sceneDBPath = "./SceneDB";
-	QString filename = sceneDBPath + "/Group.model";
+	QString filename = sceneDBPath + QString("/Group_%1.model").arg(params::inst()->sceneDBType);
 
 	QFile inFile(filename);
 	QTextStream ifs(&inFile);
@@ -113,10 +114,12 @@ void RelationModelManager::loadGroupRelationModels()
 				currLine = ifs.readLine();
 				parts = PartitionString(currLine.toStdString(), ",");
 				subParts = PartitionString(parts[0], "_");
+				QString objName = toQString(subParts[0]);
 
-				OccurrenceModel *newOccurModel = new OccurrenceModel(toQString(subParts[0]), StringToInt(subParts[1]));
+				if(isToSkipModelCats(objName)) continue;
+
+				OccurrenceModel *newOccurModel = new OccurrenceModel(objName, StringToInt(subParts[1]));
 				newOccurModel->m_occurProb = StringToFloat(parts[1]);
-
 				newGroupModel->m_occurModels[newOccurModel->m_occurKey] = newOccurModel;
 			}
 		}
@@ -143,6 +146,8 @@ void RelationModelManager::loadGroupRelationModels()
 				newRelModel->loadFromStream(ifs);
 			} 
 		}
+
+		newGroupModel->normalizeOccurrenceProbs(0.2, 0.8);
 	}
 
 	inFile.close();
@@ -153,7 +158,7 @@ void RelationModelManager::loadGroupRelationModels()
 void RelationModelManager::loadPairModelSim()
 {
 	QString sceneDBPath = "./SceneDB";
-	QString filename = sceneDBPath + "/Pairwise.sim";
+	QString filename = sceneDBPath + QString("/Pairwise_%1.sim").arg(params::inst()->sceneDBType);
 
 	QFile inFile(filename);
 	QTextStream ifs(&inFile);
@@ -203,7 +208,7 @@ void RelationModelManager::loadPairModelSim()
 void RelationModelManager::loadGroupPariModelSim()
 {
 	QString sceneDBPath = "./SceneDB";
-	QString filename = sceneDBPath + "/Group.sim";
+	QString filename = sceneDBPath + QString("/Group_%1.sim").arg(params::inst()->sceneDBType);
 
 	QFile inFile(filename);
 	QTextStream ifs(&inFile);
@@ -236,6 +241,42 @@ void RelationModelManager::loadGroupPariModelSim()
 				relModel->m_simModelIds[k] = intList[k];
 			}
 		}
+	}
+
+	inFile.close();
+}
+
+void RelationModelManager::loadSupportRelationModels()
+{
+	QString sceneDBPath = "./SceneDB";
+	QString filename = sceneDBPath + QString("/SupportRelation_%1.model").arg(params::inst()->sceneDBType);
+
+	QFile inFile(filename);
+	QTextStream ifs(&inFile);
+
+	if (!inFile.open(QIODevice::ReadOnly | QIODevice::Text)) return;
+
+	while (!ifs.atEnd())
+	{
+		SupportRelation *newSuppRelation = new SupportRelation();
+		newSuppRelation->loadFromStream(ifs);
+
+		m_supportRelations[newSuppRelation->m_suppRelKey] = newSuppRelation;
+	}
+	inFile.close();
+
+	filename = sceneDBPath + QString("/SupportParent_%1.prob").arg(params::inst()->sceneDBType);
+	inFile.setFileName(filename);
+	if (!inFile.open(QIODevice::ReadOnly | QIODevice::Text)) return;
+
+	while (!ifs.atEnd())
+	{
+		QString  currLine = ifs.readLine();
+		std::vector<std::string> parts = PartitionString(currLine.toStdString(), ",");
+		std::vector<float> floatList = StringToFloatList(parts[1], "");
+
+		SupportProb newSuppProb((double)floatList[0], (double)floatList[1]);
+		m_suppProbs[toQString(parts[0])] = newSuppProb;
 	}
 
 	inFile.close();
@@ -498,6 +539,16 @@ PairwiseRelationModel* RelationModelManager::getPairModelInGroupById(GroupRelati
 	}
 }
 
+bool RelationModelManager::isToSkipModelCats(const QString &objName)
+{
+	if (objName == "rug")
+	{
+		return true;
+	}
+
+	return false;
+}
+
 Eigen::VectorXd RelationModelManager::sampleNewPosFromConstraints(TSScene *currScene, int metaModelId, int &anchorModelId)
 {
 	vec3 newPos;
@@ -622,30 +673,47 @@ void RelationModelManager::sampleFromRelationModel(TSScene *currScene, PairwiseR
 	double newZ = findClosestSuppPlaneZ(currScene, metaModelId, newPos);
 	newPos.z = newZ;
 
-	newTheta = newSample[3];
+	newTheta = newSample[3]*math_pi;
 }
 
 double RelationModelManager::findClosestSuppPlaneZ(TSScene *currScene, int metaModelId, const vec3 &newPos)
 {
 	int parentNodeId = currScene->m_ssg->findParentNodeIdForModel(metaModelId);
 
-	int parentMetaModelId = -1;  // set parent to be the floor
+	// use z of parent's support plane if parent exists
 	if (parentNodeId != -1)
 	{
-		parentMetaModelId = currScene->m_ssg->m_graphNodeToModelListIdMap[parentNodeId];
-	}
-
-	if (parentMetaModelId != -1)
-	{
-		MetaModel &parentMd = currScene->getMetaModel(parentMetaModelId);
-		SuppPlane &parentSuppPlane = parentMd.suppPlane;
-		if (parentSuppPlane.m_isInited)
+		int parentMetaModelId = currScene->m_ssg->m_graphNodeToModelListIdMap[parentNodeId];
+		if (parentMetaModelId != -1)
 		{
-			return parentSuppPlane.getZ();
+			MetaModel &parentMd = currScene->getMetaModel(parentMetaModelId);
+			SuppPlane &parentSuppPlane = parentMd.suppPlane;
+			if (parentSuppPlane.m_isInited)
+			{
+				return parentSuppPlane.getZ();
+			}
 		}
 	}
 
-	return newPos.z;
+	// use z of anchor's position if parent does not exist
+	int currNodeId = currScene->m_ssg->getNodeIdWithModelId(metaModelId);
+	SemNode &currNode = currScene->m_ssg->m_nodes[currNodeId];
+	for (int i=0; i<currNode.outEdgeNodeList.size(); i++)
+	{
+		int relNodeId = currNode.outEdgeNodeList[i];
+		SemNode &relNode = currScene->m_ssg->m_nodes[relNodeId];
+
+		if (relNode.anchorNodeList.size()>0)
+		{
+			int anchorNodeId = relNode.anchorNodeList[0];
+			int anchorModeId = currScene->m_ssg->m_graphNodeToModelListIdMap[anchorNodeId];
+			MetaModel &anchorModel = currScene->getMetaModel(anchorModeId);
+			return anchorModel.position.z;
+		}
+	}
+
+	return currScene->m_floorHeight;
+	//return newPos.z;
 }
 
 void RelationModelManager::randomSampleOnParent(TSScene *currScene, int metaModelId, vec3 &newPos, int &parentMetaModelId)
@@ -716,7 +784,16 @@ void RelationModelManager::collectConstraintsForModel(TSScene *currScene, int me
 			if (!refModel->m_loadingDone || !actModel->m_loadingDone) return;
 
 			// find explicit constraints specified in the SSG
-			PairwiseRelationModel *pairwiseModel = retrievePairwiseModel(currScene, anchorMd, actMd, relationName);
+			PairwiseRelationModel *pairwiseModel;
+			if (relationNode.nodeType.contains("group"))
+			{
+				pairwiseModel = retrievePairModelFromGroup(toQString(anchorMd.catName), toQString(actMd.catName), relationNode.nodeName);
+			}
+			else
+			{
+				pairwiseModel = retrievePairwiseModel(currScene, anchorMd, actMd, relationName);
+			}
+
 			if (pairwiseModel!=NULL)
 			{
 				int anchorModelId = currSSG->m_graphNodeToModelListIdMap[anchorObjNodeId];

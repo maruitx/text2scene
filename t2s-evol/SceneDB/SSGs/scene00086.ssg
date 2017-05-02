@@ -160,27 +160,27 @@ upDir 0 0 1
 suppPlane 49.0191 149.929 71.6453 58.564 158.987 71.6453 51.6998 166.22 71.6453 42.1549 157.163 71.6453
 parentId 12
 parentPlaneUVH 0.659538 0.279772 0.249988
-nodeNum 45
-0,object,room,22 23 24 25,
+nodeNum 88
+0,object,room,22 23 24 25 41,
 1,object,lightswitch,,22
 2,object,lamp,,23
-3,object,counter,26 27 28 41 42,24 43 44
-4,object,plate,29,26
-5,object,plate,30,29
-6,object,mug,,30
-7,object,plate,31 32 33,27
-8,object,cookie,,31
-9,object,cookie,,32
-10,object,cookie,,33
+3,object,counter,26 27 28 42 43 45 47 48 51 53,24 44 46 49 50 52
+4,object,plate,29 55 58,26 54 56 57 59
+5,object,plate,30 54,29
+6,object,mug,56 57,30 55
+7,object,plate,31 32 33 60 61 63 65,27 42 62 64
+8,object,cookie,66 68,31 60 67 69
+9,object,cookie,44 59 70 72,32 43 58 71
+10,object,cookie,46 73,33 45 74
 11,object,plate,,28
-12,object,table,20 21 34 35 36 37 38 39 43 44,25 41 42
-13,object,food processor,,34
-14,object,glass,,35
-15,object,espresso maker,40,36
-16,object,mug,,40
-17,object,mug,,37
-18,object,mug,,38
-19,object,mug,,39
+12,object,table,20 21 34 35 36 37 38 39 49 50 62 67 71 74 75 76 77 79,25 41 47 48 61 66 70 73 78
+13,object,food processor,80,34 75 81
+14,object,glass,52 64 69 82 84,35 51 63 68 76 83
+15,object,espresso maker,40 78 81 83 85,36 77 80 82
+16,object,mug,86,40
+17,object,mug,,37 84 87
+18,object,mug,87,38 53 65 72 79 85
+19,object,mug,,39 86
 20,attribute,dining,,12
 21,attribute,rectangular,,12
 22,pair_relation,horizonsupport,1,0
@@ -202,11 +202,54 @@ nodeNum 45
 38,pair_relation,vertsupport,18,12
 39,pair_relation,vertsupport,19,12
 40,pair_relation,vertsupport,16,15
-41,pair_relation,near,12,3
-42,pair_relation,rightside,12,3
-43,pair_relation,near,3,12
-44,pair_relation,leftside,3,12
-edgeNum 48
+41,pair_relation,onright,12,0
+42,pair_relation,onright,7,3
+43,pair_relation,rightside,9,3
+44,pair_relation,back,3,9
+45,pair_relation,rightside,10,3
+46,pair_relation,back,3,10
+47,pair_relation,near,12,3
+48,pair_relation,rightside,12,3
+49,pair_relation,near,3,12
+50,pair_relation,leftside,3,12
+51,pair_relation,rightside,14,3
+52,pair_relation,leftside,3,14
+53,pair_relation,rightside,18,3
+54,pair_relation,under,4,5
+55,pair_relation,front,6,4
+56,pair_relation,back,4,6
+57,pair_relation,under,4,6
+58,pair_relation,front,9,4
+59,pair_relation,back,4,9
+60,pair_relation,onright,8,7
+61,pair_relation,front,12,7
+62,pair_relation,leftside,7,12
+63,pair_relation,front,14,7
+64,pair_relation,leftside,7,14
+65,pair_relation,front,18,7
+66,pair_relation,front,12,8
+67,pair_relation,leftside,8,12
+68,pair_relation,front,14,8
+69,pair_relation,leftside,8,14
+70,pair_relation,front,12,9
+71,pair_relation,leftside,9,12
+72,pair_relation,front,18,9
+73,pair_relation,front,12,10
+74,pair_relation,leftside,10,12
+75,pair_relation,onright,13,12
+76,pair_relation,onleft,14,12
+77,pair_relation,onright,15,12
+78,pair_relation,under,12,15
+79,pair_relation,onleft,18,12
+80,pair_relation,rightside,15,13
+81,pair_relation,rightside,13,15
+82,pair_relation,rightside,15,14
+83,pair_relation,leftside,14,15
+84,pair_relation,rightside,17,14
+85,pair_relation,leftside,18,15
+86,pair_relation,leftside,19,16
+87,pair_relation,rightside,17,18
+edgeNum 134
 0,20,12
 1,21,12
 2,1,22
@@ -248,10 +291,96 @@ edgeNum 48
 38,16,40
 39,40,15
 40,12,41
-41,41,3
-42,12,42
+41,41,0
+42,7,42
 43,42,3
-44,3,43
-45,43,12
+44,9,43
+45,43,3
 46,3,44
-47,44,12
+47,44,9
+48,10,45
+49,45,3
+50,3,46
+51,46,10
+52,12,47
+53,47,3
+54,12,48
+55,48,3
+56,3,49
+57,49,12
+58,3,50
+59,50,12
+60,14,51
+61,51,3
+62,3,52
+63,52,14
+64,18,53
+65,53,3
+66,4,54
+67,54,5
+68,6,55
+69,55,4
+70,4,56
+71,56,6
+72,4,57
+73,57,6
+74,9,58
+75,58,4
+76,4,59
+77,59,9
+78,8,60
+79,60,7
+80,12,61
+81,61,7
+82,7,62
+83,62,12
+84,14,63
+85,63,7
+86,7,64
+87,64,14
+88,18,65
+89,65,7
+90,12,66
+91,66,8
+92,8,67
+93,67,12
+94,14,68
+95,68,8
+96,8,69
+97,69,14
+98,12,70
+99,70,9
+100,9,71
+101,71,12
+102,18,72
+103,72,9
+104,12,73
+105,73,10
+106,10,74
+107,74,12
+108,13,75
+109,75,12
+110,14,76
+111,76,12
+112,15,77
+113,77,12
+114,12,78
+115,78,15
+116,18,79
+117,79,12
+118,15,80
+119,80,13
+120,13,81
+121,81,15
+122,15,82
+123,82,14
+124,14,83
+125,83,15
+126,17,84
+127,84,14
+128,18,85
+129,85,15
+130,19,86
+131,86,16
+132,17,87
+133,87,18

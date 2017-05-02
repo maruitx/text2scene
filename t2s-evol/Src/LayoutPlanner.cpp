@@ -50,7 +50,7 @@ void LayoutPlanner::initPlaceByAlignRelation(SceneSemGraph *matchedSg, SceneSemG
 
 				// find the target position on new ref obj using the U, V w.r.t the original parent
 				mat4 translateMat = mat4::identitiy();
-				if (relNode.nodeName.contains("support"))
+				if (relNode.nodeName.contains("support") || (relNode.nodeName.contains("on")&& relNode.nodeName!="front"))
 				{
 					vec3 mUVH = mActiveMd.parentPlaneUVH;
 					SuppPlane& tarRefSuppPlane = currRefMd.suppPlane;
@@ -111,14 +111,57 @@ void LayoutPlanner::initPlaceUsingSynthesizedRelations(TSScene *currScene)
 		SemNode& relNode = currSSG->m_nodes[mi];
 		if (!relNode.isAligned && relNode.nodeType == "pair_relation" && !relNode.isSynthesized)
 		{
-			relNode.isAligned = true;
+			relNode.isAligned = true;   // for case of inserting existing support relation node into an empty scene
 			relNode.isSynthesized = true;
 		}
 	}
 
-	for (int mi = 0; mi <currSSG->m_nodeNum; mi++)
+	// collect relation node ids; for model with multiple relations, prefer to use support for initial placement
+	std::vector<int> relNodeIds;
+	for (int mi = 0; mi < currSSG->m_nodeNum; mi++)
 	{
-		SemNode& relNode = currSSG->m_nodes[mi];
+		SemNode& sgNode = currSSG->m_nodes[mi];
+
+		if (sgNode.nodeType=="object")
+		{
+			int outRelationNum = sgNode.outEdgeNodeList.size();
+			if (outRelationNum == 1)
+			{
+				relNodeIds.push_back(sgNode.outEdgeNodeList[0]);
+			}
+
+			if (outRelationNum >1)
+			{
+				for (int r=0; r< outRelationNum; r++)
+				{
+					int relId = sgNode.outEdgeNodeList[r];
+					SemNode &relNode = currSSG->m_nodes[relId];
+					if (relNode.nodeName.contains("support"))
+					{
+						relNodeIds.push_back(relId);
+						//break;
+					}
+				}
+
+				for (int r=0; r < outRelationNum; r++)
+				{
+					int relId = sgNode.outEdgeNodeList[r];
+					SemNode &relNode = currSSG->m_nodes[relId];
+
+					if (std::find(relNodeIds.begin(), relNodeIds.end(), relId) == relNodeIds.end())
+					{
+						relNodeIds.push_back(relId);
+					}
+				}
+			}
+		}
+	}
+
+	int relNum = relNodeIds.size();
+	for (int i = 0; i < relNum; i++)
+	{
+		int relId = relNodeIds[i];
+		SemNode& relNode = currSSG->m_nodes[relId];
 		if (!relNode.isAligned && relNode.nodeType == "pair_relation" && relNode.isSynthesized)
 		{
 			// edge dir: (active, relation), (relation, reference)
@@ -137,7 +180,7 @@ void LayoutPlanner::initPlaceUsingSynthesizedRelations(TSScene *currScene)
 
 				Model *refModel = currScene->getModel(refMd.name);
 				Model *actModel = currScene->getModel(actMd.name);
-				if (!refModel->m_loadingDone || !actModel->m_loadingDone) continue;
+				//if (!refModel->m_loadingDone || !actModel->m_loadingDone) break;
 
 				// find relation model and sample from the model
 				PairwiseRelationModel *pairModel = m_relModelManager->retrievePairwiseModel(currScene, refMd, actMd, relNode.nodeName);
@@ -156,23 +199,31 @@ void LayoutPlanner::initPlaceUsingSynthesizedRelations(TSScene *currScene)
 
 					SuppPlane &suppPlane = refMd.suppPlane;
 					vec3 uvh = actMd.parentPlaneUVH;
-					vec3 newPos = suppPlane.getPointByUV(uvh.x, uvh.y);					
+					vec3 newPos = suppPlane.getPointByUV(uvh.x, uvh.y);
 
 					vec3 translateVec;
 					translateVec = newPos - actMd.position;
-					transMat = transMat.translate(translateVec);					
+					transMat = transMat.translate(translateVec);
 				}
-				double previousActZ = actMd.position.z;
 				actMd.updateWithTransform(transMat);
 				// update meta model in SSG
 				currScene->m_ssg->m_metaScene.m_metaModellList[activeModelId] = actMd;
 
 				updatePlacementOfChildren(currScene, activeModelId, transMat);
 
-				if (!relNode.nodeName.contains("support"))
+				int actModelParentId = currScene->m_ssg->m_parentOfModel[activeModelId];
+				int refModelParentId = currScene->m_ssg->m_parentOfModel[refModelId];
+				// for relation other than support, also move parents of current obj
+				// e.g., tv in front of sofa, should move tv stand along with tv
+				if (!relNode.nodeName.contains("support") 
+					&& relNode.nodeName != "onleft"
+					&& relNode.nodeName != "onright"
+					&& relNode.nodeName != "oncenter"
+					&& actModelParentId!= refModelParentId)
 				{
+					double previousActZ = actMd.position.z;
 					// only transform parent in xy plane
-					mat4 zMat = mat4::translate(vec3(0,0,previousActZ - actMd.position.z));
+					mat4 zMat = mat4::translate(vec3(0, 0, previousActZ - actMd.position.z));
 					updatePlacementOfParent(currScene, activeModelId, zMat*transMat);
 				}
 			}
@@ -181,19 +232,100 @@ void LayoutPlanner::initPlaceUsingSynthesizedRelations(TSScene *currScene)
 		}
 	}
 
-	int count = 0;
-	for (int mi = 0; mi < currSSG->m_nodeNum; mi++)
-	{
-		SemNode& relNode = currSSG->m_nodes[mi];
-		if (!relNode.isAligned && relNode.nodeType == "pair_relation" && relNode.isSynthesized)
-		{
-			count++;
-		}
-	}
-	if (count==0)
-	{
-		currScene->m_ssg->m_allSynthNodesInited = true;
-	}
+	currScene->m_ssg->m_allSynthNodesInited = true;
+
+	//int count = 0;
+	//for (int mi = 0; mi < currSSG->m_nodeNum; mi++)
+	//{
+	//	SemNode& relNode = currSSG->m_nodes[mi];
+	//	if (!relNode.isAligned && relNode.nodeType == "pair_relation" && relNode.isSynthesized)
+	//	{
+	//		count++;
+	//	}
+	//}
+	//if (count==0)
+	//{
+	//	currScene->m_ssg->m_allSynthNodesInited = true;
+	//}
+
+	//for (int mi = 0; mi < currSSG->m_nodeNum; mi++)
+	//{
+	//	SemNode& relNode = currSSG->m_nodes[mi];
+	//	if (!relNode.isAligned && relNode.nodeType == "pair_relation" && relNode.isSynthesized)
+	//	{
+	//		// edge dir: (active, relation), (relation, reference)
+
+	//		if (!relNode.anchorNodeList.empty())
+	//		{
+	//			int refNodeId = relNode.anchorNodeList[0];
+	//			int activeNodeId = relNode.activeNodeList[0];
+
+	//			int refModelId = currSSG->m_graphNodeToModelListIdMap[refNodeId];
+	//			int activeModelId = currSSG->m_graphNodeToModelListIdMap[activeNodeId];
+
+	//			// compute transformation matrix based on the ref nodes
+	//			MetaModel &refMd = currScene->getMetaModel(refModelId);
+	//			MetaModel &actMd = currScene->getMetaModel(activeModelId);
+
+	//			Model *refModel = currScene->getModel(refMd.name);
+	//			Model *actModel = currScene->getModel(actMd.name);
+	//			if (!refModel->m_loadingDone || !actModel->m_loadingDone) break;
+
+	//			// find relation model and sample from the model
+	//			PairwiseRelationModel *pairModel = m_relModelManager->retrievePairwiseModel(currScene, refMd, actMd, relNode.nodeName);
+
+	//			mat4 transMat;
+	//			if (pairModel != NULL)
+	//			{
+	//				vec3 newPos;
+	//				double newTheta;
+	//				m_relModelManager->sampleFromRelationModel(currScene, pairModel, activeModelId, refModelId, newPos, newTheta);
+	//				transMat = computeTransMatFromPos(currScene, refModelId, activeModelId, newPos, newTheta);
+	//			}
+	//			else
+	//			{
+	//				// Failure case: don't know the relationship
+
+	//				SuppPlane &suppPlane = refMd.suppPlane;
+	//				vec3 uvh = actMd.parentPlaneUVH;
+	//				vec3 newPos = suppPlane.getPointByUV(uvh.x, uvh.y);					
+
+	//				vec3 translateVec;
+	//				translateVec = newPos - actMd.position;
+	//				transMat = transMat.translate(translateVec);					
+	//			}
+	//			double previousActZ = actMd.position.z;
+	//			actMd.updateWithTransform(transMat);
+	//			// update meta model in SSG
+	//			currScene->m_ssg->m_metaScene.m_metaModellList[activeModelId] = actMd;
+
+	//			updatePlacementOfChildren(currScene, activeModelId, transMat);
+
+	//			if (!relNode.nodeName.contains("support"))
+	//			{
+	//				// only transform parent in xy plane
+	//				mat4 zMat = mat4::translate(vec3(0,0,previousActZ - actMd.position.z));
+	//				updatePlacementOfParent(currScene, activeModelId, zMat*transMat);
+	//			}
+	//		}
+
+	//		relNode.isAligned = true;
+	//	}
+	//}
+
+	//int count = 0;
+	//for (int mi = 0; mi < currSSG->m_nodeNum; mi++)
+	//{
+	//	SemNode& relNode = currSSG->m_nodes[mi];
+	//	if (!relNode.isAligned && relNode.nodeType == "pair_relation" && relNode.isSynthesized)
+	//	{
+	//		count++;
+	//	}
+	//}
+	//if (count==0)
+	//{
+	//	currScene->m_ssg->m_allSynthNodesInited = true;
+	//}
 }
 
 void LayoutPlanner::computeLayout(TSScene *currScene)
@@ -557,10 +689,11 @@ std::vector<int> LayoutPlanner::makeToPlaceModelIds(TSScene *currScene)
 		return orderedIds;
 	}
 
-	// collect explicit models
-	std::vector<int> explictModelIds;
 	for (int i = 0; i < currSSG->m_levelOfObjs.size(); i++)
 	{
+		// collect explicit models for current level
+		std::vector<int> explictModelIds;
+		std::vector<int> sortExplictModelIds;
 		for (int j = 0; j < currSSG->m_levelOfObjs[i].size(); j++)
 		{
 			int modelId = currSSG->m_levelOfObjs[i][j];
@@ -569,19 +702,18 @@ std::vector<int> LayoutPlanner::makeToPlaceModelIds(TSScene *currScene)
 			int nodeId = currSSG->getNodeIdWithModelId(modelId);
 			SemNode &sgNode = currSSG->m_nodes[nodeId];
 
-			if (!md.isAlreadyPlaced && sgNode.matchingStatus == SemNode::ExplicitNode)
+			if (!md.isAlreadyPlaced && (sgNode.matchingStatus == SemNode::ExplicitNode || sgNode.isInferred == true))
 			{
 				explictModelIds.push_back(currSSG->m_levelOfObjs[i][j]);
 			}
+			sortExplictModelIds = sortModelsByVolume(currScene, explictModelIds);
 		}
-	}
 
-	orderedIds.insert(orderedIds.end(), explictModelIds.begin(), explictModelIds.end());
+		orderedIds.insert(orderedIds.end(), sortExplictModelIds.begin(), sortExplictModelIds.end());
 
-	// collect and order implicit models
-	std::vector<int> implicitModelIds;
-	for (int i = 0; i < currSSG->m_levelOfObjs.size(); i++)
-	{
+		// collect and order implicit models for current level
+		std::vector<int> implicitModelIds;
+		std::vector<int> sortImlictModelIds;
 		for (int j = 0; j < currSSG->m_levelOfObjs[i].size(); j++)
 		{
 			int modelId = currSSG->m_levelOfObjs[i][j];
@@ -592,10 +724,38 @@ std::vector<int> LayoutPlanner::makeToPlaceModelIds(TSScene *currScene)
 				implicitModelIds.push_back(modelId);
 			}
 		}
+		sortImlictModelIds = sortModelsByVolume(currScene, implicitModelIds);
+		orderedIds.insert(orderedIds.end(), sortImlictModelIds.begin(), sortImlictModelIds.end());
 	}
 
-	orderedIds.insert(orderedIds.end(), implicitModelIds.begin(), implicitModelIds.end());
 	return orderedIds;
+}
+
+std::vector<int> LayoutPlanner::sortModelsByVolume(TSScene *currScene, const std::vector<int> &modelIds)
+{
+	std::vector<std::pair<double, int>> volumeIdPairs;
+	int modelNum = modelIds.size();
+	for (int i=0; i < modelNum; i++)
+	{
+		int currModelId = modelIds[i];
+		MetaModel &md = currScene->getMetaModel(currModelId);
+		Model *currModel = currScene->getModel(md.name);
+
+		double modelVolume = currModel->getVolume(md.transformation);
+		volumeIdPairs.push_back(std::make_pair(modelVolume, currModelId));
+	}
+
+	std::sort(volumeIdPairs.begin(), volumeIdPairs.end()); // ascending order
+	std::reverse(volumeIdPairs.begin(), volumeIdPairs.end());
+
+	std::vector<int> sortedIds(modelNum);
+
+	for (int i=0; i< modelNum; i++)
+	{
+		sortedIds[i] = volumeIdPairs[i].second;
+	}
+
+	return sortedIds;
 }
 
 void LayoutPlanner::computeConstraintsForModels(TSScene *currScene, const std::vector<int> &toPlaceModelIds)

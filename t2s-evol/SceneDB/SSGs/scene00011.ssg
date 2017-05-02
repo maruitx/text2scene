@@ -88,18 +88,18 @@ upDir 0 0 1
 suppPlane 21.0635 199.417 98.6304 11.0033 199.417 98.6304 11.0033 199.417 114.526 21.0635 199.417 114.526
 parentId 1
 parentPlaneUVH 0.247577 0.434694 -24.4772
-nodeNum 21
+nodeNum 28
 0,object,room,20,
-1,object,bookcase,11 12 13 14 15 16 17 18 19,20
-2,object,book,,11
-3,object,books,,12
-4,object,rubikscube,,13
-5,object,toyfigure,,14
+1,object,bookcase,11 12 13 14 15 16 17 18 19,20 21
+2,object,book,,11 22
+3,object,books,23 24 25 26,12
+4,object,rubikscube,,13 27
+5,object,toyfigure,22,14
 6,object,chestofdrawers,,15
-7,object,books,,16
-8,object,toyfigure,,17
-9,object,airplane,,18
-10,object,tolkien,,19
+7,object,books,21,16 23
+8,object,toyfigure,27,17 24
+9,object,airplane,,18 25
+10,object,tolkien,,19 26
 11,pair_relation,vertsupport,2,1
 12,pair_relation,vertsupport,3,1
 13,pair_relation,vertsupport,4,1
@@ -110,7 +110,14 @@ nodeNum 21
 18,pair_relation,vertsupport,9,1
 19,pair_relation,vertsupport,10,1
 20,pair_relation,horizonsupport,1,0
-edgeNum 20
+21,pair_relation,under,1,7
+22,pair_relation,leftside,2,5
+23,pair_relation,rightside,7,3
+24,pair_relation,rightside,8,3
+25,pair_relation,rightside,9,3
+26,pair_relation,leftside,10,3
+27,pair_relation,leftside,4,8
+edgeNum 34
 0,2,11
 1,11,1
 2,3,12
@@ -131,3 +138,17 @@ edgeNum 20
 17,19,1
 18,1,20
 19,20,0
+20,1,21
+21,21,7
+22,2,22
+23,22,5
+24,7,23
+25,23,3
+26,8,24
+27,24,3
+28,9,25
+29,25,3
+30,10,26
+31,26,3
+32,4,27
+33,27,8

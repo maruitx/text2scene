@@ -1,9 +1,9 @@
 #include "TextSemGraph.h"
+#include "RelationModelManager.h"
 #include "Utility.h"
 
-
-TextSemGraph::TextSemGraph(SelSentence s):
-m_sentence(s)
+TextSemGraph::TextSemGraph(SelSentence s, RelationModelManager *relManager):
+m_sentence(s), m_relModelManager(relManager)
 {
 	buildGraphFromSEL();
 }
@@ -32,7 +32,8 @@ void TextSemGraph::buildGraphFromSEL()
 
 			if (isNumber)
 			{
-				if (instCount == 1 && entityName != "books")
+				// since isPlural is true, add more instances
+				if (instCount == 1)
 				{
 					instCount = GenRandomInt(2, 5);
 				}
@@ -161,10 +162,10 @@ void TextSemGraph::mapNodeNameToFixedNameSet()
 
 QString TextSemGraph::convertToSinglarForm(const QString &s)
 {
-	if (s.contains("books"))
-	{
-		return s;
-	}
+	//if (s.contains("books"))
+	//{
+	//	return s;
+	//}
 
 	QString singleS;
 	// e.g. shelves
@@ -260,14 +261,20 @@ void TextSemGraph::mapToFixedRelationSet(SemNode &currNode, QString &nodeName, Q
 {
 	if (nodeName.contains("on") && !nodeName.contains("front"))
 	{
-		if (nodeType.contains("horizon"))
+		// TODO: infer for horizonsupport
+		if (nodeName.contains("right"))
 		{
-			nodeName = "horizonsupport";
+			nodeName = "onright";
+		}
+		else if (nodeName.contains("left"))
+		{
+			nodeName = "onleft";
 		}
 		else
 		{
 			nodeName = "vertsupport";
 		}
+
 		nodeType = SSGNodeType[2];
 		return;
 	}
@@ -276,7 +283,6 @@ void TextSemGraph::mapToFixedRelationSet(SemNode &currNode, QString &nodeName, Q
 	{
 
 		nodeType = SSGNodeType[2];
-		nodeName = "vertsupport";
 
 		// reverse edge dir
 		SemEdge &inEdge = getEdge(currNode.activeNodeList[0], currNode.nodeId);
@@ -298,6 +304,30 @@ void TextSemGraph::mapToFixedRelationSet(SemNode &currNode, QString &nodeName, Q
 
 		EraseValueInVectorInt(m_nodes[actNodeId].inEdgeNodeList, currNodeId);
 		m_nodes[actNodeId].outEdgeNodeList.push_back(currNodeId);
+
+		QString anchorName = m_nodes[refNodeId].nodeName;
+		QString actName = m_nodes[actNodeId].nodeName;
+		QString suppRelKey1 = anchorName + "_" + actName + "_vertsupport";
+		QString suppRelKey2 = anchorName + "_" + actName + "_horizonsupport";
+
+
+		if (m_relModelManager->m_supportRelations.count(suppRelKey1))
+		{
+			nodeName = "vertsupport";
+		}
+		else if (m_relModelManager->m_supportRelations.count(suppRelKey2))
+		{
+			nodeName = "horizonsupport";
+		}
+		else if (m_relModelManager->m_suppProbs.count(actName) && m_relModelManager->m_suppProbs[actName].beChildProb >= 0.5
+			&& m_relModelManager->m_suppProbs.count(anchorName) && m_relModelManager->m_suppProbs[anchorName].beParentProb >= 0.5)
+		{
+			nodeName = "vertsupport";
+		}
+		else
+		{
+			nodeName = "near";
+		}
 
 		return;
 	}
@@ -337,7 +367,7 @@ void TextSemGraph::mapToFixedRelationSet(SemNode &currNode, QString &nodeName, Q
 		return;
 	}
 
-	if (nodeName.contains("under || below"))
+	if (nodeName.contains("under") || nodeName.contains("below"))
 	{
 		nodeName = "under";
 		nodeType = SSGNodeType[2];
@@ -346,7 +376,7 @@ void TextSemGraph::mapToFixedRelationSet(SemNode &currNode, QString &nodeName, Q
 
 	if (nodeName.contains("center"))
 	{
-		nodeName = "center";
+		nodeName = "oncenter";
 		nodeType = SSGNodeType[2];
 		return;
 	}

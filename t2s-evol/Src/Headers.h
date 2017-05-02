@@ -99,6 +99,8 @@ struct GlobalObjectParams
 
 	int previewNum;
 	bool isUseContext;
+	bool addSynthNode;
+	QString sceneDBType;
 
 	unordered_map<string, Texture *> textures;
 

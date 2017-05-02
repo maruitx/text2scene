@@ -1,6 +1,7 @@
 #include "TextSemGraphManager.h"
 #include "Utility.h"
 #include "TextSemGraph.h"
+#include "RelationModelManager.h"
 
 TextSemGraphManager::TextSemGraphManager()
 {
@@ -12,7 +13,7 @@ TextSemGraphManager::~TextSemGraphManager()
 
 }
 
-void TextSemGraphManager::loadSELFromOutput(const QString &filename)
+void TextSemGraphManager::loadSELFromOutput(const QString &filename, RelationModelManager *relManager)
 {
 	clearPreviousLoadSEL();
 
@@ -164,7 +165,7 @@ void TextSemGraphManager::loadSELFromOutput(const QString &filename)
 			}
 		}   // end of loop for entity
 
-		TextSemGraph* newTextSemGraph = new TextSemGraph(newSentence);
+		TextSemGraph* newTextSemGraph = new TextSemGraph(newSentence, relManager);
 		m_textSemGraphs.push_back(newTextSemGraph);
 
 	} // end of loop for sentence

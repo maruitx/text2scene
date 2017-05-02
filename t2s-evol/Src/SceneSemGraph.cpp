@@ -98,7 +98,7 @@ void SceneSemGraph::loadGraph(const QString &filename)
 
 		if (currLine.contains("position "))
 		{
-			// position saves models position in current scene after transformed
+			// position saves models init position before transformed
 			std::vector<float> elementList = StringToFloatList(currLine.toStdString(), "position ");
 			vec3 initPos(elementList[0], elementList[1], elementList[2]);
 			m_metaScene.m_metaModellList[currModelID].position = TransformPoint(m_metaScene.m_metaModellList[currModelID].transformation, initPos);
@@ -106,19 +106,20 @@ void SceneSemGraph::loadGraph(const QString &filename)
 
 		if (currLine.contains("frontDir "))
 		{
-			// frontDir saves models frontDir in current scene after transformed
+			// frontDir saves models init frontDir before transformed
 			std::vector<int> dirElementList = StringToIntegerList(currLine.toStdString(), "frontDir ");
 			vec3 initFrontDir(dirElementList[0], dirElementList[1], dirElementList[2]);
 			m_metaScene.m_metaModellList[currModelID].frontDir = TransformVector(m_metaScene.m_metaModellList[currModelID].transformation, initFrontDir);
-
+			m_metaScene.m_metaModellList[currModelID].frontDir.normalize();
 		}
 
 		if (currLine.contains("upDir "))
 		{
-			// upDir saves models upDir in current scene after transformed
+			// upDir saves models init upDir before transformed
 			std::vector<int> dirElementList = StringToIntegerList(currLine.toStdString(), "upDir ");
 			vec3 initUpDir(dirElementList[0], dirElementList[1], dirElementList[2]);
 			m_metaScene.m_metaModellList[currModelID].upDir = TransformVector(m_metaScene.m_metaModellList[currModelID].transformation, initUpDir);
+			m_metaScene.m_metaModellList[currModelID].upDir.normalize();
 		}
 
 		if (currLine.contains("suppPlane "))
@@ -450,6 +451,48 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, RelationM
 	return subGraph;
 }
 
+void SceneSemGraph::restoreMissingSupportNodes()
+{
+	for (int i=0; i<m_nodes.size(); i++)
+	{
+		SemNode &relNode = m_nodes[i];
+
+		// onleft, onright, oncenter
+		if (relNode.nodeType == "pair_relation" &&
+			relNode.nodeName.contains("on")&&!relNode.nodeName.contains("front"))
+		{
+			int actNodeId = relNode.inEdgeNodeList[0];
+			if (!hasSupportNode(actNodeId))
+			{
+				int anchorNodeId = relNode.outEdgeNodeList[0];
+				addNode(SSGNodeType[2], "vertsupport");
+				int currNodeId = m_nodeNum - 1;
+
+				addEdge(actNodeId, currNodeId);
+				addEdge(currNodeId, anchorNodeId);
+			}
+		}
+	}
+}
+
+bool SceneSemGraph::hasSupportNode(int actNodeId)
+{
+	SemNode &actNode = m_nodes[actNodeId];
+
+	for (int i=0; i < actNode.outEdgeNodeList.size(); i++)
+	{
+		int relNodeId = actNode.outEdgeNodeList[i];
+		SemNode &relNode = m_nodes[relNodeId];
+
+		if (relNode.nodeName.contains("support"))
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
 int SceneSemGraph::findParentNodeIdForModel(int modelId)
 {
 	int currNodeId = getNodeIdWithModelId(modelId);
@@ -458,9 +501,15 @@ int SceneSemGraph::findParentNodeIdForModel(int modelId)
 
 int SceneSemGraph::findParentNodeIdForNode(int currNodeId)
 {
-	if (currNodeId == -1 || m_nodes[currNodeId].nodeName == "chair" || m_nodes[currNodeId].nodeName == "desk"
-		|| m_nodes[currNodeId].nodeName.contains("cabinet") || m_nodes[currNodeId].nodeName.contains("couch")
-		|| m_nodes[currNodeId].nodeName.contains("shelf"))
+	if (currNodeId==-1)
+	{
+		return -1;
+	}
+
+	QString currNodeName = m_nodes[currNodeId].nodeName;
+	if (currNodeName == "chair" || currNodeName == "desk" || currNodeName == "table"
+		|| currNodeName.contains("cabinet") || currNodeName.contains("couch")
+		|| currNodeName.contains("shelf"))
 	{
 		return -1;
 	}

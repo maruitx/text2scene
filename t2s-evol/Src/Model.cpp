@@ -824,6 +824,12 @@ int Model::getAxisAlongDir(const vec3 &dir)
 	}
 }
 
+double Model::getVolume(const mat4 &transMat)
+{
+	vec3 obbRange = getBBRange(transMat);
+	return obbRange.x*obbRange.y*obbRange.z;
+}
+
 std::vector<double> Model::computeBBFeature(const mat4 &transMat)
 {
 	std::vector<double> featureVec;

@@ -1,5 +1,5 @@
 StanfordDB=../../SceneDB/StanfordSceneDB/
 ShapeNetSemDB=../../SceneDB/ShapeNetSem/
-SceneNNDB=./SceneDB/SceneNNDB/
+SceneNNDB=./SceneDB/ANN/
 ChangScenePath=../data/changText2Scene/ssg/
 ResultPath=./SceneDB/Results/

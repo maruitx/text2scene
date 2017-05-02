@@ -4,8 +4,6 @@
 #include "SceneSemGraph.h"
 #include "TextSemGraph.h"
 
-const bool AddSynthesizeNode = true;
-
 
 SemGraphMatcher::SemGraphMatcher(SceneSemGraphManager *ssgManager, RelationModelManager *relManager)
 	:m_sceneSemGraphManager(ssgManager), m_relModelManager(relManager)
@@ -158,10 +156,12 @@ SceneSemGraph* SemGraphMatcher::alignSSGWithDBSSG(SemanticGraph *querySSG, Scene
 	// add nodes by exact match and scene context
 	matchedSubSSG = dbSSG->getSubGraph(matchedDBSsgNodeList, m_relModelManager);
 
-	if (AddSynthesizeNode)
+	if (params::inst()->addSynthNode)
 	{
 		addSynthNodeToSubSSG(querySSG, matchedSubSSG, dbSSG->m_dbNodeToSubNodeMap);
 	}
+
+	matchedSubSSG->restoreMissingSupportNodes();
 
 	if (params::inst()->isUseContext)
 	{
@@ -289,7 +289,6 @@ void SemGraphMatcher::addSynthNodeToSubSSG(SemanticGraph *querySSG, SceneSemGrap
 					matchedSubSSG->m_graphNodeToModelListIdMap[currNodeId] = matchedSubSSG->m_metaScene.m_metaModellList.size()-1;
 				}
 				else
-
 				{
 					MetaModel& newMd = retrieveForModelInstance(sgNode.nodeName);
 					matchedSubSSG->m_metaScene.m_metaModellList.push_back(newMd);
@@ -361,19 +360,34 @@ void SemGraphMatcher::addSynthNodeToSubSSG(SemanticGraph *querySSG, SceneSemGrap
 // enrich subgraph with context
 void SemGraphMatcher::addContextNodesToSubSSG(SceneSemGraph *matchedSubSSG, SceneSemGraph *dbSSG)
 {
-	//// add support parent
+	std::vector<int> insertedParentNodeIds;
+
+	// add support parent
 	int currNodeNum = matchedSubSSG->m_nodes.size();
 	for (int i = 0; i < currNodeNum; i++)
 	{
 		SemNode &mActNode = matchedSubSSG->m_nodes[i];
 
-		if (mActNode.nodeType == "object" && mActNode.nodeName == "tv")
+		if (mActNode.nodeType == "object")// && mActNode.nodeName == "tv")
 		{
+			bool isInSpecialRelation = false;
+			for (int r = 0; r < mActNode.outEdgeNodeList.size(); r++)
+			{
+				int relId = mActNode.outEdgeNodeList[r];
+				SemNode &relNode = matchedSubSSG->m_nodes[relId];
+				if (relNode.nodeType.contains("group") || relNode.nodeName =="under")
+				{
+					isInSpecialRelation = true;
+				}
+			}
+
+			if(isInSpecialRelation) continue;
+
 			int dbActNodeId = getKeyForValueInMap(dbSSG->m_dbNodeToSubNodeMap, i);
 			int dbActNodeParentNodeId = dbSSG->findParentNodeIdForNode(dbActNodeId);
 			int mActNodeParentNodeId = matchedSubSSG->findParentNodeIdForNode(i);
 
-			if (dbActNodeParentNodeId != -1 && mActNodeParentNodeId == -1)
+			if (dbActNodeParentNodeId != -1 && dbActNodeParentNodeId!=0 && mActNodeParentNodeId == -1)
 			{
 				SemNode &dbActNode = dbSSG->m_nodes[dbActNodeId];
 
@@ -392,25 +406,36 @@ void SemGraphMatcher::addContextNodesToSubSSG(SceneSemGraph *matchedSubSSG, Scen
 						matchedSubSSG->m_nodes[currRelNodeId].isSynthesized = false;
 
 						// add parent node
-						matchedSubSSG->addNode(dbSSG->m_nodes[dbActNodeParentNodeId]);
-						int currAnchorNodeId = matchedSubSSG->m_nodeNum - 1;
-						matchedSubSSG->m_nodes[currAnchorNodeId].inferedType = SemNode::InferBySupport;
-						matchedSubSSG->m_nodes[currAnchorNodeId].isInferred = true;
-						matchedSubSSG->m_nodes[currAnchorNodeId].inferRefNodeId = i;
-						dbSSG->m_dbNodeToSubNodeMap[dbActNodeParentNodeId] = currAnchorNodeId;
-						matchedSubSSG->addEdge(currRelNodeId, currAnchorNodeId); // e.g. (support, tv_stand)
+						int currAnchorNodeId;
+						if (std::find(insertedParentNodeIds.begin(), insertedParentNodeIds.end(), dbActNodeParentNodeId) != insertedParentNodeIds.end())
+						{
+							currAnchorNodeId = dbSSG->m_dbNodeToSubNodeMap[dbActNodeParentNodeId];
+						}
+						else
+						{
+							matchedSubSSG->addNode(dbSSG->m_nodes[dbActNodeParentNodeId]);
+							currAnchorNodeId = matchedSubSSG->m_nodeNum - 1;
+							matchedSubSSG->m_nodes[currAnchorNodeId].inferedType = SemNode::InferBySupport;
+							matchedSubSSG->m_nodes[currAnchorNodeId].isInferred = true;
+							matchedSubSSG->m_nodes[currAnchorNodeId].inferRefNodeId = i;
+							dbSSG->m_dbNodeToSubNodeMap[dbActNodeParentNodeId] = currAnchorNodeId;
+							
+							insertedParentNodeIds.push_back(dbActNodeParentNodeId);
 
-						// add meta model
-						MetaModel& newMd = dbSSG->getModelWithNodeId(dbActNodeParentNodeId);
-						matchedSubSSG->m_metaScene.m_metaModellList.push_back(newMd);
-						matchedSubSSG->m_graphNodeToModelListIdMap[currAnchorNodeId] = matchedSubSSG->m_metaScene.m_metaModellList.size() - 1;
+							// add meta model
+							MetaModel& newMd = dbSSG->getModelWithNodeId(dbActNodeParentNodeId);
+							matchedSubSSG->m_metaScene.m_metaModellList.push_back(newMd);
+							matchedSubSSG->m_graphNodeToModelListIdMap[currAnchorNodeId] = matchedSubSSG->m_metaScene.m_metaModellList.size() - 1;
+						}
+
+						matchedSubSSG->addEdge(currRelNodeId, currAnchorNodeId); // e.g. (support, tv_stand)
 					}
 				}
 			}
 		}
-
-		// add high co-occur objects with probability
 	}
+
+	// add high co-occur objects with probability
 
 	matchedSubSSG->parseNodeNeighbors();
 }

@@ -193,9 +193,21 @@ void GLWidget::loadParams()
 	{
 		if (paramLines[i][0] != '#')
 		{
+			if (paramLines[i].find("SceneDBType=") != string::npos)
+			{
+				p->sceneDBType = toQString(PartitionString(paramLines[i], "SceneDBType=")[0]);
+				continue;
+			}
+
 			if (paramLines[i].find("PreviewNum=") != string::npos)
 			{
 				p->previewNum = StringToIntegerList(paramLines[i], "PreviewNum=")[0];
+				continue;
+			}
+
+			if (paramLines[i].find("AddSynthNode=") != string::npos)
+			{
+				p->addSynthNode = StringToIntegerList(paramLines[i], "AddSynthNode=")[0];
 				continue;
 			}
 

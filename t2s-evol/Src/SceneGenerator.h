@@ -32,6 +32,7 @@ public:
 	SceneSemGraph* bindToCurrTSScene(SceneSemGraph *matchedSg);
 	void geometryAlignmentWithCurrScene(SceneSemGraph *matchedSg, SceneSemGraph *targetSg);
 
+	RelationModelManager *getRelationManager() { return m_relModelManager; };
 
 private:
 	unordered_map<string, Model*> m_models;

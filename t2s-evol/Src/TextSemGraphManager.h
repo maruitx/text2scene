@@ -2,6 +2,7 @@
 #include "Headers.h"
 
 class TextSemGraph;
+class RelationModelManager;
 
 struct SelRelationship
 {
@@ -66,7 +67,7 @@ public:
 	TextSemGraphManager();
 	~TextSemGraphManager();
 
-	void loadSELFromOutput(const QString &filename);
+	void loadSELFromOutput(const QString &filename, RelationModelManager *relManager);
 	void clearPreviousLoadSEL();
 
 	void updateActiveGraphId();

@@ -292,7 +292,8 @@ void SemanticGraph::alignRelationNodesWithGraph(SemanticGraph *targetGraph, doub
 			{
 				SemNode& tarRelNode = targetGraph->m_nodes[tarNi];
 				// skip the aligned nodes
-				if (!tarRelNode.isAligned && tarRelNode.nodeType == "group_relation" && relNode.nodeName == tarRelNode.nodeName)
+				if (relNode.matchingStatus == SemNode::ExplicitNode
+					&&!tarRelNode.isAligned && tarRelNode.nodeType == "group_relation" && relNode.nodeName == tarRelNode.nodeName)
 				{
 					int tarRefId = tarRelNode.anchorNodeList[0];
 					SemNode& tarRefNode = targetGraph->m_nodes[tarRefId];

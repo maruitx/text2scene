@@ -1,0 +1,368 @@
+1shelves,0.576923 0.461538
+4shelves,1 0
+aaabattery,0 1
+aerosol,0 1
+airplane,0 1
+apple,0 1
+aquarium,0 1
+art,0 0
+artwork,0 0
+ashcan,0 0
+ashtray,0 1
+atomizer,0 1
+auxiliary storage,0.5 1
+backpack,0 0.176471
+bag,0 0.1
+ball,0 0.714286
+banana,0 1.5
+basin,0 1
+basket,0.259259 0.222222
+bathtub,1 0
+battery,0 0.952381
+beaker,0 1
+bear,0 1
+bed,0.705882 0
+bench,0 0
+bin,1 0
+binder,0 1
+biscuit,0 1
+blender,0 1
+board,0 0
+book,0.239264 0.993865
+bookcase,0.790698 0.0930233
+bookend,0 1
+books,0.121212 1.07273
+bottle,0.0120482 1.01205
+bowl,0.0666667 1.04444
+box,0 1
+brake shoe,0 0
+bread,0 1.16667
+breadslice,0 1.6
+broom,0 0
+brown bear,0 0
+brush,0 1
+bucket,0.5 0
+bunsen burner,0 1
+burner,1 1
+cabinet,0.612903 0.0322581
+cabling,0 1
+cadmium,1 1.5
+cage,0 1
+calculator,0 1
+camera,0 1.0625
+camera tripod,0 0
+candle,0 0.944444
+canister,0 1
+canopener,0 1
+cap,0 1
+car,0 1
+carrot,0 1
+cart,0 1
+case,0.285714 0.857143
+cassette,0.5 1.25
+cat,0 0
+ceilingfan,0 0
+cellphone,0 1.05882
+cellulose tape,0 1
+central processing unit,0 1
+ceramic,0 1
+cerealbox,0.0909091 1
+chain,0 1
+chair,0.0355556 0.0888889
+chemistry,0 1
+chess,0 1
+chessboard,0 1
+chessman,0 1
+chestofdrawers,0.363636 0.636364
+child,0 1
+chocolate,0 1
+chopping board,1 1
+classroom,0 0
+clock,0 0.5
+coaster,0.75 1.125
+coat hanger,0 0
+coatrack,0 0
+coca cola,0 1
+cocktail,0 1
+coffee maker,0 1
+coffee mill,0 1
+coffee mug,0 2
+coffee table,0 0
+coin,0 1.5
+collection,0.25 1
+comb,0 1
+compact disk,0.05 1.1
+compass,0 1
+component,0 0
+computer,0.111111 0.537037
+computermouse,0.0172414 1.2069
+controller,0 1
+cookie,0 1
+copier,0 0
+couch,0.333333 0.047619
+counter,1 0
+cradle,0 1
+crate,0 0
+cream pitcher,0 1
+credenza,1 0.5
+cube,0 1
+cup,0.030303 1.06061
+cupboard,0.4 0
+curtain,0 0
+dart,0.333333 1.5
+dartboard,0.5 0
+decoration,0 0.4
+decorativeaccessory,0 0.4
+deer,0 0
+desk,0.971963 0.0186916
+desklamp,0 1.04762
+desktop,0 0
+detector,0 0
+dial,0 1
+diet,0 1
+disccase,0.2 1
+dish,0.333333 1.16667
+disk,1 1
+dispenser,0 1
+display,1 0
+dog,0 0.333333
+dome,0 0
+donut,0 1.5
+donutbox,0 1
+dresser,1 0
+dresserwithmirror,1 0
+dryer,0 0
+duct tape,0 1
+dustpan,0 1
+easel,0 0
+elephant,0 1
+endtable,1 0
+envelope,0 1
+eraser,0 1
+erlenmeyer flask,0 1
+espresso,0 1
+espresso maker,1 1
+fan,0 0
+file folder,0 1
+filecabinet,0.678571 0
+fire alarm,0 0
+fire extinguisher,0 0
+fireplace,0 0
+flashlight,0 1
+flask,0 1
+flatware,0 1
+floorlamp,0.04 0.08
+food,0 1.18182
+food processor,0 1
+foodplate,0 1.3
+fork,0 1.5
+frame,0 1.33333
+framework,0.25 1
+fruit,0 1.36364
+game,0 0.5
+gametable,0 0
+garbage,0 0
+glass,0 1
+glasses,0 1
+globe,0 1.16667
+grill,0.5 0.5
+guanine,0 1
+guitar,0 1
+guitarstand,0 0.166667
+gun,0 1
+guy,0 1
+hair,0 0
+hamburger,0 2
+hammer,0 1
+hand glass,0 1
+hanger,0 1
+hat,0 1
+head,0 0
+headphones,0 0.967742
+heart,0 1
+helmet,0 1
+holder,0.0227273 0.909091
+horse,0 1
+ipod,0 1.4
+jersey,0 3
+key,0 1.07692
+keyboard,0.0135135 0.972973
+kitchen appliance,0 1
+knife,0 1.25
+lamp,0.030303 0.575758
+laptop,0 1
+launcher,0 1
+leg,0 0
+light,0 1.5
+lightswitch,0 0
+loaf of bread,0 1
+magazine,0.428571 1
+magnet,0 1
+magnetic disk,0 1
+man,0 1
+marker,0 1
+mediadiscs,0 1.03846
+mediaplayer,0.363636 1
+mediastorage,1 0.142857
+microscope,0 1
+microwave,0.0833333 0.916667
+milk,0 1
+milkcarton,0 0.857143
+mirror,0 0.181818
+money,1 1
+monitor,0.0964912 1.01754
+monkey,0 0
+mouse,0 1
+mousepad,1 1
+mug,0 1.05479
+need,0 0.2
+network,0 0.5
+nightstand,0.785714 0.0714286
+noble metal,0 1
+noname,0 0.923077
+notepad,0.511628 1.09302
+orange toast,0 1
+organ,0.5 1
+ottoman,1 0
+oven,0.857143 0
+pack,0 0.5
+pan,0.1 0.95
+pants,0 1
+paper,0.25 0.96875
+paper towel,0 1
+paperbox,0.136986 0.287671
+paperclip,0 1
+papertowel,0 1
+pen,0 1.07895
+pencil,0 1.05882
+pencil sharpener,0 1
+pepper,0 1
+pepper mill,0 1
+perfume,0 1
+personstanding,0 0.166667
+pianokeyboard,0 0.5
+picture,0 0.8
+picture frame,0 1
+pictureframe,0 1
+pillbottle,0 1
+pillow,0.0689655 0.482759
+pizza,0 1
+plant,0 0.666667
+plate,0.717949 1
+platter,1 1
+player,0 1
+plotter,0 0
+plug,0 1
+post horse,0 0
+poster,0 0
+pot,0 0.541667
+potrack,0 1
+pottedplant,0.0142857 0.771429
+powersocket,0 0
+powerstrip,0 0.3
+print,0 0
+printer,0 1
+projector,0 1
+psp,0 1
+punch,0 1
+purse,0 0.444444
+push broom,0 0
+rack,0.4 0.3
+radio,0.2 1
+radio receiver,0 0.666667
+railing,0 0
+refrigerator,0.428571 0
+remote control,0 1.14286
+rifle,0 1
+ring,0 1
+room,1 0
+router,0 1
+rubikscube,0 1
+rug,0.529412 0.411765
+rule,0 1
+salad,0 1
+sandwich,0 1.81818
+scissors,0.166667 1
+screwdriver,0 1
+scrub brush,0 1
+shackle,0 0
+shampoo,0 2.25
+shelf,1 0
+ship,0 1
+shirt,0 0.75
+shoes,0 0.833333
+showerhead,0 0
+sink,0.363636 0.545455
+smokestack,0 1
+soap dispenser,0.333333 1
+soapbar,0.25 1.25
+sodacan,0 1
+spatula,0 1
+speaker,0.0420168 0.714286
+spray paint,0 1
+stained-glass window,0 0
+stapler,0 0.95
+statue,0 0.5
+stool,0.0909091 0
+stove,0 0
+subwoofer,0 0
+suitcase,0 0.2
+support,0 0
+swab,0 0.5
+switch,0 1
+sword,0 0
+table,0.855263 0.0789474
+tableclock,0.105263 1
+tank,0 1
+tape,0 0.75
+taw,0.2 1
+teacup,0 1
+teapot,0 1
+telecommunication,0 1
+telephone,0 1
+thermostat,0 0
+thymine,0 1
+tissuebox,0 0.888889
+toaster,0 1
+toilet,0 0
+toiletpaper,0 1
+tolkien,0 1
+tongs,0 1
+toothbrush,0 1
+toothpaste,0 1
+towel,0.25 0.625
+towel ring,0 0
+toy,0 0.444444
+toyfigure,0.0252101 1.01681
+trashbin,0.0185185 0.037037
+tray,0.75 1
+tube,0 1
+tv,0.136364 0.954545
+tvstand,1 0.2
+unknown,0 1
+usbstick,0 1
+vacuum,0 0
+vanity,1 0
+vase,0.027027 0.945946
+vessel,0 1
+videodisk,0.25 1
+videogameconsole,0.108696 1.06522
+videogamecontroller,0.0175439 1.07018
+wall clock,0 0
+wall socket,0 0
+wallart,0 0.0660377
+wallclock,0 0
+walldecoration,0 0
+wallet,0.166667 1
+washer,1 0.4
+watch,0 1
+water cooler,0 0
+webcam,0 1
+wheel,0 1
+wine,0 1
+wineglass,0 1
+work,0 1.5
+wrench,0 1
+xbox360,0.333333 1
+yttrium,0 1
+zebra,0 1

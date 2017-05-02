@@ -1,0 +1,5506 @@
+aligned_1shelves
+1shelves_1shelves_sibling_general,R_0
+0,-1
+1shelves_desk_proximity_general,R_1
+0,-1
+aligned_bed
+bed_basket_sibling_general,R_0
+1,3
+bed_bench_sibling_general,R_1
+1,3
+bed_dresser_sibling_general,R_2
+1,3
+bed_nightstand_sibling_general,R_3
+1,1
+bed_table_proximity_general,R_4
+0,-1
+aligned_bookcase
+bookcase_microwave_parentchild_general,R_0
+0,-1
+aligned_cabinet
+cabinet_microwave_parentchild_general,R_0
+0,-1
+aligned_couch
+aligned_desk
+desk_bookend_parentchild_general,R_0
+5,14 3 1 10 11
+desk_books_parentchild_general,R_1
+5,3 10 14 0 6
+desk_chair_sibling_general,R_2
+1,5
+desk_clock_parentchild_general,R_3
+5,10 14 1 0 6
+desk_computermouse_proximity_general,R_4
+0,-1
+desk_desk_sibling_general,R_5
+1,13
+desk_desklamp_parentchild_general,R_6
+5,10 3 1 8 14
+desk_keyboard_parentchild_general,R_7
+5,12 9 11 1 0
+desk_monitor_parentchild_general,R_8
+5,6 10 3 14 1
+desk_mousepad_parentchild_general,R_9
+5,7 12 11 1 0
+desk_pottedplant_parentchild_general,R_10
+5,3 6 1 14 0
+desk_router_parentchild_general,R_11
+5,12 7 9 1 0
+desk_telephone_parentchild_general,R_12
+5,7 9 11 1 0
+desk_trashbin_sibling_general,R_13
+1,5
+desk_vase_parentchild_general,R_14
+5,0 3 1 10 6
+desk_wallart_sibling_general,R_15
+1,2
+aligned_monitor
+monitor_keyboard_sibling_general,R_0
+0,-1
+monitor_speaker_proximity_general,R_1
+0,-1
+monitor_speaker_sibling_general,R_2
+0,-1
+aligned_nightstand
+nightstand_bookcase_sibling_general,R_0
+0,-1
+nightstand_pottedplant_proximity_general,R_1
+0,-1
+nightstand_refrigerator_sibling_general,R_2
+0,-1
+casual_backpack
+backpack_bed_sibling_general,R_0
+0,-1
+casual_bed
+bed_backpack_parentchild_general,R_0
+3,19 24 17
+bed_backpack_proximity_general,R_1
+3,18 28 21
+bed_backpack_sibling_general,R_2
+9,3 15 26 5 22 32 25 23 4
+bed_bag_sibling_general,R_3
+9,2 15 22 26 5 32 25 23 4
+bed_ball_sibling_general,R_4
+9,23 25 10 32 5 26 2 3 15
+bed_basket_sibling_general,R_5
+9,26 32 25 23 4 10 2 3 15
+bed_book_parentchild_general,R_6
+3,17 27 9
+bed_book_proximity_general,R_7
+3,14 21 1
+bed_bookcase_sibling_general,R_8
+9,13 16 11 12 22 15 3 2 26
+bed_books_parentchild_general,R_9
+3,17 6 24
+bed_brake shoe_sibling_general,R_10
+9,4 23 25 32 5 26 2 3 15
+bed_chair_sibling_general,R_11
+9,12 16 13 22 15 8 3 2 26
+bed_desk_sibling_general,R_12
+9,11 16 13 22 15 3 2 8 26
+bed_fan_sibling_general,R_13
+9,8 16 11 12 22 15 3 2 26
+bed_filecabinet_proximity_general,R_14
+3,21 1 18
+bed_filecabinet_sibling_general,R_15
+9,22 3 2 26 5 12 32 11 16
+bed_floorlamp_sibling_general,R_16
+9,11 12 13 22 15 8 3 2 26
+bed_headphones_parentchild_general,R_17
+3,6 27 9
+bed_lamp_proximity_general,R_18
+3,28 30 1
+bed_laptop_parentchild_general,R_19
+3,0 24 17
+bed_milkcarton_sibling_general,R_20
+9,29 31 8 13 16 11 12 22 15
+bed_nightstand_proximity_general,R_21
+3,14 1 18
+bed_nightstand_sibling_general,R_22
+9,15 3 2 12 11 26 16 5 32
+bed_paperbox_sibling_general,R_23
+9,25 4 32 10 5 26 2 3 15
+bed_pillow_parentchild_general,R_24
+3,0 19 9
+bed_pillow_sibling_general,R_25
+9,23 4 32 10 5 26 2 3 15
+bed_purse_sibling_general,R_26
+9,5 32 25 23 2 4 3 10 15
+bed_shirt_parentchild_general,R_27
+3,17 6 9
+bed_tissuebox_proximity_general,R_28
+3,18 30 1
+bed_tissuebox_sibling_general,R_29
+9,20 31 8 13 16 11 12 22 15
+bed_towel_proximity_general,R_30
+3,28 18 1
+bed_trashbin_sibling_general,R_31
+9,8 13 16 11 12 22 15 3 2
+bed_vase_sibling_general,R_32
+9,5 25 26 23 4 10 2 3 15
+casual_bookcase
+bookcase_ball_parentchild_general,R_0
+14,4 34 23 22 31 39 1 25 12 42 16 15 8 35
+bookcase_book_parentchild_general,R_1
+14,4 39 42 29 26 10 38 12 35 0 15 34 22 23
+bookcase_book_proximity_general,R_2
+2,21 9
+bookcase_bookcase_sibling_general,R_3
+4,14 7 43 33
+bookcase_books_parentchild_general,R_4
+14,1 39 42 0 35 15 12 34 41 22 23 31 29 25
+bookcase_books_proximity_general,R_5
+2,9 2
+bookcase_bottle_proximity_general,R_6
+2,2 9
+bookcase_bottle_sibling_general,R_7
+4,3 43 14 33
+bookcase_cap_parentchild_general,R_8
+14,15 11 42 13 35 4 41 16 1 25 32 18 17 12
+bookcase_cap_proximity_general,R_9
+2,2 5
+bookcase_cassette_parentchild_general,R_10
+14,38 26 29 12 20 1 41 42 13 15 35 16 4 17
+bookcase_chair_parentchild_general,R_11
+14,13 18 35 15 41 42 36 8 32 29 4 20 26 1
+bookcase_disccase_parentchild_general,R_12
+14,29 26 10 38 20 41 15 42 1 16 4 25 13 35
+bookcase_framework_parentchild_general,R_13
+14,11 18 41 15 20 29 35 26 42 10 38 8 1 4
+bookcase_guitarstand_sibling_general,R_14
+4,3 43 7 27
+bookcase_headphones_parentchild_general,R_15
+14,41 42 35 13 11 29 12 20 26 4 25 8 10 38
+bookcase_helmet_parentchild_general,R_16
+14,12 1 8 29 10 26 38 20 41 4 13 15 42 0
+bookcase_holder_parentchild_general,R_17
+14,41 15 29 42 26 35 20 13 10 38 12 11 8 16
+bookcase_lamp_parentchild_general,R_18
+14,13 11 41 15 20 40 36 35 29 42 8 26 10 17
+bookcase_mediadiscs_proximity_general,R_19
+2,21 2
+bookcase_mediaplayer_parentchild_general,R_20
+14,29 41 26 10 38 12 13 15 18 42 16 17 1 11
+bookcase_mediaplayer_proximity_general,R_21
+2,2 19
+bookcase_mug_parentchild_general,R_22
+14,31 34 23 39 0 4 1 42 38 10 12 26 35 29
+bookcase_paperbox_parentchild_general,R_23
+14,31 34 22 39 0 4 1 42 38 12 10 35 26 29
+bookcase_paperbox_sibling_general,R_24
+4,33 37 7 3
+bookcase_pianokeyboard_parentchild_general,R_25
+14,15 42 41 12 4 35 0 8 1 29 32 20 26 16
+bookcase_player_parentchild_general,R_26
+14,29 10 38 20 12 41 1 42 13 15 35 4 16 17
+bookcase_pot_sibling_general,R_27
+4,14 3 7 43
+bookcase_pottedplant_parentchild_general,R_28
+14,40 18 11 41 13 15 36 8 25 20 32 35 42 17
+bookcase_remote control_parentchild_general,R_29
+14,26 10 38 20 12 41 42 13 15 1 35 4 16 17
+bookcase_rubikscube_parentchild_general,R_30
+14,20 29 26 10 38 13 18 41 12 36 15 16 17 11
+bookcase_shoes_parentchild_general,R_31
+14,22 23 34 39 0 4 1 42 38 12 10 35 26 29
+bookcase_speaker_parentchild_general,R_32
+14,35 42 11 15 4 36 8 13 41 25 1 18 39 17
+bookcase_suitcase_sibling_general,R_33
+4,24 37 7 3
+bookcase_tissuebox_parentchild_general,R_34
+14,22 31 23 39 0 4 1 42 38 10 12 35 26 29
+bookcase_toy_parentchild_general,R_35
+14,42 15 11 32 41 13 4 1 29 26 8 10 38 25
+bookcase_toyfigure_parentchild_general,R_36
+14,11 13 35 15 18 42 41 32 4 8 1 39 29 26
+bookcase_trashbin_sibling_general,R_37
+4,24 33 7 3
+bookcase_usbstick_parentchild_general,R_38
+14,10 26 29 12 20 1 41 42 13 15 35 16 4 17
+bookcase_vase_parentchild_general,R_39
+14,4 1 34 22 31 23 0 42 35 29 26 10 38 15
+bookcase_videodisk_parentchild_general,R_40
+14,18 11 28 13 41 15 36 32 20 35 8 42 17 25
+bookcase_videogameconsole_parentchild_general,R_41
+14,15 20 13 42 29 12 26 35 11 10 38 18 25 4
+bookcase_videogamecontroller_parentchild_general,R_42
+14,35 15 41 4 1 29 26 13 12 11 25 10 38 32
+bookcase_wallart_sibling_general,R_43
+4,44 14 7 3
+bookcase_wallclock_sibling_general,R_44
+4,43 7 14 3
+casual_bowl
+bowl_bowl_proximity_general,R_0
+1,4
+bowl_counter_childparent_general,R_1
+0,-1
+bowl_counter_proximity_general,R_2
+1,4
+bowl_sink_sibling_general,R_3
+0,-1
+bowl_toaster_proximity_general,R_4
+1,0
+casual_cabinet
+cabinet_books_parentchild_general,R_0
+2,2 7
+cabinet_books_proximity_general,R_1
+0,-1
+cabinet_bottle_parentchild_general,R_2
+2,0 7
+cabinet_chair_sibling_general,R_3
+2,4 9
+cabinet_couch_sibling_general,R_4
+2,3 9
+cabinet_headphones_sibling_general,R_5
+2,9 3
+cabinet_pillow_proximity_general,R_6
+0,-1
+cabinet_remote control_parentchild_general,R_7
+2,2 0
+cabinet_speaker_parentchild_general,R_8
+2,11 10
+cabinet_table_sibling_general,R_9
+2,3 4
+cabinet_tv_parentchild_general,R_10
+2,8 11
+cabinet_videogameconsole_parentchild_general,R_11
+2,8 10
+cabinet_wallart_sibling_general,R_12
+2,3 9
+casual_chair
+chair_backpack_proximity_general,R_0
+2,3 8
+chair_book_proximity_general,R_1
+2,6 0
+chair_chair_sibling_general,R_2
+2,4 11
+chair_computer_proximity_general,R_3
+2,0 8
+chair_desk_sibling_general,R_4
+2,2 11
+chair_filecabinet_sibling_general,R_5
+2,11 4
+chair_laptop_proximity_general,R_6
+2,1 0
+chair_paperbox_sibling_general,R_7
+2,5 4
+chair_shirt_proximity_general,R_8
+2,0 3
+chair_table_sibling_general,R_9
+2,11 5
+chair_wallet_parentchild_general,R_10
+0,-1
+chair_water cooler_sibling_general,R_11
+2,5 2
+casual_chestofdrawers
+chestofdrawers_ball_sibling_general,R_0
+0,-1
+chestofdrawers_cellphone_parentchild_general,R_1
+0,-1
+chestofdrawers_game_sibling_general,R_2
+0,-1
+casual_coffee maker
+coffee maker_microwave_sibling_general,R_0
+0,-1
+coffee maker_toaster_sibling_general,R_1
+0,-1
+casual_computer
+computer_chair_sibling_general,R_0
+0,-1
+computer_desk_sibling_general,R_1
+0,-1
+computer_headphones_proximity_general,R_2
+0,-1
+computer_monitor_proximity_general,R_3
+0,-1
+casual_couch
+couch_book_parentchild_general,R_0
+1,16
+couch_bookcase_proximity_general,R_1
+7,12 2 33 23 20 28 30
+couch_bottle_proximity_general,R_2
+7,33 23 20 28 1 12 30
+couch_cabinet_sibling_general,R_3
+8,6 26 29 4 32 31 11 35
+couch_chair_sibling_general,R_4
+8,31 32 11 35 8 26 6 3
+couch_coaster_proximity_general,R_5
+7,10 24 18 21 30 14 17
+couch_credenza_sibling_general,R_6
+8,3 26 29 4 32 31 11 35
+couch_desk_sibling_general,R_7
+8,19 9 34 35 8 13 32 4
+couch_display_sibling_general,R_8
+8,19 35 13 9 34 32 11 31
+couch_dog_sibling_general,R_9
+8,34 35 8 32 19 13 4 7
+couch_donut_proximity_general,R_10
+7,5 24 18 21 30 14 17
+couch_fan_sibling_general,R_11
+8,31 4 8 13 35 32 19 9
+couch_floorlamp_proximity_general,R_12
+7,1 2 33 28 23 20 30
+couch_floorlamp_sibling_general,R_13
+8,8 35 9 19 34 11 31 32
+couch_hat_proximity_general,R_14
+7,21 24 18 10 5 30 17
+couch_lamp_sibling_general,R_15
+8,36 35 32 34 9 8 4 31
+couch_laptop_parentchild_general,R_16
+1,22
+couch_laptop_proximity_general,R_17
+7,25 14 30 21 24 18 10
+couch_magazine_proximity_general,R_18
+7,24 5 10 21 30 14 17
+couch_mediastorage_sibling_general,R_19
+8,8 35 9 7 13 34 32 4
+couch_microwave_proximity_general,R_20
+7,23 33 2 28 1 12 30
+couch_mug_proximity_general,R_21
+7,10 24 18 5 14 30 17
+couch_pillow_parentchild_general,R_22
+1,16
+couch_pillow_proximity_general,R_23
+7,33 2 20 28 1 12 30
+couch_plate_proximity_general,R_24
+7,18 10 5 21 30 14 17
+couch_pottedplant_proximity_general,R_25
+7,17 14 30 21 24 18 10
+couch_pottedplant_sibling_general,R_26
+8,3 6 29 4 32 31 11 35
+couch_purse_parentchild_general,R_27
+1,0
+couch_purse_proximity_general,R_28
+7,20 23 2 33 1 12 30
+couch_refrigerator_sibling_general,R_29
+8,3 26 6 4 32 31 11 35
+couch_remote control_proximity_general,R_30
+7,10 24 18 5 21 14 17
+couch_sword_sibling_general,R_31
+8,11 4 8 35 32 13 19 9
+couch_table_sibling_general,R_32
+8,35 4 34 8 9 31 11 19
+couch_tissuebox_proximity_general,R_33
+7,23 2 20 28 1 12 30
+couch_trashbin_sibling_general,R_34
+8,9 35 8 32 13 19 4 31
+couch_tvstand_sibling_general,R_35
+8,32 34 8 9 4 19 13 31
+couch_wallart_sibling_general,R_36
+8,15 35 34 9 8 32 4 13
+casual_counter
+counter_beaker_parentchild_general,R_0
+5,13 1 6 17 15
+counter_book_parentchild_general,R_1
+5,0 13 6 17 18
+counter_bowl_parentchild_general,R_2
+5,18 14 8 12 10
+counter_counter_proximity_general,R_3
+2,9 19
+counter_counter_sibling_general,R_4
+1,20
+counter_crate_sibling_general,R_5
+1,16
+counter_laptop_parentchild_general,R_6
+5,17 1 0 13 15
+counter_microwave_proximity_general,R_7
+2,19 11
+counter_mug_parentchild_general,R_8
+5,14 10 2 18 12
+counter_oven_proximity_general,R_9
+2,3 19
+counter_pan_parentchild_general,R_10
+5,8 14 2 18 12
+counter_pan_proximity_general,R_11
+2,7 19
+counter_paperbox_parentchild_general,R_12
+5,18 14 2 8 10
+counter_pen_parentchild_general,R_13
+5,0 1 6 17 18
+counter_pot_parentchild_general,R_14
+5,8 2 18 12 10
+counter_sink_parentchild_general,R_15
+5,12 18 2 14 8
+counter_stool_sibling_general,R_16
+1,5
+counter_tissuebox_parentchild_general,R_17
+5,6 1 0 13 15
+counter_toaster_parentchild_general,R_18
+5,2 14 12 8 10
+counter_toaster_proximity_general,R_19
+2,7 11
+counter_trashbin_sibling_general,R_20
+1,4
+casual_credenza
+credenza_bottle_parentchild_general,R_0
+0,-1
+credenza_cabinet_sibling_general,R_1
+1,2
+credenza_chair_sibling_general,R_2
+1,1
+credenza_table_sibling_general,R_3
+1,1
+casual_desk
+desk_1shelves_proximity_general,R_0
+13,86 97 38 3 61 17 69 53 15 27 11 89 8
+desk_1shelves_sibling_general,R_1
+11,4 18 40 70 95 6 5 28 62 45 24
+desk_apple_parentchild_general,R_2
+20,43 66 71 35 25 42 21 100 20 64 47 48 84 93 51 77 79 101 50 83
+desk_backpack_proximity_general,R_3
+13,38 27 97 0 69 86 89 17 15 61 11 53 39
+desk_backpack_sibling_general,R_4
+11,40 5 28 18 62 6 95 70 45 1 24
+desk_bag_sibling_general,R_5
+11,28 62 6 95 70 40 4 45 18 1 24
+desk_basket_sibling_general,R_6
+11,95 70 5 28 62 18 4 40 45 1 24
+desk_binder_parentchild_general,R_7
+20,83 32 50 51 64 47 91 59 25 21 100 84 93 42 77 48 20 56 66 52
+desk_board_proximity_general,R_8
+13,39 12 23 27 89 0 38 3 86 97 69 61 17
+desk_board_sibling_general,R_9
+11,19 98 90 99 41 87 78 94 31 33 13
+desk_book_parentchild_general,R_10
+20,29 92 88 14 52 80 46 96 16 60 68 36 81 22 57 59 56 91 7 50
+desk_book_proximity_general,R_11
+13,69 15 17 61 97 53 86 3 0 38 27 89 39
+desk_bookcase_proximity_general,R_12
+13,23 39 89 8 27 38 3 0 86 97 69 17 61
+desk_bookcase_sibling_general,R_13
+11,24 33 94 45 62 28 40 5 4 6 95
+desk_books_parentchild_general,R_14
+20,46 96 16 60 68 81 36 22 29 10 92 88 80 52 57 56 59 91 26 7
+desk_books_proximity_general,R_15
+13,17 61 97 11 69 53 86 0 3 38 27 89 8
+desk_bottle_parentchild_general,R_16
+20,46 60 68 96 36 81 22 14 29 10 92 88 80 52 57 59 56 91 26 7
+desk_bottle_proximity_general,R_17
+13,15 97 61 69 86 11 53 0 3 38 27 89 8
+desk_brake shoe_sibling_general,R_18
+11,95 6 70 4 5 28 40 62 45 1 24
+desk_camera tripod_sibling_general,R_19
+11,9 90 41 87 98 78 94 33 31 13 24
+desk_camera_parentchild_general,R_20
+20,42 77 93 84 101 48 35 25 71 83 49 43 2 21 47 66 32 64 100 7
+desk_cellphone_parentchild_general,R_21
+20,64 100 51 25 47 50 66 7 84 71 83 48 93 42 2 43 35 32 59 20
+desk_chair_parentchild_general,R_22
+20,81 96 68 46 16 60 36 14 29 10 92 88 80 52 57 56 59 26 91 7
+desk_chair_proximity_general,R_23
+13,12 39 89 8 27 38 3 0 86 97 69 17 61
+desk_chair_sibling_general,R_24
+11,33 13 94 45 62 28 5 40 70 6 95
+desk_compact disk_parentchild_general,R_25
+20,21 64 51 100 84 47 93 48 42 66 7 77 20 83 50 32 71 35 43 2
+desk_computer_parentchild_general,R_26
+20,56 57 85 80 91 92 49 88 55 52 10 29 63 83 32 7 34 14 93 84
+desk_computer_proximity_general,R_27
+13,3 89 38 69 0 86 97 39 8 17 11 61 15
+desk_computer_sibling_general,R_28
+11,5 62 6 95 70 40 4 45 18 1 24
+desk_computermouse_parentchild_general,R_29
+20,10 92 88 14 52 80 46 96 16 60 68 36 81 22 57 59 56 91 7 50
+desk_computermouse_proximity_general,R_30
+13,73 37 54 67 74 72 44 38 0 97 3 17 15
+desk_couch_sibling_general,R_31
+11,90 19 9 41 87 78 94 33 98 13 24
+desk_cup_parentchild_general,R_32
+20,7 83 84 91 93 51 25 64 47 77 48 59 50 21 100 42 20 85 56 49
+desk_desk_sibling_general,R_33
+11,24 13 94 41 87 45 62 28 5 40 70
+desk_desklamp_parentchild_general,R_34
+20,63 49 65 101 85 26 55 77 20 93 56 42 84 91 76 48 32 83 75 7
+desk_dispenser_parentchild_general,R_35
+20,71 42 20 43 2 84 101 77 25 48 66 93 21 64 47 51 83 100 50 7
+desk_eraser_parentchild_general,R_36
+20,60 68 16 46 96 81 22 14 29 10 92 88 80 52 57 59 56 91 26 7
+desk_eraser_proximity_general,R_37
+13,73 54 30 67 74 72 0 97 38 17 15 61 3
+desk_fan_proximity_general,R_38
+13,3 27 0 97 86 89 69 17 61 15 11 53 39
+desk_filecabinet_proximity_general,R_39
+13,12 23 89 8 27 38 3 0 86 97 69 17 61
+desk_filecabinet_sibling_general,R_40
+11,4 62 28 5 45 6 95 70 18 1 24
+desk_floorlamp_sibling_general,R_41
+11,33 94 13 24 87 19 78 90 98 45 62
+desk_frame_parentchild_general,R_42
+20,20 84 93 77 35 48 25 71 101 83 43 2 21 66 47 100 64 51 32 49
+desk_glasses_parentchild_general,R_43
+20,2 66 71 35 42 25 21 20 100 64 48 84 47 93 51 77 101 79 50 83
+desk_globe_proximity_general,R_44
+13,82 30 67 74 73 37 54 72 58 23 12 39 8
+desk_guitarstand_sibling_general,R_45
+11,62 28 40 5 4 6 95 70 18 1 24
+desk_hat_parentchild_general,R_46
+20,16 96 60 68 36 81 22 14 29 10 92 88 80 52 57 59 56 91 26 7
+desk_headphones_parentchild_general,R_47
+20,64 21 51 100 50 25 7 83 59 66 84 32 93 42 48 71 20 35 91 77
+desk_heart_parentchild_general,R_48
+20,77 93 84 25 42 20 35 51 21 32 64 71 83 47 101 100 7 43 2 49
+desk_holder_parentchild_general,R_49
+20,63 77 101 20 65 93 84 42 48 83 32 34 85 7 91 25 56 35 76 47
+desk_ipod_parentchild_general,R_50
+20,64 51 7 47 21 100 83 59 25 32 66 84 91 71 93 42 52 35 48 20
+desk_key_parentchild_general,R_51
+20,64 21 47 25 50 100 7 83 32 59 84 48 93 66 71 42 77 35 20 91
+desk_keyboard_parentchild_general,R_52
+20,88 10 29 92 80 59 14 56 57 7 91 47 50 46 96 16 60 68 36 81
+desk_keyboard_proximity_general,R_53
+13,61 86 15 17 69 97 11 0 3 38 27 89 8
+desk_knife_proximity_general,R_54
+13,37 73 30 67 74 72 0 17 97 38 15 61 53
+desk_lamp_parentchild_general,R_55
+20,26 34 56 85 57 49 65 63 80 91 101 83 32 77 92 7 20 93 88 84
+desk_laptop_parentchild_general,R_56
+20,80 57 26 91 85 52 88 7 83 92 32 47 59 10 29 49 84 93 50 77
+desk_monitor_parentchild_general,R_57
+20,80 92 56 10 26 88 29 52 14 85 22 96 46 81 16 68 60 36 91 59
+desk_monitor_proximity_general,R_58
+13,23 12 39 8 89 38 3 27 0 97 86 17 69
+desk_mousepad_parentchild_general,R_59
+20,50 7 47 52 51 64 32 100 83 21 91 25 88 10 80 29 56 84 92 66
+desk_mug_parentchild_general,R_60
+20,16 68 46 36 96 81 22 14 29 10 92 88 80 52 57 59 56 91 26 7
+desk_mug_proximity_general,R_61
+13,53 17 15 86 97 69 11 0 3 38 27 89 8
+desk_nightstand_sibling_general,R_62
+11,28 5 40 6 45 95 70 4 18 1 24
+desk_noname_parentchild_general,R_63
+20,49 77 34 85 93 101 84 20 65 48 42 32 83 76 91 7 25 75 56 35
+desk_notepad_parentchild_general,R_64
+20,21 51 100 47 25 50 7 83 66 84 59 32 93 48 71 42 35 20 2 77
+desk_organ_parentchild_general,R_65
+20,101 49 63 20 76 77 34 75 42 93 35 84 48 71 83 25 43 32 2 56
+desk_paper_parentchild_general,R_66
+20,2 43 100 21 64 71 25 47 35 42 51 50 20 84 79 93 83 7 48 77
+desk_paper_proximity_general,R_67
+13,74 72 54 37 73 30 82 44 0 97 17 38 15
+desk_paperbox_parentchild_general,R_68
+20,16 60 96 46 36 81 22 14 29 10 92 88 80 52 57 59 56 91 26 7
+desk_paperbox_proximity_general,R_69
+13,11 97 17 15 86 61 3 53 0 38 27 89 8
+desk_paperbox_sibling_general,R_70
+11,95 6 5 28 18 62 4 40 45 1 24
+desk_paperclip_parentchild_general,R_71
+20,35 43 2 66 42 25 21 20 84 64 48 47 51 77 100 101 93 50 83 7
+desk_pen_proximity_general,R_72
+13,67 74 37 73 54 30 82 17 97 0 38 15 44
+desk_pencil sharpener_proximity_general,R_73
+13,37 54 30 67 74 72 0 38 97 17 15 3 61
+desk_pencil_proximity_general,R_74
+13,67 72 54 37 73 30 44 82 0 97 17 38 15
+desk_picture frame_parentchild_general,R_75
+20,76 101 77 48 20 35 42 93 71 84 65 43 2 49 25 63 66 21 83 51
+desk_picture_parentchild_general,R_76
+20,75 101 77 48 20 65 35 42 93 49 84 71 43 63 2 25 66 21 83 32
+desk_pictureframe_parentchild_general,R_77
+20,93 84 48 20 42 101 25 49 35 83 32 71 51 7 21 64 47 63 100 43
+desk_powersocket_sibling_general,R_78
+11,87 94 33 24 90 41 98 13 45 62 5
+desk_powerstrip_parentchild_general,R_79
+20,66 100 43 2 42 47 20 21 25 64 71 50 35 83 91 84 93 7 51 77
+desk_printer_parentchild_general,R_80
+20,92 57 10 88 52 29 56 14 96 46 22 16 81 68 60 59 36 91 26 85
+desk_purse_parentchild_general,R_81
+20,68 96 60 46 16 36 22 14 29 10 92 88 80 52 57 59 56 91 26 7
+desk_radio_proximity_general,R_82
+13,44 67 72 74 30 73 37 54 58 23 12 39 8
+desk_rubikscube_parentchild_general,R_83
+20,7 32 84 50 47 51 64 93 91 25 42 21 77 100 20 59 48 35 71 66
+desk_sodacan_parentchild_general,R_84
+20,93 77 42 48 20 25 83 32 51 64 7 21 47 35 100 71 101 49 50 66
+desk_speaker_parentchild_general,R_85
+20,56 32 91 63 57 26 49 83 80 7 93 84 77 52 59 20 92 88 42 47
+desk_speaker_proximity_general,R_86
+13,0 61 97 69 17 53 15 3 38 11 27 89 8
+desk_speaker_sibling_general,R_87
+11,78 94 33 24 41 90 13 98 45 62 28
+desk_stapler_parentchild_general,R_88
+20,10 52 29 92 80 14 57 59 56 46 96 16 60 68 81 36 22 7 47 91
+desk_stool_proximity_general,R_89
+13,27 39 38 3 12 23 8 0 97 69 86 17 11
+desk_table_sibling_general,R_90
+11,87 19 78 9 94 41 98 33 31 24 13
+desk_telecommunication_parentchild_general,R_91
+20,32 7 83 56 59 47 50 84 100 93 51 64 85 25 52 21 80 42 20 77
+desk_telephone_parentchild_general,R_92
+20,10 29 80 88 14 52 57 46 96 16 68 60 81 22 36 56 59 91 26 7
+desk_toyfigure_parentchild_general,R_93
+20,84 77 48 42 20 25 32 83 51 21 64 7 47 35 100 49 101 71 91 43
+desk_trashbin_sibling_general,R_94
+11,33 24 87 78 13 41 45 62 5 28 70
+desk_vase_sibling_general,R_95
+11,6 70 5 28 18 62 4 40 45 1 24
+desk_wallart_parentchild_general,R_96
+20,46 16 68 60 81 36 22 14 29 10 92 88 80 52 57 59 56 91 26 7
+desk_wallart_proximity_general,R_97
+13,17 69 15 86 61 3 0 38 11 53 27 89 8
+desk_wallart_sibling_general,R_98
+11,99 9 78 87 90 41 94 19 33 24 13
+desk_wallclock_sibling_general,R_99
+11,98 9 90 78 87 19 94 41 33 24 13
+desk_wallet_parentchild_general,R_100
+20,21 64 47 25 51 66 50 7 83 84 93 59 42 2 43 32 71 48 20 91
+desk_yttrium_parentchild_general,R_101
+20,20 77 42 65 35 49 84 93 48 76 71 75 63 43 25 83 2 32 66 47
+casual_display
+display_collection_parentchild_general,R_0
+1,2
+display_pottedplant_parentchild_general,R_1
+1,2
+display_toyfigure_parentchild_general,R_2
+1,0
+casual_dresser
+dresser_aerosol_parentchild_general,R_0
+7,4 18 5 3 13 2 19
+dresser_bed_sibling_general,R_1
+2,11 10
+dresser_book_parentchild_general,R_2
+7,3 6 18 4 0 5 19
+dresser_books_parentchild_general,R_3
+7,18 2 4 0 5 6 19
+dresser_bottle_parentchild_general,R_4
+7,0 18 3 5 2 13 19
+dresser_canister_parentchild_general,R_5
+7,4 0 18 13 3 2 16
+dresser_cellphone_parentchild_general,R_6
+7,2 3 18 5 4 0 19
+dresser_clock_sibling_general,R_7
+2,14 10
+dresser_cube_parentchild_general,R_8
+7,15 17 20 9 19 3 18
+dresser_dart_parentchild_general,R_9
+7,17 15 8 20 19 2 6
+dresser_dartboard_sibling_general,R_10
+2,7 11
+dresser_head_sibling_general,R_11
+2,10 7
+dresser_lamp_parentchild_general,R_12
+7,16 20 19 13 15 8 17
+dresser_mirror_parentchild_general,R_13
+7,16 5 0 4 18 3 19
+dresser_post horse_sibling_general,R_14
+2,7 10
+dresser_rule_parentchild_general,R_15
+7,8 17 20 9 19 3 2
+dresser_statue_parentchild_general,R_16
+7,13 0 5 4 18 3 19
+dresser_tape_parentchild_general,R_17
+7,15 8 9 20 19 6 2
+dresser_tissuebox_parentchild_general,R_18
+7,4 3 0 5 2 19 6
+dresser_toyfigure_parentchild_general,R_19
+7,20 8 15 18 4 0 3
+dresser_vase_parentchild_general,R_20
+7,8 15 17 19 9 5 4
+casual_filecabinet
+filecabinet_1shelves_proximity_general,R_0
+1,7
+filecabinet_bottle_parentchild_general,R_1
+2,10 5
+filecabinet_bowl_parentchild_general,R_2
+2,1 10
+filecabinet_chair_proximity_general,R_3
+1,6
+filecabinet_paperbox_sibling_general,R_4
+1,9
+filecabinet_pillbottle_parentchild_general,R_5
+2,1 10
+filecabinet_pillow_proximity_general,R_6
+1,0
+filecabinet_printer_proximity_general,R_7
+1,0
+filecabinet_towel_parentchild_general,R_8
+2,2 5
+filecabinet_vacuum_sibling_general,R_9
+1,4
+filecabinet_vase_parentchild_general,R_10
+2,1 5
+filecabinet_water cooler_sibling_general,R_11
+1,4
+casual_floorlamp
+floorlamp_couch_sibling_general,R_0
+0,-1
+floorlamp_ottoman_sibling_general,R_1
+0,-1
+casual_game
+game_dresser_sibling_general,R_0
+1,1
+game_ottoman_sibling_general,R_1
+1,2
+game_shackle_sibling_general,R_2
+1,1
+game_tape_sibling_general,R_3
+1,1
+casual_keyboard
+keyboard_book_sibling_general,R_0
+5,7 5 1 11 2
+keyboard_cellphone_sibling_general,R_1
+5,2 11 13 0 12
+keyboard_cellulose tape_sibling_general,R_2
+5,11 1 13 0 7
+keyboard_compact disk_proximity_general,R_3
+0,-1
+keyboard_computermouse_proximity_general,R_4
+0,-1
+keyboard_mousepad_sibling_general,R_5
+5,7 0 11 2 1
+keyboard_mug_sibling_general,R_6
+5,10 12 13 8 9
+keyboard_notepad_sibling_general,R_7
+5,5 0 11 2 1
+keyboard_printer_sibling_general,R_8
+5,9 6 10 12 13
+keyboard_router_sibling_general,R_9
+5,8 6 10 12 13
+keyboard_speaker_sibling_general,R_10
+5,6 12 13 8 1
+keyboard_stapler_sibling_general,R_11
+5,2 1 13 0 7
+keyboard_tableclock_sibling_general,R_12
+5,13 1 2 11 10
+keyboard_webcam_sibling_general,R_13
+5,12 1 2 11 0
+casual_laptop
+laptop_beaker_sibling_general,R_0
+2,4 3
+laptop_book_sibling_general,R_1
+2,0 2
+laptop_calculator_sibling_general,R_2
+2,3 4
+laptop_notepad_sibling_general,R_3
+2,4 2
+laptop_pen_sibling_general,R_4
+2,3 2
+laptop_tissuebox_sibling_general,R_5
+2,1 0
+casual_leg
+leg_paperbox_proximity_general,R_0
+0,-1
+leg_paperbox_sibling_general,R_1
+0,-1
+leg_purse_sibling_general,R_2
+0,-1
+casual_magazine
+magazine_coaster_sibling_general,R_0
+0,-1
+magazine_donut_proximity_general,R_1
+0,-1
+magazine_mug_proximity_general,R_2
+0,-1
+magazine_plate_sibling_general,R_3
+0,-1
+casual_mediastorage
+mediastorage_case_parentchild_general,R_0
+4,1 10 9 11
+mediastorage_controller_parentchild_general,R_1
+4,0 10 11 9
+mediastorage_mediaplayer_parentchild_general,R_2
+4,6 8 9 4
+mediastorage_mediaplayer_proximity_general,R_3
+0,-1
+mediastorage_pottedplant_parentchild_general,R_4
+4,8 2 6 7
+mediastorage_speaker_sibling_general,R_5
+0,-1
+mediastorage_telephone_parentchild_general,R_6
+4,2 9 10 8
+mediastorage_tv_parentchild_general,R_7
+4,4 2 8 11
+mediastorage_vase_parentchild_general,R_8
+4,4 2 6 9
+mediastorage_videogameconsole_parentchild_general,R_9
+4,10 1 11 0
+mediastorage_videogamecontroller_parentchild_general,R_10
+4,1 0 9 11
+mediastorage_wheel_parentchild_general,R_11
+4,1 10 9 0
+casual_mirror
+mirror_pack_sibling_general,R_0
+0,-1
+mirror_pot_sibling_general,R_1
+0,-1
+casual_monitor
+monitor_book_sibling_general,R_0
+5,8 14 11 5 6
+monitor_books_proximity_general,R_1
+1,10
+monitor_books_sibling_general,R_2
+5,15 0 8 14 11
+monitor_computer_proximity_general,R_3
+1,7
+monitor_computer_sibling_general,R_4
+5,12 15 2 13 0
+monitor_computermouse_sibling_general,R_5
+5,8 11 14 9 6
+monitor_eraser_sibling_general,R_6
+5,8 5 0 11 14
+monitor_fan_proximity_general,R_7
+1,3
+monitor_keyboard_sibling_general,R_8
+5,5 0 6 11 14
+monitor_mousepad_sibling_general,R_9
+5,5 11 14 8 0
+monitor_mug_proximity_general,R_10
+1,1
+monitor_mug_sibling_general,R_11
+5,14 5 8 0 6
+monitor_printer_sibling_general,R_12
+5,4 15 2 13 0
+monitor_speaker_sibling_general,R_13
+5,14 11 0 15 8
+monitor_stapler_sibling_general,R_14
+5,11 5 0 8 6
+monitor_telephone_sibling_general,R_15
+5,2 0 14 11 8
+casual_nightstand
+nightstand_basket_sibling_general,R_0
+1,5
+nightstand_book_parentchild_general,R_1
+4,6 11 3 9
+nightstand_bottle_parentchild_general,R_2
+4,12 9 11 6
+nightstand_cup_parentchild_general,R_3
+4,11 9 1 6
+nightstand_fan_sibling_general,R_4
+1,5
+nightstand_floorlamp_sibling_general,R_5
+1,4
+nightstand_glasses_parentchild_general,R_6
+4,11 9 1 3
+nightstand_lamp_parentchild_general,R_7
+4,9 11 3 6
+nightstand_mirror_parentchild_general,R_8
+4,10 12 2 1
+nightstand_pillbottle_parentchild_general,R_9
+4,11 6 3 1
+nightstand_spray paint_parentchild_general,R_10
+4,8 12 2 1
+nightstand_tableclock_parentchild_general,R_11
+4,9 6 3 1
+nightstand_wineglass_parentchild_general,R_12
+4,2 9 11 6
+casual_oven
+oven_bottle_proximity_general,R_0
+1,8
+oven_counter_proximity_general,R_1
+1,2
+oven_filecabinet_proximity_general,R_2
+1,1
+oven_filecabinet_sibling_general,R_3
+1,5
+oven_pan_parentchild_general,R_4
+0,-1
+oven_paperbox_sibling_general,R_5
+1,3
+oven_pot_parentchild_general,R_6
+0,-1
+oven_pot_sibling_general,R_7
+1,5
+oven_vase_proximity_general,R_8
+1,0
+casual_paperbox
+paperbox_backpack_sibling_general,R_0
+3,2 5 10
+paperbox_basket_sibling_general,R_1
+3,9 8 5
+paperbox_filecabinet_sibling_general,R_2
+3,0 5 10
+paperbox_paperbox_parentchild_general,R_3
+0,-1
+paperbox_paperbox_proximity_general,R_4
+1,7
+paperbox_paperbox_sibling_general,R_5
+3,0 2 8
+paperbox_printer_proximity_general,R_6
+1,4
+paperbox_purse_proximity_general,R_7
+1,4
+paperbox_purse_sibling_general,R_8
+3,9 1 5
+paperbox_trashbin_sibling_general,R_9
+3,1 8 5
+paperbox_vacuum_sibling_general,R_10
+3,2 0 5
+casual_pottedplant
+casual_rack
+rack_shoes_proximity_general,R_0
+0,-1
+casual_refrigerator
+refrigerator_chair_proximity_general,R_0
+1,1
+refrigerator_filecabinet_proximity_general,R_1
+1,0
+refrigerator_microwave_parentchild_general,R_2
+0,-1
+refrigerator_microwave_proximity_general,R_3
+1,5
+refrigerator_pot_sibling_general,R_4
+0,-1
+refrigerator_printer_proximity_general,R_5
+1,3
+refrigerator_trashbin_sibling_general,R_6
+0,-1
+casual_sink
+sink_mug_proximity_general,R_0
+0,-1
+sink_mug_sibling_general,R_1
+0,-1
+casual_speaker
+speaker_couch_sibling_general,R_0
+2,4 3
+speaker_mediastorage_sibling_general,R_1
+2,2 3
+speaker_speaker_sibling_general,R_2
+2,3 4
+speaker_subwoofer_sibling_general,R_3
+2,2 0
+speaker_sword_sibling_general,R_4
+2,0 2
+speaker_wallart_sibling_general,R_5
+2,4 0
+casual_table
+table_backpack_proximity_general,R_0
+9,68 54 43 41 75 21 34 29 14
+table_backpack_sibling_general,R_1
+9,62 61 76 2 51 44 63 17 55
+table_bag_sibling_general,R_2
+9,61 44 51 1 62 76 63 17 55
+table_basket_parentchild_general,R_3
+19,70 4 15 50 37 23 71 48 18 6 56 40 20 65 38 66 12 59 46
+table_blender_parentchild_general,R_4
+19,3 70 15 50 37 23 48 71 18 6 56 40 65 20 38 66 12 59 46
+table_book_parentchild_general,R_5
+19,49 31 12 64 39 25 45 27 38 33 66 7 40 20 59 67 13 74 57
+table_bottle_parentchild_general,R_6
+19,50 40 37 38 20 65 56 12 48 71 23 18 59 66 5 64 39 49 46
+table_bowl_parentchild_general,R_7
+19,33 25 27 31 5 45 49 12 64 59 57 13 39 65 46 38 67 11 66
+table_bowl_proximity_general,R_8
+9,32 28 69 29 21 34 14 9 58
+table_breadslice_proximity_general,R_9
+9,58 28 14 8 34 29 21 75 32
+table_cabinet_sibling_general,R_10
+9,24 36 53 42 63 17 55 60 26
+table_candle_parentchild_general,R_11
+19,47 59 33 25 46 57 45 7 65 40 12 64 27 19 5 38 49 20 66
+table_canopener_parentchild_general,R_12
+19,49 38 64 39 27 5 40 20 45 66 25 31 33 59 65 46 7 57 6
+table_cap_parentchild_general,R_13
+19,67 74 31 5 7 25 49 33 27 45 64 12 39 59 66 57 46 38 40
+table_cellphone_proximity_general,R_14
+9,21 34 29 9 75 28 8 58 32
+table_chair_parentchild_general,R_15
+19,4 70 3 50 37 23 48 71 18 6 56 40 65 20 38 66 59 12 46
+table_chair_proximity_general,R_16
+9,22 41 68 0 54 43 69 32 8
+table_chair_sibling_general,R_17
+9,63 55 42 61 76 2 44 51 62
+table_chessboard_parentchild_general,R_18
+19,48 23 71 56 37 50 65 40 6 20 38 66 57 59 46 12 19 47 64
+table_chessman_parentchild_general,R_19
+19,65 57 47 7 33 38 59 40 20 46 66 45 25 12 64 27 5 49 11
+table_coaster_parentchild_general,R_20
+19,38 66 40 12 39 64 49 65 45 46 27 57 59 56 5 25 6 33 31
+table_coaster_proximity_general,R_21
+9,29 34 14 75 8 32 28 9 41
+table_coffee mug_proximity_general,R_22
+9,69 32 8 41 30 21 29 28 34
+table_controller_parentchild_general,R_23
+19,48 71 18 56 37 50 20 6 40 65 38 66 12 59 46 57 39 64 27
+table_couch_sibling_general,R_24
+9,10 53 36 42 17 26 63 60 55
+table_cup_parentchild_general,R_25
+19,45 33 59 5 64 12 7 46 49 31 57 27 39 40 38 66 11 65 20
+table_floorlamp_sibling_general,R_26
+9,53 36 42 72 60 24 73 17 63
+table_foodplate_parentchild_general,R_27
+19,12 49 64 7 31 39 33 38 5 25 45 20 66 40 59 65 57 46 67
+table_foodplate_proximity_general,R_28
+9,58 9 8 14 32 30 29 69 34
+table_fork_proximity_general,R_29
+9,34 21 14 75 8 32 28 9 58
+table_fruit_proximity_general,R_30
+9,58 69 28 8 9 32 14 29 34
+table_glasses_parentchild_general,R_31
+19,5 49 67 74 12 27 64 39 13 25 45 7 33 38 66 20 40 59 46
+table_hamburger_proximity_general,R_32
+9,8 69 29 28 21 34 14 75 41
+table_holder_parentchild_general,R_33
+19,25 7 59 45 27 12 5 57 64 46 49 65 11 31 38 40 39 20 66
+table_knife_proximity_general,R_34
+9,29 21 14 75 8 32 28 9 58
+table_lamp_parentchild_general,R_35
+19,52 47 19 11 57 65 59 37 46 33 7 25 18 45 40 50 56 20 38
+table_lamp_sibling_general,R_36
+9,26 42 63 60 17 53 10 55 24
+table_laptop_parentchild_general,R_37
+19,50 18 48 23 71 56 6 65 40 20 38 47 59 19 57 46 66 12 33
+table_magazine_parentchild_general,R_38
+19,20 40 12 66 39 64 49 65 27 5 45 59 46 57 25 33 31 6 56
+table_money_parentchild_general,R_39
+19,64 49 66 12 5 38 20 45 27 31 40 25 46 57 33 59 7 65 74
+table_mug_parentchild_general,R_40
+19,38 20 12 65 66 59 64 6 45 39 46 49 5 57 25 33 27 56 50
+table_mug_proximity_general,R_41
+9,32 21 8 75 29 34 69 14 28
+table_ottoman_sibling_general,R_42
+9,53 55 17 63 36 72 26 60 24
+table_paperbox_proximity_general,R_43
+9,54 0 68 41 75 21 34 29 14
+table_paperbox_sibling_general,R_44
+9,51 2 61 1 62 76 63 17 55
+table_pepper mill_parentchild_general,R_45
+19,25 64 46 59 49 57 33 12 39 66 5 38 40 27 20 31 7 65 11
+table_pepper_parentchild_general,R_46
+19,45 59 57 66 25 64 40 20 33 38 12 39 65 49 5 11 27 7 31
+table_pictureframe_parentchild_general,R_47
+19,11 65 19 59 57 33 46 25 7 40 45 37 38 12 20 18 64 27 66
+table_pizza_parentchild_general,R_48
+19,71 23 18 56 37 50 20 6 40 65 38 66 12 59 46 57 39 64 27
+table_plate_parentchild_general,R_49
+19,39 64 5 12 31 27 45 66 38 25 20 40 33 7 46 59 57 67 74
+table_pot_parentchild_general,R_50
+19,37 6 18 48 23 71 56 40 65 20 38 59 66 46 57 12 64 45 47
+table_pot_sibling_general,R_51
+9,44 2 61 1 62 76 63 17 55
+table_pottedplant_parentchild_general,R_52
+19,47 35 19 11 7 57 33 25 59 65 46 45 5 13 64 27 12 49 31
+table_pottedplant_sibling_general,R_53
+9,42 26 24 72 36 17 10 63 60
+table_printer_proximity_general,R_54
+9,43 0 68 41 75 21 34 29 14
+table_purse_sibling_general,R_55
+9,63 17 42 2 44 61 51 76 62
+table_remote control_parentchild_general,R_56
+19,23 48 71 18 20 50 37 40 38 65 66 6 46 57 12 59 64 39 45
+table_salad_parentchild_general,R_57
+19,46 45 59 65 66 25 64 33 20 40 38 12 39 49 19 7 5 11 27
+table_sandwich_proximity_general,R_58
+9,9 28 30 14 8 32 69 29 34
+table_sodacan_parentchild_general,R_59
+19,46 45 25 33 57 40 65 12 11 64 38 20 66 5 49 7 27 39 47
+table_speaker_sibling_general,R_60
+9,17 36 42 63 26 53 55 76 61
+table_stool_sibling_general,R_61
+9,2 76 62 1 44 51 63 17 55
+table_suitcase_sibling_general,R_62
+9,1 76 61 2 44 51 63 17 55
+table_table_sibling_general,R_63
+9,55 17 76 61 2 44 51 62 1
+table_teacup_parentchild_general,R_64
+19,39 49 45 66 12 5 38 20 25 27 31 46 40 57 59 33 7 65 67
+table_telephone_parentchild_general,R_65
+19,40 38 57 59 20 12 33 19 46 66 45 25 47 64 27 49 37 56 6
+table_tongs_parentchild_general,R_66
+19,20 64 39 38 49 45 12 40 46 57 5 27 59 25 65 31 33 56 7
+table_tray_parentchild_general,R_67
+19,74 13 31 5 49 7 27 39 64 25 12 45 33 66 38 59 20 46 57
+table_tv_proximity_general,R_68
+9,0 54 43 41 75 21 34 29 14
+table_unknown_proximity_general,R_69
+9,8 32 30 28 58 22 9 29 21
+table_vase_parentchild_general,R_70
+19,3 4 15 50 37 23 71 48 18 6 56 40 20 65 38 66 12 59 46
+table_videogamecontroller_parentchild_general,R_71
+19,48 23 18 56 37 50 20 6 40 65 38 66 12 59 46 57 39 64 27
+table_wallart_sibling_general,R_72
+9,73 53 42 26 36 17 60 63 55
+table_wallclock_sibling_general,R_73
+9,72 53 42 26 36 17 60 63 55
+table_wallet_parentchild_general,R_74
+19,67 13 31 5 49 27 39 64 7 25 12 45 33 66 38 20 59 46 40
+table_wallet_proximity_general,R_75
+9,21 14 34 29 8 32 9 28 41
+table_water cooler_sibling_general,R_76
+9,61 62 1 2 44 51 63 17 55
+casual_trashbin
+trashbin_brake shoe_sibling_general,R_0
+2,2 3
+trashbin_chestofdrawers_sibling_general,R_1
+2,4 5
+trashbin_paperbox_sibling_general,R_2
+2,0 3
+trashbin_purse_sibling_general,R_3
+2,0 2
+trashbin_rack_sibling_general,R_4
+2,5 3
+trashbin_stool_sibling_general,R_5
+2,4 3
+casual_tv
+tv_battery_sibling_general,R_0
+4,1 2 7 10
+tv_case_sibling_general,R_1
+4,0 2 7 10
+tv_controller_sibling_general,R_2
+4,1 0 10 7
+tv_mediaplayer_proximity_general,R_3
+0,-1
+tv_mediaplayer_sibling_general,R_4
+4,11 9 6 10
+tv_mediastorage_childparent_general,R_5
+0,-1
+tv_telephone_sibling_general,R_6
+4,9 10 7 4
+tv_unknown_sibling_general,R_7
+4,10 0 1 2
+tv_videodisk_sibling_general,R_8
+4,2 10 1 0
+tv_videogameconsole_sibling_general,R_9
+4,6 10 4 7
+tv_videogamecontroller_sibling_general,R_10
+4,7 2 1 0
+tv_wheel_sibling_general,R_11
+4,4 8 9 2
+casual_tvstand
+tvstand_disccase_proximity_general,R_0
+0,-1
+tvstand_disk_parentchild_general,R_1
+2,4 7
+tvstand_network_parentchild_general,R_2
+2,7 1
+tvstand_network_sibling_general,R_3
+0,-1
+tvstand_telecommunication_parentchild_general,R_4
+2,1 6
+tvstand_tv_parentchild_general,R_5
+2,6 4
+tvstand_videogameconsole_parentchild_general,R_6
+2,4 1
+tvstand_videogamecontroller_parentchild_general,R_7
+2,2 1
+tvstand_videogamecontroller_proximity_general,R_8
+0,-1
+casual_wallart
+wallart_wallclock_sibling_general,R_0
+0,-1
+clean_backpack
+backpack_bed_sibling_general,R_0
+0,-1
+clean_bed
+bed_bookcase_sibling_general,R_0
+2,1 2
+bed_chair_sibling_general,R_1
+2,2 4
+bed_desk_sibling_general,R_2
+2,1 0
+bed_filecabinet_sibling_general,R_3
+2,4 8
+bed_floorlamp_sibling_general,R_4
+2,1 8
+bed_pillow_parentchild_general,R_5
+0,-1
+bed_tissuebox_proximity_general,R_6
+0,-1
+bed_towel_proximity_general,R_7
+0,-1
+bed_trashbin_sibling_general,R_8
+2,4 3
+clean_bookcase
+bookcase_ball_parentchild_general,R_0
+9,15 21 11 24 1 8 20 13 9
+bookcase_book_parentchild_general,R_1
+9,24 13 11 9 8 6 15 12 21
+bookcase_bookcase_sibling_general,R_2
+2,10 25
+bookcase_books_parentchild_general,R_3
+9,24 23 6 15 11 22 9 12 1
+bookcase_books_proximity_general,R_4
+0,-1
+bookcase_cap_proximity_general,R_5
+0,-1
+bookcase_chair_parentchild_general,R_6
+9,9 12 22 24 11 20 21 13 23
+bookcase_decorativeaccessory_parentchild_general,R_7
+9,16 18 23 3 22 12 6 24 8
+bookcase_disccase_parentchild_general,R_8
+9,13 24 1 9 11 15 12 3 22
+bookcase_framework_parentchild_general,R_9
+9,6 24 12 13 22 11 1 21 8
+bookcase_guitarstand_sibling_general,R_10
+2,2 25
+bookcase_headphones_parentchild_general,R_11
+9,24 21 15 9 1 6 20 13 0
+bookcase_lamp_parentchild_general,R_12
+9,22 9 6 24 13 23 11 3 1
+bookcase_mediaplayer_parentchild_general,R_13
+9,24 9 8 1 12 11 6 22 15
+bookcase_mug_parentchild_general,R_14
+9,19 0 21 11 15 20 24 9 13
+bookcase_pianokeyboard_parentchild_general,R_15
+9,11 24 0 21 3 1 20 8 9
+bookcase_pictureframe_parentchild_general,R_16
+9,7 23 22 12 3 6 9 18 13
+bookcase_pot_sibling_general,R_17
+2,10 2
+bookcase_pottedplant_parentchild_general,R_18
+9,23 3 7 22 12 16 24 6 8
+bookcase_shoes_parentchild_general,R_19
+9,14 0 21 11 15 20 24 9 13
+bookcase_speaker_parentchild_general,R_20
+9,21 11 6 15 9 24 3 22 12
+bookcase_toyfigure_parentchild_general,R_21
+9,11 20 6 24 9 0 15 1 13
+bookcase_vase_parentchild_general,R_22
+9,12 6 9 23 24 13 3 11 1
+bookcase_videodisk_parentchild_general,R_23
+9,22 12 3 6 9 24 13 20 11
+bookcase_videogameconsole_parentchild_general,R_24
+9,9 11 13 1 6 12 8 15 22
+bookcase_wallart_sibling_general,R_25
+2,26 2
+bookcase_wallclock_sibling_general,R_26
+2,25 10
+clean_cabinet
+cabinet_bookcase_proximity_general,R_0
+0,-1
+cabinet_books_parentchild_general,R_1
+2,4 7
+cabinet_chair_sibling_general,R_2
+1,3
+cabinet_couch_sibling_general,R_3
+1,2
+cabinet_pottedplant_parentchild_general,R_4
+2,1 7
+cabinet_speaker_parentchild_general,R_5
+2,8 7
+cabinet_table_sibling_general,R_6
+1,2
+cabinet_tv_parentchild_general,R_7
+2,4 1
+cabinet_videogameconsole_parentchild_general,R_8
+2,5 7
+cabinet_wallart_sibling_general,R_9
+1,6
+clean_chair
+chair_book_proximity_general,R_0
+0,-1
+chair_laptop_proximity_general,R_1
+0,-1
+chair_table_sibling_general,R_2
+0,-1
+clean_chestofdrawers
+chestofdrawers_cellphone_parentchild_general,R_0
+0,-1
+clean_couch
+couch_backpack_parentchild_general,R_0
+0,-1
+couch_bookcase_proximity_general,R_1
+3,8 4 10
+couch_cabinet_sibling_general,R_2
+6,16 23 17 3 5 20
+couch_chair_sibling_general,R_3
+6,17 23 16 2 5 20
+couch_curtain_proximity_general,R_4
+3,10 1 8
+couch_desk_sibling_general,R_5
+6,3 17 20 23 16 2
+couch_display_sibling_general,R_6
+6,20 9 7 19 13 5
+couch_dog_sibling_general,R_7
+6,19 20 6 9 13 5
+couch_floorlamp_proximity_general,R_8
+3,1 4 10
+couch_floorlamp_sibling_general,R_9
+6,6 20 7 19 13 22
+couch_lamp_proximity_general,R_10
+3,18 14 4
+couch_lamp_sibling_general,R_11
+6,22 20 19 7 6 9
+couch_laptop_parentchild_general,R_12
+0,-1
+couch_mediastorage_sibling_general,R_13
+6,6 20 7 19 5 9
+couch_pillow_proximity_general,R_14
+3,18 10 21
+couch_pottedplant_proximity_general,R_15
+3,21 4 8
+couch_pottedplant_sibling_general,R_16
+6,23 2 17 3 5 20
+couch_table_sibling_general,R_17
+6,3 23 16 2 5 20
+couch_tissuebox_proximity_general,R_18
+3,14 10 4
+couch_trashbin_sibling_general,R_19
+6,7 20 6 9 13 11
+couch_tvstand_sibling_general,R_20
+6,19 6 7 5 9 3
+couch_wallart_proximity_general,R_21
+3,10 18 14
+couch_wallart_sibling_general,R_22
+6,11 19 20 7 9 6
+couch_water cooler_sibling_general,R_23
+6,16 2 17 3 5 20
+clean_desk
+desk_apple_parentchild_general,R_0
+16,19 33 16 42 31 50 21 40 37 35 27 20 36 13 2 45
+desk_board_sibling_general,R_1
+5,43 48 17 14 49
+desk_book_parentchild_general,R_2
+16,22 10 21 40 27 13 44 45 31 41 33 16 42 39 30 0
+desk_bookcase_sibling_general,R_3
+5,17 14 12 7 43
+desk_books_parentchild_general,R_4
+16,47 5 28 10 22 2 44 21 27 40 13 45 41 39 30 31
+desk_bottle_parentchild_general,R_5
+16,28 4 47 10 22 2 44 21 27 40 13 45 41 39 30 31
+desk_cellphone_proximity_general,R_6
+2,18 9
+desk_chair_sibling_general,R_7
+5,14 46 43 38 48
+desk_computer_parentchild_general,R_8
+16,15 25 24 30 23 32 39 20 41 50 45 44 13 40 19 36
+desk_computer_proximity_general,R_9
+2,18 6
+desk_computermouse_parentchild_general,R_10
+16,22 2 21 44 27 40 13 45 41 31 4 5 47 28 33 39
+desk_computermouse_proximity_general,R_11
+2,18 6
+desk_couch_sibling_general,R_12
+5,3 14 43 7 46
+desk_cup_parentchild_general,R_13
+16,45 40 44 2 27 41 21 22 39 30 10 31 42 16 50 33
+desk_desk_sibling_general,R_14
+5,7 43 46 17 1
+desk_desklamp_parentchild_general,R_15
+16,25 24 30 8 39 32 20 41 45 50 23 13 44 40 36 35
+desk_dispenser_parentchild_general,R_16
+16,42 33 19 31 0 50 20 40 21 37 35 13 36 32 45 27
+desk_floorlamp_sibling_general,R_17
+5,14 1 3 43 7
+desk_glasses_proximity_general,R_18
+2,6 9
+desk_headphones_parentchild_general,R_19
+16,0 16 42 33 31 50 37 35 20 36 40 21 32 13 27 45
+desk_holder_parentchild_general,R_20
+16,50 32 42 36 35 37 16 33 19 30 45 24 41 13 40 15
+desk_ipod_parentchild_general,R_21
+16,27 40 2 22 13 31 10 45 44 33 16 42 0 19 41 50
+desk_keyboard_parentchild_general,R_22
+16,2 10 21 27 40 44 13 45 31 41 33 16 42 39 0 19
+desk_lamp_parentchild_general,R_23
+16,25 24 15 8 30 39 32 41 45 20 13 50 44 40 2 22
+desk_laptop_parentchild_general,R_24
+16,32 15 39 25 30 50 20 45 8 41 23 13 36 40 42 19
+desk_monitor_parentchild_general,R_25
+16,15 30 24 39 41 23 8 32 45 20 13 44 50 40 2 22
+desk_monitor_proximity_general,R_26
+2,11 9
+desk_mousepad_parentchild_general,R_27
+16,21 2 22 40 13 31 10 44 45 33 16 42 0 41 19 39
+desk_mug_parentchild_general,R_28
+16,5 4 47 10 22 2 44 21 27 40 13 45 41 39 30 31
+desk_nightstand_sibling_general,R_29
+5,38 46 7 43 14
+desk_noname_parentchild_general,R_30
+16,41 39 45 25 15 13 20 24 40 44 32 50 2 22 21 42
+desk_notepad_parentchild_general,R_31
+16,33 16 42 0 21 19 27 40 13 2 50 22 45 37 35 10
+desk_organ_parentchild_general,R_32
+16,50 20 24 36 42 39 15 16 35 37 30 19 33 45 25 13
+desk_paperclip_parentchild_general,R_33
+16,16 42 31 0 19 50 21 40 20 27 13 37 35 45 2 36
+desk_pencil_proximity_general,R_34
+2,6 18
+desk_picture frame_parentchild_general,R_35
+16,37 36 50 20 42 16 19 32 33 0 31 13 40 45 24 39
+desk_picture_parentchild_general,R_36
+16,35 37 50 20 32 42 16 19 33 0 31 24 13 39 45 40
+desk_pictureframe_parentchild_general,R_37
+16,35 36 50 20 42 16 19 33 32 0 31 13 40 45 24 39
+desk_powersocket_sibling_general,R_38
+5,46 7 43 48 14
+desk_printer_parentchild_general,R_39
+16,45 30 24 41 13 25 44 15 32 40 50 20 2 27 22 21
+desk_rubikscube_parentchild_general,R_40
+16,13 45 21 2 44 27 22 10 31 41 42 16 33 50 30 39
+desk_speaker_parentchild_general,R_41
+16,30 45 13 39 40 44 2 22 25 10 20 50 15 27 21 32
+desk_stapler_parentchild_general,R_42
+16,16 33 19 50 31 0 20 40 37 35 21 13 36 32 45 27
+desk_table_sibling_general,R_43
+5,46 14 7 1 38
+desk_telecommunication_parentchild_general,R_44
+16,13 45 40 2 22 10 27 21 41 39 30 31 42 16 33 50
+desk_telephone_parentchild_general,R_45
+16,13 40 44 41 2 39 30 21 22 27 10 50 42 31 16 20
+desk_trashbin_sibling_general,R_46
+5,7 43 38 14 48
+desk_wallart_parentchild_general,R_47
+16,4 5 28 10 22 2 44 21 27 40 13 45 41 39 30 31
+desk_wallart_sibling_general,R_48
+5,49 1 38 7 46
+desk_wallclock_sibling_general,R_49
+5,48 1 43 46 38
+desk_yttrium_parentchild_general,R_50
+16,20 42 32 16 33 19 36 35 37 0 31 45 40 13 39 24
+clean_display
+display_collection_parentchild_general,R_0
+1,2
+display_pottedplant_parentchild_general,R_1
+1,2
+display_toyfigure_parentchild_general,R_2
+1,0
+clean_filecabinet
+filecabinet_vase_parentchild_general,R_0
+0,-1
+clean_floorlamp
+floorlamp_couch_sibling_general,R_0
+0,-1
+floorlamp_ottoman_sibling_general,R_1
+0,-1
+clean_laptop
+laptop_chair_proximity_general,R_0
+0,-1
+laptop_computermouse_sibling_general,R_1
+0,-1
+laptop_desklamp_sibling_general,R_2
+0,-1
+clean_mediastorage
+mediastorage_speaker_sibling_general,R_0
+0,-1
+mediastorage_telephone_parentchild_general,R_1
+0,-1
+mediastorage_tv_parentchild_general,R_2
+0,-1
+clean_nightstand
+nightstand_book_parentchild_general,R_0
+1,3
+nightstand_bookcase_sibling_general,R_1
+0,-1
+nightstand_cup_parentchild_general,R_2
+1,3
+nightstand_tableclock_parentchild_general,R_3
+1,0
+clean_oven
+oven_counter_proximity_general,R_0
+0,-1
+oven_pan_parentchild_general,R_1
+0,-1
+oven_pot_parentchild_general,R_2
+0,-1
+clean_pottedplant
+clean_rack
+rack_shoes_proximity_general,R_0
+0,-1
+clean_refrigerator
+clean_speaker
+speaker_mediastorage_sibling_general,R_0
+1,1
+speaker_speaker_sibling_general,R_1
+1,2
+speaker_subwoofer_sibling_general,R_2
+1,1
+clean_table
+table_blender_parentchild_general,R_0
+8,20 8 11 21 2 25 28 6
+table_book_parentchild_general,R_1
+8,31 22 7 25 13 15 3 2
+table_bottle_parentchild_general,R_2
+8,25 21 1 13 28 3 22 31
+table_bowl_parentchild_general,R_3
+8,13 28 1 25 7 22 2 15
+table_breadslice_proximity_general,R_4
+4,29 18 17 16
+table_cabinet_sibling_general,R_5
+4,12 19 27 10
+table_candle_parentchild_general,R_6
+8,24 28 3 13 2 21 25 11
+table_cap_parentchild_general,R_7
+8,22 31 1 13 15 3 25 2
+table_chair_parentchild_general,R_8
+8,0 20 11 21 2 25 28 6
+table_chair_proximity_general,R_9
+4,32 23 17 18
+table_chair_sibling_general,R_10
+4,30 27 19 36
+table_controller_parentchild_general,R_11
+8,21 2 25 28 20 0 8 3
+table_couch_sibling_general,R_12
+4,5 19 27 10
+table_cup_parentchild_general,R_13
+8,3 1 7 22 28 25 2 31
+table_floorlamp_sibling_general,R_14
+4,27 19 34 10
+table_foodplate_parentchild_general,R_15
+8,31 1 22 7 3 25 13 2
+table_foodplate_proximity_general,R_16
+4,29 4 33 17
+table_fork_proximity_general,R_17
+4,18 4 29 23
+table_knife_proximity_general,R_18
+4,17 4 29 23
+table_lamp_sibling_general,R_19
+4,14 5 10 30
+table_laptop_parentchild_general,R_20
+8,0 8 11 21 2 25 28 6
+table_magazine_parentchild_general,R_21
+8,2 25 11 28 1 3 13 15
+table_mug_parentchild_general,R_22
+8,7 31 1 15 13 3 25 2
+table_mug_proximity_general,R_23
+4,17 18 9 32
+table_pictureframe_parentchild_general,R_24
+8,6 28 3 13 2 21 25 11
+table_plate_parentchild_general,R_25
+8,1 2 21 13 3 28 31 22
+table_pottedplant_parentchild_general,R_26
+8,24 6 3 28 13 7 22 1
+table_pottedplant_sibling_general,R_27
+4,14 10 19 34
+table_salad_parentchild_general,R_28
+8,3 13 25 2 21 6 24 1
+table_sandwich_proximity_general,R_29
+4,4 17 18 16
+table_table_sibling_general,R_30
+4,10 36 19 5
+table_tray_parentchild_general,R_31
+8,22 1 7 15 25 13 3 2
+table_tv_proximity_general,R_32
+4,9 23 18 17
+table_unknown_proximity_general,R_33
+4,16 23 29 17
+table_wallart_sibling_general,R_34
+4,35 27 14 10
+table_wallclock_sibling_general,R_35
+4,34 27 14 10
+table_water cooler_sibling_general,R_36
+4,30 10 19 5
+decoration_nightstand
+nightstand_pottedplant_proximity_general,R_0
+0,-1
+decoration_wallart
+wallart_wallart_sibling_general,R_0
+0,-1
+decorative_bed
+bed_artwork_sibling_general,R_0
+2,5 4
+bed_mirror_sibling_general,R_1
+2,5 0
+bed_nightstand_proximity_general,R_2
+0,-1
+bed_statue_sibling_general,R_3
+2,1 5
+bed_wall clock_sibling_general,R_4
+2,0 5
+bed_wallart_sibling_general,R_5
+2,0 1
+decorative_couch
+couch_sword_sibling_general,R_0
+0,-1
+couch_wallart_sibling_general,R_1
+0,-1
+decorative_desk
+desk_chair_sibling_general,R_0
+0,-1
+desk_pottedplant_parentchild_general,R_1
+0,-1
+desk_vase_parentchild_general,R_2
+0,-1
+desk_wallart_sibling_general,R_3
+0,-1
+decorative_table
+table_decorativeaccessory_parentchild_general,R_0
+0,-1
+table_pottedplant_parentchild_general,R_1
+0,-1
+table_wallart_sibling_general,R_2
+0,-1
+decorative_wallart
+wallart_wallart_sibling_general,R_0
+0,-1
+dining_table
+table_bowl_parentchild_general,R_0
+5,2 6 13 15 10
+table_bowl_proximity_general,R_1
+2,7 8
+table_candle_parentchild_general,R_2
+5,13 15 11 0 10
+table_chair_sibling_general,R_3
+0,-1
+table_coin_parentchild_general,R_4
+5,9 12 14 10 15
+table_coin_proximity_general,R_5
+2,16 8
+table_foodplate_parentchild_general,R_6
+5,15 14 10 12 0
+table_foodplate_proximity_general,R_7
+2,1 8
+table_hamburger_proximity_general,R_8
+2,1 7
+table_money_parentchild_general,R_9
+5,4 12 14 10 15
+table_mug_parentchild_general,R_10
+5,14 15 11 12 4
+table_pepper mill_parentchild_general,R_11
+5,10 15 14 2 13
+table_plate_parentchild_general,R_12
+5,4 9 14 10 15
+table_pot_parentchild_general,R_13
+5,2 11 0 15 6
+table_teacup_parentchild_general,R_14
+5,10 12 4 9 15
+table_tissuebox_parentchild_general,R_15
+5,10 14 6 12 11
+table_wallet_proximity_general,R_16
+2,5 8
+disorganized_bed
+bed_backpack_sibling_general,R_0
+7,1 8 17 13 2 21 5
+bed_bag_sibling_general,R_1
+7,0 8 13 17 2 21 5
+bed_basket_sibling_general,R_2
+7,21 5 17 16 14 0 1
+bed_book_proximity_general,R_3
+0,-1
+bed_books_parentchild_general,R_4
+1,10
+bed_brake shoe_sibling_general,R_5
+7,21 2 16 14 17 0 1
+bed_chair_sibling_general,R_6
+7,9 13 8 7 1 0 17
+bed_fan_sibling_general,R_7
+7,9 6 13 8 1 0 17
+bed_filecabinet_sibling_general,R_8
+7,13 1 0 6 17 2 21
+bed_floorlamp_sibling_general,R_9
+7,6 7 13 8 1 0 17
+bed_headphones_parentchild_general,R_10
+1,4
+bed_laptop_parentchild_general,R_11
+1,15
+bed_milkcarton_sibling_general,R_12
+7,19 20 7 9 6 13 8
+bed_nightstand_sibling_general,R_13
+7,8 1 0 6 17 9 2
+bed_paperbox_sibling_general,R_14
+7,16 5 21 2 17 0 1
+bed_pillow_parentchild_general,R_15
+1,11
+bed_pillow_sibling_general,R_16
+7,14 5 21 2 17 0 1
+bed_purse_sibling_general,R_17
+7,2 21 5 16 14 0 1
+bed_tissuebox_proximity_general,R_18
+0,-1
+bed_tissuebox_sibling_general,R_19
+7,12 20 7 9 6 13 8
+bed_trashbin_sibling_general,R_20
+7,7 9 6 13 8 1 0
+bed_vase_sibling_general,R_21
+7,2 5 16 17 14 0 1
+disorganized_bookcase
+bookcase_mug_parentchild_general,R_0
+0,-1
+bookcase_paperbox_sibling_general,R_1
+0,-1
+bookcase_shoes_parentchild_general,R_2
+0,-1
+bookcase_suitcase_sibling_general,R_3
+0,-1
+disorganized_cabinet
+cabinet_books_parentchild_general,R_0
+1,2
+cabinet_books_proximity_general,R_1
+0,-1
+cabinet_bottle_parentchild_general,R_2
+1,0
+cabinet_headphones_sibling_general,R_3
+0,-1
+cabinet_tv_parentchild_general,R_4
+1,2
+disorganized_chair
+chair_filecabinet_sibling_general,R_0
+0,-1
+chair_water cooler_sibling_general,R_1
+0,-1
+disorganized_counter
+counter_bowl_parentchild_general,R_0
+1,3
+counter_pot_parentchild_general,R_1
+1,0
+counter_sink_parentchild_general,R_2
+1,3
+counter_toaster_parentchild_general,R_3
+1,0
+disorganized_credenza
+credenza_bottle_parentchild_general,R_0
+0,-1
+credenza_chair_sibling_general,R_1
+0,-1
+credenza_table_sibling_general,R_2
+0,-1
+disorganized_desk
+desk_apple_parentchild_general,R_0
+11,14 7 22 17 23 16 34 30 18 27 4
+desk_backpack_proximity_general,R_1
+2,12 28
+desk_backpack_sibling_general,R_2
+3,10 32 3
+desk_bag_sibling_general,R_3
+3,10 2 32
+desk_book_parentchild_general,R_4
+11,29 36 19 20 15 31 6 24 37 35 11
+desk_bookcase_sibling_general,R_5
+3,13 10 2
+desk_bottle_parentchild_general,R_6
+11,24 35 15 11 37 36 21 31 19 20 29
+desk_cellphone_parentchild_general,R_7
+11,22 17 0 14 23 18 16 34 30 4 36
+desk_chair_proximity_general,R_8
+2,1 12
+desk_chair_sibling_general,R_9
+3,13 5 10
+desk_computer_sibling_general,R_10
+3,2 32 3
+desk_computermouse_parentchild_general,R_11
+11,21 24 6 35 15 37 36 31 19 20 29
+desk_fan_proximity_general,R_12
+2,1 25
+desk_filecabinet_sibling_general,R_13
+3,5 10 2
+desk_glasses_parentchild_general,R_14
+11,0 7 22 17 23 16 34 30 18 27 4
+desk_hat_parentchild_general,R_15
+11,6 35 24 37 36 31 11 19 21 20 29
+desk_headphones_parentchild_general,R_16
+11,14 0 22 7 17 27 34 18 23 30 4
+desk_key_parentchild_general,R_17
+11,22 7 0 14 18 23 34 16 30 4 29
+desk_keyboard_parentchild_general,R_18
+11,22 17 23 7 4 30 0 29 36 19 15
+desk_lamp_parentchild_general,R_19
+11,31 36 37 15 20 35 6 24 29 11 21
+desk_monitor_parentchild_general,R_20
+11,29 19 31 36 37 15 35 6 24 11 21
+desk_mousepad_parentchild_general,R_21
+11,11 24 6 35 15 37 36 31 19 20 29
+desk_notepad_parentchild_general,R_22
+11,17 7 0 14 18 23 16 34 30 4 29
+desk_paper_parentchild_general,R_23
+11,30 7 0 14 18 22 17 16 34 4 36
+desk_paperbox_parentchild_general,R_24
+11,6 35 15 11 21 37 36 31 19 20 29
+desk_paperbox_proximity_general,R_25
+2,28 12
+desk_paperbox_sibling_general,R_26
+3,32 3 2
+desk_pictureframe_parentchild_general,R_27
+11,16 34 14 0 17 22 7 18 30 23 4
+desk_pillow_proximity_general,R_28
+2,25 12
+desk_pottedplant_parentchild_general,R_29
+11,20 19 31 36 37 15 35 6 24 11 21
+desk_powerstrip_parentchild_general,R_30
+11,23 18 14 0 7 17 22 16 34 4 29
+desk_printer_parentchild_general,R_31
+11,19 37 36 15 35 6 24 20 11 21 29
+desk_purse_sibling_general,R_32
+3,2 26 10
+desk_radio_proximity_general,R_33
+2,8 1
+desk_sodacan_parentchild_general,R_34
+11,14 0 17 7 22 16 27 23 30 18 4
+desk_stapler_parentchild_general,R_35
+11,6 15 24 37 11 36 21 31 19 20 29
+desk_vase_parentchild_general,R_36
+11,19 31 37 15 35 6 24 11 20 21 29
+desk_wallart_parentchild_general,R_37
+11,31 36 15 19 35 6 24 11 21 20 29
+disorganized_filecabinet
+filecabinet_1shelves_proximity_general,R_0
+0,-1
+filecabinet_paperbox_sibling_general,R_1
+0,-1
+filecabinet_printer_proximity_general,R_2
+0,-1
+filecabinet_vacuum_sibling_general,R_3
+0,-1
+disorganized_leg
+leg_paperbox_proximity_general,R_0
+0,-1
+leg_paperbox_sibling_general,R_1
+0,-1
+leg_purse_sibling_general,R_2
+0,-1
+disorganized_magazine
+magazine_coaster_sibling_general,R_0
+0,-1
+magazine_donut_proximity_general,R_1
+0,-1
+magazine_mug_proximity_general,R_2
+0,-1
+magazine_plate_sibling_general,R_3
+0,-1
+disorganized_mirror
+mirror_pack_sibling_general,R_0
+0,-1
+mirror_pot_sibling_general,R_1
+0,-1
+disorganized_nightstand
+nightstand_basket_sibling_general,R_0
+1,2
+nightstand_fan_sibling_general,R_1
+1,2
+nightstand_floorlamp_sibling_general,R_2
+1,1
+nightstand_mirror_parentchild_general,R_3
+0,-1
+nightstand_spray paint_parentchild_general,R_4
+0,-1
+disorganized_oven
+oven_filecabinet_sibling_general,R_0
+0,-1
+oven_paperbox_sibling_general,R_1
+0,-1
+oven_vase_proximity_general,R_2
+0,-1
+disorganized_paperbox
+paperbox_backpack_sibling_general,R_0
+3,2 5 10
+paperbox_basket_sibling_general,R_1
+3,9 8 5
+paperbox_filecabinet_sibling_general,R_2
+3,0 5 10
+paperbox_paperbox_parentchild_general,R_3
+0,-1
+paperbox_paperbox_proximity_general,R_4
+1,7
+paperbox_paperbox_sibling_general,R_5
+3,0 2 8
+paperbox_printer_proximity_general,R_6
+1,4
+paperbox_purse_proximity_general,R_7
+1,4
+paperbox_purse_sibling_general,R_8
+3,9 1 5
+paperbox_trashbin_sibling_general,R_9
+3,1 8 5
+paperbox_vacuum_sibling_general,R_10
+3,2 0 5
+disorganized_refrigerator
+refrigerator_pot_sibling_general,R_0
+0,-1
+disorganized_table
+table_backpack_sibling_general,R_0
+4,28 27 19 1
+table_bag_sibling_general,R_1
+4,24 21 27 19
+table_blender_parentchild_general,R_2
+7,4 9 16 7 13 29 26
+table_book_parentchild_general,R_3
+7,29 14 5 16 7 26 13
+table_bottle_parentchild_general,R_4
+7,2 9 16 7 13 29 26
+table_bowl_parentchild_general,R_5
+7,3 15 14 29 6 12 26
+table_candle_parentchild_general,R_6
+7,22 20 5 14 15 29 3
+table_canopener_parentchild_general,R_7
+7,13 16 26 3 14 12 29
+table_cellphone_proximity_general,R_8
+2,25 23
+table_chair_parentchild_general,R_9
+7,2 4 16 7 13 29 26
+table_chair_proximity_general,R_10
+2,23 18
+table_chair_sibling_general,R_11
+4,27 28 0 19
+table_foodplate_parentchild_general,R_12
+7,13 7 16 14 26 3 5
+table_glasses_parentchild_general,R_13
+7,7 16 26 3 14 12 29
+table_holder_parentchild_general,R_14
+7,3 26 29 7 5 13 16
+table_laptop_parentchild_general,R_15
+7,5 6 20 3 14 29 12
+table_magazine_parentchild_general,R_16
+7,7 13 26 3 14 29 12
+table_mug_proximity_general,R_17
+2,18 23
+table_paperbox_proximity_general,R_18
+2,23 17
+table_paperbox_sibling_general,R_19
+4,27 0 24 28
+table_pictureframe_parentchild_general,R_20
+7,6 22 29 5 15 14 3
+table_pot_sibling_general,R_21
+4,24 1 19 27
+table_pottedplant_parentchild_general,R_22
+7,6 20 14 29 3 5 26
+table_printer_proximity_general,R_23
+2,18 17
+table_purse_sibling_general,R_24
+4,21 1 19 27
+table_sandwich_proximity_general,R_25
+2,8 10
+table_sodacan_parentchild_general,R_26
+7,7 13 14 16 3 12 29
+table_stool_sibling_general,R_27
+4,28 0 1 19
+table_suitcase_sibling_general,R_28
+4,0 27 19 1
+table_telephone_parentchild_general,R_29
+7,3 14 5 16 26 7 13
+table_water cooler_sibling_general,R_30
+4,1 27 28 0
+disorganized_trashbin
+trashbin_bookcase_sibling_general,R_0
+2,5 3
+trashbin_brake shoe_sibling_general,R_1
+2,3 4
+trashbin_chestofdrawers_sibling_general,R_2
+2,0 5
+trashbin_paperbox_sibling_general,R_3
+2,1 4
+trashbin_purse_sibling_general,R_4
+2,1 3
+trashbin_stool_sibling_general,R_5
+2,4 1
+dressing_dresser
+dresser_canister_parentchild_general,R_0
+1,2
+dresser_cellphone_parentchild_general,R_1
+1,0
+dresser_mirror_parentchild_general,R_2
+1,0
+dresser_statue_parentchild_general,R_3
+1,2
+formal_4shelves
+4shelves_cup_parentchild_general,R_0
+2,2 1
+4shelves_desklamp_parentchild_general,R_1
+2,2 0
+4shelves_glass_parentchild_general,R_2
+2,0 1
+4shelves_ship_parentchild_general,R_3
+2,4 5
+4shelves_toyfigure_parentchild_general,R_4
+2,5 3
+4shelves_unknown_parentchild_general,R_5
+2,4 1
+formal_bookcase
+bookcase_book_parentchild_general,R_0
+3,6 5 8
+bookcase_bookcase_sibling_general,R_1
+1,4
+bookcase_books_parentchild_general,R_2
+3,7 3 6
+bookcase_decorativeaccessory_parentchild_general,R_3
+3,6 2 7
+bookcase_guitarstand_sibling_general,R_4
+1,1
+bookcase_lamp_parentchild_general,R_5
+3,8 0 6
+bookcase_pictureframe_parentchild_general,R_6
+3,3 0 8
+bookcase_pottedplant_parentchild_general,R_7
+3,2 3 8
+bookcase_vase_parentchild_general,R_8
+3,5 0 6
+bookcase_wallart_sibling_general,R_9
+1,1
+formal_cabinet
+cabinet_bookcase_proximity_general,R_0
+0,-1
+cabinet_books_parentchild_general,R_1
+1,3
+cabinet_couch_sibling_general,R_2
+1,5
+cabinet_pottedplant_parentchild_general,R_3
+1,1
+cabinet_speaker_parentchild_general,R_4
+1,6
+cabinet_table_sibling_general,R_5
+1,2
+cabinet_tv_parentchild_general,R_6
+1,3
+cabinet_wallart_sibling_general,R_7
+1,5
+formal_chair
+chair_computermouse_proximity_general,R_0
+0,-1
+formal_couch
+couch_backpack_parentchild_general,R_0
+0,-1
+couch_cabinet_sibling_general,R_1
+3,8 2 4
+couch_chair_sibling_general,R_2
+3,4 7 1
+couch_curtain_proximity_general,R_3
+1,5
+couch_desk_sibling_general,R_4
+3,7 2 11
+couch_lamp_proximity_general,R_5
+1,9
+couch_mediastorage_sibling_general,R_6
+3,11 7 4
+couch_pottedplant_sibling_general,R_7
+3,4 11 2
+couch_table_sibling_general,R_8
+3,1 2 4
+couch_tissuebox_proximity_general,R_9
+1,5
+couch_wallart_proximity_general,R_10
+1,5
+couch_water cooler_sibling_general,R_11
+3,7 4 2
+formal_desk
+desk_apple_parentchild_general,R_0
+13,13 3 21 14 32 2 24 22 1 31 15 19 23
+desk_book_parentchild_general,R_1
+13,22 32 14 21 15 29 10 19 28 27 26 3 13
+desk_bookend_parentchild_general,R_2
+13,31 7 25 3 23 24 13 27 29 20 0 26 21
+desk_books_parentchild_general,R_3
+13,2 25 31 7 13 24 23 0 21 29 32 27 26
+desk_bottle_parentchild_general,R_4
+13,33 10 15 19 28 22 1 14 32 27 29 21 16
+desk_cellphone_proximity_general,R_5
+1,12
+desk_chair_sibling_general,R_6
+1,30
+desk_clock_parentchild_general,R_7
+13,25 31 2 3 23 24 20 26 13 27 29 0 21
+desk_computer_parentchild_general,R_8
+13,18 17 20 16 26 25 7 29 27 31 28 2 3
+desk_computer_proximity_general,R_9
+1,12
+desk_computermouse_parentchild_general,R_10
+13,15 19 22 14 1 32 21 28 29 27 26 0 13
+desk_computermouse_proximity_general,R_11
+1,12
+desk_glasses_proximity_general,R_12
+1,5
+desk_headphones_parentchild_general,R_13
+13,0 3 21 2 24 31 23 7 25 32 14 1 22
+desk_ipod_parentchild_general,R_14
+13,22 32 1 21 15 19 10 28 29 27 0 13 3
+desk_keyboard_parentchild_general,R_15
+13,10 19 22 1 14 32 21 28 29 27 0 13 3
+desk_lamp_parentchild_general,R_16
+13,18 26 8 20 17 27 29 28 10 1 15 25 32
+desk_laptop_parentchild_general,R_17
+13,8 18 26 25 7 16 20 31 2 3 23 29 27
+desk_monitor_parentchild_general,R_18
+13,16 20 26 8 27 29 17 25 28 7 31 1 2
+desk_mousepad_parentchild_general,R_19
+13,15 10 22 21 14 1 32 28 29 27 0 3 13
+desk_noname_parentchild_general,R_20
+13,26 29 27 18 7 25 31 28 2 1 32 3 8
+desk_notepad_parentchild_general,R_21
+13,14 22 32 1 19 15 10 29 0 13 3 28 27
+desk_pen_parentchild_general,R_22
+13,14 32 1 21 15 19 10 28 29 27 0 13 3
+desk_picture_parentchild_general,R_23
+13,24 2 31 7 25 3 13 0 27 21 29 26 20
+desk_pictureframe_parentchild_general,R_24
+13,23 2 31 3 7 25 13 0 21 27 29 26 32
+desk_pottedplant_parentchild_general,R_25
+13,7 31 2 3 23 24 26 20 13 27 29 0 21
+desk_printer_parentchild_general,R_26
+13,29 20 27 18 25 28 1 7 3 32 31 2 22
+desk_speaker_parentchild_general,R_27
+13,29 28 20 32 26 15 10 1 19 22 2 31 3
+desk_telecommunication_parentchild_general,R_28
+13,29 1 32 22 27 10 15 14 19 21 26 20 3
+desk_telephone_parentchild_general,R_29
+13,27 1 28 32 26 22 20 14 15 10 21 19 3
+desk_trashbin_sibling_general,R_30
+1,34
+desk_vase_parentchild_general,R_31
+13,2 7 25 3 23 24 13 27 20 29 26 0 21
+desk_videogamecontroller_parentchild_general,R_32
+13,22 1 14 21 15 10 29 19 28 27 3 13 0
+desk_wallart_parentchild_general,R_33
+13,4 10 15 19 28 22 1 14 32 27 29 21 16
+desk_wallart_sibling_general,R_34
+1,30
+formal_display
+display_collection_parentchild_general,R_0
+1,2
+display_pottedplant_parentchild_general,R_1
+1,2
+display_toyfigure_parentchild_general,R_2
+1,0
+formal_laptop
+laptop_chair_proximity_general,R_0
+0,-1
+laptop_computermouse_sibling_general,R_1
+0,-1
+laptop_desklamp_sibling_general,R_2
+0,-1
+formal_monitor
+monitor_chair_proximity_general,R_0
+0,-1
+monitor_keyboard_sibling_general,R_1
+0,-1
+monitor_speaker_proximity_general,R_2
+0,-1
+monitor_speaker_sibling_general,R_3
+0,-1
+formal_nightstand
+nightstand_book_parentchild_general,R_0
+1,3
+nightstand_bookcase_sibling_general,R_1
+0,-1
+nightstand_cup_parentchild_general,R_2
+1,3
+nightstand_tableclock_parentchild_general,R_3
+1,0
+formal_shelf
+shelf_ball_parentchild_general,R_0
+0,-1
+shelf_toyfigure_parentchild_general,R_1
+0,-1
+formal_table
+table_bottle_parentchild_general,R_0
+2,11 8
+table_breadslice_proximity_general,R_1
+2,10 6
+table_candle_parentchild_general,R_2
+2,7 8
+table_chair_proximity_general,R_3
+2,12 1
+table_chair_sibling_general,R_4
+0,-1
+table_foodplate_proximity_general,R_5
+2,6 10
+table_hamburger_proximity_general,R_6
+2,10 5
+table_pictureframe_parentchild_general,R_7
+2,2 8
+table_plate_parentchild_general,R_8
+2,11 0
+table_pottedplant_parentchild_general,R_9
+2,2 7
+table_sandwich_proximity_general,R_10
+2,1 6
+table_tray_parentchild_general,R_11
+2,0 8
+table_tv_proximity_general,R_12
+2,3 1
+table_wallart_sibling_general,R_13
+0,-1
+formal_teacup
+teacup_chair_proximity_general,R_0
+0,-1
+teacup_desk_childparent_general,R_1
+0,-1
+teacup_notepad_sibling_general,R_2
+0,-1
+teacup_printer_sibling_general,R_3
+0,-1
+formal_trashbin
+trashbin_bookcase_sibling_general,R_0
+0,-1
+messy_1shelves
+1shelves_books_parentchild_general,R_0
+2,5 7
+1shelves_chair_proximity_general,R_1
+2,2 13
+1shelves_computer_proximity_general,R_2
+2,13 9
+1shelves_computermouse_parentchild_general,R_3
+2,7 5
+1shelves_filecabinet_childparent_general,R_4
+0,-1
+1shelves_keyboard_parentchild_general,R_5
+2,3 0
+1shelves_monitor_parentchild_general,R_6
+2,0 7
+1shelves_mug_parentchild_general,R_7
+2,3 5
+1shelves_paperbox_parentchild_general,R_8
+2,0 7
+1shelves_paperbox_proximity_general,R_9
+2,13 2
+1shelves_paperbox_sibling_general,R_10
+0,-1
+1shelves_purse_proximity_general,R_11
+2,2 9
+1shelves_purse_sibling_general,R_12
+0,-1
+1shelves_trashbin_proximity_general,R_13
+2,9 2
+messy_bed
+bed_backpack_parentchild_general,R_0
+5,26 9 19 17 5
+bed_backpack_sibling_general,R_1
+8,2 15 28 21 36 27 8 12
+bed_bag_sibling_general,R_2
+8,1 15 21 28 36 27 8 12
+bed_basket_sibling_general,R_3
+8,24 8 28 36 27 1 2 15
+bed_bear_parentchild_general,R_4
+5,23 5 18 9 17
+bed_book_parentchild_general,R_5
+5,4 23 18 9 17
+bed_book_proximity_general,R_6
+3,11 25 22
+bed_books_parentchild_general,R_7
+5,32 17 19 5 18
+bed_brake shoe_sibling_general,R_8
+8,27 36 28 1 2 24 15 3
+bed_cabling_parentchild_general,R_9
+5,4 5 23 18 17
+bed_chair_sibling_general,R_10
+8,12 16 21 13 15 2 1 28
+bed_chocolate_proximity_general,R_11
+3,22 25 33
+bed_desk_sibling_general,R_12
+8,10 16 21 15 2 13 1 28
+bed_fan_sibling_general,R_13
+8,16 10 12 21 15 2 1 28
+bed_filecabinet_proximity_general,R_14
+3,33 30 25
+bed_filecabinet_sibling_general,R_15
+8,21 2 1 12 28 10 36 16
+bed_floorlamp_sibling_general,R_16
+8,10 12 13 21 15 2 1 28
+bed_hat_parentchild_general,R_17
+5,19 32 7 9 5
+bed_headphones_parentchild_general,R_18
+5,4 5 23 9 17
+bed_laptop_parentchild_general,R_19
+5,17 32 7 26 9
+bed_milkcarton_sibling_general,R_20
+8,34 35 13 16 10 12 21 15
+bed_nightstand_sibling_general,R_21
+8,15 2 1 12 10 28 16 36
+bed_notepad_proximity_general,R_22
+3,25 11 33
+bed_pants_parentchild_general,R_23
+5,4 5 18 9 17
+bed_paperbox_sibling_general,R_24
+8,3 8 27 36 28 1 2 15
+bed_pencil_proximity_general,R_25
+3,22 11 33
+bed_pillow_parentchild_general,R_26
+5,19 17 0 9 7
+bed_pillow_sibling_general,R_27
+8,36 8 28 1 2 15 21 24
+bed_purse_sibling_general,R_28
+8,36 27 1 2 8 15 21 3
+bed_shirt_parentchild_general,R_29
+5,18 4 5 23 7
+bed_shirt_proximity_general,R_30
+3,33 14 22
+bed_suitcase_sibling_general,R_31
+8,3 24 12 10 21 15 16 2
+bed_tissuebox_parentchild_general,R_32
+5,17 19 7 9 5
+bed_tissuebox_proximity_general,R_33
+3,30 14 25
+bed_tissuebox_sibling_general,R_34
+8,20 35 13 16 10 12 21 15
+bed_trashbin_sibling_general,R_35
+8,13 16 10 12 21 15 2 1
+bed_vase_sibling_general,R_36
+8,27 28 8 1 2 15 21 24
+messy_book
+book_bottle_sibling_general,R_0
+1,5
+book_case_sibling_general,R_1
+1,5
+book_cellphone_parentchild_general,R_2
+1,4
+book_cerealbox_sibling_general,R_3
+1,1
+book_notepad_parentchild_general,R_4
+1,7
+book_notepad_sibling_general,R_5
+1,1
+book_pen_proximity_general,R_6
+0,-1
+book_pencil_parentchild_general,R_7
+1,4
+book_usbstick_proximity_general,R_8
+0,-1
+messy_bookcase
+bookcase_book_parentchild_general,R_0
+5,3 5 13 21 20
+bookcase_book_proximity_general,R_1
+2,6 9
+bookcase_bookcase_sibling_general,R_2
+2,7 16
+bookcase_books_parentchild_general,R_3
+5,0 5 21 20 13
+bookcase_books_proximity_general,R_4
+2,14 9
+bookcase_bottle_parentchild_general,R_5
+5,13 20 21 12 18
+bookcase_bottle_proximity_general,R_6
+2,1 9
+bookcase_bottle_sibling_general,R_7
+2,2 16
+bookcase_cap_parentchild_general,R_8
+5,11 10 3 0 5
+bookcase_cap_proximity_general,R_9
+2,14 4
+bookcase_helmet_parentchild_general,R_10
+5,8 3 17 0 11
+bookcase_holder_parentchild_general,R_11
+5,8 17 10 0 3
+bookcase_mug_parentchild_general,R_12
+5,18 20 21 13 5
+bookcase_paperbox_parentchild_general,R_13
+5,12 18 20 5 21
+bookcase_paperbox_proximity_general,R_14
+2,4 9
+bookcase_paperbox_sibling_general,R_15
+2,16 19
+bookcase_purse_sibling_general,R_16
+2,15 19
+bookcase_rubikscube_parentchild_general,R_17
+5,11 10 0 3 5
+bookcase_shoes_parentchild_general,R_18
+5,12 20 21 13 5
+bookcase_suitcase_sibling_general,R_19
+2,15 16
+bookcase_tissuebox_parentchild_general,R_20
+5,21 12 18 13 5
+bookcase_vase_parentchild_general,R_21
+5,20 12 18 13 5
+messy_bowl
+bowl_bowl_proximity_general,R_0
+1,4
+bowl_counter_childparent_general,R_1
+0,-1
+bowl_counter_proximity_general,R_2
+1,4
+bowl_sink_sibling_general,R_3
+0,-1
+bowl_toaster_proximity_general,R_4
+1,0
+messy_cabinet
+cabinet_basket_sibling_general,R_0
+1,4
+cabinet_books_parentchild_general,R_1
+1,3
+cabinet_books_proximity_general,R_2
+0,-1
+cabinet_bottle_parentchild_general,R_3
+1,1
+cabinet_cabinet_sibling_general,R_4
+1,0
+cabinet_headphones_sibling_general,R_5
+1,0
+cabinet_purse_sibling_general,R_6
+1,4
+cabinet_tv_parentchild_general,R_7
+1,3
+messy_chair
+chair_backpack_proximity_general,R_0
+1,2
+chair_filecabinet_sibling_general,R_1
+1,5
+chair_paperbox_proximity_general,R_2
+1,0
+chair_paperbox_sibling_general,R_3
+1,5
+chair_shirt_proximity_general,R_4
+1,2
+chair_water cooler_sibling_general,R_5
+1,1
+messy_coffee maker
+coffee maker_microwave_sibling_general,R_0
+0,-1
+coffee maker_toaster_sibling_general,R_1
+0,-1
+messy_computer
+computer_chair_sibling_general,R_0
+0,-1
+computer_desk_sibling_general,R_1
+0,-1
+computer_headphones_proximity_general,R_2
+0,-1
+computer_monitor_proximity_general,R_3
+0,-1
+messy_couch
+couch_backpack_parentchild_general,R_0
+1,1
+couch_book_parentchild_general,R_1
+1,10
+couch_bottle_proximity_general,R_2
+4,14 11 4 6
+couch_cabinet_sibling_general,R_3
+1,5
+couch_coaster_proximity_general,R_4
+4,6 12 8 9
+couch_credenza_sibling_general,R_5
+1,3
+couch_donut_proximity_general,R_6
+4,4 12 8 9
+couch_hat_proximity_general,R_7
+4,9 12 8 6
+couch_magazine_proximity_general,R_8
+4,12 4 6 9
+couch_mug_proximity_general,R_9
+4,6 12 8 4
+couch_pillow_parentchild_general,R_10
+1,1
+couch_pillow_proximity_general,R_11
+4,14 2 4 6
+couch_plate_proximity_general,R_12
+4,8 6 4 9
+couch_table_sibling_general,R_13
+1,15
+couch_tissuebox_proximity_general,R_14
+4,2 11 4 6
+couch_water cooler_sibling_general,R_15
+1,3
+messy_counter
+counter_beaker_parentchild_general,R_0
+8,16 7 1 15 11 5 8 9
+counter_book_parentchild_general,R_1
+8,0 16 11 5 15 7 9 8
+counter_bottle_parentchild_general,R_2
+8,19 9 8 7 1 0 4 16
+counter_bowl_parentchild_general,R_3
+8,20 17 10 13 18 11 5 15
+counter_bunsen burner_parentchild_general,R_4
+8,19 2 9 8 7 1 0 16
+counter_calculator_parentchild_general,R_5
+8,11 15 16 1 0 7 8 9
+counter_counter_sibling_general,R_6
+0,-1
+counter_erlenmeyer flask_parentchild_general,R_7
+8,0 16 8 1 2 9 15 11
+counter_holder_parentchild_general,R_8
+8,2 19 7 9 0 1 16 4
+counter_laptop_parentchild_general,R_9
+8,2 8 19 1 7 0 16 4
+counter_mug_parentchild_general,R_10
+8,13 17 3 20 18 5 11 15
+counter_notepad_parentchild_general,R_11
+8,15 5 16 0 1 7 8 9
+counter_oven_proximity_general,R_12
+0,-1
+counter_pan_parentchild_general,R_13
+8,10 17 3 20 18 5 11 15
+counter_pan_proximity_general,R_14
+0,-1
+counter_pen_parentchild_general,R_15
+8,11 5 16 0 1 7 8 9
+counter_pillbottle_parentchild_general,R_16
+8,0 7 15 11 5 1 8 9
+counter_pot_parentchild_general,R_17
+8,3 20 10 13 18 5 11 15
+counter_sink_parentchild_general,R_18
+8,20 3 17 10 13 11 15 5
+counter_tissuebox_parentchild_general,R_19
+8,2 8 9 4 7 1 0 16
+counter_toaster_parentchild_general,R_20
+8,3 17 10 13 18 11 5 15
+counter_trashbin_sibling_general,R_21
+0,-1
+messy_credenza
+credenza_bottle_parentchild_general,R_0
+0,-1
+credenza_chair_sibling_general,R_1
+0,-1
+credenza_table_sibling_general,R_2
+0,-1
+messy_desk
+desk_1shelves_proximity_general,R_0
+15,95 41 108 30 66 83 74 3 14 16 58 98 43 26 11
+desk_1shelves_sibling_general,R_1
+9,6 105 5 31 49 75 44 89 12
+desk_apple_parentchild_general,R_2
+20,47 28 46 109 21 92 20 71 68 52 99 56 93 82 55 38 76 51 91 101
+desk_backpack_proximity_general,R_3
+15,30 41 98 0 108 83 43 95 74 16 66 14 26 11 58
+desk_backpack_sibling_general,R_4
+9,18 89 44 75 31 5 6 105 42
+desk_bag_sibling_general,R_5
+9,31 6 105 75 44 89 49 18 4
+desk_basket_sibling_general,R_6
+9,105 75 31 5 89 44 18 49 4
+desk_binder_parentchild_general,R_7
+20,17 91 76 38 87 78 23 24 80 34 99 55 51 68 71 56 93 92 70 64
+desk_board_proximity_general,R_8
+15,11 26 43 98 3 30 41 0 95 108 83 74 16 66 14
+desk_book_parentchild_general,R_9
+20,57 39 100 86 32 97 13 15 63 29 84 104 50 107 53 88 73 65 25 64
+desk_book_proximity_general,R_10
+15,3 41 108 8 0 16 83 14 98 66 30 95 26 58 11
+desk_bookcase_proximity_general,R_11
+15,26 43 8 98 3 30 41 0 95 108 74 83 16 66 14
+desk_bookcase_sibling_general,R_12
+9,49 44 42 4 31 5 89 6 75
+desk_books_parentchild_general,R_13
+20,15 32 84 104 50 107 53 88 73 65 25 86 39 29 63 57 100 9 97 62
+desk_books_proximity_general,R_14
+15,66 16 58 108 83 95 74 0 41 30 3 98 43 26 11
+desk_bottle_parentchild_general,R_15
+20,13 32 84 104 50 107 53 88 73 65 25 86 39 29 63 57 100 9 97 62
+desk_bottle_proximity_general,R_16
+15,14 108 66 83 74 95 58 0 41 30 3 98 43 26 11
+desk_bowl_parentchild_general,R_17
+20,24 38 34 7 91 23 76 99 78 87 93 70 82 20 51 80 68 56 55 28
+desk_brake shoe_sibling_general,R_18
+9,89 75 4 105 6 44 31 5 49
+desk_camera tripod_sibling_general,R_19
+9,96 45 102 35 27 1 12 49 5
+desk_camera_parentchild_general,R_20
+20,82 46 99 93 28 38 23 17 34 24 91 52 68 7 56 76 21 92 109 71
+desk_cellphone_parentchild_general,R_21
+20,68 92 56 71 109 28 51 55 99 76 38 80 91 93 101 87 78 24 7 20
+desk_cellphone_proximity_general,R_22
+15,79 40 81 59 103 37 33 106 77 72 10 108 16 0 41
+desk_cellulose tape_parentchild_general,R_23
+20,38 17 91 7 34 24 76 99 93 20 70 78 87 82 80 51 55 68 71 56
+desk_cerealbox_parentchild_general,R_24
+20,34 17 38 91 7 93 76 23 78 99 87 56 68 82 80 20 28 51 92 55
+desk_chair_parentchild_general,R_25
+20,53 84 88 107 73 65 104 50 15 13 32 86 29 63 39 57 100 9 97 62
+desk_chair_proximity_general,R_26
+15,11 43 8 98 3 30 41 0 108 95 83 74 16 66 14
+desk_chair_sibling_general,R_27
+9,35 49 12 5 31 44 6 105 75
+desk_compact disk_parentchild_general,R_28
+20,56 99 68 21 92 109 20 93 52 38 46 71 82 24 91 76 17 34 51 55
+desk_computer_parentchild_general,R_29
+20,63 86 13 15 100 32 25 84 53 104 107 50 88 73 65 39 9 57 97 60
+desk_computer_proximity_general,R_30
+15,41 3 0 98 95 108 74 83 43 16 66 14 58 26 11
+desk_computer_sibling_general,R_31
+9,5 6 105 44 75 49 89 18 4
+desk_computermouse_parentchild_general,R_32
+20,13 15 104 84 50 86 107 73 53 88 65 39 25 57 9 100 63 29 97 62
+desk_computermouse_proximity_general,R_33
+15,37 79 22 106 40 81 103 59 77 72 10 8 41 3 108
+desk_cup_parentchild_general,R_34
+20,24 17 38 91 93 23 7 76 99 78 82 87 20 56 70 68 28 80 51 92
+desk_desk_sibling_general,R_35
+9,27 49 12 5 31 44 6 105 75
+desk_desklamp_parentchild_general,R_36
+20,67 54 61 70 82 20 60 46 23 94 17 93 34 99 69 52 24 38 7 91
+desk_disccase_proximity_general,R_37
+15,22 79 40 81 59 103 106 33 77 72 10 108 0 16 41
+desk_dispenser_parentchild_general,R_38
+20,91 17 24 76 7 23 99 34 93 78 87 68 56 80 55 20 92 51 71 28
+desk_eraser_parentchild_general,R_39
+20,57 9 100 32 86 13 15 97 63 104 84 50 107 73 53 88 65 25 29 64
+desk_eraser_proximity_general,R_40
+15,81 79 22 103 59 37 33 77 106 72 10 108 16 0 14
+desk_fan_proximity_general,R_41
+15,30 3 0 108 95 83 74 16 98 66 14 58 43 26 11
+desk_fan_sibling_general,R_42
+9,12 4 44 49 89 18 31 5 75
+desk_filecabinet_proximity_general,R_43
+15,26 11 98 3 30 41 8 0 95 108 74 83 16 66 14
+desk_filecabinet_sibling_general,R_44
+9,31 5 49 89 75 6 105 4 18
+desk_floorlamp_sibling_general,R_45
+9,19 96 35 102 27 1 12 49 5
+desk_frame_parentchild_general,R_46
+20,20 82 28 99 93 52 47 2 38 23 21 109 24 34 56 68 92 91 17 71
+desk_glasses_parentchild_general,R_47
+20,2 46 28 109 21 20 92 52 99 68 71 56 93 82 55 38 76 91 51 101
+desk_globe_proximity_general,R_48
+15,90 106 33 37 72 22 79 40 59 81 103 77 10 8 26
+desk_guitarstand_sibling_general,R_49
+9,44 31 5 12 6 105 89 75 4
+desk_hat_parentchild_general,R_50
+20,104 107 73 88 65 53 84 25 15 13 32 86 29 63 39 57 100 9 97 62
+desk_headphones_parentchild_general,R_51
+20,101 21 64 76 7 91 80 68 87 78 55 38 71 92 56 17 99 93 24 109
+desk_heart_parentchild_general,R_52
+20,82 28 46 20 93 99 56 24 34 38 21 68 17 92 47 91 2 23 101 109
+desk_helmet_parentchild_general,R_53
+20,88 84 107 104 73 50 65 25 15 13 32 86 29 63 39 57 100 9 97 62
+desk_holder_parentchild_general,R_54
+20,70 61 67 82 23 17 20 34 99 7 93 38 24 91 94 46 76 51 28 52
+desk_ipod_parentchild_general,R_55
+20,80 71 76 92 68 87 78 91 56 7 38 21 109 51 99 17 23 24 64 28
+desk_key_parentchild_general,R_56
+20,68 92 21 28 71 76 99 91 38 55 24 109 80 87 78 93 51 7 17 34
+desk_keyboard_parentchild_general,R_57
+20,9 39 100 32 86 13 97 15 63 84 104 50 107 53 88 73 65 29 25 64
+desk_keyboard_proximity_general,R_58
+15,66 14 95 16 74 83 108 0 41 30 3 98 43 26 11
+desk_knife_proximity_general,R_59
+15,103 40 81 22 79 37 77 33 106 72 10 16 108 14 0
+desk_lamp_parentchild_general,R_60
+20,63 29 86 100 61 9 57 13 94 39 32 15 69 84 25 53 104 107 50 88
+desk_laptop_parentchild_general,R_61
+20,54 70 23 17 82 7 20 99 34 38 94 93 67 24 91 51 101 76 69 46
+desk_mediadiscs_parentchild_general,R_62
+20,101 64 69 51 97 57 9 39 100 21 80 87 78 76 55 86 91 71 32 7
+desk_monitor_parentchild_general,R_63
+20,29 86 100 13 15 32 84 25 53 104 9 107 50 88 73 57 65 39 97 60
+desk_mousepad_parentchild_general,R_64
+20,51 97 87 78 80 76 55 7 91 101 21 71 68 38 17 24 92 56 34 109
+desk_mug_parentchild_general,R_65
+20,73 88 50 107 104 53 84 25 15 13 32 86 29 63 39 57 100 9 97 62
+desk_mug_proximity_general,R_66
+15,14 16 58 95 108 83 74 0 41 30 3 98 43 26 11
+desk_noname_parentchild_general,R_67
+20,54 82 70 61 20 46 93 52 34 23 17 99 24 38 94 28 7 91 36 101
+desk_notepad_parentchild_general,R_68
+20,92 56 71 21 55 109 76 80 28 91 38 99 87 78 51 7 24 17 93 34
+desk_orange toast_parentchild_general,R_69
+20,94 62 101 51 97 93 70 23 100 61 17 34 64 9 38 24 57 54 7 82
+desk_organ_parentchild_general,R_70
+20,54 23 17 61 34 7 82 24 38 91 20 93 99 94 76 78 87 51 67 80
+desk_paper_parentchild_general,R_71
+20,55 68 109 92 21 80 76 56 87 78 91 51 38 99 28 7 24 17 23 93
+desk_paper_proximity_general,R_72
+15,77 59 22 40 37 81 103 79 33 106 10 108 16 14 0
+desk_paperbox_parentchild_general,R_73
+20,65 107 50 88 104 53 84 25 15 13 32 86 29 63 39 57 100 9 97 62
+desk_paperbox_proximity_general,R_74
+15,83 16 108 95 66 14 58 0 41 30 3 98 43 26 11
+desk_paperbox_sibling_general,R_75
+9,89 105 6 5 31 18 44 4 49
+desk_paperclip_parentchild_general,R_76
+20,91 78 87 80 38 7 55 68 71 17 24 92 56 23 51 99 34 21 109 93
+desk_pen_proximity_general,R_77
+15,72 103 81 40 79 59 22 37 33 106 10 16 108 14 0
+desk_pencil sharpener_parentchild_general,R_78
+20,87 76 80 91 7 55 38 24 17 68 71 51 34 23 56 64 92 99 109 21
+desk_pencil sharpener_proximity_general,R_79
+15,40 81 22 103 59 37 33 77 106 72 10 108 16 0 41
+desk_pencil_parentchild_general,R_80
+20,87 78 76 55 91 71 7 68 92 38 51 56 64 109 21 17 24 23 99 34
+desk_pencil_proximity_general,R_81
+15,40 79 103 22 59 37 33 77 106 72 10 108 16 0 14
+desk_pictureframe_parentchild_general,R_82
+20,20 93 99 46 34 52 38 24 17 23 28 91 70 7 56 54 68 76 21 92
+desk_pillow_proximity_general,R_83
+15,108 16 74 14 66 95 41 0 58 30 3 98 43 26 11
+desk_pottedplant_parentchild_general,R_84
+20,53 104 107 88 50 73 65 25 15 13 32 86 29 63 39 57 100 9 97 62
+desk_powerstrip_parentchild_general,R_85
+20,109 71 47 2 46 55 20 21 28 76 68 23 80 51 92 99 38 91 7 78
+desk_printer_parentchild_general,R_86
+20,63 100 32 13 29 15 39 9 57 84 104 50 53 107 88 25 73 65 97 94
+desk_punch_parentchild_general,R_87
+20,78 80 76 91 7 55 38 17 24 68 71 51 64 56 34 23 92 99 109 21
+desk_purse_parentchild_general,R_88
+20,53 73 65 107 104 50 84 25 15 13 32 86 29 63 39 57 100 9 97 62
+desk_purse_sibling_general,R_89
+9,75 18 6 105 44 5 31 4 49
+desk_radio_proximity_general,R_90
+15,48 106 72 33 37 77 79 22 40 81 59 103 10 8 26
+desk_rubikscube_parentchild_general,R_91
+20,38 76 24 7 17 78 87 34 23 80 99 68 55 93 56 51 92 71 21 20
+desk_scissors_parentchild_general,R_92
+20,68 56 71 21 55 76 109 99 80 28 91 38 87 78 51 7 24 93 17 20
+desk_sodacan_parentchild_general,R_93
+20,38 34 20 24 82 99 91 17 23 28 101 76 56 46 7 51 21 68 92 52
+desk_speaker_parentchild_general,R_94
+20,69 97 70 23 34 101 17 93 64 100 24 51 7 91 38 61 9 54 78 87
+desk_speaker_proximity_general,R_95
+15,0 66 108 14 74 83 16 58 41 30 3 98 43 26 11
+desk_speaker_sibling_general,R_96
+9,102 19 45 27 35 1 49 12 5
+desk_stapler_parentchild_general,R_97
+20,64 9 57 39 100 51 78 87 80 94 7 76 101 91 55 86 62 23 38 17
+desk_stool_proximity_general,R_98
+15,43 3 30 41 26 11 0 108 83 74 95 16 8 66 14
+desk_tableclock_parentchild_general,R_99
+20,38 20 93 91 28 17 68 56 24 82 23 92 76 7 34 21 71 46 55 51
+desk_telephone_parentchild_general,R_100
+20,86 9 57 39 63 32 29 13 15 97 84 104 50 107 53 88 73 65 25 94
+desk_toyfigure_parentchild_general,R_101
+20,51 93 21 64 38 99 91 24 68 17 76 56 28 34 7 20 92 23 71 109
+desk_trashbin_sibling_general,R_102
+9,1 27 35 49 5 31 6 105 12
+desk_usbstick_proximity_general,R_103
+15,59 81 40 79 22 37 77 33 106 72 10 16 108 14 0
+desk_vase_parentchild_general,R_104
+20,50 107 73 88 53 65 84 25 15 13 32 86 29 63 39 57 100 9 97 62
+desk_vase_sibling_general,R_105
+9,6 75 31 5 89 44 18 49 4
+desk_videogamecontroller_proximity_general,R_106
+15,37 33 79 22 40 81 59 103 77 72 10 8 3 41 0
+desk_wallart_parentchild_general,R_107
+20,50 104 73 88 65 53 84 25 15 13 32 86 29 63 39 57 100 9 97 62
+desk_wallart_proximity_general,R_108
+15,83 16 14 95 66 74 41 0 58 30 3 98 43 26 11
+desk_wallet_parentchild_general,R_109
+20,71 68 21 92 28 55 56 76 80 91 38 51 99 87 78 7 20 93 24 17
+messy_display
+display_collection_parentchild_general,R_0
+1,2
+display_pottedplant_parentchild_general,R_1
+1,2
+display_toyfigure_parentchild_general,R_2
+1,0
+messy_dresser
+dresser_aerosol_parentchild_general,R_0
+5,3 9 2 1 10
+dresser_book_parentchild_general,R_1
+5,2 9 3 0 10
+dresser_books_parentchild_general,R_2
+5,9 1 3 0 10
+dresser_bottle_parentchild_general,R_3
+5,0 9 2 1 10
+dresser_cube_parentchild_general,R_4
+5,7 8 11 5 10
+dresser_dart_parentchild_general,R_5
+5,8 7 4 11 10
+dresser_lamp_parentchild_general,R_6
+5,11 10 7 4 8
+dresser_rule_parentchild_general,R_7
+5,4 8 11 5 10
+dresser_tape_parentchild_general,R_8
+5,7 4 5 11 10
+dresser_tissuebox_parentchild_general,R_9
+5,3 2 0 1 10
+dresser_toyfigure_parentchild_general,R_10
+5,11 4 7 9 8
+dresser_vase_parentchild_general,R_11
+5,4 7 8 10 5
+messy_filecabinet
+filecabinet_1shelves_proximity_general,R_0
+2,12 7
+filecabinet_books_parentchild_general,R_1
+2,13 3
+filecabinet_bottle_parentchild_general,R_2
+2,9 3
+filecabinet_bowl_parentchild_general,R_3
+2,2 9
+filecabinet_chair_proximity_general,R_4
+2,10 12
+filecabinet_chair_sibling_general,R_5
+2,6 15
+filecabinet_filecabinet_sibling_general,R_6
+2,14 5
+filecabinet_paperbox_proximity_general,R_7
+2,0 12
+filecabinet_paperbox_sibling_general,R_8
+2,14 6
+filecabinet_pillbottle_parentchild_general,R_9
+2,2 3
+filecabinet_pillow_proximity_general,R_10
+2,7 0
+filecabinet_printer_parentchild_general,R_11
+2,9 13
+filecabinet_printer_proximity_general,R_12
+2,0 7
+filecabinet_towel_parentchild_general,R_13
+2,2 9
+filecabinet_trashbin_sibling_general,R_14
+2,6 8
+filecabinet_vacuum_sibling_general,R_15
+2,5 6
+messy_game
+game_dresser_sibling_general,R_0
+1,1
+game_ottoman_sibling_general,R_1
+1,2
+game_shackle_sibling_general,R_2
+1,1
+game_tape_sibling_general,R_3
+1,1
+messy_keyboard
+keyboard_airplane_sibling_general,R_0
+13,11 7 12 22 3 2 24 5 18 9 16 13 25
+keyboard_book_sibling_general,R_1
+13,23 26 6 30 5 27 18 16 20 28 14 9 17
+keyboard_bottle_sibling_general,R_2
+13,12 7 25 0 3 24 22 11 17 27 19 13 20
+keyboard_bowl_sibling_general,R_3
+13,24 22 13 9 7 4 12 19 0 25 2 20 5
+keyboard_camera_sibling_general,R_4
+13,13 9 24 22 14 28 3 16 5 18 19 30 27
+keyboard_cellphone_sibling_general,R_5
+13,18 16 26 6 1 9 23 14 30 28 27 13 22
+keyboard_cellulose tape_sibling_general,R_6
+13,26 30 1 27 23 5 18 20 16 17 9 14 28
+keyboard_cerealbox_sibling_general,R_7
+13,12 0 2 11 22 3 24 25 9 13 5 27 30
+keyboard_compact disk_proximity_general,R_8
+1,10
+keyboard_compact disk_sibling_general,R_9
+13,13 4 28 24 5 14 16 18 22 3 30 6 26
+keyboard_computermouse_proximity_general,R_10
+1,29
+keyboard_computermouse_sibling_general,R_11
+13,0 7 12 22 3 18 24 5 16 2 14 28 9
+keyboard_cup_sibling_general,R_12
+13,7 0 2 11 22 3 24 25 9 27 13 5 30
+keyboard_headphones_sibling_general,R_13
+13,9 4 24 28 22 14 5 3 16 18 19 30 27
+keyboard_mediadiscs_sibling_general,R_14
+13,28 16 18 5 9 13 22 4 23 24 1 26 6
+keyboard_monitor_sibling_general,R_15
+13,19 2 21 3 25 20 17 7 12 24 13 0 27
+keyboard_mousepad_sibling_general,R_16
+13,18 14 28 5 9 23 13 1 22 26 6 4 24
+keyboard_mug_sibling_general,R_17
+13,25 27 20 21 30 6 26 24 5 1 19 9 13
+keyboard_notepad_sibling_general,R_18
+13,16 14 5 28 9 23 1 26 6 13 22 30 4
+keyboard_orange toast_sibling_general,R_19
+13,3 21 13 24 25 20 17 4 9 27 22 2 30
+keyboard_printer_sibling_general,R_20
+13,21 17 27 30 25 6 26 1 5 9 3 23 19
+keyboard_router_sibling_general,R_21
+13,20 17 27 25 30 19 6 26 1 3 5 9 13
+keyboard_rubikscube_sibling_general,R_22
+13,24 9 13 0 4 3 11 14 5 16 28 18 7
+keyboard_scissors_sibling_general,R_23
+13,1 26 6 5 30 18 16 27 14 28 9 20 22
+keyboard_sodacan_sibling_general,R_24
+13,4 13 22 9 3 5 25 14 18 12 16 7 28
+keyboard_speaker_sibling_general,R_25
+13,17 27 20 21 30 2 24 12 7 3 6 26 19
+keyboard_stapler_sibling_general,R_26
+13,6 30 1 23 27 5 18 20 16 17 9 14 28
+keyboard_tableclock_sibling_general,R_27
+13,30 6 26 17 20 1 5 21 25 23 18 9 24
+keyboard_toyfigure_sibling_general,R_28
+13,14 16 18 9 5 13 22 4 23 1 24 26 6
+keyboard_videogamecontroller_proximity_general,R_29
+1,10
+keyboard_webcam_sibling_general,R_30
+13,27 6 26 1 5 20 23 17 21 25 18 9 16
+messy_laptop
+laptop_beaker_sibling_general,R_0
+14,11 8 27 21 28 1 26 23 9 22 12 10 6 24
+laptop_binder_sibling_general,R_1
+14,8 11 28 10 27 0 26 21 23 12 6 22 9 24
+laptop_book_sibling_general,R_2
+14,16 5 10 26 23 27 11 12 24 1 21 9 6 22
+laptop_bottle_sibling_general,R_3
+14,14 16 2 5 24 23 26 12 6 22 27 10 21 11
+laptop_bowl_sibling_general,R_4
+14,10 15 28 9 8 18 1 0 29 11 30 2 27 16
+laptop_cabling_sibling_general,R_5
+14,2 16 12 26 24 23 21 27 20 22 6 11 1 10
+laptop_calculator_sibling_general,R_6
+14,22 24 20 12 26 23 27 21 17 11 1 0 5 8
+laptop_camera_sibling_general,R_7
+14,25 13 8 28 15 0 1 17 4 18 11 9 10 29
+laptop_cellulose tape_sibling_general,R_8
+14,28 0 1 11 9 10 27 21 15 4 26 23 12 22
+laptop_cup_sibling_general,R_9
+14,10 8 4 28 0 11 15 1 27 16 21 2 26 23
+laptop_diet_sibling_general,R_10
+14,4 9 28 1 8 11 15 0 2 27 16 21 26 5
+laptop_dispenser_sibling_general,R_11
+14,27 0 21 26 23 8 1 22 12 24 6 28 20 9
+laptop_eraser_sibling_general,R_12
+14,20 26 22 24 23 6 21 27 17 11 5 1 0 8
+laptop_frame_sibling_general,R_13
+14,25 7 17 8 0 21 28 11 27 1 26 12 20 9
+laptop_headphones_sibling_general,R_14
+14,3 16 2 5 24 23 26 12 6 22 27 10 21 11
+laptop_holder_sibling_general,R_15
+14,28 4 18 29 8 9 10 0 1 30 11 7 27 21
+laptop_mug_sibling_general,R_16
+14,2 5 9 10 27 11 21 23 26 12 24 1 22 0
+laptop_notepad_sibling_general,R_17
+14,20 12 22 6 26 21 27 23 24 11 1 0 8 13
+laptop_organ_sibling_general,R_18
+14,29 15 4 30 28 10 8 9 1 0 7 11 27 21
+laptop_paper_proximity_general,R_19
+0,-1
+laptop_paper_sibling_general,R_20
+14,12 6 22 24 26 23 21 17 27 11 5 1 0 8
+laptop_paperclip_sibling_general,R_21
+14,27 26 23 12 11 22 24 20 6 0 17 1 8 5
+laptop_pen_sibling_general,R_22
+14,6 24 12 23 26 20 27 21 11 17 0 1 5 8
+laptop_pencil sharpener_sibling_general,R_23
+14,26 22 24 27 12 21 6 20 11 0 17 1 5 8
+laptop_pencil_sibling_general,R_24
+14,22 6 23 12 26 20 27 21 11 17 5 1 0 2
+laptop_pictureframe_sibling_general,R_25
+14,13 7 17 8 0 28 21 11 27 1 15 26 9 12
+laptop_punch_sibling_general,R_26
+14,23 12 27 22 21 24 6 20 11 17 1 0 5 8
+laptop_stapler_sibling_general,R_27
+14,21 26 11 23 12 22 24 0 6 20 1 8 17 5
+laptop_tableclock_sibling_general,R_28
+14,8 15 1 10 4 9 0 11 27 18 21 26 23 12
+laptop_tissuebox_sibling_general,R_29
+14,18 30 15 4 28 8 9 10 7 1 0 11 25 13
+laptop_toyfigure_sibling_general,R_30
+14,29 18 15 4 28 9 10 8 1 7 0 11 2 25
+messy_leg
+leg_paperbox_proximity_general,R_0
+0,-1
+leg_paperbox_sibling_general,R_1
+0,-1
+leg_purse_sibling_general,R_2
+0,-1
+messy_magazine
+magazine_coaster_sibling_general,R_0
+0,-1
+magazine_donut_proximity_general,R_1
+0,-1
+magazine_mug_proximity_general,R_2
+0,-1
+magazine_plate_sibling_general,R_3
+0,-1
+messy_mediastorage
+mediastorage_case_parentchild_general,R_0
+3,1 2 7
+mediastorage_controller_parentchild_general,R_1
+3,0 2 7
+mediastorage_mediaplayer_parentchild_general,R_2
+3,7 1 0
+mediastorage_mediaplayer_proximity_general,R_3
+0,-1
+mediastorage_tv_parentchild_general,R_4
+3,7 6 5
+mediastorage_videogameconsole_parentchild_general,R_5
+3,6 2 1
+mediastorage_videogamecontroller_parentchild_general,R_6
+3,5 1 0
+mediastorage_wheel_parentchild_general,R_7
+3,2 1 0
+messy_mirror
+mirror_pack_sibling_general,R_0
+0,-1
+mirror_pot_sibling_general,R_1
+0,-1
+messy_monitor
+monitor_book_sibling_general,R_0
+5,10 13 2 14 6
+monitor_books_proximity_general,R_1
+1,8
+monitor_books_sibling_general,R_2
+5,13 10 14 0 6
+monitor_bowl_sibling_general,R_3
+5,11 9 4 12 7
+monitor_cerealbox_sibling_general,R_4
+5,3 11 12 9 7
+monitor_computer_proximity_general,R_5
+1,8
+monitor_computer_sibling_general,R_6
+5,14 2 13 10 0
+monitor_computermouse_sibling_general,R_7
+5,12 9 6 0 14
+monitor_fan_proximity_general,R_8
+1,5
+monitor_keyboard_sibling_general,R_9
+5,7 12 3 11 6
+monitor_mug_sibling_general,R_10
+5,13 0 2 14 6
+monitor_rubikscube_sibling_general,R_11
+5,3 12 7 9 4
+monitor_speaker_sibling_general,R_12
+5,7 9 11 3 6
+monitor_stapler_sibling_general,R_13
+5,10 0 2 14 6
+monitor_telephone_sibling_general,R_14
+5,2 13 10 0 6
+messy_nightstand
+nightstand_basket_sibling_general,R_0
+1,2
+nightstand_fan_sibling_general,R_1
+1,2
+nightstand_floorlamp_sibling_general,R_2
+1,1
+nightstand_glasses_parentchild_general,R_3
+2,8 6
+nightstand_lamp_parentchild_general,R_4
+2,8 6
+nightstand_mirror_parentchild_general,R_5
+2,7 3
+nightstand_pillbottle_parentchild_general,R_6
+2,8 3
+nightstand_spray paint_parentchild_general,R_7
+2,5 3
+nightstand_tableclock_parentchild_general,R_8
+2,6 3
+messy_oven
+oven_bottle_proximity_general,R_0
+1,7
+oven_filecabinet_proximity_general,R_1
+1,0
+oven_filecabinet_sibling_general,R_2
+1,4
+oven_pan_parentchild_general,R_3
+0,-1
+oven_paperbox_sibling_general,R_4
+1,2
+oven_pot_parentchild_general,R_5
+0,-1
+oven_pot_sibling_general,R_6
+1,4
+oven_vase_proximity_general,R_7
+1,0
+messy_paper
+paper_cup_proximity_general,R_0
+1,5
+paper_eraser_parentchild_general,R_1
+0,-1
+paper_paper_childparent_general,R_2
+0,-1
+paper_paper_proximity_general,R_3
+1,5
+paper_pencil sharpener_parentchild_general,R_4
+0,-1
+paper_pencil_proximity_general,R_5
+1,3
+messy_paperbox
+paperbox_backpack_sibling_general,R_0
+3,2 5 10
+paperbox_basket_sibling_general,R_1
+3,9 8 5
+paperbox_filecabinet_sibling_general,R_2
+3,0 5 10
+paperbox_paperbox_parentchild_general,R_3
+0,-1
+paperbox_paperbox_proximity_general,R_4
+1,7
+paperbox_paperbox_sibling_general,R_5
+3,0 2 8
+paperbox_printer_proximity_general,R_6
+1,4
+paperbox_purse_proximity_general,R_7
+1,4
+paperbox_purse_sibling_general,R_8
+3,9 1 5
+paperbox_trashbin_sibling_general,R_9
+3,1 8 5
+paperbox_vacuum_sibling_general,R_10
+3,2 0 5
+messy_refrigerator
+refrigerator_pot_sibling_general,R_0
+0,-1
+messy_sink
+sink_mug_proximity_general,R_0
+0,-1
+sink_mug_sibling_general,R_1
+0,-1
+messy_table
+table_backpack_proximity_general,R_0
+9,55 45 43 74 22 44 38 33 15
+table_backpack_sibling_general,R_1
+4,63 62 2 75
+table_bag_sibling_general,R_2
+4,62 46 53 1
+table_basket_parentchild_general,R_3
+20,71 4 16 72 50 19 57 6 52 42 65 29 66 14 21 10 67 40 30 5
+table_blender_parentchild_general,R_4
+20,71 3 16 50 72 19 57 6 52 42 65 29 66 14 21 10 67 30 40 5
+table_book_parentchild_general,R_5
+20,12 40 64 31 51 66 25 41 14 21 67 10 35 47 30 42 7 65 27 37
+table_bottle_parentchild_general,R_6
+20,52 42 66 14 21 40 12 10 65 5 50 57 30 72 19 31 67 64 25 41
+table_bowl_parentchild_general,R_7
+20,37 27 30 10 47 21 31 58 65 14 66 5 12 64 60 40 48 51 42 68
+table_bowl_proximity_general,R_8
+9,36 32 70 44 33 22 38 26 15
+table_breadslice_proximity_general,R_9
+9,59 32 15 26 44 8 38 33 22
+table_camera_parentchild_general,R_10
+20,30 21 14 66 42 27 65 47 60 48 58 31 7 52 12 5 37 64 40 68
+table_candle_parentchild_general,R_11
+20,28 23 49 60 37 27 68 48 58 39 7 47 30 10 21 65 14 66 52 42
+table_canopener_parentchild_general,R_12
+20,31 40 5 64 51 66 14 25 41 21 67 42 35 10 30 47 7 27 65 37
+table_cap_parentchild_general,R_13
+20,69 73 35 51 7 37 47 64 5 12 25 41 31 27 40 21 14 10 66 30
+table_cellphone_parentchild_general,R_14
+20,66 21 42 10 30 31 12 40 5 64 67 65 47 27 52 7 25 41 51 48
+table_cellphone_proximity_general,R_15
+9,26 44 22 38 33 9 74 32 8
+table_chair_parentchild_general,R_16
+20,4 71 3 50 72 19 57 6 52 42 65 29 66 14 21 10 67 30 40 5
+table_chair_proximity_general,R_17
+9,43 24 0 55 45 70 36 8 74
+table_chair_sibling_general,R_18
+4,75 62 2 46
+table_chessboard_parentchild_general,R_19
+20,50 72 57 52 42 6 29 65 66 14 21 10 30 39 68 67 40 31 12 58
+table_chessman_parentchild_general,R_20
+20,65 39 58 7 30 10 68 21 14 66 37 27 52 42 31 5 29 60 23 48
+table_chestofdrawers_parentchild_general,R_21
+20,10 14 30 66 42 27 65 47 31 12 5 64 40 48 60 52 67 58 7 37
+table_coaster_proximity_general,R_22
+9,44 33 38 26 15 74 8 36 32
+table_coffee maker_parentchild_general,R_23
+20,60 28 27 68 48 11 30 37 58 10 39 47 21 65 49 7 14 52 66 42
+table_coffee mug_proximity_general,R_24
+9,70 36 8 43 34 32 44 22 33
+table_coin_parentchild_general,R_25
+20,41 51 64 40 67 31 12 5 35 66 14 21 42 47 10 30 7 73 69 27
+table_coin_proximity_general,R_26
+9,15 38 33 44 22 32 9 74 8
+table_cup_parentchild_general,R_27
+20,60 30 37 47 48 10 21 23 58 7 14 68 66 65 42 64 31 39 12 5
+table_decorativeaccessory_parentchild_general,R_28
+20,11 23 49 60 68 27 39 48 37 58 30 10 47 65 7 21 52 14 66 42
+table_diet_parentchild_general,R_29
+20,68 42 39 65 10 21 30 14 66 19 31 27 57 52 7 58 48 60 67 50
+table_donutbox_parentchild_general,R_30
+20,10 21 14 27 66 42 65 60 58 47 48 7 37 52 68 31 5 23 12 64
+table_foodplate_parentchild_general,R_31
+20,40 12 66 64 5 14 51 25 41 67 21 42 10 7 30 35 47 65 27 37
+table_foodplate_proximity_general,R_32
+9,8 9 59 26 36 15 44 33 38
+table_fork_proximity_general,R_33
+9,38 22 44 26 15 74 8 36 32
+table_fruit_proximity_general,R_34
+9,59 70 32 8 9 36 15 26 44
+table_glasses_parentchild_general,R_35
+20,51 69 73 12 64 5 25 41 31 13 40 47 7 67 66 14 21 37 10 27
+table_hamburger_proximity_general,R_36
+9,8 32 70 33 44 22 38 26 15
+table_holder_parentchild_general,R_37
+20,27 7 60 47 30 10 23 21 58 48 68 14 65 66 12 5 31 39 64 42
+table_knife_proximity_general,R_38
+9,33 22 26 44 15 74 32 8 36
+table_laptop_parentchild_general,R_39
+20,68 65 30 58 23 29 10 27 60 7 20 37 21 28 48 14 42 49 52 66
+table_magazine_parentchild_general,R_40
+20,31 12 25 41 5 51 64 66 67 14 42 21 10 35 30 47 7 65 6 27
+table_money_parentchild_general,R_41
+20,25 51 64 40 67 31 12 5 35 66 14 21 42 47 10 30 7 73 69 27
+table_mug_parentchild_general,R_42
+20,14 66 21 10 30 52 31 40 65 12 67 5 64 27 6 47 29 48 25 41
+table_mug_proximity_general,R_43
+9,22 44 36 74 8 33 38 15 26
+table_notepad_proximity_general,R_44
+9,22 33 38 15 26 74 8 32 36
+table_paperbox_proximity_general,R_45
+9,55 0 43 74 22 44 38 33 15
+table_paperbox_sibling_general,R_46
+4,53 2 62 1
+table_pepper mill_parentchild_general,R_47
+20,27 48 10 30 21 60 64 37 14 58 7 66 5 12 31 67 42 51 40 23
+table_pepper_parentchild_general,R_48
+20,27 60 47 58 30 10 23 21 14 68 37 66 42 7 64 65 52 67 5 39
+table_pictureframe_parentchild_general,R_49
+20,28 11 23 39 68 60 58 37 27 65 20 30 48 7 10 21 52 47 29 14
+table_pizza_parentchild_general,R_50
+20,72 57 19 6 52 42 29 66 14 65 21 67 10 40 30 31 12 5 39 68
+table_plate_parentchild_general,R_51
+20,25 41 64 40 5 12 31 35 67 66 14 47 21 7 42 10 69 73 30 27
+table_pot_parentchild_general,R_52
+20,42 6 10 21 30 65 14 66 57 19 60 48 58 27 5 68 67 40 12 50
+table_pot_sibling_general,R_53
+4,46 2 1 62
+table_pottedplant_parentchild_general,R_54
+20,49 11 28 20 23 39 68 58 60 37 27 65 7 48 30 10 47 21 52 14
+table_printer_proximity_general,R_55
+9,45 0 43 74 22 44 38 33 15
+table_purse_sibling_general,R_56
+4,18 75 2 62
+table_remote control_parentchild_general,R_57
+20,50 72 19 52 42 6 29 66 14 65 21 67 10 30 40 31 12 68 5 39
+table_salad_parentchild_general,R_58
+20,48 30 27 10 47 60 21 7 65 68 23 37 14 39 66 42 64 5 52 31
+table_sandwich_proximity_general,R_59
+9,9 32 34 8 15 26 36 70 44
+table_sodacan_parentchild_general,R_60
+20,27 23 48 30 37 10 47 68 21 58 14 7 28 66 65 42 39 11 52 5
+table_speaker_sibling_general,R_61
+4,18 75 62 2
+table_stool_sibling_general,R_62
+4,2 63 1 75
+table_suitcase_sibling_general,R_63
+4,1 62 2 75
+table_teacup_parentchild_general,R_64
+20,51 25 41 5 40 31 67 12 66 14 47 21 35 10 42 30 7 27 48 58
+table_telephone_parentchild_general,R_65
+20,30 10 21 14 66 42 39 52 7 58 68 27 31 37 5 60 12 29 40 20
+table_tissuebox_parentchild_general,R_66
+20,14 21 42 10 31 30 40 12 5 67 64 65 47 25 41 52 27 51 7 58
+table_tongs_parentchild_general,R_67
+20,64 25 41 40 66 31 14 51 5 12 42 21 10 47 30 48 35 58 27 7
+table_toyfigure_parentchild_general,R_68
+20,39 23 60 27 30 58 10 65 48 29 37 21 28 7 14 42 47 66 52 11
+table_tray_parentchild_general,R_69
+20,73 13 35 51 25 41 64 5 12 31 40 7 47 67 37 66 14 21 27 10
+table_unknown_proximity_general,R_70
+9,36 8 34 32 59 44 24 9 33
+table_vase_parentchild_general,R_71
+20,3 4 16 72 50 19 57 6 52 42 65 29 66 14 21 10 67 40 30 5
+table_videogamecontroller_parentchild_general,R_72
+20,50 57 19 6 42 52 29 66 14 65 21 67 40 10 31 30 12 5 41 25
+table_wallet_parentchild_general,R_73
+20,69 35 13 51 25 41 64 5 12 31 40 47 7 67 37 66 14 21 27 10
+table_wallet_proximity_general,R_74
+9,44 22 15 38 33 26 32 8 36
+table_water cooler_sibling_general,R_75
+4,62 63 1 2
+messy_trashbin
+trashbin_bookcase_sibling_general,R_0
+2,4 5
+trashbin_brake shoe_sibling_general,R_1
+2,2 3
+trashbin_paperbox_sibling_general,R_2
+2,3 1
+trashbin_purse_sibling_general,R_3
+2,2 5
+trashbin_rack_sibling_general,R_4
+2,1 5
+trashbin_stool_sibling_general,R_5
+2,3 2
+messy_tv
+tv_battery_sibling_general,R_0
+4,1 2 7 10
+tv_case_sibling_general,R_1
+4,0 2 7 10
+tv_controller_sibling_general,R_2
+4,1 0 10 7
+tv_mediaplayer_proximity_general,R_3
+0,-1
+tv_mediaplayer_sibling_general,R_4
+4,11 9 6 10
+tv_mediastorage_childparent_general,R_5
+0,-1
+tv_telephone_sibling_general,R_6
+4,9 10 7 4
+tv_unknown_sibling_general,R_7
+4,10 0 1 2
+tv_videodisk_sibling_general,R_8
+4,2 10 1 0
+tv_videogameconsole_sibling_general,R_9
+4,6 10 4 7
+tv_videogamecontroller_sibling_general,R_10
+4,7 2 1 0
+tv_wheel_sibling_general,R_11
+4,4 8 9 2
+messy_tvstand
+tvstand_disccase_proximity_general,R_0
+0,-1
+tvstand_disk_parentchild_general,R_1
+2,4 7
+tvstand_network_parentchild_general,R_2
+2,7 1
+tvstand_network_sibling_general,R_3
+0,-1
+tvstand_telecommunication_parentchild_general,R_4
+2,1 6
+tvstand_tv_parentchild_general,R_5
+2,6 4
+tvstand_videogameconsole_parentchild_general,R_6
+2,4 1
+tvstand_videogamecontroller_parentchild_general,R_7
+2,2 1
+tvstand_videogamecontroller_proximity_general,R_8
+0,-1
+narrow_4shelves
+4shelves_cup_parentchild_general,R_0
+2,2 1
+4shelves_desklamp_parentchild_general,R_1
+2,2 0
+4shelves_glass_parentchild_general,R_2
+2,0 1
+4shelves_ship_parentchild_general,R_3
+2,4 5
+4shelves_toyfigure_parentchild_general,R_4
+2,5 3
+4shelves_unknown_parentchild_general,R_5
+2,4 1
+narrow_backpack
+backpack_bed_sibling_general,R_0
+0,-1
+narrow_bed
+bed_basket_sibling_general,R_0
+3,3 5 8
+bed_book_parentchild_general,R_1
+1,10
+bed_bookcase_sibling_general,R_2
+3,6 8 3
+bed_chair_sibling_general,R_3
+3,0 8 5
+bed_desk_sibling_general,R_4
+3,2 6 3
+bed_filecabinet_sibling_general,R_5
+3,8 3 0
+bed_floorlamp_sibling_general,R_6
+3,2 8 3
+bed_laptop_parentchild_general,R_7
+1,9
+bed_nightstand_sibling_general,R_8
+3,6 2 5
+bed_pillow_parentchild_general,R_9
+1,7
+bed_shirt_parentchild_general,R_10
+1,1
+bed_tissuebox_proximity_general,R_11
+0,-1
+narrow_bookcase
+bookcase_book_parentchild_general,R_0
+8,12 14 18 17 7 22 5 10
+bookcase_book_proximity_general,R_1
+2,15 13
+bookcase_bookcase_sibling_general,R_2
+1,4
+bookcase_bottle_proximity_general,R_3
+2,1 15
+bookcase_bottle_sibling_general,R_4
+1,2
+bookcase_cap_parentchild_general,R_5
+8,12 11 24 0 25 20 10 14
+bookcase_cap_proximity_general,R_6
+2,13 1
+bookcase_cassette_parentchild_general,R_7
+8,22 17 18 10 14 25 20 24
+bookcase_chair_sibling_general,R_8
+1,9
+bookcase_desk_sibling_general,R_9
+1,8
+bookcase_disccase_parentchild_general,R_10
+8,25 18 14 17 7 24 22 11
+bookcase_headphones_parentchild_general,R_11
+8,24 14 25 10 20 16 5 23
+bookcase_helmet_parentchild_general,R_12
+8,0 5 10 14 24 11 18 17
+bookcase_mediadiscs_proximity_general,R_13
+2,1 15
+bookcase_mediaplayer_parentchild_general,R_14
+8,24 18 10 11 17 7 22 25
+bookcase_mediaplayer_proximity_general,R_15
+2,1 13
+bookcase_pianokeyboard_parentchild_general,R_16
+8,24 11 10 25 5 14 20 12
+bookcase_player_parentchild_general,R_17
+8,18 7 22 10 14 25 20 24
+bookcase_remote control_parentchild_general,R_18
+8,17 7 22 10 14 25 20 24
+bookcase_rubikscube_parentchild_general,R_19
+8,21 0 14 18 17 7 22 24
+bookcase_toy_parentchild_general,R_20
+8,25 18 17 7 22 24 10 11
+bookcase_toyfigure_parentchild_general,R_21
+8,11 23 24 20 25 14 5 18
+bookcase_usbstick_parentchild_general,R_22
+8,7 17 18 10 14 25 20 24
+bookcase_videodisk_parentchild_general,R_23
+8,11 21 24 14 16 5 25 20
+bookcase_videogameconsole_parentchild_general,R_24
+8,11 14 25 10 20 18 17 16
+bookcase_videogamecontroller_parentchild_general,R_25
+8,20 10 18 24 17 11 7 22
+narrow_cabinet
+cabinet_books_parentchild_general,R_0
+2,3 7
+cabinet_couch_sibling_general,R_1
+1,5
+cabinet_pillow_proximity_general,R_2
+0,-1
+cabinet_remote control_parentchild_general,R_3
+2,0 7
+cabinet_speaker_parentchild_general,R_4
+2,7 6
+cabinet_table_sibling_general,R_5
+1,1
+cabinet_tv_parentchild_general,R_6
+2,4 7
+cabinet_videogameconsole_parentchild_general,R_7
+2,4 6
+cabinet_wallart_sibling_general,R_8
+1,5
+narrow_chair
+chair_computermouse_proximity_general,R_0
+0,-1
+narrow_chestofdrawers
+chestofdrawers_cellphone_parentchild_general,R_0
+0,-1
+narrow_computer
+computer_chair_sibling_general,R_0
+0,-1
+computer_desk_sibling_general,R_1
+0,-1
+computer_headphones_proximity_general,R_2
+0,-1
+computer_monitor_proximity_general,R_3
+0,-1
+narrow_couch
+couch_backpack_parentchild_general,R_0
+0,-1
+couch_bottle_proximity_general,R_1
+2,8 5
+couch_cabinet_sibling_general,R_2
+1,3
+couch_credenza_sibling_general,R_3
+1,2
+couch_laptop_proximity_general,R_4
+2,6 8
+couch_pillow_proximity_general,R_5
+2,8 1
+couch_remote control_proximity_general,R_6
+2,4 8
+couch_table_sibling_general,R_7
+1,9
+couch_tissuebox_proximity_general,R_8
+2,5 1
+couch_water cooler_sibling_general,R_9
+1,2
+narrow_counter
+counter_bowl_parentchild_general,R_0
+3,9 7 2
+counter_counter_sibling_general,R_1
+0,-1
+counter_mug_parentchild_general,R_2
+3,4 7 0
+counter_oven_proximity_general,R_3
+0,-1
+counter_pan_parentchild_general,R_4
+3,2 7 0
+counter_pan_proximity_general,R_5
+0,-1
+counter_paperbox_parentchild_general,R_6
+3,7 9 2
+counter_pot_parentchild_general,R_7
+3,2 4 0
+counter_sink_parentchild_general,R_8
+3,6 7 9
+counter_toaster_parentchild_general,R_9
+3,0 7 2
+counter_trashbin_sibling_general,R_10
+0,-1
+narrow_desk
+desk_1shelves_proximity_general,R_0
+6,21 2 46 37 39 22
+desk_1shelves_sibling_general,R_1
+5,16 24 26 6 9
+desk_backpack_proximity_general,R_2
+6,0 21 46 22 37 39
+desk_binder_parentchild_general,R_3
+14,38 51 42 28 48 19 36 47 33 4 35 17 27 43
+desk_book_parentchild_general,R_4
+14,17 29 33 41 38 47 3 28 51 48 42 19 43 32
+desk_bookcase_proximity_general,R_5
+6,12 22 46 2 0 21
+desk_bookcase_sibling_general,R_6
+5,26 24 23 16 9
+desk_books_parentchild_general,R_7
+14,52 45 8 34 50 40 11 29 41 17 4 32 33 43
+desk_bottle_parentchild_general,R_8
+14,45 34 7 52 50 40 11 29 41 17 4 32 33 43
+desk_cabinet_sibling_general,R_9
+5,23 16 24 26 6
+desk_cellphone_proximity_general,R_10
+6,25 18 15 21 2 46
+desk_chair_parentchild_general,R_11
+14,40 52 7 45 8 50 34 29 41 17 4 32 33 43
+desk_chair_proximity_general,R_12
+6,5 22 46 2 0 21
+desk_chair_sibling_general,R_13
+5,20 49 44 1 6
+desk_computer_parentchild_general,R_14
+14,27 35 31 30 48 43 32 42 19 3 51 47 38 28
+desk_computer_proximity_general,R_15
+6,25 18 10 5 12 22
+desk_computer_sibling_general,R_16
+5,24 26 9 6 23
+desk_computermouse_parentchild_general,R_17
+14,4 29 33 41 38 3 47 32 28 51 43 42 48 19
+desk_computermouse_proximity_general,R_18
+6,25 10 12 5 22 46
+desk_cup_parentchild_general,R_19
+14,48 3 42 38 51 36 28 47 35 33 4 27 43 17
+desk_desk_sibling_general,R_20
+5,6 26 24 23 1
+desk_fan_proximity_general,R_21
+6,0 2 46 37 39 22
+desk_filecabinet_proximity_general,R_22
+6,12 5 46 2 0 21
+desk_filecabinet_sibling_general,R_23
+5,6 26 24 9 16
+desk_floorlamp_sibling_general,R_24
+5,26 6 16 23 9
+desk_glasses_proximity_general,R_25
+6,10 18 15 12 5 22
+desk_guitarstand_sibling_general,R_26
+5,24 6 23 16 9
+desk_holder_parentchild_general,R_27
+14,35 14 48 19 43 42 3 47 51 32 31 38 28 36
+desk_ipod_parentchild_general,R_28
+14,51 38 3 42 36 48 19 33 4 47 17 35 29 41
+desk_keyboard_parentchild_general,R_29
+14,17 4 41 33 32 43 47 38 3 40 50 7 45 8
+desk_lamp_parentchild_general,R_30
+14,14 31 27 35 32 43 48 19 42 3 47 51 41 38
+desk_laptop_parentchild_general,R_31
+14,14 27 35 30 48 19 42 36 3 51 38 28 43 47
+desk_monitor_parentchild_general,R_32
+14,43 41 29 4 17 35 47 27 33 48 19 3 42 14
+desk_mousepad_parentchild_general,R_33
+14,4 17 29 38 41 3 19 28 47 51 42 48 36 43
+desk_mug_parentchild_general,R_34
+14,8 45 7 52 50 40 11 29 41 17 4 32 33 43
+desk_noname_parentchild_general,R_35
+14,27 48 14 19 43 42 3 51 47 38 32 28 36 4
+desk_notepad_parentchild_general,R_36
+14,28 38 51 3 42 19 48 33 47 4 35 17 27 29
+desk_paperbox_proximity_general,R_37
+6,39 21 0 2 46 22
+desk_pen_parentchild_general,R_38
+14,3 28 51 42 36 19 48 33 47 4 17 35 29 41
+desk_pillow_proximity_general,R_39
+6,37 21 0 2 46 22
+desk_pottedplant_parentchild_general,R_40
+14,50 7 52 45 8 34 11 29 41 17 4 32 33 43
+desk_printer_parentchild_general,R_41
+14,29 17 4 32 33 43 47 48 3 19 38 42 51 40
+desk_rubikscube_parentchild_general,R_42
+14,51 3 48 38 28 19 36 47 35 4 33 27 17 43
+desk_speaker_parentchild_general,R_43
+14,32 41 47 35 48 4 19 27 29 17 33 3 42 38
+desk_speaker_sibling_general,R_44
+5,49 13 20 1 26
+desk_stapler_parentchild_general,R_45
+14,8 34 7 52 50 40 11 29 41 17 4 32 33 43
+desk_stool_proximity_general,R_46
+6,2 0 22 21 12 5
+desk_telecommunication_parentchild_general,R_47
+14,48 3 19 38 4 42 51 43 33 28 41 17 35 29
+desk_telephone_parentchild_general,R_48
+14,19 42 3 51 38 35 28 47 36 27 4 43 33 17
+desk_trashbin_sibling_general,R_49
+5,44 20 13 1 26
+desk_vase_parentchild_general,R_50
+14,7 52 45 8 34 40 11 29 41 17 4 32 33 43
+desk_videogamecontroller_parentchild_general,R_51
+14,42 28 3 38 48 36 19 47 4 33 35 17 27 29
+desk_wallart_parentchild_general,R_52
+14,7 45 8 34 50 40 11 29 41 17 4 32 33 43
+narrow_display
+display_collection_parentchild_general,R_0
+1,2
+display_pottedplant_parentchild_general,R_1
+1,2
+display_toyfigure_parentchild_general,R_2
+1,0
+narrow_dresser
+dresser_aerosol_parentchild_general,R_0
+5,3 9 2 1 10
+dresser_book_parentchild_general,R_1
+5,2 9 3 0 10
+dresser_books_parentchild_general,R_2
+5,9 1 3 0 10
+dresser_bottle_parentchild_general,R_3
+5,0 9 2 1 10
+dresser_cube_parentchild_general,R_4
+5,7 8 11 5 10
+dresser_dart_parentchild_general,R_5
+5,8 7 4 11 10
+dresser_lamp_parentchild_general,R_6
+5,11 10 7 4 8
+dresser_rule_parentchild_general,R_7
+5,4 8 11 5 10
+dresser_tape_parentchild_general,R_8
+5,7 4 5 11 10
+dresser_tissuebox_parentchild_general,R_9
+5,3 2 0 1 10
+dresser_toyfigure_parentchild_general,R_10
+5,11 4 7 9 8
+dresser_vase_parentchild_general,R_11
+5,4 7 8 10 5
+narrow_filecabinet
+filecabinet_bottle_parentchild_general,R_0
+1,3
+filecabinet_bowl_parentchild_general,R_1
+1,0
+filecabinet_pillbottle_parentchild_general,R_2
+1,0
+filecabinet_vase_parentchild_general,R_3
+1,0
+filecabinet_water cooler_sibling_general,R_4
+0,-1
+narrow_floorlamp
+floorlamp_couch_sibling_general,R_0
+0,-1
+floorlamp_ottoman_sibling_general,R_1
+0,-1
+narrow_laptop
+laptop_chair_proximity_general,R_0
+0,-1
+laptop_computermouse_sibling_general,R_1
+0,-1
+laptop_desklamp_sibling_general,R_2
+0,-1
+narrow_mediastorage
+mediastorage_mediaplayer_parentchild_general,R_0
+2,3 5
+mediastorage_mediaplayer_proximity_general,R_1
+0,-1
+mediastorage_pottedplant_parentchild_general,R_2
+2,5 0
+mediastorage_telephone_parentchild_general,R_3
+2,0 5
+mediastorage_tv_parentchild_general,R_4
+2,2 5
+mediastorage_vase_parentchild_general,R_5
+2,2 0
+narrow_nightstand
+nightstand_book_parentchild_general,R_0
+1,3
+nightstand_bookcase_sibling_general,R_1
+0,-1
+nightstand_cup_parentchild_general,R_2
+1,3
+nightstand_tableclock_parentchild_general,R_3
+1,0
+narrow_oven
+oven_counter_proximity_general,R_0
+0,-1
+oven_filecabinet_sibling_general,R_1
+0,-1
+oven_pan_parentchild_general,R_2
+0,-1
+oven_pot_parentchild_general,R_3
+0,-1
+oven_trashbin_sibling_general,R_4
+0,-1
+narrow_rack
+rack_shoes_proximity_general,R_0
+0,-1
+narrow_shelf
+shelf_ball_parentchild_general,R_0
+0,-1
+shelf_toyfigure_parentchild_general,R_1
+0,-1
+narrow_sink
+sink_mug_proximity_general,R_0
+0,-1
+sink_mug_sibling_general,R_1
+0,-1
+narrow_speaker
+speaker_couch_sibling_general,R_0
+1,1
+speaker_sword_sibling_general,R_1
+1,0
+speaker_wallart_sibling_general,R_2
+1,1
+narrow_table
+table_backpack_proximity_general,R_0
+3,25 18 8
+table_backpack_sibling_general,R_1
+4,23 22 16 26
+table_basket_parentchild_general,R_2
+4,5 3 7 4
+table_blender_parentchild_general,R_3
+4,5 2 7 4
+table_book_parentchild_general,R_4
+4,19 10 20 2
+table_bottle_parentchild_general,R_5
+4,2 3 7 4
+table_cabinet_sibling_general,R_6
+4,13 24 9 21
+table_chair_parentchild_general,R_7
+4,3 5 2 4
+table_chair_proximity_general,R_8
+3,25 0 18
+table_chair_sibling_general,R_9
+4,26 22 23 1
+table_chessman_parentchild_general,R_10
+4,20 19 4 14
+table_coaster_proximity_general,R_11
+3,15 12 25
+table_coffee mug_proximity_general,R_12
+3,11 15 25
+table_couch_sibling_general,R_13
+4,6 24 9 21
+table_lamp_parentchild_general,R_14
+4,17 20 10 19
+table_mug_proximity_general,R_15
+3,25 8 0
+table_paperbox_sibling_general,R_16
+4,1 23 22 26
+table_pottedplant_parentchild_general,R_17
+4,14 10 20 4
+table_printer_proximity_general,R_18
+3,0 25 8
+table_remote control_parentchild_general,R_19
+4,10 20 4 2
+table_sodacan_parentchild_general,R_20
+4,10 19 4 14
+table_speaker_sibling_general,R_21
+4,9 26 22 23
+table_stool_sibling_general,R_22
+4,23 1 26 16
+table_suitcase_sibling_general,R_23
+4,1 22 16 26
+table_table_sibling_general,R_24
+4,13 6 9 21
+table_tv_proximity_general,R_25
+3,8 0 18
+table_water cooler_sibling_general,R_26
+4,22 23 1 16
+narrow_teacup
+teacup_chair_proximity_general,R_0
+0,-1
+teacup_desk_childparent_general,R_1
+0,-1
+teacup_notepad_sibling_general,R_2
+0,-1
+teacup_printer_sibling_general,R_3
+0,-1
+narrow_trashbin
+trashbin_brake shoe_sibling_general,R_0
+2,2 3
+trashbin_chestofdrawers_sibling_general,R_1
+2,4 5
+trashbin_paperbox_sibling_general,R_2
+2,0 3
+trashbin_purse_sibling_general,R_3
+2,0 2
+trashbin_rack_sibling_general,R_4
+2,5 3
+trashbin_stool_sibling_general,R_5
+2,4 3
+organized_1shelves
+1shelves_1shelves_sibling_general,R_0
+0,-1
+1shelves_book_parentchild_general,R_1
+0,-1
+1shelves_books_parentchild_general,R_2
+0,-1
+1shelves_desk_proximity_general,R_3
+0,-1
+organized_backpack
+backpack_bed_sibling_general,R_0
+0,-1
+organized_bed
+bed_bookcase_sibling_general,R_0
+2,2 1
+bed_chair_sibling_general,R_1
+2,3 2
+bed_desk_sibling_general,R_2
+2,0 1
+bed_floorlamp_sibling_general,R_3
+2,1 6
+bed_lamp_proximity_general,R_4
+0,-1
+bed_pillow_parentchild_general,R_5
+0,-1
+bed_trashbin_sibling_general,R_6
+2,3 1
+organized_bookcase
+bookcase_ball_parentchild_general,R_0
+13,19 27 20 10 1 35 13 29 25 22 7 31 34
+bookcase_book_parentchild_general,R_1
+13,35 25 22 7 29 31 13 10 34 11 17 20 8
+bookcase_book_proximity_general,R_2
+2,16 18
+bookcase_bookcase_sibling_general,R_3
+2,12 36
+bookcase_books_parentchild_general,R_4
+13,13 34 20 35 8 29 11 1 10 17 15 32 25
+bookcase_books_proximity_general,R_5
+2,2 6
+bookcase_cap_proximity_general,R_6
+2,5 2
+bookcase_cassette_parentchild_general,R_7
+13,31 22 25 1 10 17 34 11 35 13 29 14 8
+bookcase_chair_parentchild_general,R_8
+13,11 15 13 29 32 34 35 4 28 1 25 17 22
+bookcase_decorativeaccessory_parentchild_general,R_9
+13,21 24 33 32 15 4 8 14 34 11 17 13 30
+bookcase_disccase_parentchild_general,R_10
+13,25 22 7 31 1 34 17 13 35 20 11 29 4
+bookcase_framework_parentchild_general,R_11
+13,8 34 15 13 17 32 25 22 29 35 1 7 31
+bookcase_guitarstand_sibling_general,R_12
+2,3 36
+bookcase_headphones_parentchild_general,R_13
+13,34 35 29 4 11 1 8 25 10 22 17 20 7
+bookcase_holder_parentchild_general,R_14
+13,34 13 11 1 25 22 35 4 17 29 7 31 8
+bookcase_lamp_parentchild_general,R_15
+13,32 11 8 34 17 13 33 4 29 25 22 35 7
+bookcase_mediadiscs_proximity_general,R_16
+2,18 2
+bookcase_mediaplayer_parentchild_general,R_17
+13,25 34 22 7 31 11 10 13 1 15 35 4 8
+bookcase_mediaplayer_proximity_general,R_18
+2,16 2
+bookcase_mug_parentchild_general,R_19
+13,27 0 1 35 29 10 31 7 22 25 20 13 28
+bookcase_pianokeyboard_parentchild_general,R_20
+13,4 35 13 34 10 1 0 29 28 25 22 11 7
+bookcase_pictureframe_parentchild_general,R_21
+13,9 33 32 15 14 8 11 24 4 17 34 13 29
+bookcase_player_parentchild_general,R_22
+13,25 7 31 1 10 17 34 11 13 35 29 8 14
+bookcase_pot_sibling_general,R_23
+2,12 3
+bookcase_pottedplant_parentchild_general,R_24
+13,33 9 32 4 15 21 34 8 11 13 17 20 14
+bookcase_remote control_parentchild_general,R_25
+13,22 7 31 1 10 17 34 11 13 35 29 8 14
+bookcase_rubikscube_parentchild_general,R_26
+13,17 30 25 22 7 31 11 15 34 32 10 13 1
+bookcase_shoes_parentchild_general,R_27
+13,19 0 1 35 29 10 31 7 22 25 20 13 28
+bookcase_speaker_parentchild_general,R_28
+13,29 35 8 13 4 1 20 11 34 30 32 15 25
+bookcase_toy_parentchild_general,R_29
+13,35 13 1 8 28 34 11 4 25 22 7 20 31
+bookcase_toyfigure_parentchild_general,R_30
+13,8 13 29 11 35 34 15 32 28 4 1 25 22
+bookcase_usbstick_parentchild_general,R_31
+13,7 22 25 10 1 17 34 11 35 13 29 14 8
+bookcase_vase_parentchild_general,R_32
+13,15 8 11 33 34 13 17 4 29 25 35 30 22
+bookcase_videodisk_parentchild_general,R_33
+13,32 15 8 4 11 34 13 30 17 28 29 35 14
+bookcase_videogameconsole_parentchild_general,R_34
+13,13 11 17 4 35 25 1 10 22 8 29 7 31
+bookcase_videogamecontroller_parentchild_general,R_35
+13,29 1 13 34 25 22 11 8 20 4 10 7 31
+bookcase_wallart_sibling_general,R_36
+2,37 3
+bookcase_wallclock_sibling_general,R_37
+2,36 12
+organized_cabinet
+cabinet_bookcase_proximity_general,R_0
+0,-1
+cabinet_books_parentchild_general,R_1
+2,4 7
+cabinet_chair_sibling_general,R_2
+1,3
+cabinet_couch_sibling_general,R_3
+1,2
+cabinet_pottedplant_parentchild_general,R_4
+2,1 7
+cabinet_speaker_parentchild_general,R_5
+2,8 7
+cabinet_table_sibling_general,R_6
+1,2
+cabinet_tv_parentchild_general,R_7
+2,4 1
+cabinet_videogameconsole_parentchild_general,R_8
+2,5 7
+cabinet_wallart_sibling_general,R_9
+1,6
+organized_chair
+chair_book_proximity_general,R_0
+1,1
+chair_computermouse_proximity_general,R_1
+1,0
+chair_laptop_proximity_general,R_2
+1,0
+chair_table_sibling_general,R_3
+0,-1
+organized_coffee maker
+coffee maker_microwave_sibling_general,R_0
+0,-1
+coffee maker_toaster_sibling_general,R_1
+0,-1
+organized_couch
+couch_book_parentchild_general,R_0
+1,15
+couch_bookcase_proximity_general,R_1
+7,10 5 13 27 21 30 25
+couch_cabinet_sibling_general,R_2
+6,24 3 26 6 29 7
+couch_chair_sibling_general,R_3
+6,26 24 2 6 29 7
+couch_coaster_proximity_general,R_4
+7,9 22 17 19 25 12 16
+couch_curtain_proximity_general,R_5
+7,1 13 10 30 27 21 25
+couch_desk_sibling_general,R_6
+6,3 26 29 24 2 7
+couch_display_sibling_general,R_7
+6,29 11 8 28 18 6
+couch_dog_sibling_general,R_8
+6,28 29 7 11 18 6
+couch_donut_proximity_general,R_9
+7,4 22 17 19 25 12 16
+couch_floorlamp_proximity_general,R_10
+7,1 5 13 27 21 30 25
+couch_floorlamp_sibling_general,R_11
+6,7 29 8 28 18 26
+couch_hat_proximity_general,R_12
+7,19 22 17 9 4 25 16
+couch_lamp_proximity_general,R_13
+7,27 21 5 1 30 10 25
+couch_lamp_sibling_general,R_14
+6,31 29 28 8 7 26
+couch_laptop_parentchild_general,R_15
+1,20
+couch_laptop_proximity_general,R_16
+7,23 12 25 19 22 17 9
+couch_magazine_proximity_general,R_17
+7,22 4 9 19 25 12 16
+couch_mediastorage_sibling_general,R_18
+6,7 29 8 28 6 11
+couch_mug_proximity_general,R_19
+7,9 22 17 4 12 25 16
+couch_pillow_parentchild_general,R_20
+1,15
+couch_pillow_proximity_general,R_21
+7,27 13 30 5 1 10 25
+couch_plate_proximity_general,R_22
+7,17 9 4 19 25 12 16
+couch_pottedplant_proximity_general,R_23
+7,16 12 25 19 22 17 9
+couch_pottedplant_sibling_general,R_24
+6,2 3 26 6 29 7
+couch_remote control_proximity_general,R_25
+7,9 22 17 4 19 12 16
+couch_table_sibling_general,R_26
+6,3 24 2 6 29 7
+couch_tissuebox_proximity_general,R_27
+7,21 13 30 5 1 10 25
+couch_trashbin_sibling_general,R_28
+6,8 29 7 11 26 18
+couch_tvstand_sibling_general,R_29
+6,28 7 8 6 11 26
+couch_wallart_proximity_general,R_30
+7,13 27 21 5 1 10 25
+couch_wallart_sibling_general,R_31
+6,14 28 29 8 11 7
+organized_counter
+counter_bottle_parentchild_general,R_0
+3,4 1 12
+counter_bunsen burner_parentchild_general,R_1
+3,0 4 12
+counter_counter_proximity_general,R_2
+2,7 13
+counter_counter_sibling_general,R_3
+0,-1
+counter_erlenmeyer flask_parentchild_general,R_4
+3,0 1 12
+counter_microwave_proximity_general,R_5
+2,13 9
+counter_mug_parentchild_general,R_6
+3,8 11 10
+counter_oven_proximity_general,R_7
+2,2 13
+counter_pan_parentchild_general,R_8
+3,6 11 10
+counter_pan_proximity_general,R_9
+2,5 13
+counter_paperbox_parentchild_general,R_10
+3,11 6 8
+counter_pot_parentchild_general,R_11
+3,6 10 8
+counter_sink_parentchild_general,R_12
+3,10 11 6
+counter_toaster_proximity_general,R_13
+2,5 9
+counter_trashbin_sibling_general,R_14
+0,-1
+organized_credenza
+credenza_bottle_parentchild_general,R_0
+0,-1
+credenza_cabinet_sibling_general,R_1
+1,2
+credenza_chair_sibling_general,R_2
+1,1
+credenza_table_sibling_general,R_3
+1,1
+organized_desk
+desk_1shelves_proximity_general,R_0
+7,47 63 70 40 9 30 5
+desk_apple_parentchild_general,R_1
+20,53 69 35 29 18 82 15 36 75 38 59 84 65 66 50 52 54 7 3 72
+desk_backpack_sibling_general,R_2
+8,48 34 25 20 16 76 68 61
+desk_binder_parentchild_general,R_3
+20,7 54 72 64 52 74 38 24 50 15 66 45 73 65 82 18 35 12 69 29
+desk_binder_proximity_general,R_4
+7,8 28 22 55 56 33 0
+desk_board_proximity_general,R_5
+7,9 30 0 70 63 40 47
+desk_board_sibling_general,R_6
+8,80 71 81 32 26 31 76 61
+desk_book_parentchild_general,R_7
+20,3 54 50 64 45 52 72 38 15 74 24 12 35 82 66 18 21 39 65 73
+desk_book_proximity_general,R_8
+7,4 28 22 55 56 33 0
+desk_bookcase_proximity_general,R_9
+7,30 70 5 0 63 47 40
+desk_bookcase_sibling_general,R_10
+8,23 32 26 71 6 31 16 76
+desk_bookend_parentchild_general,R_11
+20,78 17 60 59 84 58 57 37 51 36 49 75 66 29 69 53 18 72 65 74
+desk_books_parentchild_general,R_12
+20,39 21 7 42 50 45 3 74 62 72 64 24 54 73 52 35 66 38 65 67
+desk_bottle_parentchild_general,R_13
+20,46 79 14 77 39 21 42 12 83 50 73 45 7 64 52 54 3 43 62 24
+desk_cabling_parentchild_general,R_14
+20,77 79 13 46 39 42 21 12 83 50 45 7 73 52 54 64 3 82 74 65
+desk_cellphone_parentchild_general,R_15
+20,38 82 18 54 64 52 45 50 35 7 3 69 29 72 66 24 74 65 75 36
+desk_chair_sibling_general,R_16
+8,76 26 31 68 20 32 61 71
+desk_clock_parentchild_general,R_17
+20,60 78 11 59 84 51 37 49 58 57 75 36 66 29 69 67 72 53 74 18
+desk_compact disk_parentchild_general,R_18
+20,35 15 38 82 69 29 75 36 66 65 7 72 3 64 54 74 50 45 53 24
+desk_computer_parentchild_general,R_19
+20,43 67 62 37 27 42 49 51 73 74 65 72 12 41 60 17 75 66 3 24
+desk_computer_sibling_general,R_20
+8,34 48 25 2 16 76 68 31
+desk_computermouse_parentchild_general,R_21
+20,39 12 50 45 7 42 64 54 52 83 3 73 77 24 15 74 38 72 82 14
+desk_computermouse_proximity_general,R_22
+7,28 4 8 55 56 33 0
+desk_couch_sibling_general,R_23
+8,10 71 26 31 32 76 6 16
+desk_cup_parentchild_general,R_24
+20,66 72 74 64 3 7 73 54 38 65 75 45 15 18 50 62 12 52 36 82
+desk_cupboard_sibling_general,R_25
+8,2 48 34 20 16 76 68 61
+desk_desk_sibling_general,R_26
+8,31 16 32 76 68 61 71 20
+desk_desklamp_parentchild_general,R_27
+20,49 51 37 60 19 41 17 43 78 62 67 11 84 59 75 74 66 72 65 36
+desk_disccase_proximity_general,R_28
+7,22 4 8 55 56 33 0
+desk_dispenser_parentchild_general,R_29
+20,69 53 18 35 75 36 66 38 72 15 82 3 74 59 7 1 84 65 54 52
+desk_filecabinet_proximity_general,R_30
+7,9 70 5 0 63 47 40
+desk_filecabinet_sibling_general,R_31
+8,68 26 76 16 61 32 71 20
+desk_floorlamp_sibling_general,R_32
+8,26 31 16 76 68 71 61 6
+desk_globe_proximity_general,R_33
+7,8 56 4 22 28 55 44
+desk_guitarstand_sibling_general,R_34
+8,48 2 25 20 16 76 68 61
+desk_headphones_parentchild_general,R_35
+20,18 69 15 82 29 38 50 7 45 75 53 36 3 66 54 72 65 52 64 1
+desk_heart_parentchild_general,R_36
+20,75 59 66 18 29 69 35 38 72 11 24 15 74 65 53 84 78 82 60 3
+desk_holder_parentchild_general,R_37
+20,51 49 60 17 78 84 11 75 59 67 66 74 72 65 62 36 29 27 69 24
+desk_key_parentchild_general,R_38
+20,15 54 18 64 7 52 45 82 3 50 35 69 66 29 72 24 74 36 75 65
+desk_keyboard_parentchild_general,R_39
+20,21 12 50 45 7 42 64 54 52 77 3 83 73 24 38 15 14 74 72 35
+desk_keyboard_proximity_general,R_40
+7,63 47 0 70 5 9 30
+desk_lamp_parentchild_general,R_41
+20,27 19 43 49 51 37 62 67 60 17 42 78 74 84 11 72 73 65 12 66
+desk_laptop_parentchild_general,R_42
+20,12 39 21 62 73 43 77 7 74 14 67 50 3 72 83 45 64 24 65 54
+desk_monitor_parentchild_general,R_43
+20,67 62 19 42 12 49 37 73 74 72 51 27 39 65 24 21 66 7 3 75
+desk_monitor_proximity_general,R_44
+7,33 4 8 22 28 55 56
+desk_mousepad_parentchild_general,R_45
+20,50 7 64 54 38 15 52 3 39 21 82 35 12 18 24 72 74 66 69 65
+desk_mug_parentchild_general,R_46
+20,13 79 14 77 39 21 42 12 83 50 73 45 7 64 52 54 3 43 62 24
+desk_mug_proximity_general,R_47
+7,63 0 40 70 9 30 5
+desk_nightstand_sibling_general,R_48
+8,34 2 25 20 16 76 68 61
+desk_noname_parentchild_general,R_49
+20,37 17 51 78 60 67 11 59 75 66 84 62 27 74 72 36 65 24 43 29
+desk_notepad_parentchild_general,R_50
+20,45 7 54 64 52 15 38 3 39 21 82 35 12 18 72 24 74 66 65 69
+desk_organ_parentchild_general,R_51
+20,37 60 84 17 78 49 11 59 75 66 36 74 29 72 27 69 62 65 67 58
+desk_paper_parentchild_general,R_52
+20,54 64 3 7 50 15 38 45 82 72 18 35 74 21 24 83 69 39 29 66
+desk_paperclip_parentchild_general,R_53
+20,69 29 1 35 18 36 15 38 84 82 75 59 66 72 3 7 54 52 50 74
+desk_pen_parentchild_general,R_54
+20,52 64 3 7 38 15 50 45 82 72 24 74 18 35 66 21 73 69 65 12
+desk_pen_proximity_general,R_55
+7,22 28 8 4 56 33 0
+desk_pencil_proximity_general,R_56
+7,8 55 28 22 4 33 0
+desk_picture frame_parentchild_general,R_57
+20,58 11 59 78 17 60 84 36 75 51 53 29 69 1 37 66 49 18 35 65
+desk_picture_parentchild_general,R_58
+20,57 11 78 17 60 59 84 36 51 75 37 53 29 49 69 1 66 18 35 65
+desk_pictureframe_parentchild_general,R_59
+20,11 36 78 60 17 75 84 57 58 29 66 51 69 37 18 53 49 35 72 65
+desk_pottedplant_parentchild_general,R_60
+20,17 78 11 51 59 84 37 58 49 57 75 36 66 29 69 72 27 53 74 67
+desk_powersocket_sibling_general,R_61
+8,68 76 31 16 26 71 80 32
+desk_printer_parentchild_general,R_62
+20,67 74 73 12 72 24 43 42 66 7 3 65 37 49 75 64 51 39 21 50
+desk_printer_proximity_general,R_63
+7,47 0 40 70 9 5 30
+desk_punch_parentchild_general,R_64
+20,54 7 3 52 38 45 50 15 24 82 72 74 73 18 66 21 65 35 12 39
+desk_router_parentchild_general,R_65
+20,74 72 75 73 66 18 3 82 24 7 64 35 15 29 54 69 38 36 50 52
+desk_sodacan_parentchild_general,R_66
+20,72 75 74 24 36 18 65 3 29 69 38 7 35 64 15 54 59 73 82 50
+desk_speaker_parentchild_general,R_67
+20,62 49 43 37 74 72 66 24 12 73 65 75 42 7 3 51 19 36 11 78
+desk_speaker_sibling_general,R_68
+8,61 31 76 16 26 71 32 20
+desk_stapler_parentchild_general,R_69
+20,29 53 35 18 38 36 75 66 15 72 82 3 1 7 74 54 59 65 52 84
+desk_stool_proximity_general,R_70
+7,9 30 0 63 47 5 40
+desk_table_sibling_general,R_71
+8,31 76 26 68 6 32 61 16
+desk_tableclock_parentchild_general,R_72
+20,74 3 66 7 24 65 75 54 64 73 38 29 18 69 52 15 35 50 36 12
+desk_telecommunication_parentchild_general,R_73
+20,74 65 24 3 72 64 7 62 83 54 66 12 21 50 52 42 45 82 75 67
+desk_telephone_parentchild_general,R_74
+20,72 65 3 66 24 73 7 75 64 54 18 62 38 15 29 52 50 69 12 35
+desk_toyfigure_parentchild_general,R_75
+20,66 36 18 65 59 29 72 74 69 35 24 38 37 11 15 3 82 84 7 78
+desk_trashbin_sibling_general,R_76
+8,16 68 31 61 26 71 32 20
+desk_usbstick_parentchild_general,R_77
+20,14 39 21 42 79 13 46 12 50 83 45 7 52 54 64 73 3 82 35 74
+desk_vase_parentchild_general,R_78
+20,11 17 60 59 84 37 58 51 49 57 75 36 66 29 69 53 72 67 18 65
+desk_wallart_parentchild_general,R_79
+20,13 46 14 77 42 39 21 12 83 50 73 45 7 64 52 54 3 43 62 24
+desk_wallart_sibling_general,R_80
+8,81 6 61 31 76 68 26 71
+desk_wallclock_sibling_general,R_81
+8,80 6 71 61 31 76 26 68
+desk_wallet_parentchild_general,R_82
+20,15 18 38 35 54 64 52 50 7 45 3 65 69 29 74 72 75 66 1 24
+desk_xbox360_parentchild_general,R_83
+20,73 21 64 52 54 3 7 50 39 82 45 74 65 15 42 12 38 72 24 18
+desk_yttrium_parentchild_general,R_84
+20,51 11 60 59 78 17 37 29 75 69 36 53 57 58 66 49 72 18 35 74
+organized_display
+display_collection_parentchild_general,R_0
+1,2
+display_pottedplant_parentchild_general,R_1
+1,2
+display_toyfigure_parentchild_general,R_2
+1,0
+organized_dresser
+dresser_bed_sibling_general,R_0
+2,3 2
+dresser_clock_sibling_general,R_1
+2,4 2
+dresser_dartboard_sibling_general,R_2
+2,1 3
+dresser_head_sibling_general,R_3
+2,2 1
+dresser_post horse_sibling_general,R_4
+2,1 2
+organized_filecabinet
+filecabinet_desk_sibling_general,R_0
+0,-1
+filecabinet_notepad_parentchild_general,R_1
+0,-1
+filecabinet_water cooler_sibling_general,R_2
+0,-1
+organized_floorlamp
+floorlamp_couch_sibling_general,R_0
+0,-1
+floorlamp_ottoman_sibling_general,R_1
+0,-1
+organized_laptop
+laptop_chair_proximity_general,R_0
+0,-1
+laptop_computermouse_sibling_general,R_1
+0,-1
+laptop_desklamp_sibling_general,R_2
+0,-1
+organized_mediastorage
+mediastorage_case_parentchild_general,R_0
+4,1 10 9 11
+mediastorage_controller_parentchild_general,R_1
+4,0 10 11 9
+mediastorage_mediaplayer_parentchild_general,R_2
+4,6 8 9 4
+mediastorage_mediaplayer_proximity_general,R_3
+0,-1
+mediastorage_pottedplant_parentchild_general,R_4
+4,8 2 6 7
+mediastorage_speaker_sibling_general,R_5
+0,-1
+mediastorage_telephone_parentchild_general,R_6
+4,2 9 10 8
+mediastorage_tv_parentchild_general,R_7
+4,4 2 8 11
+mediastorage_vase_parentchild_general,R_8
+4,4 2 6 9
+mediastorage_videogameconsole_parentchild_general,R_9
+4,10 1 11 0
+mediastorage_videogamecontroller_parentchild_general,R_10
+4,1 0 9 11
+mediastorage_wheel_parentchild_general,R_11
+4,1 10 9 0
+organized_monitor
+monitor_book_sibling_general,R_0
+4,3 4 1 5
+monitor_computer_sibling_general,R_1
+4,0 3 4 5
+monitor_computermouse_proximity_general,R_2
+0,-1
+monitor_computermouse_sibling_general,R_3
+4,4 0 1 5
+monitor_eraser_sibling_general,R_4
+4,3 0 1 5
+monitor_keyboard_sibling_general,R_5
+4,6 1 0 3
+monitor_mousepad_sibling_general,R_6
+4,10 5 9 8
+monitor_mug_proximity_general,R_7
+0,-1
+monitor_speaker_sibling_general,R_8
+4,10 9 6 5
+monitor_telephone_sibling_general,R_9
+4,10 8 6 5
+monitor_webcam_sibling_general,R_10
+4,6 9 8 5
+organized_nightstand
+nightstand_book_parentchild_general,R_0
+1,3
+nightstand_bookcase_sibling_general,R_1
+0,-1
+nightstand_cup_parentchild_general,R_2
+1,3
+nightstand_tableclock_parentchild_general,R_3
+1,0
+organized_oven
+oven_counter_proximity_general,R_0
+0,-1
+oven_filecabinet_sibling_general,R_1
+0,-1
+oven_pan_parentchild_general,R_2
+0,-1
+oven_pot_parentchild_general,R_3
+0,-1
+organized_rack
+rack_shoes_proximity_general,R_0
+0,-1
+organized_shelf
+shelf_ball_parentchild_general,R_0
+0,-1
+shelf_toyfigure_parentchild_general,R_1
+0,-1
+organized_speaker
+speaker_couch_sibling_general,R_0
+2,4 3
+speaker_mediastorage_sibling_general,R_1
+2,2 3
+speaker_speaker_sibling_general,R_2
+2,3 4
+speaker_subwoofer_sibling_general,R_3
+2,2 0
+speaker_sword_sibling_general,R_4
+2,0 2
+speaker_wallart_sibling_general,R_5
+2,4 0
+organized_table
+table_blender_parentchild_general,R_0
+16,40 53 17 29 9 27 14 38 54 12 45 30 3 2 13 34
+table_book_parentchild_general,R_1
+16,39 23 50 57 4 8 16 28 49 19 13 3 46 30 36 45
+table_books_parentchild_general,R_2
+16,34 43 12 37 30 27 45 46 38 14 7 54 36 3 19 16
+table_bottle_parentchild_general,R_3
+16,30 28 13 39 49 19 1 16 46 36 45 4 12 38 14 54
+table_bowl_parentchild_general,R_4
+16,16 1 39 46 8 19 36 49 28 23 50 13 57 3 30 7
+table_breadslice_proximity_general,R_5
+6,47 25 21 32 20 22
+table_cabinet_sibling_general,R_6
+5,15 26 42 33 11
+table_candle_parentchild_general,R_7
+16,37 36 46 16 34 4 2 30 3 19 28 13 49 39 1 12
+table_cap_parentchild_general,R_8
+16,23 50 57 1 4 16 39 46 49 19 36 28 13 3 30 7
+table_chair_parentchild_general,R_9
+16,0 17 40 29 53 27 14 38 54 12 45 30 3 2 13 34
+table_chair_proximity_general,R_10
+6,51 35 32 21 25 31
+table_chair_sibling_general,R_11
+5,48 33 44 58 26
+table_chessboard_parentchild_general,R_12
+16,14 38 54 45 30 27 13 28 19 3 49 2 46 36 34 39
+table_coaster_parentchild_general,R_13
+16,28 49 30 19 39 3 1 45 46 36 38 54 14 12 4 16
+table_controller_parentchild_general,R_14
+16,38 54 12 45 30 27 13 28 19 3 49 2 46 36 39 17
+table_couch_sibling_general,R_15
+5,6 42 26 33 11
+table_cup_parentchild_general,R_16
+16,4 36 46 1 39 8 49 19 28 3 13 30 23 7 50 57
+table_espresso_parentchild_general,R_17
+16,29 40 53 0 9 27 14 54 38 12 45 30 3 2 13 28
+table_floorlamp_sibling_general,R_18
+5,42 26 33 55 11
+table_foodplate_parentchild_general,R_19
+16,28 13 39 49 30 1 4 3 16 46 36 45 38 12 54 14
+table_foodplate_proximity_general,R_20
+6,47 22 24 5 52 32
+table_fork_proximity_general,R_21
+6,25 32 5 47 31 24
+table_fruit_proximity_general,R_22
+6,24 20 47 31 5 52
+table_glasses_parentchild_general,R_23
+16,50 57 8 1 39 4 16 49 19 28 13 3 46 36 30 45
+table_hamburger_proximity_general,R_24
+6,31 32 22 21 20 25
+table_knife_proximity_general,R_25
+6,21 32 5 47 31 24
+table_lamp_sibling_general,R_26
+5,18 33 48 11 42
+table_laptop_parentchild_general,R_27
+16,12 14 38 54 45 9 17 29 0 40 53 30 2 3 34 13
+table_magazine_parentchild_general,R_28
+16,13 49 19 30 39 3 1 46 45 4 36 16 38 54 14 12
+table_microwave_parentchild_general,R_29
+16,17 40 53 0 9 27 14 54 38 12 45 30 3 2 13 28
+table_mug_parentchild_general,R_30
+16,3 28 13 19 49 45 12 38 14 54 39 46 36 16 1 4
+table_mug_proximity_general,R_31
+6,24 32 21 25 22 47
+table_notepad_proximity_general,R_32
+6,21 25 5 31 47 24
+table_ottoman_sibling_general,R_33
+5,42 11 48 26 55
+table_paperbox_parentchild_general,R_34
+16,2 43 37 7 12 46 30 27 36 45 14 38 16 54 3 4
+table_paperbox_proximity_general,R_35
+6,51 10 32 25 21 31
+table_pepper_parentchild_general,R_36
+16,46 16 49 4 13 28 30 39 7 19 1 3 37 45 8 12
+table_pictureframe_parentchild_general,R_37
+16,7 34 46 36 16 2 4 30 43 3 19 28 12 13 49 39
+table_pizza_parentchild_general,R_38
+16,14 54 12 45 30 27 13 28 19 3 49 2 46 36 39 17
+table_plate_parentchild_general,R_39
+16,1 28 49 13 19 4 16 50 23 57 3 30 8 46 36 45
+table_pot_parentchild_general,R_40
+16,53 29 17 0 9 27 14 54 38 12 45 30 3 2 13 28
+table_pottedplant_parentchild_general,R_41
+16,37 7 43 4 46 16 36 34 8 2 1 39 23 19 50 49
+table_pottedplant_sibling_general,R_42
+5,33 18 15 11 26
+table_purse_parentchild_general,R_43
+16,2 34 37 7 12 27 46 30 45 41 36 38 14 4 54 16
+table_refrigerator_sibling_general,R_44
+5,58 48 11 33 26
+table_remote control_parentchild_general,R_45
+16,14 38 54 12 30 13 28 27 49 19 3 46 36 2 39 34
+table_salad_parentchild_general,R_46
+16,36 16 4 49 13 28 39 30 19 1 7 3 37 45 8 12
+table_sandwich_proximity_general,R_47
+6,5 21 32 25 20 22
+table_table_sibling_general,R_48
+5,11 58 44 33 26
+table_tongs_parentchild_general,R_49
+16,13 28 39 19 1 30 46 36 3 16 4 45 38 14 54 12
+table_tray_parentchild_general,R_50
+16,57 23 8 1 39 4 16 49 19 28 13 3 46 36 30 45
+table_tv_proximity_general,R_51
+6,10 35 32 25 21 31
+table_unknown_proximity_general,R_52
+6,20 24 22 31 32 47
+table_vase_parentchild_general,R_53
+16,40 29 17 0 9 27 14 54 38 12 45 30 3 2 13 28
+table_videogamecontroller_parentchild_general,R_54
+16,38 14 12 45 30 27 13 28 19 3 49 2 39 46 36 29
+table_wallart_sibling_general,R_55
+5,56 33 42 18 11
+table_wallclock_sibling_general,R_56
+5,55 42 33 18 11
+table_wallet_parentchild_general,R_57
+16,50 23 8 1 39 4 16 49 19 28 13 3 46 36 30 45
+table_water cooler_sibling_general,R_58
+5,44 48 11 33 26
+organized_teacup
+teacup_chair_proximity_general,R_0
+0,-1
+teacup_desk_childparent_general,R_1
+0,-1
+teacup_notepad_sibling_general,R_2
+0,-1
+teacup_printer_sibling_general,R_3
+0,-1
+organized_tvstand
+tvstand_disccase_proximity_general,R_0
+0,-1
+tvstand_disk_parentchild_general,R_1
+2,4 7
+tvstand_network_parentchild_general,R_2
+2,7 1
+tvstand_network_sibling_general,R_3
+0,-1
+tvstand_telecommunication_parentchild_general,R_4
+2,1 6
+tvstand_tv_parentchild_general,R_5
+2,6 4
+tvstand_videogameconsole_parentchild_general,R_6
+2,4 1
+tvstand_videogamecontroller_parentchild_general,R_7
+2,2 1
+tvstand_videogamecontroller_proximity_general,R_8
+0,-1
+organized_wallart
+wallart_wallart_sibling_general,R_0
+0,-1
+wallart_wallclock_sibling_general,R_1
+0,-1
+organzed_4shelves
+4shelves_cup_parentchild_general,R_0
+2,2 1
+4shelves_desklamp_parentchild_general,R_1
+2,2 0
+4shelves_glass_parentchild_general,R_2
+2,0 1
+4shelves_ship_parentchild_general,R_3
+2,4 5
+4shelves_toyfigure_parentchild_general,R_4
+2,5 3
+4shelves_unknown_parentchild_general,R_5
+2,4 1
+organzied_computer
+computer_chair_sibling_general,R_0
+0,-1
+computer_desk_sibling_general,R_1
+0,-1
+computer_headphones_proximity_general,R_2
+0,-1
+computer_monitor_proximity_general,R_3
+0,-1
+organzied_desk
+desk_cellphone_proximity_general,R_0
+1,6
+desk_chair_sibling_general,R_1
+0,-1
+desk_computer_parentchild_general,R_2
+4,10 13 9 15
+desk_computer_proximity_general,R_3
+1,6
+desk_computermouse_parentchild_general,R_4
+4,15 12 7 8
+desk_computermouse_proximity_general,R_5
+1,6
+desk_glasses_proximity_general,R_6
+1,0
+desk_ipod_parentchild_general,R_7
+4,15 8 4 11
+desk_keyboard_parentchild_general,R_8
+4,15 11 7 4
+desk_laptop_parentchild_general,R_9
+4,2 10 13 4
+desk_monitor_parentchild_general,R_10
+4,2 13 9 8
+desk_mousepad_parentchild_general,R_11
+4,8 7 15 4
+desk_notepad_parentchild_general,R_12
+4,4 7 15 8
+desk_printer_parentchild_general,R_13
+4,15 8 2 4
+desk_trashbin_sibling_general,R_14
+0,-1
+desk_videogamecontroller_parentchild_general,R_15
+4,7 8 4 11
+organzied_nightstand
+nightstand_book_parentchild_general,R_0
+1,2
+nightstand_cup_parentchild_general,R_1
+1,2
+nightstand_tableclock_parentchild_general,R_2
+1,0
+organzied_tv
+tv_battery_sibling_general,R_0
+4,1 2 7 10
+tv_case_sibling_general,R_1
+4,0 2 7 10
+tv_controller_sibling_general,R_2
+4,1 0 10 7
+tv_mediaplayer_proximity_general,R_3
+0,-1
+tv_mediaplayer_sibling_general,R_4
+4,11 9 6 10
+tv_mediastorage_childparent_general,R_5
+0,-1
+tv_telephone_sibling_general,R_6
+4,9 10 7 4
+tv_unknown_sibling_general,R_7
+4,10 0 1 2
+tv_videodisk_sibling_general,R_8
+4,2 10 1 0
+tv_videogameconsole_sibling_general,R_9
+4,6 10 4 7
+tv_videogamecontroller_sibling_general,R_10
+4,7 2 1 0
+tv_wheel_sibling_general,R_11
+4,4 8 9 2
+pantry_bookcase
+bookcase_microwave_parentchild_general,R_0
+0,-1
+bookcase_refrigerator_sibling_general,R_1
+0,-1
+pantry_cabinet
+cabinet_microwave_parentchild_general,R_0
+0,-1
+pantry_couch
+couch_cabinet_sibling_general,R_0
+1,1
+couch_chair_sibling_general,R_1
+1,0
+couch_microwave_proximity_general,R_2
+0,-1
+couch_purse_parentchild_general,R_3
+0,-1
+couch_purse_proximity_general,R_4
+0,-1
+couch_refrigerator_sibling_general,R_5
+1,0
+couch_table_sibling_general,R_6
+1,1
+pantry_refrigerator
+refrigerator_chair_proximity_general,R_0
+1,1
+refrigerator_filecabinet_proximity_general,R_1
+1,0
+refrigerator_microwave_parentchild_general,R_2
+0,-1
+refrigerator_microwave_proximity_general,R_3
+1,4
+refrigerator_printer_proximity_general,R_4
+1,3
+refrigerator_trashbin_sibling_general,R_5
+0,-1
+relax_bed
+bed_backpack_parentchild_general,R_0
+0,-1
+bed_basket_sibling_general,R_1
+3,8 6 2
+bed_bench_sibling_general,R_2
+3,8 1 6
+bed_brake shoe_sibling_general,R_3
+3,5 4 2
+bed_chair_sibling_general,R_4
+3,5 3 2
+bed_desk_sibling_general,R_5
+3,4 3 2
+bed_dresser_sibling_general,R_6
+3,8 1 2
+bed_filecabinet_proximity_general,R_7
+0,-1
+bed_nightstand_sibling_general,R_8
+3,2 1 6
+bed_pillow_parentchild_general,R_9
+0,-1
+relax_couch
+couch_chair_sibling_general,R_0
+1,2
+couch_fan_sibling_general,R_1
+1,2
+couch_sword_sibling_general,R_2
+1,1
+couch_wallart_sibling_general,R_3
+1,2
+relax_filecabinet
+filecabinet_chair_proximity_general,R_0
+0,-1
+filecabinet_pillow_proximity_general,R_1
+0,-1
+filecabinet_towel_parentchild_general,R_2
+0,-1
+relax_laptop
+laptop_bowl_sibling_general,R_0
+2,2 1
+laptop_cup_sibling_general,R_1
+2,2 3
+laptop_diet_sibling_general,R_2
+2,0 1
+laptop_mug_sibling_general,R_3
+2,1 2
+laptop_toyfigure_sibling_general,R_4
+2,0 1
+relax_refrigerator
+refrigerator_chair_proximity_general,R_0
+1,1
+refrigerator_filecabinet_proximity_general,R_1
+1,0
+refrigerator_microwave_parentchild_general,R_2
+0,-1
+refrigerator_printer_proximity_general,R_3
+1,1
+refrigerator_trashbin_sibling_general,R_4
+0,-1
+relax_table
+table_bottle_parentchild_general,R_0
+4,8 6 9 5
+table_bowl_parentchild_general,R_1
+4,5 7 4 9
+table_chair_proximity_general,R_2
+0,-1
+table_chair_sibling_general,R_3
+0,-1
+table_cup_parentchild_general,R_4
+4,5 9 1 7
+table_diet_parentchild_general,R_5
+4,1 4 9 7
+table_espresso_parentchild_general,R_6
+4,8 0 9 5
+table_laptop_parentchild_general,R_7
+4,1 11 5 4
+table_microwave_parentchild_general,R_8
+4,6 0 9 5
+table_mug_parentchild_general,R_9
+4,4 5 1 7
+table_refrigerator_sibling_general,R_10
+0,-1
+table_toyfigure_parentchild_general,R_11
+4,7 1 4 5
+rest_couch
+couch_cabinet_sibling_general,R_0
+1,1
+couch_chair_sibling_general,R_1
+1,0
+couch_microwave_proximity_general,R_2
+1,3
+couch_pillow_proximity_general,R_3
+1,2
+couch_purse_parentchild_general,R_4
+0,-1
+couch_purse_proximity_general,R_5
+1,3
+couch_refrigerator_sibling_general,R_6
+1,0
+couch_table_sibling_general,R_7
+1,1
+scattered_bookcase
+bookcase_book_parentchild_general,R_0
+0,-1
+bookcase_paperbox_proximity_general,R_1
+0,-1
+bookcase_paperbox_sibling_general,R_2
+0,-1
+scattered_chair
+chair_backpack_proximity_general,R_0
+0,-1
+chair_paperbox_proximity_general,R_1
+0,-1
+chair_paperbox_sibling_general,R_2
+0,-1
+scattered_desk
+desk_backpack_sibling_general,R_0
+1,5
+desk_chair_sibling_general,R_1
+1,5
+desk_computer_parentchild_general,R_2
+2,8 12
+desk_computer_sibling_general,R_3
+1,0
+desk_computermouse_parentchild_general,R_4
+2,6 10
+desk_fan_sibling_general,R_5
+1,0
+desk_keyboard_parentchild_general,R_6
+2,4 10
+desk_keyboard_proximity_general,R_7
+1,13
+desk_monitor_parentchild_general,R_8
+2,12 10
+desk_monitor_proximity_general,R_9
+1,13
+desk_mug_parentchild_general,R_10
+2,4 12
+desk_paperbox_proximity_general,R_11
+1,9
+desk_speaker_parentchild_general,R_12
+2,10 8
+desk_speaker_proximity_general,R_13
+1,7
+scattered_table
+table_chair_sibling_general,R_0
+0,-1
+side_desk
+desk_cupboard_sibling_general,R_0
+0,-1
+desk_printer_proximity_general,R_1
+0,-1
+desk_trashbin_sibling_general,R_2
+0,-1
+sleep_bed
+bed_backpack_parentchild_general,R_0
+0,-1
+bed_basket_proximity_general,R_1
+2,12 11
+bed_basket_sibling_general,R_2
+2,5 3
+bed_bookcase_sibling_general,R_3
+2,5 2
+bed_brake shoe_sibling_general,R_4
+2,6 8
+bed_cabinet_sibling_general,R_5
+2,2 3
+bed_chair_sibling_general,R_6
+2,8 4
+bed_curtain_proximity_general,R_7
+2,11 1
+bed_desk_sibling_general,R_8
+2,6 4
+bed_filecabinet_proximity_general,R_9
+2,12 1
+bed_pillow_parentchild_general,R_10
+0,-1
+bed_pillow_proximity_general,R_11
+2,7 1
+bed_table_proximity_general,R_12
+2,9 1
+sleep_filecabinet
+filecabinet_chair_proximity_general,R_0
+0,-1
+filecabinet_pillow_proximity_general,R_1
+0,-1
+filecabinet_towel_parentchild_general,R_2
+0,-1
+spacious_table
+table_chair_sibling_general,R_0
+0,-1
+storage_1shelves
+1shelves_1shelves_sibling_general,R_0
+0,-1
+1shelves_book_parentchild_general,R_1
+0,-1
+1shelves_books_parentchild_general,R_2
+0,-1
+1shelves_desk_proximity_general,R_3
+0,-1
+storage_bookcase
+bookcase_book_parentchild_general,R_0
+1,3
+bookcase_books_parentchild_general,R_1
+1,2
+bookcase_bottle_parentchild_general,R_2
+1,3
+bookcase_paperbox_parentchild_general,R_3
+1,2
+bookcase_paperbox_sibling_general,R_4
+1,5
+bookcase_purse_sibling_general,R_5
+1,4
+bookcase_trashbin_sibling_general,R_6
+1,5
+storage_cabinet
+cabinet_wallart_sibling_general,R_0
+0,-1
+storage_filecabinet
+filecabinet_books_parentchild_general,R_0
+0,-1
+filecabinet_chair_sibling_general,R_1
+1,2
+filecabinet_filecabinet_sibling_general,R_2
+1,6
+filecabinet_paperbox_proximity_general,R_3
+0,-1
+filecabinet_paperbox_sibling_general,R_4
+1,6
+filecabinet_printer_parentchild_general,R_5
+0,-1
+filecabinet_trashbin_sibling_general,R_6
+1,4
+study_desk
+desk_1shelves_proximity_general,R_0
+4,19 27 20 9
+desk_1shelves_sibling_general,R_1
+4,17 12 35 7
+desk_backpack_sibling_general,R_2
+4,32 35 30 15
+desk_board_proximity_general,R_3
+4,14 6 9 19
+desk_book_parentchild_general,R_4
+7,18 33 16 23 34 26 8
+desk_book_proximity_general,R_5
+4,9 27 29 19
+desk_bookcase_proximity_general,R_6
+4,29 20 14 3
+desk_bookcase_sibling_general,R_7
+4,17 12 32 30
+desk_books_parentchild_general,R_8
+7,34 28 4 26 10 23 21
+desk_books_proximity_general,R_9
+4,27 5 19 14
+desk_bottle_parentchild_general,R_10
+7,26 28 21 23 33 4 34
+desk_brake shoe_sibling_general,R_11
+4,30 32 2 15
+desk_chair_sibling_general,R_12
+4,15 2 17 35
+desk_computer_parentchild_general,R_13
+7,22 31 24 33 25 4 8
+desk_computer_proximity_general,R_14
+4,19 29 27 3
+desk_computer_sibling_general,R_15
+4,2 32 30 11
+desk_computermouse_parentchild_general,R_16
+7,4 33 18 23 26 21 10
+desk_desk_sibling_general,R_17
+4,7 12 15 1
+desk_eraser_parentchild_general,R_18
+7,4 16 23 26 21 33 10
+desk_fan_proximity_general,R_19
+4,27 14 9 5
+desk_filecabinet_proximity_general,R_20
+4,6 29 14 3
+desk_headphones_parentchild_general,R_21
+7,24 26 23 10 28 16 4
+desk_helmet_parentchild_general,R_22
+7,13 31 24 25 33 18 8
+desk_keyboard_parentchild_general,R_23
+7,34 16 21 26 4 18 10
+desk_laptop_parentchild_general,R_24
+7,21 31 22 8 34 25 28
+desk_monitor_parentchild_general,R_25
+7,33 22 34 10 28 8 24
+desk_mug_parentchild_general,R_26
+7,10 21 28 23 16 4 34
+desk_mug_proximity_general,R_27
+4,19 9 5 14
+desk_paperbox_parentchild_general,R_28
+7,26 10 21 34 8 23 4
+desk_paperbox_proximity_general,R_29
+4,6 5 14 19
+desk_paperbox_sibling_general,R_30
+4,32 11 2 15
+desk_purse_parentchild_general,R_31
+7,34 24 22 13 8 25 28
+desk_purse_sibling_general,R_32
+4,30 11 2 15
+desk_speaker_parentchild_general,R_33
+7,4 16 10 26 18 28 34
+desk_telephone_parentchild_general,R_34
+7,31 23 8 4 28 10 26
+desk_trashbin_sibling_general,R_35
+4,2 32 30 15
+study_monitor
+monitor_book_sibling_general,R_0
+3,8 5 6
+monitor_books_proximity_general,R_1
+1,9
+monitor_books_sibling_general,R_2
+3,0 8 5
+monitor_computer_proximity_general,R_3
+1,7
+monitor_computer_sibling_general,R_4
+3,2 10 0
+monitor_computermouse_sibling_general,R_5
+3,6 8 0
+monitor_eraser_sibling_general,R_6
+3,5 8 0
+monitor_fan_proximity_general,R_7
+1,3
+monitor_keyboard_sibling_general,R_8
+3,5 6 0
+monitor_mug_proximity_general,R_9
+1,1
+monitor_speaker_sibling_general,R_10
+3,0 8 5
+study_table
+table_chair_sibling_general,R_0
+0,-1
+wide_bed
+bed_backpack_sibling_general,R_0
+3,5 1 2
+bed_bag_sibling_general,R_1
+3,0 5 6
+bed_basket_sibling_general,R_2
+3,5 6 0
+bed_chair_sibling_general,R_3
+3,4 0 1
+bed_floorlamp_sibling_general,R_4
+3,0 1 5
+bed_trashbin_sibling_general,R_5
+3,0 1 2
+bed_vase_sibling_general,R_6
+3,5 2 1
+wide_bookcase
+bookcase_mug_parentchild_general,R_0
+0,-1
+bookcase_paperbox_sibling_general,R_1
+1,3
+bookcase_shoes_parentchild_general,R_2
+0,-1
+bookcase_suitcase_sibling_general,R_3
+1,1
+bookcase_trashbin_sibling_general,R_4
+1,3
+wide_cabinet
+cabinet_chair_sibling_general,R_0
+1,1
+cabinet_couch_sibling_general,R_1
+1,0
+cabinet_table_sibling_general,R_2
+1,0
+cabinet_tv_parentchild_general,R_3
+0,-1
+cabinet_wallart_sibling_general,R_4
+1,0
+wide_chair
+chair_filecabinet_sibling_general,R_0
+0,-1
+chair_water cooler_sibling_general,R_1
+0,-1
+wide_couch
+couch_bookcase_proximity_general,R_0
+0,-1
+couch_display_sibling_general,R_1
+2,6 3
+couch_floorlamp_proximity_general,R_2
+0,-1
+couch_mediastorage_sibling_general,R_3
+2,1 6
+couch_pottedplant_sibling_general,R_4
+2,5 6
+couch_table_sibling_general,R_5
+2,6 1
+couch_tvstand_sibling_general,R_6
+2,5 1
+couch_wallart_sibling_general,R_7
+2,6 1
+wide_desk
+desk_backpack_sibling_general,R_0
+5,1 9 6 8 14
+desk_bag_sibling_general,R_1
+5,0 9 6 8 14
+desk_board_sibling_general,R_2
+5,16 14 10 17 8
+desk_book_parentchild_general,R_3
+2,15 13
+desk_bookcase_sibling_general,R_4
+5,10 7 8 14 2
+desk_bottle_parentchild_general,R_5
+2,13 11
+desk_chair_sibling_general,R_6
+5,8 14 9 1 0
+desk_couch_sibling_general,R_7
+5,4 8 14 6 2
+desk_desk_sibling_general,R_8
+5,6 14 2 10 7
+desk_filecabinet_sibling_general,R_9
+5,1 0 6 8 14
+desk_floorlamp_sibling_general,R_10
+5,2 4 14 8 16
+desk_hat_parentchild_general,R_11
+2,5 13
+desk_lamp_parentchild_general,R_12
+2,11 5
+desk_paperbox_parentchild_general,R_13
+2,5 11
+desk_table_sibling_general,R_14
+5,8 6 2 10 16
+desk_wallart_parentchild_general,R_15
+2,11 13
+desk_wallart_sibling_general,R_16
+5,17 2 14 8 10
+desk_wallclock_sibling_general,R_17
+5,16 2 14 8 6
+wide_dresser
+dresser_bed_sibling_general,R_0
+2,3 2
+dresser_clock_sibling_general,R_1
+2,4 2
+dresser_dartboard_sibling_general,R_2
+2,1 3
+dresser_head_sibling_general,R_3
+2,2 1
+dresser_post horse_sibling_general,R_4
+2,1 2
+wide_game
+game_dresser_sibling_general,R_0
+1,1
+game_ottoman_sibling_general,R_1
+1,2
+game_shackle_sibling_general,R_2
+1,1
+game_tape_sibling_general,R_3
+1,1
+wide_mirror
+mirror_pack_sibling_general,R_0
+0,-1
+mirror_pot_sibling_general,R_1
+0,-1
+wide_paperbox
+paperbox_backpack_sibling_general,R_0
+1,1
+paperbox_filecabinet_sibling_general,R_1
+1,0
+paperbox_paperbox_sibling_general,R_2
+1,0
+paperbox_printer_proximity_general,R_3
+0,-1
+paperbox_purse_proximity_general,R_4
+0,-1
+paperbox_vacuum_sibling_general,R_5
+1,1
+wide_pottedplant
+wide_refrigerator
+wide_speaker
+speaker_mediastorage_sibling_general,R_0
+1,1
+speaker_speaker_sibling_general,R_1
+1,2
+speaker_subwoofer_sibling_general,R_2
+1,1
+wide_table
+table_chair_sibling_general,R_0
+3,5 6 8
+table_coaster_parentchild_general,R_1
+0,-1
+table_couch_sibling_general,R_2
+3,6 5 3
+table_floorlamp_sibling_general,R_3
+3,6 5 8
+table_laptop_parentchild_general,R_4
+0,-1
+table_ottoman_sibling_general,R_5
+3,6 8 3
+table_pottedplant_sibling_general,R_6
+3,5 3 2
+table_tv_proximity_general,R_7
+0,-1
+table_wallart_sibling_general,R_8
+3,9 6 5
+table_wallclock_sibling_general,R_9
+3,8 6 5
+wide_trashbin
+trashbin_bookcase_sibling_general,R_0
+0,-1
+wide_wallart
+wallart_wallart_sibling_general,R_0
+0,-1
+wallart_wallclock_sibling_general,R_1
+0,-1
+work_1shelves
+1shelves_books_parentchild_general,R_0
+2,5 7
+1shelves_chair_proximity_general,R_1
+2,2 13
+1shelves_computer_proximity_general,R_2
+2,13 9
+1shelves_computermouse_parentchild_general,R_3
+2,7 5
+1shelves_filecabinet_childparent_general,R_4
+0,-1
+1shelves_keyboard_parentchild_general,R_5
+2,3 0
+1shelves_monitor_parentchild_general,R_6
+2,0 7
+1shelves_mug_parentchild_general,R_7
+2,3 5
+1shelves_paperbox_parentchild_general,R_8
+2,0 7
+1shelves_paperbox_proximity_general,R_9
+2,13 2
+1shelves_paperbox_sibling_general,R_10
+0,-1
+1shelves_purse_proximity_general,R_11
+2,2 9
+1shelves_purse_sibling_general,R_12
+0,-1
+1shelves_trashbin_proximity_general,R_13
+2,9 2
+work_bed
+bed_brake shoe_sibling_general,R_0
+1,1
+bed_chair_sibling_general,R_1
+1,2
+bed_desk_sibling_general,R_2
+1,1
+bed_filecabinet_proximity_general,R_3
+0,-1
+bed_pillow_parentchild_general,R_4
+0,-1
+work_book
+book_notepad_parentchild_general,R_0
+0,-1
+book_pencil_parentchild_general,R_1
+0,-1
+work_chair
+chair_chair_sibling_general,R_0
+1,2
+chair_computer_proximity_general,R_1
+0,-1
+chair_desk_sibling_general,R_2
+1,0
+chair_paperbox_sibling_general,R_3
+1,0
+work_couch
+work_counter
+counter_beaker_parentchild_general,R_0
+5,10 5 1 9 8
+counter_book_parentchild_general,R_1
+5,0 10 8 4 9
+counter_bottle_parentchild_general,R_2
+5,12 7 6 5 1
+counter_bunsen burner_parentchild_general,R_3
+5,12 2 7 6 5
+counter_calculator_parentchild_general,R_4
+5,8 9 10 1 0
+counter_erlenmeyer flask_parentchild_general,R_5
+5,0 10 6 1 2
+counter_holder_parentchild_general,R_6
+5,2 12 5 7 0
+counter_laptop_parentchild_general,R_7
+5,2 6 12 1 5
+counter_notepad_parentchild_general,R_8
+5,9 4 10 0 1
+counter_pen_parentchild_general,R_9
+5,8 4 10 0 1
+counter_pillbottle_parentchild_general,R_10
+5,0 5 9 8 4
+counter_stool_sibling_general,R_11
+0,-1
+counter_tissuebox_parentchild_general,R_12
+5,2 6 7 3 5
+work_desk
+desk_1shelves_proximity_general,R_0
+13,39 83 53 74 27 63 11 56 49 41 8 24 5
+desk_1shelves_sibling_general,R_1
+8,2 15 77 64 14 32 33 40
+desk_backpack_sibling_general,R_2
+8,77 64 15 14 40 32 33 9
+desk_binder_parentchild_general,R_3
+20,65 67 75 36 69 85 79 13 21 81 22 86 31 60 80 58 47 78 51 54
+desk_binder_proximity_general,R_4
+13,92 7 35 30 68 20 38 70 61 50 66 90 94
+desk_board_proximity_general,R_5
+13,24 8 41 53 27 39 0 74 83 63 11 56 49
+desk_book_parentchild_general,R_6
+20,45 82 87 29 85 12 37 73 54 51 89 48 67 19 75 58 69 3 10 65
+desk_book_proximity_general,R_7
+13,30 92 35 5 24 8 41 68 53 0 39 27 70
+desk_bookcase_proximity_general,R_8
+13,24 41 5 53 27 39 0 74 83 63 56 11 49
+desk_bookcase_sibling_general,R_9
+8,40 33 32 15 2 77 64 14
+desk_books_parentchild_general,R_10
+20,48 26 37 29 46 76 55 23 62 12 87 52 73 16 89 45 6 82 19 54
+desk_books_proximity_general,R_11
+13,56 49 83 63 74 0 39 27 53 41 8 24 5
+desk_bottle_parentchild_general,R_12
+20,29 87 37 48 10 73 82 52 6 45 26 46 76 23 55 62 89 16 51 19
+desk_bowl_parentchild_general,R_13
+20,79 75 81 67 65 22 31 3 69 36 60 80 85 86 58 21 78 54 47 6
+desk_brake shoe_sibling_general,R_14
+8,64 77 2 15 40 32 33 1
+desk_cabinet_sibling_general,R_15
+8,32 33 2 40 77 64 14 9
+desk_cabling_parentchild_general,R_16
+20,89 87 48 37 10 29 45 12 6 26 19 52 82 23 76 46 55 62 54 73
+desk_camera tripod_sibling_general,R_17
+8,84 43 28 42 93 25 88 9
+desk_camera_parentchild_general,R_18
+20,71 44 78 86 36 91 57 59 21 72 31 47 22 81 80 79 65 3 58 13
+desk_cellphone_parentchild_general,R_19
+20,45 54 89 6 58 82 85 16 87 29 12 48 37 73 51 69 75 67 65 60
+desk_cellphone_proximity_general,R_20
+13,68 38 70 35 50 90 66 92 61 30 7 4 94
+desk_cellulose tape_parentchild_general,R_21
+20,86 36 3 31 47 22 65 81 85 79 67 75 13 78 59 69 60 51 80 58
+desk_cerealbox_parentchild_general,R_22
+20,31 81 79 13 36 86 3 21 65 75 67 85 69 47 60 78 80 58 59 51
+desk_chair_parentchild_general,R_23
+20,46 76 62 55 26 10 48 37 29 87 12 52 16 89 73 82 45 6 19 95
+desk_chair_proximity_general,R_24
+13,8 41 5 53 27 39 0 74 83 63 56 11 49
+desk_chair_sibling_general,R_25
+8,88 9 40 2 77 64 14 33
+desk_computer_parentchild_general,R_26
+20,23 46 76 62 55 10 48 37 29 12 87 52 16 73 89 82 45 6 19 51
+desk_computer_proximity_general,R_27
+13,53 39 0 74 83 63 56 11 41 49 8 24 5
+desk_computer_sibling_general,R_28
+8,42 88 25 9 40 2 33 77
+desk_computermouse_parentchild_general,R_29
+20,37 87 12 48 10 6 26 45 73 82 52 46 76 55 62 23 89 16 19 54
+desk_computermouse_proximity_general,R_30
+13,35 68 92 38 70 20 66 90 50 61 7 94 4
+desk_cup_parentchild_general,R_31
+20,22 81 79 36 13 86 21 3 65 75 67 47 85 69 78 60 80 58 59 44
+desk_cupboard_sibling_general,R_32
+8,33 15 40 2 77 64 9 14
+desk_desk_sibling_general,R_33
+8,32 15 40 2 9 77 64 14
+desk_desklamp_parentchild_general,R_34
+20,72 59 57 91 47 18 86 71 51 44 78 21 31 22 36 81 3 79 13 65
+desk_disccase_proximity_general,R_35
+13,68 20 38 70 50 90 66 92 61 30 7 4 94
+desk_dispenser_parentchild_general,R_36
+20,86 81 21 65 22 31 3 79 13 75 67 80 60 69 85 58 78 47 44 59
+desk_eraser_parentchild_general,R_37
+20,29 87 48 12 10 6 26 45 73 46 76 55 62 23 82 52 89 16 19 54
+desk_eraser_proximity_general,R_38
+13,70 68 20 90 66 50 35 92 61 30 7 4 94
+desk_fan_proximity_general,R_39
+13,0 27 53 83 74 63 11 56 49 41 8 24 5
+desk_fan_sibling_general,R_40
+8,9 33 15 32 2 77 64 14
+desk_filecabinet_proximity_general,R_41
+13,8 24 5 53 27 39 0 74 83 63 56 11 49
+desk_filecabinet_sibling_general,R_42
+8,28 25 88 9 40 77 14 2
+desk_floorlamp_sibling_general,R_43
+8,17 84 42 28 25 88 9 40
+desk_frame_parentchild_general,R_44
+20,71 18 78 86 36 21 91 57 80 31 22 81 59 47 79 65 72 58 3 13
+desk_headphones_parentchild_general,R_45
+20,6 82 19 54 12 73 89 87 29 37 85 51 48 52 10 16 58 67 3 75
+desk_helmet_parentchild_general,R_46
+20,76 62 55 23 26 10 48 37 29 87 12 52 16 89 73 45 82 6 19 95
+desk_holder_parentchild_general,R_47
+20,59 21 86 31 22 36 81 3 78 51 79 65 85 67 13 75 18 71 44 69
+desk_keyboard_parentchild_general,R_48
+20,10 37 29 87 12 26 76 46 55 62 23 52 89 45 16 6 73 82 19 54
+desk_keyboard_proximity_general,R_49
+13,56 11 63 83 74 0 39 27 53 41 8 24 5
+desk_knife_proximity_general,R_50
+13,90 66 70 38 20 68 35 61 92 30 7 4 94
+desk_laptop_parentchild_general,R_51
+20,82 73 85 6 21 47 45 3 86 59 22 31 36 67 65 78 81 54 75 58
+desk_monitor_parentchild_general,R_52
+20,12 73 10 82 48 26 87 29 37 45 23 46 76 55 62 6 89 16 51 19
+desk_monitor_proximity_general,R_53
+13,27 39 0 74 83 63 11 56 41 49 8 24 5
+desk_mousepad_parentchild_general,R_54
+20,58 19 45 85 6 69 60 75 65 67 13 3 89 79 80 36 81 82 22 51
+desk_mug_parentchild_general,R_55
+20,62 76 46 23 26 10 48 37 29 87 12 52 16 89 73 45 6 82 19 95
+desk_mug_proximity_general,R_56
+13,11 49 83 63 74 0 39 27 53 41 8 24 5
+desk_noname_parentchild_general,R_57
+20,91 72 18 71 59 44 47 86 31 22 78 36 81 21 79 13 3 80 65 75
+desk_notepad_parentchild_general,R_58
+20,54 60 85 80 65 69 75 13 67 36 3 79 81 22 86 31 21 6 78 19
+desk_organ_parentchild_general,R_59
+20,47 86 21 31 36 22 78 81 51 3 18 57 71 79 44 65 13 85 67 75
+desk_paper_parentchild_general,R_60
+20,69 80 65 75 67 13 3 58 79 36 85 81 22 86 31 21 54 78 95 6
+desk_paper_proximity_general,R_61
+13,50 70 38 90 66 20 68 35 92 30 7 4 94
+desk_paperbox_parentchild_general,R_62
+20,55 76 46 23 26 10 48 37 29 87 12 52 16 89 73 45 6 82 19 95
+desk_paperbox_proximity_general,R_63
+13,74 83 56 11 49 0 39 27 53 41 8 24 5
+desk_paperbox_sibling_general,R_64
+8,77 14 2 15 40 32 33 1
+desk_paperclip_parentchild_general,R_65
+20,3 67 75 69 60 13 79 36 85 81 22 80 21 86 31 58 78 54 47 6
+desk_pen_proximity_general,R_66
+13,90 50 70 38 68 20 35 61 92 30 7 4 94
+desk_pencil sharpener_parentchild_general,R_67
+20,75 69 65 3 13 79 85 60 81 22 36 31 21 80 86 58 54 6 78 47
+desk_pencil sharpener_proximity_general,R_68
+13,38 20 70 35 90 66 50 92 61 30 7 4 94
+desk_pencil_parentchild_general,R_69
+20,67 75 60 65 3 13 85 79 80 36 58 81 22 31 21 86 54 6 95 78
+desk_pencil_proximity_general,R_70
+13,38 68 20 66 90 50 35 92 61 30 7 4 94
+desk_pictureframe_parentchild_general,R_71
+20,44 18 78 86 36 91 21 57 31 22 80 59 81 47 72 79 65 58 3 13
+desk_pottedplant_parentchild_general,R_72
+20,91 57 18 71 44 59 47 86 78 36 21 31 22 81 34 79 80 13 3 65
+desk_printer_parentchild_general,R_73
+20,82 12 52 6 51 45 87 29 37 48 10 85 89 26 54 19 16 3 67 23
+desk_printer_proximity_general,R_74
+13,83 63 0 56 11 39 49 27 53 41 8 24 5
+desk_punch_parentchild_general,R_75
+20,67 65 69 13 3 79 60 85 81 22 31 36 80 21 58 86 54 78 6 47
+desk_purse_parentchild_general,R_76
+20,46 62 55 23 26 10 48 37 29 87 12 52 16 89 73 45 6 82 19 95
+desk_purse_sibling_general,R_77
+8,64 14 2 15 40 32 33 1
+desk_router_parentchild_general,R_78
+20,86 21 36 31 22 44 81 71 18 47 3 65 79 59 13 75 58 67 85 60
+desk_rubikscube_parentchild_general,R_79
+20,13 81 22 75 31 67 65 3 36 69 60 86 85 80 21 58 78 47 54 59
+desk_scissors_parentchild_general,R_80
+20,60 65 69 36 13 58 79 75 3 67 81 86 22 85 31 21 54 44 78 71
+desk_sodacan_parentchild_general,R_81
+20,22 31 79 13 36 3 75 65 67 86 21 69 85 60 80 47 58 78 59 54
+desk_speaker_parentchild_general,R_82
+20,73 45 12 6 51 52 87 29 37 85 48 89 10 54 19 16 3 21 67 47
+desk_speaker_proximity_general,R_83
+13,74 63 11 56 0 39 49 27 53 41 8 24 5
+desk_speaker_sibling_general,R_84
+8,28 42 25 17 88 9 40 33
+desk_stapler_parentchild_general,R_85
+20,67 3 65 75 69 58 60 13 79 21 36 81 6 22 54 31 86 80 51 45
+desk_tableclock_parentchild_general,R_86
+20,21 36 31 22 3 81 65 47 79 13 78 59 75 67 85 60 80 69 58 44
+desk_telephone_parentchild_general,R_87
+20,37 29 12 48 10 6 45 73 26 89 82 16 52 46 76 55 62 23 54 19
+desk_trashbin_sibling_general,R_88
+8,25 9 14 77 64 40 2 1
+desk_usbstick_parentchild_general,R_89
+20,16 45 87 19 48 6 37 29 12 54 10 82 52 73 26 85 58 76 46 55
+desk_usbstick_proximity_general,R_90
+13,66 50 70 38 68 20 35 61 92 30 7 4 94
+desk_vase_parentchild_general,R_91
+20,72 57 18 71 44 59 47 86 78 36 31 21 22 81 80 79 13 3 65 58
+desk_videogamecontroller_proximity_general,R_92
+13,35 68 20 38 70 50 90 66 61 30 7 4 94
+desk_wallart_sibling_general,R_93
+8,17 28 42 84 88 25 1 9
+desk_webcam_proximity_general,R_94
+13,30 92 35 20 68 7 38 70 50 90 66 61 4
+desk_xbox360_parentchild_general,R_95
+20,69 75 85 67 6 3 65 60 87 58 13 79 78 21 54 51 16 89 37 81
+work_filecabinet
+filecabinet_desk_sibling_general,R_0
+0,-1
+filecabinet_notepad_parentchild_general,R_1
+0,-1
+work_keyboard
+keyboard_airplane_sibling_general,R_0
+10,3 17 9 19 6 10 2 20 4 21
+keyboard_book_sibling_general,R_1
+10,14 12 18 21 5 4 24 22 15 13
+keyboard_bottle_sibling_general,R_2
+10,10 6 19 20 17 0 3 9 13 22
+keyboard_bowl_sibling_general,R_3
+10,0 17 9 19 6 10 2 20 21 4
+keyboard_cellphone_sibling_general,R_4
+10,5 21 24 1 22 14 18 12 15 13
+keyboard_cellulose tape_sibling_general,R_5
+10,21 4 24 1 14 22 18 12 15 13
+keyboard_cerealbox_sibling_general,R_6
+10,10 19 17 0 3 2 9 20 22 24
+keyboard_compact disk_proximity_general,R_7
+1,8
+keyboard_computermouse_proximity_general,R_8
+1,23
+keyboard_computermouse_sibling_general,R_9
+10,3 0 17 19 6 10 2 14 18 1
+keyboard_cup_sibling_general,R_10
+10,6 19 17 0 2 3 9 20 22 24
+keyboard_monitor_sibling_general,R_11
+10,2 16 20 15 6 13 10 19 0 17
+keyboard_mousepad_sibling_general,R_12
+10,18 14 1 21 5 4 24 22 15 13
+keyboard_mug_sibling_general,R_13
+10,20 22 15 16 24 4 5 21 1 14
+keyboard_notepad_sibling_general,R_14
+10,18 12 1 21 5 4 24 22 15 13
+keyboard_printer_sibling_general,R_15
+10,16 13 22 24 4 5 20 21 1 14
+keyboard_router_sibling_general,R_16
+10,15 13 22 20 24 4 5 21 1 14
+keyboard_rubikscube_sibling_general,R_17
+10,0 3 19 9 6 10 2 20 4 5
+keyboard_scissors_sibling_general,R_18
+10,12 14 1 21 5 4 24 22 15 13
+keyboard_sodacan_sibling_general,R_19
+10,10 6 17 0 3 9 2 20 22 24
+keyboard_speaker_sibling_general,R_20
+10,13 22 15 16 24 2 10 4 6 5
+keyboard_stapler_sibling_general,R_21
+10,5 4 24 1 14 18 12 22 15 13
+keyboard_tableclock_sibling_general,R_22
+10,24 4 5 21 13 15 1 16 20 14
+keyboard_videogamecontroller_proximity_general,R_23
+1,8
+keyboard_webcam_sibling_general,R_24
+10,22 4 5 21 1 14 15 18 12 13
+work_laptop
+laptop_beaker_sibling_general,R_0
+12,8 7 24 18 25 23 1 20 19 9 5 21
+laptop_binder_sibling_general,R_1
+12,7 25 8 24 0 23 18 20 9 5 19 21
+laptop_book_sibling_general,R_2
+12,4 23 24 20 8 9 1 21 18 5 19 17
+laptop_bottle_sibling_general,R_3
+12,13 11 2 4 21 20 23 9 5 19 24 18
+laptop_cabling_sibling_general,R_4
+12,2 9 23 21 20 18 17 24 19 5 8 1
+laptop_calculator_sibling_general,R_5
+12,19 21 17 9 23 20 24 18 14 8 1 4
+laptop_camera_sibling_general,R_6
+12,22 10 25 7 12 0 1 14 8 15 26 18
+laptop_cellulose tape_sibling_general,R_7
+12,25 0 1 8 24 18 12 23 20 9 19 14
+laptop_dispenser_sibling_general,R_8
+12,24 0 18 23 20 7 1 19 9 21 5 17
+laptop_eraser_sibling_general,R_9
+12,17 23 19 21 20 5 18 24 14 8 4 0
+laptop_frame_sibling_general,R_10
+12,22 6 14 7 0 18 8 25 24 1 23 9
+laptop_headphones_sibling_general,R_11
+12,13 3 2 4 21 20 23 9 5 19 24 18
+laptop_holder_sibling_general,R_12
+12,25 15 26 7 1 0 6 8 22 24 10 18
+laptop_mug_sibling_general,R_13
+12,3 11 2 4 21 20 23 9 5 19 24 18
+laptop_notepad_sibling_general,R_14
+12,17 9 5 19 23 18 24 20 21 8 1 0
+laptop_organ_sibling_general,R_15
+12,26 12 25 7 1 6 0 8 24 22 18 10
+laptop_paper_proximity_general,R_16
+0,-1
+laptop_paper_sibling_general,R_17
+12,9 5 19 21 23 20 14 18 24 8 4 1
+laptop_paperclip_sibling_general,R_18
+12,24 23 20 9 8 19 21 17 5 0 14 1
+laptop_pen_sibling_general,R_19
+12,5 21 9 20 23 17 24 18 8 14 0 4
+laptop_pencil sharpener_sibling_general,R_20
+12,23 19 21 9 24 18 5 17 8 14 0 4
+laptop_pencil_sibling_general,R_21
+12,19 5 9 20 17 23 24 18 8 14 4 1
+laptop_pictureframe_sibling_general,R_22
+12,10 6 7 0 14 25 8 18 24 1 12 23
+laptop_punch_sibling_general,R_23
+12,20 9 24 19 18 21 5 17 8 14 0 1
+laptop_stapler_sibling_general,R_24
+12,18 23 8 20 9 19 21 5 0 17 1 14
+laptop_tableclock_sibling_general,R_25
+12,7 1 12 0 8 24 15 18 23 6 20 9
+laptop_tissuebox_sibling_general,R_26
+12,15 12 25 7 6 1 0 22 8 10 24 18
+work_monitor
+monitor_book_sibling_general,R_0
+7,14 17 2 9 6 8 11
+monitor_books_proximity_general,R_1
+2,13 10
+monitor_books_sibling_general,R_2
+7,17 14 0 9 6 8 11
+monitor_bowl_sibling_general,R_3
+7,19 15 12 16 4 18 11
+monitor_cerealbox_sibling_general,R_4
+7,3 19 16 15 18 12 11
+monitor_computer_proximity_general,R_5
+2,10 13
+monitor_computer_sibling_general,R_6
+7,2 17 14 0 9 8 11
+monitor_computermouse_proximity_general,R_7
+2,5 10
+monitor_computermouse_sibling_general,R_8
+7,11 6 0 17 14 2 9
+monitor_eraser_sibling_general,R_9
+7,0 14 17 2 6 8 11
+monitor_fan_proximity_general,R_10
+2,5 13
+monitor_keyboard_sibling_general,R_11
+7,18 8 16 6 17 0 14
+monitor_mousepad_sibling_general,R_12
+7,15 19 3 11 8 16 18
+monitor_mug_proximity_general,R_13
+2,1 10
+monitor_mug_sibling_general,R_14
+7,17 0 2 9 6 8 11
+monitor_rubikscube_sibling_general,R_15
+7,3 12 19 16 11 8 4
+monitor_speaker_sibling_general,R_16
+7,19 18 11 3 15 12 8
+monitor_stapler_sibling_general,R_17
+7,14 0 2 9 6 8 11
+monitor_telephone_sibling_general,R_18
+7,11 16 8 19 12 3 6
+monitor_webcam_sibling_general,R_19
+7,3 16 15 12 18 11 4
+work_table
+table_book_parentchild_general,R_0
+1,1
+table_books_parentchild_general,R_1
+1,4
+table_chair_sibling_general,R_2
+0,-1
+table_notepad_proximity_general,R_3
+0,-1
+table_purse_parentchild_general,R_4
+1,1

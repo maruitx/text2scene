@@ -167,7 +167,7 @@ void TSScene::loadSceneFile(const QString &filename)
 
 			if (currLine.contains("renderingMode "))
 			{
-				int renderMode = StringToIntegerList(currLine.toStdString(), "renderingMode ")[0];  // transformation vector in stanford scene file is column-wise
+				int renderMode = StringToIntegerList(currLine.toStdString(), "renderingMode ")[0];  //
 				m_metaScene.m_metaModellList[currModelID].isSelected = renderMode;
 			}
 		}
@@ -175,6 +175,7 @@ void TSScene::loadSceneFile(const QString &filename)
 
 	m_isLoadFromFile = true;
 	m_sceneLoadingDone = false;
+	m_floorHeight = 0;
 	cout << "done." << endl;
 }
 
@@ -211,12 +212,17 @@ void TSScene::render(const Transform &trans, bool applyShadow)
 	}
 
 	// compute layout if layout is not done
-	if (!m_isLoadFromFile && !m_sceneLayoutDone)
+	if (!m_isLoadFromFile && !m_sceneLayoutDone && m_sceneLoadingDone)
 	{
 		m_layoutPlanner->computeLayout(this);
 		m_sceneLayoutDone = isLayoutDone();
 
 		updateFloorHeight();
+
+		if (m_sceneLayoutDone)
+		{
+			computeSceneBB();
+		}
 	}
 
 	// render models
@@ -351,7 +357,7 @@ void TSScene::countLoadedModelNum()
 {
 	if (m_metaScene.m_metaModellList.size() == 0)
 	{
-		m_sceneLoadingDone = true;
+		m_sceneLoadingDone = false;
 		return;
 	}
 
@@ -481,6 +487,11 @@ void TSScene::updateFloorHeight()
 	}
 
 	m_floorHeight = minZ - 0.01;
+
+	if (m_floorHeight < 0)
+	{
+		m_floorHeight = 0;
+	}
 }
 
 void TSScene::updateRoomModel(MetaModel m)

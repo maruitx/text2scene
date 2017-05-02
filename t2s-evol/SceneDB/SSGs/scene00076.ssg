@@ -160,27 +160,27 @@ upDir 0 0 1
 suppPlane 150.332 184.68 74.7061 90.7091 192.529 74.7061 83.2282 135.706 74.7061 142.851 127.857 74.7061
 parentId 0
 parentPlaneUVH 0.481286 0.65923 -131.75
-nodeNum 46
+nodeNum 81
 0,object,room,21 38,
-1,object,desk,22 23 24 25 26 27 28 29 30 31 32 33 34 35 39 40 41 42 43,38 44 45
-2,object,monitor,,22
-3,object,pictureframe,,23
-4,object,cellphone,,24
-5,object,keyboard,,25
-6,object,speaker,,26
+1,object,desk,22 23 24 25 26 27 28 29 30 31 32 33 34 35 39 40 41 42 43 44 45 46 47 48 49,38 50 51
+2,object,monitor,54 56,22 52 53 55 57
+3,object,pictureframe,59,23 58 60
+4,object,cellphone,52 62,24 61
+5,object,keyboard,61 63 64 66 68 69,25 65 67 70
+6,object,speaker,72,26 42 71 73
 7,object,speaker,,27
-8,object,computer,,28
-9,object,toyfigure,,39
-10,object,cabling,,29
-11,object,sodacan,,30
-12,object,compact disk,,31
-13,object,glasses,,32
-14,object,key,,40
-15,object,mousepad,36 37,33
-16,object,computermouse,,34 36
-17,object,headphones,,37 41
-18,object,router,,35
-19,object,chair,20 44 45,21 42 43
+8,object,computer,,28 43
+9,object,toyfigure,58,39 44
+10,object,cabling,74,29
+11,object,sodacan,75,30 63
+12,object,compact disk,76,31 77
+13,object,glasses,53 71 78,32 45 79
+14,object,key,55,40 46 54
+15,object,mousepad,36 37 65,33 64
+16,object,computermouse,67 73,34 36 47 66 72 78
+17,object,headphones,79 80,37 41 68
+18,object,router,60 77,35 59 76
+19,object,chair,20 50 51 57 70,21 48 49 56 62 69 74 75 80
 20,attribute,office,,19
 21,pair_relation,vertsupport,19,0
 22,pair_relation,vertsupport,2,1
@@ -203,11 +203,46 @@ nodeNum 46
 39,pair_relation,vertsupport,9,1
 40,pair_relation,vertsupport,14,1
 41,pair_relation,vertsupport,17,1
-42,pair_relation,near,19,1
-43,pair_relation,front,19,1
-44,pair_relation,near,1,19
-45,pair_relation,front,1,19
-edgeNum 51
+42,pair_relation,onright,6,1
+43,pair_relation,onleft,8,1
+44,pair_relation,onright,9,1
+45,pair_relation,onright,13,1
+46,pair_relation,onleft,14,1
+47,pair_relation,under,16,1
+48,pair_relation,near,19,1
+49,pair_relation,front,19,1
+50,pair_relation,near,1,19
+51,pair_relation,front,1,19
+52,pair_relation,leftside,2,4
+53,pair_relation,rightside,2,13
+54,pair_relation,leftside,14,2
+55,pair_relation,leftside,2,14
+56,pair_relation,front,19,2
+57,pair_relation,front,2,19
+58,pair_relation,rightside,3,9
+59,pair_relation,rightside,18,3
+60,pair_relation,leftside,3,18
+61,pair_relation,rightside,4,5
+62,pair_relation,front,19,4
+63,pair_relation,rightside,11,5
+64,pair_relation,leftside,15,5
+65,pair_relation,rightside,5,15
+66,pair_relation,leftside,16,5
+67,pair_relation,leftside,5,16
+68,pair_relation,leftside,17,5
+69,pair_relation,front,19,5
+70,pair_relation,front,5,19
+71,pair_relation,leftside,6,13
+72,pair_relation,front,16,6
+73,pair_relation,front,6,16
+74,pair_relation,front,19,10
+75,pair_relation,back,19,11
+76,pair_relation,leftside,18,12
+77,pair_relation,rightside,12,18
+78,pair_relation,front,16,13
+79,pair_relation,rightside,13,17
+80,pair_relation,front,19,17
+edgeNum 121
 0,20,19
 1,19,21
 2,21,0
@@ -251,11 +286,81 @@ edgeNum 51
 40,40,1
 41,17,41
 42,41,1
-43,19,42
+43,6,42
 44,42,1
-45,19,43
+45,8,43
 46,43,1
-47,1,44
-48,44,19
-49,1,45
-50,45,19
+47,9,44
+48,44,1
+49,13,45
+50,45,1
+51,14,46
+52,46,1
+53,16,47
+54,47,1
+55,19,48
+56,48,1
+57,19,49
+58,49,1
+59,1,50
+60,50,19
+61,1,51
+62,51,19
+63,2,52
+64,52,4
+65,2,53
+66,53,13
+67,14,54
+68,54,2
+69,2,55
+70,55,14
+71,19,56
+72,56,2
+73,2,57
+74,57,19
+75,3,58
+76,58,9
+77,18,59
+78,59,3
+79,3,60
+80,60,18
+81,4,61
+82,61,5
+83,19,62
+84,62,4
+85,11,63
+86,63,5
+87,15,64
+88,64,5
+89,5,65
+90,65,15
+91,16,66
+92,66,5
+93,5,67
+94,67,16
+95,17,68
+96,68,5
+97,19,69
+98,69,5
+99,5,70
+100,70,19
+101,6,71
+102,71,13
+103,16,72
+104,72,6
+105,6,73
+106,73,16
+107,19,74
+108,74,10
+109,19,75
+110,75,11
+111,18,76
+112,76,12
+113,12,77
+114,77,18
+115,16,78
+116,78,13
+117,13,79
+118,79,17
+119,19,80
+120,80,17

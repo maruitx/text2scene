@@ -208,33 +208,33 @@ upDir 0 0 1
 suppPlane 33.0372 199.57 24.995 55.9496 199.57 24.995 55.9496 222.482 24.995 33.0372 222.482 24.995
 parentId 0
 parentPlaneUVH 0.190832 0.86842 -131.75
-nodeNum 73
+nodeNum 143
 0,object,room,27 28 29 30 31,
-1,object,desk,32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 52 53 55 56 58 59 64 65 66 67 68 69 70 71 72,27 54 57 60 61
-2,object,scissors,,32 66 67
-3,object,notepad,47 48 49,33
-4,object,pencil,,47
-5,object,pencil,,48
-6,object,eraser,,49
-7,object,dispenser,,34 66 67 70 71
-8,object,book,50,35 64 65 66 67 70 71
-9,object,book,,50 64 65 66 67 70 71
-10,object,paperclip,,36 66 67
-11,object,yttrium,,37
-12,object,book,,38 66 67
-13,object,stapler,,39 64 65 66 67
-14,object,book,,40 64 65 66 67 70 71
-15,object,holder,,41
-16,object,laptop,,42 66 67
-17,object,paper,51,43
-18,object,paper,,51 66 67
-19,object,organ,,44 70 71
-20,object,tableclock,,45 64 65 66 67 70 71
-21,object,pen,,46
-22,object,chair,26 54 62,28 52 53 68 69
-23,object,wallart,,29 72
-24,object,floorlamp,57,30 55 56 63 68 69
-25,object,trashbin,60 61 63,31 58 59 62 68 69
+1,object,desk,32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 52 54 55 57 59 60 61 62 64 65 67 68 134 135 136 137 138 139 140 141 142,27 53 56 58 63 66 69 70
+2,object,scissors,71 73 75 76,32 52 72 74 77 136 137
+3,object,notepad,47 48 49 78 80 82,33 79 81 83
+4,object,pencil,53 72 86 87,47 71 84 85 88
+5,object,pencil,89 91,48 90 92
+6,object,eraser,94 96,49 73 93 95 97
+7,object,dispenser,98,34 99 136 137 140 141
+8,object,book,50 101,35 54 100 102 134 135 136 137 140 141
+9,object,book,56 103 105 106,50 55 104 107 108 134 135 136 137 140 141
+10,object,paperclip,110 112 113,36 109 111 136 137
+11,object,yttrium,109,37 57
+12,object,book,100 104 114,38 103 115 136 137
+13,object,stapler,79 84 93 116 117,39 78 134 135 136 137
+14,object,book,74 81 85 90 95 119,40 80 89 94 105 114 116 118 134 135 136 137 140 141
+15,object,holder,121 123 124 126,41 110 120 122 125 127
+16,object,laptop,111 120 128,42 82 96 117 136 137
+17,object,paper,51 122 129 130,43 75 121
+18,object,paper,58 77 118,51 76 91 112 123 129 131 136 137
+19,object,organ,99 107,44 59 98 101 106 132 140 141
+20,object,tableclock,132,45 134 135 136 137 140 141
+21,object,pen,102 108 115 133,46 60 86
+22,object,chair,26 63 83 88 92 97 131,28 61 62 87 119 128 130 133 138 139
+23,object,wallart,125,29 124 142
+24,object,floorlamp,66 127,30 64 65 113 126 138 139
+25,object,trashbin,69 70,31 67 68 138 139
 26,attribute,office,,22
 27,pair_relation,vertsupport,1,0
 28,pair_relation,vertsupport,22,0
@@ -261,28 +261,98 @@ nodeNum 73
 49,pair_relation,vertsupport,6,3
 50,pair_relation,vertsupport,9,8
 51,pair_relation,vertsupport,18,17
-52,pair_relation,near,22,1
-53,pair_relation,front,22,1
-54,pair_relation,near,1,22
-55,pair_relation,near,24,1
-56,pair_relation,leftside,24,1
-57,pair_relation,near,1,24
-58,pair_relation,near,25,1
-59,pair_relation,rightside,25,1
-60,pair_relation,near,1,25
-61,pair_relation,leftside,1,25
-62,pair_relation,leftside,25,22
-63,pair_relation,leftside,24,25
-64,group_relation_anno,work,14 13 20 9 8,1
-65,group_relation_anno,organized,14 13 20 9 8,1
-66,group_relation_anno,work,14 13 20 9 8 12 16 2 10 18 7,1
-67,group_relation_anno,messy,14 13 20 9 8 12 16 2 10 18 7,1
-68,group_relation_anno,work,22 25 24,1
-69,group_relation_anno,organized,22 25 24,1
-70,group_relation_anno,work,8 9 19 7 20 14,1
-71,group_relation_anno,organized,8 9 19 7 20 14,1
-72,group_relation_anno,decorative,23,1
-edgeNum 135
+52,pair_relation,onright,2,1
+53,pair_relation,rightside,1,4
+54,pair_relation,onleft,8,1
+55,pair_relation,leftside,9,1
+56,pair_relation,front,1,9
+57,pair_relation,onright,11,1
+58,pair_relation,front,1,18
+59,pair_relation,onleft,19,1
+60,pair_relation,onleft,21,1
+61,pair_relation,near,22,1
+62,pair_relation,front,22,1
+63,pair_relation,near,1,22
+64,pair_relation,near,24,1
+65,pair_relation,rightside,24,1
+66,pair_relation,near,1,24
+67,pair_relation,near,25,1
+68,pair_relation,leftside,25,1
+69,pair_relation,near,1,25
+70,pair_relation,leftside,1,25
+71,pair_relation,front,4,2
+72,pair_relation,back,2,4
+73,pair_relation,front,6,2
+74,pair_relation,leftside,2,14
+75,pair_relation,rightside,17,2
+76,pair_relation,rightside,18,2
+77,pair_relation,leftside,2,18
+78,pair_relation,leftside,13,3
+79,pair_relation,rightside,3,13
+80,pair_relation,rightside,14,3
+81,pair_relation,leftside,3,14
+82,pair_relation,leftside,16,3
+83,pair_relation,front,3,22
+84,pair_relation,rightside,4,13
+85,pair_relation,leftside,4,14
+86,pair_relation,rightside,21,4
+87,pair_relation,front,22,4
+88,pair_relation,front,4,22
+89,pair_relation,rightside,14,5
+90,pair_relation,leftside,5,14
+91,pair_relation,back,18,5
+92,pair_relation,front,5,22
+93,pair_relation,rightside,6,13
+94,pair_relation,rightside,14,6
+95,pair_relation,leftside,6,14
+96,pair_relation,leftside,16,6
+97,pair_relation,front,6,22
+98,pair_relation,rightside,19,7
+99,pair_relation,rightside,7,19
+100,pair_relation,rightside,8,12
+101,pair_relation,leftside,19,8
+102,pair_relation,rightside,8,21
+103,pair_relation,front,12,9
+104,pair_relation,rightside,9,12
+105,pair_relation,front,14,9
+106,pair_relation,leftside,19,9
+107,pair_relation,back,9,19
+108,pair_relation,rightside,9,21
+109,pair_relation,rightside,10,11
+110,pair_relation,leftside,15,10
+111,pair_relation,rightside,10,16
+112,pair_relation,back,18,10
+113,pair_relation,front,24,10
+114,pair_relation,leftside,14,12
+115,pair_relation,rightside,12,21
+116,pair_relation,rightside,14,13
+117,pair_relation,leftside,16,13
+118,pair_relation,front,14,18
+119,pair_relation,front,22,14
+120,pair_relation,rightside,15,16
+121,pair_relation,rightside,17,15
+122,pair_relation,leftside,15,17
+123,pair_relation,rightside,18,15
+124,pair_relation,rightside,23,15
+125,pair_relation,leftside,15,23
+126,pair_relation,leftside,24,15
+127,pair_relation,rightside,15,24
+128,pair_relation,front,22,16
+129,pair_relation,onleft,18,17
+130,pair_relation,front,22,17
+131,pair_relation,front,18,22
+132,pair_relation,rightside,19,20
+133,pair_relation,front,22,21
+134,group_relation_anno,work,14 13 20 9 8,1
+135,group_relation_anno,organized,14 13 20 9 8,1
+136,group_relation_anno,work,14 13 20 9 8 12 16 2 10 18 7,1
+137,group_relation_anno,messy,14 13 20 9 8 12 16 2 10 18 7,1
+138,group_relation_anno,work,22 25 24,1
+139,group_relation_anno,organized,22 25 24,1
+140,group_relation_anno,work,8 9 19 7 20 14,1
+141,group_relation_anno,organized,8 9 19 7 20 14,1
+142,group_relation_anno,decorative,23,1
+edgeNum 275
 0,26,22
 1,1,27
 2,27,0
@@ -334,87 +404,227 @@ edgeNum 135
 48,50,8
 49,18,51
 50,51,17
-51,22,52
+51,2,52
 52,52,1
-53,22,53
-54,53,1
-55,1,54
-56,54,22
-57,24,55
+53,1,53
+54,53,4
+55,8,54
+56,54,1
+57,9,55
 58,55,1
-59,24,56
-60,56,1
-61,1,57
-62,57,24
-63,25,58
-64,58,1
-65,25,59
+59,1,56
+60,56,9
+61,11,57
+62,57,1
+63,1,58
+64,58,18
+65,19,59
 66,59,1
-67,1,60
-68,60,25
-69,1,61
-70,61,25
-71,25,62
-72,62,22
-73,24,63
-74,63,25
-75,64,1
-76,14,64
-77,13,64
-78,20,64
-79,9,64
-80,8,64
-81,65,1
-82,14,65
-83,13,65
-84,20,65
-85,9,65
-86,8,65
-87,66,1
-88,14,66
-89,13,66
-90,20,66
-91,9,66
-92,8,66
-93,12,66
-94,16,66
-95,2,66
-96,10,66
-97,18,66
-98,7,66
-99,67,1
-100,14,67
-101,13,67
-102,20,67
-103,9,67
-104,8,67
-105,12,67
-106,16,67
-107,2,67
-108,10,67
-109,18,67
-110,7,67
-111,68,1
-112,22,68
-113,25,68
-114,24,68
-115,69,1
-116,22,69
-117,25,69
-118,24,69
-119,70,1
-120,8,70
-121,9,70
-122,19,70
-123,7,70
-124,20,70
-125,14,70
-126,71,1
-127,8,71
-128,9,71
-129,19,71
-130,7,71
-131,20,71
-132,14,71
-133,72,1
-134,23,72
+67,21,60
+68,60,1
+69,22,61
+70,61,1
+71,22,62
+72,62,1
+73,1,63
+74,63,22
+75,24,64
+76,64,1
+77,24,65
+78,65,1
+79,1,66
+80,66,24
+81,25,67
+82,67,1
+83,25,68
+84,68,1
+85,1,69
+86,69,25
+87,1,70
+88,70,25
+89,4,71
+90,71,2
+91,2,72
+92,72,4
+93,6,73
+94,73,2
+95,2,74
+96,74,14
+97,17,75
+98,75,2
+99,18,76
+100,76,2
+101,2,77
+102,77,18
+103,13,78
+104,78,3
+105,3,79
+106,79,13
+107,14,80
+108,80,3
+109,3,81
+110,81,14
+111,16,82
+112,82,3
+113,3,83
+114,83,22
+115,4,84
+116,84,13
+117,4,85
+118,85,14
+119,21,86
+120,86,4
+121,22,87
+122,87,4
+123,4,88
+124,88,22
+125,14,89
+126,89,5
+127,5,90
+128,90,14
+129,18,91
+130,91,5
+131,5,92
+132,92,22
+133,6,93
+134,93,13
+135,14,94
+136,94,6
+137,6,95
+138,95,14
+139,16,96
+140,96,6
+141,6,97
+142,97,22
+143,19,98
+144,98,7
+145,7,99
+146,99,19
+147,8,100
+148,100,12
+149,19,101
+150,101,8
+151,8,102
+152,102,21
+153,12,103
+154,103,9
+155,9,104
+156,104,12
+157,14,105
+158,105,9
+159,19,106
+160,106,9
+161,9,107
+162,107,19
+163,9,108
+164,108,21
+165,10,109
+166,109,11
+167,15,110
+168,110,10
+169,10,111
+170,111,16
+171,18,112
+172,112,10
+173,24,113
+174,113,10
+175,14,114
+176,114,12
+177,12,115
+178,115,21
+179,14,116
+180,116,13
+181,16,117
+182,117,13
+183,14,118
+184,118,18
+185,22,119
+186,119,14
+187,15,120
+188,120,16
+189,17,121
+190,121,15
+191,15,122
+192,122,17
+193,18,123
+194,123,15
+195,23,124
+196,124,15
+197,15,125
+198,125,23
+199,24,126
+200,126,15
+201,15,127
+202,127,24
+203,22,128
+204,128,16
+205,18,129
+206,129,17
+207,22,130
+208,130,17
+209,18,131
+210,131,22
+211,19,132
+212,132,20
+213,22,133
+214,133,21
+215,134,1
+216,14,134
+217,13,134
+218,20,134
+219,9,134
+220,8,134
+221,135,1
+222,14,135
+223,13,135
+224,20,135
+225,9,135
+226,8,135
+227,136,1
+228,14,136
+229,13,136
+230,20,136
+231,9,136
+232,8,136
+233,12,136
+234,16,136
+235,2,136
+236,10,136
+237,18,136
+238,7,136
+239,137,1
+240,14,137
+241,13,137
+242,20,137
+243,9,137
+244,8,137
+245,12,137
+246,16,137
+247,2,137
+248,10,137
+249,18,137
+250,7,137
+251,138,1
+252,22,138
+253,25,138
+254,24,138
+255,139,1
+256,22,139
+257,25,139
+258,24,139
+259,140,1
+260,8,140
+261,9,140
+262,19,140
+263,7,140
+264,20,140
+265,14,140
+266,141,1
+267,8,141
+268,9,141
+269,19,141
+270,7,141
+271,20,141
+272,14,141
+273,142,1
+274,23,142

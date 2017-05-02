@@ -64,15 +64,15 @@ upDir 0 0 1
 suppPlane 362.062 191.395 108.801 362.062 166.277 108.801 362.75 166.277 108.801 362.75 191.395 108.801
 parentId 0
 parentPlaneUVH 0.990188 0.735949 -79.8498
-nodeNum 17
+nodeNum 21
 0,object,room,9 10,
-1,object,bed,8 11 12 13 14 15 16,9
-2,object,pants,,11 16
-3,object,laptop,,8 16
-4,object,pillow,,12 16
-5,object,bear,,13 16
-6,object,shirt,,14 16
-7,object,wallart,,10 15
+1,object,bed,8 11 12 13 14 15 19 20,9
+2,object,pants,,11 20
+3,object,laptop,16 17,8 20
+4,object,pillow,18,12 16 20
+5,object,bear,,13 17 18 20
+6,object,shirt,,14 20
+7,object,wallart,,10 15 19
 8,pair_relation,vertsupport,3,1
 9,pair_relation,vertsupport,1,0
 10,pair_relation,horizonsupport,7,0
@@ -80,9 +80,13 @@ nodeNum 17
 12,pair_relation,horizonsupport,4,1
 13,pair_relation,vertsupport,5,1
 14,pair_relation,vertsupport,6,1
-15,group_relation_anno,decorative,7,1
-16,group_relation_anno,messy,3 2 6 5 4,1
-edgeNum 22
+15,pair_relation,leftside,7,1
+16,pair_relation,rightside,4,3
+17,pair_relation,rightside,5,3
+18,pair_relation,leftside,5,4
+19,group_relation_anno,decorative,7,1
+20,group_relation_anno,messy,3 2 6 5 4,1
+edgeNum 30
 0,3,8
 1,8,1
 2,1,9
@@ -97,11 +101,19 @@ edgeNum 22
 11,13,1
 12,6,14
 13,14,1
-14,15,1
-15,7,15
-16,16,1
-17,3,16
-18,2,16
-19,6,16
-20,5,16
-21,4,16
+14,7,15
+15,15,1
+16,4,16
+17,16,3
+18,5,17
+19,17,3
+20,5,18
+21,18,4
+22,19,1
+23,7,19
+24,20,1
+25,3,20
+26,2,20
+27,6,20
+28,5,20
+29,4,20

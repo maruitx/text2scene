@@ -39,7 +39,7 @@ void Scene::init()
 
 void Scene::renderWorld(const Transform &trans, bool applyShadow)
 {
-    m_niceGrid->render(trans, applyShadow);
+   // m_niceGrid->render(trans, applyShadow);
 
     if(params::inst()->renderMisc)
     {	         
@@ -171,6 +171,7 @@ void Scene::renderSynScene(const Transform &trans, int var, bool applyShadow)
 	if (var < varNum)
 	{   
 		m_niceGrid->updatePostion(vec3(0,m_variations[var]->m_floorHeight, 0));
+		m_niceGrid->render(trans, applyShadow);
 		m_variations[var]->render(trans, applyShadow);        
         //m_variations[var]->computeSceneBB();
 	}	
@@ -201,7 +202,7 @@ void Scene::runOneEvolutionStep()
 {
 	// get active tsg
 	QString filename = "out.txt";
-	m_textSemGraphManager->loadSELFromOutput(filename);
+	m_textSemGraphManager->loadSELFromOutput(filename, m_sceneGenerator->getRelationManager());
 
 	TextSemGraph* activeTextSemGraph = m_textSemGraphManager->getActiveGraph();
 	m_textSemGraphManager->updateActiveGraphId();

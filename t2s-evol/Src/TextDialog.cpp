@@ -198,9 +198,12 @@ void TextDialog::onButtonProcess()
 				else if (sceneName.contains(".snn"))
 				{
 					// scenenn use stanfordDB models and textures
-					params::inst()->sceneDirectory = scenennDBPath + "scenes/";
+					params::inst()->sceneDirectory = scenennDBPath;
 					params::inst()->modelDirectory = stanfordDBPath + "models/";
 					params::inst()->textureDirectory = stanfordDBPath + "textures/";
+
+					double s = 0.1 / 0.0254;  // snn use meter as metric
+					params::inst()->globalSceneViewScale = vec3(s, s, s);
 				}
 				else if (sceneName.contains(".user"))
 				{
@@ -209,7 +212,7 @@ void TextDialog::onButtonProcess()
 					params::inst()->modelDirectory = stanfordDBPath + "models/";
 					params::inst()->textureDirectory = stanfordDBPath + "textures/";
 					
-					double s = 0.1 / 0.0254;
+					double s = 0.1 / 0.0254;  // user scene use the same metric as snn output
 					params::inst()->globalSceneViewScale = vec3(s, s,s) ;
 				}
 				else if (sceneName.contains(".chang"))

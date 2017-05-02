@@ -5,7 +5,6 @@
 SceneSemGraphManager::SceneSemGraphManager()
 {
 	loadGraphs();
-	loadNodeLabelMap();
 }
 
 
@@ -16,7 +15,7 @@ SceneSemGraphManager::~SceneSemGraphManager()
 
 void SceneSemGraphManager::loadGraphs()
 {
-	QString filename = "./SceneDB/scene_list.txt";
+	QString filename = QString("./SceneDB/scene_list_%1.txt").arg(params::inst()->sceneDBType);
 	QFile inFile(filename);
 	QTextStream ifs(&inFile);
 
@@ -28,9 +27,9 @@ void SceneSemGraphManager::loadGraphs()
 
 	QString currLine = ifs.readLine();
 
-	if (currLine.contains("StanfordSceneDatabase"))
+	if (currLine.contains("SceneNum"))
 	{
-		int sceneNum = StringToIntegerList(currLine.toStdString(), "StanfordSceneDatabase ")[0];
+		int sceneNum = StringToIntegerList(currLine.toStdString(), "SceneNum ")[0];
 
 		for (int i = 0; i < sceneNum; i++)
 		{
@@ -46,35 +45,4 @@ void SceneSemGraphManager::loadGraphs()
 	m_ssgNum = m_sceneSemGraphs.size();
 
 	inFile.close();
-}
-
-void SceneSemGraphManager::loadNodeLabelMap()
-{
-	QString filename ="./SceneDB/SSGNodeLabelMap.txt";
-	QFile inFile(filename);
-	QTextStream ifs(&inFile);
-
-	if (!inFile.open(QIODevice::ReadOnly | QIODevice::Text))
-	{
-		cout << "\n SceneSemGraphManager: cannot open node label map file\n";
-		return;
-	}
-
-	m_nodeStringToLabelIDMap.clear();
-
-	while (!ifs.atEnd())
-	{
-		QString currLine = ifs.readLine();
-
-		std::vector<string> parts = PartitionString(currLine.toStdString(), " ");
-
-		QString nodeNameString(parts[0].c_str());
-		int labelID = StringToInt(parts[1]);
-		int typeID = StringToInt(parts[2]);
-
-		m_nodeStringToLabelIDMap[nodeNameString] = std::make_pair(labelID, typeID);
-	}
-
-	inFile.close();
-
 }

@@ -177,3 +177,67 @@ GroupRelationModel::~GroupRelationModel()
 {
 
 }
+
+void GroupRelationModel::normalizeOccurrenceProbs(double tarMax, double tarMin)
+{
+	double maxProb(0), minProb(1);
+
+	for (auto iter = m_occurModels.begin(); iter!= m_occurModels.end(); iter++)
+	{
+		OccurrenceModel *occModel = iter->second;
+		if (occModel->m_occurProb > maxProb)
+		{
+			maxProb = occModel->m_occurProb;
+		}
+
+		if (occModel->m_occurProb < minProb)
+		{
+			minProb = occModel->m_occurProb;
+		}
+	}
+
+	double currRange = maxProb - minProb;
+	double tarRange = tarMax - tarMin;
+
+	for (auto iter = m_occurModels.begin(); iter != m_occurModels.end(); iter++)
+	{
+		OccurrenceModel *occModel = iter->second;
+		occModel->m_occurProb = tarMin + (occModel->m_occurProb - minProb)*tarRange / currRange;
+	}
+}
+
+SupportRelation::SupportRelation()
+{
+	m_childProbGivenParent = 0;
+	m_parentProbGivenChild = 0;
+}
+
+SupportRelation::SupportRelation(const QString &parentName, const QString &childName, const QString &supportType)
+{
+	m_suppRelKey = m_parentName + "_" + m_childName + "_" + m_supportType;
+	m_childProbGivenParent = 0;
+	m_parentProbGivenChild = 0;
+}
+
+SupportRelation::~SupportRelation()
+{
+
+}
+
+void SupportRelation::loadFromStream(QTextStream &ifs)
+{
+	QString currLine;
+
+	currLine = ifs.readLine();
+	std::vector<std::string> parts = PartitionString(currLine.toStdString(), "_");
+
+	m_parentName = toQString(parts[0]);
+	m_childName = toQString(parts[1]);
+	m_supportType = toQString(parts[2]);
+	m_suppRelKey = m_parentName + "_" + m_childName + "_" + m_supportType;
+
+	currLine = ifs.readLine();
+	std::vector<float> floatList = StringToFloatList(currLine.toStdString(),"");
+	m_childProbGivenParent = (double)floatList[0];
+	m_parentProbGivenChild = (double)floatList[1];
+}

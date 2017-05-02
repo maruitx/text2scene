@@ -25,6 +25,8 @@ public:
 	bool doRollback(TSScene *currScene, std::vector<int> &tempPlacedIds, int currModelId);
 
 	std::vector<int> makeToPlaceModelIds(TSScene *currScene);
+	std::vector<int> sortModelsByVolume(TSScene *currScene, const std::vector<int> &modelIds);
+
 	void computeConstraintsForModels(TSScene *currScene, const std::vector<int> &toPlaceModelIds);
 	void computeLayoutPassScoreForModels(TSScene *currScene, const std::vector<int> &toPlaceModelIds);
 

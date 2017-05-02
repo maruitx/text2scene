@@ -64,7 +64,7 @@ class MetaModel
 
 			bool isBvhReady;  // whether the BVH is ready for collision detection
 
-            bool isSelected;
+            int isSelected;
 			int renderMode;
 
 			int explicitAnchorId;

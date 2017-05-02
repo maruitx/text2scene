@@ -70,9 +70,18 @@ void main()
    if(renderMode == 1)   
    {
        color.rgb = vec3(0.9) * abs(dot(N, normalize(L-P))) * shadow;
-
+	   
        if(isSelected == 1)
-           color.rgb *= vec3(1, 0, 0);
+           color.rgb *= vec3(0.2, 0.6, 1);
+		   		   
+	   if(isSelected == 2)
+		   color.rgb *= vec3(1,0.4,0.4);
+		   
+	   if(isSelected == 3)
+		   color.rgb *= vec3(1,1,0.1);
+		   
+	   if(isSelected == 4)
+		   color.rgb *= vec3(1,0.5,0);
    }
 
    FragColor = vec4(color.rgb, 1);

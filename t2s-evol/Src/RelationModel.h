@@ -86,6 +86,8 @@ public:
 	GroupRelationModel(const QString &anchorObjName, const QString &relationName);
 	~GroupRelationModel();
 
+	void normalizeOccurrenceProbs(double tarMax, double tarMin); // normalize occ probs to 0.2 to 0.8
+
 public:
 	std::map<QString, PairwiseRelationModel*> m_pairwiseModels;  // relation-conditioned relative model
 	std::vector<QString> m_pairwiseModelKeys;
@@ -100,3 +102,23 @@ public:
 
 };
 
+class SupportRelation
+{
+public:
+	SupportRelation();
+	SupportRelation(const QString &parentName, const QString &childName, const QString &supportType);
+	~SupportRelation();
+
+	void loadFromStream(QTextStream &ifs);
+
+	double m_childProbGivenParent;
+	double m_parentProbGivenChild;
+
+	QString m_parentName;
+	QString m_childName;
+	QString m_supportType;  // vertsupport, horizonsupport
+
+	QString m_suppRelKey;
+
+
+};

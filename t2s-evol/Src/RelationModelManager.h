@@ -7,7 +7,6 @@ class TSScene;
 class MetaModel;
 class Model;
 
-const QString ConditionName[] = { "parentchild", "sibling", "proximity" };
 
 class RelationConstraint
 {
@@ -21,6 +20,18 @@ public:
 	int anchorObjId; // id of anchor obj in modelList
 };
 
+struct SupportProb
+{
+	SupportProb() {
+		beParentProb = 0; beChildProb = 0;
+	};
+	SupportProb(double parentProb, double childProb) {
+		beParentProb = parentProb; beChildProb = childProb;
+	};
+
+	double beParentProb;
+	double beChildProb;
+};
 
 class RelationModelManager
 {
@@ -34,6 +45,7 @@ public:
 	void loadGroupRelationModels();
 	void loadPairModelSim();
 	void loadGroupPariModelSim();
+	void loadSupportRelationModels();
 
 	bool isRelationsViolated(TSScene *currScene, int metaModelId);
 	bool isConstraintViolated(TSScene *currScene, const MetaModel &md, const RelationConstraint &relConstraint);
@@ -69,10 +81,15 @@ public:
 	PairwiseRelationModel* getPairModelById(int id);
 	PairwiseRelationModel* getPairModelInGroupById(GroupRelationModel *groupModel, int id);
 
+	bool isToSkipModelCats(const QString &objName);
+
 public:
 	std::map<QString, PairwiseRelationModel*> m_relativeModels;  // all relative models with general relations
 	std::map<QString, PairwiseRelationModel*> m_pairwiseRelModels;  // all pairwise relation models
 	std::map<QString, GroupRelationModel*> m_groupRelModels;  // all group relations
+	std::map<QString, SupportRelation*> m_supportRelations;
+	std::map<QString, SupportProb> m_suppProbs; 
+
 
 	std::vector<QString> m_pairwiseModelKeys;
 

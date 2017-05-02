@@ -32,18 +32,27 @@ upDir 0 0 1
 suppPlane 103.557 218.322 77.5681 135.648 216.64 77.5681 136.38 230.619 77.5681 104.29 232.301 77.5681
 parentId 1
 parentPlaneUVH 0.432196 0.705119 0.24996
-nodeNum 7
+nodeNum 10
 0,object,room,4,
-1,object,desk,5 6,4
-2,object,computer,,5
-3,object,monitor,,6
+1,object,desk,5 6 7,4
+2,object,computer,8,5 7 9
+3,object,monitor,9,6 8
 4,pair_relation,vertsupport,1,0
 5,pair_relation,vertsupport,2,1
 6,pair_relation,vertsupport,3,1
-edgeNum 6
+7,pair_relation,onright,2,1
+8,pair_relation,rightside,3,2
+9,pair_relation,rightside,2,3
+edgeNum 12
 0,1,4
 1,4,0
 2,2,5
 3,5,1
 4,3,6
 5,6,1
+6,2,7
+7,7,1
+8,3,8
+9,8,2
+10,2,9
+11,9,3

@@ -4,10 +4,12 @@
 #include "SemanticGraph.h"
 #include "TextSemGraphManager.h"
 
+class RelationModelManager;
+
 class TextSemGraph : public SemanticGraph
 {
 public:
-	TextSemGraph(SelSentence s);
+	TextSemGraph(SelSentence s, RelationModelManager *relManager);
 	~TextSemGraph();
 
 	void buildGraphFromSEL();
@@ -17,7 +19,6 @@ public:
 	void mapToFixedAttributeSet(QString &nodeName, QString &nodeType = QString(""));
 
 	QString convertToSinglarForm(const QString &s);
-
 
 private:
 	int m_sentence_id;
@@ -29,5 +30,6 @@ private:
 	std::vector<int> m_isNodeGrounded;
 	std::vector<int> m_isEdgeGrounded;
 
+	RelationModelManager *m_relModelManager;
 };
 

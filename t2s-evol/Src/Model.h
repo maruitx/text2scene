@@ -79,6 +79,7 @@ public:
 	vec3 getBBRange();  // init AABB range
 	vec3 getBBRange(const mat4 &transMat);  // OBB range after transformation
 	int getAxisAlongDir(const vec3 &dir);
+	double getVolume(const mat4 &transMat);
 
 	std::vector<double> computeBBFeature(const mat4 &transMat);
 
