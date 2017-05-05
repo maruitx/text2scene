@@ -19,10 +19,9 @@ public:
 
 	void computeLayout(TSScene *currScene);
 	void computeSingleObjLayout(TSScene *currScene, int metaModelId);
-	void computeGroupObjLayout(TSScene *currScene, const std::vector<int> &toPlaceModelIds);
-
 	void computeGroupObjLayoutSeq(TSScene *currScene, const std::vector<int> &toPlaceModelIds);
 	bool doRollback(TSScene *currScene, std::vector<int> &tempPlacedIds, int currModelId);
+	void adjustZForModel(TSScene *currScene, int metaModelId);
 
 	std::vector<int> makeToPlaceModelIds(TSScene *currScene);
 	std::vector<int> sortModelsByVolume(TSScene *currScene, const std::vector<int> &modelIds);

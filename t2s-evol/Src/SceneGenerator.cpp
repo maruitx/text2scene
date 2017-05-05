@@ -99,9 +99,10 @@ std::vector<TSScene*> SceneGenerator::generateTSScenes(int num)
 	{
 		SceneSemGraph *newUserSsg = bindToCurrTSScene(matchedSSGs[i]);
 		TSScene *s = newUserSsg->covertToTSScene(m_models);
+		m_layoutPlanner->initPlaceUsingSynthesizedRelations(s);  // init placement of synthesized relations
+
 		s->m_layoutPlanner = m_layoutPlanner;
 		s->m_relModelManager = m_relModelManager;
-
 		tsscenes.push_back(s);
 	}
 
@@ -145,20 +146,12 @@ SceneSemGraph* SceneGenerator::bindToCurrTSScene(SceneSemGraph *matchedSg)
 	// merge matched ssg to current scene ssg
 	newUserSsg->mergeWithMatchedSSG(matchedSg);
 
-	newUserSsg->initMetaModelSuppPlanes(m_models);
 	// geometry alignment
-	geometryAlignmentWithCurrScene(matchedSg, newUserSsg);
+	newUserSsg->initMetaModelSuppPlanes(m_models);
+	m_layoutPlanner->initPlaceByAlignRelation(matchedSg, newUserSsg);
 
 	// set scene file name that current match comes from
 	newUserSsg->m_metaScene.m_sceneFileName = matchedSg->m_metaScene.m_sceneFileName;
 	return newUserSsg;
 }
 
-void SceneGenerator::geometryAlignmentWithCurrScene(SceneSemGraph *matchedSg, SceneSemGraph *currSg)
-{
-	m_layoutPlanner->initPlaceByAlignRelation(matchedSg, currSg);
-
-
-	// TODO: geometry align of the inferred nodes
-
-}

@@ -57,8 +57,6 @@ public:
 	map<int, vector<int>> m_childListOfModel;  // map to modelIds of current model's children
 	std::vector<std::vector<int>> m_levelOfObjs;  // map to modelIds of objs in different support levels
 
-	bool m_allSynthNodesInited;
-
 private:
 	int m_modelNum;
 	QString m_fullFilename;

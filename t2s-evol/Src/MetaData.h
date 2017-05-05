@@ -14,7 +14,7 @@ class MetaModel
 				frontDir(vec3(0, -1, 0)), upDir(vec3(0, 0, 1)), position(vec3(0, 0, 0)), theta(0),
 				parentPlaneUVH(vec3(0.5,0.5,0)),
 				isInitLoaded(false), isAlreadyPlaced(false), isJustRollbacked(false), isConstraintExtracted(false),
-				isBvhReady(false), isSelected(false), renderMode(0), 
+				isBvhReady(false), zAdjusted(false), isSelected(false), renderMode(0), 
 				explicitAnchorId(-1), layoutPassScore(0), layoutScore(0), trialNum(0)
 			{
                 //replace for proper selection rendering;
@@ -26,7 +26,7 @@ class MetaModel
 				bbTopPlane = md.bbTopPlane; suppPlaneManager = md.suppPlaneManager; parentPlaneUVH = md.parentPlaneUVH;
 				isInitLoaded = md.isInitLoaded; isAlreadyPlaced = md.isAlreadyPlaced; isConstraintExtracted = md.isConstraintExtracted;
 				isJustRollbacked = md.isJustRollbacked;
-				isBvhReady = md.isBvhReady; isSelected = md.isSelected; renderMode = md.renderMode;
+				isBvhReady = md.isBvhReady; zAdjusted = md.zAdjusted; isSelected = md.isSelected; renderMode = md.renderMode;
 				explicitAnchorId = md.explicitAnchorId; layoutPassScore = md.layoutPassScore; layoutScore = md.layoutScore; trialNum = md.trialNum;
 			};
 			MetaModel &operator = (const MetaModel &md) { 
@@ -35,7 +35,7 @@ class MetaModel
 				frontDir = md.frontDir; upDir = md.upDir; position = md.position; theta = md.theta;
 				bbTopPlane = md.bbTopPlane; suppPlaneManager = md.suppPlaneManager; parentPlaneUVH = md.parentPlaneUVH;
 				isInitLoaded = md.isInitLoaded; isAlreadyPlaced = md.isAlreadyPlaced; isConstraintExtracted = md.isConstraintExtracted;
-				isJustRollbacked = md.isJustRollbacked; isBvhReady = md.isBvhReady;
+				isJustRollbacked = md.isJustRollbacked; isBvhReady = md.isBvhReady;  zAdjusted = md.zAdjusted;
 				isSelected = md.isSelected; renderMode = md.renderMode; 
 				explicitAnchorId = md.explicitAnchorId; layoutPassScore = md.layoutPassScore; layoutScore = md.layoutScore; trialNum = md.trialNum; return *this;
 			}
@@ -66,6 +66,7 @@ class MetaModel
 			bool isConstraintExtracted;
 
 			bool isBvhReady;  // whether the BVH is ready for collision detection
+			bool zAdjusted;
 
             int isSelected;
 			int renderMode;

@@ -43,7 +43,6 @@ public:
 	Model* getModel(const string &name);
 
 	bool isLayoutDone();
-	
 
 public:
 	SceneSemGraph *m_ssg;

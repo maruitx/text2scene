@@ -26,7 +26,7 @@ public:
 	bool checkCollisionBVH(Model *testModel, int testMetaModelIdx);
 	void rebuildBVH(Model *testModel, int testModelIdx);
 
-
+	bool isRayIntersect(const Ray &ray, int parentModelId, double &z);
 	std::vector<std::vector<vec3>> m_collisionPositions;  // invalid positions of models identified in previous collision detection
 
 private:

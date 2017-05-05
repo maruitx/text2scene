@@ -147,6 +147,33 @@ void CollisionManager::rebuildBVH(Model *testModel, int idx)
 	testMetaModel.isBvhReady = true;
 }
 
+bool CollisionManager::isRayIntersect(const Ray &ray, int parentModelId, double &z)
+{
+	MetaModel &parentMd = m_scene->getMetaModel(parentModelId);
+	Model *parentModel = m_scene->getModel(parentMd.name);
+
+	bool isIntersect;
+
+	if (parentModel!=NULL)
+	{
+		if (!parentMd.isBvhReady)
+		{
+			rebuildBVH(parentModel, parentModelId);
+		}
+
+		BoxHitRecord hitRecord;
+		isIntersect = m_boxBVHs[parentModelId]->hit(ray, hitRecord);
+		if (isIntersect)
+		{
+			float3 hitPos = ray.point(hitRecord.t);
+			z = hitPos.z;
+			return true;
+		}
+	}
+
+	return false;
+}
+
 bool CollisionManager::intersectAABB(const vec3 &miA, const vec3 &maA, const vec3 &miB, const vec3 &maB, double delta /*= 0*/)
 {
 	return (miA.x + delta <= maB.x && maA.x - delta >= miB.x) &&
