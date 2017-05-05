@@ -104,6 +104,26 @@ static std::vector<float> StringToFloatList(const std::string &s, const std::str
 	return result;
 }
 
+static QString GetIntString(const std::vector<int> &intVector, const QString &separator)
+{
+	if (intVector.empty())
+	{
+		return QString("");
+	}
+
+	QString outString;
+	QTextStream outStream(&outString);
+
+	for (int i = 0; i < intVector.size() - 1; i++)
+	{
+		outStream << intVector[i] << separator;
+	}
+
+	outStream << intVector[intVector.size() - 1];
+
+	return outString;
+}
+
 static vec3 TransformPoint(const mat4 &transMat, const vec3 &p)
 {
 	vec3 transP = vec3(transMat.a11*p.x + transMat.a12*p.y + transMat.a13*p.z + transMat.a14,

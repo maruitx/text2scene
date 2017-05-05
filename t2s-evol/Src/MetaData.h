@@ -3,6 +3,7 @@
 #include "Headers.h"
 #include "Mesh.h"
 
+#include "SuppPlaneManager.h"
 #include "SuppPlane.h"
 #include <Eigen/Dense>
 
@@ -11,7 +12,7 @@ class MetaModel
 		public:
 			MetaModel() : name(""), catName(""), id(0), transformation(mat4::identitiy()), material(), visible(true), path(""), textureDir(""),
 				frontDir(vec3(0, -1, 0)), upDir(vec3(0, 0, 1)), position(vec3(0, 0, 0)), theta(0),
-				suppPlane(SuppPlane()), parentPlaneUVH(vec3(0.5,0.5,0)), 
+				parentPlaneUVH(vec3(0.5,0.5,0)),
 				isInitLoaded(false), isAlreadyPlaced(false), isJustRollbacked(false), isConstraintExtracted(false),
 				isBvhReady(false), isSelected(false), renderMode(0), 
 				explicitAnchorId(-1), layoutPassScore(0), layoutScore(0), trialNum(0)
@@ -22,7 +23,7 @@ class MetaModel
 			MetaModel(const MetaModel &md) { 
 				name = md.name; catName = md.catName; id = md.id; transformation = md.transformation; material = md.material; visible = md.visible; path = md.path; textureDir = md.textureDir;
 				frontDir = md.frontDir; upDir = md.upDir; position = md.position; theta = md.theta;
-				suppPlane = md.suppPlane; parentPlaneUVH = md.parentPlaneUVH;
+				bbTopPlane = md.bbTopPlane; suppPlaneManager = md.suppPlaneManager; parentPlaneUVH = md.parentPlaneUVH;
 				isInitLoaded = md.isInitLoaded; isAlreadyPlaced = md.isAlreadyPlaced; isConstraintExtracted = md.isConstraintExtracted;
 				isJustRollbacked = md.isJustRollbacked;
 				isBvhReady = md.isBvhReady; isSelected = md.isSelected; renderMode = md.renderMode;
@@ -32,7 +33,7 @@ class MetaModel
 				name = md.name; catName = md.catName; id = md.id; transformation = md.transformation; 
 				material = md.material; visible = md.visible; path = md.path; textureDir = md.textureDir;
 				frontDir = md.frontDir; upDir = md.upDir; position = md.position; theta = md.theta;
-				suppPlane = md.suppPlane; parentPlaneUVH = md.parentPlaneUVH;
+				bbTopPlane = md.bbTopPlane; suppPlaneManager = md.suppPlaneManager; parentPlaneUVH = md.parentPlaneUVH;
 				isInitLoaded = md.isInitLoaded; isAlreadyPlaced = md.isAlreadyPlaced; isConstraintExtracted = md.isConstraintExtracted;
 				isJustRollbacked = md.isJustRollbacked; isBvhReady = md.isBvhReady;
 				isSelected = md.isSelected; renderMode = md.renderMode; 
@@ -54,8 +55,10 @@ class MetaModel
 			vec3 position;  // transformed model pos in current scene
 			double theta;  // angle between anchor's front to current model's front
 
-			SuppPlane suppPlane;  // transformed model support plane in current scene
-			vec3 parentPlaneUVH;
+			SuppPlane bbTopPlane;  // transformed model support plane in current scene
+			vec3 parentPlaneUVH;  // UV and height w.r.t to the bbTopPlane and height is not normalized
+			SuppPlaneManager suppPlaneManager;
+			
 
 			bool isInitLoaded; // whether the model is loaded at the beginning
 			bool isAlreadyPlaced; // whether the model is already placed in the scene
@@ -83,7 +86,8 @@ class MetaModel
 				frontDir.normalize();
 				upDir.normalize();
 
-				suppPlane.tranfrom(transMat);
+				bbTopPlane.transform(transMat);
+				suppPlaneManager.transformSuppPlanes(transMat);
 
 				transformation = transMat*transformation;
 

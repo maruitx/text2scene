@@ -122,20 +122,20 @@ void SceneSemGraph::loadGraph(const QString &filename)
 			m_metaScene.m_metaModellList[currModelID].upDir.normalize();
 		}
 
-		if (currLine.contains("suppPlane "))
+		if (currLine.contains("bbTopPlane "))
 		{
-			// for support plane, the data saved in ssg is already transformed
-			std::vector<float> floatElementList = StringToFloatList(currLine.toStdString(), "suppPlane ");
+			// for bbTopPlane plane, the data saved in ssg is already transformed
+			std::vector<float> floatElementList = StringToFloatList(currLine.toStdString(), "bbTopPlane ");
 			std::vector<vec3> corners(4); 
 			for (int v = 0; v < 4; v++)
 			{
 				corners[v] = vec3(floatElementList[3 * v], floatElementList[3 * v + 1], floatElementList[3 * v + 2]);
 			}
 
-			// for support plane, we use save the original data and do not transform it now
-			m_metaScene.m_metaModellList[currModelID].suppPlane = SuppPlane(corners);
-			m_metaScene.m_metaModellList[currModelID].suppPlane.m_sceneMetric = 0.0254;
+			m_metaScene.m_metaModellList[currModelID].bbTopPlane = SuppPlane(corners);
+			m_metaScene.m_metaModellList[currModelID].bbTopPlane.m_sceneMetric = 0.0254;
 		}
+
 
 		if (currLine.contains("parentPlaneUVH "))
 		{
@@ -208,6 +208,93 @@ TSScene* SceneSemGraph::covertToTSScene(unordered_map<string, Model*> &models)
 	TSScene* newScene = new TSScene(models, this);
 
 	return newScene;
+}
+
+void SceneSemGraph::saveGraph(const QString &filename)
+{
+	QFile outFile(filename);
+	QTextStream ofs(&outFile);
+
+	if (outFile.open(QIODevice::ReadWrite | QIODevice::Text | QIODevice::Truncate))
+	{
+		ofs << "StanfordSceneDatabase\n";
+
+		// save scene meta data
+		int modelNum = m_metaScene.m_metaModellList.size();
+		ofs << "modelCount " << modelNum << "\n";
+
+		for (int i = 0; i < modelNum; i++)
+		{
+			MetaModel &md = m_metaScene.m_metaModellList[i];
+			ofs << "newModel " << i << " " << toQString(md.name) << "\n";
+			ofs << "transform " << QString("%1").arg(md.transformation.a11, 0, 'f') << " " << QString("%1").arg(md.transformation.a21, 0, 'f') << " " << QString("%1").arg(md.transformation.a31, 0, 'f') << " " << QString("%1").arg(md.transformation.a41, 0, 'f') << " "
+				<< QString("%1").arg(md.transformation.a12, 0, 'f') << " " << QString("%1").arg(md.transformation.a22, 0, 'f') << " " << QString("%1").arg(md.transformation.a32, 0, 'f') << " " << QString("%1").arg(md.transformation.a42, 0, 'f') << " "
+				<< QString("%1").arg(md.transformation.a13, 0, 'f') << " " << QString("%1").arg(md.transformation.a23, 0, 'f') << " " << QString("%1").arg(md.transformation.a33, 0, 'f') << " " << QString("%1").arg(md.transformation.a43, 0, 'f') << " "
+				<< QString("%1").arg(md.transformation.a14, 0, 'f') << " " << QString("%1").arg(md.transformation.a24, 0, 'f') << " " << QString("%1").arg(md.transformation.a34, 0, 'f') << " " << QString("%1").arg(md.transformation.a44, 0, 'f') << "\n";
+
+			// position saves models init position before transformed
+			mat4 invTrans = md.transformation.inverse();
+			vec3 initPosition = TransformPoint(invTrans, md.position);
+			ofs << "position " << initPosition.x << " " << initPosition.y << " " << initPosition.z << "\n";
+
+			// frontDir saves models init upDir frontDir transformed
+			vec3 initFrontDir = TransformVector(invTrans, md.frontDir);
+			initFrontDir.normalize();
+			ofs << "frontDir " << initFrontDir.x << " " << initFrontDir.y << " " << initFrontDir.z << "\n";
+
+			// upDir saves models init upDir before transformed
+			vec3 initUpDir = TransformVector(invTrans, md.upDir);
+			initUpDir.normalize();
+			ofs << "upDir " << initUpDir.x << " " << initUpDir.y << " " << initUpDir.z << "\n";
+
+			// for support plane, the data saved in ssg is already transformed
+			ofs << "bbTopPlane " << md.bbTopPlane.m_corners[0].x << " " << md.bbTopPlane.m_corners[0].y << " " << md.bbTopPlane.m_corners[0].z << " "
+				<< md.bbTopPlane.m_corners[1].x << " " << md.bbTopPlane.m_corners[1].y << " " << md.bbTopPlane.m_corners[1].z << " "
+				<< md.bbTopPlane.m_corners[2].x << " " << md.bbTopPlane.m_corners[2].y << " " << md.bbTopPlane.m_corners[2].z << " "
+				<< md.bbTopPlane.m_corners[3].x << " " << md.bbTopPlane.m_corners[3].y << " " << md.bbTopPlane.m_corners[3].z << "\n";
+			ofs << "parentPlaneUVH " << md.parentPlaneUVH.x << " " << md.parentPlaneUVH.y << " " << md.parentPlaneUVH.z << "\n";
+		}
+
+		// save nodes in format: nodeId,nodeType,nodeName,inEdgeNodeList,outEdgeNodeList
+		ofs << "nodeNum " << m_nodeNum << "\n";
+		for (int i = 0; i < m_nodeNum; i++)
+		{
+			ofs << i << "," << m_nodes[i].nodeType << "," << m_nodes[i].nodeName << ","
+				<< GetIntString(m_nodes[i].inEdgeNodeList, " ") << ","
+				<< GetIntString(m_nodes[i].outEdgeNodeList, " ") << "\n";
+		}
+
+
+		// save edges in format: edgeId,startId endId
+		ofs << "edgeNum " << m_edgeNum << "\n";
+		for (int i = 0; i < m_edgeNum; i++)
+		{
+			ofs << i << "," << m_edges[i].sourceNodeId << "," << m_edges[i].targetNodeId << "\n";
+		}
+
+		outFile.close();
+
+		std::cout << "SceneSemGraph: graph saved.\n";
+	}
+
+	else
+	{
+		std::cout << "SceneSemGraph: fail to save graph .\n";
+	}
+}
+
+void SceneSemGraph::initMetaModelSuppPlanes(unordered_map<string, Model*> &models)
+{
+	for (int i = 0; i < m_metaScene.m_metaModellList.size(); i++)
+	{
+		MetaModel &md = m_metaScene.m_metaModellList[i];
+		if (models.count(md.name))
+		{
+			Model *currModel = models[md.name];
+			md.suppPlaneManager = SuppPlaneManager(currModel->m_suppPlaneManager->m_suppPlanes);
+			md.suppPlaneManager.transformSuppPlanes(md.transformation);
+		}
+	}
 }
 
 void SceneSemGraph::buildSupportHierarchy()
@@ -393,7 +480,7 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, RelationM
 				{
 					double probTh = groupModel->m_occurModels[occKey]->m_occurProb;
 
-					if (probTh > randProb)
+					if (probTh > 0.1)
 					{
 						subGraph->addNode(actNode);
 						m_dbNodeToSubNodeMap[actNodeId] = currSubSSGNodeNum;

@@ -445,7 +445,7 @@ void RelationModelManager::extractRelPosToAnchor(TSScene *currScene, const MetaM
 	vec3 actPos = vec3(currPlacement[0], currPlacement[1], currPlacement[2]);
 
 	relPos->pos = TransformPoint(alignMat, actPos);
-	relPos->theta = currPlacement[3];
+	relPos->theta = currPlacement[3]/math_pi;  // theta in relational model is normalized by pi
 }
 
 void RelationModelManager::extractRelPosForModelPair(TSScene *currScene, const MetaModel &anchorMd, const MetaModel &actMd, RelativePos *relPos)
@@ -459,7 +459,7 @@ void RelationModelManager::extractRelPosForModelPair(TSScene *currScene, const M
 	vec3 anchorFront = anchorMd.frontDir;
 
 	relPos->pos = TransformPoint(alignMat, actPos);
-	relPos->theta = GetRotAngleR(anchorFront, actFront, vec3(0, 0, 1));
+	relPos->theta = GetRotAngleR(anchorFront, actFront, vec3(0, 0, 1))/math_pi;    // theta in relational model is normalized by pi
 }
 
 mat4 RelationModelManager::getModelToUnitboxMat(Model *m, const MetaModel &md)
@@ -617,13 +617,13 @@ Eigen::VectorXd RelationModelManager::sampleNewPosFromConstraints(TSScene *currS
 	}
 
 	// convert to world frame
-	Eigen::VectorXd  relPos(4);
-	relPos[0] = newPos.x;
-	relPos[1] = newPos.y;
-	relPos[2] = newPos.z;  // keep Z value
-	relPos[3] = newTheta;   // theta is not affected by transformation	
+	Eigen::VectorXd  worldPos(4);
+	worldPos[0] = newPos.x;
+	worldPos[1] = newPos.y;
+	worldPos[2] = newPos.z;  
+	worldPos[3] = newTheta;   // theta is not affected by transformation	
 
-	return relPos;
+	return worldPos;
 }
 
 PairwiseRelationModel*  RelationModelManager::findAvailablePairModels(TSScene *currScene, const RelationConstraint &relConstraint, bool &isPairModelAvailable)
@@ -673,7 +673,12 @@ void RelationModelManager::sampleFromRelationModel(TSScene *currScene, PairwiseR
 	double newZ = findClosestSuppPlaneZ(currScene, metaModelId, newPos);
 	newPos.z = newZ;
 
-	newTheta = newSample[3]*math_pi;
+	newTheta = newSample[3]*math_pi;  // theta in relational model is normalized by pi
+
+	if ( std::abs(newTheta) < 1e-6)
+	{
+		newTheta = 0;
+	}
 }
 
 double RelationModelManager::findClosestSuppPlaneZ(TSScene *currScene, int metaModelId, const vec3 &newPos)
@@ -687,11 +692,30 @@ double RelationModelManager::findClosestSuppPlaneZ(TSScene *currScene, int metaM
 		if (parentMetaModelId != -1)
 		{
 			MetaModel &parentMd = currScene->getMetaModel(parentMetaModelId);
-			SuppPlane &parentSuppPlane = parentMd.suppPlane;
-			if (parentSuppPlane.m_isInited)
+			double closestSuppPlaneZ = 0;
+			double minDist = 1e6;
+
+			if (parentMd.suppPlaneManager.hasSuppPlane())
 			{
-				return parentSuppPlane.getZ();
+				for (int i = 0; i < parentMd.suppPlaneManager.m_suppPlanes.size(); i++)
+				{
+					SuppPlane &parentSuppPlane = parentMd.suppPlaneManager.m_suppPlanes[i];
+
+					double planeZ = parentSuppPlane.getZ();
+					double d = newPos.z - planeZ;
+					if (d < minDist)
+					{
+						minDist = d;
+						closestSuppPlaneZ = planeZ;
+					}
+				}
 			}
+			else
+			{
+				closestSuppPlaneZ = parentMd.bbTopPlane.getZ();
+			}
+
+			return closestSuppPlaneZ;
 		}
 	}
 
@@ -729,7 +753,8 @@ void RelationModelManager::randomSampleOnParent(TSScene *currScene, int metaMode
 	{
 		parentMetaModelId = currScene->m_ssg->m_graphNodeToModelListIdMap[parentNodeId];
 		MetaModel &parentMd = currScene->getMetaModel(parentMetaModelId);
-		SuppPlane &parentSuppPlane = parentMd.suppPlane;
+
+		SuppPlane &parentSuppPlane = parentMd.suppPlaneManager.getLargestAreaSuppPlane();
 		if (parentSuppPlane.m_isInited)
 		{
 			sampleType = " on parent-" + currScene->m_ssg->m_nodes[parentNodeId].nodeName;

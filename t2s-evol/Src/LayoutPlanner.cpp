@@ -53,9 +53,11 @@ void LayoutPlanner::initPlaceByAlignRelation(SceneSemGraph *matchedSg, SceneSemG
 				if (relNode.nodeName.contains("support") || (relNode.nodeName.contains("on")&& relNode.nodeName!="front"))
 				{
 					vec3 mUVH = mActiveMd.parentPlaneUVH;
-					SuppPlane& tarRefSuppPlane = currRefMd.suppPlane;
+					SuppPlane& tarRefSuppPlane = currRefMd.bbTopPlane;
+
 					vec3 targetPosition = tarRefSuppPlane.getPointByUV(mUVH.x, mUVH.y); // position in the current scene, support plane is already transformed
 
+					// TODO: adjust the Z value 
 					vec3 initPositionInScene = currActiveMd.position; // get the pos of model in current scene
 					vec3 translationVec = targetPosition - dirRotMat*initPositionInScene;
 					translateMat = translateMat.translate(translationVec);
@@ -68,9 +70,10 @@ void LayoutPlanner::initPlaceByAlignRelation(SceneSemGraph *matchedSg, SceneSemG
 						if (pairModel->m_conditionName.contains("parent"))
 						{
 							vec3 mUVH = mActiveMd.parentPlaneUVH;
-							SuppPlane& tarRefSuppPlane = currRefMd.suppPlane;
+							SuppPlane& tarRefSuppPlane = currRefMd.bbTopPlane;
 							vec3 targetPosition = tarRefSuppPlane.getPointByUV(mUVH.x, mUVH.y); // position in the current scene, support plane is already transformed
 
+							// TODO: adjust the Z value 
 							vec3 initPositionInScene = currActiveMd.position; // get the pos of model in current scene
 							vec3 translationVec = targetPosition - dirRotMat*initPositionInScene;
 							translateMat = translateMat.translate(translationVec);
@@ -197,10 +200,11 @@ void LayoutPlanner::initPlaceUsingSynthesizedRelations(TSScene *currScene)
 				{
 					// Failure case: don't know the relationship
 
-					SuppPlane &suppPlane = refMd.suppPlane;
+					SuppPlane &suppPlane = refMd.bbTopPlane;
 					vec3 uvh = actMd.parentPlaneUVH;
 					vec3 newPos = suppPlane.getPointByUV(uvh.x, uvh.y);
 
+					// TODO: adjust the Z value
 					vec3 translateVec;
 					translateVec = newPos - actMd.position;
 					transMat = transMat.translate(translateVec);

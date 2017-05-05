@@ -1,6 +1,7 @@
 #include "TextDialog.h"
 #include "GLWidget.h"
 #include "Scene.h"
+#include "SceneSemGraph.h"
 #include "Utility.h"
 #include <qtextedit.h>
 #include <qpushbutton.h>
@@ -257,6 +258,21 @@ void TextDialog::onButtonProcess()
 				{
 					m_scene->m_variations[i]->loadSceneFile(sceneFileName);
 					m_scene->m_variations[i]->m_isRenderRoom = isRenderRoom;
+
+					QString sceneBaseName =toQString(PartitionString(sceneNameList[i].toStdString(), ".")[0]);
+					QString ssgFileName = QString(params::inst()->sceneDirectory.c_str()) + sceneBaseName + ".ssg";
+					if (fileExists(ssgFileName.toStdString()))
+					{
+						m_scene->m_variations[i]->m_ssg = new SceneSemGraph(ssgFileName);
+					}
+					else
+					{
+						ssgFileName = "./SceneDB/SSGs/" + sceneBaseName + ".ssg";
+						if (fileExists(ssgFileName.toStdString()))
+						{
+							m_scene->m_variations[i]->m_ssg = new SceneSemGraph(ssgFileName);
+						}
+					}
 				}
 				else
 				{
@@ -324,6 +340,12 @@ void TextDialog::onButtonProcess()
 
 			cout << "Save current scene to file " << sceneFileName.toStdString() << "\n";
 			outFile.close();
+
+			if (tsscene->m_ssg)
+			{
+				QString ssgFileName = QString(resultPath.c_str()) + inputSentence + ".ssg";
+				tsscene->m_ssg->saveGraph(ssgFileName);
+			}
 		}
 
 		return;

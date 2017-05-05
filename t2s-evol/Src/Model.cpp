@@ -5,8 +5,8 @@
 #include "Light.h"
 #include "Utility.h"
 #include "TriangleIntersection.h"
-
 #include "mesh_bvh.h"
+#include "SuppPlaneManager.h"
 #include <sstream> 
 
 ModelMesh::ModelMesh(vector<VertexBufferObject::DATA> &vertices, vector<uint> &indices, const Material &material)
@@ -333,6 +333,11 @@ Model::Model(const string &fileName)
 	//Code for parallel loading
 	m_triMesh = new TriangleMesh();
 	m_meshBvh = new MeshBvh(m_triMesh);
+
+	QFileInfo fi(toQString(fileName));
+	string baseName = fi.baseName().toStdString();
+	m_namerStr = toQString(baseName);
+	m_suppPlaneManager = new SuppPlaneManager(m_namerStr);
 
 	m_thread.m_triMesh = m_triMesh;
 	m_thread.m_meshBvh = m_meshBvh;

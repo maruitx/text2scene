@@ -45,17 +45,21 @@ CollisionManager::CollisionManager(TSScene *s)
 
 CollisionManager::~CollisionManager()
 {
-	for (int i = 0; i < m_scene->modelNum(); i++)
+	if (!m_boxBVHs.empty())
 	{
-		if (m_boxBVHs[i])
+		for (int i = 0; i < m_scene->modelNum(); i++)
 		{
-			delete m_boxBVHs[i];
+			if (m_boxBVHs[i])
+			{
+				delete m_boxBVHs[i];
+			}
+
+			m_collisionPositions[i].clear();
 		}
 
-		m_collisionPositions[i].clear();
+		m_boxBVHs.clear();
 	}
 
-	m_boxBVHs.clear();
 	m_collisionPositions.clear();
 }
 

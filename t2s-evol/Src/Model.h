@@ -17,6 +17,8 @@ class TriangleMesh;
 class Shader;
 class VertexBufferObject;
 
+class SuppPlaneManager;
+
 class ModelMesh
 {
 public:
@@ -88,6 +90,9 @@ public:
     BoundingBox m_bb; // non-transformed model BB
 
 	bool m_loadingDone;
+
+	QString m_namerStr;
+	SuppPlaneManager *m_suppPlaneManager;
 
 public slots:
 	void loadingDone();	

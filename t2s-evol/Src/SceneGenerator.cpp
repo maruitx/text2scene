@@ -145,6 +145,7 @@ SceneSemGraph* SceneGenerator::bindToCurrTSScene(SceneSemGraph *matchedSg)
 	// merge matched ssg to current scene ssg
 	newUserSsg->mergeWithMatchedSSG(matchedSg);
 
+	newUserSsg->initMetaModelSuppPlanes(m_models);
 	// geometry alignment
 	geometryAlignmentWithCurrScene(matchedSg, newUserSsg);
 

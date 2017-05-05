@@ -3,14 +3,6 @@
 const double GridSize = 0.05;   // 5cm, NEED TO CONSIDER SCENE METRIC!!
 const double OffSet = 0.005;  // offset to avoid collision 
 
-
-SuppPlane::SuppPlane(const SuppPlane &p)
-	: m_corners(p.m_corners), m_axis(p.m_axis), m_length(p.m_length), m_width(p.m_width), m_normal(p.m_normal), m_isInited(p.m_isInited), m_offset(p.m_offset)
-{
-
-}
-
-
 SuppPlane::SuppPlane()
 {
 	m_corners.resize(4);
@@ -74,7 +66,7 @@ vec3 SuppPlane::getPointByUV(double u, double v)
 	return pt; 
 }
 
-void SuppPlane::tranfrom(const mat4 &transMat)
+void SuppPlane::transform(const mat4 &transMat)
 {
 	if (m_corners.empty())
 	{
@@ -136,13 +128,13 @@ vec3 SuppPlane::randomSamplePoint(double boundWidth)
 
 void SuppPlane::initGrid()
 {
-	m_planeGrid.clear();
+	//m_planeGrid.clear();
 
-	int xGridNum, yGridNum;
+	//int xGridNum, yGridNum;
 
-	xGridNum = (int)(m_length / (GridSize / m_sceneMetric));
-	yGridNum = (int)(m_width / (GridSize / m_sceneMetric));
+	//xGridNum = (int)(m_length / (GridSize / m_sceneMetric));
+	//yGridNum = (int)(m_width / (GridSize / m_sceneMetric));
 
-	m_planeGrid.resize(yGridNum, std::vector<int>(xGridNum, 0));
+	//m_planeGrid.resize(yGridNum, std::vector<int>(xGridNum, 0));
 
 }
