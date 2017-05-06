@@ -99,7 +99,6 @@ std::vector<TSScene*> SceneGenerator::generateTSScenes(int num)
 	{
 		SceneSemGraph *newUserSsg = bindToCurrTSScene(matchedSSGs[i]);
 		TSScene *s = newUserSsg->covertToTSScene(m_models);
-		m_layoutPlanner->initPlaceUsingSynthesizedRelations(s);  // init placement of synthesized relations
 
 		s->m_layoutPlanner = m_layoutPlanner;
 		s->m_relModelManager = m_relModelManager;

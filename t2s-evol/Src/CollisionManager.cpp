@@ -6,13 +6,13 @@
 
 #include "triangle_triangle_intersection.h"
 
-TrianglePredicate::TrianglePredicate(Model *first, mat4 &firstTransform, Model *second, mat4 &secondTransform)
+TriangleTrianglePredicate::TriangleTrianglePredicate(Model *first, mat4 &firstTransform, Model *second, mat4 &secondTransform)
 {
 	model[0] = first, model[1] = second;
 	transform[0] = firstTransform, transform[1] = secondTransform;
 }
 
-bool TrianglePredicate::operator()(const SimpleBoxNodeData &a, const SimpleBoxNodeData &b) const
+bool TriangleTrianglePredicate::operator()(const SimpleBoxNodeData &a, const SimpleBoxNodeData &b) const
 {
 	// retrieve triangle coordinates, transformed, and perform triangle test 
 	for (int i = 0; i < a.triangles.size(); ++i) {
@@ -99,13 +99,14 @@ bool CollisionManager::checkCollisionBVH(Model *testModel, int testMetaModelIdx)
 					rebuildBVH(refModel, i);
 				}
 				mat4 refModelTransMat = refMd.transformation;
-				TrianglePredicate predicate(testModel, testModelTransMat, refModel, refModelTransMat);
+				TriangleTrianglePredicate predicate(testModel, testModelTransMat, refModel, refModelTransMat);
 				isCollide = m_boxBVHs[testMetaModelIdx]->hit(*m_boxBVHs[i], predicate);
 
 				if (isCollide)
 				{
-					qDebug() << QString(" Preview:%1 %6 Type: %2 Model:%3 DBSSG:%4 TrialNum:%5").
-						arg(m_scene->m_previewId).arg("BVH").arg(toQString(refMd.catName)).arg(m_scene->m_ssg->m_metaScene.m_sceneFileName).arg(testMd.trialNum).arg(toQString(testMd.catName));
+					qDebug() << QString(" Preview:%1 %6:%7 Type:%2 %3:%8 DBSSG:%4 TrialNum:%5").
+						arg(m_scene->m_previewId).arg("BVH").arg(toQString(refMd.catName)).arg(m_scene->m_ssg->m_metaScene.m_sceneFileName)
+						.arg(testMd.trialNum).arg(toQString(testMd.catName)).arg(toQString(testMd.name)).arg(toQString(refMd.name));
 
 					testMd.isBvhReady = false;
 
@@ -161,11 +162,13 @@ bool CollisionManager::isRayIntersect(const Ray &ray, int parentModelId, double 
 			rebuildBVH(parentModel, parentModelId);
 		}
 
-		BoxHitRecord hitRecord;
-		isIntersect = m_boxBVHs[parentModelId]->hit(ray, hitRecord);
+		TriangleHitRecord triHitRecord;
+		TriangleMesh *triMesh = parentModel->getTriMesh();
+		RayTrianglePredicate predicate(*triMesh, parentMd.transformation);
+		isIntersect = m_boxBVHs[parentModelId]->hit(ray, predicate, triHitRecord);
 		if (isIntersect)
 		{
-			float3 hitPos = ray.point(hitRecord.t);
+			float3 hitPos = ray.point(triHitRecord.t);
 			z = hitPos.z;
 			return true;
 		}

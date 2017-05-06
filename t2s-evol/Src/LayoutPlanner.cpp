@@ -102,6 +102,7 @@ void LayoutPlanner::initPlaceByAlignRelation(SceneSemGraph *matchedSg, SceneSemG
 	}
 }
 
+// only can be called when all models are loaded
 void LayoutPlanner::initPlaceUsingSynthesizedRelations(TSScene *currScene)
 {
 	SceneSemGraph *currSSG = currScene->m_ssg;
@@ -231,10 +232,18 @@ void LayoutPlanner::initPlaceUsingSynthesizedRelations(TSScene *currScene)
 			relNode.isAligned = true;
 		}
 	}
+
+	currScene->m_ssg->m_allSynthNodesInited = true;
 }
 
 void LayoutPlanner::computeLayout(TSScene *currScene)
 {
+	// init placement of synthesized nodes and only init once
+	if (currScene->m_ssg != NULL && !currScene->m_ssg->m_allSynthNodesInited)
+	{
+		initPlaceUsingSynthesizedRelations(currScene);  // init placement of synthesized relations
+	}
+
 	if (currScene->m_toPlaceModelIds.empty())
 	{
 		currScene->m_toPlaceModelIds = makeToPlaceModelIds(currScene);
@@ -484,6 +493,7 @@ void LayoutPlanner::adjustZForModel(TSScene *currScene, int metaModelId)
 		double newZ;
 		if (currScene->m_collisionManager->isRayIntersect(downRay, parentModelId, newZ))
 		{
+			newZ += 0.01 / params::inst()->globalSceneUnitScale;
 			vec3 translateVec;
 			translateVec = vec3(0, 0, newZ - md.position.z);
 			mat4 transMat = mat4::translate(translateVec);

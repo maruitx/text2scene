@@ -1,5 +1,6 @@
 #include "RelationModelManager.h"
 #include "TSScene.h"
+#include "CollisionManager.h"
 #include "Model.h"
 #include "SceneSemGraph.h"
 #include <Eigen/Dense>
@@ -672,9 +673,7 @@ void RelationModelManager::sampleFromRelationModel(TSScene *currScene, PairwiseR
 	// update sampled position 
 	double newZ = findClosestSuppPlaneZ(currScene, metaModelId, newPos);
 	newPos.z = newZ;
-
 	newTheta = newSample[3]*math_pi;  // theta in relational model is normalized by pi
-
 	if ( std::abs(newTheta) < 1e-6)
 	{
 		newTheta = 0;
@@ -713,6 +712,18 @@ double RelationModelManager::findClosestSuppPlaneZ(TSScene *currScene, int metaM
 			else
 			{
 				closestSuppPlaneZ = parentMd.bbTopPlane.getZ();
+			}
+
+			// adjust Z val since suppPlane Z might be not accurate
+			double elevationVal = 0.1 / params::inst()->globalSceneUnitScale;
+			float3 startPt = make_float3(newPos.x, newPos.y, closestSuppPlaneZ + elevationVal);
+			float3 downDir = make_float3(0, 0, -1);
+			Ray downRay(startPt, downDir);
+
+			double newZ;
+			if (currScene->m_collisionManager->isRayIntersect(downRay, parentMetaModelId, newZ))
+			{
+				closestSuppPlaneZ = newZ + 0.01 / params::inst()->globalSceneUnitScale;
 			}
 
 			return closestSuppPlaneZ;

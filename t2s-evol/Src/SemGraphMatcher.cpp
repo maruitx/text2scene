@@ -171,6 +171,11 @@ SceneSemGraph* SemGraphMatcher::alignSSGWithDBSSG(SemanticGraph *querySSG, Scene
 	return matchedSubSSG;
 }
 
+void SemGraphMatcher::addGroupActNodesToSubSSG(SceneSemGraph *matchedSubSSG, SceneSemGraph *dbSSG)
+{
+
+}
+
 double SemGraphMatcher::computeGeometrySimilarity(SceneSemGraph *testSSG, SceneSemGraph *refSSG)
 {
 	double simVal = 0;
@@ -303,7 +308,8 @@ void SemGraphMatcher::addSynthNodeToSubSSG(SemanticGraph *querySSG, SceneSemGrap
 	{
 		SemNode& sgNode = querySSG->m_nodes[ni];
 
-		if (!sgNode.isAligned && (sgNode.nodeType == "attribute" || sgNode.nodeType == "group_relation"))
+		if (!sgNode.isAligned && sgNode.matchingStatus == SemNode::ExplicitNode 
+			&&(sgNode.nodeType == "attribute" || sgNode.nodeType == "group_relation"))
 		{
 			if (!sgNode.outEdgeNodeList.empty())
 			{

@@ -32,6 +32,7 @@ public:
 
 	void loadModel(MetaModel m);
 
+
 	void updateFloorHeight();
 	void updateRoomModel(MetaModel m);
     void toggleRenderMode();

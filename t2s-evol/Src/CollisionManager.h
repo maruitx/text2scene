@@ -5,12 +5,12 @@
 class TSScene;
 class Model;
 
-struct TrianglePredicate : public GeometryPredicate<SimpleBoxNodeData>
+struct TriangleTrianglePredicate : public AbstractTriangleTrianglePredicate<SimpleBoxNodeData>
 {
 	Model* model[2];
 	mat4 transform[2];
 
-	TrianglePredicate(Model *first, mat4 &firstTransform, Model *second, mat4 &secondTransform);	
+	TriangleTrianglePredicate(Model *first, mat4 &firstTransform, Model *second, mat4 &secondTransform);
 	bool operator()(const SimpleBoxNodeData &a, const SimpleBoxNodeData &b) const;
 };
 

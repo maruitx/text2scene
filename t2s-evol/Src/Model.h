@@ -77,6 +77,7 @@ public:
 
 	void getBvhLeafNodes(std::vector<BvhLeafNode> &nodes);
 	void getTriangle(int index, vec3 &p, vec3 &q, vec3 &r);
+	TriangleMesh* getTriMesh() { return m_triMesh; };
 
 	vec3 getBBRange();  // init AABB range
 	vec3 getBBRange(const mat4 &transMat);  // OBB range after transformation

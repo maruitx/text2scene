@@ -18,16 +18,6 @@ struct BoxHitRecord {
     BoxHitRecord() : hit(false), t(RAY_TMAX), index(-1) {}
 };
 
-struct SimpleBoxNodeData {
-	BoundingBox box;
-	std::vector<int> triangles;
-};
-
-template <class NodeData>
-struct GeometryPredicate {
-    virtual bool operator()(const NodeData &a, const NodeData &b) const = 0;
-};
-
 template <class NodeData>
 class BoxBvh {
 public:
@@ -37,7 +27,8 @@ public:
     bool hit(const Ray &r, BoxHitRecord &record, float tmin = RAY_TMIN, float tmax = RAY_TMAX) const;
     bool hit(const Ray &r, float tmin = RAY_TMIN, float tmax = RAY_TMAX) const;
     bool hit(float3 p, float3 q, float tmin = RAY_TMIN) const;
-    bool hit(const BoxBvh<NodeData> &another, const GeometryPredicate<NodeData> &predicate) const;
+	bool hit(const Ray &r, const AbstractRayTrianglePredicate<NodeData> &predicate, TriangleHitRecord &record, float tmin = RAY_TMIN, float tmax = RAY_TMAX) const;
+    bool hit(const BoxBvh<NodeData> &another, const AbstractTriangleTrianglePredicate<NodeData> &predicate) const;
 
 protected:    
     void build();
@@ -264,6 +255,44 @@ bool BoxBvh<NodeData>::hit(const Ray &r, BoxHitRecord &record, float tmin, float
 }
 
 template <class NodeData>
+bool BoxBvh<NodeData>::hit(const Ray &r, const AbstractRayTrianglePredicate<NodeData> &predicate, TriangleHitRecord &record, float tmin, float tmax) const {
+	bool hit = false;
+	TriangleHitRecord bestRecord;
+
+	if (!root) return false;
+	if (!root->box.hit(r, tmin, tmax)) return false;
+
+	Stack q;
+	q.push(0);
+
+	while (!q.is_empty()) {
+		int node_index = q.pop();
+		BvhNode &node = nodes[node_index];
+		if (node.index_left < 0 && node.index_right < 0) {
+
+			// test with geometry inside the leaf node
+			const NodeData &d = data[org_index[node.start]];
+			if (predicate(r, d, tmin, tmax, record)) {
+				tmax = record.t;
+				hit = true;
+				bestRecord = record;
+			}
+		}
+		else {
+
+			if (node.index_left >= 0 && nodes[node.index_left].box.hit(r, tmin, tmax))
+				q.push(node.index_left);
+			if (node.index_right >= 0 && nodes[node.index_right].box.hit(r, tmin, tmax))
+				q.push(node.index_right);
+		}
+	}
+	if (hit) {
+		record = bestRecord;
+	}
+	return hit;
+}
+
+template <class NodeData>
 bool BoxBvh<NodeData>::hit(const Ray &r, float tmin, float tmax) const {
     if (!root) return false;
     if (!root->box.hit(r, tmin, tmax)) return false;
@@ -302,7 +331,7 @@ bool BoxBvh<NodeData>::hit(float3 p, float3 q, float tmin) const {
 
 template <class NodeData>
 bool BoxBvh<NodeData>::hit(const BoxBvh<NodeData> &another, 
-                           const GeometryPredicate<NodeData> &predicate) const 
+                           const AbstractTriangleTrianglePredicate<NodeData> &predicate) const 
 {
     if (!root) return false;
     if (!another.root) return false;

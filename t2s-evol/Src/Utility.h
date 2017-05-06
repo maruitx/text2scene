@@ -401,3 +401,12 @@ inline float dot(float3 a, float3 b) {
 inline float norm(float3 vec) {
 	return sqrtf(dot(vec, vec));
 }
+
+static float3 TransformPoint(const mat4 &transMat, const float3 &p)
+{
+	float3 transP = make_float3(transMat.a11*p.x + transMat.a12*p.y + transMat.a13*p.z + transMat.a14,
+		transMat.a21*p.x + transMat.a22*p.y + transMat.a23*p.z + transMat.a24,
+		transMat.a31*p.x + transMat.a32*p.y + transMat.a33*p.z + transMat.a34);
+
+	return transP;
+}

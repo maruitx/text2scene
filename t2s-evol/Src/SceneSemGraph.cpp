@@ -15,6 +15,7 @@ SceneSemGraph::SceneSemGraph(const QString &s)
 	: m_fullFilename(s)
 {
 	loadGraph(m_fullFilename);
+	m_allSynthNodesInited = false;
 }
 
 SceneSemGraph::SceneSemGraph(SceneSemGraph *sg)
@@ -27,6 +28,8 @@ SceneSemGraph::SceneSemGraph(SceneSemGraph *sg)
 
 	m_nodes = sg->m_nodes;
 	m_edges = sg->m_edges;
+
+	m_allSynthNodesInited = false;
 }
 
 SceneSemGraph::~SceneSemGraph()
@@ -434,7 +437,7 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, RelationM
 {
 	SceneSemGraph *subGraph = new SceneSemGraph();
 
-	std::vector<int> enrichedNodeList = nodeList;
+	std::vector<int> enrichedObjNodeList = nodeList;
 
 	m_dbNodeToSubNodeMap.clear();
 
@@ -481,11 +484,27 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, RelationM
 					{
 						subGraph->addNode(actNode);
 						m_dbNodeToSubNodeMap[actNodeId] = currSubSSGNodeNum;
-						enrichedNodeList.push_back(actNodeId);
+						enrichedObjNodeList.push_back(actNodeId);
 						currSubSSGNodeNum++;
 
 						actNode.isAnnotated = true;
 						actNode.isAligned = false;
+
+						// add support node for current active object
+						for (int r=0; r < actNode.outEdgeNodeList.size(); r++)
+						{
+							int suppNodeId = actNode.outEdgeNodeList[r];
+							SemNode &suppNode = m_nodes[suppNodeId];
+							if (suppNode.nodeName == "vertsupport")
+							{
+								subGraph->addNode(suppNode);
+								m_dbNodeToSubNodeMap[suppNodeId] = currSubSSGNodeNum;
+								currSubSSGNodeNum++;
+
+								suppNode.isAnnotated = true;
+								suppNode.isAligned = false;
+							}
+						}
 					}
 				}
 			}
@@ -508,9 +527,9 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, RelationM
 
 	// set meta scene
 	int modelInSceneId = 0;
-	for (int i = 0; i < enrichedNodeList.size(); i++)
+	for (int i = 0; i < enrichedObjNodeList.size(); i++)
 	{
-		int oldNodeId = enrichedNodeList[i];
+		int oldNodeId = enrichedObjNodeList[i];
 
 		// non-object node is not saved in the map
 		if (m_graphNodeToModelListIdMap.count(oldNodeId))
@@ -557,6 +576,9 @@ void SceneSemGraph::restoreMissingSupportNodes()
 			}
 		}
 	}
+
+	// restore for objects in a group relation
+
 }
 
 bool SceneSemGraph::hasSupportNode(int actNodeId)

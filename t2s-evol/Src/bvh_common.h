@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Geometry.h"
+#include "ray_triangle_intersection.h"
 #include <iostream>
 
 extern "C" {
@@ -21,6 +22,11 @@ struct BvhNode {
 struct BvhLeafNode {
 	std::vector<int> triangles;
 	BoundingBox box;
+};
+
+struct SimpleBoxNodeData {
+	BoundingBox box;
+	std::vector<int> triangles;
 };
 
 struct TriangleHitRecord {
@@ -178,6 +184,38 @@ struct TriangleMesh {
 
 	vector<float3>      vertex_vec;
 	vector<TriangleIdx>    triangle_vec;
+};
+
+template <class NodeData>
+struct AbstractRayTrianglePredicate {
+	virtual bool operator()(const Ray &r, const NodeData &data, float tmin, float tmax, TriangleHitRecord &record) const = 0;
+};
+
+struct RayTrianglePredicate : public AbstractRayTrianglePredicate<SimpleBoxNodeData> {
+	RayTrianglePredicate(TriangleMesh &mesh, mat4 &transMat) : mesh(mesh), transMat(transMat) {}
+
+	bool operator()(const Ray &r, const SimpleBoxNodeData &data, float tmin, float tmax, TriangleHitRecord &record) const {
+		TriangleIdx tri = mesh.triangle_vec[data.triangles[0]];
+		float3 p0 = TransformPoint(transMat, mesh.vertex_vec[tri.x]);
+		float3 p1 = TransformPoint(transMat, mesh.vertex_vec[tri.y]);
+		float3 p2 = TransformPoint(transMat, mesh.vertex_vec[tri.z]);
+
+		float t = tmax, beta, gamma;
+		bool hit = ray_tri_test(r.org(), r.dir(), p0, p1, p2, tmin, tmax, t, beta, gamma);
+		record.hit = hit;
+		record.t = t;
+		record.beta = beta;
+		record.gamma = gamma;
+		return hit;
+	}
+
+	const TriangleMesh &mesh;
+	const mat4 transMat;
+};
+
+template <class NodeData>
+struct AbstractTriangleTrianglePredicate {
+	virtual bool operator()(const NodeData &a, const NodeData &b) const = 0;
 };
 
 struct Stack {
