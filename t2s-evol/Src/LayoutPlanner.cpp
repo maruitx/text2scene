@@ -54,12 +54,14 @@ void LayoutPlanner::initPlaceByAlignRelation(SceneSemGraph *matchedSg, SceneSemG
 				int currRefNodeId = matchedSg->m_nodeAlignMap[mRefNodeId];
 				int currActiveNodeId = matchedSg->m_nodeAlignMap[mActiveNodeId];
 
+				MetaModel &currActiveMd = currSg->getModelWithNodeId(currActiveNodeId);
+				MetaModel &mActiveMd = matchedSg->getModelWithNodeId(mActiveNodeId);
+
+				if (currActiveMd.isAlreadyPlaced) continue;
+
 				// find ref models
 				MetaModel &mRefMd = matchedSg->getModelWithNodeId(mRefNodeId);
 				MetaModel &currRefMd = currSg->getModelWithNodeId(currRefNodeId);
-
-				MetaModel &currActiveMd = currSg->getModelWithNodeId(currActiveNodeId);
-				MetaModel &mActiveMd = matchedSg->getModelWithNodeId(mActiveNodeId);
 
 				// compute dir alignment matrix based on the ref models
 				mat4 dirRotMat = GetRotationMatrix(mRefMd.frontDir, currRefMd.frontDir);
@@ -144,6 +146,9 @@ void LayoutPlanner::initPlaceUsingSynthesizedRelations(TSScene *currScene)
 
 		if (sgNode.nodeType=="object")
 		{
+			MetaModel &md = currSSG->getModelWithNodeId(mi);
+			if (md.isAlreadyPlaced) continue;						
+
 			int outRelationNum = sgNode.outEdgeNodeList.size();
 			if (outRelationNum == 1)
 			{
@@ -224,9 +229,10 @@ void LayoutPlanner::initPlaceUsingSynthesizedRelations(TSScene *currScene)
 					translateVec = newPos - actMd.position;
 					transMat = transMat.translate(translateVec);
 				}
-				actMd.updateWithTransform(transMat);
-				// update meta model in SSG
-				currScene->m_ssg->m_metaScene.m_metaModellList[activeModelId] = actMd;
+				//actMd.updateWithTransform(transMat);
+				//// update meta model in SSG
+				//currScene->m_ssg->m_metaScene.m_metaModellList[activeModelId] = actMd;
+				updateMetaModelInScene(currScene, activeModelId, transMat);
 
 				updatePlacementOfChildren(currScene, activeModelId, transMat);
 
@@ -301,7 +307,7 @@ void LayoutPlanner::computeSingleObjLayout(TSScene *currScene, int metaModelId)
 		return;
 	}
 
-	if (!md.zAdjusted) 	adjustZForModel(currScene, metaModelId);
+	if (!md.zAdjusted && !md.isAlreadyPlaced) 	adjustZForModel(currScene, metaModelId);
 	bool isModelCollideWithScene = currCM->checkCollisionBVH(currModel, metaModelId);
 	if (isModelCollideWithScene)
 	{
@@ -383,7 +389,7 @@ void LayoutPlanner::computeGroupObjLayoutSeq(TSScene *currScene, const std::vect
 	MetaModel &md = currScene->getMetaModel(metaModelId);
 	Model *currModel = currScene->getModel(md.name);
 
-	if (!md.zAdjusted) 	adjustZForModel(currScene, metaModelId);
+	if (!md.zAdjusted && !md.isAlreadyPlaced) 	adjustZForModel(currScene, metaModelId);
 	isModelCollideWithScene = currCM->checkCollisionBVH(currModel, metaModelId);
 	if (isModelCollideWithScene)
 	{
@@ -505,15 +511,19 @@ void LayoutPlanner::adjustZForModel(TSScene *currScene, int metaModelId)
 		double newZ;
 		if (currScene->computeZForModel(metaModelId, parentModelId, md.position, newZ))
 		{
+			// if new Z is higher than previous z or is far low from the original z, e.g., move from high shelf to low shelf
 			if (newZ > md.position.z || md.position.z - newZ > 0.05 / params::inst()->globalSceneUnitScale)
 			{
+				md.zAdjusted = true;
 				vec3 translateVec;
 				translateVec = vec3(0, 0, newZ - md.position.z);
 				mat4 transMat = mat4::translate(translateVec);
-				md.updateWithTransform(transMat);
-			}
+				//md.updateWithTransform(transMat);
+				//// update meta model in SSG
+				//currScene->m_ssg->m_metaScene.m_metaModellList[metaModelId] = md;
 
-			md.zAdjusted = true;
+				updateMetaModelInScene(currScene, metaModelId, transMat);
+			}
 		}
 	}
 }
@@ -649,12 +659,12 @@ Eigen::VectorXd LayoutPlanner::computeNewPlacement(TSScene *currScene, int metaM
 void LayoutPlanner::updateWithNewPlacement(TSScene *currScene, int anchorModelId, int currModelID, const Eigen::VectorXd &newPlacement)
 {
 	MetaModel &currMd = currScene->getMetaModel(currModelID);
+	currMd.theta = newPlacement[3];
 
 	vec3 newPos(newPlacement[0], newPlacement[1], newPlacement[2]);
-
 	mat4 transMat = computeTransMatFromPos(currScene, anchorModelId, currModelID, newPos, newPlacement[3]);
-	currMd.updateWithTransform(transMat);
-	currMd.theta = newPlacement[3];
+	//currMd.updateWithTransform(transMat);
+	updateMetaModelInScene(currScene, currModelID, transMat);
 
 	// lift model in case the Z position is not accurate
 	Model *currModel = currScene->getModel(currMd.name);
@@ -665,12 +675,13 @@ void LayoutPlanner::updateWithNewPlacement(TSScene *currScene, int anchorModelId
 		if (d > 0)
 		{
 			mat4 liftMat = mat4::translate(0, 0, d);
-			currMd.updateWithTransform(liftMat);
+			//currMd.updateWithTransform(liftMat);
+			updateMetaModelInScene(currScene, currModelID, liftMat);
 		}
 	}
 
-	// update meta model in SSG
-	currScene->m_ssg->m_metaScene.m_metaModellList[currModelID] = currMd;
+	//// update meta model in SSG
+	//currScene->m_ssg->m_metaScene.m_metaModellList[currModelID] = currMd;
 
 	// update all supported children
 	updatePlacementOfChildren(currScene, currModelID, transMat);
@@ -684,11 +695,12 @@ void LayoutPlanner::updatePlacementOfChildren(TSScene *currScene, int currModelI
 		for (int i = 0; i < childrenList.size(); i++)
 		{
 			int childModelId = childrenList[i];
-			MetaModel &childMd = currScene->getMetaModel(childModelId);
-			childMd.updateWithTransform(transMat);
+			//MetaModel &childMd = currScene->getMetaModel(childModelId);
+			//childMd.updateWithTransform(transMat);
+			//// update MetaModel in SSG
+			//currScene->m_ssg->m_metaScene.m_metaModellList[childModelId] = childMd;
 
-			// update MetaModel in SSG
-			currScene->m_ssg->m_metaScene.m_metaModellList[childModelId] = childMd;
+			updateMetaModelInScene(currScene, childModelId, transMat);
 		}
 	}
 
@@ -712,11 +724,12 @@ void LayoutPlanner::updatePlacementOfChildren(TSScene *currScene, int currModelI
 
 					if (std::find(childrenList.begin(), childrenList.end(), actModelId) == childrenList.end())
 					{
-						MetaModel &actMd = currSSG->getModelWithNodeId(actNodeId);
-						actMd.updateWithTransform(transMat);
+						//MetaModel &actMd = currSSG->getModelWithNodeId(actNodeId);
+						//actMd.updateWithTransform(transMat);
+						//MetaModel &actMdInScene = currScene->getMetaModel(actModelId);
+						//actMdInScene = actMd;
 
-						MetaModel &actMdInScene = currScene->getMetaModel(actModelId);
-						actMdInScene = actMd;
+						updateMetaModelInScene(currScene, actModelId, transMat);
 					}
 				}
 			}
@@ -767,14 +780,24 @@ void LayoutPlanner::updatePlacementOfParent(TSScene *currScene, int currModelID,
 
 	if (parentModelId!=-1)
 	{
-		MetaModel &parentMd = currScene->getMetaModel(parentModelId);
-		parentMd.updateWithTransform(transMat);
+		//MetaModel &parentMd = currScene->getMetaModel(parentModelId);
+		//parentMd.updateWithTransform(transMat);
 
-		// update MetaModel in SSG
-		currScene->m_ssg->m_metaScene.m_metaModellList[parentModelId] = parentMd;
+		//// update MetaModel in SSG
+		//currScene->m_ssg->m_metaScene.m_metaModellList[parentModelId] = parentMd;
+		updateMetaModelInScene(currScene, parentModelId, transMat);
 	}
 
 	// TODO: update the rest children on current parent model
+}
+
+void LayoutPlanner::updateMetaModelInScene(TSScene * currScene, int currModelID, mat4 transMat)
+{
+	MetaModel &md = currScene->getMetaModel(currModelID);
+	md.updateWithTransform(transMat);
+
+	// also need to update meta model in SSG
+	currScene->m_ssg->m_metaScene.m_metaModellList[currModelID] = md;
 }
 
 mat4 LayoutPlanner::computeTransMatFromPos(TSScene *currScene, int anchorModelId, int currModelID, vec3 newPos, double newTheta)

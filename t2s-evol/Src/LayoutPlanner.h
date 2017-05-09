@@ -37,6 +37,7 @@ public:
 	void updatePlacementOfChildren(TSScene *currScene, int currModelID, mat4 transMat);
 	void initAlignmentOfChildren(SceneSemGraph *currSSG, int currModelId, mat4 transMat);
 	void updatePlacementOfParent(TSScene *currScene, int currModelID, mat4 transMat);
+	void updateMetaModelInScene(TSScene *currScene, int currModelID, mat4 transMat);
 
 	mat4 computeTransMatFromPos(TSScene *currScene, int anchorModelId, int currModelID, vec3 newPos, double newTheta);
 

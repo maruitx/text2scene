@@ -87,6 +87,6 @@ transform 0.000000 0.039469 -0.000000 0.000000 -0.039469 0.000000 0.000000 0.000
 formal,organized,clean,30,31 
 formal,organized,clean,1,4 3 2 5 6 10 11 9 7 14 
 casual,organized,clean,28,29 36 
-casual,organized,clean,28,29 36 15 41 35 17 22 23 
-casual,organized,clean,15,26 17 24 27 22 18 16 23 25 
+casual,organized,clean,28,29 36 15 41 35 17 22 
+casual,organized,clean,15,26 17 24 27 22 18 16 25 
 casual,organized,clean,wide,15,41 17 40 30 31 1 28 
