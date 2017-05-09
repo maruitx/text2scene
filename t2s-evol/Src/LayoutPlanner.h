@@ -14,6 +14,8 @@ public:
 	LayoutPlanner(RelationModelManager *relManager);
 	~LayoutPlanner();
 
+	void loadSpecialModels();
+
 	void initPlaceByAlignRelation(SceneSemGraph *matchedSg, SceneSemGraph *currSg);
 	void initPlaceUsingSynthesizedRelations(TSScene *currScene);
 
@@ -30,7 +32,6 @@ public:
 	void computeLayoutPassScoreForModels(TSScene *currScene, const std::vector<int> &toPlaceModelIds);
 
 	Eigen::VectorXd computeNewPlacement(TSScene *currScene, int metaModelID, const std::vector<std::vector<vec3>> &collisonPositions, int &anchorModelId);
-	void adjustPlacementForSpecificModel(TSScene *currScene, const MetaModel &currMd, vec3 &pos);
 
 	void updateWithNewPlacement(TSScene *currScene, int anchorModelId, int currModelID, const Eigen::VectorXd &newPlacement);
 	void updatePlacementOfChildren(TSScene *currScene, int currModelID, mat4 transMat);
@@ -46,7 +47,7 @@ public:
 public:
 
 	RelationModelManager *m_relModelManager;  // pointer to the singleton; instance saved in SceneGenerator
-
+	std::map<QString, double> m_specialModels; // special models that need adjust Z values
 	int m_trialNumLimit;
 
 };

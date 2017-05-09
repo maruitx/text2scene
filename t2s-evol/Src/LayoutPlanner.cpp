@@ -10,11 +10,29 @@
 LayoutPlanner::LayoutPlanner(RelationModelManager *relManager)
 	:m_relModelManager(relManager)
 {
+	loadSpecialModels();
 	m_trialNumLimit = 200;
 }
 
 LayoutPlanner::~LayoutPlanner()
 {
+}
+
+void LayoutPlanner::loadSpecialModels()
+{
+	QString filename = "./SceneDB/special_models.txt";
+	QFile inFile(filename);
+	QTextStream ifs(&inFile);
+
+	if (!inFile.open(QIODevice::ReadOnly | QIODevice::Text)) return;
+
+	while (!ifs.atEnd())
+	{
+		QString currLine = ifs.readLine();
+		QStringList parts = currLine.split(",");
+		m_specialModels[parts[0]] = parts[1].toDouble();
+	}
+	inFile.close();
 }
 
 void LayoutPlanner::initPlaceByAlignRelation(SceneSemGraph *matchedSg, SceneSemGraph *currSg)
@@ -222,10 +240,9 @@ void LayoutPlanner::initPlaceUsingSynthesizedRelations(TSScene *currScene)
 					&& relNode.nodeName != "oncenter"
 					&& actModelParentId!= refModelParentId)
 				{
-					double previousActZ = actMd.position.z;
 					// only transform parent in xy plane
-					mat4 zMat = mat4::translate(vec3(0, 0, previousActZ - actMd.position.z));
-					updatePlacementOfParent(currScene, activeModelId, zMat*transMat);
+					transMat.a34 = 0;
+					updatePlacementOfParent(currScene, activeModelId, transMat);
 				}
 			}
 
@@ -485,19 +502,17 @@ void LayoutPlanner::adjustZForModel(TSScene *currScene, int metaModelId)
 	int parentModelId = currScene->m_ssg->m_parentOfModel[metaModelId];
 	if (parentModelId != -1)
 	{
-		double elevationVal = 0.1 / params::inst()->globalSceneUnitScale;
-		float3 startPt = make_float3(md.position.x, md.position.y, md.position.z + elevationVal);
-		float3 downDir = make_float3(0, 0, -1);
-		Ray downRay(startPt, downDir);
-
 		double newZ;
-		if (currScene->m_collisionManager->isRayIntersect(downRay, parentModelId, newZ))
+		if (currScene->computeZForModel(metaModelId, parentModelId, md.position, newZ))
 		{
-			newZ += 0.01 / params::inst()->globalSceneUnitScale;
-			vec3 translateVec;
-			translateVec = vec3(0, 0, newZ - md.position.z);
-			mat4 transMat = mat4::translate(translateVec);
-			md.updateWithTransform(transMat);
+			if (newZ > md.position.z || md.position.z - newZ > 0.05 / params::inst()->globalSceneUnitScale)
+			{
+				vec3 translateVec;
+				translateVec = vec3(0, 0, newZ - md.position.z);
+				mat4 transMat = mat4::translate(translateVec);
+				md.updateWithTransform(transMat);
+			}
+
 			md.zAdjusted = true;
 		}
 	}
@@ -677,7 +692,7 @@ void LayoutPlanner::updatePlacementOfChildren(TSScene *currScene, int currModelI
 		}
 	}
 
-	// update active list in a group
+	// update active list that is not a child in a group
 	SceneSemGraph *currSSG = currScene->m_ssg;
 	int anchorNodeId = currSSG->getNodeIdWithModelId(currModelId);
 	SemNode &anchorNode = currSSG->m_nodes[anchorNodeId];
@@ -693,12 +708,16 @@ void LayoutPlanner::updatePlacementOfChildren(TSScene *currScene, int currModelI
 				for (int i = 0; i < relNode.activeNodeList.size(); i++)
 				{
 					int actNodeId = relNode.activeNodeList[i];
-					MetaModel &actMd = currSSG->getModelWithNodeId(actNodeId);
-					actMd.updateWithTransform(transMat);
-
 					int actModelId = currSSG->m_graphNodeToModelListIdMap[actNodeId];
-					MetaModel &actMdInScene = currScene->getMetaModel(actModelId);
-					actMdInScene = actMd;
+
+					if (std::find(childrenList.begin(), childrenList.end(), actModelId) == childrenList.end())
+					{
+						MetaModel &actMd = currSSG->getModelWithNodeId(actNodeId);
+						actMd.updateWithTransform(transMat);
+
+						MetaModel &actMdInScene = currScene->getMetaModel(actModelId);
+						actMdInScene = actMd;
+					}
 				}
 			}
 		}
@@ -758,20 +777,6 @@ void LayoutPlanner::updatePlacementOfParent(TSScene *currScene, int currModelID,
 	// TODO: update the rest children on current parent model
 }
 
-void LayoutPlanner::adjustPlacementForSpecificModel(TSScene *currScene, const MetaModel &currMd, vec3 &newPos)
-{
-	if (currMd.catName == "headphones")
-	{
-		//Model *m = currScene->getModel(currMd.name);
-		//vec3 bbRange = m->getBBRange(currMd.transformation);
-
-		//// headphone is not aligned consistently
-		//double zOffset = 0.5*min(bbRange.x, bbRange.y);
-
-		//newPos.z += zOffset;
-	}
-}
-
 mat4 LayoutPlanner::computeTransMatFromPos(TSScene *currScene, int anchorModelId, int currModelID, vec3 newPos, double newTheta)
 {
 	mat4 transMat;
@@ -800,7 +805,10 @@ mat4 LayoutPlanner::computeTransMatFromPos(TSScene *currScene, int anchorModelId
 
 	// test whether candidate pos is valid for all implicit constraint
 
-	adjustPlacementForSpecificModel(currScene, currMd, newPos);
+	double newZ = newPos.z;
+	//adjustZForSpecificModel(currScene, currMd, newZ);
+	currScene->adjustZForSpecificModel(currMd, newZ);
+	newPos.z = newZ;
 
 	vec3 translateVec = newPos - TransformPoint(rotMat, currMd.position);
 	transMat = rotMat;

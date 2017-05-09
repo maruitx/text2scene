@@ -10,444 +10,438 @@ parentId -1
 parentPlaneUVH 0.5 0.5 -1
 newModel 1 3dacd34cc8469324bdef8ab827c781f2
 transform 1.069720 0.000000 0.000000 0.000000 0.000000 1.069720 0.000000 0.000000 0.000000 0.000000 1.069720 0.000000 88.047302 186.494995 6.056990 1.000000
-position 32.3783 19.7817 -2.624
+position 122.683 207.656 3.25004
 frontDir 0 -1 0
 upDir 0 0 1
 bbTopPlane 69.7969 177.933 101.725 175.569 177.933 101.725 175.569 237.378 101.725 69.7969 237.378 101.725
 parentId 0
-parentPlaneUVH 0.505005 0.854551 0.250045
+parentPlaneUVH 0.505005 0.854551 -131.75
 newModel 2 cf0af4e3801c6d7b2bf3161ae4fda942
 transform 1.329380 -0.104625 0.000000 0.000000 0.104625 1.329380 0.000000 0.000000 0.000000 0.000000 1.333490 0.000000 108.377998 198.919998 64.316704 1.000000
-position 15.75 5.59419 -0.6811
+position 129.901 204.709 63.4085
 frontDir 0 -1 0
 upDir 0 0 1
 bbTopPlane 108.797 204.241 95.9862 150.672 200.945 95.9862 151.005 205.177 95.9862 109.13 208.473 95.9862
 parentId 1
-parentPlaneUVH 0.56824 0.450426 -23.1585
+parentPlaneUVH 0.56824 0.450426 -38.3162
 newModel 3 1049af17ad48aaeb6d41c42f7ade8c8
 transform 0.790814 2.060070 0.020756 0.000000 -2.060170 0.790799 0.005392 0.000000 -0.002404 -0.021310 2.206640 0.000000 149.964005 216.067993 101.498001 1.000000
-position 1.06974 2.58701 0.120205
+position 145.48 220.315 101.799
 frontDir -1 0 0
 upDir 0 0 1
 bbTopPlane 138.257 219.474 115.716 150.348 214.833 115.685 152.672 220.887 115.746 140.581 225.528 115.777
 parentId 1
-parentPlaneUVH 0.715528 0.712954 15.2324
+parentPlaneUVH 0.715528 0.712954 0.0747845
 newModel 4 1f4e56064de606093e746e5f1700ce1a
 transform 0.089684 0.034426 0.000000 0.000000 -0.034426 0.089684 0.000000 0.000000 0.000000 0.000000 0.096065 0.000000 108.247002 185.207993 63.408401 1.000000
-position -44.7917 81.2628 0
+position 101.432 190.954 63.4084
 frontDir 0 0 1
 upDir 0 1 0
 bbTopPlane 100.586 183.815 64.5833 106.838 186.215 64.5833 108.247 185.208 63.4084 108.247 185.208 63.4084
 parentId 1
-parentPlaneUVH 0.29909 0.219036 -23.1586
+parentPlaneUVH 0.29909 0.219036 -38.3162
 newModel 5 ef3d038046cab5cabeb3159acb187cec
 transform 21.565701 -2.266650 0.000000 0.000000 2.266650 21.565701 0.000000 0.000000 0.000000 0.000000 21.684500 0.000000 128.703995 185.582001 63.408401 1.000000
-position -0.075506 0.0977055 0
+position 127.297 187.86 63.4084
 frontDir 0 -1 0
 upDir 0 0 1
 bbTopPlane 110.896 183.677 66.6129 142.47 180.359 66.6129 143.698 192.043 66.6129 112.124 195.362 66.6129
 parentId 1
-parentPlaneUVH 0.543622 0.166993 -23.1586
+parentPlaneUVH 0.543622 0.166993 -38.3162
 newModel 6 da262a969415b79aab166950475a0b3e
 transform -0.104292 -0.294513 0.000000 0.000000 0.294513 -0.104292 0.000000 0.000000 0.000000 0.000000 0.312433 0.000000 160.115005 222.615005 63.408401 1.000000
-position 18.7583 9.5 0
+position 160.957 216.1 63.4084
 frontDir 1 0 0
 upDir 0 0 1
 bbTopPlane 156.202 211.566 81.1989 161.798 209.584 81.1989 165.711 220.633 81.1989 160.115 222.615 81.1989
 parentId 1
-parentPlaneUVH 0.861848 0.642043 -23.1586
+parentPlaneUVH 0.861848 0.642043 -38.3162
 newModel 7 da262a969415b79aab166950475a0b3e
 transform 0.096548 -0.297141 0.000000 0.000000 0.297141 0.096548 0.000000 0.000000 0.000000 0.000000 0.312433 0.000000 91.056099 223.263000 63.408401 1.000000
-position 18.7583 9.5 0
+position 95.69 218.606 63.4084
 frontDir 1 0 0
 upDir 0 0 1
 bbTopPlane 94.6782 212.115 81.1989 100.324 213.95 81.1989 96.7018 225.097 81.1989 91.0561 223.263 81.1989
 parentId 1
-parentPlaneUVH 0.2448 0.684211 -23.1586
+parentPlaneUVH 0.2448 0.684211 -38.3162
 newModel 8 dfe29647b90f6e8c90440358135814c0
 transform 1.442310 0.000000 0.000000 0.000000 0.000000 1.442310 0.000000 0.000000 0.000000 0.000000 1.442310 0.000000 124.428001 221.643005 17.586399 1.000000
-position -31.203 -11.9375 0
+position 79.4236 204.425 17.5864
 frontDir 0 -1 0
 upDir 0 0 1
 bbTopPlane 72.7818 187.068 43.9945 86.0654 187.068 43.9945 86.0654 221.783 43.9945 72.7818 221.783 43.9945
 parentId 1
-parentPlaneUVH 0.0910133 0.445657 -68.9806
+parentPlaneUVH 0.0910133 0.445657 -84.1382
 newModel 9 2936cf91218a53dee04e4d5188c661b9
 transform 0.223303 -0.047465 0.000000 0.000000 0.047465 0.223303 0.000000 0.000000 0.000000 0.000000 0.228292 0.000000 166.414001 219.128998 86.817101 1.000000
-position 0.0935018 -1.52973 0
+position 166.362 218.783 86.8171
 frontDir 0 -1 0
 upDir 0 0 1
 bbTopPlane 159.516 216.006 96.4431 171.555 213.447 96.4431 173.423 222.234 96.4431 161.384 224.793 96.4431
 parentId 1
-parentPlaneUVH 0.912955 0.687182 0.250093
+parentPlaneUVH 0.912955 0.687182 -14.9075
 newModel 10 3d20a0473db7da2731be0e674a4a8204
 transform 0.127213 0.000000 0.000146 0.000000 0.000000 0.127213 -0.000000 0.000000 -0.000146 0.000000 0.127213 0.000000 99.698700 209.580994 17.559099 1.000000
-position 73.3461 39.833 -42.2835
+position 109.035 214.648 12.1908
 frontDir 0 -1 0
 upDir 0 0 1
 bbTopPlane 97.181 208.481 13.1478 119.212 208.481 13.1731 119.212 225.659 13.1731 97.181 225.659 13.1478
 parentId 1
-parentPlaneUVH 0.370972 0.617627 -74.3762
+parentPlaneUVH 0.370972 0.617627 -89.5338
 newModel 11 fbdd057b52aa6eee198795cc15e06e56
 transform -0.523571 -0.523571 0.000000 0.000000 0.523571 -0.523571 0.000000 0.000000 0.000000 0.000000 0.740442 0.000000 95.565498 192.809998 63.824902 1.000000
-position 3 1.02692e-16 -0.5625
+position 93.9948 191.239 63.4084
 frontDir 0 -1 0
 upDir 0 0 1
 bbTopPlane 93.9948 194.381 72.2785 90.8534 191.239 72.2785 93.9948 188.098 72.2785 97.1362 191.239 72.2785
 parentId 1
-parentPlaneUVH 0.228773 0.223836 -23.1586
+parentPlaneUVH 0.228773 0.223836 -38.3162
 newModel 12 bef6a59e21f5227c6ea2d79f658bbae7
 transform 3.060010 -0.000016 0.003326 0.000000 -0.000016 3.059870 0.029546 0.000000 -0.003326 -0.029546 3.059870 0.000000 99.028099 213.011993 101.678001 1.000000
-position 2.56075 2.56075 0
+position 106.864 220.848 101.762
 frontDir 0 -1 0
 upDir 0 0 1
 bbTopPlane 99.0221 212.958 107.219 114.694 212.958 107.237 114.694 228.63 107.388 99.022 228.63 107.371
 parentId 1
-parentPlaneUVH 0.350442 0.721913 15.1952
+parentPlaneUVH 0.350442 0.721913 0.0375594
 newModel 13 4f079d4125276ae58064e4301e947b0d
 transform 0.021027 0.008072 0.000000 0.000000 -0.008072 0.021027 0.000000 0.000000 0.000000 0.000000 0.022523 0.000000 153.419998 206.250000 63.611000 1.000000
-position -200.963 185.219 -8.9958
+position 147.699 208.523 63.4084
 frontDir 0 -1 0
 upDir 0 0 1
 bbTopPlane 142.658 201.688 66.0864 156.019 206.816 66.0864 152.74 215.357 66.0864 139.38 210.229 66.0864
 parentId 1
-parentPlaneUVH 0.73651 0.514579 -23.1586
+parentPlaneUVH 0.73651 0.514579 -38.3162
 newModel 14 9faceaa8dba36f401436eb1bcf306b50
 transform 2.846790 0.000000 0.000000 0.000000 0.000000 2.846790 0.000000 0.000000 0.000000 0.000000 2.846790 0.000000 97.964996 205.815994 63.409199 1.000000
-position 1.21951 0.212674 -0.0002765
+position 101.437 206.421 63.4084
 frontDir 0 -1 0
 upDir 0 0 1
 bbTopPlane 98.0374 204.349 65.2107 104.915 204.349 65.2107 104.915 208.666 65.2107 98.0374 208.666 65.2107
 parentId 1
-parentPlaneUVH 0.299131 0.479234 -23.1586
+parentPlaneUVH 0.299131 0.479234 -38.3162
 newModel 15 1b3a47fcfe01cc42625ac64d4da8b7e4
 transform 2.367670 -0.311709 0.000000 0.000000 0.311709 2.367670 0.000000 0.000000 0.000000 0.000000 2.388100 0.000000 144.352005 181.867004 63.408401 1.000000
-position 3.28125 3.28125 0
+position 153.144 188.613 63.4084
 frontDir 0 -1 0
 upDir 0 0 1
 bbTopPlane 144.352 181.867 63.5577 159.89 179.821 63.5577 161.935 195.359 63.5577 146.398 197.405 63.5577
 parentId 1
-parentPlaneUVH 0.787983 0.179658 -23.1586
+parentPlaneUVH 0.787983 0.179658 -38.3162
 newModel 16 be8596d3551ac09a572998e4111efbdc
 transform -0.007459 -0.056659 0.000000 0.000000 0.056659 -0.007459 0.000000 0.000000 0.000000 0.000000 0.057147 0.000000 148.296005 194.662003 63.933201 1.000000
-position 122.85 77.1978 -2.1972
+position 151.754 187.126 63.8076
 frontDir -1 0 0
 upDir 0 0 1
 bbTopPlane 154.833 191.228 65.8648 149.84 191.885 65.8648 148.674 183.023 65.8648 153.667 182.366 65.8648
 parentId 15
-parentPlaneUVH 0.424444 0.394321 0.324607
+parentPlaneUVH 0.424444 0.394321 0.249979
 newModel 17 2b28e2a5080101d245af43a64155c221
 transform 1.228470 -1.228470 0.000000 0.000000 0.000000 0.000000 -1.737320 0.000000 1.228470 1.228470 0.000000 0.000000 155.705994 196.410995 69.907303 1.000000
-position 3.78135 1.87039 0
+position 165.892 197.307 63.4084
 frontDir 0 -1 0
 upDir 0 0 1
 bbTopPlane 166.788 207.493 69.9073 176.078 198.202 69.9073 176.078 198.202 63.4084 166.788 207.493 63.4084
 parentId 1
-parentPlaneUVH 0.90851 0.325902 -23.1586
+parentPlaneUVH 0.90851 0.325902 -38.3162
 newModel 18 e38afe03245d96301185c4b7285136bf
 transform 0.048901 -0.000000 0.000053 0.000000 -0.000000 0.048898 0.000472 0.000000 -0.000053 -0.000472 0.048898 0.000000 126.160004 216.414993 101.740997 1.000000
-position 3.0146 155.359 0.0005
+position 126.307 224.012 101.815
 frontDir 0 -1 0
 upDir 0 0 1
 bbTopPlane 123.717 214.481 122.09 128.854 214.481 122.095 128.854 233.149 122.276 123.716 233.149 122.27
 parentId 1
-parentPlaneUVH 0.534265 0.775143 15.2475
+parentPlaneUVH 0.534265 0.775143 0.0899172
 newModel 19 1e209d677bfd4c00ef6e9c9834b26b37
 transform 0.006468 0.049131 0.000000 0.000000 -0.049131 0.006468 0.000000 0.000000 0.000000 0.000000 0.049555 0.000000 116.779999 160.192993 3.071050 1.000000
-position 0 0 3.611
+position 116.78 160.193 3.24999
 frontDir 1 0 0
 upDir 0 0 1
 bbTopPlane 150.332 184.68 74.7061 90.7091 192.529 74.7061 83.2282 135.706 74.7061 142.851 127.857 74.7061
 parentId 0
-parentPlaneUVH 0.481286 0.65923 0.249993
-nodeNum 110
-0,object,room,21 38,
-1,object,desk,22 23 24 25 26 27 28 29 30 31 32 33 34 35 39 40 41 42 43 44 45 46 47 48 49 50 51 53 54 55,38 52 56 57
-2,object,monitor,59 60 61 62 64 66 69 71,22 42 58 63 65 67 68 70 72
-3,object,pictureframe,73 75,23 43 74 76
-4,object,cellphone,58 77 79 80,24 78
-5,object,keyboard,78 81 83 84 86 88 89,25 77 82 85 87 90
-6,object,speaker,92,26 44 59 91 93
-7,object,speaker,,27 45 60
-8,object,computer,94,28 46 95
-9,object,toyfigure,74,39 47 61 73
-10,object,cabling,95 96,29 48 94 97
-11,object,sodacan,63 98 99,30 49 62 79 81
-12,object,compact disk,100,31 101
-13,object,glasses,65 82 91 102,32 50 64 103 104 105
-14,object,key,67 106,40 51 66 83 98 107
-15,object,mousepad,36 37 68 85,33 84
-16,object,computermouse,52 87 93 103,34 36 86 92 102 108
-17,object,headphones,70 104 108 109,37 41 53 69 88
-18,object,router,76 101,35 75 100
-19,object,chair,20 56 57 72 90 97 105 107,21 54 55 71 80 89 96 99 106 109
+parentPlaneUVH 0.481286 0.65923 -131.75
+nodeNum 108
+0,object,room,21 22,
+1,object,desk,23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 40 41 42 43 44 45 46 47 48 49 51 52 53,21 50 54 55
+2,object,monitor,57 58 59 60 62 64 67 69,23 40 56 61 63 65 66 68 70
+3,object,pictureframe,71 73,24 41 72 74
+4,object,cellphone,56 75 77 78,25 76
+5,object,keyboard,76 79 81 82 84 86 87,26 75 80 83 85 88
+6,object,speaker,90,27 42 57 89 91
+7,object,speaker,,28 43 58
+8,object,computer,92,29 44 93
+9,object,toyfigure,72,30 45 59 71
+10,object,cabling,93 94,31 46 92 95
+11,object,sodacan,61 96 97,32 47 60 77 79
+12,object,compact disk,98,33 99
+13,object,glasses,63 80 89 100,34 48 62 101 102 103
+14,object,key,65 104,35 49 64 81 96 105
+15,object,mousepad,39 66 83,36 82
+16,object,computermouse,50 85 91 101,39 84 90 100 106
+17,object,headphones,68 102 106 107,37 51 67 86
+18,object,router,74 99,38 73 98
+19,object,chair,20 54 55 70 88 95 103 105,22 52 53 69 78 87 94 97 104 107
 20,attribute,office,,19
-21,pair_relation,vertsupport,19,0
-22,pair_relation,vertsupport,2,1
-23,pair_relation,vertsupport,3,1
-24,pair_relation,vertsupport,4,1
-25,pair_relation,vertsupport,5,1
-26,pair_relation,vertsupport,6,1
-27,pair_relation,vertsupport,7,1
-28,pair_relation,vertsupport,8,1
-29,pair_relation,vertsupport,10,1
-30,pair_relation,vertsupport,11,1
-31,pair_relation,vertsupport,12,1
-32,pair_relation,vertsupport,13,1
-33,pair_relation,vertsupport,15,1
-34,pair_relation,vertsupport,16,1
-35,pair_relation,vertsupport,18,1
-36,pair_relation,vertsupport,16,15
-37,pair_relation,vertsupport,17,15
-38,pair_relation,vertsupport,1,0
-39,pair_relation,vertsupport,9,1
-40,pair_relation,vertsupport,14,1
-41,pair_relation,vertsupport,17,1
-42,pair_relation,onright,2,1
-43,pair_relation,onright,3,1
-44,pair_relation,onright,6,1
-45,pair_relation,onleft,7,1
-46,pair_relation,onleft,8,1
-47,pair_relation,onright,9,1
-48,pair_relation,onleft,10,1
-49,pair_relation,onleft,11,1
-50,pair_relation,onright,13,1
-51,pair_relation,onleft,14,1
-52,pair_relation,leftside,1,16
-53,pair_relation,onright,17,1
-54,pair_relation,near,19,1
-55,pair_relation,front,19,1
-56,pair_relation,near,1,19
-57,pair_relation,front,1,19
-58,pair_relation,leftside,2,4
-59,pair_relation,rightside,6,2
-60,pair_relation,leftside,7,2
-61,pair_relation,rightside,9,2
-62,pair_relation,leftside,11,2
-63,pair_relation,rightside,2,11
-64,pair_relation,rightside,13,2
-65,pair_relation,rightside,2,13
-66,pair_relation,leftside,14,2
-67,pair_relation,leftside,2,14
-68,pair_relation,rightside,2,15
-69,pair_relation,rightside,17,2
-70,pair_relation,rightside,2,17
-71,pair_relation,front,19,2
-72,pair_relation,front,2,19
-73,pair_relation,leftside,9,3
-74,pair_relation,rightside,3,9
-75,pair_relation,rightside,18,3
-76,pair_relation,leftside,3,18
-77,pair_relation,leftside,5,4
-78,pair_relation,rightside,4,5
-79,pair_relation,rightside,11,4
-80,pair_relation,front,19,4
-81,pair_relation,rightside,11,5
-82,pair_relation,rightside,5,13
-83,pair_relation,rightside,14,5
-84,pair_relation,leftside,15,5
-85,pair_relation,rightside,5,15
-86,pair_relation,leftside,16,5
-87,pair_relation,leftside,5,16
-88,pair_relation,leftside,17,5
-89,pair_relation,front,19,5
-90,pair_relation,front,5,19
-91,pair_relation,leftside,6,13
-92,pair_relation,front,16,6
-93,pair_relation,front,6,16
-94,pair_relation,leftside,10,8
-95,pair_relation,rightside,8,10
-96,pair_relation,front,19,10
-97,pair_relation,front,10,19
-98,pair_relation,rightside,14,11
-99,pair_relation,back,19,11
-100,pair_relation,leftside,18,12
-101,pair_relation,rightside,12,18
-102,pair_relation,front,16,13
-103,pair_relation,front,13,16
-104,pair_relation,rightside,13,17
-105,pair_relation,front,13,19
-106,pair_relation,front,19,14
-107,pair_relation,front,14,19
-108,pair_relation,front,16,17
-109,pair_relation,front,19,17
-edgeNum 179
+21,pair_relation,vertsupport,1,0
+22,pair_relation,vertsupport,19,0
+23,pair_relation,vertsupport,2,1
+24,pair_relation,horizonsupport,3,1
+25,pair_relation,vertsupport,4,1
+26,pair_relation,vertsupport,5,1
+27,pair_relation,vertsupport,6,1
+28,pair_relation,vertsupport,7,1
+29,pair_relation,vertsupport,8,1
+30,pair_relation,vertsupport,9,1
+31,pair_relation,horizonsupport,10,1
+32,pair_relation,vertsupport,11,1
+33,pair_relation,horizonsupport,12,1
+34,pair_relation,vertsupport,13,1
+35,pair_relation,vertsupport,14,1
+36,pair_relation,vertsupport,15,1
+37,pair_relation,vertsupport,17,1
+38,pair_relation,horizonsupport,18,1
+39,pair_relation,vertsupport,16,15
+40,pair_relation,onright,2,1
+41,pair_relation,onright,3,1
+42,pair_relation,onright,6,1
+43,pair_relation,onleft,7,1
+44,pair_relation,onleft,8,1
+45,pair_relation,onright,9,1
+46,pair_relation,onleft,10,1
+47,pair_relation,onleft,11,1
+48,pair_relation,onright,13,1
+49,pair_relation,onleft,14,1
+50,pair_relation,leftside,1,16
+51,pair_relation,onright,17,1
+52,pair_relation,near,19,1
+53,pair_relation,front,19,1
+54,pair_relation,near,1,19
+55,pair_relation,front,1,19
+56,pair_relation,leftside,2,4
+57,pair_relation,rightside,6,2
+58,pair_relation,leftside,7,2
+59,pair_relation,rightside,9,2
+60,pair_relation,leftside,11,2
+61,pair_relation,rightside,2,11
+62,pair_relation,rightside,13,2
+63,pair_relation,rightside,2,13
+64,pair_relation,leftside,14,2
+65,pair_relation,leftside,2,14
+66,pair_relation,rightside,2,15
+67,pair_relation,rightside,17,2
+68,pair_relation,rightside,2,17
+69,pair_relation,front,19,2
+70,pair_relation,front,2,19
+71,pair_relation,leftside,9,3
+72,pair_relation,rightside,3,9
+73,pair_relation,rightside,18,3
+74,pair_relation,leftside,3,18
+75,pair_relation,leftside,5,4
+76,pair_relation,rightside,4,5
+77,pair_relation,rightside,11,4
+78,pair_relation,front,19,4
+79,pair_relation,rightside,11,5
+80,pair_relation,rightside,5,13
+81,pair_relation,rightside,14,5
+82,pair_relation,leftside,15,5
+83,pair_relation,rightside,5,15
+84,pair_relation,leftside,16,5
+85,pair_relation,leftside,5,16
+86,pair_relation,leftside,17,5
+87,pair_relation,front,19,5
+88,pair_relation,front,5,19
+89,pair_relation,leftside,6,13
+90,pair_relation,front,16,6
+91,pair_relation,front,6,16
+92,pair_relation,leftside,10,8
+93,pair_relation,rightside,8,10
+94,pair_relation,front,19,10
+95,pair_relation,front,10,19
+96,pair_relation,rightside,14,11
+97,pair_relation,back,19,11
+98,pair_relation,leftside,18,12
+99,pair_relation,rightside,12,18
+100,pair_relation,front,16,13
+101,pair_relation,front,13,16
+102,pair_relation,rightside,13,17
+103,pair_relation,front,13,19
+104,pair_relation,front,19,14
+105,pair_relation,front,14,19
+106,pair_relation,front,16,17
+107,pair_relation,front,19,17
+edgeNum 175
 0,20,19
-1,19,21
+1,1,21
 2,21,0
-3,2,22
-4,22,1
-5,3,23
+3,19,22
+4,22,0
+5,2,23
 6,23,1
-7,4,24
+7,3,24
 8,24,1
-9,5,25
+9,4,25
 10,25,1
-11,6,26
+11,5,26
 12,26,1
-13,7,27
+13,6,27
 14,27,1
-15,8,28
+15,7,28
 16,28,1
-17,10,29
+17,8,29
 18,29,1
-19,11,30
+19,9,30
 20,30,1
-21,12,31
+21,10,31
 22,31,1
-23,13,32
+23,11,32
 24,32,1
-25,15,33
+25,12,33
 26,33,1
-27,16,34
+27,13,34
 28,34,1
-29,18,35
+29,14,35
 30,35,1
-31,16,36
-32,36,15
+31,15,36
+32,36,1
 33,17,37
-34,37,15
-35,1,38
-36,38,0
-37,9,39
-38,39,1
-39,14,40
+34,37,1
+35,18,38
+36,38,1
+37,16,39
+38,39,15
+39,2,40
 40,40,1
-41,17,41
+41,3,41
 42,41,1
-43,2,42
+43,6,42
 44,42,1
-45,3,43
+45,7,43
 46,43,1
-47,6,44
+47,8,44
 48,44,1
-49,7,45
+49,9,45
 50,45,1
-51,8,46
+51,10,46
 52,46,1
-53,9,47
+53,11,47
 54,47,1
-55,10,48
+55,13,48
 56,48,1
-57,11,49
+57,14,49
 58,49,1
-59,13,50
-60,50,1
-61,14,51
+59,1,50
+60,50,16
+61,17,51
 62,51,1
-63,1,52
-64,52,16
-65,17,53
+63,19,52
+64,52,1
+65,19,53
 66,53,1
-67,19,54
-68,54,1
-69,19,55
-70,55,1
-71,1,56
-72,56,19
-73,1,57
-74,57,19
-75,2,58
-76,58,4
-77,6,59
+67,1,54
+68,54,19
+69,1,55
+70,55,19
+71,2,56
+72,56,4
+73,6,57
+74,57,2
+75,7,58
+76,58,2
+77,9,59
 78,59,2
-79,7,60
+79,11,60
 80,60,2
-81,9,61
-82,61,2
-83,11,62
+81,2,61
+82,61,11
+83,13,62
 84,62,2
 85,2,63
-86,63,11
-87,13,64
+86,63,13
+87,14,64
 88,64,2
 89,2,65
-90,65,13
-91,14,66
-92,66,2
-93,2,67
-94,67,14
+90,65,14
+91,2,66
+92,66,15
+93,17,67
+94,67,2
 95,2,68
-96,68,15
-97,17,69
+96,68,17
+97,19,69
 98,69,2
 99,2,70
-100,70,17
-101,19,71
-102,71,2
-103,2,72
-104,72,19
-105,9,73
+100,70,19
+101,9,71
+102,71,3
+103,3,72
+104,72,9
+105,18,73
 106,73,3
 107,3,74
-108,74,9
-109,18,75
-110,75,3
-111,3,76
-112,76,18
-113,5,77
+108,74,18
+109,5,75
+110,75,4
+111,4,76
+112,76,5
+113,11,77
 114,77,4
-115,4,78
-116,78,5
+115,19,78
+116,78,4
 117,11,79
-118,79,4
-119,19,80
-120,80,4
-121,11,81
+118,79,5
+119,5,80
+120,80,13
+121,14,81
 122,81,5
-123,5,82
-124,82,13
-125,14,83
-126,83,5
-127,15,84
+123,15,82
+124,82,5
+125,5,83
+126,83,15
+127,16,84
 128,84,5
 129,5,85
-130,85,15
-131,16,86
+130,85,16
+131,17,86
 132,86,5
-133,5,87
-134,87,16
-135,17,88
-136,88,5
-137,19,89
-138,89,5
-139,5,90
-140,90,19
+133,19,87
+134,87,5
+135,5,88
+136,88,19
+137,6,89
+138,89,13
+139,16,90
+140,90,6
 141,6,91
-142,91,13
-143,16,92
-144,92,6
-145,6,93
-146,93,16
-147,10,94
-148,94,8
-149,8,95
-150,95,10
-151,19,96
-152,96,10
-153,10,97
-154,97,19
-155,14,98
-156,98,11
-157,19,99
-158,99,11
-159,18,100
-160,100,12
-161,12,101
-162,101,18
-163,16,102
-164,102,13
+142,91,16
+143,10,92
+144,92,8
+145,8,93
+146,93,10
+147,19,94
+148,94,10
+149,10,95
+150,95,19
+151,14,96
+152,96,11
+153,19,97
+154,97,11
+155,18,98
+156,98,12
+157,12,99
+158,99,18
+159,16,100
+160,100,13
+161,13,101
+162,101,16
+163,13,102
+164,102,17
 165,13,103
-166,103,16
-167,13,104
-168,104,17
-169,13,105
+166,103,19
+167,19,104
+168,104,14
+169,14,105
 170,105,19
-171,19,106
-172,106,14
-173,14,107
-174,107,19
-175,16,108
-176,108,17
-177,19,109
-178,109,17
+171,16,106
+172,106,17
+173,19,107
+174,107,17

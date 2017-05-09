@@ -58,9 +58,12 @@ public:
 	std::vector<std::vector<int>> m_levelOfObjs;  // map to modelIds of objs in different support levels
 
 	bool m_allSynthNodesInited;
+	int m_modelNum;
+
+	int m_dbSSGId;  // id of matched dbSSG
+	SemanticGraph *m_alignedQuerySSG;
 
 private:
-	int m_modelNum;
 	QString m_fullFilename;
 };
 

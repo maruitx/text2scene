@@ -11,11 +11,12 @@ class Model;
 class RelationConstraint
 {
 public:
-	RelationConstraint(PairwiseRelationModel *m, const QString t, int anchorId);
+	RelationConstraint(PairwiseRelationModel *m, const QString t, int anchorId, const QString &gK="");
 	~RelationConstraint() {};
 
 	PairwiseRelationModel *relModel;
 	QString relationType; // constraint belong to relative, pairwise or group
+	QString groupKey;  // store group key if current constraint belongs to a group relation
 
 	int anchorObjId; // id of anchor obj in modelList
 };

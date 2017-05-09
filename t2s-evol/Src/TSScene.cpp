@@ -535,3 +535,53 @@ Model* TSScene::getModel(const string &name)
 		return NULL;
 }
 
+bool TSScene::computeZForModel(int currModelId, int parentModelId, vec3 startPt, double &newZ)
+{
+	MetaModel &md = m_metaScene.m_metaModellList[currModelId];
+	double sceneMetric = params::inst()->globalSceneUnitScale;
+	if (md.catName == "tv")
+	{
+		startPt.z = 1.5 / sceneMetric;
+	}
+
+	double elevationVal = 0.05 / sceneMetric;
+
+	float3 rayStartPt = make_float3(startPt.x, startPt.y, startPt.z + elevationVal);
+	float3 downDir = make_float3(0, 0, -1);
+	Ray downRay(rayStartPt, downDir);
+
+	if (m_collisionManager->isRayIntersect(downRay, parentModelId, newZ))
+	{
+
+		double h = md.parentPlaneUVH.z;
+		if (h < 0.01 / sceneMetric && h > 0)
+		{
+			newZ += h; // add the original H to the parent top Plane
+		}
+		newZ += 0.005 / sceneMetric;
+
+		adjustZForSpecificModel(md, newZ);
+		return true;
+	}
+
+	return false;
+}
+
+void TSScene::adjustZForSpecificModel(const MetaModel &currMd, double &z)
+{
+	//if (currMd.catName == "headphones")
+	//{
+	//	Model *m = this->getModel(currMd.name);
+	//	vec3 bbRange = m->getBBRange(currMd.transformation);
+
+	//	// headphone is not aligned consistently
+	//	double zOffset = 0.5*min(bbRange.x, bbRange.y);
+	//	z += zOffset;
+	//}
+
+	if (m_layoutPlanner->m_specialModels.count(toQString(currMd.name)))
+	{
+		z += m_layoutPlanner->m_specialModels[toQString(currMd.name)] / params::inst()->globalSceneUnitScale;
+	}
+}
+

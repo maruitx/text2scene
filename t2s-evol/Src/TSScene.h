@@ -42,6 +42,8 @@ public:
 	int modelNum() { return m_modelNum; };
 
 	Model* getModel(const string &name);
+	bool computeZForModel(int currModelId, int parentModelId, vec3 startPt, double &newZ);
+	void adjustZForSpecificModel(const MetaModel &currMd, double &z);
 
 	bool isLayoutDone();
 

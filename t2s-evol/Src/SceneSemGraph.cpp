@@ -15,7 +15,9 @@ SceneSemGraph::SceneSemGraph(const QString &s)
 	: m_fullFilename(s)
 {
 	loadGraph(m_fullFilename);
-	m_allSynthNodesInited = false;
+	m_allSynthNodesInited = false; 
+	m_dbSSGId = -1;
+	m_alignedQuerySSG = NULL;
 }
 
 SceneSemGraph::SceneSemGraph(SceneSemGraph *sg)
@@ -30,11 +32,16 @@ SceneSemGraph::SceneSemGraph(SceneSemGraph *sg)
 	m_edges = sg->m_edges;
 
 	m_allSynthNodesInited = false;
+	m_dbSSGId = -1;
+	m_alignedQuerySSG = NULL;
 }
 
 SceneSemGraph::~SceneSemGraph()
 {
-
+	if (m_alignedQuerySSG)
+	{
+		delete m_alignedQuerySSG;
+	}
 }
 
 void SceneSemGraph::loadGraph(const QString &filename)
@@ -101,12 +108,13 @@ void SceneSemGraph::loadGraph(const QString &filename)
 			// position saves models init position before transformed
 			std::vector<float> elementList = StringToFloatList(currLine.toStdString(), "position ");
 			vec3 initPos(elementList[0], elementList[1], elementList[2]);
-			m_metaScene.m_metaModellList[currModelID].position = TransformPoint(m_metaScene.m_metaModellList[currModelID].transformation, initPos);
+			//m_metaScene.m_metaModellList[currModelID].position = TransformPoint(m_metaScene.m_metaModellList[currModelID].transformation, initPos);
+			m_metaScene.m_metaModellList[currModelID].position = initPos;
 		}
 
 		if (currLine.contains("frontDir "))
 		{
-			// frontDir saves models init frontDir before transformed
+			// position saves model OBB bottom center which is already transformed
 			std::vector<int> dirElementList = StringToIntegerList(currLine.toStdString(), "frontDir ");
 			vec3 initFrontDir(dirElementList[0], dirElementList[1], dirElementList[2]);
 			m_metaScene.m_metaModellList[currModelID].frontDir = TransformVector(m_metaScene.m_metaModellList[currModelID].transformation, initFrontDir);
@@ -232,9 +240,9 @@ void SceneSemGraph::saveGraph(const QString &filename)
 				<< QString("%1").arg(md.transformation.a13, 0, 'f') << " " << QString("%1").arg(md.transformation.a23, 0, 'f') << " " << QString("%1").arg(md.transformation.a33, 0, 'f') << " " << QString("%1").arg(md.transformation.a43, 0, 'f') << " "
 				<< QString("%1").arg(md.transformation.a14, 0, 'f') << " " << QString("%1").arg(md.transformation.a24, 0, 'f') << " " << QString("%1").arg(md.transformation.a34, 0, 'f') << " " << QString("%1").arg(md.transformation.a44, 0, 'f') << "\n";
 
-			// position saves models init position before transformed
+			// position saves model OBB bottom center which is already transformed
 			mat4 invTrans = md.transformation.inverse();
-			vec3 initPosition = TransformPoint(invTrans, md.position);
+			vec3 initPosition = md.position;
 			ofs << "position " << initPosition.x << " " << initPosition.y << " " << initPosition.z << "\n";
 
 			// frontDir saves models init upDir frontDir transformed
@@ -445,82 +453,82 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, RelationM
 	int currSubSSGNodeNum = 0;
 	for (int i = 0; i < nodeList.size(); i++)
 	{
-		int oldNodeId = nodeList[i];
-		m_dbNodeToSubNodeMap[oldNodeId] = currSubSSGNodeNum;
+		int dbNodeId = nodeList[i];
+		m_dbNodeToSubNodeMap[dbNodeId] = currSubSSGNodeNum;
 
-		SemNode &oldNode = m_nodes[oldNodeId];
-		subGraph->addNode(oldNode);
+		SemNode &dbNode = m_nodes[dbNodeId];
+		subGraph->addNode(dbNode);
 		currSubSSGNodeNum++;
 
-		// add nodes in a group
-		if (oldNode.nodeType == "group_relation" && !oldNode.anchorNodeList.empty() && oldNode.matchingStatus == SemNode::ExplicitNode)
-		{
-			int anchorObjId = oldNode.anchorNodeList[0];
-			SemNode &anchorNode = m_nodes[anchorObjId];
+		//// add nodes in a group
+		//if (dbNode.nodeType == "group_relation" && !dbNode.anchorNodeList.empty() && dbNode.matchingStatus == SemNode::ExplicitNode)
+		//{
+		//	int anchorObjId = dbNode.anchorNodeList[0];
+		//	SemNode &anchorNode = m_nodes[anchorObjId];
 
-			QString groupKey = oldNode.nodeName + "_" + anchorNode.nodeName;
+		//	QString groupKey = dbNode.nodeName + "_" + anchorNode.nodeName;
 
-			GroupRelationModel *groupModel;
-			if (relManager->m_groupRelModels.count(groupKey))
-			{
-				groupModel = relManager->m_groupRelModels[groupKey];
-			}
+		//	GroupRelationModel *groupModel;
+		//	if (relManager->m_groupRelModels.count(groupKey))
+		//	{
+		//		groupModel = relManager->m_groupRelModels[groupKey];
+		//	}
 
-			std::vector<int> actNodeList = oldNode.activeNodeList;
+		//	std::vector<int> actNodeList = dbNode.activeNodeList;
 
-			for (int a = 0; a < actNodeList.size(); a++)
-			{
-				int actNodeId = actNodeList[a];
-				SemNode &actNode = m_nodes[actNodeId];
-				QString occKey =QString("%1_%2").arg(actNode.nodeName).arg(1);  // Temp, extend to multiple instances later
+		//	for (int a = 0; a < actNodeList.size(); a++)
+		//	{
+		//		int actNodeId = actNodeList[a];
+		//		SemNode &actNode = m_nodes[actNodeId];
+		//		QString occKey =QString("%1_%2").arg(actNode.nodeName).arg(1);  // Temp, extend to multiple instances later
 
-				double randProb = GenRandomDouble(0, 1);
+		//		double randProb = GenRandomDouble(0, 1);
 
-				if (groupModel->m_occurModels.count(occKey))
-				{
-					double probTh = groupModel->m_occurModels[occKey]->m_occurProb;
+		//		if (groupModel->m_occurModels.count(occKey))
+		//		{
+		//			double probTh = groupModel->m_occurModels[occKey]->m_occurProb;
 
-					if (probTh > 0.1)
-					{
-						subGraph->addNode(actNode);
-						m_dbNodeToSubNodeMap[actNodeId] = currSubSSGNodeNum;
-						enrichedObjNodeList.push_back(actNodeId);
-						currSubSSGNodeNum++;
+		//			if (probTh > 0.1)
+		//			{
+		//				subGraph->addNode(actNode);
+		//				m_dbNodeToSubNodeMap[actNodeId] = currSubSSGNodeNum;
+		//				enrichedObjNodeList.push_back(actNodeId);
+		//				currSubSSGNodeNum++;
 
-						actNode.isAnnotated = true;
-						actNode.isAligned = false;
+		//				actNode.isAnnotated = true;
+		//				actNode.isAligned = false;
 
-						// add support node for current active object
-						for (int r=0; r < actNode.outEdgeNodeList.size(); r++)
-						{
-							int suppNodeId = actNode.outEdgeNodeList[r];
-							SemNode &suppNode = m_nodes[suppNodeId];
-							if (suppNode.nodeName == "vertsupport")
-							{
-								subGraph->addNode(suppNode);
-								m_dbNodeToSubNodeMap[suppNodeId] = currSubSSGNodeNum;
-								currSubSSGNodeNum++;
+		//				// add support node for current active object
+		//				for (int r=0; r < actNode.outEdgeNodeList.size(); r++)
+		//				{
+		//					int suppNodeId = actNode.outEdgeNodeList[r];
+		//					SemNode &suppNode = m_nodes[suppNodeId];
+		//					if (suppNode.nodeName == "vertsupport")
+		//					{
+		//						subGraph->addNode(suppNode);
+		//						m_dbNodeToSubNodeMap[suppNodeId] = currSubSSGNodeNum;
+		//						currSubSSGNodeNum++;
 
-								suppNode.isAnnotated = true;
-								suppNode.isAligned = false;
-							}
-						}
-					}
-				}
-			}
-		}
+		//						suppNode.isAnnotated = true;
+		//						suppNode.isAligned = false;
+		//					}
+		//				}
+		//			}
+		//		}
+		//	}
+		//}
 	}
 
 	// build graph edges
 	for (int i = 0; i < m_edgeNum; i++)
 	{
-		SemEdge oldEdge = m_edges[i];
+		SemEdge dbEdge = m_edges[i];
 
-		if (m_dbNodeToSubNodeMap.find(oldEdge.sourceNodeId) != m_dbNodeToSubNodeMap.end()
-			&& m_dbNodeToSubNodeMap.find(oldEdge.targetNodeId) != m_dbNodeToSubNodeMap.end())
+		if (m_dbNodeToSubNodeMap.find(dbEdge.sourceNodeId) != m_dbNodeToSubNodeMap.end()
+			&& m_dbNodeToSubNodeMap.find(dbEdge.targetNodeId) != m_dbNodeToSubNodeMap.end())
 		{
-			int newSourceId = m_dbNodeToSubNodeMap[oldEdge.sourceNodeId];
-			int newTargetId = m_dbNodeToSubNodeMap[oldEdge.targetNodeId];
+			int newSourceId = m_dbNodeToSubNodeMap[dbEdge.sourceNodeId];
+			int newTargetId = m_dbNodeToSubNodeMap[dbEdge.targetNodeId];
 			subGraph->addEdge(newSourceId, newTargetId);
 		}
 	}
@@ -529,18 +537,18 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, RelationM
 	int modelInSceneId = 0;
 	for (int i = 0; i < enrichedObjNodeList.size(); i++)
 	{
-		int oldNodeId = enrichedObjNodeList[i];
+		int dbNodeId = enrichedObjNodeList[i];
 
 		// non-object node is not saved in the map
-		if (m_graphNodeToModelListIdMap.count(oldNodeId))
+		if (m_graphNodeToModelListIdMap.count(dbNodeId))
 		{
-			int oldMetaModelId = m_graphNodeToModelListIdMap[oldNodeId];
+			int dbMetaModelId = m_graphNodeToModelListIdMap[dbNodeId];
 
-			if (oldMetaModelId < m_modelNum)
+			if (dbMetaModelId < m_modelNum)
 			{
-				m_metaScene.m_metaModellList[oldMetaModelId].isSelected = m_nodes[oldNodeId].isAnnotated;
-				subGraph->m_metaScene.m_metaModellList.push_back(m_metaScene.m_metaModellList[oldMetaModelId]);
-				int currNodeId = m_dbNodeToSubNodeMap[oldNodeId];
+				m_metaScene.m_metaModellList[dbMetaModelId].isSelected = m_nodes[dbNodeId].isAnnotated;
+				subGraph->m_metaScene.m_metaModellList.push_back(m_metaScene.m_metaModellList[dbMetaModelId]);
+				int currNodeId = m_dbNodeToSubNodeMap[dbNodeId];
 				subGraph->m_graphNodeToModelListIdMap[currNodeId] = modelInSceneId;
 				modelInSceneId++;
 			}
@@ -575,10 +583,25 @@ void SceneSemGraph::restoreMissingSupportNodes()
 				addEdge(currNodeId, anchorNodeId);
 			}
 		}
+
+		//// restore for objects in a group relation
+		//if (relNode.nodeType == "group_relation")
+		//{
+		//	for (int t=0; t < relNode.activeNodeList.size(); t++)
+		//	{
+		//		int actNodeId = relNode.activeNodeList[t];
+		//		if (!hasSupportNode(actNodeId))
+		//		{
+		//			int anchorNodeId = relNode.anchorNodeList[0];
+		//			addNode(SSGNodeType[2], "vertsupport");
+		//			int currNodeId = m_nodeNum - 1;
+
+		//			addEdge(actNodeId, currNodeId);
+		//			addEdge(currNodeId, anchorNodeId);
+		//		}
+		//	}
+		//}
 	}
-
-	// restore for objects in a group relation
-
 }
 
 bool SceneSemGraph::hasSupportNode(int actNodeId)
