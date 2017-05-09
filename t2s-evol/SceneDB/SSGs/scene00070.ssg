@@ -368,7 +368,7 @@ nodeNum 235
 28,object,table,82 83 84 110 196 197 204 205 218 225 226,48 109 194 195 202 203 217 227
 29,object,lamp,207,82 206 219
 30,object,remote control,209,83 208 220
-31,object,book,222,84 210 221 225
+31,object,openbook,222,84 210 221 225
 32,object,pottedplant,229 230,49 111 228 231 232
 33,object,ashcan,113 198 227,50 112 226 233
 34,object,battery,,51

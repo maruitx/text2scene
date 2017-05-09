@@ -106,7 +106,7 @@ nodeNum 49
 6,object,cup,44,19 45
 7,object,cellphone,45,20 43 44
 8,object,biscuit,38 42,21 25 41
-9,object,books,,22 26 46 47
+9,object,standbooks,,22 26 46 47
 10,object,trashbin,29 30 36 46 48,13 27 28 35
 11,object,bottle,33 34 47,14 31 32 48
 12,pair_relation,vertsupport,1,0

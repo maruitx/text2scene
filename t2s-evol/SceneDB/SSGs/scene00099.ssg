@@ -162,7 +162,7 @@ nodeNum 97
 14,object,paper,87 93,35
 15,object,stool,89 95,24 88 94
 16,object,paperbox,36 70 80 96,25 79
-17,object,books,72 82,36 71 81 96
+17,object,stackbooks,72 82,36 71 81 96
 18,attribute,dining,,1
 19,attribute,rectangular,,1
 20,pair_relation,vertsupport,1,0

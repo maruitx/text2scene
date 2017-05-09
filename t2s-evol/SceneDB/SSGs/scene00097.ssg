@@ -190,7 +190,7 @@ nodeNum 105
 2,object,counter,32 33 34 35 36 37 38 39 40 41 42 57 58 59 61 62,24 46 56 60
 3,object,tissuebox,53 63,32 52 64
 4,object,camera,65 67 68 70 72,33 66 69 71
-5,object,book,43 66 73 74 75 77 78 79,34 65 76 80
+5,object,openbook,43 66 73 74 75 77 78 79,34 65 76 80
 6,object,pen,56 82,43 67 73 81 83 84
 7,object,pencil,81 85,35 68 74 86
 8,object,battery,76 87 89,36 75 88

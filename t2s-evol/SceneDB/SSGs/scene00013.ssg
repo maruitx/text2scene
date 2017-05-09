@@ -91,12 +91,12 @@ parentPlaneUVH 0.577858 0.409473 0.249988
 nodeNum 55
 0,object,room,11 21,
 1,object,bookcase,12 13 14 15 16 17 18 19 20 22 23 24 25 26 27 28 29 30,11 21
-2,object,books,31 33 35 36,12 22 32 34
-3,object,books,37 39 41 42 44 45,13 23 38 40 43
-4,object,books,32 38 46 47 48,14 24 31 37
-5,object,books,34 40 49 50,15 25 33 39
-6,object,books,,16 26 35 46 49 51
-7,object,books,,17 27 36 41 47 50 52
+2,object,standbooks,31 33 35 36,12 22 32 34
+3,object,standbooks,37 39 41 42 44 45,13 23 38 40 43
+4,object,standbooks,32 38 46 47 48,14 24 31 37
+5,object,standbooks,34 40 49 50,15 25 33 39
+6,object,standbooks,,16 26 35 46 49 51
+7,object,standbooks,,17 27 36 41 47 50 52
 8,object,printer,43 51 52 53 54,18 28 42
 9,object,camera,,19 29 44 53
 10,object,pottedplant,,20 30 45 48 54

@@ -178,7 +178,7 @@ nodeNum 107
 6,object,notepad,51 71 84 85 87,38 50 70 80 86
 7,object,eraser,53 72,39 52
 8,object,scissors,55 88,40 54 84 89
-9,object,book,41 91,32 90 92
+9,object,openbook,41 91,32 90 92
 10,object,pencil,,41 56 93 94 95
 11,object,holder,73 97 98,33 57 96 99
 12,object,dispenser,82 86 100,34 58 81 85

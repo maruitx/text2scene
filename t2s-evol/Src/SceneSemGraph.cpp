@@ -107,9 +107,7 @@ void SceneSemGraph::loadGraph(const QString &filename)
 		{
 			// position saves models init position before transformed
 			std::vector<float> elementList = StringToFloatList(currLine.toStdString(), "position ");
-			vec3 initPos(elementList[0], elementList[1], elementList[2]);
-			//m_metaScene.m_metaModellList[currModelID].position = TransformPoint(m_metaScene.m_metaModellList[currModelID].transformation, initPos);
-			m_metaScene.m_metaModellList[currModelID].position = initPos;
+			m_metaScene.m_metaModellList[currModelID].position = vec3(elementList[0], elementList[1], elementList[2]);
 		}
 
 		if (currLine.contains("frontDir "))
@@ -241,11 +239,10 @@ void SceneSemGraph::saveGraph(const QString &filename)
 				<< QString("%1").arg(md.transformation.a14, 0, 'f') << " " << QString("%1").arg(md.transformation.a24, 0, 'f') << " " << QString("%1").arg(md.transformation.a34, 0, 'f') << " " << QString("%1").arg(md.transformation.a44, 0, 'f') << "\n";
 
 			// position saves model OBB bottom center which is already transformed
-			mat4 invTrans = md.transformation.inverse();
-			vec3 initPosition = md.position;
-			ofs << "position " << initPosition.x << " " << initPosition.y << " " << initPosition.z << "\n";
+			ofs << "position " << md.position.x << " " << md.position.y << " " << md.position.z << "\n";
 
 			// frontDir saves models init upDir frontDir transformed
+			mat4 invTrans = md.transformation.inverse();
 			vec3 initFrontDir = TransformVector(invTrans, md.frontDir);
 			initFrontDir.normalize();
 			ofs << "frontDir " << initFrontDir.x << " " << initFrontDir.y << " " << initFrontDir.z << "\n";
@@ -445,7 +442,7 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, RelationM
 {
 	SceneSemGraph *subGraph = new SceneSemGraph();
 
-	std::vector<int> enrichedObjNodeList = nodeList;
+	std::vector<int> objNodeList;
 
 	m_dbNodeToSubNodeMap.clear();
 
@@ -460,63 +457,10 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, RelationM
 		subGraph->addNode(dbNode);
 		currSubSSGNodeNum++;
 
-		//// add nodes in a group
-		//if (dbNode.nodeType == "group_relation" && !dbNode.anchorNodeList.empty() && dbNode.matchingStatus == SemNode::ExplicitNode)
-		//{
-		//	int anchorObjId = dbNode.anchorNodeList[0];
-		//	SemNode &anchorNode = m_nodes[anchorObjId];
-
-		//	QString groupKey = dbNode.nodeName + "_" + anchorNode.nodeName;
-
-		//	GroupRelationModel *groupModel;
-		//	if (relManager->m_groupRelModels.count(groupKey))
-		//	{
-		//		groupModel = relManager->m_groupRelModels[groupKey];
-		//	}
-
-		//	std::vector<int> actNodeList = dbNode.activeNodeList;
-
-		//	for (int a = 0; a < actNodeList.size(); a++)
-		//	{
-		//		int actNodeId = actNodeList[a];
-		//		SemNode &actNode = m_nodes[actNodeId];
-		//		QString occKey =QString("%1_%2").arg(actNode.nodeName).arg(1);  // Temp, extend to multiple instances later
-
-		//		double randProb = GenRandomDouble(0, 1);
-
-		//		if (groupModel->m_occurModels.count(occKey))
-		//		{
-		//			double probTh = groupModel->m_occurModels[occKey]->m_occurProb;
-
-		//			if (probTh > 0.1)
-		//			{
-		//				subGraph->addNode(actNode);
-		//				m_dbNodeToSubNodeMap[actNodeId] = currSubSSGNodeNum;
-		//				enrichedObjNodeList.push_back(actNodeId);
-		//				currSubSSGNodeNum++;
-
-		//				actNode.isAnnotated = true;
-		//				actNode.isAligned = false;
-
-		//				// add support node for current active object
-		//				for (int r=0; r < actNode.outEdgeNodeList.size(); r++)
-		//				{
-		//					int suppNodeId = actNode.outEdgeNodeList[r];
-		//					SemNode &suppNode = m_nodes[suppNodeId];
-		//					if (suppNode.nodeName == "vertsupport")
-		//					{
-		//						subGraph->addNode(suppNode);
-		//						m_dbNodeToSubNodeMap[suppNodeId] = currSubSSGNodeNum;
-		//						currSubSSGNodeNum++;
-
-		//						suppNode.isAnnotated = true;
-		//						suppNode.isAligned = false;
-		//					}
-		//				}
-		//			}
-		//		}
-		//	}
-		//}
+		if (dbNode.nodeType == "object")
+		{
+			objNodeList.push_back(dbNodeId);
+		}
 	}
 
 	// build graph edges
@@ -535,9 +479,9 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, RelationM
 
 	// set meta scene
 	int modelInSceneId = 0;
-	for (int i = 0; i < enrichedObjNodeList.size(); i++)
+	for (int i = 0; i < objNodeList.size(); i++)
 	{
-		int dbNodeId = enrichedObjNodeList[i];
+		int dbNodeId = objNodeList[i];
 
 		// non-object node is not saved in the map
 		if (m_graphNodeToModelListIdMap.count(dbNodeId))
@@ -546,8 +490,10 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, RelationM
 
 			if (dbMetaModelId < m_modelNum)
 			{
-				m_metaScene.m_metaModellList[dbMetaModelId].isSelected = m_nodes[dbNodeId].isAnnotated;
-				subGraph->m_metaScene.m_metaModellList.push_back(m_metaScene.m_metaModellList[dbMetaModelId]);
+				MetaModel &dbMd = m_metaScene.m_metaModellList[dbMetaModelId];
+				dbMd.isSelected = m_nodes[dbNodeId].isAnnotated;
+
+				subGraph->m_metaScene.m_metaModellList.push_back(dbMd);
 				int currNodeId = m_dbNodeToSubNodeMap[dbNodeId];
 				subGraph->m_graphNodeToModelListIdMap[currNodeId] = modelInSceneId;
 				modelInSceneId++;

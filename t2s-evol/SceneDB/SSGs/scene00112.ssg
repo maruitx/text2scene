@@ -63,7 +63,7 @@ nodeNum 27
 3,object,tableclock,12 18 24,9 14 17 25
 4,object,pillbottle,16 20,12 15 19 24
 5,object,book,21 25,10 26
-6,object,book,23 26,11 22
+6,object,standbook,23 26,11 22
 7,pair_relation,vertsupport,1,0
 8,pair_relation,vertsupport,2,1
 9,pair_relation,vertsupport,3,1

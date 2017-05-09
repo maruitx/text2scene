@@ -150,7 +150,7 @@ nodeNum 102
 2,object,endtable,24 25 26 27 28 29 30 31 41 42 46 47 48 49 51 52 53 54 55 56 59 61 64 67 68,19 35 39 40 50 57 58 60 62 63 65 66 69 70
 3,object,noname,71 73 76,24 46 72 74 75 77
 4,object,noname,78 80 85,25 47 79 81 82 83 84 86
-5,object,book,32 79 87 89 90,26 48 78 88
+5,object,openbook,32 79 87 89 90,26 48 78 88
 6,object,pen,50 81 91,32 49 80 87
 7,object,book,33 72 93,27 51 71 92 94
 8,object,pen,74 95 96,33 52 73 97
@@ -159,7 +159,7 @@ nodeNum 102
 11,object,beaker,84,30 89
 12,object,cellphone,75 92 97,31 54 96
 13,object,paperbox,34 57 58 98,20 36 43 55 56
-14,object,book,60,34 59 98
+14,object,standbook,60,34 59 98
 15,object,stool,62 63 77 94 99,21 37 44 61 76 93 100
 16,object,stool,65 66 86 101,22 64 85 90
 17,object,powerstrip,69 70 100,23 38 45 67 68 99 101

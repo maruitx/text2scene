@@ -53,7 +53,7 @@ nodeNum 18
 1,object,nightstand,7 8 9 10 12,6 11
 2,object,tableclock,13 15,7 14 16
 3,object,desklamp,14,8 12 13 17
-4,object,book,17,9 15
+4,object,openbook,17,9 15
 5,object,cup,16,10
 6,pair_relation,vertsupport,1,0
 7,pair_relation,vertsupport,2,1

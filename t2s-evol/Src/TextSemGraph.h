@@ -19,6 +19,8 @@ public:
 	void mapToFixedAttributeSet(QString &nodeName, QString &nodeType = QString(""));
 
 	QString convertToSinglarForm(const QString &s);
+	bool isOnObj(int entityId, const QString &anchorName);
+	bool isWithObj(const QString &currObjName, const QString &anchorName);
 
 private:
 	int m_sentence_id;

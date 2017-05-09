@@ -91,12 +91,12 @@ parentPlaneUVH 0.247577 0.434694 -24.4772
 nodeNum 39
 0,object,room,11,
 1,object,bookcase,12 13 14 15 16 17 18 19 20,11
-2,object,book,,12 21 22
-3,object,books,21 23 24 26 28 29 30 31,13 25 27
+2,object,standbook,,12 21 22
+3,object,standbooks,21 23 24 26 28 29 30 31,13 25 27
 4,object,rubikscube,32 33,14 23 34
 5,object,toyfigure,22 25 35 36,15 24 32
 6,object,chestofdrawers,27 37,16 26 33 35 38
-7,object,books,,17 28 36 37
+7,object,standbooks,,17 28 36 37
 8,object,toyfigure,34,18 29
 9,object,airplane,38,19 30
 10,object,tolkien,,20 31

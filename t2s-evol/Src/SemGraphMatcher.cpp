@@ -178,8 +178,14 @@ SceneSemGraph* SemGraphMatcher::alignSSGWithDBSSG(SemanticGraph *querySSG, Scene
 		
 		if (sgNode.isAligned && querySSG->m_nodeAlignMap.count(ni))
 		{
-			int matchedDBSsgId = querySSG->m_nodeAlignMap[ni];
-			matchedDBSsgNodeList.push_back(matchedDBSsgId);
+			int matchedDBSsgNodeId = querySSG->m_nodeAlignMap[ni];
+			MetaModel  &dbMd = dbSSG->getModelWithNodeId(matchedDBSsgNodeId);			
+			if (dbMd.catName == "book" && dbMd.frontDir.dot(vec3(0, 0, 1)) < 0.5)
+			{
+				matchingScore -= 20;
+			}
+
+			matchedDBSsgNodeList.push_back(matchedDBSsgNodeId);
 		}
 	}
 
@@ -703,6 +709,13 @@ MetaModel& SemGraphMatcher::retrieveForModelInstance(const QString catName)
 			{
 				int modelId = currDBSSG->m_graphNodeToModelListIdMap[qNi];
 				MetaModel &md = currDBSSG->m_metaScene.m_metaModellList[modelId];
+
+				// test front dir for book to filter stand book
+				if (catName == "book" && md.frontDir.dot(vec3(0, 0, 1)) < 0.5)
+				{
+					continue;
+				}
+
 				if (!isModelInBlackList(toQString(md.name)))
 				{
 					candiMdIds.push_back(std::make_pair(i, modelId));

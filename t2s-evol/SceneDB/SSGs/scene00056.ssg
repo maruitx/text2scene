@@ -92,7 +92,7 @@ nodeNum 48
 0,object,room,11 12 13,
 1,object,dresser,14 15 16 17 18 19 21 23 24,11 22 25 26
 2,object,tissuebox,29,14 27 28 30
-3,object,books,27 33 34 35,15 31 32 36
+3,object,stackbooks,27 33 34 35,15 31 32 36
 4,object,bottle,31 37,16 38 39
 5,object,book,20 32 38 40,17 37 41
 6,object,ipod,22 28 39 42 43,20 21 33 40 44

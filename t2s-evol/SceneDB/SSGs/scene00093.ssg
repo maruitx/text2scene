@@ -193,7 +193,7 @@ nodeNum 93
 13,object,erlenmeyer flask,80 81,36 82 83
 14,object,glass,84,37
 15,object,glass,85,38
-16,object,book,42 77 86 87,39 52 80 88
+16,object,openbook,42 77 86 87,39 52 80 88
 17,object,pen,75 82,42 74 81 86 89 90 91
 18,object,calculator,48 54 76 88 89,40 47 53 87 92
 19,object,pencil,83 90 92,41 64 84 85

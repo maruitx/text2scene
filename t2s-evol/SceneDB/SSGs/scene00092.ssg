@@ -187,7 +187,7 @@ nodeNum 103
 15,object,bunsen burner,61 66 67 72,36 71 86 93 94 95 96
 16,object,beaker,85 89,37 81 84 90 93 94 97 98 99 100
 17,object,tissuebox,63 74 88 90,38 62 73 87 89 93 94 97 98 99 100
-18,object,book,78 91,39 77 92 93 94 97 98 99 100 101 102
+18,object,openbook,78 91,39 77 92 93 94 97 98 99 100 101 102
 19,object,pen,92,40 51 91 93 94 97 98 99 101 102
 20,object,crate,54 55,24 44 52 53 100
 21,pair_relation,vertsupport,1,0

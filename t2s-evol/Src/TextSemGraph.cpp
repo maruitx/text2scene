@@ -28,39 +28,51 @@ void TextSemGraph::buildGraphFromSEL()
 
 			QString instanceCountString = m_sentence.m_entities[i].instanceCountString;
 			bool isNumber;
-			int instCount = instanceCountString.toInt(&isNumber);
+			int instCount = instanceCountString.toInt(&isNumber);   // no specified instance count is also counted 1
 
 			if (isNumber)
 			{
-				// since isPlural is true, add more instances
+				// since isPlural is true, add more instances; otherwise, use the given number
 				if (instCount == 1)
 				{
-					instCount = GenRandomInt(2, 5);
-				}
-
-				m_sentence.m_entities[i].instanceCount = instCount;
-				for (int j = 0; j < m_sentence.m_entities[i].instanceCount; j++)
-				{
-					addNode("object", entityName);
-					m_isNodeCertain.push_back(1);
-
-					m_sentence.m_entities[i].m_instanceNodeIds.push_back(m_nodeNum-1);
+					instCount = GenRandomInt(2, 4);
 				}
 			}
 			else
 			{
 				if (instanceCountString == "some")
 				{
-					// Debug: temp set instance number to be 4 for uncertain node
-					instCount = GenRandomInt(2, 4);
-					m_sentence.m_entities[i].instanceCount = instCount;
-					for (int j = 0; j < m_sentence.m_entities[i].instanceCount; j++)
-					{
-						addNode("object", entityName);
-						m_isNodeCertain.push_back(0);
-						m_sentence.m_entities[i].m_instanceNodeIds.push_back(m_nodeNum - 1);
-					}
+					instCount = GenRandomInt(2, 5);
 				}
+
+				if (instanceCountString == "many")
+				{
+					instCount = GenRandomInt(3, 6);
+				}
+			}
+
+			// special handling for books on shelf or cabinet
+			if (entityName == "book")
+			{
+				if (isOnObj(i, "shelf") || isWithObj(entityName, "shelf"))
+				{
+					entityName = "standbooks";
+					instCount = GenRandomInt(2, 3);
+				}
+					
+				if (isOnObj(i, "cabinet") || isWithObj(entityName, "cabinet"))
+				{
+					entityName = "stackbooks";
+					instCount = 1;
+				}				
+			}
+
+			m_sentence.m_entities[i].instanceCount = instCount;
+			for (int j = 0; j < m_sentence.m_entities[i].instanceCount; j++)
+			{
+				addNode("object", entityName);
+				m_isNodeCertain.push_back(0);
+				m_sentence.m_entities[i].m_instanceNodeIds.push_back(m_nodeNum - 1);
 			}
 
 			// update entity name
@@ -89,6 +101,13 @@ void TextSemGraph::buildGraphFromSEL()
 				std::vector<std::string> parts = PartitionString(entityRawString.toStdString(), "-");
 				QString anchorEntityName = toQString(parts[0]);
 				anchorEntityName = convertToSinglarForm(anchorEntityName);
+
+				// special handling for books on shelf or cabinet
+				if (anchorEntityName == "book")
+				{
+					if (isWithObj(anchorEntityName, "shelf")) anchorEntityName = "standbooks";
+					if (isWithObj(anchorEntityName, "cabinet")) anchorEntityName = "stackbooks";
+				}
 
 				std::vector<int> refNodeIds = findNodeWithName(anchorEntityName);
 				for (int k = 0; k < refNodeIds.size(); k++)
@@ -162,11 +181,6 @@ void TextSemGraph::mapNodeNameToFixedNameSet()
 
 QString TextSemGraph::convertToSinglarForm(const QString &s)
 {
-	//if (s.contains("books"))
-	//{
-	//	return s;
-	//}
-
 	QString singleS;
 	// e.g. shelves
 	if (s.endsWith("ves"))
@@ -185,6 +199,46 @@ QString TextSemGraph::convertToSinglarForm(const QString &s)
 	}
 
 	return singleS;
+}
+
+bool TextSemGraph::isOnObj(int entityId, const QString &anchorName)
+{
+	int relationCount = m_sentence.m_entities[entityId].relationshipCount;
+
+	for (int j = 0; j < relationCount; j++)
+	{
+		QString entityRawString = m_sentence.m_entities[entityId].m_relationships[j].entityString;
+		if (entityRawString.contains(anchorName))
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool TextSemGraph::isWithObj(const QString &currObjName, const QString &anchorName)
+{
+	// find anchor
+	for (int i = 0; i < m_sentence.entityCount; i++)
+	{
+		QString nameString = QString(m_sentence.m_entities[i].nameString);
+		if (nameString.contains(anchorName))
+		{
+			int relationCount = m_sentence.m_entities[i].relationshipCount;
+
+			for (int j = 0; j < relationCount; j++)
+			{
+				QString entityRawString = m_sentence.m_entities[i].m_relationships[j].entityString;
+				if (entityRawString.contains(currObjName))
+				{
+					return true;
+				}
+			}
+		}
+	}
+
+	return false;
 }
 
 void TextSemGraph::mapToFixedObjSet(QString &nodeName)
@@ -307,6 +361,8 @@ void TextSemGraph::mapToFixedRelationSet(SemNode &currNode, QString &nodeName, Q
 
 		QString anchorName = m_nodes[refNodeId].nodeName;
 		QString actName = m_nodes[actNodeId].nodeName;
+		if (actName.contains("book")) actName = "book";
+
 		QString suppRelKey1 = anchorName + "_" + actName + "_vertsupport";
 		QString suppRelKey2 = anchorName + "_" + actName + "_horizonsupport";
 

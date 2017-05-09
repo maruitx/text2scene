@@ -271,7 +271,7 @@ nodeNum 131
 19,object,wallart,,37 62 127 128
 20,object,dresser,57 58 102 103 112 114,38 75 100 101 113 122 123
 21,object,book,59 105 115,57 104 112
-22,object,book,113 116,59 106 117
+22,object,standbook,113 116,59 106 117
 23,object,dog,108 117,58 107 114 115 116
 24,object,wall clock,,39 128
 25,object,artwork,118,40 119 128

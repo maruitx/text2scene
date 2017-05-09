@@ -148,7 +148,7 @@ nodeNum 90
 8,object,desklamp,52,28 36 77 81
 9,object,pen,82,29 64 78
 10,object,binder,54 72 83,30 37 53 71
-11,object,book,59 74 79 85,31 38 58 73 82 84 86
+11,object,openbook,59 74 79 85,31 38 58 73 82 84 86
 12,object,pencil,,32 87
 13,object,filecabinet,33 41 42 66 84 88,19 39 40 65 89
 14,object,globe,68,33 67 88

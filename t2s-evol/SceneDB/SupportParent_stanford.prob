@@ -1,4 +1,4 @@
-1shelves,1 1.5
+1shelves,1 0
 4shelves,1 0
 aaabattery,0 1
 aerosol,0 1
@@ -14,30 +14,29 @@ auxiliary storage,0.5 1
 backpack,0 0
 bag,0 0.25
 ball,0 0.833333
-banana,0 1.5
+banana,0 1
 basin,0 1
 basket,0.466667 0.266667
-bathtub,1 0
+bathtub,0 0
 battery,0 0.952381
 beaker,0 1
 bear,0 1
-bed,0.888889 0
+bed,0.777778 0
 bench,0 0
 bin,1 0
 binder,0 1
 biscuit,0 1
 blender,0 1
 board,0 0
-book,0.301587 0.992063
+book,0.289474 0.960526
 bookcase,1 0.181818
 bookend,0 1
-books,0.144444 1.18889
-bottle,0.015873 0.968254
-bowl,0.0882353 1.05882
+bottle,0 0.968254
+bowl,0.0882353 1
 box,0 1
 brake shoe,0 0
-bread,0 1.16667
-breadslice,0 1.6
+bread,0 1
+breadslice,0 1
 broom,0 0
 brown bear,0 0
 brush,0 1
@@ -46,10 +45,10 @@ bunsen burner,0 1
 burner,1 1
 cabinet,0.666667 0
 cabling,0 1
-cadmium,1 1.5
+cadmium,0 1
 cage,0 1
 calculator,0 1
-camera,0 1.0625
+camera,0 1
 camera tripod,0 0
 candle,0 0.944444
 canister,0 1
@@ -58,44 +57,44 @@ cap,0 1
 car,0 1
 carrot,0 1
 cart,0 1
-case,0.285714 0.857143
-cassette,0.5 1.25
+case,0.285714 0.571429
+cassette,0.5 1
 cat,0 0
 ceilingfan,0 0
-cellphone,0 1.05882
+cellphone,0 1
 cellulose tape,0 1
 central processing unit,0 1
 ceramic,0 1
 cerealbox,0.0909091 1
 chain,0 1
-chair,0.0350877 0.140351
+chair,0.0263158 0.105263
 chemistry,0 1
 chess,0 1
 chessboard,0 1
 chessman,0 1
-chestofdrawers,0.363636 0.636364
+chestofdrawers,0.272727 0.545455
 child,0 1
 chocolate,0 1
 chopping board,1 1
 classroom,0 0
 clock,0 0.5
-coaster,0.75 1.125
+coaster,0.75 1
 coat hanger,0 0
 coatrack,0 0
 coca cola,0 1
 cocktail,0 1
 coffee maker,0 1
 coffee mill,0 1
-coffee mug,0 2
+coffee mug,0 1
 coffee table,0 0
-coin,0 1.5
-collection,0.25 1
+coin,0 1
+collection,0 1
 comb,0 1
-compact disk,0.05 1.1
+compact disk,0 1
 compass,0 1
 component,0 0
-computer,0.15625 0.53125
-computermouse,0.027027 1.37838
+computer,0.15625 0.5
+computermouse,0 1
 controller,0 1
 cookie,0 1
 copier,0 0
@@ -106,28 +105,28 @@ crate,0 0
 cream pitcher,0 1
 credenza,1 1
 cube,0 1
-cup,0.030303 1.06061
+cup,0 1
 cupboard,0.25 0
 curtain,0 0
-dart,0.333333 1.5
+dart,0 1
 dartboard,0.5 0
 decoration,0 0.4
 decorativeaccessory,0 0.4
 deer,0 0
-desk,1 0.0166667
-desklamp,0 1.04762
+desk,1 0
+desklamp,0 1
 desktop,0 0
 detector,0 0
 dial,0 1
 diet,0 1
 disccase,0.2 1
-dish,0.333333 1.16667
+dish,0.333333 1
 disk,1 1
 dispenser,0 1
 display,1 0
 dog,0 0.333333
 dome,0 0
-donut,0 1.5
+donut,0 1
 donutbox,0 1
 dresser,1 0
 dresserwithmirror,1 0
@@ -151,49 +150,49 @@ fireplace,0 0
 flashlight,0 1
 flask,0 1
 flatware,0 1
-floorlamp,0.0526316 0.105263
-food,0 1.18182
+floorlamp,0 0.105263
+food,0 1
 food processor,0 1
-foodplate,0 1.3
-fork,0 1.5
-frame,0 1.33333
-framework,0.25 1
-fruit,0 1.36364
+foodplate,0 1
+fork,0 1
+frame,0 1
+framework,0 1
+fruit,0 1
 game,0 0.5
 gametable,0 0
 garbage,0 0
 glass,0 1
 glasses,0 1
-globe,0 1.16667
+globe,0 1
 grill,0.5 0.5
 guanine,0 1
 guitar,0 1
-guitarstand,0 0.2
+guitarstand,0 0
 gun,0 1
 guy,0 1
 hair,0 0
-hamburger,0 2
+hamburger,0 1
 hammer,0 1
 hand glass,0 1
 hanger,0 1
 hat,0 1
 head,0 0
-headphones,0 1.03571
+headphones,0 1
 heart,0 1
 helmet,0 1
-holder,0.0232558 0.906977
+holder,0 0.883721
 horse,0 1
-ipod,0 1.4
-jersey,0 3
-key,0 1.07692
-keyboard,0.025641 1
+ipod,0 1
+jersey,0 1
+key,0 1
+keyboard,0 1
 kitchen appliance,0 1
-knife,0 1.25
-lamp,0.037037 0.518519
+knife,0 1
+lamp,0 0.518519
 laptop,0 1
 launcher,0 1
 leg,0 0
-light,0 1.5
+light,0 1
 lightswitch,0 0
 loaf of bread,0 1
 magazine,0.428571 1
@@ -201,7 +200,7 @@ magnet,0 1
 magnetic disk,0 1
 man,0 1
 marker,0 1
-mediadiscs,0 1.03846
+mediadiscs,0 1
 mediaplayer,0.363636 1
 mediastorage,1 0.142857
 microscope,0 1
@@ -210,17 +209,18 @@ milk,0 1
 milkcarton,0 0.857143
 mirror,0 0.111111
 money,1 1
-monitor,0.178571 1.05357
+monitor,0.142857 1
 monkey,0 0
 mouse,0 1
 mousepad,1 1
-mug,0 1.15094
+mug,0 1
 need,0 0.2
 network,0 0.5
 nightstand,1 0
 noble metal,0 1
 noname,0 0.923077
-notepad,0.511628 1.09302
+notepad,0.465116 1
+openbook,0.424242 1
 orange toast,0 1
 organ,0.5 1
 ottoman,1 0
@@ -229,12 +229,12 @@ pack,0 1
 pan,0.153846 1
 pants,0 1
 paper,0.266667 1
-paper towel,0 1
+paper towel,0 0
 paperbox,0.25 0.0833333
 paperclip,0 1
 papertowel,0 1
-pen,0 1.07895
-pencil,0 1.05882
+pen,0 1
+pencil,0 1
 pencil sharpener,0 1
 pepper,0 1
 pepper mill,0 1
@@ -248,7 +248,7 @@ pillbottle,0 1
 pillow,0.2 1
 pizza,0 1
 plant,0 0.666667
-plate,0.777778 1.02778
+plate,0.777778 1
 platter,1 1
 player,0 1
 plotter,0 0
@@ -257,7 +257,7 @@ post horse,0 0
 poster,0 0
 pot,0 0.75
 potrack,0 1
-pottedplant,0.0166667 0.783333
+pottedplant,0 0.7
 powersocket,0 0
 powerstrip,0 0.3
 print,0 0
@@ -272,21 +272,21 @@ radio,0.2 1
 radio receiver,0 0.666667
 railing,0 0
 refrigerator,0.6 0
-remote control,0 1.15
+remote control,0 1
 rifle,0 1
 ring,0 1
 room,1 0
 router,0 1
 rubikscube,0 1
-rug,0.529412 0.411765
+rug,0.529412 0
 rule,0 1
 salad,0 1
-sandwich,0 1.81818
-scissors,0.166667 1
+sandwich,0 1
+scissors,0 1
 screwdriver,0 1
 scrub brush,0 1
 shackle,0 0
-shampoo,0 2.25
+shampoo,0 1
 shelf,1 0
 ship,0 1
 shirt,0 1
@@ -294,13 +294,16 @@ shoes,0 0.9375
 showerhead,0 0
 sink,0.8 0
 smokestack,0 1
-soap dispenser,0.333333 1
-soapbar,0.5 1.5
+soap dispenser,0 1
+soapbar,0 1
 sodacan,0 1
 spatula,0 1
-speaker,0.047619 0.695238
+speaker,0.0190476 0.67619
 spray paint,0 1
+stackbooks,0.047619 1
 stained-glass window,0 0
+standbook,0.0588235 1
+standbooks,0 1
 stapler,0 1
 statue,0 0.5
 stool,0.0588235 0
@@ -315,7 +318,7 @@ table,0.964912 0.105263
 tableclock,0.105263 1
 tank,0 1
 tape,0 0.75
-taw,0.2 1
+taw,0 1
 teacup,0 1
 teapot,0 1
 telecommunication,0 1
@@ -325,43 +328,43 @@ thymine,0 1
 tissuebox,0 0.916667
 toaster,0 1
 toilet,0 0
-toiletpaper,0 1
+toiletpaper,0 0.75
 tolkien,0 1
 tongs,0 1
 toothbrush,0 1
 toothpaste,0 1
-towel,0.2 0.6
+towel,0 0.4
 towel ring,0 0
 toy,0 1
-toyfigure,0.025641 1.01709
-trashbin,0.0333333 0
+toyfigure,0 1
+trashbin,0 0
 tray,0.75 1
 tube,0 1
-tv,0.111111 1
+tv,0 1
 tvstand,1 0.2
-unknown,0 1
+unknown,0 0.95
 usbstick,0 1
 vacuum,0 0
 vanity,1 0
-vase,0.0434783 1
+vase,0.0434783 0.913043
 vessel,0 1
-videodisk,0.25 1
-videogameconsole,0.108696 1.06522
-videogamecontroller,0.0175439 1.07018
+videodisk,0 1
+videogameconsole,0.108696 1
+videogamecontroller,0 1
 wall clock,0 0
 wall socket,0 0
-wallart,0 0.0246914
+wallart,0 0
 wallclock,0 0
 walldecoration,0 0
 wallet,0.166667 1
-washer,1 0.4
+washer,1 0
 watch,0 1
 water cooler,0 0
 webcam,0 1
 wheel,0 1
 wine,0 1
 wineglass,0 1
-work,0 1.5
+work,0 1
 wrench,0 1
 xbox360,0.333333 1
 yttrium,0 1

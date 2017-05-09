@@ -190,13 +190,13 @@ nodeNum 123
 2,object,pottedplant,,24 46 67
 3,object,pictureframe,68,25 47 69
 4,object,decorativeaccessory,69 70,26 48 68
-5,object,books,67 71 73 74,27 49 72
-6,object,books,72 75 76 78 80 82 84 85 86 88,28 50 71 77 79 81 83 87
-7,object,books,89 90 91 92,29 51 93
-8,object,books,96,30 52 75 89 94 95 97 98
-9,object,books,77 99 101 102,31 53 76 100
-10,object,books,79 94 100 103 105 108 109,32 54 78 99 104 106 107
-11,object,books,81 95 104 110 111 112 114 115,33 55 80 103 113
+5,object,standbooks,67 71 73 74,27 49 72
+6,object,standbooks,72 75 76 78 80 82 84 85 86 88,28 50 71 77 79 81 83 87
+7,object,standbooks,89 90 91 92,29 51 93
+8,object,standbooks,96,30 52 75 89 94 95 97 98
+9,object,standbooks,77 99 101 102,31 53 76 100
+10,object,standbooks,79 94 100 103 105 108 109,32 54 78 99 104 106 107
+11,object,standbooks,81 95 104 110 111 112 114 115,33 55 80 103 113
 12,object,bookend,,34 56 90 110 116
 13,object,toy,83 106 117,35 57 82 105
 14,object,book,97,36 58 84 91 96 118 119
