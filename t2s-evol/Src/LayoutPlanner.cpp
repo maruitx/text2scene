@@ -229,11 +229,8 @@ void LayoutPlanner::initPlaceUsingSynthesizedRelations(TSScene *currScene)
 					translateVec = newPos - actMd.position;
 					transMat = transMat.translate(translateVec);
 				}
-				//actMd.updateWithTransform(transMat);
-				//// update meta model in SSG
-				//currScene->m_ssg->m_metaScene.m_metaModellList[activeModelId] = actMd;
-				updateMetaModelInScene(currScene, activeModelId, transMat);
 
+				updateMetaModelInScene(currScene, activeModelId, transMat);
 				updatePlacementOfChildren(currScene, activeModelId, transMat);
 
 				int actModelParentId = currScene->m_ssg->m_parentOfModel[activeModelId];
@@ -518,10 +515,6 @@ void LayoutPlanner::adjustZForModel(TSScene *currScene, int metaModelId)
 				vec3 translateVec;
 				translateVec = vec3(0, 0, newZ - md.position.z);
 				mat4 transMat = mat4::translate(translateVec);
-				//md.updateWithTransform(transMat);
-				//// update meta model in SSG
-				//currScene->m_ssg->m_metaScene.m_metaModellList[metaModelId] = md;
-
 				updateMetaModelInScene(currScene, metaModelId, transMat);
 			}
 		}
@@ -663,7 +656,6 @@ void LayoutPlanner::updateWithNewPlacement(TSScene *currScene, int anchorModelId
 
 	vec3 newPos(newPlacement[0], newPlacement[1], newPlacement[2]);
 	mat4 transMat = computeTransMatFromPos(currScene, anchorModelId, currModelID, newPos, newPlacement[3]);
-	//currMd.updateWithTransform(transMat);
 	updateMetaModelInScene(currScene, currModelID, transMat);
 
 	// lift model in case the Z position is not accurate
@@ -675,7 +667,6 @@ void LayoutPlanner::updateWithNewPlacement(TSScene *currScene, int anchorModelId
 		if (d > 0)
 		{
 			mat4 liftMat = mat4::translate(0, 0, d);
-			//currMd.updateWithTransform(liftMat);
 			updateMetaModelInScene(currScene, currModelID, liftMat);
 		}
 	}
@@ -695,11 +686,6 @@ void LayoutPlanner::updatePlacementOfChildren(TSScene *currScene, int currModelI
 		for (int i = 0; i < childrenList.size(); i++)
 		{
 			int childModelId = childrenList[i];
-			//MetaModel &childMd = currScene->getMetaModel(childModelId);
-			//childMd.updateWithTransform(transMat);
-			//// update MetaModel in SSG
-			//currScene->m_ssg->m_metaScene.m_metaModellList[childModelId] = childMd;
-
 			updateMetaModelInScene(currScene, childModelId, transMat);
 		}
 	}
@@ -724,11 +710,6 @@ void LayoutPlanner::updatePlacementOfChildren(TSScene *currScene, int currModelI
 
 					if (std::find(childrenList.begin(), childrenList.end(), actModelId) == childrenList.end())
 					{
-						//MetaModel &actMd = currSSG->getModelWithNodeId(actNodeId);
-						//actMd.updateWithTransform(transMat);
-						//MetaModel &actMdInScene = currScene->getMetaModel(actModelId);
-						//actMdInScene = actMd;
-
 						updateMetaModelInScene(currScene, actModelId, transMat);
 					}
 				}
@@ -780,11 +761,6 @@ void LayoutPlanner::updatePlacementOfParent(TSScene *currScene, int currModelID,
 
 	if (parentModelId!=-1)
 	{
-		//MetaModel &parentMd = currScene->getMetaModel(parentModelId);
-		//parentMd.updateWithTransform(transMat);
-
-		//// update MetaModel in SSG
-		//currScene->m_ssg->m_metaScene.m_metaModellList[parentModelId] = parentMd;
 		updateMetaModelInScene(currScene, parentModelId, transMat);
 	}
 

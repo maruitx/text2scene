@@ -6,9 +6,18 @@ const QString SSGNodeType[] = { "object", "attribute", "pair_relation", "group_r
 
 class SemNode{
 public:
+	enum NodeType {
+		Obj = 0,
+		Attri,
+		Pair,
+		Group
+	};
+
+
 	SemNode(const QString &t, const QString &n, int id) { nodeType = t; nodeName = n; nodeId = id; 
 	isAligned = false; isSynthesized = false; matchingStatus = 0;
-	isInferred = false;  inferedType = -1;  inferRefNodeId = -1; isAnnotated = false; };
+	isInferred = false;  inferedType = -1;  inferRefNodeId = -1; isAnnotated = false; useNewInst = false;
+	};
 	~SemNode() {};
 
 	// node types: object, p_attribute, p_relation, g_relation, g_attribute, 
@@ -36,6 +45,7 @@ public:
 
 	bool isAligned;
 	bool isSynthesized;
+	bool useNewInst; // whether use a new instance for current object node
 
 	enum InferNodeType{
 		InferBySupport = 0,
@@ -89,7 +99,7 @@ public:
 
 	void setNodesUnAligned();
 
-	void alignObjectNodesWithGraph(SemanticGraph *targetGraph, double &alignScore);
+	void alignObjectNodesWithGraph(SemanticGraph *targetGraph, double &alignScore, bool userDeterminer =false);
 	void alignRelationNodesWithGraph(SemanticGraph *targetGraph, double &alignScore);
 
 	void mergeWithGraph(SemanticGraph *inputGraph);

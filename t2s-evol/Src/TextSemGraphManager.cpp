@@ -82,7 +82,17 @@ void TextSemGraphManager::loadSELFromOutput(const QString &filename, RelationMod
 					if (currLine.left(5) == "count")
 					{
 						std::vector<std::string> parts = PartitionString(currLine.toStdString(), ":");
-						newEntity.instanceCountString =  QString(parts[1].c_str());;
+						newEntity.instanceCountString =  QString(parts[1].c_str());
+					}
+
+					if (currLine.contains("determiners"))
+					{
+						std::vector<std::string> parts = PartitionString(currLine.toStdString(), ":");
+						if (parts.size()>  1)
+						{
+							newEntity.m_determiner = QString(parts[1].c_str());
+							newEntity.m_determiner.remove(",");
+						}
 					}
 
 					if (currLine.contains("attributes"))

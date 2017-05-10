@@ -28,7 +28,7 @@ void SemanticGraph::addNode(const QString &nType, const QString &nName)
 
 	if (nType == "group_relation_anno")
 	{
-		unifiedType = SSGNodeType[3];
+		unifiedType = SSGNodeType[SemNode::Group];
 	}
 
 	SemNode newNode = SemNode(unifiedType, nName, m_nodeNum);
@@ -43,6 +43,7 @@ void SemanticGraph::addNode(const SemNode &node)
 	newNode.isAligned = node.isAligned;
 	newNode.matchingStatus = node.matchingStatus;
 	newNode.isSynthesized = node.isSynthesized;
+	newNode.useNewInst = node.useNewInst;
 
 	m_nodes.push_back(newNode);
 	m_nodeNum++;
@@ -144,41 +145,44 @@ SemEdge& SemanticGraph::getEdge(int s, int t)
 	}
 }
 
-void SemanticGraph::alignObjectNodesWithGraph(SemanticGraph *targetGraph, double &alignScore)
+void SemanticGraph::alignObjectNodesWithGraph(SemanticGraph *targetGraph, double &alignScore, bool userDeterminer/*= false*/)
 {
 	double NodeScore[] = { 0, 0, 20};
 
 	// first match object node and per-object attribute node
 	for (int qNi = 0; qNi < this->m_nodeNum; qNi++)
 	{
-		SemNode& sgNode = this->m_nodes[qNi];
+		SemNode& objNode = this->m_nodes[qNi];
 
-		if (sgNode.nodeType == "object")
+		if (objNode.nodeType == "object")
 		{
+			// not aligned this node if marked for use new instance
+			if (userDeterminer && objNode.useNewInst) continue;
+
 			for (int tarNi = 0; tarNi < targetGraph->m_nodeNum; tarNi++)
 			{
-				SemNode& tarSgNode = targetGraph->m_nodes[tarNi];
+				SemNode& tarObjNode = targetGraph->m_nodes[tarNi];
 				// skip the aligned nodes
-				if (!tarSgNode.isAligned && tarSgNode.nodeType == "object" && sgNode.nodeName == tarSgNode.nodeName)
+				if (!tarObjNode.isAligned && tarObjNode.nodeType == "object" && objNode.nodeName == tarObjNode.nodeName)
 				{
-					if (!sgNode.nodeLabels.empty())
+					if (!objNode.nodeLabels.empty())
 					{
 						int matchedAttNum = 0;
 						int sgAttNum = 0;
 
 						// align attribute node
-						for (int ai = 0; ai < sgNode.nodeLabels.size(); ai++)
+						for (int ai = 0; ai < objNode.nodeLabels.size(); ai++)
 						{
-							int attNodeId = sgNode.nodeLabels[ai];
+							int attNodeId = objNode.nodeLabels[ai];
 
 							SemNode &attNode = this->m_nodes[attNodeId];
 							sgAttNum++;
 
-							if (!tarSgNode.nodeLabels.empty())
+							if (!tarObjNode.nodeLabels.empty())
 							{
-								for (int tarAi = 0; tarAi < tarSgNode.nodeLabels.size(); tarAi++)
+								for (int tarAi = 0; tarAi < tarObjNode.nodeLabels.size(); tarAi++)
 								{
-									int tarAttNodeId = tarSgNode.nodeLabels[tarAi]; // id of attribute node in dbssg
+									int tarAttNodeId = tarObjNode.nodeLabels[tarAi]; // id of attribute node in dbssg
 									SemNode &tarAttNode = targetGraph->m_nodes[tarAttNodeId];
 
 									if (attNode.nodeType == tarAttNode.nodeType && attNode.nodeName == tarAttNode.nodeName)
@@ -199,33 +203,40 @@ void SemanticGraph::alignObjectNodesWithGraph(SemanticGraph *targetGraph, double
 						//  if all attribute nodes matched, then the node is matched
 						if (matchedAttNum == sgAttNum)
 						{
-							sgNode.isAligned = true;
-							tarSgNode.isAligned = true;
-							tarSgNode.matchingStatus = sgNode.matchingStatus;
+							objNode.isAligned = true;
+							tarObjNode.isAligned = true;
+							tarObjNode.matchingStatus = objNode.matchingStatus;
+							tarObjNode.useNewInst = objNode.useNewInst;
 
 							m_nodeAlignMap[qNi] = tarNi; // save aligned object node into map									
-							alignScore += NodeScore[sgNode.matchingStatus];
+							alignScore += NodeScore[objNode.matchingStatus];
 							break;
 						}
 						else
 						{
-							sgNode.isAligned = true;
-							tarSgNode.isAligned = true;
-							tarSgNode.matchingStatus = sgNode.matchingStatus;
+							objNode.isAligned = true;
+							tarObjNode.isAligned = true;
+
+							//objNode.isAligned = false;
+							//tarObjNode.isAligned = false;
+
+							tarObjNode.matchingStatus = objNode.matchingStatus;
+							tarObjNode.useNewInst = objNode.useNewInst;
 
 							m_nodeAlignMap[qNi] = tarNi; // save partial aligned object node into map									
-							alignScore += 0.5*NodeScore[sgNode.matchingStatus];
+							alignScore += 0.5*NodeScore[objNode.matchingStatus];
 							break;
 						}
 					}
 					else
 					{
-						sgNode.isAligned = true;
-						tarSgNode.isAligned = true;
-						tarSgNode.matchingStatus = sgNode.matchingStatus;
+						objNode.isAligned = true;
+						tarObjNode.isAligned = true;
+						tarObjNode.matchingStatus = objNode.matchingStatus;
+						tarObjNode.useNewInst = objNode.useNewInst;
 
 						m_nodeAlignMap[qNi] = tarNi; // save aligned object node map
-						alignScore += NodeScore[sgNode.matchingStatus];
+						alignScore += NodeScore[objNode.matchingStatus];
 						break;
 					}
 				}
@@ -357,8 +368,7 @@ void SemanticGraph::mergeWithGraph(SemanticGraph *inputGraph)
 SemanticGraph* SemanticGraph::alignAndMergeWithGraph(SemanticGraph *sg)
 {
 	double alignScore;
-
-	sg->alignObjectNodesWithGraph(this, alignScore);
+	sg->alignObjectNodesWithGraph(this, alignScore, true);
 	sg->alignRelationNodesWithGraph(this, alignScore);
 
 	this->mergeWithGraph(sg);

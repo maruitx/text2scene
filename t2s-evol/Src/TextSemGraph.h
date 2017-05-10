@@ -18,15 +18,16 @@ public:
 	void mapToFixedRelationSet(SemNode &currNode, QString &nodeName, QString &nodeType = QString(""));
 	void mapToFixedAttributeSet(QString &nodeName, QString &nodeType = QString(""));
 
+	void postProcessForSpecialRelations();
+
 	QString convertToSinglarForm(const QString &s);
 	bool isOnObj(int entityId, const QString &anchorName);
 	bool isWithObj(const QString &currObjName, const QString &anchorName);
 
+	SelSentence m_sentence;   // only handle one sentence per graph	
+
 private:
 	int m_sentence_id;
-	int m_sentence_string;
-
-	SelSentence m_sentence;   // only handle one sentence per graph	
 
 	std::vector<int> m_isNodeCertain;
 	std::vector<int> m_isNodeGrounded;

@@ -21,6 +21,7 @@ void TextSemGraph::buildGraphFromSEL()
 		std::vector<std::string> parts = PartitionString(nameString.toStdString(), "-");
 		QString entityName = toQString(parts[0]);
 		m_sentence.m_entities[i].nameString = entityName;
+		QString determiner = m_sentence.m_entities[i].m_determiner;
 
 		if (m_sentence.m_entities[i].isPlural)
 		{
@@ -72,7 +73,15 @@ void TextSemGraph::buildGraphFromSEL()
 			{
 				addNode("object", entityName);
 				m_isNodeCertain.push_back(0);
-				m_sentence.m_entities[i].m_instanceNodeIds.push_back(m_nodeNum - 1);
+
+				int currNodeId = m_nodeNum - 1;
+				m_sentence.m_entities[i].m_instanceNodeIds.push_back(currNodeId);
+
+				SemNode &currNode = m_nodes[currNodeId];
+				if (determiner != "the")
+				{
+					currNode.useNewInst = true;
+				}
 			}
 
 			// update entity name
@@ -82,6 +91,13 @@ void TextSemGraph::buildGraphFromSEL()
 		{
 			addNode("object", entityName);
 			m_isNodeCertain.push_back(1);
+
+			int currNodeId = m_nodeNum - 1;
+			SemNode &currNode = m_nodes[currNodeId];
+			if (determiner == "a")
+			{
+				currNode.useNewInst = true;
+			}
 
 			m_sentence.m_entities[i].m_instanceNodeIds.push_back(m_nodeNum - 1);
 			m_sentence.m_entities[i].instanceCount = 1;
@@ -154,6 +170,7 @@ void TextSemGraph::buildGraphFromSEL()
 	this->parseNodeNeighbors();
 
 	mapNodeNameToFixedNameSet();
+	postProcessForSpecialRelations();
 }
 
 void TextSemGraph::mapNodeNameToFixedNameSet()
@@ -329,14 +346,14 @@ void TextSemGraph::mapToFixedRelationSet(SemNode &currNode, QString &nodeName, Q
 			nodeName = "vertsupport";
 		}
 
-		nodeType = SSGNodeType[2];
+		nodeType = SSGNodeType[SemNode::Pair];
 		return;
 	}
 
 	if (nodeName.contains("with"))
 	{
 
-		nodeType = SSGNodeType[2];
+		nodeType = SSGNodeType[SemNode::Pair];
 
 		// reverse edge dir
 		SemEdge &inEdge = getEdge(currNode.activeNodeList[0], currNode.nodeId);
@@ -359,12 +376,12 @@ void TextSemGraph::mapToFixedRelationSet(SemNode &currNode, QString &nodeName, Q
 		EraseValueInVectorInt(m_nodes[actNodeId].inEdgeNodeList, currNodeId);
 		m_nodes[actNodeId].outEdgeNodeList.push_back(currNodeId);
 
-		QString anchorName = m_nodes[refNodeId].nodeName;
-		QString actName = m_nodes[actNodeId].nodeName;
-		if (actName.contains("book")) actName = "book";
+		QString anchorObjName = m_nodes[refNodeId].nodeName;
+		QString actObjName = m_nodes[actNodeId].nodeName;
+		if (actObjName.contains("book")) actObjName = "book";
 
-		QString suppRelKey1 = anchorName + "_" + actName + "_vertsupport";
-		QString suppRelKey2 = anchorName + "_" + actName + "_horizonsupport";
+		QString suppRelKey1 = anchorObjName + "_" + actObjName + "_vertsupport";
+		QString suppRelKey2 = anchorObjName + "_" + actObjName + "_horizonsupport";
 
 
 		if (m_relModelManager->m_supportRelations.count(suppRelKey1))
@@ -375,8 +392,8 @@ void TextSemGraph::mapToFixedRelationSet(SemNode &currNode, QString &nodeName, Q
 		{
 			nodeName = "horizonsupport";
 		}
-		else if (m_relModelManager->m_suppProbs.count(actName) && m_relModelManager->m_suppProbs[actName].beChildProb >= 0.5
-			&& m_relModelManager->m_suppProbs.count(anchorName) && m_relModelManager->m_suppProbs[anchorName].beParentProb >= 0.5)
+		else if (m_relModelManager->m_suppProbs.count(actObjName) && m_relModelManager->m_suppProbs[actObjName].beChildProb >= 0.5
+			&& m_relModelManager->m_suppProbs.count(anchorObjName) && m_relModelManager->m_suppProbs[anchorObjName].beParentProb >= 0.5)
 		{
 			nodeName = "vertsupport";
 		}
@@ -385,82 +402,88 @@ void TextSemGraph::mapToFixedRelationSet(SemNode &currNode, QString &nodeName, Q
 			nodeName = "near";
 		}
 
+		if ((anchorObjName == "tv" && actObjName== "speaker") ||
+			(anchorObjName == "bed" && actObjName =="nightstand"))
+		{
+			nodeName = "side";
+		}
+
 		return;
 	}
 
 	if (nodeName == "next to" || nodeName == "close to" || nodeName == "near")
 	{
 		nodeName = "near";
-		nodeType = SSGNodeType[2];
+		nodeType = SSGNodeType[SemNode::Pair];
 		return;
 	}
 
 	if (nodeName.contains("front"))
 	{
 		nodeName = "front";
-		nodeType = SSGNodeType[2];
+		nodeType = SSGNodeType[SemNode::Pair];
 		return;
 	}
 
 	if (nodeName.contains("back") || nodeName.contains("behind"))
 	{
 		nodeName = "back";
-		nodeType = SSGNodeType[2];
+		nodeType = SSGNodeType[SemNode::Pair];
 		return;
 	}
 
 	if (nodeName.contains("left"))
 	{
 		nodeName = "leftside";
-		nodeType = SSGNodeType[2];
+		nodeType = SSGNodeType[SemNode::Pair];
 		return;
 	}
 
 	if (nodeName.contains("right"))
 	{
 		nodeName = "rightside";
-		nodeType = SSGNodeType[2];
+		nodeType = SSGNodeType[SemNode::Pair];
 		return;
 	}
 
 	if (nodeName.contains("under") || nodeName.contains("below"))
 	{
 		nodeName = "under";
-		nodeType = SSGNodeType[2];
+		nodeType = SSGNodeType[SemNode::Pair];
 		return;
 	}
 
 	if (nodeName.contains("center"))
 	{
 		nodeName = "oncenter";
-		nodeType = SSGNodeType[2];
+		nodeType = SSGNodeType[SemNode::Pair];
 		return;
 	}
 
 	if (nodeName.contains("align"))
 	{
 		nodeName = "aligned";
-		nodeType = SSGNodeType[3];
+		nodeType = SSGNodeType[SemNode::Group];
 		return;
 	}
 
 	if (nodeName.contains("stack"))
 	{
 		nodeName = "stacked";
-		nodeType = SSGNodeType[3];
+		nodeType = SSGNodeType[SemNode::Group];
 		return;
 	}
 
 	if (nodeName.contains("each") && nodeName.contains("side"))
 	{
 		nodeName = "leftside";
-		nodeType = SSGNodeType[2];
+		nodeType = SSGNodeType[SemNode::Pair];
 		return;
 	}
 
 	if (nodeName == "around")
 	{
-		nodeType = SSGNodeType[3];
+		nodeType = SSGNodeType[SemNode::Group];
 		return;
 	}
 }
@@ -469,49 +492,49 @@ void TextSemGraph::mapToFixedAttributeSet(QString &nodeName, QString &nodeType /
 {
 	if (nodeName == "office")
 	{
-		nodeType = SSGNodeType[1];
+		nodeType = SSGNodeType[SemNode::Attri];
 		return;
 	}
 
 	if (nodeName == "coffee")
 	{
-		nodeType = SSGNodeType[1];
+		nodeType = SSGNodeType[SemNode::Attri];
 		return;
 	}
 
 	if (nodeName == "dining")
 	{
-		nodeType = SSGNodeType[1];
+		nodeType = SSGNodeType[SemNode::Attri];
 		return;
 	}
 
 	if (nodeName == "file")
 	{
-		nodeType = SSGNodeType[1];
+		nodeType = SSGNodeType[SemNode::Attri];
 		return;
 	}
 
 	if (nodeName == "round")
 	{
-		nodeType = SSGNodeType[1];
+		nodeType = SSGNodeType[SemNode::Attri];
 		return;
 	}
 
 	if (nodeName == "rectangular")
 	{
-		nodeType = SSGNodeType[1];
+		nodeType = SSGNodeType[SemNode::Attri];
 		return;
 	}
 
 	if (nodeName == "sauce")
 	{
-		nodeType = SSGNodeType[1];
+		nodeType = SSGNodeType[SemNode::Attri];
 		return;
 	}
 
 	if (nodeName.contains("mess"))
 	{
-		nodeType = SSGNodeType[3];
+		nodeType = SSGNodeType[SemNode::Group];
 		nodeName = "messy";
 		return;
 	}
@@ -519,40 +542,66 @@ void TextSemGraph::mapToFixedAttributeSet(QString &nodeName, QString &nodeType /
 
 	if (nodeName.contains("mess"))
 	{
-		nodeType = SSGNodeType[3];
+		nodeType = SSGNodeType[SemNode::Group];
 		nodeName = "messy";
 		return;
 	}
 
 	if (nodeName.contains("formal"))
 	{
-		nodeType = SSGNodeType[3];
+		nodeType = SSGNodeType[SemNode::Group];
 		nodeName = "formal";
 		return;
 	}
 
 	if (nodeName.contains("casual"))
 	{
-		nodeType = SSGNodeType[3];
+		nodeType = SSGNodeType[SemNode::Group];
 		nodeName = "casual";
 		return;
 	}
 
 	if (nodeName.contains("organize"))
 	{
-		nodeType = SSGNodeType[3];
+		nodeType = SSGNodeType[SemNode::Group];
 		nodeName = "organized";
 		return;
 	}
 
 	if (nodeName.contains("clean"))
 	{
-		nodeType = SSGNodeType[3];
+		nodeType = SSGNodeType[SemNode::Group];
 		nodeName = "clean";
 		return;
 	}
 }
 
+void TextSemGraph::postProcessForSpecialRelations()
+{
+	if (m_sentence.textString.contains("each side") || m_sentence.textString.contains("eachside"))
+	{
+		std::vector<int> relNodelIds;
+		for (int i = 0; i < m_nodeNum; i++)
+		{
+			if (m_nodes[i].nodeName == "side")
+			{
+				relNodelIds.push_back(i);
+			}
+		}
+
+		for (int i=0; i< relNodelIds.size()/2; i++)
+		{
+			int relNodeId = relNodelIds[i];
+			m_nodes[relNodeId].nodeName = "leftside";
+		}
+
+		for (int i= relNodelIds.size()/2; i < relNodelIds.size(); i++)
+		{
+			int relNodeId = relNodelIds[i];
+			m_nodes[relNodeId].nodeName = "rightside";
+		}
+	}
+}
 
 
 

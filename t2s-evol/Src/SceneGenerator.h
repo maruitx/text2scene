@@ -24,6 +24,7 @@ public:
 	void updateCurrentTSScene(TSScene *ts);
 
 	SemanticGraph* prepareQuerySG();
+	void adjustTextSSGWithCurrSSG(TextSemGraph *textSSG, SceneSemGraph *currSSG);
 	void resetNodes(SemanticGraph *sg);
 
 	std::vector<TSScene*> generateTSScenes(int num);

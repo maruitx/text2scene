@@ -48,8 +48,9 @@ SemanticGraph* SceneGenerator::prepareQuerySG()
 	{
 		//resetNodes(querySG);
 		m_currUserSSG->m_nodeAlignMap.clear();
-		querySG = new SemanticGraph(m_currUserSSG);
+		adjustTextSSGWithCurrSSG(m_textSSG, m_currUserSSG);
 
+		querySG = new SemanticGraph(m_currUserSSG);
 		// update current UserSSG with textSSG for retrieval
 		querySG->alignAndMergeWithGraph(m_textSSG);
 
@@ -79,6 +80,84 @@ SemanticGraph* SceneGenerator::prepareQuerySG()
 	}
 
 	return querySG;
+}
+
+void SceneGenerator::adjustTextSSGWithCurrSSG(TextSemGraph *textSSG, SceneSemGraph *currSSG)
+{
+	std::vector<QString> entityNames;
+	for (int i = 0; i < textSSG->m_sentence.entityCount; i++)
+	{
+		SelEntity &currEntity = textSSG->m_sentence.m_entities[i];
+		QString determiner = currEntity.m_determiner;
+
+		if (determiner == "each")
+		{
+			entityNames.push_back(textSSG->m_sentence.m_entities[i].nameString);
+		}
+	}
+
+	for (int i=0; i < entityNames.size(); i++)
+	{
+		QString objName = entityNames[i];
+		int instanceCountInCurrSSG = 0;
+		int instanceCountInTextSSG = 0;
+		
+		// find object node, add duplicated relation node and act obj node
+		for (int j=0; j < currSSG->m_nodeNum; j++)
+		{
+			SemNode &objNode = currSSG->m_nodes[j];
+			if (objNode.nodeName == objName)
+			{
+				instanceCountInCurrSSG++;
+			}
+		}
+
+		std::vector<int> anchorObjNodeIds;
+		for (int j = 0; j < textSSG->m_nodeNum; j++)
+		{
+			SemNode &objNode = textSSG->m_nodes[j];
+			if (objNode.nodeName == objName)
+			{
+				anchorObjNodeIds.push_back(j);
+				instanceCountInTextSSG++;
+			}
+		}
+
+		// add instance to TextSSG
+		int addInstanceNum = instanceCountInCurrSSG - instanceCountInTextSSG;
+		for (int j=0; j < addInstanceNum; j++)
+		{
+			int currAnchorNodeId = anchorObjNodeIds[0];  // use the first anchor node
+			SemNode currAnchorNode = textSSG->m_nodes[currAnchorNodeId];
+
+			textSSG->addNode(currAnchorNode);
+			int newAnchoNodeId = textSSG->m_nodeNum - 1;
+
+			if (!currAnchorNode.inEdgeNodeList.empty())
+			{
+				int relNodeId = currAnchorNode.inEdgeNodeList[0];
+				SemNode relNode = textSSG->m_nodes[relNodeId];
+
+				textSSG->addNode(relNode);
+
+				int newRelNodeId = textSSG->m_nodeNum - 1;
+				textSSG->addEdge(newRelNodeId, newAnchoNodeId);
+
+				for (int k=0; k < relNode.activeNodeList.size(); k++)
+				{
+					int actNodeId = relNode.activeNodeList[k];
+					SemNode actNode = textSSG->m_nodes[actNodeId];
+
+					textSSG->addNode(actNode);
+					
+					int newActNodeId = textSSG->m_nodeNum - 1;
+					textSSG->addEdge(newActNodeId, newRelNodeId);
+				}
+			}
+		}
+	}
+
+	textSSG->parseNodeNeighbors();
 }
 
 void SceneGenerator::resetNodes(SemanticGraph *sg)

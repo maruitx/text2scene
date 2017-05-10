@@ -522,7 +522,7 @@ void SceneSemGraph::restoreMissingSupportNodes()
 			if (!hasSupportNode(actNodeId))
 			{
 				int anchorNodeId = relNode.outEdgeNodeList[0];
-				addNode(SSGNodeType[2], "vertsupport");
+				addNode(SSGNodeType[SemNode::Pair], "vertsupport");
 				int currNodeId = m_nodeNum - 1;
 
 				addEdge(actNodeId, currNodeId);

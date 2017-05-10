@@ -49,6 +49,8 @@ struct SelEntity
 	vector<SelAttribute> m_attributes;
 	vector<SelCommand> m_commands;
 
+	QString m_determiner;  // empty, a or the
+
 	vector<int> m_instanceNodeIds;  // the node id of current instance
 };
 
