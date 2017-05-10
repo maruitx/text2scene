@@ -16,7 +16,7 @@
 Scene::Scene(CameraManager *camManager)
 : m_cameraManager(camManager),
   m_activeIdx(-1),
-	m_rightAfterEvol(false)
+	m_resetPreview(false)
 {
     init();   
 }
@@ -215,12 +215,7 @@ void Scene::runOneEvolutionStep()
 	std::vector<TSScene*> tsscenes = m_sceneGenerator->generateTSScenes(topSSGNum);
 
 	// clean previous variations
-	for (int i = 0; i < m_variations.size(); i++)
-	{
-		delete m_variations[i];
-	}
-
-	m_variations.clear();
+	clearVariations();
 
 	for (int i = 0; i < tsscenes.size(); ++i)
 	{
@@ -230,7 +225,7 @@ void Scene::runOneEvolutionStep()
 		m_variations[i]->m_previewId = i;
 	}
 
-	m_rightAfterEvol = true;
+	m_resetPreview = true;
 }
 
 void Scene::toggleRenderMode()
@@ -239,4 +234,14 @@ void Scene::toggleRenderMode()
 	{
 		m_variations[i]->toggleRenderMode();
 	}
+}
+
+void Scene::clearVariations()
+{
+	for (int i = 0; i < m_variations.size(); i++)
+	{
+		delete m_variations[i];
+	}
+
+	m_variations.clear();
 }

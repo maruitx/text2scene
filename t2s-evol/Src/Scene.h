@@ -40,6 +40,7 @@ public:
 	void runOneEvolutionStep();
     void toggleRenderMode();
 
+	void clearVariations();
 
 public:
     vector<Light *> m_lights;
@@ -50,7 +51,7 @@ public:
 	int m_activeVarationId;
 
 	MetaModel roomModel;
-	bool m_rightAfterEvol;  // if scene is right after an evolution step
+	bool m_resetPreview;  // if scene is right after an evolution step
 
 private:
 	

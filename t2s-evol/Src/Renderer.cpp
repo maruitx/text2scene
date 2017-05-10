@@ -56,7 +56,7 @@ void Renderer::render(Transform &trans)
     }
 
 	// reset to the first preview if right after evol
-	if (m_scene->m_rightAfterEvol)
+	if (m_scene->m_resetPreview)
 	{
 		m_prevYOffset = 0;
 		m_activePreview = 0;
@@ -347,7 +347,7 @@ void Renderer::onMouseClick(int mx, int my)
     {
         if (m_previewFBOs[i].clicked(mx, my, m_prevYOffset))
         {
-			m_scene->m_rightAfterEvol = false;
+			m_scene->m_resetPreview = false;
 
             m_activePreview = i;
 			m_scene->m_activeVarationId = m_activePreview;

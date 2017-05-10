@@ -78,6 +78,14 @@ void TextDialog::onButtonProcess()
 
 	QString inputSentence = m_editSentence->toPlainText();
 
+	if (inputSentence == "clear")
+	{
+		m_scene->clearVariations();
+		m_scene->initSynScene();
+		m_scene->m_resetPreview = true;
+		return;
+	}
+
 	// load room model
 	if (inputSentence.contains("lrm "))
 	{
