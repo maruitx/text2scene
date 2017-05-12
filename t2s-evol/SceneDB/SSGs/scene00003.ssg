@@ -40,50 +40,56 @@ upDir 0 0 1
 bbTopPlane 164.199 100.592 50.3711 162.925 76.2856 50.3711 189.933 74.8702 50.3711 191.207 99.177 50.3711
 parentId 0
 parentPlaneUVH 0.723521 0.361034 -131.75
-nodeNum 19
-0,object,room,7 8 9,
-1,object,table,5 6 10 11 14,7 12 13 15 16
-2,object,bowl,17,10 18
-3,object,chair,12 13,8 11
-4,object,chair,15 16 18,9 14 17
+nodeNum 22
+0,object,room,10 11 12,
+1,object,table,5 6 7 8 9 13 14 17,10 15 16 18 19
+2,object,bowl,20,13 21
+3,object,chair,15 16,11 14
+4,object,chair,18 19 21,12 17 20
 5,attribute,dining,,1
-6,attribute,round,,1
-7,pair_relation,vertsupport,1,0
-8,pair_relation,vertsupport,3,0
-9,pair_relation,vertsupport,4,0
-10,pair_relation,vertsupport,2,1
-11,pair_relation,near,3,1
-12,pair_relation,near,1,3
-13,pair_relation,front,1,3
-14,pair_relation,near,4,1
-15,pair_relation,near,1,4
-16,pair_relation,front,1,4
-17,pair_relation,back,4,2
-18,pair_relation,front,2,4
-edgeNum 26
+6,attribute,rectangular,,1
+7,attribute,rectangular,,1
+8,attribute,rectangular,,1
+9,attribute,round,,1
+10,pair_relation,vertsupport,1,0
+11,pair_relation,vertsupport,3,0
+12,pair_relation,vertsupport,4,0
+13,pair_relation,vertsupport,2,1
+14,pair_relation,near,3,1
+15,pair_relation,near,1,3
+16,pair_relation,front,1,3
+17,pair_relation,near,4,1
+18,pair_relation,near,1,4
+19,pair_relation,front,1,4
+20,pair_relation,back,4,2
+21,pair_relation,front,2,4
+edgeNum 29
 0,5,1
 1,6,1
-2,1,7
-3,7,0
-4,3,8
-5,8,0
-6,4,9
-7,9,0
-8,2,10
-9,10,1
-10,3,11
-11,11,1
-12,1,12
-13,12,3
-14,1,13
-15,13,3
-16,4,14
-17,14,1
-18,1,15
-19,15,4
-20,1,16
-21,16,4
-22,4,17
-23,17,2
-24,2,18
-25,18,4
+2,7,1
+3,8,1
+4,9,1
+5,1,10
+6,10,0
+7,3,11
+8,11,0
+9,4,12
+10,12,0
+11,2,13
+12,13,1
+13,3,14
+14,14,1
+15,1,15
+16,15,3
+17,1,16
+18,16,3
+19,4,17
+20,17,1
+21,1,18
+22,18,4
+23,1,19
+24,19,4
+25,4,20
+26,20,2
+27,2,21
+28,21,4

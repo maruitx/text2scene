@@ -15,6 +15,8 @@ SemanticGraph::SemanticGraph(SemanticGraph *sg)
 	m_edges = sg->m_edges;
 
 	m_nodeAlignMap = sg->m_nodeAlignMap;
+
+	initStrictAttriSet();
 }
 
 
@@ -106,6 +108,40 @@ void SemanticGraph::parseNodeNeighbors()
 	}
 }
 
+void SemanticGraph::initStrictAttriSet()
+{
+	m_strictAttriSet.push_back("sofa");
+	m_strictAttriSet.push_back("round");
+	m_strictAttriSet.push_back("rectangular");
+	m_strictAttriSet.push_back("queen");
+	m_strictAttriSet.push_back("coffee");
+}
+
+bool SemanticGraph::isStrictAttri(const QString &attriName)
+{
+	if (std::find(m_strictAttriSet.begin(), m_strictAttriSet.end(), attriName) != m_strictAttriSet.end())
+	{
+		return true;
+	}
+
+	return false;
+}
+
+std::vector<QString> SemanticGraph::getAttriNamesForNode(int nodeId)
+{
+	std::vector<QString> currAttriNames;
+	SemNode &currNode = m_nodes[nodeId];
+
+	for (int t = 0; t < currNode.nodeLabels.size(); t++)
+	{
+		int attNodeId = currNode.nodeLabels[t];
+		SemNode &attNode = m_nodes[attNodeId];
+		currAttriNames.push_back(attNode.nodeName);
+	}
+
+	return currAttriNames;
+}
+
 std::vector<int> SemanticGraph::findNodeWithName(const QString &nName)
 {
 	std::vector<int> nodeIds;
@@ -147,7 +183,7 @@ SemEdge& SemanticGraph::getEdge(int s, int t)
 
 void SemanticGraph::alignObjectNodesWithGraph(SemanticGraph *targetGraph, double &alignScore, bool userDeterminer/*= false*/)
 {
-	double NodeScore[] = { 0, 0, 20};
+	double NodeScore[] = { 0, 0, 10};
 
 	// first match object node and per-object attribute node
 	for (int qNi = 0; qNi < this->m_nodeNum; qNi++)
@@ -165,18 +201,28 @@ void SemanticGraph::alignObjectNodesWithGraph(SemanticGraph *targetGraph, double
 				// skip the aligned nodes
 				if (!tarObjNode.isAligned && tarObjNode.nodeType == "object" && objNode.nodeName == tarObjNode.nodeName)
 				{
+					// if node has attributes
 					if (!objNode.nodeLabels.empty())
 					{
 						int matchedAttNum = 0;
-						int sgAttNum = 0;
+						int currSgAttNum = 0;
 
-						// align attribute node
+						// count num of attribute node; 
 						for (int ai = 0; ai < objNode.nodeLabels.size(); ai++)
 						{
 							int attNodeId = objNode.nodeLabels[ai];
 
 							SemNode &attNode = this->m_nodes[attNodeId];
-							sgAttNum++;
+
+							// only strict attribute counts
+							if (isStrictAttri(attNode.nodeName))
+							{
+								currSgAttNum++;
+							}
+							else
+							{
+								continue;
+							}
 
 							if (!tarObjNode.nodeLabels.empty())
 							{
@@ -188,20 +234,13 @@ void SemanticGraph::alignObjectNodesWithGraph(SemanticGraph *targetGraph, double
 									if (attNode.nodeType == tarAttNode.nodeType && attNode.nodeName == tarAttNode.nodeName)
 									{
 										matchedAttNum++;
-
-										attNode.isAligned = true;
-										tarAttNode.isAligned = true;
-										tarAttNode.matchingStatus = attNode.matchingStatus;
-
-										m_nodeAlignMap[attNodeId] = tarAttNodeId; // save aligned attribute node into map		
-										alignScore += 0;  // attribute node does not contribute to matching score
 									}
 								}
 							}
 						}
 
 						//  if all attribute nodes matched, then the node is matched
-						if (matchedAttNum == sgAttNum)
+						if (matchedAttNum == currSgAttNum)
 						{
 							objNode.isAligned = true;
 							tarObjNode.isAligned = true;
@@ -209,25 +248,98 @@ void SemanticGraph::alignObjectNodesWithGraph(SemanticGraph *targetGraph, double
 							tarObjNode.useNewInst = objNode.useNewInst;
 
 							m_nodeAlignMap[qNi] = tarNi; // save aligned object node into map									
-							alignScore += NodeScore[objNode.matchingStatus];
+							alignScore += NodeScore[objNode.matchingStatus];							
+
+							// add the attributes node
+							for (int ai = 0; ai < objNode.nodeLabels.size(); ai++)
+							{
+								int attNodeId = objNode.nodeLabels[ai];
+
+								SemNode &attNode = this->m_nodes[attNodeId];
+								if (!tarObjNode.nodeLabels.empty())
+								{
+									for (int tarAi = 0; tarAi < tarObjNode.nodeLabels.size(); tarAi++)
+									{
+										int tarAttNodeId = tarObjNode.nodeLabels[tarAi]; // id of attribute node in dbssg
+										SemNode &tarAttNode = targetGraph->m_nodes[tarAttNodeId];
+
+										if (attNode.nodeType == tarAttNode.nodeType && attNode.nodeName == tarAttNode.nodeName)
+										{
+											attNode.isAligned = true;
+											tarAttNode.isAligned = true;
+											tarAttNode.matchingStatus = attNode.matchingStatus;
+
+											m_nodeAlignMap[attNodeId] = tarAttNodeId; // save aligned attribute node into map
+
+											if (isStrictAttri(attNode.nodeName))
+												alignScore += 5;  // attribute node does not contribute to matching score
+										}
+									}
+								}
+							}
+
 							break;
 						}
-						else
-						{
-							objNode.isAligned = true;
-							tarObjNode.isAligned = true;
 
-							//objNode.isAligned = false;
-							//tarObjNode.isAligned = false;
+						//// align attribute node
+						//for (int ai = 0; ai < objNode.nodeLabels.size(); ai++)
+						//{
+						//	int attNodeId = objNode.nodeLabels[ai];
 
-							tarObjNode.matchingStatus = objNode.matchingStatus;
-							tarObjNode.useNewInst = objNode.useNewInst;
+						//	SemNode &attNode = this->m_nodes[attNodeId];
+						//	sgAttNum++;
 
-							m_nodeAlignMap[qNi] = tarNi; // save partial aligned object node into map									
-							alignScore += 0.5*NodeScore[objNode.matchingStatus];
-							break;
-						}
+						//	if (!tarObjNode.nodeLabels.empty())
+						//	{
+						//		for (int tarAi = 0; tarAi < tarObjNode.nodeLabels.size(); tarAi++)
+						//		{
+						//			int tarAttNodeId = tarObjNode.nodeLabels[tarAi]; // id of attribute node in dbssg
+						//			SemNode &tarAttNode = targetGraph->m_nodes[tarAttNodeId];
+
+						//			if (attNode.nodeType == tarAttNode.nodeType && attNode.nodeName == tarAttNode.nodeName)
+						//			{
+						//				matchedAttNum++;
+
+						//				attNode.isAligned = true;
+						//				tarAttNode.isAligned = true;
+						//				tarAttNode.matchingStatus = attNode.matchingStatus;
+
+						//				m_nodeAlignMap[attNodeId] = tarAttNodeId; // save aligned attribute node into map		
+						//				alignScore += 0;  // attribute node does not contribute to matching score
+						//			}
+						//		}
+						//	}
+						//}
+
+						////  if all attribute nodes matched, then the node is matched
+						//if (matchedAttNum == sgAttNum)
+						//{
+						//	objNode.isAligned = true;
+						//	tarObjNode.isAligned = true;
+						//	tarObjNode.matchingStatus = objNode.matchingStatus;
+						//	tarObjNode.useNewInst = objNode.useNewInst;
+
+						//	m_nodeAlignMap[qNi] = tarNi; // save aligned object node into map									
+						//	alignScore += NodeScore[objNode.matchingStatus];
+						//	break;
+						//}
+						//else
+						//{
+						//	objNode.isAligned = true;
+						//	tarObjNode.isAligned = true;
+
+						//	//objNode.isAligned = false;
+						//	//tarObjNode.isAligned = false;
+
+						//	tarObjNode.matchingStatus = objNode.matchingStatus;
+						//	tarObjNode.useNewInst = objNode.useNewInst;
+
+						//	m_nodeAlignMap[qNi] = tarNi; // save partial aligned object node into map									
+						//	alignScore += 0.5*NodeScore[objNode.matchingStatus];
+						//	break;
+						//}
 					}
+					// if node does not has attributes
 					else
 					{
 						objNode.isAligned = true;
@@ -237,6 +349,19 @@ void SemanticGraph::alignObjectNodesWithGraph(SemanticGraph *targetGraph, double
 
 						m_nodeAlignMap[qNi] = tarNi; // save aligned object node map
 						alignScore += NodeScore[objNode.matchingStatus];
+
+						// give some penalty if query node has no attributes, but matched node has attributes
+						if (!tarObjNode.nodeLabels.empty())
+						{
+							for (int tarAi = 0; tarAi < tarObjNode.nodeLabels.size(); tarAi++)
+							{
+								int tarAttNodeId = tarObjNode.nodeLabels[tarAi]; // id of attribute node in dbssg
+								SemNode &tarAttNode = targetGraph->m_nodes[tarAttNodeId];
+								if (isStrictAttri(tarAttNode.nodeName))
+									alignScore -= 5;  // attribute node does not contribute to matching score
+							}
+						}
+
 						break;
 					}
 				}
@@ -247,7 +372,7 @@ void SemanticGraph::alignObjectNodesWithGraph(SemanticGraph *targetGraph, double
 
 void SemanticGraph::alignRelationNodesWithGraph(SemanticGraph *targetGraph, double &alignScore)
 {
-	double NodeScore[] = { 0, 0, 20 };
+	double NodeScore[] = { 0, 0, 10 };
 
 	for (int qNi = 0; qNi < this->m_nodeNum; qNi++)
 	{
@@ -317,7 +442,7 @@ void SemanticGraph::alignRelationNodesWithGraph(SemanticGraph *targetGraph, doub
 						m_nodeAlignMap[qNi] = tarNi;  // save aligned pairwise relationship node map
 						m_nodeAlignMap[refNodeIdInQuery] = tarRefId;  // update the ref node id in the map, since multiple instances may exist in the scene and we use the one connected to the relation node
 
-						alignScore += NodeScore[relNode.matchingStatus];
+						alignScore += NodeScore[relNode.matchingStatus]+20;
 						break;
 					}
 				}
@@ -375,6 +500,29 @@ SemanticGraph* SemanticGraph::alignAndMergeWithGraph(SemanticGraph *sg)
 
 	return this;
 }
+
+bool SemanticGraph::isAnchor(int nodeId)
+{
+	SemNode &currNode = m_nodes[nodeId];
+
+	if (!currNode.inEdgeNodeList.empty())
+	{
+		for (int r=0; r < currNode.inEdgeNodeList.size(); r++)
+		{
+			int relNodeId = currNode.inEdgeNodeList[r];
+			SemNode &relNode = m_nodes[relNodeId];
+
+			// if exist a relation node that is not an attribute node, then it is an anchor
+			if (relNode.nodeType != SSGNodeType[SemNode::Attri])
+			{
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
 
 void SemEdge::reverseEdgeDir()
 {

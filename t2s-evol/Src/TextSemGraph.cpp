@@ -5,6 +5,7 @@
 TextSemGraph::TextSemGraph(SelSentence s, RelationModelManager *relManager):
 m_sentence(s), m_relModelManager(relManager)
 {
+	initAttriSets();
 	buildGraphFromSEL();
 }
 
@@ -15,14 +16,18 @@ TextSemGraph::~TextSemGraph()
 void TextSemGraph::buildGraphFromSEL()
 {
 	// add object node
+	std::vector<QString> addedObjNames;
 	for (int i = 0; i < m_sentence.entityCount; i++)
 	{
 		QString nameString = QString(m_sentence.m_entities[i].nameString);
+		if (nameString.contains("room")) continue;  // do not consider room in current implementation
+
 		std::vector<std::string> parts = PartitionString(nameString.toStdString(), "-");
 		QString entityName = toQString(parts[0]);
 		m_sentence.m_entities[i].nameString = entityName;
 		QString determiner = m_sentence.m_entities[i].m_determiner;
 
+		// for plural form
 		if (m_sentence.m_entities[i].isPlural)
 		{
 			entityName = convertToSinglarForm(entityName);
@@ -86,9 +91,16 @@ void TextSemGraph::buildGraphFromSEL()
 
 			// update entity name
 			m_sentence.m_entities[i].nameString = entityName;
-		}		
+			addedObjNames.push_back(entityName);
+		}
+		// for single form
 		else
 		{
+			// if an entity appear multiple times, and some of them has determiner "the", then only insert one node for this instance
+			if (determiner == "the" && 
+				std::find(addedObjNames.begin(), addedObjNames.end(), entityName) != addedObjNames.end())
+				continue;
+
 			addNode("object", entityName);
 			m_isNodeCertain.push_back(1);
 
@@ -101,12 +113,16 @@ void TextSemGraph::buildGraphFromSEL()
 
 			m_sentence.m_entities[i].m_instanceNodeIds.push_back(m_nodeNum - 1);
 			m_sentence.m_entities[i].instanceCount = 1;
+			addedObjNames.push_back(entityName);
 		}
 	}
 
 	// add relationship node
 	for (int i = 0; i < m_sentence.entityCount; i++)
 	{
+		QString nameString = QString(m_sentence.m_entities[i].nameString);
+		if (nameString.contains("room")) continue;  // do not consider room in current implementation
+
 		int relationCount = m_sentence.m_entities[i].relationshipCount;
 
 		for (int j = 0; j < relationCount; j++)
@@ -155,12 +171,12 @@ void TextSemGraph::buildGraphFromSEL()
 
 			QString attriName = m_sentence.m_entities[i].m_attributes[j].nameString;
 
+			if(isGoodAttribute(attriName))
 			{
-				addNode("attribute", m_sentence.m_entities[i].m_attributes[j].nameString);
-
 				std::vector<int> nodeIds = findNodeWithName(entityName);
 				for (int k = 0; k < nodeIds.size(); k++)
 				{
+					addNode("attribute", m_sentence.m_entities[i].m_attributes[j].nameString);
 					addEdge(m_nodeNum - 1, nodeIds[k]);
 				}
 			}
@@ -253,6 +269,35 @@ bool TextSemGraph::isWithObj(const QString &currObjName, const QString &anchorNa
 				}
 			}
 		}
+	}
+
+	return false;
+}
+
+void TextSemGraph::initAttriSets()
+{
+	m_goodAttriSets.push_back("office");
+	m_goodAttriSets.push_back("coffee");
+	m_goodAttriSets.push_back("dining");
+	m_goodAttriSets.push_back("file");
+	m_goodAttriSets.push_back("round");
+	m_goodAttriSets.push_back("rectangular");
+	m_goodAttriSets.push_back("sauce");
+	m_goodAttriSets.push_back("queen");
+	m_goodAttriSets.push_back("sofa");
+
+	m_goodAttriSets.push_back("messy");
+	m_goodAttriSets.push_back("formal");
+	m_goodAttriSets.push_back("casual");
+	m_goodAttriSets.push_back("organized");
+	m_goodAttriSets.push_back("clean");
+}
+
+bool TextSemGraph::isGoodAttribute(const QString &attriName)
+{
+	if (std::find(m_goodAttriSets.begin(), m_goodAttriSets.end(), attriName)!= m_goodAttriSets.end())
+	{
+		return true;
 	}
 
 	return false;
@@ -532,15 +577,7 @@ void TextSemGraph::mapToFixedAttributeSet(QString &nodeName, QString &nodeType /
 		return;
 	}
 
-	if (nodeName.contains("mess"))
-	{
-		nodeType = SSGNodeType[SemNode::Group];
-		nodeName = "messy";
-		return;
-	}
-		
-
-	if (nodeName.contains("mess"))
+	if (nodeName.contains("messy"))
 	{
 		nodeType = SSGNodeType[SemNode::Group];
 		nodeName = "messy";

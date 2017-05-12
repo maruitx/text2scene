@@ -231,7 +231,8 @@ void LayoutPlanner::initPlaceUsingSynthesizedRelations(TSScene *currScene)
 				}
 
 				updateMetaModelInScene(currScene, activeModelId, transMat);
-				updatePlacementOfChildren(currScene, activeModelId, transMat);
+				std::vector<int> ignoreList;
+				updatePlacementOfChildren(currScene, activeModelId, transMat, ignoreList);
 
 				int actModelParentId = currScene->m_ssg->m_parentOfModel[activeModelId];
 				int refModelParentId = currScene->m_ssg->m_parentOfModel[refModelId];
@@ -245,7 +246,7 @@ void LayoutPlanner::initPlaceUsingSynthesizedRelations(TSScene *currScene)
 				{
 					// only transform parent in xy plane
 					transMat.a34 = 0;
-					updatePlacementOfParent(currScene, activeModelId, transMat);
+					updatePlacementOfParent(currScene, activeModelId, transMat, ignoreList);
 				}
 			}
 
@@ -549,6 +550,7 @@ std::vector<int> LayoutPlanner::makeToPlaceModelIds(TSScene *currScene)
 				explictModelIds.push_back(currSSG->m_levelOfObjs[i][j]);
 			}
 			sortExplictModelIds = sortModelsByVolume(currScene, explictModelIds);
+			sortExplictModelIds = sortModelsByAnchorAct(currScene, sortExplictModelIds);
 		}
 
 		orderedIds.insert(orderedIds.end(), sortExplictModelIds.begin(), sortExplictModelIds.end());
@@ -597,6 +599,32 @@ std::vector<int> LayoutPlanner::sortModelsByVolume(TSScene *currScene, const std
 		sortedIds[i] = volumeIdPairs[i].second;
 	}
 
+	return sortedIds;
+}
+
+std::vector<int> LayoutPlanner::sortModelsByAnchorAct(TSScene *currScene, const std::vector<int> &modelIds)
+{
+	std::vector<int> sortedIds;
+	std::vector<int> tempIds;
+
+	SceneSemGraph *currSSG = currScene->m_ssg;
+
+	for (int i=0; i < modelIds.size(); i++)
+	{
+		int currModelId = modelIds[i];
+		int currNodeId = currSSG->getNodeIdWithModelId(currModelId);
+
+		if (currSSG->isAnchor(currNodeId))
+		{
+			sortedIds.push_back(currModelId);
+		}
+		else
+		{
+			tempIds.push_back(currModelId);
+		}
+	}
+
+	sortedIds.insert(sortedIds.end(), tempIds.begin(), tempIds.end());
 	return sortedIds;
 }
 
@@ -675,10 +703,11 @@ void LayoutPlanner::updateWithNewPlacement(TSScene *currScene, int anchorModelId
 	//currScene->m_ssg->m_metaScene.m_metaModellList[currModelID] = currMd;
 
 	// update all supported children
-	updatePlacementOfChildren(currScene, currModelID, transMat);
+	std::vector<int> ignoreList;
+	updatePlacementOfChildren(currScene, currModelID, transMat, ignoreList);
 }
 
-void LayoutPlanner::updatePlacementOfChildren(TSScene *currScene, int currModelId, mat4 transMat)
+void LayoutPlanner::updatePlacementOfChildren(TSScene *currScene, int currModelId, mat4 transMat, int ignoreChildId)
 {
 	std::vector<int> childrenList = currScene->m_ssg->m_childListOfModel[currModelId];
 	if (!childrenList.empty())
@@ -686,11 +715,12 @@ void LayoutPlanner::updatePlacementOfChildren(TSScene *currScene, int currModelI
 		for (int i = 0; i < childrenList.size(); i++)
 		{
 			int childModelId = childrenList[i];
+			if (childModelId == ignoreChildId) continue;
 			updateMetaModelInScene(currScene, childModelId, transMat);
+			updatePlacementOfChildren(currScene, childModelId, transMat);
 		}
 	}
 
-	// update active list that is not a child in a group
 	SceneSemGraph *currSSG = currScene->m_ssg;
 	int anchorNodeId = currSSG->getNodeIdWithModelId(currModelId);
 	SemNode &anchorNode = currSSG->m_nodes[anchorNodeId];
@@ -701,6 +731,7 @@ void LayoutPlanner::updatePlacementOfChildren(TSScene *currScene, int currModelI
 			int relNodeId = anchorNode.inEdgeNodeList[ri];
 			SemNode &relNode = currSSG->m_nodes[relNodeId];
 
+			// update obj in active list that is not a support child; may be the act objs in the same group
 			if (relNode.nodeType.contains("group"))
 			{
 				for (int i = 0; i < relNode.activeNodeList.size(); i++)
@@ -710,7 +741,42 @@ void LayoutPlanner::updatePlacementOfChildren(TSScene *currScene, int currModelI
 
 					if (std::find(childrenList.begin(), childrenList.end(), actModelId) == childrenList.end())
 					{
+						if (actModelId == ignoreChildId) continue;
 						updateMetaModelInScene(currScene, actModelId, transMat);
+						updatePlacementOfChildren(currScene, actModelId, transMat);
+					}
+				}
+			}
+		}
+	}
+}
+
+void LayoutPlanner::updatePlacementOfChildren(TSScene *currScene, int currModelId, mat4 transMat, std::vector<int> &ignoreModelList)
+{
+	SceneSemGraph *currSSG = currScene->m_ssg;
+	int anchorNodeId = currSSG->getNodeIdWithModelId(currModelId);
+	SemNode &anchorNode = currSSG->m_nodes[anchorNodeId];
+
+	if (!anchorNode.inEdgeNodeList.empty())
+	{
+		for (int ri = 0; ri < anchorNode.inEdgeNodeList.size(); ri++)
+		{
+			int relNodeId = anchorNode.inEdgeNodeList[ri];
+			SemNode &relNode = currSSG->m_nodes[relNodeId];
+
+			// update obj in active list that is not a support child; may be the act objs in the same group
+			//if (relNode.nodeType.contains("group"))
+			{
+				for (int i = 0; i < relNode.activeNodeList.size(); i++)
+				{
+					int actNodeId = relNode.activeNodeList[i];
+					int actModelId = currSSG->m_graphNodeToModelListIdMap[actNodeId];
+
+					if (std::find(ignoreModelList.begin(), ignoreModelList.end(), actModelId) == ignoreModelList.end())
+					{
+						ignoreModelList.push_back(actModelId); // model can only be transformed by one relation once
+						updateMetaModelInScene(currScene, actModelId, transMat);
+						updatePlacementOfChildren(currScene, actModelId, transMat, ignoreModelList);
 					}
 				}
 			}
@@ -742,29 +808,38 @@ void LayoutPlanner::initAlignmentOfChildren(SceneSemGraph *currSSG, int currMode
 			int relNodeId = anchorNode.inEdgeNodeList[ri];
 			SemNode &relNode = currSSG->m_nodes[relNodeId];
 
+			// update obj in active list that is not a support child; may be the act objs in the same group
 			if (relNode.nodeType.contains("group"))
 			{
 				for (int i = 0; i < relNode.activeNodeList.size(); i++)
 				{
 					int actNodeId = relNode.activeNodeList[i];
-					MetaModel &actMd = currSSG->getModelWithNodeId(actNodeId);
-					actMd.updateWithTransform(transMat);
+					int actModelId = currSSG->m_graphNodeToModelListIdMap[actNodeId];
+
+					if (std::find(childrenList.begin(), childrenList.end(), actModelId) == childrenList.end())
+					{
+						MetaModel &actMd = currSSG->getModelWithNodeId(actNodeId);
+						actMd.updateWithTransform(transMat);
+					}
 				}
 			}
 		}
 	}
 }
 
-void LayoutPlanner::updatePlacementOfParent(TSScene *currScene, int currModelID, mat4 transMat)
+void LayoutPlanner::updatePlacementOfParent(TSScene *currScene, int currModelID, mat4 transMat, std::vector<int> &ignoreModelList)
 {
 	int parentModelId = currScene->m_ssg->m_parentOfModel[currModelID];
 
 	if (parentModelId!=-1)
 	{
 		updateMetaModelInScene(currScene, parentModelId, transMat);
-	}
 
-	// TODO: update the rest children on current parent model
+		// update the rest children on current parent model
+		ignoreModelList.push_back(currModelID);
+		updatePlacementOfChildren(currScene, parentModelId, transMat, ignoreModelList);
+		updatePlacementOfParent(currScene, parentModelId, transMat, ignoreModelList);
+	}
 }
 
 void LayoutPlanner::updateMetaModelInScene(TSScene * currScene, int currModelID, mat4 transMat)

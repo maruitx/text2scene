@@ -26,7 +26,7 @@ public:
 	void addSuppParentNodesToSubSSG(SceneSemGraph *matchedSubSSG, SceneSemGraph *dbSSG);
 	void addContextNodesToSubSSG(SceneSemGraph *matchedSubSSG, SceneSemGraph *dbSSG);  	// add high co-occur objects with probability
 
-	MetaModel& retrieveForModelInstance(const QString catName);
+	MetaModel& retrieveForModelInstance(const QString catName, const std::vector<QString> attriNames=std::vector<QString>());
 
 	vector<int> findNonRepeatSSGs(const vector<pair<double, SceneSemGraph *>> &scoredDBSubSSGs, int targetNum);
 	bool ssgContainsBlackListModel(SceneSemGraph *ssg);

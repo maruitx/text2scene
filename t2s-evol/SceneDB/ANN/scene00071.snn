@@ -88,7 +88,7 @@ newModel 42 6d2f8c13005c05abedf0adca85d84acc
 transform 0.000000 -0.004007 0.000000 0.000000 0.000000 0.000000 -0.004007 0.000000 0.004007 0.000000 0.000000 0.000000 0.145344 5.336696 4.328429 1.000000
 organized, casual, narrow,1,2 8 7 9 10 6 5 3 4 12 11 13 14 
 organized, clean, casual,1,14 2 17 18 
-messy, casual, narrow,29,36 34 32 35 
+messy, casual, narrow,29,36 34 35 
 narrow, casual,24,25 28 26 
 wide, organized, casual,29,15 39 22 33 
 organized, clean, casual, wide,20,19 16 17 18 2 14 1 

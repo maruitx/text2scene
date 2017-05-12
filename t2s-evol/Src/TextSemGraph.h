@@ -24,6 +24,9 @@ public:
 	bool isOnObj(int entityId, const QString &anchorName);
 	bool isWithObj(const QString &currObjName, const QString &anchorName);
 
+	void initAttriSets();
+	bool isGoodAttribute(const QString &attriName);
+
 	SelSentence m_sentence;   // only handle one sentence per graph	
 
 private:
@@ -34,5 +37,6 @@ private:
 	std::vector<int> m_isEdgeGrounded;
 
 	RelationModelManager *m_relModelManager;
+	std::vector<QString> m_goodAttriSets;
 };
 

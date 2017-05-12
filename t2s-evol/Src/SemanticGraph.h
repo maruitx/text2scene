@@ -105,11 +105,18 @@ public:
 	void mergeWithGraph(SemanticGraph *inputGraph);
 	SemanticGraph* alignAndMergeWithGraph(SemanticGraph *sg);
 
+	bool isAnchor(int nodeId);
+
+	void initStrictAttriSet();
+	bool isStrictAttri(const QString &attriName);
+	std::vector<QString> getAttriNamesForNode(int nodeId);
+
 public:
 	int m_nodeNum, m_edgeNum;
 	std::vector<SemNode> m_nodes;
 	std::vector<SemEdge> m_edges;
 
 	std::map<int, int> m_nodeAlignMap;  // current to target node id alignment map
+	std::vector<QString> m_strictAttriSet; // strict attribute that must be satisfied
 };
 

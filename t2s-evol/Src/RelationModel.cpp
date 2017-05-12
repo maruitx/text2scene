@@ -121,6 +121,10 @@ Eigen::VectorXd PairwiseRelationModel::sample()
 					break;
 			}
 		}
+		else
+		{
+			newSample = m_GMM->sample(m_GMM->m_probTh[0]);
+		}
 	}
 	else
 	{
