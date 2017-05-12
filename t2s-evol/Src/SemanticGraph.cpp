@@ -280,64 +280,6 @@ void SemanticGraph::alignObjectNodesWithGraph(SemanticGraph *targetGraph, double
 
 							break;
 						}
-
-						//// align attribute node
-						//for (int ai = 0; ai < objNode.nodeLabels.size(); ai++)
-						//{
-						//	int attNodeId = objNode.nodeLabels[ai];
-
-						//	SemNode &attNode = this->m_nodes[attNodeId];
-						//	sgAttNum++;
-
-						//	if (!tarObjNode.nodeLabels.empty())
-						//	{
-						//		for (int tarAi = 0; tarAi < tarObjNode.nodeLabels.size(); tarAi++)
-						//		{
-						//			int tarAttNodeId = tarObjNode.nodeLabels[tarAi]; // id of attribute node in dbssg
-						//			SemNode &tarAttNode = targetGraph->m_nodes[tarAttNodeId];
-
-						//			if (attNode.nodeType == tarAttNode.nodeType && attNode.nodeName == tarAttNode.nodeName)
-						//			{
-						//				matchedAttNum++;
-
-						//				attNode.isAligned = true;
-						//				tarAttNode.isAligned = true;
-						//				tarAttNode.matchingStatus = attNode.matchingStatus;
-
-						//				m_nodeAlignMap[attNodeId] = tarAttNodeId; // save aligned attribute node into map		
-						//				alignScore += 0;  // attribute node does not contribute to matching score
-						//			}
-						//		}
-						//	}
-						//}
-
-						////  if all attribute nodes matched, then the node is matched
-						//if (matchedAttNum == sgAttNum)
-						//{
-						//	objNode.isAligned = true;
-						//	tarObjNode.isAligned = true;
-						//	tarObjNode.matchingStatus = objNode.matchingStatus;
-						//	tarObjNode.useNewInst = objNode.useNewInst;
-
-						//	m_nodeAlignMap[qNi] = tarNi; // save aligned object node into map									
-						//	alignScore += NodeScore[objNode.matchingStatus];
-						//	break;
-						//}
-						//else
-						//{
-						//	objNode.isAligned = true;
-						//	tarObjNode.isAligned = true;
-
-						//	//objNode.isAligned = false;
-						//	//tarObjNode.isAligned = false;
-
-						//	tarObjNode.matchingStatus = objNode.matchingStatus;
-						//	tarObjNode.useNewInst = objNode.useNewInst;
-
-						//	m_nodeAlignMap[qNi] = tarNi; // save partial aligned object node into map									
-						//	alignScore += 0.5*NodeScore[objNode.matchingStatus];
-						//	break;
-						//}
 					}
 					// if node does not has attributes
 					else
@@ -522,7 +464,6 @@ bool SemanticGraph::isAnchor(int nodeId)
 
 	return false;
 }
-
 
 void SemEdge::reverseEdgeDir()
 {

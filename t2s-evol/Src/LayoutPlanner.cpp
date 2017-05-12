@@ -108,7 +108,6 @@ void LayoutPlanner::initPlaceByAlignRelation(SceneSemGraph *matchedSg, SceneSemG
 				mat4 finalTransMat = translateMat*dirRotMat;
 
 				currActiveMd.updateWithTransform(finalTransMat);
-				currActiveMd.theta = GetRotAngleR(currRefMd.frontDir, currActiveMd.frontDir, vec3(0, 0, 1));
 
 				int currActiveModelId = currSg->m_graphNodeToModelListIdMap[currActiveNodeId];
 				initAlignmentOfChildren(currSg, currActiveModelId, finalTransMat);
@@ -248,11 +247,18 @@ void LayoutPlanner::initPlaceUsingSynthesizedRelations(TSScene *currScene)
 					transMat.a34 = 0;
 					updatePlacementOfParent(currScene, activeModelId, transMat, ignoreList);
 				}
+
+				if (isnan(transMat.a11))
+				{
+					qDebug();
+				}
 			}
 
 			relNode.isAligned = true;
 		}
 	}
+
+
 
 	currScene->m_ssg->m_allSynthNodesInited = true;
 }
@@ -479,6 +485,9 @@ bool LayoutPlanner::doRollback(TSScene *currScene, std::vector<int> &tempPlacedI
 	int lastPlaceModelId = tempPlacedIds.back();
 	MetaModel &lastMd = currScene->getMetaModel(lastPlaceModelId);
 
+	int parentModelId = currScene->m_ssg->m_parentOfModel[lastPlaceModelId];
+	if (parentModelId == -1) return false;
+
 	if (lastMd.isJustRollbacked || lastMd.trialNum == m_trialNumLimit) return false;
 
 	lastMd.isAlreadyPlaced = false;
@@ -699,9 +708,6 @@ void LayoutPlanner::updateWithNewPlacement(TSScene *currScene, int anchorModelId
 		}
 	}
 
-	//// update meta model in SSG
-	//currScene->m_ssg->m_metaScene.m_metaModellList[currModelID] = currMd;
-
 	// update all supported children
 	std::vector<int> ignoreList;
 	updatePlacementOfChildren(currScene, currModelID, transMat, ignoreList);
@@ -788,6 +794,8 @@ void LayoutPlanner::initAlignmentOfChildren(SceneSemGraph *currSSG, int currMode
 {
 	// update support children
 	std::vector<int> childrenList = currSSG->m_childListOfModel[currModelId];
+	MetaModel &currMd = currSSG->m_metaScene.m_metaModellList[currModelId];
+
 	if (!childrenList.empty())
 	{
 		for (int i = 0; i < childrenList.size(); i++)
@@ -818,6 +826,7 @@ void LayoutPlanner::initAlignmentOfChildren(SceneSemGraph *currSSG, int currMode
 
 					if (std::find(childrenList.begin(), childrenList.end(), actModelId) == childrenList.end())
 					{
+						MetaModel &anchorMd = currSSG->getModelWithNodeId(anchorNodeId);
 						MetaModel &actMd = currSSG->getModelWithNodeId(actNodeId);
 						actMd.updateWithTransform(transMat);
 					}
@@ -864,13 +873,17 @@ mat4 LayoutPlanner::computeTransMatFromPos(TSScene *currScene, int anchorModelId
 		vec3 anchorFront = anchorMd.frontDir;
 
 		//mat4 invMat = currMd.transformation.inverse();
-		// vec3 initModelDir = TransformVector(invMat, currMd.frontDir);
+		//vec3 initModelDir = TransformVector(invMat, currMd.frontDir);
 		//double initTheta = GetRotAngleR(anchorFront, initModelDir, vec3(0, 0, 1));
-		// double rotTheta = newTheta - initTheta;
+		//double rotTheta = newTheta - initTheta;
 
-		double rotTheta = newTheta - GetRotAngleR(anchorFront, currMd.frontDir, vec3(0, 0, 1));;
-
+		double rotTheta = newTheta - GetRotAngleR(anchorFront, currMd.frontDir, vec3(0, 0, 1));
 		rotMat = GetRotationMatrix(vec3(0, 0, 1), rotTheta);
+
+		if (isnan(rotMat.a11))
+		{
+			qDebug();
+		}
 	}
 	else
 	{
@@ -880,15 +893,20 @@ mat4 LayoutPlanner::computeTransMatFromPos(TSScene *currScene, int anchorModelId
 	// test whether candidate pos is valid for all implicit constraint
 
 	double newZ = newPos.z;
-	//adjustZForSpecificModel(currScene, currMd, newZ);
 	currScene->adjustZForSpecificModel(currMd, newZ);
 	newPos.z = newZ;
 
-	vec3 translateVec = newPos - TransformPoint(rotMat, currMd.position);
 	transMat = rotMat;
+
+	vec3 translateVec = newPos - TransformPoint(rotMat, currMd.position);
 	transMat.a14 = translateVec.x;
 	transMat.a24 = translateVec.y;
 	transMat.a34 = translateVec.z;
+
+	if (isnan(transMat.a11))
+	{
+		qDebug();
+	}
 
 	return transMat;
 }

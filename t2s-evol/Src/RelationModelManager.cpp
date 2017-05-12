@@ -552,10 +552,9 @@ bool RelationModelManager::isToSkipModelCats(const QString &objName)
 
 Eigen::VectorXd RelationModelManager::sampleNewPosFromConstraints(TSScene *currScene, int metaModelId, int &anchorModelId)
 {
-	vec3 newPos;
-	double newTheta;
-
 	MetaModel &md = currScene->getMetaModel(metaModelId);
+	vec3 newWorldPos= vec3();
+	double newWorldTheta = 0;
 
 	QString constraintType;
 
@@ -572,8 +571,8 @@ Eigen::VectorXd RelationModelManager::sampleNewPosFromConstraints(TSScene *currS
 			
 		if (!isPairModelAvailable)
 		{
-				randomSampleOnParent(currScene, metaModelId, newPos, anchorModelId);
-				newTheta = 0;
+				randomSampleOnParent(currScene, metaModelId, newWorldPos, anchorModelId);
+				newWorldTheta = 0;
 				constraintType = "random";
 		}
 		else
@@ -581,17 +580,16 @@ Eigen::VectorXd RelationModelManager::sampleNewPosFromConstraints(TSScene *currS
 			RelationConstraint &exConstraint = currScene->m_explictConstraints[metaModelId][0];
 			anchorModelId = exConstraint.anchorObjId;
 
-			sampleFromRelationModel(currScene, currPairModel, metaModelId, anchorModelId, newPos, newTheta);
+			sampleFromRelationModel(currScene, currPairModel, metaModelId, anchorModelId, newWorldPos, newWorldTheta);
 			constraintType = "explicit";
 
-			//if ((newPos - md.position).length() > 1.0 / m_sceneMetric)
+			//if ((newWorldPos - md.position).length() < 1.0 / m_sceneMetric)
 			//{
 			//	continue;
 			//}
-
 		}
 
-		if (isPosValid(currScene, newPos, metaModelId))
+		if (isPosValid(currScene, newWorldPos, metaModelId))
 		{
 			break;
 		}
@@ -608,10 +606,15 @@ Eigen::VectorXd RelationModelManager::sampleNewPosFromConstraints(TSScene *currS
 
 	// convert to world frame
 	Eigen::VectorXd  worldPos(4);
-	worldPos[0] = newPos.x;
-	worldPos[1] = newPos.y;
-	worldPos[2] = newPos.z;  
-	worldPos[3] = newTheta;   // theta is not affected by transformation	
+	worldPos[0] = newWorldPos.x;
+	worldPos[1] = newWorldPos.y;
+	worldPos[2] = newWorldPos.z;  
+	worldPos[3] = newWorldTheta;   // theta is not affected by transformation	
+
+	if (isnan(newWorldPos.x))
+	{
+		qDebug();
+	}
 
 	return worldPos;
 }
@@ -659,11 +662,11 @@ PairwiseRelationModel*  RelationModelManager::findAvailablePairModels(TSScene *c
 	}
 }
 
-void RelationModelManager::sampleFromRelationModel(TSScene *currScene, PairwiseRelationModel *pairModel, const int metaModelId, const int anchorModelId, vec3 &newPos, double &newTheta)
+void RelationModelManager::sampleFromRelationModel(TSScene *currScene, PairwiseRelationModel *pairModel, const int metaModelId, const int anchorModelId, vec3 &newWorldPos, double &newWolrdTheta)
 {
 	// sample in the unit frame
 	Eigen::VectorXd newSample = pairModel->sample();
-	newPos = vec3(newSample[0], newSample[1], newSample[2]);
+	vec3 relPos = vec3(newSample[0], newSample[1], newSample[2]);
 
 	// anchor obj																					 
 	MetaModel &anchorMd = currScene->getMetaModel(anchorModelId);
@@ -671,15 +674,23 @@ void RelationModelManager::sampleFromRelationModel(TSScene *currScene, PairwiseR
 	mat4 alignMat = getModelToUnitboxMat(anchorModel, anchorMd);
 	mat4 transMat = alignMat.inverse();  // transform from unit frame to world frame
 
-	newPos = TransformPoint(transMat, newPos);
+	newWorldPos = TransformPoint(transMat, relPos);
 
 	// update sampled position 
-	double newZ = findClosestSuppPlaneZ(currScene, metaModelId, newPos);
-	newPos.z = newZ;
-	newTheta = newSample[3]*math_pi;  // theta in relational model is normalized by pi
-	if ( std::abs(newTheta) < 1e-6)
+	double newZ = findClosestSuppPlaneZ(currScene, metaModelId, newWorldPos);
+	newWorldPos.z = newZ;
+
+	newWolrdTheta = newSample[3] * math_pi;  // theta in relational model is normalized by pi
+
+	MetaModel &actMd = currScene->getMetaModel(metaModelId);
+	if (anchorMd.catName == "bookcase" && actMd.catName == "standbooks")
 	{
-		newTheta = 0;
+		newWolrdTheta = 0;
+	}
+
+	if (isnan(newWorldPos.x))
+	{
+		qDebug();
 	}
 }
 
@@ -694,7 +705,7 @@ double RelationModelManager::findClosestSuppPlaneZ(TSScene *currScene, int metaM
 		if (parentMetaModelId != -1)
 		{
 			MetaModel &parentMd = currScene->getMetaModel(parentMetaModelId);
-			double closestSuppPlaneZ = 0;
+			double closestSuppPlaneZ = parentMd.bbTopPlane.getZ();
 			double minDist = 1e6;
 
 			if (parentMd.suppPlaneManager.hasSuppPlane())
@@ -704,17 +715,13 @@ double RelationModelManager::findClosestSuppPlaneZ(TSScene *currScene, int metaM
 					SuppPlane &parentSuppPlane = parentMd.suppPlaneManager.m_suppPlanes[i];
 
 					double planeZ = parentSuppPlane.getZ();
-					double d = newPos.z - planeZ;
+					double d = std::abs(newPos.z - planeZ);
 					if (d < minDist)
 					{
 						minDist = d;
 						closestSuppPlaneZ = planeZ;
 					}
 				}
-			}
-			else
-			{
-				closestSuppPlaneZ = parentMd.bbTopPlane.getZ();
 			}
 
 			// adjust Z val since suppPlane Z might be not accurate
@@ -731,32 +738,6 @@ double RelationModelManager::findClosestSuppPlaneZ(TSScene *currScene, int metaM
 					closestSuppPlaneZ = md.position.z;
 				}
 			}
-
-			//double elevationVal = 0.05 / params::inst()->globalSceneUnitScale;
-			//float3 startPt = make_float3(newPos.x, newPos.y, closestSuppPlaneZ + elevationVal);
-			//float3 downDir = make_float3(0, 0, -1);
-			//Ray downRay(startPt, downDir);
-
-			//double newZ;
-			//if (currScene->m_collisionManager->isRayIntersect(downRay, parentMetaModelId, newZ))
-			//{
-
-			//	MetaModel &md = currScene->getMetaModel(metaModelId);
-			//	//double h = md.parentPlaneUVH.z;
-			//	//if (h < 0.01 / params::inst()->globalSceneUnitScale && h > 0)
-			//	//{
-			//	//	newZ += h; // add the original H to the parent top Plane
-			//	//}
-			//	newZ += 0.01 / params::inst()->globalSceneUnitScale;
-			//	if (newZ > md.position.z || md.position.z - newZ > 0.05 / params::inst()->globalSceneUnitScale)
-			//	{
-			//		closestSuppPlaneZ = newZ;
-			//	}
-			//	else
-			//	{
-			//		closestSuppPlaneZ = md.position.z;
-			//	}
-			//}
 
 			return closestSuppPlaneZ;
 		}
@@ -950,25 +931,34 @@ PairwiseRelationModel* RelationModelManager::retrievePairwiseModel(TSScene *curr
 		{
 			PairwiseRelationModel *dbPairModel = iter->second;
 
-			std::vector<double> simVal(2, 0);
-			std::vector<double> geoSim(2, 0);
+			double score = 0;
 
-			std::vector<double> catSim(2, 0);
-			if (dbPairModel->m_anchorObjName == anchorObjName) catSim[0] = 1;
-			if (dbPairModel->m_actObjName == actObjName) catSim[1] = 1;
-			double catWeight = 0.5;
-
-			for (int m=0; m<2; m++)
+			// check whether the anchor's front is consistent
+			if (isAnchorFrontDirConsistent(anchorObjName, dbPairModel->m_anchorObjName))
 			{
-				for (int d=0; d<featureDim; d++)
+				std::vector<double> simVal(2, 0);
+				std::vector<double> geoSim(2, 0);
+
+				std::vector<double> catSim(2, 0);
+				if (dbPairModel->m_anchorObjName == anchorObjName) catSim[0] = 1;
+				if (dbPairModel->m_actObjName == actObjName) catSim[1] = 1;
+
+
+				double catWeight = 0.5;
+
+				for (int m = 0; m < 2; m++)
 				{
-					geoSim[m] += exp(-pow((dbPairModel->m_avgObjFeatures[m][d] - currBBFeatures[m][d]) / (dbPairModel->m_maxObjFeatures[m][d] + 1e-3), 2));
+					for (int d = 0; d < featureDim; d++)
+					{
+						geoSim[m] += exp(-pow((dbPairModel->m_avgObjFeatures[m][d] - currBBFeatures[m][d]) / (dbPairModel->m_maxObjFeatures[m][d] + 1e-3), 2));
+					}
+					geoSim[m] /= featureDim;
+					simVal[m] = catWeight*catSim[m] + (1 - catWeight)*geoSim[m];
 				}
-				geoSim[m] /= featureDim;
-				simVal[m] = catWeight*catSim[m] + (1 - catWeight)*geoSim[m];
+
+				score = simVal[0] * simVal[1];
 			}
 
-			double score = simVal[0] * simVal[1];
 			simPairModels.push_back(std::make_pair(score, dbPairModel));
 		}
 	}
@@ -991,6 +981,37 @@ PairwiseRelationModel* RelationModelManager::retrievePairwiseModel(TSScene *curr
 	{
 		return NULL;
 	}
+}
+
+bool RelationModelManager::isAnchorFrontDirConsistent(const QString &currAnchorName, const QString &dbAnchorName)
+{
+	static std::vector<QString> normalFrontObjs;
+	static std::vector<QString> adjustFrontObjs;
+
+	normalFrontObjs.push_back("couch");
+	normalFrontObjs.push_back("chair");
+
+	adjustFrontObjs.push_back("desk");
+	adjustFrontObjs.push_back("bookcase");
+	adjustFrontObjs.push_back("cabinet");
+	adjustFrontObjs.push_back("dresser");
+	adjustFrontObjs.push_back("monitor");
+	adjustFrontObjs.push_back("tv");
+	adjustFrontObjs.push_back("bed");
+
+	if (std::find(normalFrontObjs.begin(), normalFrontObjs.end(), currAnchorName) != normalFrontObjs.end()
+		&& std::find(adjustFrontObjs.begin(), adjustFrontObjs.end(), dbAnchorName) != adjustFrontObjs.end())
+	{
+		return false;
+	}
+
+	if (std::find(normalFrontObjs.begin(), normalFrontObjs.end(), dbAnchorName) != normalFrontObjs.end()
+		&& std::find(adjustFrontObjs.begin(), adjustFrontObjs.end(), currAnchorName) != adjustFrontObjs.end())
+	{
+		return false;
+	}
+
+	return true;
 }
 
 PairwiseRelationModel* RelationModelManager::retrievePairModelFromGroup(const QString &anchorObjName, const QString &actObjName, const QString &groupRelationName, const QString &conditionName)

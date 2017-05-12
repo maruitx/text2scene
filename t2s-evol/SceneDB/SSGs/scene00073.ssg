@@ -88,16 +88,16 @@ upDir 0 0 1
 bbTopPlane 91.7346 392.278 43.2917 110.263 392.278 43.2917 110.263 403.514 43.2917 91.7346 403.514 43.2917
 parentId 0
 parentPlaneUVH 0.084551 0.377209 -106.049
-nodeNum 37
+nodeNum 39
 0,object,room,11 12 21 22,
 1,object,cabinet,13 14 15 16 17 18 19 20 23 24 25 26 27 28 29,11 21 30
 2,object,flask,,13 23
 3,object,flask,,14 24
-4,object,holder,31 33,15 32 34
-5,object,glass,35,16 25 36
-6,object,glass,36,17 26 35
-7,object,glass,32,18 27 31
-8,object,vessel,34,19 33
+4,object,holder,31 33 35,15 32 34 36
+5,object,glass,37,16 25 38
+6,object,glass,32 38,17 26 31 37
+7,object,glass,34,18 27 33
+8,object,vessel,36,19 35
 9,object,bunsen burner,,20 28
 10,object,fire extinguisher,30,12 22 29
 11,pair_relation,vertsupport,1,0
@@ -120,13 +120,15 @@ nodeNum 37
 28,pair_relation,onleft,9,1
 29,pair_relation,rightside,10,1
 30,pair_relation,rightside,1,10
-31,pair_relation,leftside,7,4
-32,pair_relation,rightside,4,7
-33,pair_relation,leftside,8,4
-34,pair_relation,rightside,4,8
-35,pair_relation,leftside,6,5
-36,pair_relation,rightside,5,6
-edgeNum 52
+31,pair_relation,leftside,6,4
+32,pair_relation,rightside,4,6
+33,pair_relation,leftside,7,4
+34,pair_relation,rightside,4,7
+35,pair_relation,leftside,8,4
+36,pair_relation,rightside,4,8
+37,pair_relation,leftside,6,5
+38,pair_relation,rightside,5,6
+edgeNum 56
 0,1,11
 1,11,0
 2,10,12
@@ -167,15 +169,19 @@ edgeNum 52
 37,29,1
 38,1,30
 39,30,10
-40,7,31
+40,6,31
 41,31,4
 42,4,32
-43,32,7
-44,8,33
+43,32,6
+44,7,33
 45,33,4
 46,4,34
-47,34,8
-48,6,35
-49,35,5
-50,5,36
-51,36,6
+47,34,7
+48,8,35
+49,35,4
+50,4,36
+51,36,8
+52,6,37
+53,37,5
+54,5,38
+55,38,6

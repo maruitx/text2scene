@@ -299,6 +299,11 @@ void SceneSemGraph::initMetaModelSuppPlanes(unordered_map<string, Model*> &model
 			md.suppPlaneManager = SuppPlaneManager(currModel->m_suppPlaneManager->m_suppPlanes);
 			md.suppPlaneManager.transformSuppPlanes(md.transformation);
 		}
+		else
+		{
+			md.suppPlaneManager = SuppPlaneManager(toQString(md.name));
+			md.suppPlaneManager.transformSuppPlanes(md.transformation);
+		}
 	}
 }
 

@@ -88,18 +88,18 @@ upDir 0 0 1
 bbTopPlane 357.574 59.2109 11.5107 357.574 59.2109 12.9879 359.588 57.1964 12.9879 359.588 57.1964 11.5107
 parentId 1
 parentPlaneUVH 0.324563 0.392259 -17.0147
-nodeNum 46
+nodeNum 54
 0,object,room,11 21,
-1,object,nightstand,12 13 14 15 16 17 18 19 20 22 23 24 25 26 27,11 21
-2,object,tableclock,,12 22 28 29 30
-3,object,book,28 31 33 34 36,13 23 32 35
-4,object,watch,37 38 39,14
-5,object,flashlight,32 40,15 31 37 41
-6,object,hammer,,16 24 33 40 42
-7,object,screwdriver,,17 25
-8,object,wrench,29 35 41 42 43 44,18 26 34 38
-9,object,duct tape,30 45,19 36 39 43
-10,object,tape,,20 27 44 45
+1,object,nightstand,12 13 14 15 16 17 18 19 20 22 23 24 25 26 27 28,11 21
+2,object,tableclock,30 33,12 22 29 31 32
+3,object,book,29 35 37 38 40,13 23 34 36 39
+4,object,watch,34 41 42 43 44 46,14 45
+5,object,flashlight,36 47,15 24 30 35 41 48
+6,object,hammer,,16 25 37 42 47 49
+7,object,screwdriver,,17 26 43 50
+8,object,wrench,31 39 45 48 49 50 51 52,18 27 38 44
+9,object,duct tape,32 53,19 40 46 51
+10,object,tape,,20 28 33 52 53
 11,pair_relation,vertsupport,1,0
 12,pair_relation,vertsupport,2,1
 13,pair_relation,vertsupport,3,1
@@ -113,29 +113,37 @@ nodeNum 46
 21,pair_relation,onleft,1,0
 22,pair_relation,onright,2,1
 23,pair_relation,onleft,3,1
-24,pair_relation,onleft,6,1
-25,pair_relation,oncenter,7,1
-26,pair_relation,oncenter,8,1
-27,pair_relation,onright,10,1
-28,pair_relation,leftside,2,3
-29,pair_relation,leftside,2,8
-30,pair_relation,leftside,2,9
-31,pair_relation,leftside,5,3
-32,pair_relation,leftside,3,5
-33,pair_relation,rightside,6,3
-34,pair_relation,leftside,8,3
-35,pair_relation,rightside,3,8
-36,pair_relation,leftside,9,3
-37,pair_relation,rightside,5,4
-38,pair_relation,rightside,8,4
-39,pair_relation,rightside,9,4
-40,pair_relation,leftside,6,5
-41,pair_relation,rightside,5,8
-42,pair_relation,rightside,6,8
-43,pair_relation,leftside,9,8
-44,pair_relation,leftside,10,8
-45,pair_relation,leftside,10,9
-edgeNum 70
+24,pair_relation,onleft,5,1
+25,pair_relation,onleft,6,1
+26,pair_relation,oncenter,7,1
+27,pair_relation,oncenter,8,1
+28,pair_relation,onright,10,1
+29,pair_relation,leftside,2,3
+30,pair_relation,rightside,5,2
+31,pair_relation,leftside,2,8
+32,pair_relation,leftside,2,9
+33,pair_relation,leftside,10,2
+34,pair_relation,rightside,3,4
+35,pair_relation,leftside,5,3
+36,pair_relation,leftside,3,5
+37,pair_relation,rightside,6,3
+38,pair_relation,leftside,8,3
+39,pair_relation,rightside,3,8
+40,pair_relation,leftside,9,3
+41,pair_relation,rightside,5,4
+42,pair_relation,rightside,6,4
+43,pair_relation,rightside,7,4
+44,pair_relation,rightside,8,4
+45,pair_relation,rightside,4,8
+46,pair_relation,rightside,9,4
+47,pair_relation,leftside,6,5
+48,pair_relation,rightside,5,8
+49,pair_relation,rightside,6,8
+50,pair_relation,rightside,7,8
+51,pair_relation,leftside,9,8
+52,pair_relation,leftside,10,8
+53,pair_relation,leftside,10,9
+edgeNum 86
 0,1,11
 1,11,0
 2,2,12
@@ -162,47 +170,63 @@ edgeNum 70
 23,22,1
 24,3,23
 25,23,1
-26,6,24
+26,5,24
 27,24,1
-28,7,25
+28,6,25
 29,25,1
-30,8,26
+30,7,26
 31,26,1
-32,10,27
+32,8,27
 33,27,1
-34,2,28
-35,28,3
+34,10,28
+35,28,1
 36,2,29
-37,29,8
-38,2,30
-39,30,9
-40,5,31
-41,31,3
-42,3,32
-43,32,5
-44,6,33
-45,33,3
-46,8,34
-47,34,3
-48,3,35
-49,35,8
-50,9,36
-51,36,3
-52,5,37
-53,37,4
+37,29,3
+38,5,30
+39,30,2
+40,2,31
+41,31,8
+42,2,32
+43,32,9
+44,10,33
+45,33,2
+46,3,34
+47,34,4
+48,5,35
+49,35,3
+50,3,36
+51,36,5
+52,6,37
+53,37,3
 54,8,38
-55,38,4
-56,9,39
-57,39,4
-58,6,40
-59,40,5
+55,38,3
+56,3,39
+57,39,8
+58,9,40
+59,40,3
 60,5,41
-61,41,8
+61,41,4
 62,6,42
-63,42,8
-64,9,43
-65,43,8
-66,10,44
-67,44,8
-68,10,45
-69,45,9
+63,42,4
+64,7,43
+65,43,4
+66,8,44
+67,44,4
+68,4,45
+69,45,8
+70,9,46
+71,46,4
+72,6,47
+73,47,5
+74,5,48
+75,48,8
+76,6,49
+77,49,8
+78,7,50
+79,50,8
+80,9,51
+81,51,8
+82,10,52
+83,52,8
+84,10,53
+85,53,9

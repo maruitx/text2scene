@@ -9,7 +9,7 @@ public:
 	~RelativePos() {};
 
 	vec3 pos;  // rel pos of actObj in anchor's unit frame
-	double theta;
+	double theta; // normalized, from -pi to pi
 	mat4 anchorAlignMat;  // transformation of anchorObj to unit frame
 	mat4 actAlignMat;  // transformation of actObj to anchorObj's unit frame,  anchorAlignMat*actInitTransMat
 	double unitFactor;

@@ -20,7 +20,6 @@ aligned,bed_nightstand_sibling_general
 aligned_desk,3
 occurrence 14
 bookend_1,0.333333
-books_1,0.333333
 chair_1,0.333333
 clock_1,0.333333
 computermouse_1,0.333333
@@ -30,6 +29,7 @@ monitor_1,0.333333
 mousepad_1,0.333333
 pottedplant_1,0.333333
 router_1,0.333333
+standbooks_1,0.333333
 telephone_1,0.333333
 vase_1,0.333333
 wallart_2,0.333333
@@ -37,9 +37,6 @@ pairwise 14
 aligned,desk_bookend_parentchild_general
 0 1 0 0 0
 -0.0503061 -0.286088 0.503663 0
-aligned,desk_books_parentchild_general
-0 1 0 0 0
--0.271409 -0.286101 0.503664 0
 aligned,desk_chair_sibling_general
 0 1 0 0 0
 0.0844243 0.686779 -0.499999 1
@@ -67,6 +64,9 @@ aligned,desk_pottedplant_parentchild_general
 aligned,desk_router_parentchild_general
 0 1 0 0 0
 0.252017 -0.286033 -0.0154479 0.5
+aligned,desk_standbooks_parentchild_general
+0 1 0 0 0
+-0.271409 -0.286101 0.503664 0
 aligned,desk_telephone_parentchild_general
 0 1 0 0 0
 0.427487 0.252247 -0.0154477 0
@@ -85,38 +85,38 @@ casual,backpack_bed_sibling_general
 0.514322 -3.38931 -0.500001 -0.0250001
 casual_bed,4
 occurrence 10
-book_1,0.25
 book_2,0.25
-books_1,0.5
 headphones_1,0.5
 milkcarton_1,0.25
+openbook_1,0.25
 pillow_1,0.5
 pillow_2,0.25
 shirt_1,0.25
+stackbooks_1,0.5
 tissuebox_1,0.25
 trashbin_1,0.25
 pairwise 9
-casual,bed_book_parentchild_general
-0 1 0 0 0
--0.22468 -0.132564 0.0586416 0.5
 casual,bed_book_proximity_general
 0 2 0 0 0
 -0.243982 0.254856 0.257901 0.5,-0.262924 0.247341 0.207048 0.5
-casual,bed_books_parentchild_general
-0 2 0 0 0
--0.242734 0.118801 0.159889 -0.5,-0.242734 0.118801 0.159889 -0.5
 casual,bed_headphones_parentchild_general
 0 2 0 0 0
 -0.0686754 -0.0559627 0.242172 0.5,-0.0686754 -0.0559627 0.242172 0.5
 casual,bed_milkcarton_sibling_general
 0 1 0 0 0
 0.592048 -0.327496 -0.5 0
+casual,bed_openbook_parentchild_general
+0 1 0 0 0
+-0.22468 -0.132564 0.0586416 0.5
 casual,bed_pillow_parentchild_general
 0 4 0 0 0
 0.00184718 -0.345604 0.15989 0,0.00184718 -0.345604 0.15989 0,-0.19983 -0.204912 0.0303763 0.966667,0.258651 -0.203888 0.0303763 -0.95
 casual,bed_shirt_parentchild_general
 0 1 0 0 0
 -0.299274 0.18847 0.0985842 0.5
+casual,bed_stackbooks_parentchild_general
+0 2 0 0 0
+-0.242734 0.118801 0.159889 -0.5,-0.242734 0.118801 0.159889 -0.5
 casual,bed_tissuebox_sibling_general
 0 1 0 0 0
 0.748699 -0.172175 -0.5 0.4
@@ -124,17 +124,12 @@ casual,bed_trashbin_sibling_general
 0 1 0 0 0
 0.632398 0.119339 -0.5 0.5
 casual_bookcase,10
-occurrence 47
+occurrence 50
 ball_1,0.2
 battery_1,0.1
 book_1,0.2
 book_2,0.1
-book_3,0.1
 bookcase_1,0.2
-books_1,0.2
-books_3,0.1
-books_6,0.1
-books_8,0.1
 bottle_9,0.1
 cage_1,0.1
 cap_1,0.1
@@ -152,6 +147,7 @@ lamp_1,0.2
 mediadiscs_1,0.1
 mediaplayer_1,0.1
 mediaplayer_2,0.1
+openbook_1,0.1
 perfume_1,0.1
 pianokeyboard_2,0.2
 player_1,0.1
@@ -160,6 +156,13 @@ pottedplant_1,0.1
 remote control_1,0.1
 rubikscube_1,0.2
 speaker_2,0.1
+stackbooks_1,0.3
+stackbooks_2,0.1
+standbook_1,0.2
+standbooks_1,0.1
+standbooks_2,0.1
+standbooks_4,0.1
+standbooks_7,0.1
 telephone_1,0.1
 toy_1,0.1
 toyfigure_1,0.2
@@ -172,25 +175,19 @@ videogamecontroller_1,0.1
 wallart_1,0.1
 wallart_2,0.1
 wallclock_1,0.1
-pairwise 38
+pairwise 42
 casual,bookcase_ball_parentchild_general
 0 1 0 0 0
 -0.187463 0.540758 -0.270441 0.5
 casual,bookcase_book_parentchild_general
-0 5 0 0 0
-0.0759605 -0.0361707 -0.202596 0.5,-0.0530831 0.0146696 -0.313125 0.5,-0.0220659 0.115147 0.0258054 0.5,0.00223053 0.138436 0.169011 0.5,-0.299304 0.00450298 -0.149006 0.5
+0 3 0 0 0
+0.0759605 -0.0361707 -0.202596 0.5,-0.0220659 0.115147 0.0258054 0.5,0.00223053 0.138436 0.169011 0.5
 casual,bookcase_book_proximity_general
-0 2 0 0 0
--0.0620241 -0.508945 0.246186 0.5,0.221743 0.00652005 -0.423078 0.5
+0 1 0 0 0
+0.221743 0.00652005 -0.423078 0.5
 casual,bookcase_bookcase_sibling_general
 0 2 0 0 0
 -1.89229 -0.0703264 -0.500001 0,0.771666 0.0507725 -0.500001 0
-casual,bookcase_books_parentchild_general
-1 18 0.567162 0.602272 0.631965
-4,1,0.0472628 0.0232225 -0.00210032 0.135401,0.177352 0.003688 -0.020179 0.030451 0.003688 0.119404 -0.009210 -0.001668 -0.020179 -0.009210 0.142675 -0.015444 0.030451 -0.001668 -0.015444 0.240802
-casual,bookcase_books_proximity_general
-0 1 0 0 0
-0.707256 0.0656123 -0.306518 -0.5
 casual,bookcase_bottle_proximity_general
 0 5 0 0 0
 -0.29546 0.0283119 0.0471507 0.25,-1.31522 0.328022 -0.230199 0,-0.88892 0.309874 -0.230199 0,-1.1581 0.0545335 -0.230199 4.74319e-09,-1.55296 -0.341864 -0.2302 0
@@ -239,6 +236,9 @@ casual,bookcase_mediaplayer_parentchild_general
 casual,bookcase_mediaplayer_proximity_general
 0 1 0 0 0
 0.184327 0.176685 0.587088 -1.95567e-08
+casual,bookcase_openbook_parentchild_general
+0 1 0 0 0
+-0.0530831 0.0146696 -0.313125 0.5
 casual,bookcase_pianokeyboard_parentchild_general
 0 4 0 0 0
 -0.0594514 0.0265511 -0.470395 4.74319e-09,0.0407014 0.015859 -0.165316 0.0166667,0.0407014 0.015859 -0.165316 0.0166667,-0.0594514 0.0265511 -0.470395 4.74319e-09
@@ -260,6 +260,21 @@ casual,bookcase_rubikscube_parentchild_general
 casual,bookcase_speaker_parentchild_general
 0 2 0 0 0
 -0.338833 0.143378 -0.470395 0,-0.294306 0.141934 -0.470395 0
+casual,bookcase_stackbooks_parentchild_general
+0 4 0 0 0
+-0.354195 -0.0964356 0.113205 0,-0.354195 -0.0964356 0.113205 0,0.301621 -0.116068 -0.149006 0.45,0.105158 -0.139239 0.301012 0
+casual,bookcase_stackbooks_proximity_general
+0 1 0 0 0
+0.707256 0.0656123 -0.306518 -0.5
+casual,bookcase_standbook_parentchild_general
+0 1 0 0 0
+-0.299304 0.00450298 -0.149006 0.5
+casual,bookcase_standbook_proximity_general
+0 1 0 0 0
+-0.0620241 -0.508945 0.246186 0.5
+casual,bookcase_standbooks_parentchild_general
+0 14 0 0 0
+-0.170324 0.117801 0.271104 4.74319e-09,0.332611 0.0607505 0.113205 0,-0.332257 0.12873 -0.0446952 0,-0.244756 0.0767138 -0.202595 0,0.400584 0.0806229 -0.313125 0.5,0.326336 0.103459 -0.202595 0,0.251834 0.210567 -0.0446958 0.5,-0.170324 0.117801 0.271104 4.74319e-09,0.326336 0.103459 -0.202595 0,0.326336 0.103459 -0.202595 0,0.0489423 0.0802174 -0.299012 0.5,-0.00309964 0.0568887 0.00100002 0,-0.265045 -0.0961532 0.151005 0,0.34231 -0.172778 0.300783 0.5
 casual,bookcase_toy_parentchild_general
 0 1 0 0 0
 -0.253586 -0.125612 -0.165316 -1.95567e-08
@@ -321,17 +336,17 @@ casual,cabinet_wallart_sibling_general
 0.797514 -0.55179 0.800167 -1,0.797514 -0.55179 0.800167 -1,1.09653 4.94254 0.528103 0.5
 casual_chair,2
 occurrence 4
-book_1,0.5
 laptop_1,0.5
+openbook_1,0.5
 table_1,0.5
 wallet_1,0.5
 pairwise 4
-casual,chair_book_proximity_general
-0 1 0 0 0
-0.570908 1.03645 0.327985 0.5
 casual,chair_laptop_proximity_general
 0 1 0 0 0
 -0.150993 0.685311 0.327984 -0.75
+casual,chair_openbook_proximity_general
+0 1 0 0 0
+0.570908 1.03645 0.327985 0.5
 casual,chair_table_sibling_general
 0 1 0 0 0
 -0.214353 1.61417 -0.499998 -0.75
@@ -378,7 +393,7 @@ casual,computer_monitor_proximity_general
 2.51239 0.0383085 0.866195 -0.141667
 casual_couch,9
 occurrence 28
-book_1,0.222222
+book_1,0.111111
 chair_1,0.222222
 coaster_3,0.111111
 cup_1,0.111111
@@ -395,7 +410,7 @@ laptop_1,0.333333
 magazine_1,0.111111
 mediastorage_1,0.111111
 mug_3,0.111111
-pencil_1,0.111111
+openbook_1,0.111111
 pillow_2,0.111111
 plate_1,0.111111
 pottedplant_1,0.111111
@@ -485,9 +500,9 @@ casual,couch_wallart_sibling_general
 casual_counter,2
 occurrence 7
 beaker_1,0.5
-book_1,1
 crate_1,0.5
 laptop_1,0.5
+openbook_1,1
 pen_1,0.5
 stool_1,0.5
 tissuebox_1,0.5
@@ -495,15 +510,15 @@ pairwise 7
 casual,counter_beaker_parentchild_general
 0 1 0 0 0
 -0.147993 -0.406733 0.506201 -0.5
-casual,counter_book_parentchild_general
-0 2 0 0 0
-0.37214 -0.146429 0.506201 0.5,0.37214 -0.146429 0.506201 0.5
 casual,counter_crate_sibling_general
 0 1 0 0 0
 -0.341659 0.786044 -0.230857 0.5
 casual,counter_laptop_parentchild_general
 0 1 0 0 0
 0.257553 -0.354035 0.5062 -0.566667
+casual,counter_openbook_parentchild_general
+0 2 0 0 0
+0.37214 -0.146429 0.506201 0.5,0.37214 -0.146429 0.506201 0.5
 casual,counter_pen_parentchild_general
 0 1 0 0 0
 0.345922 0.00367733 0.5062 -0.575
@@ -514,14 +529,12 @@ casual,counter_tissuebox_parentchild_general
 0 1 0 0 0
 -0.034052 -0.215814 0.506201 -0.5
 casual_desk,29
-occurrence 78
+occurrence 76
 apple_1,0.0689655
 binder_1,0.0344828
 board_1,0.0344828
-book_1,0.241379
-book_2,0.0344828
+book_1,0.206897
 bookcase_1,0.0344828
-books_1,0.0344828
 bowl_1,0.0344828
 camera tripod_1,0.0344828
 camera_2,0.0344828
@@ -529,7 +542,6 @@ cellphone_1,0.172414
 chair_1,0.448276
 chair_2,0.103448
 chair_3,0.0344828
-compact disk_1,0.0344828
 computer_1,0.0689655
 computermouse_1,0.37931
 computermouse_2,0.0344828
@@ -560,6 +572,7 @@ monitor_3,0.0344828
 mousepad_1,0.275862
 noname_1,0.0689655
 notepad_1,0.310345
+openbook_1,0.0689655
 organ_1,0.0344828
 paper_1,0.103448
 paper_2,0.0344828
@@ -567,7 +580,7 @@ paper_3,0.0689655
 paperclip_1,0.0344828
 pen_1,0.0344828
 pencil sharpener_1,0.0344828
-pencil_1,0.0689655
+pencil_1,0.0344828
 picture frame_1,0.0344828
 picture_1,0.0344828
 pictureframe_1,0.172414
@@ -575,12 +588,12 @@ pottedplant_1,0.0344828
 powersocket_1,0.0689655
 powerstrip_1,0.0344828
 printer_1,0.0689655
-radio_1,0.0344828
 rubikscube_1,0.0344828
 sodacan_1,0.137931
 speaker_1,0.0689655
 speaker_2,0.206897
 speaker_5,0.0344828
+stackbooks_1,0.0344828
 stapler_1,0.0344828
 table_1,0.0344828
 teacup_1,0.0344828
@@ -593,7 +606,7 @@ wallart_3,0.0344828
 wallclock_1,0.0344828
 wallet_1,0.0344828
 yttrium_1,0.0344828
-pairwise 66
+pairwise 65
 casual,desk_apple_parentchild_general
 0 2 0 0 0
 -0.222735 0.419124 0.111211 -0.5,-0.222735 0.419124 0.111211 -0.5
@@ -604,14 +617,11 @@ casual,desk_board_sibling_general
 0 1 0 0 0
 -1.1373 -0.428411 0.0421627 0
 casual,desk_book_parentchild_general
-0 9 0 0 0
-0.192588 -0.300031 0.504875 0.5,0.37506 0.316072 0.505426 0.5,0.37506 0.316072 0.505426 0.5,-0.424959 -0.246032 0.348171 0.5,0.192588 -0.300031 0.504875 0.5,-0.0142871 0.236122 0.50422 0.5,0.0308441 0.222619 0.506377 0.5,-0.192201 -0.242097 0.506377 0.5,-0.409958 0.241212 0.505481 0.5
+0 6 0 0 0
+0.192588 -0.300031 0.504875 0.5,0.37506 0.316072 0.505426 0.5,0.37506 0.316072 0.505426 0.5,0.192588 -0.300031 0.504875 0.5,-0.192201 -0.242097 0.506377 0.5,-0.409958 0.241212 0.505481 0.5
 casual,desk_bookcase_sibling_general
 0 1 0 0 0
 0.513363 3.7233 -0.499998 -1
-casual,desk_books_parentchild_general
-0 1 0 0 0
-0.246279 -0.254285 0.459272 0
 casual,desk_camera tripod_sibling_general
 0 1 0 0 0
 -0.540169 -0.129605 -0.499999 0
@@ -622,14 +632,11 @@ casual,desk_cellphone_parentchild_general
 0 5 0 0 0
 0.308515 0.395696 0.511724 0.5,0.308515 0.395696 0.511724 0.5,-0.367634 0.426866 0.115362 0.5,0.394347 0.0883735 0.086951 0.5,0.308515 0.395696 0.511724 0.5
 casual,desk_chair_sibling_general
-4 22 0.0904816 0.433217 0.557544
-4,0.0454544,-2.31007 0.866176 -0.505069 1.02232,0.100296 0.000106 -0.000093 0.000802 0.000106 0.100462 -0.000018 0.000541 -0.000093 -0.000018 0.100232 -0.000048 0.000802 0.000541 -0.000048 0.152344
-4,0.589961,0.0619105 0.792898 -0.501034 0.779996,0.185705 -0.009302 -0.000819 -0.009829 -0.009302 0.126313 -0.000178 0.035466 -0.000819 -0.000178 0.100667 -0.000881 -0.009829 0.035466 -0.000881 0.239944
-4,0.0909091,-1.74475 3.5287 -0.495573 0.444579,0.491273 0.348530 -0.001932 -0.020356 0.348530 0.411649 -0.002081 -0.020938 -0.001932 -0.002081 0.100788 0.002786 -0.020356 -0.020938 0.002786 0.204005
-4,0.273675,-0.284466 0.709723 -0.4952 -0.924263,0.243316 -0.006274 -0.000138 0.000832 -0.006274 0.102204 0.000024 -0.002518 -0.000138 0.000024 0.100842 -0.000992 0.000832 -0.002518 -0.000992 0.222516
-casual,desk_compact disk_parentchild_general
-0 1 0 0 0
--0.144421 -0.298421 0.264825 0.5
+4 22 0.0744395 0.424039 0.523247
+4,0.271011,-0.281462 0.70923 -0.504382 -0.921862,0.240983 -0.002302 -0.000447 0.002089 -0.002302 0.101761 0.000097 -0.001371 -0.000447 0.000097 0.100984 0.000300 0.002089 -0.001371 0.000300 0.190041
+4,0.592625,0.0602678 0.790566 -0.499653 0.762384,0.186328 -0.009959 -0.000591 -0.006306 -0.009959 0.126152 -0.000013 0.039488 -0.000591 -0.000013 0.100614 -0.000099 -0.006306 0.039488 -0.000099 0.273671
+4,0.0909091,-1.75385 3.53462 -0.496031 0.392646,0.496045 0.347895 -0.000092 -0.000837 0.347895 0.407141 0.000238 -0.000034 -0.000092 0.000238 0.100589 -0.000513 -0.000837 -0.000034 -0.000513 0.171325
+4,0.0454545,-2.31236 0.864439 -0.494999 1.21233,0.100321 -0.000146 0.000012 -0.000002 -0.000146 0.100414 -0.000008 -0.001292 0.000012 -0.000008 0.100172 -0.000226 -0.000002 -0.001292 -0.000226 0.201523
 casual,desk_computer_parentchild_general
 0 2 0 0 0
 0.366621 0.124585 -0.339271 0,0.422308 0.0777947 -0.35409 0
@@ -711,6 +718,9 @@ casual,desk_noname_parentchild_general
 casual,desk_notepad_parentchild_general
 0 8 0 0 0
 -0.247189 -0.0457632 0.504876 0.25,-0.247189 -0.0457632 0.504876 0.25,-0.208666 -0.0319659 0.0814892 -0.225,-0.247189 -0.0457632 0.504876 0.25,-0.351673 0.133805 0.506377 -0.141666,-0.280709 0.217443 0.50548 -0.0666668,-0.205941 0.276097 0.224104 0,-0.205941 0.276097 0.224104 0
+casual,desk_openbook_parentchild_general
+0 2 0 0 0
+-0.0142871 0.236122 0.50422 0.5,0.0308441 0.222619 0.506377 0.5
 casual,desk_organ_parentchild_general
 0 1 0 0 0
 0.325833 -0.102353 0.500533 -1
@@ -730,8 +740,8 @@ casual,desk_pencil sharpener_proximity_general
 0 1 0 0 0
 0.330438 0.312245 0.521973 4.74319e-09
 casual,desk_pencil_proximity_general
-0 2 0 0 0
--0.0622189 0.424496 0.583019 -0.397455,0.3098 0.223279 0.510979 0
+0 1 0 0 0
+0.3098 0.223279 0.510979 0
 casual,desk_picture frame_parentchild_general
 0 1 0 0 0
 0.147708 -0.163366 0.500342 -0.924939
@@ -750,9 +760,6 @@ casual,desk_powerstrip_parentchild_general
 casual,desk_printer_parentchild_general
 0 2 0 0 0
 0.305843 0.129391 0.50511 -1.95567e-08,0.396365 -0.286435 0.505482 0.0166666
-casual,desk_radio_proximity_general
-0 1 0 0 0
-0.427673 0.0343011 -0.0417663 0
 casual,desk_rubikscube_parentchild_general
 0 1 0 0 0
 0.0765078 -0.0599311 0.506443 -0.05
@@ -760,12 +767,15 @@ casual,desk_sodacan_parentchild_general
 0 4 0 0 0
 0.451663 0.138392 0.504872 0,0.451663 0.138392 0.504872 0,0.298012 0.41743 0.111211 0,0.451663 0.138392 0.504872 0
 casual,desk_speaker_parentchild_general
-2 16 0.568161 0.60301 0.667823
-4,0.914957,-0.0371791 -0.146434 0.488436 0.085695,0.282691 0.045473 -0.003898 0.037527 0.045473 0.124048 -0.000958 0.014448 -0.003898 -0.000958 0.112726 0.001895 0.037527 0.014448 0.001895 0.197122
-4,0.0850434,0.351721 0.00418118 -0.0472159 0.0959009,0.117113 0.003149 0.013135 0.004064 0.003149 0.112821 -0.014277 0.004005 0.013135 -0.014277 0.311843 0.032124 0.004064 0.004005 0.032124 0.177718
+2 16 0.564363 0.60193 0.669287
+4,0.0869463,0.355043 0.00471785 -0.00640253 0.115434,0.117952 0.002873 0.014194 0.003247 0.002873 0.113717 -0.019561 0.004403 0.014194 -0.019561 0.308317 0.013486 0.003247 0.004403 0.013486 0.169278
+4,0.913054,-0.0386127 -0.152033 0.485393 0.0285493,0.284104 0.043109 -0.006211 0.041036 0.043109 0.121858 -0.002354 0.013240 -0.006211 -0.002354 0.114192 -0.001556 0.041036 0.013240 -0.001556 0.197165
 casual,desk_speaker_sibling_general
 0 1 0 0 0
 -1.3567 5.12458 -0.500002 -0.5
+casual,desk_stackbooks_parentchild_general
+0 1 0 0 0
+0.246279 -0.254285 0.459272 0
 casual,desk_stapler_parentchild_general
 0 1 0 0 0
 -0.358267 0.192003 0.500533 -0.433334
@@ -816,7 +826,6 @@ occurrence 21
 aerosol_1,0.2
 bed_1,0.2
 book_1,0.2
-books_1,0.2
 bottle_1,0.2
 canister_2,0.2
 cellphone_1,0.2
@@ -829,6 +838,7 @@ lamp_1,0.2
 mirror_1,0.2
 post horse_1,0.2
 rule_1,0.2
+stackbooks_1,0.2
 statue_1,0.2
 tape_1,0.2
 tissuebox_1,0.2
@@ -844,9 +854,6 @@ casual,dresser_bed_sibling_general
 casual,dresser_book_parentchild_general
 0 1 0 0 0
 0.0182322 0.194161 0.504111 0.5
-casual,dresser_books_parentchild_general
-0 1 0 0 0
--0.305737 0.281664 0.504111 -0.5
 casual,dresser_bottle_parentchild_general
 0 1 0 0 0
 0.328422 0.276309 0.504111 0
@@ -883,6 +890,9 @@ casual,dresser_post horse_sibling_general
 casual,dresser_rule_parentchild_general
 0 1 0 0 0
 -0.337781 0.138974 0.506465 -0.25
+casual,dresser_stackbooks_parentchild_general
+0 1 0 0 0
+-0.305737 0.281664 0.504111 -0.5
 casual,dresser_statue_parentchild_general
 0 1 0 0 0
 -0.391374 -0.251239 0.504718 -0.183333
@@ -932,7 +942,6 @@ casual,game_tape_sibling_general
 1.80814 -0.299857 -0.500001 -0.5
 casual_keyboard,1
 occurrence 17
-book_1,1
 calculator_1,1
 cellphone_1,1
 cellulose tape_1,1
@@ -941,6 +950,7 @@ computermouse_1,1
 mousepad_1,1
 mug_1,1
 notepad_1,1
+openbook_1,1
 pen_1,1
 pencil_1,1
 printer_1,1
@@ -950,9 +960,6 @@ stapler_1,1
 tableclock_1,1
 webcam_1,1
 pairwise 14
-casual,keyboard_book_sibling_general
-0 1 0 0 0
-1.34089 0.0198413 -0.499975 0.5
 casual,keyboard_cellphone_sibling_general
 0 1 0 0 0
 -1.36548 -1.63905 -0.499966 0.5
@@ -974,6 +981,9 @@ casual,keyboard_mug_sibling_general
 casual,keyboard_notepad_sibling_general
 0 1 0 0 0
 -1.71435 -0.370888 -0.499968 0.025
+casual,keyboard_openbook_sibling_general
+0 1 0 0 0
+1.34089 0.0198413 -0.499975 0.5
 casual,keyboard_printer_sibling_general
 0 1 0 0 0
 1.99243 -1.73141 -0.500002 0.025
@@ -995,24 +1005,24 @@ casual,keyboard_webcam_sibling_general
 casual_laptop,1
 occurrence 6
 beaker_1,1
-book_1,1
 calculator_1,1
 notepad_1,1
+openbook_1,1
 pen_1,1
 tissuebox_1,1
 pairwise 6
 casual,laptop_beaker_sibling_general
 0 1 0 0 0
 0.714404 -1.49082 -0.499976 0.0666666
-casual,laptop_book_sibling_general
-0 1 0 0 0
--1.45914 0.182786 -0.499979 0.5
 casual,laptop_calculator_sibling_general
 0 1 0 0 0
 -5.31281 -1.22711 -0.415941 0.5
 casual,laptop_notepad_sibling_general
 0 1 0 0 0
 -4.82981 -0.49552 -0.499986 0.275
+casual,laptop_openbook_sibling_general
+0 1 0 0 0
+-1.45914 0.182786 -0.499979 0.5
 casual,laptop_pen_sibling_general
 0 1 0 0 0
 -2.41443 -0.103538 -0.49998 -0.00833324
@@ -1090,19 +1100,20 @@ casual,mediastorage_wheel_parentchild_general
 0 1 0 0 0
 0.104826 0.373263 -0.479563 2.72475e-08
 casual_nightstand,3
-occurrence 8
-book_2,0.333333
+occurrence 9
+book_1,0.333333
 bottle_1,0.333333
 cup_1,0.333333
 glasses_1,0.666667
 lamp_1,0.333333
 pillbottle_1,0.666667
+standbook_1,0.333333
 tableclock_1,1
 wineglass_2,0.333333
-pairwise 8
+pairwise 9
 casual,nightstand_book_parentchild_general
-0 2 0 0 0
-0.0719979 0.224066 0.394451 0.5,0.131741 -0.117658 0.505509 0.5
+0 1 0 0 0
+0.131741 -0.117658 0.505509 0.5
 casual,nightstand_bottle_parentchild_general
 0 1 0 0 0
 -0.269886 0.240287 -0.438824 -0.5
@@ -1118,6 +1129,9 @@ casual,nightstand_lamp_parentchild_general
 casual,nightstand_pillbottle_parentchild_general
 0 2 0 0 0
 0.152568 0.261293 0.463773 -0.5,0.152568 0.261293 0.463773 -0.5
+casual,nightstand_standbook_parentchild_general
+0 1 0 0 0
+0.0719979 0.224066 0.394451 0.5
 casual,nightstand_tableclock_parentchild_general
 0 3 0 0 0
 -0.228659 0.213529 0.463773 0.4,-0.228659 0.213529 0.463773 0.4,-0.261704 0.0269868 0.50551 0.458333
@@ -1158,83 +1172,82 @@ casual,speaker_sword_sibling_general
 casual,speaker_wallart_sibling_general
 0 1 0 0 0
 0.205768 -1.06361 0.195147 0.300001
-casual_table,27
-occurrence 71
-book_1,0.222222
-bottle_1,0.0740741
-bowl_1,0.222222
-bowl_2,0.0740741
-breadslice_1,0.148148
-cabinet_1,0.037037
-candle_1,0.222222
-canopener_1,0.037037
-cap_1,0.0740741
-cellphone_1,0.037037
-chair_1,0.185185
-chair_2,0.111111
-chair_3,0.037037
-chair_4,0.0740741
-chessboard_1,0.037037
-chessman_1,0.037037
-coaster_1,0.111111
-coffee mug_1,0.037037
-controller_1,0.037037
-couch_1,0.0740741
-couch_2,0.0740741
-cup_1,0.185185
-cup_2,0.0740741
-floorlamp_1,0.037037
-foodplate_1,0.148148
-foodplate_2,0.037037
-fork_1,0.0740741
-fruit_1,0.037037
-glasses_1,0.0740741
-hamburger_1,0.0740741
-holder_1,0.0740741
-holder_2,0.037037
-knife_1,0.0740741
-lamp_1,0.0740741
-laptop_1,0.111111
-magazine_1,0.259259
-money_2,0.037037
-mug_1,0.222222
-mug_2,0.0740741
-ottoman_1,0.037037
-pepper mill_1,0.037037
-pepper_1,0.037037
-pictureframe_1,0.037037
-pictureframe_2,0.037037
-pillow_2,0.037037
-pizza_1,0.037037
-plate_1,0.111111
-plate_2,0.111111
-pot_1,0.037037
-pottedplant_1,0.296296
-purse_1,0.037037
-remote control_1,0.037037
-remote control_2,0.037037
-salad_1,0.0740741
-sandwich_1,0.037037
-sandwich_2,0.037037
-sandwich_4,0.037037
-sodacan_1,0.0740741
-speaker_1,0.037037
-speaker_2,0.037037
-table_1,0.0740741
-teacup_1,0.037037
-telephone_1,0.037037
-tongs_1,0.037037
-tray_1,0.0740741
-tv_1,0.0740741
-unknown_1,0.0740741
-videogamecontroller_1,0.037037
-wallart_2,0.037037
-wallclock_1,0.037037
-wallet_1,0.0740741
-pairwise 62
+casual_table,26
+occurrence 70
+book_1,0.192308
+bottle_1,0.0769231
+bowl_1,0.230769
+bowl_2,0.0769231
+breadslice_1,0.153846
+cabinet_1,0.0384615
+candle_1,0.230769
+canopener_1,0.0384615
+cap_1,0.0769231
+cellphone_1,0.0384615
+chair_1,0.192308
+chair_2,0.115385
+chair_3,0.0384615
+chair_4,0.0769231
+chessboard_1,0.0384615
+chessman_1,0.0384615
+coaster_1,0.0769231
+coffee mug_1,0.0384615
+controller_1,0.0384615
+couch_1,0.0769231
+couch_2,0.0769231
+cup_1,0.192308
+cup_2,0.0769231
+floorlamp_1,0.0384615
+foodplate_1,0.153846
+foodplate_2,0.0384615
+fork_1,0.0769231
+fruit_1,0.0384615
+glasses_1,0.0769231
+hamburger_1,0.0769231
+holder_1,0.0769231
+holder_2,0.0384615
+knife_1,0.0769231
+lamp_1,0.0769231
+laptop_1,0.115385
+magazine_1,0.269231
+money_2,0.0384615
+mug_1,0.230769
+mug_2,0.0769231
+ottoman_1,0.0384615
+pepper mill_1,0.0384615
+pepper_1,0.0384615
+pictureframe_1,0.0384615
+pictureframe_2,0.0384615
+pillow_2,0.0384615
+pizza_1,0.0384615
+plate_1,0.115385
+plate_2,0.115385
+pot_1,0.0384615
+pottedplant_1,0.269231
+purse_1,0.0384615
+remote control_1,0.0384615
+remote control_2,0.0384615
+salad_1,0.0769231
+sandwich_1,0.0384615
+sandwich_2,0.0384615
+sandwich_4,0.0384615
+sodacan_1,0.0769231
+speaker_2,0.0384615
+table_1,0.0769231
+teacup_1,0.0384615
+telephone_1,0.0384615
+tongs_1,0.0384615
+tray_1,0.0769231
+tv_1,0.0769231
+unknown_1,0.0769231
+videogamecontroller_1,0.0384615
+wallart_2,0.0384615
+wallclock_1,0.0384615
+wallet_1,0.0769231
+pairwise 60
 casual,table_book_parentchild_general
-0 6 0 0 0
-0.162015 0.0730494 0.506915 0.5,0.243273 -0.0227073 0.506351 0.5,0.243273 -0.0227073 0.506351 0.5,-0.380126 0.228286 0.504991 0.5,-0.380126 0.228286 0.504991 0.5,0.155671 0.352546 0.460951 0.5
+0 5 0 0 0
+0.162015 0.0730494 0.506915 0.5,0.243273 -0.0227073 0.506351 0.5,0.243273 -0.0227073 0.506351 0.5,-0.380126 0.228286 0.504991 0.5,-0.380126 0.228286 0.504991 0.5
 casual,table_bottle_parentchild_general
 0 2 0 0 0
 -0.0727399 0.0394328 0.504991 -0.508231,-0.0727399 0.0394328 0.504991 -0.508231
@@ -1266,9 +1279,9 @@ casual,table_chair_proximity_general
 0 2 0 0 0
 -0.0395896 0.946878 -0.583143 1,-0.0395896 0.946878 -0.583143 1
 casual,table_chair_sibling_general
-2 20 0.146639 0.200097 0.33355
-4,0.590508,0.581993 0.285132 -0.50022 0.68916,0.309971 -0.104670 0.000362 -0.052580 -0.104670 0.227496 -0.001785 0.072281 0.000362 -0.001785 0.102193 -0.001053 -0.052580 0.072281 -0.001053 0.219786
-4,0.409492,-0.405456 -0.604236 -0.499477 -0.267378,0.226534 -0.113456 -0.001020 0.072291 -0.113456 0.334338 0.001055 -0.099095 -0.001020 0.001055 0.101589 -0.000213 0.072291 -0.099095 -0.000213 0.244651
+2 20 0.146774 0.203684 0.313092
+4,0.586128,0.585418 0.287838 -0.49594 0.734774,0.308471 -0.108407 0.001635 -0.062692 -0.108407 0.226299 -0.001560 0.070598 0.001635 -0.001560 0.101975 -0.000791 -0.062692 0.070598 -0.000791 0.236567
+4,0.413872,-0.402764 -0.597912 -0.495532 -0.235241,0.228235 -0.112941 -0.000839 0.054687 -0.112941 0.335561 -0.000150 -0.091940 -0.000839 -0.000150 0.101377 0.000119 0.054687 -0.091940 0.000119 0.213858
 casual,table_chessboard_parentchild_general
 0 1 0 0 0
 0.084144 -0.199173 0.514962 0.0250001
@@ -1278,9 +1291,6 @@ casual,table_chessman_parentchild_general
 casual,table_coaster_parentchild_general
 0 2 0 0 0
 0.325253 -0.149666 0.507613 1,0.325253 -0.149666 0.507613 1
-casual,table_coaster_proximity_general
-0 1 0 0 0
--0.372996 -0.0248445 0.570393 1
 casual,table_coffee mug_proximity_general
 0 1 0 0 0
 0.336398 -0.190379 0.539003 -0.616666
@@ -1363,8 +1373,8 @@ casual,table_pot_parentchild_general
 0 1 0 0 0
 0.00776846 -0.124968 0.506205 -0.208334
 casual,table_pottedplant_parentchild_general
-0 6 0 0 0
--0.0785816 -0.254507 0.508642 0,-0.160142 -0.113247 0.506915 0.5,0.0236811 -0.00357088 0.504992 -0.749001,0.0236811 -0.00357088 0.504992 -0.749001,0.0236811 -0.00357088 0.504992 -0.749001,-0.224245 0.0444729 0.460951 -0.5
+0 5 0 0 0
+-0.0785816 -0.254507 0.508642 0,-0.160142 -0.113247 0.506915 0.5,0.0236811 -0.00357088 0.504992 -0.749001,0.0236811 -0.00357088 0.504992 -0.749001,0.0236811 -0.00357088 0.504992 -0.749001
 casual,table_pottedplant_sibling_general
 0 1 0 0 0
 1.31475 -0.273894 -0.5 0.5
@@ -1383,9 +1393,6 @@ casual,table_sandwich_proximity_general
 casual,table_sodacan_parentchild_general
 0 2 0 0 0
 0.353668 0.278366 0.506915 0.5,-0.44203 0.322054 0.507613 1
-casual,table_speaker_sibling_general
-0 1 0 0 0
--0.701507 -0.260584 -0.5 0.15
 casual,table_table_sibling_general
 0 2 0 0 0
 1.24955 1.2321 -0.499998 -0.9,0.913831 1.4998 -0.499998 0
@@ -1536,15 +1543,10 @@ clean,bed_pillow_parentchild_general
 0 2 0 0 0
 -0.19983 -0.204912 0.0303763 0.966667,0.258651 -0.203888 0.0303763 -0.95
 clean_bookcase,12
-occurrence 30
+occurrence 31
 ball_1,0.0833333
-book_1,0.0833333
-book_2,0.0833333
+book_1,0.166667
 bookcase_1,0.166667
-books_1,0.166667
-books_3,0.0833333
-books_6,0.0833333
-books_8,0.0833333
 cap_1,0.0833333
 chair_1,0.0833333
 decorativeaccessory_1,0.0833333
@@ -1554,11 +1556,17 @@ guitarstand_1,0.166667
 headphones_2,0.0833333
 lamp_1,0.25
 mediaplayer_1,0.0833333
+openbook_1,0.0833333
 pianokeyboard_2,0.0833333
 pictureframe_1,0.0833333
 pot_2,0.0833333
 pottedplant_1,0.333333
 speaker_2,0.0833333
+stackbooks_1,0.25
+standbooks_1,0.0833333
+standbooks_2,0.0833333
+standbooks_6,0.0833333
+standbooks_7,0.0833333
 toyfigure_1,0.0833333
 toyfigure_2,0.0833333
 vase_1,0.25
@@ -1567,22 +1575,16 @@ videogameconsole_1,0.0833333
 wallart_1,0.333333
 wallart_2,0.166667
 wallclock_1,0.0833333
-pairwise 25
+pairwise 27
 clean,bookcase_ball_parentchild_general
 0 1 0 0 0
 -0.187463 0.540758 -0.270441 0.5
 clean,bookcase_book_parentchild_general
-0 3 0 0 0
-0.0759605 -0.0361707 -0.202596 0.5,-0.0530831 0.0146696 -0.313125 0.5,0.244576 -0.0887107 0.269427 0.5
+0 2 0 0 0
+0.0759605 -0.0361707 -0.202596 0.5,0.244576 -0.0887107 0.269427 0.5
 clean,bookcase_bookcase_sibling_general
 0 2 0 0 0
 -1.89229 -0.0703264 -0.500001 0,0.771666 0.0507725 -0.500001 0
-clean,bookcase_books_parentchild_general
-1 18 0.654262 0.721205 0.77821
-4,1,-0.00301827 0.0841483 -0.0247947 0.0613913,0.185421 0.010789 -0.022096 0.026147 0.010789 0.110933 -0.002618 0.005834 -0.022096 -0.002618 0.136885 -0.010678 0.026147 0.005834 -0.010678 0.207418
-clean,bookcase_books_proximity_general
-0 1 0 0 0
-0.707256 0.0656123 -0.306518 -0.5
 clean,bookcase_cap_proximity_general
 0 1 0 0 0
 0.755572 0.0835735 0.339738 -0.25
@@ -1610,6 +1612,9 @@ clean,bookcase_lamp_parentchild_general
 clean,bookcase_mediaplayer_parentchild_general
 0 1 0 0 0
 0.392828 0.0110095 0.504162 -0.5
+clean,bookcase_openbook_parentchild_general
+0 1 0 0 0
+-0.0530831 0.0146696 -0.313125 0.5
 clean,bookcase_pianokeyboard_parentchild_general
 0 2 0 0 0
 -0.0594514 0.0265511 -0.470395 4.74319e-09,0.0407014 0.015859 -0.165316 0.0166667
@@ -1625,6 +1630,15 @@ clean,bookcase_pottedplant_parentchild_general
 clean,bookcase_speaker_parentchild_general
 0 2 0 0 0
 -0.338833 0.143378 -0.470395 0,-0.294306 0.141934 -0.470395 0
+clean,bookcase_stackbooks_parentchild_general
+0 2 0 0 0
+-0.354195 -0.0964356 0.113205 0,-0.354195 -0.0964356 0.113205 0
+clean,bookcase_stackbooks_proximity_general
+0 1 0 0 0
+0.707256 0.0656123 -0.306518 -0.5
+clean,bookcase_standbooks_parentchild_general
+1 16 0.608605 0.723102 0.812352
+4,1,0.0393342 0.0981474 -0.042093 0.0635787,0.179547 0.001359 -0.017957 0.021899 0.001359 0.106617 0.002966 0.004449 -0.017957 0.002966 0.138753 -0.008647 0.021899 0.004449 -0.008647 0.216081
 clean,bookcase_toyfigure_parentchild_general
 0 3 0 0 0
 -0.101158 0.136017 -0.0446952 0,0.11485 0.140782 -0.443994 0,0.0672897 0.383604 -0.443994 0
@@ -1677,16 +1691,16 @@ clean,cabinet_wallart_sibling_general
 0.797514 -0.55179 0.800167 -1,0.797514 -0.55179 0.800167 -1,1.09653 4.94254 0.528103 0.5
 clean_chair,1
 occurrence 3
-book_1,1
 laptop_1,1
+openbook_1,1
 table_1,1
 pairwise 3
-clean,chair_book_proximity_general
-0 1 0 0 0
-0.570908 1.03645 0.327985 0.5
 clean,chair_laptop_proximity_general
 0 1 0 0 0
 -0.150993 0.685311 0.327984 -0.75
+clean,chair_openbook_proximity_general
+0 1 0 0 0
+0.570908 1.03645 0.327985 0.5
 clean,chair_table_sibling_general
 0 1 0 0 0
 -0.214353 1.61417 -0.499998 -0.75
@@ -1698,8 +1712,7 @@ clean,chestofdrawers_cellphone_parentchild_general
 0 1 0 0 0
 0.186627 0.24496 0.495726 0.5
 clean_couch,7
-occurrence 17
-book_1,0.142857
+occurrence 16
 chair_1,0.142857
 desk_1,0.142857
 display_1,0.142857
@@ -1709,7 +1722,7 @@ lamp_1,0.142857
 lamp_3,0.142857
 laptop_1,0.285714
 mediastorage_1,0.285714
-pencil_1,0.142857
+openbook_1,0.142857
 pottedplant_1,0.142857
 table_1,0.428571
 trashbin_1,0.142857
@@ -1760,13 +1773,13 @@ clean_desk,19
 occurrence 53
 apple_1,0.105263
 board_1,0.0526316
-book_1,0.157895
+book_1,0.0526316
 bookcase_1,0.0526316
 cellphone_1,0.0526316
 chair_1,0.684211
 chair_2,0.0526316
 chair_3,0.0526316
-computer_1,0.210526
+computer_1,0.157895
 computermouse_1,0.368421
 couch_1,0.0526316
 cup_1,0.105263
@@ -1789,9 +1802,9 @@ mousepad_1,0.210526
 noname_1,0.0526316
 notepad_1,0.0526316
 notepad_2,0.0526316
+openbook_1,0.105263
 organ_1,0.0526316
 paperclip_1,0.0526316
-pencil_1,0.0526316
 picture frame_1,0.0526316
 picture_1,0.105263
 pictureframe_1,0.105263
@@ -1819,8 +1832,8 @@ clean,desk_board_sibling_general
 0 1 0 0 0
 -1.1373 -0.428411 0.0421627 0
 clean,desk_book_parentchild_general
-0 3 0 0 0
-0.37506 0.316072 0.505426 0.5,-0.0142871 0.236122 0.50422 0.5,0.0308441 0.222619 0.506377 0.5
+0 1 0 0 0
+0.37506 0.316072 0.505426 0.5
 clean,desk_bookcase_sibling_general
 0 1 0 0 0
 0.513363 3.7233 -0.499998 -1
@@ -1828,14 +1841,14 @@ clean,desk_cellphone_proximity_general
 0 1 0 0 0
 -0.362342 0.390727 0.522032 0.5
 clean,desk_chair_sibling_general
-4 18 0.144092 0.717128 0.858969
-4,0.672999,-0.0324638 0.822218 -0.499095 0.805949,0.104502 0.007900 0.000085 0.012008 0.007900 0.122646 0.000048 0.034674 0.000085 0.000048 0.100700 0.000237 0.012008 0.034674 0.000237 0.266799
-4,0.0555556,-2.37761 2.9935 -0.508507 0.541909,0.100208 -0.000090 0.000067 0.000236 -0.000090 0.100814 -0.000112 -0.002525 0.000067 -0.000112 0.100309 0.000298 0.000236 -0.002525 0.000298 0.225005
-4,0.0555526,-2.31052 0.869985 -0.499223 0.901602,0.100259 0.000080 0.000008 0.000466 0.000080 0.100842 0.000005 0.002068 0.000008 0.000005 0.100161 -0.000409 0.000466 0.002068 -0.000409 0.155255
-4,0.215893,-0.31553 0.738624 -0.501401 -0.938622,0.330196 0.007444 -0.001669 -0.019962 0.007444 0.104919 -0.000317 -0.003295 -0.001669 -0.000317 0.100679 0.002089 -0.019962 -0.003295 0.002089 0.235718
+4 18 0.239983 0.730307 0.916861
+4,0.160692,-0.0487741 0.746284 -0.502943 -0.974094,0.122123 0.007614 0.000200 -0.006806 0.007614 0.106124 0.000222 -0.005055 0.000200 0.000222 0.100863 0.000087 -0.006806 -0.005055 0.000087 0.171401
+4,0.673586,-0.0339357 0.820356 -0.499617 0.823906,0.104413 0.008457 -0.000138 0.012009 0.008457 0.124084 -0.000066 0.031093 -0.000138 -0.000066 0.100668 -0.000552 0.012009 0.031093 -0.000552 0.232602
+4,0.111111,-2.34251 1.92535 -0.499269 0.723027,0.101172 -0.031705 -0.000008 0.007400 -0.031705 1.210930 -0.000730 -0.267754 -0.000008 -0.000730 0.100286 0.000938 0.007400 -0.267754 0.000938 0.249193
+4,0.0546107,-1.10416 0.731429 -0.512951 -0.989674,0.109308 0.000202 0.000138 -0.000628 0.000202 0.102142 0.000109 -0.001827 0.000138 0.000109 0.100535 0.003441 -0.000628 -0.001827 0.003441 0.167187
 clean,desk_computer_parentchild_general
-0 3 0 0 0
-0.366621 0.124585 -0.339271 0,0.422308 0.0777947 -0.35409 0,0.422308 0.0777947 -0.35409 0
+0 2 0 0 0
+0.366621 0.124585 -0.339271 0,0.422308 0.0777947 -0.35409 0
 clean,desk_computer_proximity_general
 0 1 0 0 0
 -0.408267 -0.235144 0.582638 0
@@ -1899,15 +1912,15 @@ clean,desk_noname_parentchild_general
 clean,desk_notepad_parentchild_general
 0 2 0 0 0
 -0.229909 0.27375 0.504089 -0.025,-0.394656 0.239693 0.504087 -0.0416665
+clean,desk_openbook_parentchild_general
+0 2 0 0 0
+-0.0142871 0.236122 0.50422 0.5,0.0308441 0.222619 0.506377 0.5
 clean,desk_organ_parentchild_general
 0 1 0 0 0
 0.325833 -0.102353 0.500533 -1
 clean,desk_paperclip_parentchild_general
 0 1 0 0 0
 -0.166747 -0.257901 0.500533 0.5
-clean,desk_pencil_proximity_general
-0 1 0 0 0
--0.0622189 0.424496 0.583019 -0.397455
 clean,desk_picture frame_parentchild_general
 0 1 0 0 0
 0.147708 -0.163366 0.500342 -0.924939
@@ -2012,22 +2025,26 @@ clean,mediastorage_tv_parentchild_general
 0 1 0 0 0
 -0.00258393 -0.0187068 -0.175697 2.76573e-08
 clean_nightstand,1
-occurrence 5
-book_3,1
+occurrence 6
+book_1,1
 bookcase_1,1
-books_2,1
 cup_1,1
+standbook_2,1
+standbooks_2,1
 tableclock_1,1
-pairwise 4
+pairwise 5
 clean,nightstand_book_parentchild_general
-0 2 0 0 0
-0.0719979 0.224066 0.394451 0.5,0.131741 -0.117658 0.505509 0.5
+0 1 0 0 0
+0.131741 -0.117658 0.505509 0.5
 clean,nightstand_bookcase_sibling_general
 0 1 0 0 0
 -4.16195 -0.45226 1.60275 0
 clean,nightstand_cup_parentchild_general
 0 1 0 0 0
 -0.290863 -0.263203 0.505509 -0.5
+clean,nightstand_standbook_parentchild_general
+0 1 0 0 0
+0.0719979 0.224066 0.394451 0.5
 clean,nightstand_tableclock_parentchild_general
 0 1 0 0 0
 -0.261704 0.0269868 0.50551 0.458333
@@ -2118,10 +2135,9 @@ clean,table_cap_parentchild_general
 0 1 0 0 0
 0.379201 -0.129992 0.504992 -0.25
 clean,table_chair_sibling_general
-3 31 0.184145 0.286266 0.391109
-4,0.512254,0.459627 0.367761 -0.500741 0.7846,0.292861 -0.122725 0.000173 -0.080893 -0.122725 0.230472 -0.000572 0.080826 0.000173 -0.000572 0.101635 0.000517 -0.080893 0.080826 0.000517 0.232395
-4,0.225881,-0.706482 0.00728402 -0.499171 -0.516381,0.126170 0.005651 0.000790 0.001326 0.005651 0.105276 0.000075 -0.000458 0.000790 0.000075 0.101033 0.000817 0.001326 -0.000458 0.000817 0.178722
-4,0.261865,0.318442 -0.555755 -0.499311 0.228983,0.265932 0.182363 -0.001189 0.071662 0.182363 0.363454 -0.001998 0.094484 -0.001189 -0.001998 0.101684 -0.000477 0.071662 0.094484 -0.000477 0.204656
+2 31 0.146252 0.213695 0.351593
+4,0.627033,0.500938 0.294291 -0.498555 0.699919,0.284880 -0.108054 0.000466 -0.064259 -0.108054 0.241462 0.000483 0.089163 0.000466 0.000483 0.101833 0.000434 -0.064259 0.089163 0.000434 0.253571
+4,0.372967,-0.418844 -0.369154 -0.49722 -0.30653,0.252948 -0.149193 -0.000244 0.079846 -0.149193 0.354904 0.000552 -0.104325 -0.000244 0.000552 0.101297 0.000434 0.079846 -0.104325 0.000434 0.234425
 clean,table_controller_parentchild_general
 0 1 0 0 0
 0.375346 0.172042 0.515028 0.5
@@ -2335,19 +2351,16 @@ dining,table_wallet_proximity_general
 disorganized_bed,1
 occurrence 7
 book_2,1
-books_1,1
 headphones_1,1
 milkcarton_1,1
 pillow_1,1
+stackbooks_1,1
 tissuebox_1,1
 trashbin_1,1
 pairwise 7
 disorganized,bed_book_proximity_general
 0 2 0 0 0
 -0.243982 0.254856 0.257901 0.5,-0.262924 0.247341 0.207048 0.5
-disorganized,bed_books_parentchild_general
-0 1 0 0 0
--0.242734 0.118801 0.159889 -0.5
 disorganized,bed_headphones_parentchild_general
 0 1 0 0 0
 -0.0686754 -0.0559627 0.242172 0.5
@@ -2357,6 +2370,9 @@ disorganized,bed_milkcarton_sibling_general
 disorganized,bed_pillow_parentchild_general
 0 1 0 0 0
 0.00184718 -0.345604 0.15989 0
+disorganized,bed_stackbooks_parentchild_general
+0 1 0 0 0
+-0.242734 0.118801 0.159889 -0.5
 disorganized,bed_tissuebox_sibling_general
 0 1 0 0 0
 0.748699 -0.172175 -0.5 0.4
@@ -2364,7 +2380,7 @@ disorganized,bed_trashbin_sibling_general
 0 1 0 0 0
 0.632398 0.119339 -0.5 0.5
 disorganized_desk,2
-occurrence 13
+occurrence 12
 apple_1,0.5
 book_1,0.5
 cellphone_1,1
@@ -2376,9 +2392,8 @@ notepad_1,0.5
 paper_1,0.5
 pictureframe_1,0.5
 powerstrip_1,0.5
-radio_1,0.5
 sodacan_1,1
-pairwise 13
+pairwise 12
 disorganized,desk_apple_parentchild_general
 0 1 0 0 0
 -0.222735 0.419124 0.111211 -0.5
@@ -2412,9 +2427,6 @@ disorganized,desk_pictureframe_parentchild_general
 disorganized,desk_powerstrip_parentchild_general
 0 1 0 0 0
 0.172214 -0.290492 -0.408934 6.70788e-09
-disorganized,desk_radio_proximity_general
-0 1 0 0 0
-0.427673 0.0343011 -0.0417663 0
 disorganized,desk_sodacan_parentchild_general
 0 2 0 0 0
 0.451663 0.138392 0.504872 0,0.298012 0.41743 0.111211 0
@@ -2559,12 +2571,12 @@ formal_bookcase,6
 occurrence 11
 book_1,0.166667
 bookcase_1,0.166667
-books_6,0.166667
 decorativeaccessory_1,0.166667
 guitarstand_1,0.166667
 lamp_1,0.166667
 pictureframe_1,0.166667
 pottedplant_1,0.5
+standbooks_6,0.166667
 vase_1,0.166667
 wallart_1,0.5
 wallart_2,0.166667
@@ -2575,9 +2587,6 @@ formal,bookcase_book_parentchild_general
 formal,bookcase_bookcase_sibling_general
 0 1 0 0 0
 -1.89229 -0.0703264 -0.500001 0
-formal,bookcase_books_parentchild_general
-0 6 0 0 0
--0.290646 0.107955 0.269426 0,-0.167712 0.1184 0.111537 0,-0.112189 0.0760367 -0.204243 0,0.113401 0.0887739 -0.204243 0,-0.343395 0.0496169 -0.204243 0,0.377133 0.133769 0.111537 0
 formal,bookcase_decorativeaccessory_parentchild_general
 0 1 0 0 0
 0.0862407 0.171176 0.502198 -0.0416665
@@ -2593,6 +2602,9 @@ formal,bookcase_pictureframe_parentchild_general
 formal,bookcase_pottedplant_parentchild_general
 0 3 0 0 0
 0.0625914 0.142402 0.503887 -0.5,0.0625914 0.142402 0.503887 -0.5,-0.285457 0.0286975 0.502198 -0.5
+formal,bookcase_standbooks_parentchild_general
+0 6 0 0 0
+-0.290646 0.107955 0.269426 0,-0.167712 0.1184 0.111537 0,-0.112189 0.0760367 -0.204243 0,0.113401 0.0887739 -0.204243 0,-0.343395 0.0496169 -0.204243 0,0.377133 0.133769 0.111537 0
 formal,bookcase_vase_parentchild_general
 0 1 0 0 0
 -0.287291 0.120517 0.503887 -0.5
@@ -2639,13 +2651,11 @@ formal,couch_mediastorage_sibling_general
 formal_desk,11
 occurrence 34
 apple_1,0.0909091
-book_1,0.181818
 bookend_1,0.0909091
-books_1,0.0909091
 cellphone_1,0.0909091
 chair_1,0.818182
 clock_1,0.0909091
-computer_1,0.363636
+computer_1,0.272727
 computermouse_1,0.363636
 glasses_1,0.0909091
 headphones_1,0.0909091
@@ -2659,6 +2669,7 @@ mousepad_1,0.272727
 noname_1,0.0909091
 notepad_1,0.181818
 notepad_2,0.0909091
+openbook_1,0.181818
 pen_1,0.0909091
 picture_1,0.0909091
 pictureframe_1,0.0909091
@@ -2666,6 +2677,7 @@ pottedplant_1,0.0909091
 printer_1,0.181818
 speaker_1,0.0909091
 speaker_2,0.181818
+standbooks_1,0.0909091
 telecommunication_1,0.0909091
 telephone_1,0.0909091
 trashbin_1,0.0909091
@@ -2676,15 +2688,9 @@ pairwise 33
 formal,desk_apple_parentchild_general
 0 1 0 0 0
 -0.222735 0.419124 0.111211 -0.5
-formal,desk_book_parentchild_general
-0 2 0 0 0
-0.0308441 0.222619 0.506377 0.5,0.0308441 0.222619 0.506377 0.5
 formal,desk_bookend_parentchild_general
 0 1 0 0 0
 -0.0503061 -0.286088 0.503663 0
-formal,desk_books_parentchild_general
-0 1 0 0 0
--0.271409 -0.286101 0.503664 0
 formal,desk_cellphone_proximity_general
 0 1 0 0 0
 -0.362342 0.390727 0.522032 0.5
@@ -2695,8 +2701,8 @@ formal,desk_clock_parentchild_general
 0 1 0 0 0
 0.0679301 -0.282361 0.503663 -0.5
 formal,desk_computer_parentchild_general
-0 3 0 0 0
-0.366621 0.124585 -0.339271 0,0.422308 0.0777947 -0.35409 0,-0.406633 -0.154538 0.506443 -0.00833336
+0 2 0 0 0
+0.366621 0.124585 -0.339271 0,-0.406633 -0.154538 0.506443 -0.00833336
 formal,desk_computer_proximity_general
 0 1 0 0 0
 -0.408267 -0.235144 0.582638 0
@@ -2736,6 +2742,9 @@ formal,desk_noname_parentchild_general
 formal,desk_notepad_parentchild_general
 0 4 0 0 0
 -0.229909 0.27375 0.504089 -0.025,-0.394656 0.239693 0.504087 -0.0416665,-0.201492 0.00732013 0.437084 0.1,-0.351673 0.133805 0.506377 -0.141666
+formal,desk_openbook_parentchild_general
+0 2 0 0 0
+0.0308441 0.222619 0.506377 0.5,0.0308441 0.222619 0.506377 0.5
 formal,desk_pen_parentchild_general
 0 1 0 0 0
 -0.186302 0.281298 0.506377 0.5
@@ -2754,6 +2763,9 @@ formal,desk_printer_parentchild_general
 formal,desk_speaker_parentchild_general
 0 5 0 0 0
 -0.435837 -0.26666 0.504875 -0.075,0.416421 -0.295132 0.504875 0.0666669,-0.279486 -0.192894 0.501012 -0.175026,0.225932 -0.194499 0.500432 0.125034,0.32784 0.0356109 -0.426854 0
+formal,desk_standbooks_parentchild_general
+0 1 0 0 0
+-0.271409 -0.286101 0.503664 0
 formal,desk_telecommunication_parentchild_general
 0 1 0 0 0
 0.347676 -0.0627883 -0.0391025 1
@@ -2803,22 +2815,26 @@ formal,laptop_desklamp_sibling_general
 0 1 0 0 0
 0.826174 -0.587265 -0.499991 0.0666666
 formal_nightstand,1
-occurrence 5
-book_3,1
+occurrence 6
+book_1,1
 bookcase_1,1
-books_2,1
 cup_1,1
+standbook_2,1
+standbooks_2,1
 tableclock_1,1
-pairwise 4
+pairwise 5
 formal,nightstand_book_parentchild_general
-0 2 0 0 0
-0.0719979 0.224066 0.394451 0.5,0.131741 -0.117658 0.505509 0.5
+0 1 0 0 0
+0.131741 -0.117658 0.505509 0.5
 formal,nightstand_bookcase_sibling_general
 0 1 0 0 0
 -4.16195 -0.45226 1.60275 0
 formal,nightstand_cup_parentchild_general
 0 1 0 0 0
 -0.290863 -0.263203 0.505509 -0.5
+formal,nightstand_standbook_parentchild_general
+0 1 0 0 0
+0.0719979 0.224066 0.394451 0.5
 formal,nightstand_tableclock_parentchild_general
 0 1 0 0 0
 -0.261704 0.0269868 0.50551 0.458333
@@ -2861,11 +2877,11 @@ formal,table_candle_parentchild_general
 0 2 0 0 0
 -0.21999 -0.327793 0.508641 -0.566667,-0.21999 -0.327793 0.508641 -0.566667
 formal,table_chair_sibling_general
-4 23 0.221853 0.286318 0.466775
-4,0.341225,0.355201 0.424324 -0.502756 0.78616,0.260273 -0.155179 -0.000423 -0.074722 -0.155179 0.278186 0.000584 0.083734 -0.000423 0.000584 0.101051 0.000372 -0.074722 0.083734 0.000372 0.233183
-4,0.090765,0.35542 0.424092 -0.502757 0.786016,0.260307 -0.155201 -0.000423 -0.074735 -0.155201 0.278205 0.000583 0.083747 -0.000423 0.000583 0.101051 0.000372 -0.074735 0.083747 0.000372 0.233193
-4,0.304691,-0.823689 -0.00940586 -0.501917 -0.524893,0.126621 0.006775 0.000474 -0.004377 0.006775 0.104262 0.000102 -0.001252 0.000474 0.000102 0.100960 -0.000263 -0.004377 -0.001252 -0.000263 0.170730
-4,0.263319,0.347607 -0.515076 -0.503636 0.208608,0.269668 0.164014 -0.000142 0.087443 0.164014 0.286881 0.000372 0.089722 -0.000142 0.000372 0.101180 -0.000339 0.087443 0.089722 -0.000339 0.224935
+4 23 0.253239 0.368728 0.467404
+4,0.302412,0.77145 -0.0679269 -0.505072 0.482391,0.147671 0.011324 -0.000013 0.016347 0.011324 0.122800 -0.000064 0.013552 -0.000013 -0.000064 0.100947 0.000254 0.016347 0.013552 0.000254 0.187030
+4,0.304728,-0.822421 -0.0115912 -0.50515 -0.473711,0.125104 0.006399 -0.000318 0.000077 0.006399 0.104054 -0.000262 0.000161 -0.000318 -0.000262 0.100767 -0.000382 0.000077 0.000161 -0.000382 0.171747
+4,0.256065,0.0533837 0.740341 -0.499507 0.994876,0.122491 -0.023677 -0.000266 -0.009197 -0.023677 0.139572 0.000207 0.015472 -0.000266 0.000207 0.100950 -0.000491 -0.009197 0.015472 -0.000491 0.187920
+4,0.136796,-0.0047733 -0.888231 -0.499664 0.00344584,0.113645 0.015270 -0.000354 0.003526 0.015270 0.139673 -0.000305 0.002244 -0.000354 -0.000305 0.101334 0.000697 0.003526 0.002244 0.000697 0.194611
 formal,table_foodplate_proximity_general
 0 2 0 0 0
 -0.299762 0.0381268 0.512396 0,-0.373284 -0.00756639 0.513038 -0.75
@@ -2912,9 +2928,7 @@ formal,teacup_printer_sibling_general
 messy_bed,5
 occurrence 17
 bear_1,0.2
-book_1,0.4
 book_2,0.2
-books_1,0.4
 cabling_1,0.2
 chocolate_1,0.2
 hat_1,0.2
@@ -2922,25 +2936,21 @@ headphones_1,0.4
 laptop_1,0.4
 milkcarton_1,0.2
 notepad_1,0.2
+openbook_1,0.4
 pants_1,0.2
 pencil_1,0.2
 pillow_1,0.6
 shirt_1,0.4
+stackbooks_1,0.4
 tissuebox_1,0.4
 trashbin_1,0.2
 pairwise 18
 messy,bed_bear_parentchild_general
 0 1 0 0 0
 -0.202343 -0.0917645 0.145145 0.5
-messy,bed_book_parentchild_general
-0 2 0 0 0
-0.0360198 0.348208 0.0442074 0.5,-0.22468 -0.132564 0.0586416 0.5
 messy,bed_book_proximity_general
 0 2 0 0 0
 -0.243982 0.254856 0.257901 0.5,-0.262924 0.247341 0.207048 0.5
-messy,bed_books_parentchild_general
-0 2 0 0 0
--0.242734 0.118801 0.159889 -0.5,-0.242734 0.118801 0.159889 -0.5
 messy,bed_cabling_parentchild_general
 0 1 0 0 0
 0.0810607 0.0116772 0.0442077 0.5
@@ -2962,6 +2972,9 @@ messy,bed_milkcarton_sibling_general
 messy,bed_notepad_proximity_general
 0 1 0 0 0
 -0.00836206 0.383295 0.085813 0.75
+messy,bed_openbook_parentchild_general
+0 2 0 0 0
+0.0360198 0.348208 0.0442074 0.5,-0.22468 -0.132564 0.0586416 0.5
 messy,bed_pants_parentchild_general
 0 1 0 0 0
 0.05964 0.401559 0.0995969 0.5
@@ -2974,6 +2987,9 @@ messy,bed_pillow_parentchild_general
 messy,bed_shirt_parentchild_general
 0 2 0 0 0
 0.267672 0.130931 0.190595 0.5,-0.299274 0.18847 0.0985842 0.5
+messy,bed_stackbooks_parentchild_general
+0 2 0 0 0
+-0.242734 0.118801 0.159889 -0.5,-0.242734 0.118801 0.159889 -0.5
 messy,bed_tissuebox_parentchild_general
 0 1 0 0 0
 0.229118 0.16357 0.0442083 0.583333
@@ -2983,17 +2999,16 @@ messy,bed_tissuebox_sibling_general
 messy,bed_trashbin_sibling_general
 0 1 0 0 0
 0.632398 0.119339 -0.5 0.5
-messy_book,2
-occurrence 8
-bottle_1,0.5
-case_1,0.5
-cellphone_1,0.5
-cerealbox_1,0.5
+messy_book,1
+occurrence 7
+bottle_1,1
+case_1,1
+cellphone_1,1
+cerealbox_1,1
 notepad_1,1
-pen_1,0.5
-pencil_1,0.5
-usbstick_1,0.5
-pairwise 9
+pen_1,1
+usbstick_1,1
+pairwise 7
 messy,book_bottle_sibling_general
 0 1 0 0 0
 -1.50095 -0.500002 -0.922631 0.5
@@ -3006,29 +3021,21 @@ messy,book_cellphone_parentchild_general
 messy,book_cerealbox_sibling_general
 0 1 0 0 0
 -2.10086 0.24197 -0.823608 0
-messy,book_notepad_parentchild_general
-0 1 0 0 0
-0.22356 0.578965 0.043609 0.5
 messy,book_notepad_sibling_general
 0 1 0 0 0
 -0.97122 -0.499992 0.200264 0.5
 messy,book_pen_proximity_general
 0 1 0 0 0
 -0.963179 -0.192797 0.249091 0
-messy,book_pencil_parentchild_general
-0 1 0 0 0
--0.143312 0.430552 0.0660476 0.481559
 messy,book_usbstick_proximity_general
 0 1 0 0 0
 -1.16489 -0.109166 0.0636824 0.5
 messy_bookcase,2
-occurrence 15
+occurrence 16
 ball_1,0.5
 battery_1,0.5
-book_1,0.5
-book_3,0.5
+book_2,0.5
 bookcase_1,0.5
-books_6,0.5
 bottle_9,0.5
 cage_1,0.5
 cap_2,0.5
@@ -3036,21 +3043,18 @@ helmet_1,0.5
 holder_1,0.5
 perfume_1,0.5
 rubikscube_1,0.5
+stackbooks_2,0.5
+standbook_1,1
+standbooks_4,0.5
 telephone_1,0.5
 toyfigure_1,0.5
-pairwise 11
+pairwise 13
 messy,bookcase_book_parentchild_general
-0 3 0 0 0
--0.0220659 0.115147 0.0258054 0.5,0.00223053 0.138436 0.169011 0.5,-0.299304 0.00450298 -0.149006 0.5
-messy,bookcase_book_proximity_general
-0 1 0 0 0
--0.0620241 -0.508945 0.246186 0.5
+0 2 0 0 0
+-0.0220659 0.115147 0.0258054 0.5,0.00223053 0.138436 0.169011 0.5
 messy,bookcase_bookcase_sibling_general
 0 1 0 0 0
 -1.89229 -0.0703264 -0.500001 0
-messy,bookcase_books_parentchild_general
-0 6 0 0 0
-0.0489423 0.0802174 -0.299012 0.5,0.301621 -0.116068 -0.149006 0.45,-0.00309964 0.0568887 0.00100002 0,-0.265045 -0.0961532 0.151005 0,0.105158 -0.139239 0.301012 0,0.34231 -0.172778 0.300783 0.5
 messy,bookcase_bottle_proximity_general
 0 5 0 0 0
 -0.29546 0.0283119 0.0471507 0.25,-1.31522 0.328022 -0.230199 0,-0.88892 0.309874 -0.230199 0,-1.1581 0.0545335 -0.230199 4.74319e-09,-1.55296 -0.341864 -0.2302 0
@@ -3072,6 +3076,18 @@ messy,bookcase_holder_parentchild_general
 messy,bookcase_rubikscube_parentchild_general
 0 1 0 0 0
 0.197247 -0.0474052 0.168657 0
+messy,bookcase_stackbooks_parentchild_general
+0 2 0 0 0
+0.301621 -0.116068 -0.149006 0.45,0.105158 -0.139239 0.301012 0
+messy,bookcase_standbook_parentchild_general
+0 1 0 0 0
+-0.299304 0.00450298 -0.149006 0.5
+messy,bookcase_standbook_proximity_general
+0 1 0 0 0
+-0.0620241 -0.508945 0.246186 0.5
+messy,bookcase_standbooks_parentchild_general
+0 4 0 0 0
+0.0489423 0.0802174 -0.299012 0.5,-0.00309964 0.0568887 0.00100002 0,-0.265045 -0.0961532 0.151005 0,0.34231 -0.172778 0.300783 0.5
 messy_computer,1
 occurrence 8
 cellphone_1,1
@@ -3137,7 +3153,6 @@ messy,couch_table_sibling_general
 messy_counter,1
 occurrence 12
 beaker_1,1
-book_1,1
 bottle_1,1
 bunsen burner_1,1
 calculator_1,1
@@ -3145,6 +3160,7 @@ erlenmeyer flask_3,1
 holder_1,1
 laptop_1,1
 notepad_1,1
+openbook_1,1
 pen_1,1
 pillbottle_2,1
 tissuebox_1,1
@@ -3152,9 +3168,6 @@ pairwise 12
 messy,counter_beaker_parentchild_general
 0 1 0 0 0
 -0.147993 -0.406733 0.506201 -0.5
-messy,counter_book_parentchild_general
-0 1 0 0 0
-0.37214 -0.146429 0.506201 0.5
 messy,counter_bottle_parentchild_general
 0 1 0 0 0
 0.125591 -0.0167915 0.506201 -0.5
@@ -3176,6 +3189,9 @@ messy,counter_laptop_parentchild_general
 messy,counter_notepad_parentchild_general
 0 1 0 0 0
 0.362413 0.371611 0.506199 -0.291666
+messy,counter_openbook_parentchild_general
+0 1 0 0 0
+0.37214 -0.146429 0.506201 0.5
 messy,counter_pen_parentchild_general
 0 1 0 0 0
 0.345922 0.00367733 0.5062 -0.575
@@ -3186,13 +3202,11 @@ messy,counter_tissuebox_parentchild_general
 0 1 0 0 0
 -0.034052 -0.215814 0.506201 -0.5
 messy_desk,19
-occurrence 76
+occurrence 74
 apple_1,0.0526316
 binder_1,0.105263
 book_1,0.315789
-book_2,0.0526316
-book_4,0.0526316
-books_1,0.0526316
+book_3,0.0526316
 bottle_1,0.0526316
 bowl_1,0.157895
 camera tripod_1,0.0526316
@@ -3203,7 +3217,6 @@ cellulose tape_1,0.0526316
 cerealbox_2,0.0526316
 chair_1,0.210526
 chair_2,0.0526316
-compact disk_1,0.0526316
 computer_1,0.0526316
 computermouse_1,0.421053
 computermouse_2,0.0526316
@@ -3233,6 +3246,7 @@ monitor_2,0.0526316
 mousepad_1,0.368421
 noname_1,0.105263
 notepad_1,0.526316
+openbook_1,0.105263
 orange toast_1,0.0526316
 organ_1,0.0526316
 paper_1,0.263158
@@ -3248,13 +3262,13 @@ pictureframe_1,0.210526
 powerstrip_1,0.0526316
 printer_1,0.0526316
 punch_1,0.0526316
-radio_1,0.0526316
 rubikscube_1,0.157895
 scissors_1,0.0526316
 sodacan_1,0.368421
 speaker_1,0.0526316
 speaker_2,0.315789
 speaker_5,0.0526316
+stackbooks_1,0.0526316
 stapler_1,0.157895
 tableclock_1,0.0526316
 telephone_1,0.0526316
@@ -3263,7 +3277,7 @@ trashbin_1,0.105263
 usbstick_1,0.0526316
 videogamecontroller_1,0.0526316
 wallet_1,0.0526316
-pairwise 71
+pairwise 70
 messy,desk_apple_parentchild_general
 0 1 0 0 0
 -0.222735 0.419124 0.111211 -0.5
@@ -3271,14 +3285,11 @@ messy,desk_binder_parentchild_general
 0 2 0 0 0
 -0.0133143 -0.261264 0.506377 9.61593e-08,0.360181 0.284036 0.506651 -0.00662538
 messy,desk_book_parentchild_general
-0 11 0 0 0
-0.192588 -0.300031 0.504875 0.5,0.37506 0.316072 0.505426 0.5,-0.424959 -0.246032 0.348171 0.5,0.192588 -0.300031 0.504875 0.5,0.0668661 0.251442 0.505223 0.5,0.396349 0.251375 0.505223 0.5,0.266092 0.179642 0.505224 0.5,0.0308441 0.222619 0.506377 0.5,-0.192201 -0.242097 0.506377 0.5,-0.409958 0.241212 0.505481 0.5,-0.409958 0.241212 0.505481 0.5
+0 8 0 0 0
+0.192588 -0.300031 0.504875 0.5,0.37506 0.316072 0.505426 0.5,0.192588 -0.300031 0.504875 0.5,0.396349 0.251375 0.505223 0.5,0.266092 0.179642 0.505224 0.5,-0.192201 -0.242097 0.506377 0.5,-0.409958 0.241212 0.505481 0.5,-0.409958 0.241212 0.505481 0.5
 messy,desk_book_proximity_general
 0 1 0 0 0
 0.41002 0.249737 0.611721 0.5
-messy,desk_books_parentchild_general
-0 1 0 0 0
-0.246279 -0.254285 0.459272 0
 messy,desk_bottle_parentchild_general
 0 1 0 0 0
 -0.300418 -0.225278 0.50548 0
@@ -3306,9 +3317,6 @@ messy,desk_cerealbox_parentchild_general
 messy,desk_chair_sibling_general
 0 6 0 0 0
 0.0627419 0.864468 -0.499998 1,0.0133746 1.00906 -0.500001 1,-0.116477 0.70646 -0.500003 -0.925,-0.116477 0.70646 -0.500003 -0.925,-1.1194 4.0775 -0.500004 0.5,-0.0172584 0.730794 -0.499999 0.5
-messy,desk_compact disk_parentchild_general
-0 1 0 0 0
--0.144421 -0.298421 0.264825 0.5
 messy,desk_computer_parentchild_general
 0 1 0 0 0
 0.366621 0.124585 -0.339271 0
@@ -3393,6 +3401,9 @@ messy,desk_noname_parentchild_general
 messy,desk_notepad_parentchild_general
 0 10 0 0 0
 -0.247189 -0.0457632 0.504876 0.25,-0.247189 -0.0457632 0.504876 0.25,-0.261032 0.282781 0.506394 0.116666,-0.208666 -0.0319659 0.0814892 -0.225,-0.247189 -0.0457632 0.504876 0.25,-0.351673 0.133805 0.506377 -0.141666,-0.280709 0.217443 0.50548 -0.0666668,-0.280709 0.217443 0.50548 -0.0666668,-0.205941 0.276097 0.224104 0,-0.205941 0.276097 0.224104 0
+messy,desk_openbook_parentchild_general
+0 2 0 0 0
+0.0668661 0.251442 0.505223 0.5,0.0308441 0.222619 0.506377 0.5
 messy,desk_orange toast_parentchild_general
 0 1 0 0 0
 0.348176 0.211558 0.506222 0.0583332
@@ -3435,9 +3446,6 @@ messy,desk_printer_parentchild_general
 messy,desk_punch_parentchild_general
 0 1 0 0 0
 0.19045 0.0276297 0.506651 -0.0463801
-messy,desk_radio_proximity_general
-0 1 0 0 0
-0.427673 0.0343011 -0.0417663 0
 messy,desk_rubikscube_parentchild_general
 0 3 0 0 0
 0.0252176 -0.0748396 0.550967 0.0333335,0.0765078 -0.0599311 0.506443 -0.05,-0.121074 -0.17336 0.50548 0.283333
@@ -3448,11 +3456,14 @@ messy,desk_sodacan_parentchild_general
 0 7 0 0 0
 0.451663 0.138392 0.504872 0,0.451663 0.138392 0.504872 0,0.336744 0.123142 0.506393 -0.5,0.298012 0.41743 0.111211 0,0.212981 0.303689 0.506222 0,0.451663 0.138392 0.504872 0,-0.265006 -0.320028 0.505482 -0.25
 messy,desk_speaker_parentchild_general
-1 15 0.609219 0.765581 0.792298
-4,1,-0.0283107 -0.21049 0.498196 0.0367708,0.265572 0.026364 -0.000484 0.036887 0.026364 0.120723 0.000810 0.011808 -0.000484 0.000810 0.101033 0.000242 0.036887 0.011808 0.000242 0.184080
+1 15 0.602145 0.765301 0.79273
+4,1,-0.0310276 -0.210018 0.497362 0.0291381,0.267187 0.026238 -0.000103 0.031102 0.026238 0.119801 0.000517 0.012417 -0.000103 0.000517 0.101024 -0.000332 0.031102 0.012417 -0.000332 0.185003
 messy,desk_speaker_sibling_general
 0 1 0 0 0
 -1.3567 5.12458 -0.500002 -0.5
+messy,desk_stackbooks_parentchild_general
+0 1 0 0 0
+0.246279 -0.254285 0.459272 0
 messy,desk_stapler_parentchild_general
 0 3 0 0 0
 -0.221822 0.250807 0.505224 -0.0750001,0.0466066 -0.181483 0.506719 0.525,0.0696058 -0.349396 0.506651 0.411706
@@ -3496,12 +3507,12 @@ messy_dresser,3
 occurrence 12
 aerosol_1,0.333333
 book_1,0.333333
-books_1,0.333333
 bottle_1,0.333333
 cube_1,0.333333
 dart_4,0.333333
 lamp_1,0.333333
 rule_1,0.333333
+stackbooks_1,0.333333
 tape_1,0.333333
 tissuebox_1,0.333333
 toyfigure_1,0.666667
@@ -3513,9 +3524,6 @@ messy,dresser_aerosol_parentchild_general
 messy,dresser_book_parentchild_general
 0 1 0 0 0
 0.0182322 0.194161 0.504111 0.5
-messy,dresser_books_parentchild_general
-0 1 0 0 0
--0.305737 0.281664 0.504111 -0.5
 messy,dresser_bottle_parentchild_general
 0 1 0 0 0
 0.328422 0.276309 0.504111 0
@@ -3531,6 +3539,9 @@ messy,dresser_lamp_parentchild_general
 messy,dresser_rule_parentchild_general
 0 1 0 0 0
 -0.337781 0.138974 0.506465 -0.25
+messy,dresser_stackbooks_parentchild_general
+0 1 0 0 0
+-0.305737 0.281664 0.504111 -0.5
 messy,dresser_tape_parentchild_general
 0 1 0 0 0
 -0.398005 0.338238 0.506466 1
@@ -3566,7 +3577,6 @@ messy,game_tape_sibling_general
 messy_keyboard,6
 occurrence 34
 airplane_1,0.166667
-book_1,0.166667
 bottle_1,0.166667
 bowl_1,0.333333
 calculator_1,0.333333
@@ -3584,6 +3594,7 @@ monitor_1,0.166667
 mousepad_1,0.5
 mug_1,0.333333
 notepad_1,0.333333
+openbook_1,0.166667
 orange toast_1,0.333333
 pen_1,0.166667
 pencil_1,0.166667
@@ -3603,9 +3614,6 @@ pairwise 31
 messy,keyboard_airplane_sibling_general
 0 1 0 0 0
 0.189696 -1.23651 -0.499995 -0.308334
-messy,keyboard_book_sibling_general
-0 1 0 0 0
-1.34089 0.0198413 -0.499975 0.5
 messy,keyboard_bottle_sibling_general
 0 1 0 0 0
 -1.28723 -0.723642 -0.500015 -0.0333335
@@ -3657,6 +3665,9 @@ messy,keyboard_mug_sibling_general
 messy,keyboard_notepad_sibling_general
 0 2 0 0 0
 -1.40541 0.00710304 -0.499945 0.116666,-1.71435 -0.370888 -0.499968 0.025
+messy,keyboard_openbook_sibling_general
+0 1 0 0 0
+1.34089 0.0198413 -0.499975 0.5
 messy,keyboard_orange toast_sibling_general
 0 2 0 0 0
 1.20249 0.0907148 -0.500052 0.0583332,1.24805 -0.51151 -0.500052 0.0583332
@@ -3697,7 +3708,6 @@ messy_laptop,6
 occurrence 30
 beaker_1,0.166667
 binder_1,0.333333
-book_1,0.333333
 bowl_1,0.166667
 cabling_1,0.166667
 calculator_1,0.166667
@@ -3711,6 +3721,7 @@ frame_1,0.166667
 holder_1,0.333333
 mug_2,0.166667
 notepad_1,0.5
+openbook_1,0.333333
 organ_1,0.166667
 paper_2,0.166667
 paper_3,0.333333
@@ -3732,9 +3743,6 @@ messy,laptop_beaker_sibling_general
 messy,laptop_binder_sibling_general
 0 2 0 0 0
 1.33443 3.47056 -0.49998 0.4,1.59916 5.07382 -0.500015 0.389959
-messy,laptop_book_sibling_general
-0 2 0 0 0
-1.86315 1.41619 -0.563843 0.5,-1.45914 0.182786 -0.499979 0.5
 messy,laptop_bowl_sibling_general
 0 1 0 0 0
 -0.203757 -2.15615 -0.499998 -0.216667
@@ -3774,6 +3782,9 @@ messy,laptop_mug_sibling_general
 messy,laptop_notepad_sibling_general
 0 2 0 0 0
 -4.82981 -0.49552 -0.499986 0.275,-1.61968 1.62444 -0.499977 -0.225
+messy,laptop_openbook_sibling_general
+0 2 0 0 0
+1.86315 1.41619 -0.563843 0.5,-1.45914 0.182786 -0.499979 0.5
 messy,laptop_organ_sibling_general
 0 1 0 0 0
 2.02737 0.325517 -0.500015 -0.609616
@@ -3912,6 +3923,17 @@ messy,nightstand_pillbottle_parentchild_general
 messy,nightstand_tableclock_parentchild_general
 0 1 0 0 0
 -0.228659 0.213529 0.463773 0.4
+messy_openbook,1
+occurrence 2
+notepad_1,1
+pencil_1,1
+pairwise 2
+messy,openbook_notepad_parentchild_general
+0 1 0 0 0
+0.22356 0.578965 0.043609 0.5
+messy,openbook_pencil_parentchild_general
+0 1 0 0 0
+-0.143312 0.430552 0.0660476 0.481559
 messy_paper,1
 occurrence 5
 cup_1,1
@@ -3938,75 +3960,73 @@ messy,paper_pencil sharpener_parentchild_general
 messy,paper_pencil_proximity_general
 0 1 0 0 0
 -0.578446 0.192697 -5.01277 -0.025
-messy_table,15
-occurrence 63
-book_1,0.333333
-bottle_1,0.0666667
-bowl_1,0.4
-bowl_2,0.133333
-breadslice_1,0.133333
-camera_1,0.0666667
-candle_1,0.333333
-canopener_1,0.0666667
-cap_1,0.0666667
-cellphone_1,0.133333
-chair_2,0.0666667
-chair_4,0.0666667
-chessboard_1,0.0666667
-chessman_1,0.0666667
-chestofdrawers_1,0.0666667
-coaster_1,0.0666667
-coffee maker_1,0.0666667
-coffee mug_1,0.0666667
-coin_4,0.0666667
-cup_1,0.266667
-cup_2,0.0666667
-decorativeaccessory_1,0.0666667
-diet_1,0.0666667
-donutbox_1,0.0666667
-foodplate_1,0.2
-foodplate_2,0.133333
-fork_1,0.0666667
-fruit_1,0.0666667
-glasses_1,0.133333
-hamburger_1,0.2
-holder_1,0.133333
-holder_2,0.0666667
-knife_1,0.0666667
-laptop_1,0.266667
-magazine_1,0.266667
-money_2,0.133333
-mug_1,0.266667
-mug_2,0.266667
-notepad_1,0.0666667
-pepper mill_1,0.133333
-pepper_1,0.0666667
-pictureframe_2,0.0666667
-pizza_1,0.0666667
-plate_1,0.133333
-plate_2,0.2
-pot_1,0.133333
-pottedplant_1,0.333333
-purse_1,0.0666667
-remote control_2,0.0666667
-salad_1,0.0666667
-sandwich_1,0.0666667
-sandwich_4,0.0666667
-sodacan_1,0.133333
-speaker_1,0.0666667
-teacup_1,0.133333
-telephone_1,0.0666667
-tissuebox_1,0.0666667
-tongs_1,0.0666667
-toyfigure_1,0.133333
-tray_1,0.0666667
-unknown_1,0.0666667
-videogamecontroller_1,0.0666667
-wallet_1,0.133333
-pairwise 62
+messy_table,14
+occurrence 61
+book_1,0.285714
+bottle_1,0.0714286
+bowl_1,0.428571
+bowl_2,0.142857
+breadslice_1,0.142857
+camera_1,0.0714286
+candle_1,0.357143
+canopener_1,0.0714286
+cap_1,0.0714286
+cellphone_1,0.142857
+chair_2,0.0714286
+chair_4,0.0714286
+chessboard_1,0.0714286
+chessman_1,0.0714286
+chestofdrawers_1,0.0714286
+coffee maker_1,0.0714286
+coffee mug_1,0.0714286
+coin_4,0.0714286
+cup_1,0.285714
+cup_2,0.0714286
+decorativeaccessory_1,0.0714286
+diet_1,0.0714286
+donutbox_1,0.0714286
+foodplate_1,0.214286
+foodplate_2,0.142857
+fork_1,0.0714286
+fruit_1,0.0714286
+glasses_1,0.142857
+hamburger_1,0.214286
+holder_1,0.142857
+holder_2,0.0714286
+knife_1,0.0714286
+laptop_1,0.285714
+magazine_1,0.285714
+money_2,0.142857
+mug_1,0.285714
+mug_2,0.285714
+notepad_1,0.0714286
+pepper mill_1,0.142857
+pepper_1,0.0714286
+pictureframe_2,0.0714286
+pizza_1,0.0714286
+plate_1,0.142857
+plate_2,0.214286
+pot_1,0.142857
+pottedplant_1,0.285714
+purse_1,0.0714286
+remote control_2,0.0714286
+salad_1,0.0714286
+sandwich_1,0.0714286
+sandwich_4,0.0714286
+sodacan_1,0.142857
+teacup_1,0.142857
+telephone_1,0.0714286
+tissuebox_1,0.0714286
+tongs_1,0.0714286
+toyfigure_1,0.142857
+tray_1,0.0714286
+unknown_1,0.0714286
+videogamecontroller_1,0.0714286
+wallet_1,0.142857
+pairwise 60
 messy,table_book_parentchild_general
-0 5 0 0 0
-0.379698 0.268808 0.507574 0.5,0.162015 0.0730494 0.506915 0.5,0.243273 -0.0227073 0.506351 0.5,-0.380126 0.228286 0.504991 0.5,0.155671 0.352546 0.460951 0.5
+0 4 0 0 0
+0.379698 0.268808 0.507574 0.5,0.162015 0.0730494 0.506915 0.5,0.243273 -0.0227073 0.506351 0.5,-0.380126 0.228286 0.504991 0.5
 messy,table_bottle_parentchild_general
 0 1 0 0 0
 -0.0727399 0.0394328 0.504991 -0.508231
@@ -4052,9 +4072,6 @@ messy,table_chessman_parentchild_general
 messy,table_chestofdrawers_parentchild_general
 0 1 0 0 0
 0.142671 -0.322745 0.507574 0.0166667
-messy,table_coaster_proximity_general
-0 1 0 0 0
--0.372996 -0.0248445 0.570393 1
 messy,table_coffee maker_parentchild_general
 0 1 0 0 0
 -0.41942 -0.341912 0.507575 0
@@ -4140,8 +4157,8 @@ messy,table_pot_parentchild_general
 0 2 0 0 0
 0.00776846 -0.124968 0.506205 -0.208334,0.00776846 -0.124968 0.506205 -0.208334
 messy,table_pottedplant_parentchild_general
-0 5 0 0 0
--0.291288 -0.309346 0.507574 0,-0.0785816 -0.254507 0.508642 0,-0.160142 -0.113247 0.506915 0.5,0.0236811 -0.00357088 0.504992 -0.749001,-0.224245 0.0444729 0.460951 -0.5
+0 4 0 0 0
+-0.291288 -0.309346 0.507574 0,-0.0785816 -0.254507 0.508642 0,-0.160142 -0.113247 0.506915 0.5,0.0236811 -0.00357088 0.504992 -0.749001
 messy,table_purse_sibling_general
 0 1 0 0 0
 -0.759668 0.177055 -0.500001 0.358333
@@ -4157,9 +4174,6 @@ messy,table_sandwich_proximity_general
 messy,table_sodacan_parentchild_general
 0 2 0 0 0
 0.353668 0.278366 0.506915 0.5,-0.44203 0.322054 0.507613 1
-messy,table_speaker_sibling_general
-0 1 0 0 0
--0.701507 -0.260584 -0.5 0.15
 messy,table_teacup_parentchild_general
 0 2 0 0 0
 0.207435 0.201461 0.506205 0,0.207435 0.201461 0.506205 0
@@ -4314,11 +4328,11 @@ narrow,backpack_bed_sibling_general
 0.514322 -3.38931 -0.500001 -0.0250001
 narrow_bed,2
 occurrence 3
-book_1,0.5
+openbook_1,0.5
 pillow_2,0.5
 shirt_1,0.5
 pairwise 3
-narrow,bed_book_parentchild_general
+narrow,bed_openbook_parentchild_general
 0 1 0 0 0
 -0.22468 -0.132564 0.0586416 0.5
 narrow,bed_pillow_parentchild_general
@@ -4328,11 +4342,11 @@ narrow,bed_shirt_parentchild_general
 0 1 0 0 0
 -0.299274 0.18847 0.0985842 0.5
 narrow_bookcase,3
-occurrence 27
+occurrence 28
 ball_1,0.333333
 battery_1,0.333333
 book_1,0.333333
-book_3,0.333333
+book_2,0.333333
 bookcase_1,0.333333
 bottle_9,0.333333
 cage_1,0.333333
@@ -4348,6 +4362,7 @@ pianokeyboard_2,0.333333
 player_1,0.333333
 remote control_1,0.333333
 rubikscube_1,0.333333
+standbook_1,0.333333
 telephone_1,0.333333
 toy_1,0.333333
 toyfigure_1,0.333333
@@ -4356,13 +4371,13 @@ usbstick_1,0.333333
 videodisk_1,0.333333
 videogameconsole_1,0.333333
 videogamecontroller_1,0.333333
-pairwise 24
+pairwise 25
 narrow,bookcase_book_parentchild_general
 0 2 0 0 0
 -0.0220659 0.115147 0.0258054 0.5,0.00223053 0.138436 0.169011 0.5
 narrow,bookcase_book_proximity_general
-0 2 0 0 0
--0.0620241 -0.508945 0.246186 0.5,0.221743 0.00652005 -0.423078 0.5
+0 1 0 0 0
+0.221743 0.00652005 -0.423078 0.5
 narrow,bookcase_bookcase_sibling_general
 0 1 0 0 0
 -1.89229 -0.0703264 -0.500001 0
@@ -4411,6 +4426,9 @@ narrow,bookcase_remote control_parentchild_general
 narrow,bookcase_rubikscube_parentchild_general
 0 1 0 0 0
 -0.204906 0.318156 -0.510359 -0.483333
+narrow,bookcase_standbook_proximity_general
+0 1 0 0 0
+-0.0620241 -0.508945 0.246186 0.5
 narrow,bookcase_toy_parentchild_general
 0 1 0 0 0
 -0.253586 -0.125612 -0.165316 -1.95567e-08
@@ -4515,8 +4533,7 @@ narrow,couch_table_sibling_general
 narrow_desk,14
 occurrence 35
 binder_1,0.0714286
-book_1,0.142857
-book_2,0.0714286
+book_1,0.0714286
 bowl_1,0.0714286
 cellphone_1,0.0714286
 chair_1,0.714286
@@ -4539,6 +4556,7 @@ mousepad_1,0.285714
 noname_1,0.142857
 notepad_1,0.214286
 notepad_2,0.0714286
+openbook_1,0.214286
 pen_1,0.0714286
 printer_1,0.142857
 rubikscube_1,0.0714286
@@ -4549,13 +4567,13 @@ telecommunication_1,0.0714286
 telephone_1,0.142857
 trashbin_1,0.214286
 videogamecontroller_2,0.0714286
-pairwise 29
+pairwise 30
 narrow,desk_binder_parentchild_general
 0 1 0 0 0
 -0.0133143 -0.261264 0.506377 9.61593e-08
 narrow,desk_book_parentchild_general
-0 4 0 0 0
-0.0308441 0.222619 0.506377 0.5,0.0308441 0.222619 0.506377 0.5,-0.192201 -0.242097 0.506377 0.5,0.0308441 0.222619 0.506377 0.5
+0 1 0 0 0
+-0.192201 -0.242097 0.506377 0.5
 narrow,desk_cellphone_proximity_general
 0 1 0 0 0
 -0.362342 0.390727 0.522032 0.5
@@ -4610,6 +4628,9 @@ narrow,desk_noname_parentchild_general
 narrow,desk_notepad_parentchild_general
 0 5 0 0 0
 -0.229909 0.27375 0.504089 -0.025,-0.394656 0.239693 0.504087 -0.0416665,-0.201492 0.00732013 0.437084 0.1,-0.351673 0.133805 0.506377 -0.141666,-0.351673 0.133805 0.506377 -0.141666
+narrow,desk_openbook_parentchild_general
+0 3 0 0 0
+0.0308441 0.222619 0.506377 0.5,0.0308441 0.222619 0.506377 0.5,0.0308441 0.222619 0.506377 0.5
 narrow,desk_pen_parentchild_general
 0 1 0 0 0
 -0.186302 0.281298 0.506377 0.5
@@ -4656,12 +4677,12 @@ narrow_dresser,3
 occurrence 12
 aerosol_1,0.333333
 book_1,0.333333
-books_1,0.333333
 bottle_1,0.333333
 cube_1,0.333333
 dart_4,0.333333
 lamp_1,0.333333
 rule_1,0.333333
+stackbooks_1,0.333333
 tape_1,0.333333
 tissuebox_1,0.333333
 toyfigure_1,0.666667
@@ -4673,9 +4694,6 @@ narrow,dresser_aerosol_parentchild_general
 narrow,dresser_book_parentchild_general
 0 1 0 0 0
 0.0182322 0.194161 0.504111 0.5
-narrow,dresser_books_parentchild_general
-0 1 0 0 0
--0.305737 0.281664 0.504111 -0.5
 narrow,dresser_bottle_parentchild_general
 0 1 0 0 0
 0.328422 0.276309 0.504111 0
@@ -4691,6 +4709,9 @@ narrow,dresser_lamp_parentchild_general
 narrow,dresser_rule_parentchild_general
 0 1 0 0 0
 -0.337781 0.138974 0.506465 -0.25
+narrow,dresser_stackbooks_parentchild_general
+0 1 0 0 0
+-0.305737 0.281664 0.504111 -0.5
 narrow,dresser_tape_parentchild_general
 0 1 0 0 0
 -0.398005 0.338238 0.506466 1
@@ -4757,23 +4778,27 @@ narrow,mediastorage_vase_parentchild_general
 0 2 0 0 0
 -0.151745 -0.236557 0.264335 0,0.166177 -0.163238 0.264336 0
 narrow_nightstand,2
-occurrence 6
-book_2,0.5
-book_3,0.5
+occurrence 7
+book_1,1
 bookcase_1,0.5
-books_2,0.5
 cup_1,1
+standbook_1,0.5
+standbook_2,0.5
+standbooks_2,0.5
 tableclock_1,1
-pairwise 4
+pairwise 5
 narrow,nightstand_book_parentchild_general
-0 4 0 0 0
-0.0719979 0.224066 0.394451 0.5,0.131741 -0.117658 0.505509 0.5,0.0719979 0.224066 0.394451 0.5,0.131741 -0.117658 0.505509 0.5
+0 2 0 0 0
+0.131741 -0.117658 0.505509 0.5,0.131741 -0.117658 0.505509 0.5
 narrow,nightstand_bookcase_sibling_general
 0 1 0 0 0
 -4.16195 -0.45226 1.60275 0
 narrow,nightstand_cup_parentchild_general
 0 2 0 0 0
 -0.290863 -0.263203 0.505509 -0.5,-0.290863 -0.263203 0.505509 -0.5
+narrow,nightstand_standbook_parentchild_general
+0 2 0 0 0
+0.0719979 0.224066 0.394451 0.5,0.0719979 0.224066 0.394451 0.5
 narrow,nightstand_tableclock_parentchild_general
 0 2 0 0 0
 -0.261704 0.0269868 0.50551 0.458333,-0.261704 0.0269868 0.50551 0.458333
@@ -4803,29 +4828,23 @@ narrow,speaker_sword_sibling_general
 narrow,speaker_wallart_sibling_general
 0 1 0 0 0
 0.205768 -1.06361 0.195147 0.300001
-narrow_table,6
-occurrence 17
-book_1,0.166667
-cabinet_1,0.166667
-chair_1,0.166667
-chair_3,0.333333
-chessman_1,0.166667
-coaster_1,0.166667
-coffee mug_1,0.166667
-couch_1,0.166667
-lamp_1,0.166667
-mug_1,0.166667
-pottedplant_1,0.5
-remote control_1,0.166667
-sodacan_1,0.166667
-speaker_1,0.166667
-speaker_2,0.166667
-table_1,0.166667
-tv_1,0.166667
-pairwise 14
-narrow,table_book_parentchild_general
-0 1 0 0 0
-0.155671 0.352546 0.460951 0.5
+narrow_table,5
+occurrence 14
+cabinet_1,0.2
+chair_1,0.2
+chair_3,0.4
+chessman_1,0.2
+coffee mug_1,0.2
+couch_1,0.2
+lamp_1,0.2
+mug_1,0.2
+pottedplant_1,0.4
+remote control_1,0.2
+sodacan_1,0.2
+speaker_2,0.2
+table_1,0.2
+tv_1,0.2
+pairwise 11
 narrow,table_cabinet_sibling_general
 0 1 0 0 0
 0.010995 -1.19003 -0.499995 0
@@ -4835,9 +4854,6 @@ narrow,table_chair_sibling_general
 narrow,table_chessman_parentchild_general
 0 1 0 0 0
 -0.00809337 -0.0610103 0.507613 1
-narrow,table_coaster_proximity_general
-0 1 0 0 0
--0.372996 -0.0248445 0.570393 1
 narrow,table_coffee mug_proximity_general
 0 1 0 0 0
 0.336398 -0.190379 0.539003 -0.616666
@@ -4851,17 +4867,14 @@ narrow,table_mug_proximity_general
 0 1 0 0 0
 -0.364911 0.00547483 0.545797 0
 narrow,table_pottedplant_parentchild_general
-0 2 0 0 0
-0.0236811 -0.00357088 0.504992 -0.749001,-0.224245 0.0444729 0.460951 -0.5
+0 1 0 0 0
+0.0236811 -0.00357088 0.504992 -0.749001
 narrow,table_remote control_parentchild_general
 0 1 0 0 0
 -0.0661626 0.303641 0.508933 -0.45
 narrow,table_sodacan_parentchild_general
 0 1 0 0 0
 -0.44203 0.322054 0.507613 1
-narrow,table_speaker_sibling_general
-0 1 0 0 0
--0.701507 -0.260584 -0.5 0.15
 narrow,table_table_sibling_general
 0 1 0 0 0
 0.913831 1.4998 -0.499998 0
@@ -4906,15 +4919,10 @@ organized,bed_pillow_parentchild_general
 0 2 0 0 0
 -0.19983 -0.204912 0.0303763 0.966667,0.258651 -0.203888 0.0303763 -0.95
 organized_bookcase,15
-occurrence 41
+occurrence 45
 ball_1,0.0666667
 book_1,0.2
-book_2,0.0666667
 bookcase_1,0.133333
-books_1,0.133333
-books_3,0.0666667
-books_6,0.133333
-books_8,0.0666667
 cap_1,0.0666667
 cassette_2,0.0666667
 chair_1,0.0666667
@@ -4929,6 +4937,7 @@ lamp_1,0.2
 mediadiscs_1,0.0666667
 mediaplayer_1,0.0666667
 mediaplayer_2,0.0666667
+openbook_1,0.0666667
 pianokeyboard_2,0.133333
 pictureframe_1,0.0666667
 player_1,0.0666667
@@ -4937,6 +4946,14 @@ pottedplant_1,0.266667
 remote control_1,0.0666667
 rubikscube_1,0.133333
 speaker_2,0.0666667
+stackbooks_1,0.2
+stackbooks_2,0.0666667
+standbook_1,0.0666667
+standbooks_1,0.0666667
+standbooks_2,0.0666667
+standbooks_4,0.0666667
+standbooks_6,0.0666667
+standbooks_7,0.0666667
 toy_1,0.0666667
 toyfigure_1,0.0666667
 toyfigure_2,0.2
@@ -4948,25 +4965,19 @@ videogamecontroller_1,0.0666667
 wallart_1,0.266667
 wallart_2,0.133333
 wallclock_1,0.0666667
-pairwise 36
+pairwise 39
 organized,bookcase_ball_parentchild_general
 0 1 0 0 0
 -0.187463 0.540758 -0.270441 0.5
 organized,bookcase_book_parentchild_general
-0 4 0 0 0
-0.0759605 -0.0361707 -0.202596 0.5,-0.0530831 0.0146696 -0.313125 0.5,-0.299304 0.00450298 -0.149006 0.5,0.244576 -0.0887107 0.269427 0.5
+0 2 0 0 0
+0.0759605 -0.0361707 -0.202596 0.5,0.244576 -0.0887107 0.269427 0.5
 organized,bookcase_book_proximity_general
 0 1 0 0 0
 0.221743 0.00652005 -0.423078 0.5
 organized,bookcase_bookcase_sibling_general
 0 2 0 0 0
 -1.89229 -0.0703264 -0.500001 0,0.771666 0.0507725 -0.500001 0
-organized,bookcase_books_parentchild_general
-1 24 0.563339 0.656751 0.698039
-4,1,0.0176141 0.0442482 -0.00536139 0.0948247,0.176744 0.002730 -0.015017 0.025971 0.002730 0.116719 -0.007127 -0.004266 -0.015017 -0.007127 0.141288 -0.008168 0.025971 -0.004266 -0.008168 0.222177
-organized,bookcase_books_proximity_general
-0 1 0 0 0
-0.707256 0.0656123 -0.306518 -0.5
 organized,bookcase_cap_proximity_general
 0 1 0 0 0
 0.755572 0.0835735 0.339738 -0.25
@@ -5006,6 +5017,9 @@ organized,bookcase_mediaplayer_parentchild_general
 organized,bookcase_mediaplayer_proximity_general
 0 1 0 0 0
 0.184327 0.176685 0.587088 -1.95567e-08
+organized,bookcase_openbook_parentchild_general
+0 1 0 0 0
+-0.0530831 0.0146696 -0.313125 0.5
 organized,bookcase_pianokeyboard_parentchild_general
 0 4 0 0 0
 -0.0594514 0.0265511 -0.470395 4.74319e-09,0.0407014 0.015859 -0.165316 0.0166667,0.0407014 0.015859 -0.165316 0.0166667,-0.0594514 0.0265511 -0.470395 4.74319e-09
@@ -5030,6 +5044,18 @@ organized,bookcase_rubikscube_parentchild_general
 organized,bookcase_speaker_parentchild_general
 0 2 0 0 0
 -0.338833 0.143378 -0.470395 0,-0.294306 0.141934 -0.470395 0
+organized,bookcase_stackbooks_parentchild_general
+0 4 0 0 0
+-0.354195 -0.0964356 0.113205 0,-0.354195 -0.0964356 0.113205 0,0.301621 -0.116068 -0.149006 0.45,0.105158 -0.139239 0.301012 0
+organized,bookcase_stackbooks_proximity_general
+0 1 0 0 0
+0.707256 0.0656123 -0.306518 -0.5
+organized,bookcase_standbook_parentchild_general
+0 1 0 0 0
+-0.299304 0.00450298 -0.149006 0.5
+organized,bookcase_standbooks_parentchild_general
+1 20 0.586161 0.688408 0.787191
+4,1,0.0383407 0.0757202 -0.0261031 0.097599,0.172282 0.000750 -0.012505 0.023019 0.000750 0.111452 -0.004682 -0.001242 -0.012505 -0.004682 0.142044 -0.010857 0.023019 -0.001242 -0.010857 0.217321
 organized,bookcase_toy_parentchild_general
 0 1 0 0 0
 -0.253586 -0.125612 -0.165316 -1.95567e-08
@@ -5091,29 +5117,29 @@ organized,cabinet_wallart_sibling_general
 0.797514 -0.55179 0.800167 -1,0.797514 -0.55179 0.800167 -1,1.09653 4.94254 0.528103 0.5
 organized_chair,2
 occurrence 7
-book_1,0.5
 computer_1,0.5
 computermouse_1,0.5
 laptop_1,0.5
 monitor_1,0.5
+openbook_1,0.5
 printer_1,0.5
 table_1,0.5
 pairwise 4
-organized,chair_book_proximity_general
-0 1 0 0 0
-0.570908 1.03645 0.327985 0.5
 organized,chair_computermouse_proximity_general
 0 1 0 0 0
 0.644799 0.888601 0.236385 0.025
 organized,chair_laptop_proximity_general
 0 1 0 0 0
 -0.150993 0.685311 0.327984 -0.75
+organized,chair_openbook_proximity_general
+0 1 0 0 0
+0.570908 1.03645 0.327985 0.5
 organized,chair_table_sibling_general
 0 1 0 0 0
 -0.214353 1.61417 -0.499998 -0.75
 organized_couch,9
 occurrence 26
-book_1,0.222222
+book_1,0.111111
 chair_1,0.111111
 coaster_3,0.111111
 cup_1,0.111111
@@ -5129,7 +5155,7 @@ laptop_1,0.333333
 magazine_1,0.111111
 mediastorage_1,0.222222
 mug_3,0.111111
-pencil_1,0.111111
+openbook_1,0.111111
 pillow_2,0.111111
 plate_1,0.111111
 pottedplant_1,0.111111
@@ -5225,18 +5251,15 @@ organized,counter_erlenmeyer flask_parentchild_general
 0 3 0 0 0
 0.060013 0.097622 0.506199 -0.5,-0.0850085 0.140034 0.506199 -0.5,-0.0901556 0.0454542 0.506199 -0.5
 organized_desk,43
-occurrence 81
+occurrence 78
 apple_1,0.0465116
 binder_1,0.0232558
 binder_2,0.0232558
 board_1,0.0232558
-book_1,0.162791
-book_2,0.0232558
-book_3,0.0465116
+book_1,0.0930233
+book_2,0.0465116
 bookcase_1,0.0232558
 bookend_1,0.0232558
-books_1,0.0465116
-books_2,0.0232558
 bowl_1,0.0232558
 cabling_1,0.0465116
 cellphone_1,0.0697674
@@ -5244,8 +5267,7 @@ chair_1,0.55814
 chair_2,0.0697674
 chair_3,0.0232558
 clock_1,0.0232558
-compact disk_1,0.0232558
-computer_1,0.186047
+computer_1,0.162791
 computermouse_1,0.372093
 computermouse_2,0.0232558
 couch_1,0.0232558
@@ -5272,12 +5294,12 @@ monitor_3,0.0697674
 mousepad_1,0.302326
 noname_1,0.0930233
 notepad_1,0.209302
+openbook_1,0.139535
 organ_1,0.0465116
 paper_1,0.0465116
 paper_3,0.0232558
 paperclip_1,0.0232558
 pen_1,0.0465116
-pencil_1,0.0232558
 picture frame_1,0.0232558
 picture_1,0.0465116
 pictureframe_1,0.0930233
@@ -5290,6 +5312,8 @@ sodacan_1,0.0465116
 speaker_1,0.116279
 speaker_2,0.255814
 speaker_5,0.0232558
+stackbooks_1,0.0465116
+standbooks_1,0.0465116
 stapler_1,0.0465116
 table_1,0.0232558
 tableclock_1,0.116279
@@ -5305,9 +5329,8 @@ wallart_2,0.0232558
 wallart_3,0.0232558
 wallclock_1,0.0232558
 wallet_1,0.0232558
-xbox360_1,0.0232558
 yttrium_1,0.0232558
-pairwise 70
+pairwise 69
 organized,desk_apple_parentchild_general
 0 2 0 0 0
 -0.222735 0.419124 0.111211 -0.5,-0.222735 0.419124 0.111211 -0.5
@@ -5321,8 +5344,8 @@ organized,desk_board_sibling_general
 0 1 0 0 0
 -1.1373 -0.428411 0.0421627 0
 organized,desk_book_parentchild_general
-0 13 0 0 0
-0.37506 0.316072 0.505426 0.5,0.37506 0.316072 0.505426 0.5,-0.424959 -0.246032 0.348171 0.5,0.192588 -0.300031 0.504875 0.5,-0.0142871 0.236122 0.50422 0.5,0.0668661 0.251442 0.505223 0.5,0.396349 0.251375 0.505223 0.5,0.396349 0.251375 0.505223 0.5,0.0668661 0.251442 0.505223 0.5,0.0308441 0.222619 0.506377 0.5,0.0308441 0.222619 0.506377 0.5,-0.192201 -0.242097 0.506377 0.5,0.0308441 0.222619 0.506377 0.5
+0 6 0 0 0
+0.37506 0.316072 0.505426 0.5,0.37506 0.316072 0.505426 0.5,0.192588 -0.300031 0.504875 0.5,0.396349 0.251375 0.505223 0.5,0.396349 0.251375 0.505223 0.5,-0.192201 -0.242097 0.506377 0.5
 organized,desk_book_proximity_general
 0 2 0 0 0
 0.41002 0.249737 0.611721 0.5,0.41002 0.249737 0.611721 0.5
@@ -5332,9 +5355,6 @@ organized,desk_bookcase_sibling_general
 organized,desk_bookend_parentchild_general
 0 1 0 0 0
 -0.0503061 -0.286088 0.503663 0
-organized,desk_books_parentchild_general
-0 4 0 0 0
-0.246279 -0.254285 0.459272 0,-0.208346 -0.222818 0.503736 0,0.117359 -0.282245 0.503737 0,-0.271409 -0.286101 0.503664 0
 organized,desk_cabling_parentchild_general
 0 2 0 0 0
 -0.396212 -0.11255 -0.395618 -0.5,-0.396212 -0.11255 -0.395618 -0.5
@@ -5342,20 +5362,17 @@ organized,desk_cellphone_parentchild_general
 0 3 0 0 0
 0.308515 0.395696 0.511724 0.5,0.394347 0.0883735 0.086951 0.5,0.308515 0.395696 0.511724 0.5
 organized,desk_chair_sibling_general
-4 33 0.276244 0.503781 0.638505
-4,0.030303,-2.31223 0.86403 -0.500598 0.941176,0.100207 -0.000013 0.000061 -0.000153 -0.000013 0.100435 0.000120 0.000050 0.000061 0.000120 0.100149 -0.000198 -0.000153 0.000050 -0.000198 0.155050
-4,0.641042,0.0288954 0.790422 -0.501456 0.788873,0.155384 -0.004252 0.000024 -0.001516 -0.004252 0.120786 0.000120 0.027136 0.000024 0.000120 0.100753 0.000450 -0.001516 0.027136 0.000450 0.269440
-4,0.268049,-0.195037 0.756416 -0.500094 -0.878565,0.212459 0.005389 0.000037 0.013374 0.005389 0.107944 -0.000043 -0.002280 0.000037 -0.000043 0.100916 -0.001589 0.013374 -0.002280 -0.001589 0.211619
-4,0.0606061,-1.75105 3.53554 -0.507163 0.44153,0.494761 0.350852 0.000589 0.027536 0.350852 0.413804 0.000870 0.025379 0.000589 0.000870 0.100562 -0.000367 0.027536 0.025379 -0.000367 0.197822
+4 33 0.279445 0.509623 0.627035
+4,0.267711,-0.19268 0.754884 -0.498153 -0.904316,0.211528 0.006485 -0.000857 0.011873 0.006485 0.107730 -0.000267 0.001122 -0.000857 -0.000267 0.101061 0.000285 0.011873 0.001122 0.000285 0.212188
+4,0.0606061,-1.74608 3.5264 -0.503757 0.473587,0.502447 0.352069 0.000686 0.025663 0.352069 0.409374 0.000861 0.021676 0.000686 0.000861 0.100607 0.000263 0.025663 0.021676 0.000263 0.172468
+4,0.030303,-2.31787 0.87585 -0.503207 0.964288,0.100141 0.000028 0.000016 0.000152 0.000028 0.100953 0.000039 -0.001325 0.000016 0.000039 0.100126 0.000986 0.000152 -0.001325 0.000986 0.170784
+4,0.64138,0.0295624 0.788777 -0.49981 0.773001,0.153837 -0.003672 0.000406 -0.003168 -0.003672 0.122132 -0.000062 0.030161 0.000406 -0.000062 0.100816 0.000163 -0.003168 0.030161 0.000163 0.275495
 organized,desk_clock_parentchild_general
 0 1 0 0 0
 0.0679301 -0.282361 0.503663 -0.5
-organized,desk_compact disk_parentchild_general
-0 1 0 0 0
--0.144421 -0.298421 0.264825 0.5
 organized,desk_computer_parentchild_general
-0 5 0 0 0
-0.366621 0.124585 -0.339271 0,0.422308 0.0777947 -0.35409 0,0.366621 0.124585 -0.339271 0,0.422308 0.0777947 -0.35409 0,0.316642 0.165054 -0.338662 0
+0 4 0 0 0
+0.366621 0.124585 -0.339271 0,0.366621 0.124585 -0.339271 0,0.422308 0.0777947 -0.35409 0,0.316642 0.165054 -0.338662 0
 organized,desk_computer_sibling_general
 0 3 0 0 0
 -0.595878 -0.112648 -0.500002 0,-0.595878 -0.112648 -0.500002 0,-0.595878 -0.112648 -0.500002 0
@@ -5405,8 +5422,8 @@ organized,desk_key_parentchild_general
 0 1 0 0 0
 0.412542 0.283887 0.504876 -0.75
 organized,desk_keyboard_parentchild_general
-1 17 1.20882 1.51603 1.51809
-4,1,0.0230611 0.301937 0.413852 0.0183826,0.101996 0.002182 0.002209 -0.000717 0.002182 0.105779 -0.001437 -0.002936 0.002209 -0.001437 0.129365 0.005878 -0.000717 -0.002936 0.005878 0.186126
+1 17 1.15095 1.44163 1.4442
+4,1,0.019783 0.303789 0.412333 0.0223912,0.101934 0.001837 0.002166 0.000388 0.001837 0.104974 -0.001638 -0.000540 0.002166 -0.001638 0.129621 0.002163 0.000388 -0.000540 0.002163 0.206383
 organized,desk_lamp_parentchild_general
 0 4 0 0 0
 -0.398899 -0.139877 0.500533 0.5,-0.398899 -0.139877 0.500533 0.5,0.411522 -0.321224 0.506377 0,0.411522 -0.321224 0.506377 0
@@ -5414,8 +5431,8 @@ organized,desk_laptop_parentchild_general
 0 2 0 0 0
 0.221001 -0.0138956 0.0814894 0,0.221001 -0.0138956 0.0814894 0
 organized,desk_monitor_parentchild_general
-1 32 0.834025 1.08777 1.29153
-4,1,-0.0324802 -0.106101 0.430101 0.0213002,0.131950 0.004697 0.000912 0.012353 0.004697 0.110363 -0.007302 0.000191 0.000912 -0.007302 0.123712 0.002409 0.012353 0.000191 0.002409 0.199314
+1 32 0.837898 1.09026 1.28855
+4,1,-0.0322058 -0.111316 0.428935 0.0224528,0.132191 0.005184 0.000832 0.012697 0.005184 0.110926 -0.007539 -0.000835 0.000832 -0.007539 0.124290 0.003141 0.012697 -0.000835 0.003141 0.198147
 organized,desk_monitor_proximity_general
 0 1 0 0 0
 0.775216 -0.162847 0.494872 -0.0333333
@@ -5428,6 +5445,9 @@ organized,desk_noname_parentchild_general
 organized,desk_notepad_parentchild_general
 0 8 0 0 0
 -0.247189 -0.0457632 0.504876 0.25,-0.406026 0.0489759 0.205611 -0.441667,-0.406026 0.0489759 0.205611 -0.441667,-0.208666 -0.0319659 0.0814892 -0.225,-0.247189 -0.0457632 0.504876 0.25,-0.201492 0.00732013 0.437084 0.1,-0.351673 0.133805 0.506377 -0.141666,-0.351673 0.133805 0.506377 -0.141666
+organized,desk_openbook_parentchild_general
+0 6 0 0 0
+-0.0142871 0.236122 0.50422 0.5,0.0668661 0.251442 0.505223 0.5,0.0668661 0.251442 0.505223 0.5,0.0308441 0.222619 0.506377 0.5,0.0308441 0.222619 0.506377 0.5,0.0308441 0.222619 0.506377 0.5
 organized,desk_organ_parentchild_general
 0 2 0 0 0
 0.325833 -0.102353 0.500533 -1,0.387937 -0.213559 0.505224 1
@@ -5443,9 +5463,6 @@ organized,desk_pen_parentchild_general
 organized,desk_pen_proximity_general
 0 1 0 0 0
 -0.266377 0.0199906 0.0985761 0.5
-organized,desk_pencil_proximity_general
-0 1 0 0 0
--0.0622189 0.424496 0.583019 -0.397455
 organized,desk_picture frame_parentchild_general
 0 1 0 0 0
 0.147708 -0.163366 0.500342 -0.924939
@@ -5474,11 +5491,17 @@ organized,desk_sodacan_parentchild_general
 0 2 0 0 0
 0.451663 0.138392 0.504872 0,0.451663 0.138392 0.504872 0
 organized,desk_speaker_parentchild_general
-1 29 0.41887 0.554301 0.618449
-4,1,-0.0237493 -0.182987 0.395476 0.0256667,0.249509 0.026932 -0.006908 0.031255 0.026932 0.120735 -0.014943 0.007464 -0.006908 -0.014943 0.173340 0.005642 0.031255 0.007464 0.005642 0.197956
+1 29 0.418206 0.552852 0.618462
+4,1,-0.0233342 -0.182244 0.396886 0.0221663,0.249808 0.026701 -0.006969 0.029565 0.026701 0.121169 -0.014996 0.008791 -0.006969 -0.014996 0.173923 0.003629 0.029565 0.008791 0.003629 0.196760
 organized,desk_speaker_sibling_general
 0 1 0 0 0
 -1.3567 5.12458 -0.500002 -0.5
+organized,desk_stackbooks_parentchild_general
+0 2 0 0 0
+0.246279 -0.254285 0.459272 0,-0.208346 -0.222818 0.503736 0
+organized,desk_standbooks_parentchild_general
+0 2 0 0 0
+0.117359 -0.282245 0.503737 0,-0.271409 -0.286101 0.503664 0
 organized,desk_stapler_parentchild_general
 0 2 0 0 0
 -0.358267 0.192003 0.500533 -0.433334,-0.221822 0.250807 0.505224 -0.0750001
@@ -5515,9 +5538,6 @@ organized,desk_wallclock_sibling_general
 organized,desk_wallet_parentchild_general
 0 1 0 0 0
 0.448288 -0.0962743 0.0814899 0.383333
-organized,desk_xbox360_parentchild_general
-0 1 0 0 0
-0.445229 0.15613 -0.137649 0.5
 organized,desk_yttrium_parentchild_general
 0 1 0 0 0
 0.391578 0.331186 0.500534 0.0416667
@@ -5677,22 +5697,26 @@ organized,monitor_webcam_sibling_general
 0 1 0 0 0
 0.533898 0.231142 -0.499989 0.25
 organized_nightstand,1
-occurrence 5
-book_3,1
+occurrence 6
+book_1,1
 bookcase_1,1
-books_2,1
 cup_1,1
+standbook_2,1
+standbooks_2,1
 tableclock_1,1
-pairwise 4
+pairwise 5
 organized,nightstand_book_parentchild_general
-0 2 0 0 0
-0.0719979 0.224066 0.394451 0.5,0.131741 -0.117658 0.505509 0.5
+0 1 0 0 0
+0.131741 -0.117658 0.505509 0.5
 organized,nightstand_bookcase_sibling_general
 0 1 0 0 0
 -4.16195 -0.45226 1.60275 0
 organized,nightstand_cup_parentchild_general
 0 1 0 0 0
 -0.290863 -0.263203 0.505509 -0.5
+organized,nightstand_standbook_parentchild_general
+0 1 0 0 0
+0.0719979 0.224066 0.394451 0.5
 organized,nightstand_tableclock_parentchild_general
 0 1 0 0 0
 -0.261704 0.0269868 0.50551 0.458333
@@ -5737,10 +5761,8 @@ organized,speaker_wallart_sibling_general
 0 1 0 0 0
 0.205768 -1.06361 0.195147 0.300001
 organized_table,29
-occurrence 61
+occurrence 62
 book_1,0.172414
-books_2,0.0344828
-books_3,0.0344828
 bottle_1,0.103448
 bowl_1,0.137931
 bowl_2,0.0344828
@@ -5789,6 +5811,9 @@ sandwich_2,0.0344828
 sandwich_3,0.0344828
 sandwich_4,0.0344828
 speaker_2,0.0344828
+stackbooks_1,0.0689655
+standbooks_1,0.0344828
+standbooks_2,0.0344828
 table_1,0.0689655
 tongs_1,0.0344828
 tray_1,0.103448
@@ -5799,13 +5824,10 @@ wallart_1,0.0689655
 wallart_2,0.0344828
 wallclock_1,0.0344828
 wallet_1,0.0344828
-pairwise 48
+pairwise 49
 organized,table_book_parentchild_general
 0 5 0 0 0
 0.379698 0.268808 0.507574 0.5,0.243273 -0.0227073 0.506351 0.5,0.243273 -0.0227073 0.506351 0.5,-0.380126 0.228286 0.504991 0.5,-0.380126 0.228286 0.504991 0.5
-organized,table_books_parentchild_general
-0 5 0 0 0
--0.357482 0.353377 -0.141663 -0.5,-0.150386 0.25075 -0.310606 0,-0.176565 -0.217909 -0.310606 0,-0.357482 0.353377 -0.141663 -0.5,-0.150386 0.25075 -0.310606 0
 organized,table_bottle_parentchild_general
 0 3 0 0 0
 -0.0727399 0.0394328 0.504991 -0.508231,-0.0727399 0.0394328 0.504991 -0.508231,-0.0727399 0.0394328 0.504991 -0.508231
@@ -5825,11 +5847,10 @@ organized,table_cap_parentchild_general
 0 2 0 0 0
 0.379201 -0.129992 0.504992 -0.25,0.379201 -0.129992 0.504992 -0.25
 organized,table_chair_sibling_general
-4 31 0.182608 0.281915 0.388872
-4,0.212442,0.458148 0.36863 -0.498454 0.730545,0.293171 -0.120030 -0.000262 -0.072142 -0.120030 0.229819 0.000050 0.075201 -0.000262 0.000050 0.101848 -0.000460 -0.072142 0.075201 -0.000460 0.230415
-4,0.225685,-0.709048 0.00751371 -0.500854 -0.543183,0.127361 0.005754 -0.000424 0.005662 0.005754 0.105567 -0.000068 0.000430 -0.000424 -0.000068 0.101184 -0.000711 0.005662 0.000430 -0.000711 0.183899
-4,0.261825,0.317104 -0.55179 -0.500715 0.172842,0.266234 0.185298 0.001079 0.079799 0.185298 0.372400 0.001340 0.105576 0.001079 0.001340 0.101451 0.000189 0.079799 0.105576 0.000189 0.213396
-4,0.300048,0.458148 0.36863 -0.498454 0.730545,0.293171 -0.120030 -0.000262 -0.072142 -0.120030 0.229819 0.000050 0.075201 -0.000262 0.000050 0.101848 -0.000460 -0.072142 0.075201 -0.000460 0.230415
+3 31 0.180583 0.281134 0.383202
+4,0.236967,0.266845 -0.610587 -0.49887 0.153274,0.244386 0.167951 0.000038 0.075997 0.167951 0.354106 0.000332 0.105963 0.000038 0.000332 0.101480 -0.000195 0.075997 0.105963 -0.000195 0.242214
+4,0.536882,0.474521 0.351807 -0.501634 0.743909,0.293499 -0.121119 0.000002 -0.059667 -0.121119 0.231877 -0.000463 0.068243 0.000002 -0.000463 0.101439 -0.001220 -0.059667 0.068243 -0.001220 0.218110
+4,0.226151,-0.704003 0.00707728 -0.498975 -0.513913,0.127294 0.005814 0.000106 0.000745 0.005814 0.106078 -0.000172 0.000659 0.000106 -0.000172 0.101159 -0.000585 0.000745 0.000659 -0.000585 0.191911
 organized,table_chessboard_parentchild_general
 0 1 0 0 0
 0.084144 -0.199173 0.514962 0.0250001
@@ -5923,6 +5944,12 @@ organized,table_salad_parentchild_general
 organized,table_sandwich_proximity_general
 0 9 0 0 0
 -0.0630358 0.389742 0.510721 -0.697726,-0.00566199 0.319306 0.510721 -0.468975,0.073205 0.314581 0.510721 0.543771,-0.0630358 0.389742 0.510721 -0.697726,-0.00566199 0.319306 0.510721 -0.468975,0.073205 0.314581 0.510721 0.543771,0.289143 0.366774 0.523691 0.0134868,-0.0630358 0.389742 0.510721 -0.697726,-0.00566199 0.319306 0.510721 -0.468975
+organized,table_stackbooks_parentchild_general
+0 2 0 0 0
+-0.150386 0.25075 -0.310606 0,-0.150386 0.25075 -0.310606 0
+organized,table_standbooks_parentchild_general
+0 3 0 0 0
+-0.357482 0.353377 -0.141663 -0.5,-0.176565 -0.217909 -0.310606 0,-0.357482 0.353377 -0.141663 -0.5
 organized,table_table_sibling_general
 0 2 0 0 0
 1.24955 1.2321 -0.499998 -0.9,0.913831 1.4998 -0.499998 0
@@ -6126,17 +6153,21 @@ organzied,desk_videogamecontroller_parentchild_general
 0 2 0 0 0
 0.373835 0.266259 0.506445 0.283333,0.28696 0.072287 0.506444 -0.0750001
 organzied_nightstand,1
-occurrence 3
-book_2,1
+occurrence 4
+book_1,1
 cup_1,1
+standbook_1,1
 tableclock_1,1
-pairwise 3
+pairwise 4
 organzied,nightstand_book_parentchild_general
-0 2 0 0 0
-0.0719979 0.224066 0.394451 0.5,0.131741 -0.117658 0.505509 0.5
+0 1 0 0 0
+0.131741 -0.117658 0.505509 0.5
 organzied,nightstand_cup_parentchild_general
 0 1 0 0 0
 -0.290863 -0.263203 0.505509 -0.5
+organzied,nightstand_standbook_parentchild_general
+0 1 0 0 0
+0.0719979 0.224066 0.394451 0.5
 organzied,nightstand_tableclock_parentchild_general
 0 1 0 0 0
 -0.261704 0.0269868 0.50551 0.458333
@@ -6485,21 +6516,9 @@ pairwise 1
 wide,wallart_wallclock_sibling_general
 0 1 0 0 0
 0.26035 -402.064 0.430707 0
-work_book,1
-occurrence 2
-notepad_1,1
-pencil_1,1
-pairwise 2
-work,book_notepad_parentchild_general
-0 1 0 0 0
-0.22356 0.578965 0.043609 0.5
-work,book_pencil_parentchild_general
-0 1 0 0 0
--0.143312 0.430552 0.0660476 0.481559
 work_counter,3
 occurrence 13
 beaker_1,0.333333
-book_1,0.666667
 bottle_1,0.666667
 bunsen burner_1,0.666667
 calculator_1,0.333333
@@ -6507,6 +6526,7 @@ erlenmeyer flask_3,0.666667
 holder_1,0.333333
 laptop_1,0.666667
 notepad_1,0.333333
+openbook_1,0.666667
 pen_1,0.666667
 pillbottle_2,0.333333
 stool_1,0.333333
@@ -6515,9 +6535,6 @@ pairwise 13
 work,counter_beaker_parentchild_general
 0 1 0 0 0
 -0.147993 -0.406733 0.506201 -0.5
-work,counter_book_parentchild_general
-0 2 0 0 0
-0.37214 -0.146429 0.506201 0.5,0.37214 -0.146429 0.506201 0.5
 work,counter_bottle_parentchild_general
 0 2 0 0 0
 0.125591 -0.0167915 0.506201 -0.5,0.125591 -0.0167915 0.506201 -0.5
@@ -6539,6 +6556,9 @@ work,counter_laptop_parentchild_general
 work,counter_notepad_parentchild_general
 0 1 0 0 0
 0.362413 0.371611 0.506199 -0.291666
+work,counter_openbook_parentchild_general
+0 2 0 0 0
+0.37214 -0.146429 0.506201 0.5,0.37214 -0.146429 0.506201 0.5
 work,counter_pen_parentchild_general
 0 2 0 0 0
 0.345922 0.00367733 0.5062 -0.575,0.345922 0.00367733 0.5062 -0.575
@@ -6552,13 +6572,12 @@ work,counter_tissuebox_parentchild_general
 0 1 0 0 0
 -0.034052 -0.215814 0.506201 -0.5
 work_desk,28
-occurrence 66
+occurrence 67
 binder_1,0.0357143
 binder_2,0.0357143
 book_1,0.0714286
-book_3,0.0714286
-book_4,0.0357143
-books_2,0.0357143
+book_2,0.0714286
+book_3,0.0357143
 bottle_1,0.0357143
 bowl_1,0.0357143
 cabling_1,0.0714286
@@ -6589,6 +6608,7 @@ monitor_3,0.178571
 mousepad_1,0.178571
 noname_1,0.0357143
 notepad_1,0.214286
+openbook_1,0.107143
 organ_1,0.0714286
 paper_1,0.0714286
 paper_2,0.0714286
@@ -6609,6 +6629,8 @@ scissors_1,0.0357143
 sodacan_1,0.0357143
 speaker_1,0.0714286
 speaker_2,0.214286
+stackbooks_1,0.0357143
+standbooks_1,0.0357143
 stapler_1,0.142857
 tableclock_1,0.214286
 telephone_1,0.0357143
@@ -6618,8 +6640,7 @@ vase_1,0.0357143
 videogamecontroller_1,0.0357143
 wallart_2,0.0357143
 webcam_1,0.0714286
-xbox360_1,0.0357143
-pairwise 67
+pairwise 68
 work,desk_binder_parentchild_general
 0 2 0 0 0
 0.248831 0.240477 0.506719 0,0.360181 0.284036 0.506651 -0.00662538
@@ -6627,14 +6648,11 @@ work,desk_binder_proximity_general
 0 1 0 0 0
 0.658839 -0.0303833 0.583883 -1
 work,desk_book_parentchild_general
-0 9 0 0 0
-0.0668661 0.251442 0.505223 0.5,0.396349 0.251375 0.505223 0.5,0.0668661 0.251442 0.505223 0.5,0.396349 0.251375 0.505223 0.5,0.266092 0.179642 0.505224 0.5,0.396349 0.251375 0.505223 0.5,0.0668661 0.251442 0.505223 0.5,-0.409958 0.241212 0.505481 0.5,-0.409958 0.241212 0.505481 0.5
+0 6 0 0 0
+0.396349 0.251375 0.505223 0.5,0.396349 0.251375 0.505223 0.5,0.266092 0.179642 0.505224 0.5,0.396349 0.251375 0.505223 0.5,-0.409958 0.241212 0.505481 0.5,-0.409958 0.241212 0.505481 0.5
 work,desk_book_proximity_general
 0 3 0 0 0
 0.41002 0.249737 0.611721 0.5,0.41002 0.249737 0.611721 0.5,0.41002 0.249737 0.611721 0.5
-work,desk_books_parentchild_general
-0 2 0 0 0
--0.208346 -0.222818 0.503736 0,0.117359 -0.282245 0.503737 0
 work,desk_bottle_parentchild_general
 0 1 0 0 0
 -0.300418 -0.225278 0.50548 0
@@ -6720,8 +6738,8 @@ work,desk_laptop_parentchild_general
 0 5 0 0 0
 -0.396967 0.294041 0.505222 -0.391667,-0.335964 0.283874 0.506719 -0.4,-0.368545 0.272887 0.506652 -0.396584,0.256521 0.138953 0.224103 0.225,0.256521 0.138953 0.224103 0.225
 work,desk_monitor_parentchild_general
-1 24 1.00611 1.18892 1.38071
-4,1,0.00555834 -0.148183 0.485284 0.0316729,0.133812 0.003753 0.001174 0.015049 0.003753 0.112106 -0.001437 -0.002114 0.001174 -0.001437 0.112005 0.003178 0.015049 -0.002114 0.003178 0.191689
+1 24 0.990205 1.18327 1.37923
+4,1,0.0060599 -0.146101 0.485389 -0.0159888,0.133921 0.004316 0.001095 0.015842 0.004316 0.111642 -0.000977 0.002365 0.001095 -0.000977 0.112167 -0.001949 0.015842 0.002365 -0.001949 0.191001
 work,desk_mousepad_parentchild_general
 0 5 0 0 0
 -0.227957 0.263948 0.506224 -0.541667,-0.227957 0.263948 0.506224 -0.541667,-0.134936 0.265727 0.506393 -0.0833332,-0.227957 0.263948 0.506224 -0.541667,-0.241521 0.180371 -0.0154478 0.0333334
@@ -6731,6 +6749,9 @@ work,desk_noname_parentchild_general
 work,desk_notepad_parentchild_general
 0 6 0 0 0
 -0.406026 0.0489759 0.205611 -0.441667,-0.406026 0.0489759 0.205611 -0.441667,-0.280709 0.217443 0.50548 -0.0666668,-0.280709 0.217443 0.50548 -0.0666668,-0.205941 0.276097 0.224104 0,-0.205941 0.276097 0.224104 0
+work,desk_openbook_parentchild_general
+0 3 0 0 0
+0.0668661 0.251442 0.505223 0.5,0.0668661 0.251442 0.505223 0.5,0.0668661 0.251442 0.505223 0.5
 work,desk_organ_parentchild_general
 0 2 0 0 0
 0.387937 -0.213559 0.505224 1,-0.234293 -0.288466 0.506651 0.993801
@@ -6788,6 +6809,12 @@ work,desk_speaker_parentchild_general
 work,desk_speaker_sibling_general
 0 2 0 0 0
 -0.774304 -0.280705 -0.5 -0.300001,0.54881 -0.293644 -0.5 0.15
+work,desk_stackbooks_parentchild_general
+0 1 0 0 0
+-0.208346 -0.222818 0.503736 0
+work,desk_standbooks_parentchild_general
+0 1 0 0 0
+0.117359 -0.282245 0.503737 0
 work,desk_stapler_parentchild_general
 0 4 0 0 0
 -0.221822 0.250807 0.505224 -0.0750001,-0.221822 0.250807 0.505224 -0.0750001,0.0466066 -0.181483 0.506719 0.525,0.0696058 -0.349396 0.506651 0.411706
@@ -6818,9 +6845,6 @@ work,desk_wallart_sibling_general
 work,desk_webcam_proximity_general
 0 1 0 0 0
 0.0140216 -0.112394 0.951955 0.1
-work,desk_xbox360_parentchild_general
-0 1 0 0 0
-0.445229 0.15613 -0.137649 0.5
 work_filecabinet,1
 occurrence 2
 desk_1,1
@@ -6835,7 +6859,6 @@ work,filecabinet_notepad_parentchild_general
 work_keyboard,3
 occurrence 29
 airplane_1,0.333333
-book_1,0.333333
 bottle_1,0.333333
 bowl_1,0.333333
 calculator_1,0.666667
@@ -6850,6 +6873,7 @@ monitor_1,0.333333
 mousepad_1,0.333333
 mug_1,0.666667
 notepad_1,0.333333
+openbook_1,0.333333
 pen_1,0.333333
 pencil_1,0.333333
 printer_1,0.333333
@@ -6867,9 +6891,6 @@ pairwise 25
 work,keyboard_airplane_sibling_general
 0 1 0 0 0
 0.189696 -1.23651 -0.499995 -0.308334
-work,keyboard_book_sibling_general
-0 1 0 0 0
-1.34089 0.0198413 -0.499975 0.5
 work,keyboard_bottle_sibling_general
 0 1 0 0 0
 -1.28723 -0.723642 -0.500015 -0.0333335
@@ -6909,6 +6930,9 @@ work,keyboard_mug_sibling_general
 work,keyboard_notepad_sibling_general
 0 1 0 0 0
 -1.71435 -0.370888 -0.499968 0.025
+work,keyboard_openbook_sibling_general
+0 1 0 0 0
+1.34089 0.0198413 -0.499975 0.5
 work,keyboard_printer_sibling_general
 0 1 0 0 0
 1.99243 -1.73141 -0.500002 0.025
@@ -6943,7 +6967,6 @@ work_laptop,5
 occurrence 25
 beaker_1,0.2
 binder_1,0.4
-book_1,0.4
 cabling_1,0.2
 calculator_1,0.2
 camera_2,0.2
@@ -6953,6 +6976,7 @@ eraser_1,0.2
 frame_1,0.2
 holder_1,0.4
 notepad_1,0.6
+openbook_1,0.4
 organ_1,0.2
 paper_2,0.2
 paper_3,0.4
@@ -6973,9 +6997,6 @@ work,laptop_beaker_sibling_general
 work,laptop_binder_sibling_general
 0 2 0 0 0
 1.33443 3.47056 -0.49998 0.4,1.59916 5.07382 -0.500015 0.389959
-work,laptop_book_sibling_general
-0 2 0 0 0
-1.86315 1.41619 -0.563843 0.5,-1.45914 0.182786 -0.499979 0.5
 work,laptop_cabling_sibling_general
 0 1 0 0 0
 0.891554 -0.0935064 -0.563842 0.5
@@ -7003,6 +7024,9 @@ work,laptop_holder_sibling_general
 work,laptop_notepad_sibling_general
 0 2 0 0 0
 -4.82981 -0.49552 -0.499986 0.275,-1.61968 1.62444 -0.499977 -0.225
+work,laptop_openbook_sibling_general
+0 2 0 0 0
+1.86315 1.41619 -0.563843 0.5,-1.45914 0.182786 -0.499979 0.5
 work,laptop_organ_sibling_general
 0 1 0 0 0
 2.02737 0.325517 -0.500015 -0.609616
@@ -7081,22 +7105,37 @@ work,monitor_telephone_sibling_general
 work,monitor_webcam_sibling_general
 0 1 0 0 0
 0.533898 0.231142 -0.499989 0.25
+work_openbook,1
+occurrence 2
+notepad_1,1
+pencil_1,1
+pairwise 2
+work,openbook_notepad_parentchild_general
+0 1 0 0 0
+0.22356 0.578965 0.043609 0.5
+work,openbook_pencil_parentchild_general
+0 1 0 0 0
+-0.143312 0.430552 0.0660476 0.481559
 work_table,1
-occurrence 4
+occurrence 5
 book_1,1
-books_3,1
 notepad_1,1
 purse_1,1
-pairwise 4
+stackbooks_1,1
+standbooks_2,1
+pairwise 5
 work,table_book_parentchild_general
 0 1 0 0 0
 0.379698 0.268808 0.507574 0.5
-work,table_books_parentchild_general
-0 3 0 0 0
--0.357482 0.353377 -0.141663 -0.5,-0.150386 0.25075 -0.310606 0,-0.176565 -0.217909 -0.310606 0
 work,table_notepad_proximity_general
 0 1 0 0 0
 0.377988 0.285219 0.576865 0.0583333
 work,table_purse_parentchild_general
 0 1 0 0 0
 0.393015 0.0863456 -0.0945544 0.5
+work,table_stackbooks_parentchild_general
+0 1 0 0 0
+-0.150386 0.25075 -0.310606 0
+work,table_standbooks_parentchild_general
+0 2 0 0 0
+-0.357482 0.353377 -0.141663 -0.5,-0.176565 -0.217909 -0.310606 0

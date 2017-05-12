@@ -52,8 +52,8 @@ class MetaModel
 
 			vec3 frontDir;  // transformed dir in current scene
 			vec3 upDir;     // transformed dir in current scene
-			vec3 position;  // transformed model pos in current scene
-			double theta;  // angle between anchor's front to current model's front
+			vec3 position;  // transformed model pos in current scene; in world frame
+			double theta;  // angle between anchor's front to current model's front; from -pi to pi
 
 			SuppPlane bbTopPlane;  // transformed model support plane in current scene
 			vec3 parentPlaneUVH;  // UV and height w.r.t to the bbTopPlane and height is not normalized
@@ -78,6 +78,7 @@ class MetaModel
 			double layoutScore;
 			int trialNum; // trialNum for re-location because of collision
 
+//			void updateWithTransform(const mat4 &transMat, vec3 anchorFrontDir=vec3(), vec3 sceneUpDir= vec3())
 			void updateWithTransform(const mat4 &transMat)
 			{
 				position = transMat*position;				
@@ -91,6 +92,11 @@ class MetaModel
 				suppPlaneManager.transformSuppPlanes(transMat);
 
 				transformation = transMat*transformation;
+
+				//if (anchorFrontDir!=vec3() && sceneUpDir!= vec3())
+				//{
+				//	theta = GetRotAngleR(anchorFrontDir, frontDir, sceneUpDir);
+				//}
 
 				isBvhReady = false;
 			}

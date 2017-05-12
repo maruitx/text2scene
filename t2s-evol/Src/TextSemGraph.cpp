@@ -63,7 +63,7 @@ void TextSemGraph::buildGraphFromSEL()
 				if (isOnObj(i, "shelf") || isWithObj(entityName, "shelf"))
 				{
 					entityName = "standbooks";
-					instCount = GenRandomInt(2, 3);
+					instCount = GenRandomInt(2, 4);
 				}
 					
 				if (isOnObj(i, "cabinet") || isWithObj(entityName, "cabinet"))

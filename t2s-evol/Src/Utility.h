@@ -175,15 +175,30 @@ static mat4 GetRotationMatrix(const vec3 &fromVec, const vec3 &toVec)
 
 static double GetRotAngleR(vec3 beforeDir, vec3 afterDir, vec3 zDir)
 {
+	double angle = 0;
+
 	beforeDir.normalize();
 	afterDir.normalize();
-
-	double angle = acos(beforeDir.dot(afterDir));
+	
+	double innerDot = beforeDir.dot(afterDir);
+	if (std::abs(innerDot-1.0) <1e-6)
+	{
+		angle = 0;
+		return angle;
+	}
+	
+	// Domain error occurs if arg of acos is outside the range [-1.0; 1.0]
+	angle = acos(innerDot <= -1 ? -1 : innerDot >= 1 ? 1 : innerDot);  // clamp to 0 ~ 1 
 	vec3 crossDir = beforeDir.cross(afterDir);
 
 	if (crossDir.dot(zDir) < 0)
 	{
 		angle = -angle;
+	}
+
+	if (isnan(angle))
+	{
+		qDebug();
 	}
 
 	return angle;

@@ -102,23 +102,30 @@ void PairwiseRelationModel::loadFromStream(QTextStream &ifs)
 Eigen::VectorXd PairwiseRelationModel::sample()
 {
 	Eigen::VectorXd newSample(4);
+	newSample[0] = 0;
+	newSample[1] = 0;
+	newSample[2] = 0;
+	newSample[3] = 0.5;
 
 	if (m_GMM != NULL)
 	{
 		if (m_conditionName.contains("parent"))
 		{
-			double boundWidth = 0.1;
+			double boundWidth = 0.05;
 			double minB = -0.5 + boundWidth;
 			double maxB = 0.5 - boundWidth;
 
 			// make sure no overhang when sampling
-			while (true)
+			int count = 0;
+			while (count < 1000)
 			{
 				newSample = m_GMM->sample(m_GMM->m_probTh[0]);
 
 				if (newSample[0] > minB && newSample[0] < maxB 
 					&& newSample[1] >minB && newSample[1] < maxB)
 					break;
+
+				count++;
 			}
 		}
 		else

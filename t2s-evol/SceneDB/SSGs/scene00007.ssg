@@ -64,15 +64,15 @@ upDir 0 0 1
 bbTopPlane 362.062 191.395 108.801 362.062 166.277 108.801 362.75 166.277 108.801 362.75 191.395 108.801
 parentId 0
 parentPlaneUVH 0.990188 0.735949 -79.8498
-nodeNum 26
+nodeNum 28
 0,object,room,8 9 15 16,
-1,object,bed,10 11 12 13 14 17 24 25,8 15
-2,object,pants,18,10 19 25
-3,object,laptop,19 20 21,11 18 22 25
-4,object,pillow,23,12 20 25
-5,object,bear,,13 21 23 25
-6,object,shirt,22,14 25
-7,object,wallart,,9 16 17 24
+1,object,bed,10 11 12 13 14 17 26 27,8 15
+2,object,pants,18,10 19 27
+3,object,laptop,19 20 21,11 18 22 27
+4,object,pillow,23,12 20 27
+5,object,bear,24,13 21 23 25 27
+6,object,shirt,22 25,14 24 27
+7,object,wallart,,9 16 17 26
 8,pair_relation,vertsupport,1,0
 9,pair_relation,horizonsupport,7,0
 10,pair_relation,vertsupport,2,1
@@ -82,16 +82,18 @@ nodeNum 26
 14,pair_relation,vertsupport,6,1
 15,pair_relation,onleft,1,0
 16,pair_relation,onleft,7,0
-17,pair_relation,leftside,7,1
+17,pair_relation,rightside,7,1
 18,pair_relation,leftside,3,2
 19,pair_relation,leftside,2,3
 20,pair_relation,rightside,4,3
 21,pair_relation,rightside,5,3
 22,pair_relation,leftside,3,6
 23,pair_relation,leftside,5,4
-24,group_relation_anno,decorative,7,1
-25,group_relation_anno,messy,3 2 6 5 4,1
-edgeNum 40
+24,pair_relation,leftside,6,5
+25,pair_relation,leftside,5,6
+26,group_relation_anno,decorative,7,1
+27,group_relation_anno,messy,3 2 6 5 4,1
+edgeNum 44
 0,1,8
 1,8,0
 2,7,9
@@ -124,11 +126,15 @@ edgeNum 40
 29,22,6
 30,5,23
 31,23,4
-32,24,1
-33,7,24
-34,25,1
-35,3,25
-36,2,25
-37,6,25
-38,5,25
-39,4,25
+32,6,24
+33,24,5
+34,5,25
+35,25,6
+36,26,1
+37,7,26
+38,27,1
+39,3,27
+40,2,27
+41,6,27
+42,5,27
+43,4,27

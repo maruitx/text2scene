@@ -199,6 +199,7 @@ SceneSemGraph* SceneGenerator::bindToCurrTSScene(SceneSemGraph *matchedSg)
 	if (m_currUserSSG == NULL)
 	{
 		newUserSsg = new SceneSemGraph(matchedSg);
+		newUserSsg->initMetaModelSuppPlanes(m_models);
 
 		// set scene file name that current match comes from
 		newUserSsg->m_metaScene.m_sceneFileName = matchedSg->m_metaScene.m_sceneFileName;
