@@ -32,18 +32,17 @@ upDir 0 0 1
 bbTopPlane 85.705 229.514 52.7117 87.0238 226.552 52.7117 101.341 232.926 52.7117 100.022 235.888 52.7117
 parentId 1
 parentPlaneUVH 0.229373 0.802831 0.0848568
-nodeNum 10
+nodeNum 9
 0,object,room,4,
 1,object,desk,5 6 7 8,4
-2,object,holder,9,5 7
-3,object,stapler,,6 8 9
+2,object,holder,,5 7
+3,object,stapler,,6 8
 4,pair_relation,vertsupport,1,0
 5,pair_relation,vertsupport,2,1
 6,pair_relation,vertsupport,3,1
 7,pair_relation,onleft,2,1
 8,pair_relation,onleft,3,1
-9,pair_relation,leftside,3,2
-edgeNum 12
+edgeNum 10
 0,1,4
 1,4,0
 2,2,5
@@ -54,5 +53,3 @@ edgeNum 12
 7,7,1
 8,3,8
 9,8,1
-10,3,9
-11,9,2

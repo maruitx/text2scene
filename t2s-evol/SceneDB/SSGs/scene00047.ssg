@@ -103,20 +103,20 @@ upDir 0 0 1
 bbTopPlane 129.13 157.761 59.8875 131.539 188.363 59.8875 95.4659 191.202 59.8875 93.0574 160.6 59.8875
 parentId 0
 parentPlaneUVH 0.468691 0.718032 -131.75
-nodeNum 70
+nodeNum 52
 0,object,room,16 17 18 28,
-1,object,table,13 14 15 19 20 21 22 23 24 31 33 34 35 36 39 40,16 29 30 32 37 38 41 42
-2,object,plate,25 29 43 45 47 48,19 44 46 49
-3,object,pottedplant,30 44 50 52 53 54 56 58,25 43 51 55 57 59 60
-4,object,plate,26 27 51 61 62,20 50
-5,object,fruit,32,26 31 52 61
-6,object,banana,,27 53
-7,object,usbstick,46 55 65,21 33 45 54 63 64 66
-8,object,ashtray,57 63 67,22 47 56 62
-9,object,bowl,59 64 68,23 34 58 69
-10,object,unknown,60,24
-11,object,chair,37 38,17 28 35 36 68
-12,object,chair,41 42 49 66 69,18 39 40 48 65 67
+1,object,table,13 14 15 19 20 21 22 23 24 31 33 34 35 36 39,16 29 30 32 37 38 40 41
+2,object,plate,25 29 42,19 43 44
+3,object,pottedplant,30 43 45,25 42 46 47 48
+4,object,plate,26 27 49,20
+5,object,fruit,32,26 31 49
+6,object,banana,,27
+7,object,usbstick,,21 33 50
+8,object,ashtray,46,22 45
+9,object,bowl,47,23 34 51
+10,object,unknown,48,24
+11,object,chair,37 38,17 28 35 36
+12,object,chair,40 41 44 50 51,18 39
 13,attribute,dining,,1
 14,attribute,rectangular,,1
 15,attribute,rectangular,,1
@@ -144,37 +144,19 @@ nodeNum 70
 37,pair_relation,near,1,11
 38,pair_relation,front,1,11
 39,pair_relation,near,12,1
-40,pair_relation,rightside,12,1
-41,pair_relation,near,1,12
-42,pair_relation,front,1,12
-43,pair_relation,onright,3,2
-44,pair_relation,under,2,3
-45,pair_relation,rightside,7,2
-46,pair_relation,leftside,2,7
-47,pair_relation,rightside,8,2
-48,pair_relation,rightside,12,2
-49,pair_relation,front,2,12
-50,pair_relation,leftside,4,3
-51,pair_relation,rightside,3,4
-52,pair_relation,leftside,5,3
-53,pair_relation,leftside,6,3
-54,pair_relation,rightside,7,3
-55,pair_relation,leftside,3,7
-56,pair_relation,front,8,3
-57,pair_relation,back,3,8
-58,pair_relation,rightside,9,3
-59,pair_relation,front,3,9
-60,pair_relation,back,3,10
-61,pair_relation,onright,5,4
-62,pair_relation,rightside,8,4
-63,pair_relation,rightside,7,8
-64,pair_relation,rightside,7,9
-65,pair_relation,rightside,12,7
-66,pair_relation,front,7,12
-67,pair_relation,rightside,12,8
-68,pair_relation,leftside,11,9
-69,pair_relation,front,9,12
-edgeNum 111
+40,pair_relation,near,1,12
+41,pair_relation,front,1,12
+42,pair_relation,onright,3,2
+43,pair_relation,under,2,3
+44,pair_relation,front,2,12
+45,pair_relation,front,8,3
+46,pair_relation,back,3,8
+47,pair_relation,front,3,9
+48,pair_relation,back,3,10
+49,pair_relation,onright,5,4
+50,pair_relation,front,7,12
+51,pair_relation,front,9,12
+edgeNum 75
 0,13,1
 1,14,1
 2,15,1
@@ -226,63 +208,27 @@ edgeNum 111
 48,38,11
 49,12,39
 50,39,1
-51,12,40
-52,40,1
+51,1,40
+52,40,12
 53,1,41
 54,41,12
-55,1,42
-56,42,12
-57,3,43
-58,43,2
+55,3,42
+56,42,2
+57,2,43
+58,43,3
 59,2,44
-60,44,3
-61,7,45
-62,45,2
-63,2,46
-64,46,7
-65,8,47
-66,47,2
-67,12,48
-68,48,2
-69,2,49
-70,49,12
-71,4,50
-72,50,3
-73,3,51
-74,51,4
-75,5,52
-76,52,3
-77,6,53
-78,53,3
-79,7,54
-80,54,3
-81,3,55
-82,55,7
-83,8,56
-84,56,3
-85,3,57
-86,57,8
-87,9,58
-88,58,3
-89,3,59
-90,59,9
-91,3,60
-92,60,10
-93,5,61
-94,61,4
-95,8,62
-96,62,4
-97,7,63
-98,63,8
-99,7,64
-100,64,9
-101,12,65
-102,65,7
-103,7,66
-104,66,12
-105,12,67
-106,67,8
-107,11,68
-108,68,9
-109,9,69
-110,69,12
+60,44,12
+61,8,45
+62,45,3
+63,3,46
+64,46,8
+65,3,47
+66,47,9
+67,3,48
+68,48,10
+69,5,49
+70,49,4
+71,7,50
+72,50,12
+73,9,51
+74,51,12

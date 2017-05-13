@@ -48,13 +48,13 @@ upDir 0 0 1
 bbTopPlane 231.609 128.299 50.2064 237.436 128.299 50.2064 237.436 134.126 50.2064 231.609 134.126 50.2064
 parentId 1
 parentPlaneUVH 0.791579 0.697694 0.250048
-nodeNum 19
+nodeNum 13
 0,object,room,6 11,
 1,object,nightstand,7 8 9 10 12,6 11
-2,object,tableclock,13 15,7 14 16
-3,object,desklamp,14 18,8 12 13 17
-4,object,openbook,17,9 15
-5,object,cup,16,10 18
+2,object,tableclock,,7
+3,object,desklamp,,8 12
+4,object,openbook,,9
+5,object,cup,,10
 6,pair_relation,vertsupport,1,0
 7,pair_relation,vertsupport,2,1
 8,pair_relation,vertsupport,3,1
@@ -62,13 +62,7 @@ nodeNum 19
 10,pair_relation,vertsupport,5,1
 11,pair_relation,onleft,1,0
 12,pair_relation,onright,3,1
-13,pair_relation,rightside,3,2
-14,pair_relation,leftside,2,3
-15,pair_relation,rightside,4,2
-16,pair_relation,rightside,2,5
-17,pair_relation,leftside,3,4
-18,pair_relation,leftside,5,3
-edgeNum 26
+edgeNum 14
 0,1,6
 1,6,0
 2,2,7
@@ -83,15 +77,3 @@ edgeNum 26
 11,11,0
 12,3,12
 13,12,1
-14,3,13
-15,13,2
-16,2,14
-17,14,3
-18,4,15
-19,15,2
-20,2,16
-21,16,5
-22,3,17
-23,17,4
-24,5,18
-25,18,3

@@ -104,20 +104,20 @@ upDir 0 0 1
 bbTopPlane 258.986 161.29 50.9694 271.642 161.29 50.9694 271.642 173.946 50.9694 258.986 173.946 50.9694
 parentId 1
 parentPlaneUVH 0.913948 0.585984 -0.229296
-nodeNum 56
+nodeNum 33
 0,object,room,13 25,
 1,object,counter,14 15 16 17 18 19 20 21 22 23 24 26 27 28 29 30 31 32,13 25
-2,object,rack,33 35 37,14 34 36 38 39
-3,object,food,34 42 44 45,15 33 40 41 43 46
-4,object,spatula,47,16 26 48
-5,object,cerealbox,40 49,17 27 50
-6,object,cerealbox,41 51,18 52
-7,object,milkcarton,36 43 53,19 28 35 42
-8,object,pan,38,20 37 44
-9,object,pot,39,21 29 45
-10,object,toaster,46 50 52,22 30 49 51 53
-11,object,bowl,48 54,23 31 47 55
-12,object,bowl,55,24 32 54
+2,object,rack,,14
+3,object,food,,15
+4,object,spatula,,16 26
+5,object,cerealbox,,17 27
+6,object,cerealbox,,18
+7,object,milkcarton,,19 28
+8,object,pan,,20
+9,object,pot,,21 29
+10,object,toaster,,22 30
+11,object,bowl,,23 31
+12,object,bowl,,24 32
 13,pair_relation,vertsupport,1,0
 14,pair_relation,vertsupport,2,1
 15,pair_relation,vertsupport,3,1
@@ -138,30 +138,7 @@ nodeNum 56
 30,pair_relation,onright,10,1
 31,pair_relation,onleft,11,1
 32,pair_relation,onleft,12,1
-33,pair_relation,rightside,3,2
-34,pair_relation,leftside,2,3
-35,pair_relation,rightside,7,2
-36,pair_relation,leftside,2,7
-37,pair_relation,rightside,8,2
-38,pair_relation,rightside,2,8
-39,pair_relation,rightside,2,9
-40,pair_relation,leftside,3,5
-41,pair_relation,leftside,3,6
-42,pair_relation,leftside,7,3
-43,pair_relation,rightside,3,7
-44,pair_relation,leftside,8,3
-45,pair_relation,leftside,9,3
-46,pair_relation,rightside,3,10
-47,pair_relation,rightside,11,4
-48,pair_relation,rightside,4,11
-49,pair_relation,leftside,10,5
-50,pair_relation,leftside,5,10
-51,pair_relation,leftside,10,6
-52,pair_relation,leftside,6,10
-53,pair_relation,rightside,10,7
-54,pair_relation,rightside,12,11
-55,pair_relation,leftside,11,12
-edgeNum 86
+edgeNum 40
 0,1,13
 1,13,0
 2,2,14
@@ -202,49 +179,3 @@ edgeNum 86
 37,31,1
 38,12,32
 39,32,1
-40,3,33
-41,33,2
-42,2,34
-43,34,3
-44,7,35
-45,35,2
-46,2,36
-47,36,7
-48,8,37
-49,37,2
-50,2,38
-51,38,8
-52,2,39
-53,39,9
-54,3,40
-55,40,5
-56,3,41
-57,41,6
-58,7,42
-59,42,3
-60,3,43
-61,43,7
-62,8,44
-63,44,3
-64,9,45
-65,45,3
-66,3,46
-67,46,10
-68,11,47
-69,47,4
-70,4,48
-71,48,11
-72,10,49
-73,49,5
-74,5,50
-75,50,10
-76,10,51
-77,51,6
-78,6,52
-79,52,10
-80,10,53
-81,53,7
-82,12,54
-83,54,11
-84,11,55
-85,55,12

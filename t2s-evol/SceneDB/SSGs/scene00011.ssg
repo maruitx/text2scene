@@ -88,17 +88,17 @@ upDir 0 0 1
 bbTopPlane 21.0635 199.417 98.6304 11.0033 199.417 98.6304 11.0033 199.417 114.526 21.0635 199.417 114.526
 parentId 1
 parentPlaneUVH 0.247577 0.434694 -24.4772
-nodeNum 50
+nodeNum 23
 0,object,room,11 21,
 1,object,bookcase,12 13 14 15 16 17 18 19 20,11 21 22
-2,object,standbook,,12 23 24
-3,object,standbooks,25 26 28 30 31,13 27 29
-4,object,rubikscube,32 33 34 36 38,14 25 35 37 39
-5,object,toyfigure,23 27 40 42,15 26 32 41 43 44
-6,object,chestofdrawers,29 41 45,16 28 33 40 46 47
-7,object,standbooks,22 35,17 34 42 45 48
-8,object,toyfigure,24 37 43 46 48,18 30 36 49
-9,object,airplane,39 44 47 49,19 31 38
+2,object,standbook,,12
+3,object,standbooks,,13
+4,object,rubikscube,,14
+5,object,toyfigure,,15
+6,object,chestofdrawers,,16
+7,object,standbooks,22,17
+8,object,toyfigure,,18
+9,object,airplane,,19
 10,object,tolkien,,20
 11,pair_relation,horizonsupport,1,0
 12,pair_relation,vertsupport,2,1
@@ -112,34 +112,7 @@ nodeNum 50
 20,pair_relation,vertsupport,10,1
 21,pair_relation,onright,1,0
 22,pair_relation,under,1,7
-23,pair_relation,leftside,2,5
-24,pair_relation,leftside,2,8
-25,pair_relation,rightside,4,3
-26,pair_relation,rightside,5,3
-27,pair_relation,leftside,3,5
-28,pair_relation,rightside,6,3
-29,pair_relation,leftside,3,6
-30,pair_relation,rightside,8,3
-31,pair_relation,rightside,9,3
-32,pair_relation,rightside,5,4
-33,pair_relation,rightside,6,4
-34,pair_relation,rightside,7,4
-35,pair_relation,rightside,4,7
-36,pair_relation,rightside,8,4
-37,pair_relation,leftside,4,8
-38,pair_relation,rightside,9,4
-39,pair_relation,leftside,4,9
-40,pair_relation,rightside,6,5
-41,pair_relation,leftside,5,6
-42,pair_relation,leftside,7,5
-43,pair_relation,rightside,5,8
-44,pair_relation,rightside,5,9
-45,pair_relation,leftside,7,6
-46,pair_relation,rightside,6,8
-47,pair_relation,rightside,6,9
-48,pair_relation,leftside,7,8
-49,pair_relation,rightside,8,9
-edgeNum 78
+edgeNum 24
 0,1,11
 1,11,0
 2,2,12
@@ -164,57 +137,3 @@ edgeNum 78
 21,21,0
 22,1,22
 23,22,7
-24,2,23
-25,23,5
-26,2,24
-27,24,8
-28,4,25
-29,25,3
-30,5,26
-31,26,3
-32,3,27
-33,27,5
-34,6,28
-35,28,3
-36,3,29
-37,29,6
-38,8,30
-39,30,3
-40,9,31
-41,31,3
-42,5,32
-43,32,4
-44,6,33
-45,33,4
-46,7,34
-47,34,4
-48,4,35
-49,35,7
-50,8,36
-51,36,4
-52,4,37
-53,37,8
-54,9,38
-55,38,4
-56,4,39
-57,39,9
-58,6,40
-59,40,5
-60,5,41
-61,41,6
-62,7,42
-63,42,5
-64,5,43
-65,43,8
-66,5,44
-67,44,9
-68,7,45
-69,45,6
-70,6,46
-71,46,8
-72,6,47
-73,47,9
-74,7,48
-75,48,8
-76,8,49
-77,49,9

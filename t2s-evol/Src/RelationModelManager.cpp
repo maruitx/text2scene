@@ -13,6 +13,14 @@ RelationModelManager::RelationModelManager()
 
 	m_closeSampleTh = 0.03;
 	m_sceneMetric = params::inst()->globalSceneUnitScale;
+
+	m_adjustFrontObjs.push_back("desk");
+	m_adjustFrontObjs.push_back("bookcase");
+	m_adjustFrontObjs.push_back("cabinet");
+	m_adjustFrontObjs.push_back("dresser");
+	m_adjustFrontObjs.push_back("monitor");
+	m_adjustFrontObjs.push_back("tv");
+	m_adjustFrontObjs.push_back("bed");
 }
 
 RelationModelManager::~RelationModelManager()
@@ -667,10 +675,20 @@ void RelationModelManager::sampleFromRelationModel(TSScene *currScene, PairwiseR
 	// sample in the unit frame
 	Eigen::VectorXd newSample = pairModel->sample();
 	vec3 relPos = vec3(newSample[0], newSample[1], newSample[2]);
+	double relTheta = newSample[3];
 
 	// anchor obj																					 
 	MetaModel &anchorMd = currScene->getMetaModel(anchorModelId);
 	Model *anchorModel = currScene->getModel(anchorMd.name);
+
+	if (!isAnchorFrontDirConsistent(toQString(anchorMd.catName), pairModel->m_anchorObjName))
+	{
+		relPos.x *= -1;
+	}
+
+	MetaModel &actMd = currScene->getMetaModel(metaModelId);
+	adjustSamplingForSpecialModels(toQString(anchorMd.catName), toQString(actMd.catName), relPos, relTheta);
+
 	mat4 alignMat = getModelToUnitboxMat(anchorModel, anchorMd);
 	mat4 transMat = alignMat.inverse();  // transform from unit frame to world frame
 
@@ -680,17 +698,39 @@ void RelationModelManager::sampleFromRelationModel(TSScene *currScene, PairwiseR
 	double newZ = findClosestSuppPlaneZ(currScene, metaModelId, newWorldPos);
 	newWorldPos.z = newZ;
 
-	newWolrdTheta = newSample[3] * math_pi;  // theta in relational model is normalized by pi
-
-	MetaModel &actMd = currScene->getMetaModel(metaModelId);
-	if (anchorMd.catName == "bookcase" && actMd.catName == "standbooks")
-	{
-		newWolrdTheta = 0;
-	}
+	newWolrdTheta = relTheta* math_pi;  // theta in relational model is normalized by pi
 
 	if (isnan(newWorldPos.x))
 	{
 		qDebug();
+	}
+}
+
+void RelationModelManager::adjustSamplingForSpecialModels(const QString &anchorObjName, const QString &actObjName, vec3 &relPos, double &relTheta)
+{
+	if (anchorObjName == "bookcase" && actObjName == "standbooks")
+	{
+		relTheta = 0;
+	}
+
+	if (anchorObjName == "bed" && actObjName == "nightstand")
+	{
+		if (relPos.y >-0.2)
+		{
+			relPos.y = -0.35;
+		}
+
+		relTheta = 0;
+	}
+
+	if (anchorObjName == "bed" && actObjName == "desk")
+	{
+		if (relPos.y > -0.2)
+		{
+			relPos.y = -0.35;
+		}
+
+		relTheta = 0;
 	}
 }
 
@@ -934,7 +974,7 @@ PairwiseRelationModel* RelationModelManager::retrievePairwiseModel(TSScene *curr
 			double score = 0;
 
 			// check whether the anchor's front is consistent
-			if (isAnchorFrontDirConsistent(anchorObjName, dbPairModel->m_anchorObjName))
+			//if (isAnchorFrontDirConsistent(anchorObjName, dbPairModel->m_anchorObjName))
 			{
 				std::vector<double> simVal(2, 0);
 				std::vector<double> geoSim(2, 0);
@@ -944,7 +984,7 @@ PairwiseRelationModel* RelationModelManager::retrievePairwiseModel(TSScene *curr
 				if (dbPairModel->m_actObjName == actObjName) catSim[1] = 1;
 
 
-				double catWeight = 0.5;
+				double catWeight = 0.3;
 
 				for (int m = 0; m < 2; m++)
 				{
@@ -958,6 +998,10 @@ PairwiseRelationModel* RelationModelManager::retrievePairwiseModel(TSScene *curr
 
 				score = simVal[0] * simVal[1];
 			}
+			//else
+			//{
+			//	score = 0;
+			//}
 
 			simPairModels.push_back(std::make_pair(score, dbPairModel));
 		}
@@ -985,28 +1029,14 @@ PairwiseRelationModel* RelationModelManager::retrievePairwiseModel(TSScene *curr
 
 bool RelationModelManager::isAnchorFrontDirConsistent(const QString &currAnchorName, const QString &dbAnchorName)
 {
-	static std::vector<QString> normalFrontObjs;
-	static std::vector<QString> adjustFrontObjs;
-
-	normalFrontObjs.push_back("couch");
-	normalFrontObjs.push_back("chair");
-
-	adjustFrontObjs.push_back("desk");
-	adjustFrontObjs.push_back("bookcase");
-	adjustFrontObjs.push_back("cabinet");
-	adjustFrontObjs.push_back("dresser");
-	adjustFrontObjs.push_back("monitor");
-	adjustFrontObjs.push_back("tv");
-	adjustFrontObjs.push_back("bed");
-
-	if (std::find(normalFrontObjs.begin(), normalFrontObjs.end(), currAnchorName) != normalFrontObjs.end()
-		&& std::find(adjustFrontObjs.begin(), adjustFrontObjs.end(), dbAnchorName) != adjustFrontObjs.end())
+	if (std::find(m_adjustFrontObjs.begin(), m_adjustFrontObjs.end(), dbAnchorName) != m_adjustFrontObjs.end()
+		&& std::find(m_adjustFrontObjs.begin(), m_adjustFrontObjs.end(), currAnchorName) == m_adjustFrontObjs.end())
 	{
 		return false;
 	}
 
-	if (std::find(normalFrontObjs.begin(), normalFrontObjs.end(), dbAnchorName) != normalFrontObjs.end()
-		&& std::find(adjustFrontObjs.begin(), adjustFrontObjs.end(), currAnchorName) != adjustFrontObjs.end())
+	if (std::find(m_adjustFrontObjs.begin(), m_adjustFrontObjs.end(), dbAnchorName) == m_adjustFrontObjs.end()
+		&& std::find(m_adjustFrontObjs.begin(), m_adjustFrontObjs.end(), currAnchorName) != m_adjustFrontObjs.end())
 	{
 		return false;
 	}

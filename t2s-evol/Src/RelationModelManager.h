@@ -62,6 +62,7 @@ public:
 	PairwiseRelationModel* findAvailablePairModels(TSScene *currScene, const RelationConstraint &relConstraint, bool &isPairModelAvailable);
 
 	void sampleFromRelationModel(TSScene *currScene, PairwiseRelationModel *pairModel, const int metaModelId, const int anchorModelId, vec3 &newPos, double &newTheta);
+	void adjustSamplingForSpecialModels(const QString &anchorObj, const QString &actObj, vec3 &newPos, double &newTheta);
 
 	void randomSampleOnParent(TSScene *currScene, int metaModelId, vec3 &newPos, int &parentMetaModelId);
 	double findClosestSuppPlaneZ(TSScene *currScene, int metaModelId, const vec3 &newPos);
@@ -99,4 +100,6 @@ public:
 	
 	double m_closeSampleTh;  // threshold for avoiding close sample
 	double m_sceneMetric;
+
+	std::vector<QString> m_adjustFrontObjs;
 };

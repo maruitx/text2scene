@@ -139,10 +139,16 @@ Eigen::VectorXd PairwiseRelationModel::sample()
 		int randInstId = m_candidateInstanceIds[randId];
 
 		RelativePos *relPos = m_instances[randInstId];
+
 		newSample[0] = relPos->pos.x;
 		newSample[1] = relPos->pos.y;
 		newSample[2] = relPos->pos.z;
 		newSample[3] = relPos->theta;
+
+		// filter observation that is too large
+		if (std::abs(relPos->pos.x >10)) newSample[0] = 0;
+		if (std::abs(relPos->pos.y >10)) newSample[1] = 0;
+		if (std::abs(relPos->pos.z >10)) newSample[2] = -0.5;
 
 		m_lastSampleInstanceId = randInstId;
 	}
