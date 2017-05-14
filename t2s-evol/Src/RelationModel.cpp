@@ -146,9 +146,37 @@ Eigen::VectorXd PairwiseRelationModel::sample()
 		newSample[3] = relPos->theta;
 
 		// filter observation that is too large
-		if (std::abs(relPos->pos.x >10)) newSample[0] = 0;
-		if (std::abs(relPos->pos.y >10)) newSample[1] = 0;
-		if (std::abs(relPos->pos.z >10)) newSample[2] = -0.5;
+		if (std::abs(relPos->pos.x > 10)) newSample[0] = 0;
+		if (std::abs(relPos->pos.y > 10)) newSample[1] = 0;
+		if (std::abs(relPos->pos.z > 10)) newSample[2] = -0.5;
+
+		if (m_relationName == "under")
+		{
+			if (relPos->pos.z > 0 || std::abs(relPos->pos.x) > 0.5 || std::abs(relPos->pos.y) > 0.5)
+			{
+				newSample[0] = 0;
+				newSample[1] = 0;
+				newSample[2] = -0.5;
+			}
+		}
+
+		if (m_relationName.contains("side"))
+		{
+			if (std::abs(relPos->pos.x > 3) || std::abs(relPos->pos.y > 3))
+			{
+				newSample[0] = 0;
+				newSample[1] = 0;
+			}
+		}
+
+		if (m_relationName == "near")
+		{
+			if (relPos->pos.x > 2) newSample[0] = GenRandomDouble(0.8, 1);
+			if (relPos->pos.y > 2) newSample[0] = GenRandomDouble(0.8, 1);
+
+			if (relPos->pos.x <-2) newSample[0] = GenRandomDouble(-1, -0.8);
+			if (relPos->pos.y <-2) newSample[0] = GenRandomDouble(-1, -0.8);
+		}
 
 		m_lastSampleInstanceId = randInstId;
 	}

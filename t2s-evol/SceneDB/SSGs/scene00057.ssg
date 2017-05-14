@@ -135,24 +135,24 @@ upDir 0 0 1
 bbTopPlane 102.767 115.761 4.3085 102.767 19.7575 4.3085 198.771 19.7575 4.3085 198.771 115.761 4.3085
 parentId 0
 parentPlaneUVH 0.613819 0.278845 -131.75
-nodeNum 57
+nodeNum 66
 0,object,room,17 18 19 20 21 22 23 33 34 35 36,
-1,object,print,,17 33
-2,object,powersocket,,18 34
-3,object,mirror,37 38,19 35
-4,object,dresser,24 25 26 27 28 29 30 39 40 41 42 44 45 48 49,20 36 43 46 47 50 51
-5,object,laptop,52,24 39
-6,object,candle,,25 40
-7,object,pictureframe,,26 41
-8,object,wallet,31,27 42
-9,object,key,43 53,31 52 54
-10,object,unknown,,28 37
-11,object,cap,,29 38
-12,object,bottle,54,30 44 53
-13,object,lightswitch,,21
-14,object,basket,32 46 47 55,22 45 56
+1,object,print,37,17 33 38
+2,object,powersocket,39,18 34 40
+3,object,mirror,38 41 42,19 35 37
+4,object,dresser,24 25 26 27 28 29 30 40 43 44 45 46 48 49 52 53,20 36 39 47 50 51 54 55
+5,object,laptop,56 57 59,24 43 58 60
+6,object,candle,,25 44 61
+7,object,pictureframe,,26 45
+8,object,wallet,31,27 46
+9,object,key,47 62,31 56 63
+10,object,unknown,,28 41
+11,object,cap,58 61,29 42 57
+12,object,bottle,63,30 48 62
+13,object,lightswitch,60,21 59
+14,object,basket,32 50 51 64,22 49 65
 15,object,shirt,,32
-16,object,rug,50 51 56,23 48 49 55
+16,object,rug,54 55 65,23 52 53 64
 17,pair_relation,horizonsupport,1,0
 18,pair_relation,horizonsupport,2,0
 19,pair_relation,horizonsupport,3,0
@@ -173,27 +173,36 @@ nodeNum 57
 34,pair_relation,onleft,2,0
 35,pair_relation,onleft,3,0
 36,pair_relation,onleft,4,0
-37,pair_relation,back,10,3
-38,pair_relation,back,11,3
-39,pair_relation,onright,5,4
-40,pair_relation,onleft,6,4
-41,pair_relation,onleft,7,4
-42,pair_relation,onright,8,4
-43,pair_relation,back,4,9
-44,pair_relation,onright,12,4
-45,pair_relation,near,14,4
-46,pair_relation,near,4,14
-47,pair_relation,back,4,14
-48,pair_relation,near,16,4
-49,pair_relation,front,16,4
-50,pair_relation,near,4,16
-51,pair_relation,back,4,16
-52,pair_relation,front,9,5
-53,pair_relation,back,12,9
-54,pair_relation,front,9,12
-55,pair_relation,near,16,14
-56,pair_relation,near,14,16
-edgeNum 80
+37,pair_relation,rightside,3,1
+38,pair_relation,leftside,1,3
+39,pair_relation,leftside,4,2
+40,pair_relation,leftside,2,4
+41,pair_relation,back,10,3
+42,pair_relation,back,11,3
+43,pair_relation,onright,5,4
+44,pair_relation,onleft,6,4
+45,pair_relation,onleft,7,4
+46,pair_relation,onright,8,4
+47,pair_relation,back,4,9
+48,pair_relation,onright,12,4
+49,pair_relation,near,14,4
+50,pair_relation,near,4,14
+51,pair_relation,back,4,14
+52,pair_relation,near,16,4
+53,pair_relation,front,16,4
+54,pair_relation,near,4,16
+55,pair_relation,back,4,16
+56,pair_relation,front,9,5
+57,pair_relation,rightside,11,5
+58,pair_relation,leftside,5,11
+59,pair_relation,leftside,13,5
+60,pair_relation,rightside,5,13
+61,pair_relation,rightside,6,11
+62,pair_relation,back,12,9
+63,pair_relation,front,9,12
+64,pair_relation,near,16,14
+65,pair_relation,near,14,16
+edgeNum 98
 0,1,17
 1,17,0
 2,2,18
@@ -234,43 +243,61 @@ edgeNum 80
 37,35,0
 38,4,36
 39,36,0
-40,10,37
-41,37,3
-42,11,38
+40,3,37
+41,37,1
+42,1,38
 43,38,3
-44,5,39
-45,39,4
-46,6,40
+44,4,39
+45,39,2
+46,2,40
 47,40,4
-48,7,41
-49,41,4
-50,8,42
-51,42,4
-52,4,43
-53,43,9
-54,12,44
+48,10,41
+49,41,3
+50,11,42
+51,42,3
+52,5,43
+53,43,4
+54,6,44
 55,44,4
-56,14,45
+56,7,45
 57,45,4
-58,4,46
-59,46,14
+58,8,46
+59,46,4
 60,4,47
-61,47,14
-62,16,48
+61,47,9
+62,12,48
 63,48,4
-64,16,49
+64,14,49
 65,49,4
 66,4,50
-67,50,16
+67,50,14
 68,4,51
-69,51,16
-70,9,52
-71,52,5
-72,12,53
-73,53,9
-74,9,54
-75,54,12
-76,16,55
-77,55,14
-78,14,56
-79,56,16
+69,51,14
+70,16,52
+71,52,4
+72,16,53
+73,53,4
+74,4,54
+75,54,16
+76,4,55
+77,55,16
+78,9,56
+79,56,5
+80,11,57
+81,57,5
+82,5,58
+83,58,11
+84,13,59
+85,59,5
+86,5,60
+87,60,13
+88,6,61
+89,61,11
+90,12,62
+91,62,9
+92,9,63
+93,63,12
+94,16,64
+95,64,14
+96,14,65
+97,65,16

@@ -160,27 +160,27 @@ upDir 0 0 1
 bbTopPlane 49.0191 149.929 71.6453 58.564 158.987 71.6453 51.6998 166.22 71.6453 42.1549 157.163 71.6453
 parentId 12
 parentPlaneUVH 0.659538 0.279772 0.249988
-nodeNum 87
+nodeNum 109
 0,object,room,23 24 25 26 42,
 1,object,lightswitch,,23
 2,object,lamp,,24
-3,object,counter,27 28 29 43 44 48 49 50,25 45 46 47 51 52
-4,object,plate,30 54 57 59,27 53 55 56 58 60
-5,object,plate,31 53 61 63,30 62 64
-6,object,mug,55 56 65 67,31 43 54 66 68
-7,object,plate,32 33 34 62 66 69 70 71 72,28 44 61 65
-8,object,cookie,45 73 74,32 69
-9,object,cookie,46 58 75 76 77,33 57
-10,object,cookie,47 60 64 68 78 80,34 59 63 67 79
-11,object,plate,79,29 48 78
-12,object,table,20 21 22 35 36 37 38 39 40 51 52 81 82 83 85,26 42 49 50 70 73 75 80 84
-13,object,food processor,,35 81
-14,object,glass,,36 71 74 76 82
-15,object,espresso maker,41 84,37 83
-16,object,mug,,41 86
-17,object,mug,86,38
-18,object,mug,,39 72 77 85
-19,object,mug,,40
+3,object,counter,27 28 29 43 44 48 49 50 53,25 45 46 47 51 52 54
+4,object,plate,30 56 59 61 63,27 55 57 58 60 62 64
+5,object,plate,31 55 65 67 69,30 66 68 70
+6,object,mug,57 58 71 73 75,31 43 56 72 74 76
+7,object,plate,32 33 34 66 72 77 78 79 80,28 44 65 71
+8,object,cookie,45 81 83 85 86,32 77 82 84
+9,object,cookie,46 60 82 87 88 89,33 59 81
+10,object,cookie,47 62 68 74 84 90 92,34 61 67 73 83 91
+11,object,plate,64 70 76 91,29 48 63 69 75 90
+12,object,table,20 21 22 35 36 37 38 39 40 51 52 93 94 95 97,26 42 49 50 78 85 87 92 96
+13,object,food processor,,35 93
+14,object,glass,54 98,36 53 79 86 88 94 99
+15,object,espresso maker,41 96 99 100 101 103,37 95 98 102 104
+16,object,mug,106,41 105
+17,object,mug,105 107,38 100 108
+18,object,mug,102 108,39 80 89 97 101 107
+19,object,mug,104,40 103 106
 20,attribute,dining,,12
 21,attribute,rectangular,,12
 22,attribute,rectangular,,12
@@ -214,41 +214,63 @@ nodeNum 87
 50,pair_relation,rightside,12,3
 51,pair_relation,near,3,12
 52,pair_relation,leftside,3,12
-53,pair_relation,under,4,5
-54,pair_relation,front,6,4
-55,pair_relation,back,4,6
-56,pair_relation,under,4,6
-57,pair_relation,front,9,4
-58,pair_relation,back,4,9
-59,pair_relation,front,10,4
-60,pair_relation,back,4,10
-61,pair_relation,front,7,5
-62,pair_relation,back,5,7
-63,pair_relation,front,10,5
-64,pair_relation,back,5,10
-65,pair_relation,front,7,6
-66,pair_relation,back,6,7
-67,pair_relation,front,10,6
-68,pair_relation,back,6,10
-69,pair_relation,onright,8,7
-70,pair_relation,front,12,7
-71,pair_relation,front,14,7
-72,pair_relation,front,18,7
-73,pair_relation,front,12,8
-74,pair_relation,front,14,8
-75,pair_relation,front,12,9
-76,pair_relation,front,14,9
-77,pair_relation,front,18,9
-78,pair_relation,back,11,10
-79,pair_relation,front,10,11
-80,pair_relation,front,12,10
-81,pair_relation,onright,13,12
-82,pair_relation,onleft,14,12
-83,pair_relation,onright,15,12
-84,pair_relation,under,12,15
-85,pair_relation,onleft,18,12
-86,pair_relation,front,16,17
-edgeNum 131
+53,pair_relation,rightside,14,3
+54,pair_relation,leftside,3,14
+55,pair_relation,under,4,5
+56,pair_relation,front,6,4
+57,pair_relation,back,4,6
+58,pair_relation,under,4,6
+59,pair_relation,front,9,4
+60,pair_relation,back,4,9
+61,pair_relation,front,10,4
+62,pair_relation,back,4,10
+63,pair_relation,rightside,11,4
+64,pair_relation,leftside,4,11
+65,pair_relation,front,7,5
+66,pair_relation,back,5,7
+67,pair_relation,front,10,5
+68,pair_relation,back,5,10
+69,pair_relation,rightside,11,5
+70,pair_relation,leftside,5,11
+71,pair_relation,front,7,6
+72,pair_relation,back,6,7
+73,pair_relation,front,10,6
+74,pair_relation,back,6,10
+75,pair_relation,rightside,11,6
+76,pair_relation,leftside,6,11
+77,pair_relation,onright,8,7
+78,pair_relation,front,12,7
+79,pair_relation,front,14,7
+80,pair_relation,front,18,7
+81,pair_relation,leftside,9,8
+82,pair_relation,rightside,8,9
+83,pair_relation,leftside,10,8
+84,pair_relation,rightside,8,10
+85,pair_relation,front,12,8
+86,pair_relation,front,14,8
+87,pair_relation,front,12,9
+88,pair_relation,front,14,9
+89,pair_relation,front,18,9
+90,pair_relation,back,11,10
+91,pair_relation,front,10,11
+92,pair_relation,front,12,10
+93,pair_relation,onright,13,12
+94,pair_relation,onleft,14,12
+95,pair_relation,onright,15,12
+96,pair_relation,under,12,15
+97,pair_relation,onleft,18,12
+98,pair_relation,rightside,15,14
+99,pair_relation,leftside,14,15
+100,pair_relation,leftside,17,15
+101,pair_relation,leftside,18,15
+102,pair_relation,rightside,15,18
+103,pair_relation,leftside,19,15
+104,pair_relation,rightside,15,19
+105,pair_relation,front,16,17
+106,pair_relation,leftside,19,16
+107,pair_relation,leftside,18,17
+108,pair_relation,rightside,17,18
+edgeNum 175
 0,20,12
 1,21,12
 2,22,12
@@ -312,71 +334,115 @@ edgeNum 131
 60,51,12
 61,3,52
 62,52,12
-63,4,53
-64,53,5
-65,6,54
-66,54,4
+63,14,53
+64,53,3
+65,3,54
+66,54,14
 67,4,55
-68,55,6
-69,4,56
-70,56,6
-71,9,57
-72,57,4
+68,55,5
+69,6,56
+70,56,4
+71,4,57
+72,57,6
 73,4,58
-74,58,9
-75,10,59
+74,58,6
+75,9,59
 76,59,4
 77,4,60
-78,60,10
-79,7,61
-80,61,5
-81,5,62
-82,62,7
-83,10,63
-84,63,5
-85,5,64
-86,64,10
+78,60,9
+79,10,61
+80,61,4
+81,4,62
+82,62,10
+83,11,63
+84,63,4
+85,4,64
+86,64,11
 87,7,65
-88,65,6
-89,6,66
+88,65,5
+89,5,66
 90,66,7
 91,10,67
-92,67,6
-93,6,68
+92,67,5
+93,5,68
 94,68,10
-95,8,69
-96,69,7
-97,12,70
-98,70,7
-99,14,71
-100,71,7
-101,18,72
+95,11,69
+96,69,5
+97,5,70
+98,70,11
+99,7,71
+100,71,6
+101,6,72
 102,72,7
-103,12,73
-104,73,8
-105,14,74
-106,74,8
-107,12,75
-108,75,9
-109,14,76
-110,76,9
-111,18,77
-112,77,9
-113,11,78
-114,78,10
-115,10,79
-116,79,11
-117,12,80
-118,80,10
-119,13,81
-120,81,12
-121,14,82
-122,82,12
-123,15,83
-124,83,12
-125,12,84
-126,84,15
-127,18,85
-128,85,12
-129,16,86
-130,86,17
+103,10,73
+104,73,6
+105,6,74
+106,74,10
+107,11,75
+108,75,6
+109,6,76
+110,76,11
+111,8,77
+112,77,7
+113,12,78
+114,78,7
+115,14,79
+116,79,7
+117,18,80
+118,80,7
+119,9,81
+120,81,8
+121,8,82
+122,82,9
+123,10,83
+124,83,8
+125,8,84
+126,84,10
+127,12,85
+128,85,8
+129,14,86
+130,86,8
+131,12,87
+132,87,9
+133,14,88
+134,88,9
+135,18,89
+136,89,9
+137,11,90
+138,90,10
+139,10,91
+140,91,11
+141,12,92
+142,92,10
+143,13,93
+144,93,12
+145,14,94
+146,94,12
+147,15,95
+148,95,12
+149,12,96
+150,96,15
+151,18,97
+152,97,12
+153,15,98
+154,98,14
+155,14,99
+156,99,15
+157,17,100
+158,100,15
+159,18,101
+160,101,15
+161,15,102
+162,102,18
+163,19,103
+164,103,15
+165,15,104
+166,104,19
+167,16,105
+168,105,17
+169,19,106
+170,106,16
+171,18,107
+172,107,17
+173,17,108
+174,108,18

@@ -120,22 +120,22 @@ upDir 0 0 1
 bbTopPlane 151.197 54.0939 87.9686 133.261 54.0939 87.9686 133.261 43.5621 87.9686 151.197 43.5621 87.9686
 parentId 0
 parentPlaneUVH 0.887252 0.531266 -46.5785
-nodeNum 43
+nodeNum 51
 0,object,room,15 16 17 18 19 20 21 29 30 31 32 33 34 35,
 1,object,showerhead,,15 29
 2,object,fire alarm,,16 30
 3,object,fire extinguisher,,17 31
 4,object,towel ring,,18 32
-5,object,chestofdrawers,22 23 24 25 26 27 28 36 37 38 39 40,19 33
+5,object,chestofdrawers,22 23 24 25 26 27 28 36 37 38 39 40 41,19 33 42
 6,object,switch,,22 36
-7,object,bottle,,23
-8,object,bottle,41,24 37
-9,object,bottle,,25 38
-10,object,bunsen burner,,26 39 42
-11,object,bottle,,27
+7,object,bottle,43,23 44
+8,object,bottle,45 47,24 37 46
+9,object,bottle,48,25 38 49
+10,object,bunsen burner,49,26 39 48 50
+11,object,bottle,44 46,27 43 45
 12,object,dial,,28 40
 13,object,fire alarm,,20 34
-14,object,dryer,42,21 35 41
+14,object,dryer,42 50,21 35 41 47
 15,pair_relation,horizonsupport,1,0
 16,pair_relation,horizonsupport,2,0
 17,pair_relation,vertsupport,3,0
@@ -162,9 +162,17 @@ nodeNum 43
 38,pair_relation,onleft,9,5
 39,pair_relation,onleft,10,5
 40,pair_relation,onleft,12,5
-41,pair_relation,front,14,8
-42,pair_relation,front,10,14
-edgeNum 56
+41,pair_relation,leftside,14,5
+42,pair_relation,rightside,5,14
+43,pair_relation,rightside,11,7
+44,pair_relation,leftside,7,11
+45,pair_relation,rightside,11,8
+46,pair_relation,leftside,8,11
+47,pair_relation,front,14,8
+48,pair_relation,rightside,10,9
+49,pair_relation,leftside,9,10
+50,pair_relation,front,10,14
+edgeNum 72
 0,1,15
 1,15,0
 2,2,16
@@ -218,6 +226,22 @@ edgeNum 56
 50,12,40
 51,40,5
 52,14,41
-53,41,8
-54,10,42
+53,41,5
+54,5,42
 55,42,14
+56,11,43
+57,43,7
+58,7,44
+59,44,11
+60,11,45
+61,45,8
+62,8,46
+63,46,11
+64,14,47
+65,47,8
+66,10,48
+67,48,9
+68,9,49
+69,49,10
+70,10,50
+71,50,14

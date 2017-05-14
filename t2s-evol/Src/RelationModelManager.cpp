@@ -713,6 +713,11 @@ void RelationModelManager::adjustSamplingForSpecialModels(const QString &anchorO
 		relTheta = 0;
 	}
 
+	if (anchorObjName == "couch" && actObjName == "table")
+	{
+		relTheta = 1;
+	}
+
 	if (anchorObjName == "bed" && actObjName == "nightstand")
 	{
 		if (relPos.y >-0.2)
@@ -723,6 +728,7 @@ void RelationModelManager::adjustSamplingForSpecialModels(const QString &anchorO
 		relTheta = 0;
 	}
 
+
 	if (anchorObjName == "bed" && actObjName == "desk")
 	{
 		if (relPos.y > -0.2)
@@ -730,7 +736,56 @@ void RelationModelManager::adjustSamplingForSpecialModels(const QString &anchorO
 			relPos.y = -0.35;
 		}
 
+		if (relPos.x > 0 && relPos.x < 0.6)
+		{
+			relPos.x = 1.1;
+		}
+
+		if (relPos.x < 0 && relPos.x > -0.6)
+		{
+			relPos.x = -1.1;
+		}
+
 		relTheta = 0;
+	}
+
+	if (anchorObjName == "bed" && actObjName == "dresser")
+	{
+		if (relPos.y > -0.2)
+		{
+			relPos.y = -0.3;
+		}
+	}
+
+	if (anchorObjName == "couch" && actObjName == "chair")
+	{
+		// right
+		if (relPos.x >0 && (relTheta < 0 || relTheta > 0.5))
+		{
+			relTheta = 0.3;
+		}
+
+		// left
+		if (relPos.x < 0 && (relTheta < -0.5 || relTheta >0))
+		{
+			relTheta = -0.3;
+		}
+
+		if (relPos.y < -0.2 || relPos.y > 1)
+		{
+			relPos.y = 0.8;
+		}
+
+		// do not occlude the couch
+		if (relPos.x > 0 && relPos.x< 0.5)
+		{
+			relPos.x = 1;				 
+		}
+
+		if (relPos.x < 0 && relPos.x > -0.5)
+		{
+			relPos.x = -1;
+		}
 	}
 }
 
@@ -783,22 +838,23 @@ double RelationModelManager::findClosestSuppPlaneZ(TSScene *currScene, int metaM
 		}
 	}
 
-	// use z of anchor's position if parent does not exist
-	int currNodeId = currScene->m_ssg->getNodeIdWithModelId(metaModelId);
-	SemNode &currNode = currScene->m_ssg->m_nodes[currNodeId];
-	for (int i=0; i<currNode.outEdgeNodeList.size(); i++)
-	{
-		int relNodeId = currNode.outEdgeNodeList[i];
-		SemNode &relNode = currScene->m_ssg->m_nodes[relNodeId];
+	//// use z of anchor's position if parent does not exist
+	//int currNodeId = currScene->m_ssg->getNodeIdWithModelId(metaModelId);
+	//SemNode &currNode = currScene->m_ssg->m_nodes[currNodeId];
+	//for (int i=0; i<currNode.outEdgeNodeList.size(); i++)
+	//{
+	//	int relNodeId = currNode.outEdgeNodeList[i];
+	//	SemNode &relNode = currScene->m_ssg->m_nodes[relNodeId];
 
-		if (relNode.anchorNodeList.size()>0)
-		{
-			int anchorNodeId = relNode.anchorNodeList[0];
-			int anchorModeId = currScene->m_ssg->m_graphNodeToModelListIdMap[anchorNodeId];
-			MetaModel &anchorModel = currScene->getMetaModel(anchorModeId);
-			return anchorModel.position.z;
-		}
-	}
+	//	if (relNode.anchorNodeList.size()>0)
+	//	{
+	//		int anchorNodeId = relNode.anchorNodeList[0];
+	//		int anchorModeId = currScene->m_ssg->m_graphNodeToModelListIdMap[anchorNodeId];
+	//		MetaModel &anchorModel = currScene->getMetaModel(anchorModeId);
+	//		
+	//		return anchorModel.position.z;
+	//	}
+	//}
 
 	return currScene->m_floorHeight;
 	//return newPos.z;
@@ -848,7 +904,7 @@ void RelationModelManager::collectConstraintsForModel(TSScene *currScene, int me
 
 	SemNode &currNode = currSSG->m_nodes[currNodeId];
 
-	if (!currNode.outEdgeNodeList.empty())
+	if (currNode.nodeType == "object" &&!currNode.outEdgeNodeList.empty())
 	{
 		for (int r = 0; r < currNode.outEdgeNodeList.size(); r++)
 		{
@@ -929,6 +985,54 @@ void RelationModelManager::collectConstraintsForModel(TSScene *currScene, int me
 			}
 		}
 	}
+	//// add near if there is no relation specified
+	//else if(currNode.nodeType == "object" && currNode.outEdgeNodeList.empty() && currNode.matchingStatus == SemNode::ExplicitNode)
+	//{
+	//	if (currScene->m_explictConstraints[metaModelId].empty())
+	//	{
+	//		// find another object which has diff cat and use it as anchor
+	//		int anchorObjNodeId = -1;
+	//		for (int j = 0; j < currSSG->m_nodes.size(); j++)
+	//		{
+	//			SemNode &anchorNode = currSSG->m_nodes[j];
+	//			if (anchorNode.nodeType == "object" && anchorNode.matchingStatus == SemNode::ExplicitNode
+	//				&& anchorNode.nodeName != currNode.nodeName)
+	//			{
+	//				anchorObjNodeId = j;
+	//				break;
+	//			}
+	//		}
+
+	//		if (anchorObjNodeId != -1)
+	//		{
+	//			SemNode &anchorObjNode = currSSG->m_nodes[anchorObjNodeId];
+
+	//			QString relationName = "near";
+	//			MetaModel &anchorMd = currScene->getMetaModel(currSSG->m_graphNodeToModelListIdMap[anchorObjNodeId]);
+	//			MetaModel &actMd = currScene->getMetaModel(currSSG->m_graphNodeToModelListIdMap[currNodeId]);
+
+	//			Model *refModel = currScene->getModel(anchorMd.name);
+	//			Model *actModel = currScene->getModel(actMd.name);
+	//			if (!refModel->m_loadingDone || !actModel->m_loadingDone) return;
+
+	//			// find explicit constraints specified in the SSG
+	//			PairwiseRelationModel *pairwiseModel;
+	//			QString relationType;
+
+	//			pairwiseModel = retrievePairwiseModel(currScene, anchorMd, actMd, relationName);
+	//			relationType = "pairwise";
+
+	//			if (pairwiseModel != NULL)
+	//			{
+	//				int anchorModelId = currSSG->m_graphNodeToModelListIdMap[anchorObjNodeId];
+	//				currScene->m_explictConstraints[metaModelId].push_back(RelationConstraint(pairwiseModel, relationType, anchorModelId, ""));
+
+	//				MetaModel &md = currScene->getMetaModel(metaModelId);
+	//				md.explicitAnchorId = anchorModelId;
+	//			}
+	//		}
+	//	}
+	//}
 }
 
 PairwiseRelationModel* RelationModelManager::retrievePairwiseModel(TSScene *currScene, const MetaModel &anchorMd, const MetaModel &actMd, const QString &relationName)

@@ -112,17 +112,17 @@ upDir 0 0 1
 bbTopPlane 391.25 216.552 25.416 391.25 187.134 25.416 414.5 187.134 25.416 414.5 216.552 25.416
 parentId 0
 parentPlaneUVH 0.390235 0.158814 -119.75
-nodeNum 40
+nodeNum 44
 0,object,room,18 19 20 21,
 1,object,stool,,18 31
 2,object,trashbin,,19 32 33
 3,object,table,14 15 16 17 22 23 24 25 26 27 28 29 30 34 35 36 37 38 39,20
 4,object,globe,,22 34
-5,object,erlenmeyer flask,,23
+5,object,erlenmeyer flask,40,23 41
 6,object,holder,,24
-7,object,beaker,,25 35
+7,object,beaker,42,25 35 43
 8,object,bunsen burner,32,26
-9,object,paper,31,27 36
+9,object,paper,31 41 43,27 36 40 42
 10,object,pen,33,28 37
 11,object,openbook,,29 38
 12,object,calculator,,30 39
@@ -153,7 +153,11 @@ nodeNum 40
 37,pair_relation,onright,10,3
 38,pair_relation,onleft,11,3
 39,pair_relation,onleft,12,3
-edgeNum 48
+40,pair_relation,leftside,9,5
+41,pair_relation,rightside,5,9
+42,pair_relation,leftside,9,7
+43,pair_relation,rightside,7,9
+edgeNum 56
 0,14,3
 1,15,3
 2,16,3
@@ -202,3 +206,11 @@ edgeNum 48
 45,38,3
 46,12,39
 47,39,3
+48,9,40
+49,40,5
+50,5,41
+51,41,9
+52,9,42
+53,42,7
+54,7,43
+55,43,9

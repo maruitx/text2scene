@@ -18,6 +18,7 @@ public:
 	void mapToFixedRelationSet(SemNode &currNode, QString &nodeName, QString &nodeType = QString(""));
 	void mapToFixedAttributeSet(QString &nodeName, QString &nodeType = QString(""));
 
+	void addImplicitRelations(); // add implicit relations if no relations specified in the input
 	void postProcessForSpecialRelations();
 
 	QString convertToSinglarForm(const QString &s);

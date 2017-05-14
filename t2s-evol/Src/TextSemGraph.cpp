@@ -186,6 +186,7 @@ void TextSemGraph::buildGraphFromSEL()
 	this->parseNodeNeighbors();
 
 	mapNodeNameToFixedNameSet();
+	addImplicitRelations();
 	postProcessForSpecialRelations();
 }
 
@@ -611,6 +612,32 @@ void TextSemGraph::mapToFixedAttributeSet(QString &nodeName, QString &nodeType /
 		nodeName = "clean";
 		return;
 	}
+}
+
+void TextSemGraph::addImplicitRelations()
+{
+	for (int i=0; i < m_nodes.size(); i++)
+	{
+		SemNode &currNode = m_nodes[i];
+		if (currNode.nodeName == "couch" && currNode.inEdgeNodeList.empty())
+		{
+			for (int j=0; j < m_nodes.size(); j++)
+			{
+				if(i==j) continue;
+				SemNode &actNode = m_nodes[j];
+				if (actNode.nodeName == "chair" && actNode.outEdgeNodeList.empty())
+				{
+					addNode(SSGNodeType[SemNode::Pair], "near");
+
+					int currNodeId = m_nodeNum - 1;
+					addEdge(j, currNodeId);
+					addEdge(currNodeId, i);
+				}
+			}
+		}
+	}
+
+	parseNodeNeighbors();
 }
 
 void TextSemGraph::postProcessForSpecialRelations()

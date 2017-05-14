@@ -264,7 +264,7 @@ upDir 0 0 1
 bbTopPlane 41.3185 56.3772 1.2501 110.262 56.3772 1.2501 110.262 107.646 1.2501 41.3185 107.646 1.2501
 parentId 0
 parentPlaneUVH 0.428193 0.489629 -107.75
-nodeNum 114
+nodeNum 128
 0,object,room,33 34 35 36 37 38 39 40 41 42 43 44 65 66 67 68 69 70 71 72,
 1,object,toilet,73 74 78,33 75 76 77 79
 2,object,toiletpaper,,34 80
@@ -272,32 +272,32 @@ nodeNum 114
 4,object,vanity,45 46 47 48 49 50 51 52 53 54 55 56 57 77 81 82 83 84 85 86 87 88 89 90 91 92 93 96 97,36 66 94 95 98
 5,object,cup,,45 82
 6,object,soapbar,,46 83
-7,object,soap dispenser,,47 84
-8,object,comb,,48 85
-9,object,toothbrush,,49 86
+7,object,soap dispenser,99,47 84
+8,object,comb,102,48 85 100 101
+9,object,toothbrush,100 103,49 86 104
 10,object,scrub brush,,50 87
-11,object,toothpaste,,51 88
-12,object,shampoo,,52 89
-13,object,cellphone,,53
-14,object,plate,,54
+11,object,toothpaste,101,51 88
+12,object,shampoo,105,52 89
+13,object,cellphone,106,53 107
+14,object,plate,107,54 102 105 106
 15,object,mug,,55 90
 16,object,pillbottle,,56 91
-17,object,pillbottle,,57 92
-18,object,bathtub,94 95 99 100 101 102,37 67 93 103 104
+17,object,pillbottle,104,57 92 99 103
+18,object,bathtub,94 95 108 109 110 111,37 67 93 112 113
 19,object,showerhead,,38 68
-20,object,1shelves,58 59 60 61 105 106 107,39 69
-21,object,soapbar,,58 99 105
-22,object,shampoo,108,59
-23,object,shampoo,,60 106
-24,object,shampoo,109,61 100 107
+20,object,1shelves,58 59 60 61 114 115 116,39 69
+21,object,soapbar,,58 108 114
+22,object,shampoo,118,59 117
+23,object,shampoo,117 119,60 115 120
+24,object,shampoo,121,61 109 116
 25,object,holder,,40
 26,object,towel,,41 70
-27,object,holder,,42 71 108 109
-28,object,1shelves,62 63 64 80 110 112 113,43 111
-29,object,box,111,62 110
-30,object,scissors,,63 112
-31,object,toiletpaper,,64 113
-32,object,rug,79 98 103 104,44 72 78 96 97 101 102
+27,object,holder,120,42 71 118 119 121
+28,object,1shelves,62 63 64 80 122 124 125,43 123
+29,object,box,123 126,62 122 127
+30,object,scissors,,63 124
+31,object,toiletpaper,127,64 125 126
+32,object,rug,79 98 112 113,44 72 78 96 97 110 111
 33,pair_relation,vertsupport,1,0
 34,pair_relation,horizonsupport,2,0
 35,pair_relation,vertsupport,3,0
@@ -364,22 +364,36 @@ nodeNum 114
 96,pair_relation,near,32,4
 97,pair_relation,front,32,4
 98,pair_relation,near,4,32
-99,pair_relation,back,21,18
-100,pair_relation,back,24,18
-101,pair_relation,near,32,18
-102,pair_relation,front,32,18
-103,pair_relation,near,18,32
-104,pair_relation,back,18,32
-105,pair_relation,onleft,21,20
-106,pair_relation,onright,23,20
-107,pair_relation,onleft,24,20
-108,pair_relation,back,27,22
-109,pair_relation,back,27,24
-110,pair_relation,onright,29,28
-111,pair_relation,under,28,29
-112,pair_relation,onleft,30,28
-113,pair_relation,onleft,31,28
-edgeNum 162
+99,pair_relation,rightside,17,7
+100,pair_relation,rightside,8,9
+101,pair_relation,leftside,8,11
+102,pair_relation,leftside,14,8
+103,pair_relation,rightside,17,9
+104,pair_relation,leftside,9,17
+105,pair_relation,leftside,14,12
+106,pair_relation,leftside,14,13
+107,pair_relation,rightside,13,14
+108,pair_relation,back,21,18
+109,pair_relation,back,24,18
+110,pair_relation,near,32,18
+111,pair_relation,front,32,18
+112,pair_relation,near,18,32
+113,pair_relation,back,18,32
+114,pair_relation,onleft,21,20
+115,pair_relation,onright,23,20
+116,pair_relation,onleft,24,20
+117,pair_relation,leftside,22,23
+118,pair_relation,back,27,22
+119,pair_relation,leftside,27,23
+120,pair_relation,rightside,23,27
+121,pair_relation,back,27,24
+122,pair_relation,onright,29,28
+123,pair_relation,under,28,29
+124,pair_relation,onleft,30,28
+125,pair_relation,onleft,31,28
+126,pair_relation,leftside,31,29
+127,pair_relation,rightside,29,31
+edgeNum 190
 0,1,33
 1,33,0
 2,2,34
@@ -512,33 +526,61 @@ edgeNum 162
 129,97,4
 130,4,98
 131,98,32
-132,21,99
-133,99,18
-134,24,100
-135,100,18
-136,32,101
-137,101,18
-138,32,102
-139,102,18
-140,18,103
-141,103,32
-142,18,104
-143,104,32
-144,21,105
-145,105,20
-146,23,106
-147,106,20
-148,24,107
-149,107,20
-150,27,108
-151,108,22
-152,27,109
-153,109,24
-154,29,110
-155,110,28
-156,28,111
-157,111,29
-158,30,112
-159,112,28
-160,31,113
-161,113,28
+132,17,99
+133,99,7
+134,8,100
+135,100,9
+136,8,101
+137,101,11
+138,14,102
+139,102,8
+140,17,103
+141,103,9
+142,9,104
+143,104,17
+144,14,105
+145,105,12
+146,14,106
+147,106,13
+148,13,107
+149,107,14
+150,21,108
+151,108,18
+152,24,109
+153,109,18
+154,32,110
+155,110,18
+156,32,111
+157,111,18
+158,18,112
+159,112,32
+160,18,113
+161,113,32
+162,21,114
+163,114,20
+164,23,115
+165,115,20
+166,24,116
+167,116,20
+168,22,117
+169,117,23
+170,27,118
+171,118,22
+172,27,119
+173,119,23
+174,23,120
+175,120,27
+176,27,121
+177,121,24
+178,29,122
+179,122,28
+180,28,123
+181,123,29
+182,30,124
+183,124,28
+184,31,125
+185,125,28
+186,31,126
+187,126,29
+188,29,127
+189,127,31

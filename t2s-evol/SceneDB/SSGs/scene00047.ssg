@@ -103,20 +103,20 @@ upDir 0 0 1
 bbTopPlane 129.13 157.761 59.8875 131.539 188.363 59.8875 95.4659 191.202 59.8875 93.0574 160.6 59.8875
 parentId 0
 parentPlaneUVH 0.468691 0.718032 -131.75
-nodeNum 52
+nodeNum 58
 0,object,room,16 17 18 28,
 1,object,table,13 14 15 19 20 21 22 23 24 31 33 34 35 36 39,16 29 30 32 37 38 40 41
-2,object,plate,25 29 42,19 43 44
-3,object,pottedplant,30 43 45,25 42 46 47 48
-4,object,plate,26 27 49,20
-5,object,fruit,32,26 31 49
+2,object,plate,25 29 42 44,19 43 45 46
+3,object,pottedplant,30 43 47 49,25 42 48 50 51 52
+4,object,plate,26 27 53,20
+5,object,fruit,32,26 31 53
 6,object,banana,,27
-7,object,usbstick,,21 33 50
-8,object,ashtray,46,22 45
-9,object,bowl,47,23 34 51
-10,object,unknown,48,24
-11,object,chair,37 38,17 28 35 36
-12,object,chair,40 41 44 50 51,18 39
+7,object,usbstick,45 48,21 33 44 47 54 55
+8,object,ashtray,50 54,22 49
+9,object,bowl,51 56,23 34 57
+10,object,unknown,52,24
+11,object,chair,37 38,17 28 35 36 56
+12,object,chair,40 41 46 55 57,18 39
 13,attribute,dining,,1
 14,attribute,rectangular,,1
 15,attribute,rectangular,,1
@@ -148,15 +148,21 @@ nodeNum 52
 41,pair_relation,front,1,12
 42,pair_relation,onright,3,2
 43,pair_relation,under,2,3
-44,pair_relation,front,2,12
-45,pair_relation,front,8,3
-46,pair_relation,back,3,8
-47,pair_relation,front,3,9
-48,pair_relation,back,3,10
-49,pair_relation,onright,5,4
-50,pair_relation,front,7,12
-51,pair_relation,front,9,12
-edgeNum 75
+44,pair_relation,rightside,7,2
+45,pair_relation,leftside,2,7
+46,pair_relation,front,2,12
+47,pair_relation,rightside,7,3
+48,pair_relation,leftside,3,7
+49,pair_relation,front,8,3
+50,pair_relation,back,3,8
+51,pair_relation,front,3,9
+52,pair_relation,back,3,10
+53,pair_relation,onright,5,4
+54,pair_relation,rightside,7,8
+55,pair_relation,front,7,12
+56,pair_relation,leftside,11,9
+57,pair_relation,front,9,12
+edgeNum 87
 0,13,1
 1,14,1
 2,15,1
@@ -216,19 +222,31 @@ edgeNum 75
 56,42,2
 57,2,43
 58,43,3
-59,2,44
-60,44,12
-61,8,45
-62,45,3
-63,3,46
-64,46,8
-65,3,47
-66,47,9
+59,7,44
+60,44,2
+61,2,45
+62,45,7
+63,2,46
+64,46,12
+65,7,47
+66,47,3
 67,3,48
-68,48,10
-69,5,49
-70,49,4
-71,7,50
-72,50,12
-73,9,51
-74,51,12
+68,48,7
+69,8,49
+70,49,3
+71,3,50
+72,50,8
+73,3,51
+74,51,9
+75,3,52
+76,52,10
+77,5,53
+78,53,4
+79,7,54
+80,54,8
+81,7,55
+82,55,12
+83,11,56
+84,56,9
+85,9,57
+86,57,12

@@ -88,18 +88,18 @@ upDir 0 0 1
 bbTopPlane 240.974 215.514 98.5274 240.974 186.287 98.5274 242.375 186.287 98.5274 242.375 215.514 98.5274
 parentId 0
 parentPlaneUVH 0.983916 0.82675 -56.1884
-nodeNum 39
+nodeNum 40
 0,object,room,11 12 13 21 22 23,
 1,object,dresser,14 15 16 17 18 19 24 26 27 28,11 21 25 29 30
 2,object,tissuebox,,14 31
 3,object,stackbooks,32 33,15 34
-4,object,bottle,,16 35
-5,object,book,20 36,17
-6,object,ipod,25 31 35 37,20 24 32 36
-7,object,aerosol,38,18 26 37
+4,object,bottle,35,16 36
+5,object,book,20 37,17
+6,object,ipod,25 31 36 38,20 24 32 35 37
+7,object,aerosol,39,18 26 38
 8,object,toyfigure,,19
 9,object,trashbin,29 30,12 22 27 28
-10,object,wallart,34,13 23 33 38
+10,object,wallart,34,13 23 33 39
 11,pair_relation,vertsupport,1,0
 12,pair_relation,vertsupport,9,0
 13,pair_relation,horizonsupport,10,0
@@ -124,11 +124,12 @@ nodeNum 39
 32,pair_relation,front,6,3
 33,pair_relation,back,10,3
 34,pair_relation,front,3,10
-35,pair_relation,front,4,6
-36,pair_relation,onright,6,5
-37,pair_relation,back,7,6
-38,pair_relation,front,10,7
-edgeNum 56
+35,pair_relation,leftside,6,4
+36,pair_relation,front,4,6
+37,pair_relation,onright,6,5
+38,pair_relation,back,7,6
+39,pair_relation,front,10,7
+edgeNum 58
 0,1,11
 1,11,0
 2,9,12
@@ -177,11 +178,13 @@ edgeNum 56
 45,33,3
 46,3,34
 47,34,10
-48,4,35
-49,35,6
-50,6,36
-51,36,5
-52,7,37
-53,37,6
-54,10,38
-55,38,7
+48,6,35
+49,35,4
+50,4,36
+51,36,6
+52,6,37
+53,37,5
+54,7,38
+55,38,6
+56,10,39
+57,39,7

@@ -106,9 +106,13 @@ void LayoutPlanner::initPlaceByAlignRelation(SceneSemGraph *matchedSg, SceneSemG
 				}
 
 				mat4 finalTransMat = translateMat*dirRotMat;
-
 				currActiveMd.updateWithTransform(finalTransMat);
 
+				if (adjustInitTransfromSpecialModel(currRefMd, currActiveMd))
+				{
+					finalTransMat = currActiveMd.transformation;  // use the adjusted transform
+				}
+				
 				int currActiveModelId = currSg->m_graphNodeToModelListIdMap[currActiveNodeId];
 				initAlignmentOfChildren(currSg, currActiveModelId, finalTransMat);
 
@@ -530,6 +534,35 @@ void LayoutPlanner::adjustZForModel(TSScene *currScene, int metaModelId)
 		}
 	}
 }
+
+bool LayoutPlanner::adjustInitTransfromSpecialModel(const MetaModel &anchorMd, MetaModel &actMd)
+{
+	bool isAdjusted = false;
+
+	if (anchorMd.catName == "couch" && actMd.catName == "table")
+	{
+		double currAngle = GetRotAngleR(anchorMd.frontDir, actMd.frontDir, vec3(0, 0, 1));
+		double targetAngle;
+		bool needAdjust = false;
+		if (currAngle > 0 && currAngle < 0.5*math_pi || currAngle < 0 && currAngle > -0.5*math_pi)
+		{
+			needAdjust = true;
+			targetAngle = 0;
+		}
+
+		if(needAdjust)
+		{
+			mat4 rotMat = GetRotationMatrix(vec3(0, 0, 1), targetAngle - currAngle);
+			mat4 adjustedMat = mat4::translate(actMd.position)*rotMat*mat4::translate(-actMd.position)*actMd.transformation;
+			actMd.updateWithTransform(adjustedMat);
+
+			isAdjusted = true;
+		}
+	}
+
+	return isAdjusted;
+}
+
 
 std::vector<int> LayoutPlanner::makeToPlaceModelIds(TSScene *currScene)
 {

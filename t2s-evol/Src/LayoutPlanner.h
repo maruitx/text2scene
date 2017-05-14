@@ -24,6 +24,7 @@ public:
 	void computeGroupObjLayoutSeq(TSScene *currScene, const std::vector<int> &toPlaceModelIds);
 	bool doRollback(TSScene *currScene, std::vector<int> &tempPlacedIds, int currModelId);
 	void adjustZForModel(TSScene *currScene, int metaModelId);
+	bool adjustInitTransfromSpecialModel(const MetaModel &anchorMd, MetaModel &actMd);
 
 	std::vector<int> makeToPlaceModelIds(TSScene *currScene);
 	std::vector<int> sortModelsByVolume(TSScene *currScene, const std::vector<int> &modelIds);

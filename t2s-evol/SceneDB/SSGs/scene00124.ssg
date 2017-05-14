@@ -336,40 +336,40 @@ upDir 0 0 1
 bbTopPlane 50.0925 324.771 72.6324 43.0066 304.762 72.6324 59.3335 298.98 72.6324 66.4193 318.99 72.6324
 parentId 0
 parentPlaneUVH 0.279838 0.204014 -106.049
-nodeNum 130
+nodeNum 158
 0,object,room,46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101,
 1,object,easel,,46
 2,object,personstanding,,47 87
 3,object,floorlamp,102,48
-4,object,picture,,49 88
-5,object,wallart,,50 89
-6,object,wallart,103,51 90 104
-7,object,wallart,,52 91
+4,object,picture,,49 88 103 104 105
+5,object,wallart,103,50 89
+6,object,wallart,106 108,51 90 107 109
+7,object,wallart,107 110,52 91 106 111
 8,object,lightswitch,,53
-9,object,trashbin,,54
-10,object,trashbin,,55 92
-11,object,rack,72 73 74 75 76 77 78 79 80 81 82 105 106 107 108 109 110 111 112 113,56
-12,object,basket,,72 114
-13,object,basket,,73 115
-14,object,radio,83,74 105 116
-15,object,ipod,117 119 120,83 106 118 121 122
-16,object,pen,118,75 107 117 123
-17,object,pen,,76 108
-18,object,pen,121,77 109 119 120 124
-19,object,pencil,,78 110 125
-20,object,marker,,79 111
-21,object,marker,,80 112 126
-22,object,brush,114 116 122 123 124 127,81 113
-23,object,holder,115 125 126,82
-24,object,cabinet,,57 93
-25,object,paperbox,,58 94
-26,object,table,42 43 44 45 84 85 86 128 129,59 95
-27,object,pencil,104,84 103 128
-28,object,brush,,85 129
+9,object,trashbin,112,54 113
+10,object,trashbin,113,55 92 112
+11,object,rack,72 73 74 75 76 77 78 79 80 81 82 114 115 116 117 118 119 120 121 122,56
+12,object,basket,123 125,72 124 126 127
+13,object,basket,128,73 129 130
+14,object,radio,83 131 133 135,74 114 132 134 136
+15,object,ipod,137 139 140,83 115 138 141 142
+16,object,pen,138 143,75 116 137 144 145
+17,object,pen,124 144 146,76 117 123 143 147
+18,object,pen,126 141 147,77 118 125 139 140 146 148
+19,object,pencil,132,78 119 131 149
+20,object,marker,,79 120
+21,object,marker,129,80 121 128 133 150
+22,object,brush,127 134 142 145 148 151,81 122
+23,object,holder,130 136 149 150,82 135
+24,object,cabinet,104 152,57 93 153
+25,object,paperbox,105 153 154,58 94 152 155
+26,object,table,42 43 44 45 84 85 86 156 157,59 95
+27,object,pencil,109,84 108 156
+28,object,brush,111,85 110 157
 29,object,cap,,86
-30,object,easel,,60 96
+30,object,easel,155,60 96 154
 31,object,easel,,61 102
-32,object,easel,,62 127
+32,object,easel,,62 151
 33,object,classroom,,63
 34,object,floorlamp,,64 97
 35,object,easel,,65 98
@@ -440,34 +440,62 @@ nodeNum 130
 100,pair_relation,onright,37,0
 101,pair_relation,onleft,39,0
 102,pair_relation,under,31,3
-103,pair_relation,front,27,6
-104,pair_relation,front,6,27
-105,pair_relation,onleft,14,11
-106,pair_relation,under,15,11
-107,pair_relation,onleft,16,11
-108,pair_relation,onleft,17,11
-109,pair_relation,onleft,18,11
-110,pair_relation,onright,19,11
-111,pair_relation,onright,20,11
-112,pair_relation,onright,21,11
-113,pair_relation,onleft,22,11
-114,pair_relation,under,12,22
-115,pair_relation,under,13,23
-116,pair_relation,under,14,22
-117,pair_relation,under,16,15
-118,pair_relation,back,15,16
-119,pair_relation,back,18,15
-120,pair_relation,under,18,15
-121,pair_relation,back,15,18
-122,pair_relation,under,15,22
-123,pair_relation,under,16,22
-124,pair_relation,under,18,22
-125,pair_relation,under,19,23
-126,pair_relation,under,21,23
-127,pair_relation,front,32,22
-128,pair_relation,onleft,27,26
-129,pair_relation,onright,28,26
-edgeNum 172
+103,pair_relation,leftside,4,5
+104,pair_relation,rightside,4,24
+105,pair_relation,rightside,4,25
+106,pair_relation,leftside,7,6
+107,pair_relation,rightside,6,7
+108,pair_relation,front,27,6
+109,pair_relation,front,6,27
+110,pair_relation,rightside,28,7
+111,pair_relation,leftside,7,28
+112,pair_relation,leftside,10,9
+113,pair_relation,rightside,9,10
+114,pair_relation,onleft,14,11
+115,pair_relation,under,15,11
+116,pair_relation,onleft,16,11
+117,pair_relation,onleft,17,11
+118,pair_relation,onleft,18,11
+119,pair_relation,onright,19,11
+120,pair_relation,onright,20,11
+121,pair_relation,onright,21,11
+122,pair_relation,onleft,22,11
+123,pair_relation,leftside,17,12
+124,pair_relation,rightside,12,17
+125,pair_relation,leftside,18,12
+126,pair_relation,rightside,12,18
+127,pair_relation,under,12,22
+128,pair_relation,leftside,21,13
+129,pair_relation,rightside,13,21
+130,pair_relation,under,13,23
+131,pair_relation,rightside,19,14
+132,pair_relation,leftside,14,19
+133,pair_relation,rightside,21,14
+134,pair_relation,under,14,22
+135,pair_relation,rightside,23,14
+136,pair_relation,leftside,14,23
+137,pair_relation,under,16,15
+138,pair_relation,back,15,16
+139,pair_relation,back,18,15
+140,pair_relation,under,18,15
+141,pair_relation,back,15,18
+142,pair_relation,under,15,22
+143,pair_relation,leftside,17,16
+144,pair_relation,rightside,16,17
+145,pair_relation,under,16,22
+146,pair_relation,rightside,18,17
+147,pair_relation,leftside,17,18
+148,pair_relation,under,18,22
+149,pair_relation,under,19,23
+150,pair_relation,under,21,23
+151,pair_relation,front,32,22
+152,pair_relation,rightside,25,24
+153,pair_relation,rightside,24,25
+154,pair_relation,leftside,30,25
+155,pair_relation,rightside,25,30
+156,pair_relation,onleft,27,26
+157,pair_relation,onright,28,26
+edgeNum 228
 0,42,26
 1,43,26
 2,44,26
@@ -586,57 +614,113 @@ edgeNum 172
 115,101,0
 116,31,102
 117,102,3
-118,27,103
-119,103,6
-120,6,104
-121,104,27
-122,14,105
-123,105,11
-124,15,106
-125,106,11
-126,16,107
-127,107,11
-128,17,108
-129,108,11
-130,18,109
-131,109,11
-132,19,110
-133,110,11
-134,20,111
-135,111,11
-136,21,112
-137,112,11
-138,22,113
-139,113,11
-140,12,114
-141,114,22
-142,13,115
-143,115,23
-144,14,116
-145,116,22
-146,16,117
-147,117,15
-148,15,118
-149,118,16
-150,18,119
-151,119,15
-152,18,120
-153,120,15
-154,15,121
-155,121,18
-156,15,122
-157,122,22
-158,16,123
-159,123,22
-160,18,124
-161,124,22
-162,19,125
-163,125,23
-164,21,126
-165,126,23
-166,32,127
+118,4,103
+119,103,5
+120,4,104
+121,104,24
+122,4,105
+123,105,25
+124,7,106
+125,106,6
+126,6,107
+127,107,7
+128,27,108
+129,108,6
+130,6,109
+131,109,27
+132,28,110
+133,110,7
+134,7,111
+135,111,28
+136,10,112
+137,112,9
+138,9,113
+139,113,10
+140,14,114
+141,114,11
+142,15,115
+143,115,11
+144,16,116
+145,116,11
+146,17,117
+147,117,11
+148,18,118
+149,118,11
+150,19,119
+151,119,11
+152,20,120
+153,120,11
+154,21,121
+155,121,11
+156,22,122
+157,122,11
+158,17,123
+159,123,12
+160,12,124
+161,124,17
+162,18,125
+163,125,12
+164,12,126
+165,126,18
+166,12,127
 167,127,22
-168,27,128
-169,128,26
-170,28,129
-171,129,26
+168,21,128
+169,128,13
+170,13,129
+171,129,21
+172,13,130
+173,130,23
+174,19,131
+175,131,14
+176,14,132
+177,132,19
+178,21,133
+179,133,14
+180,14,134
+181,134,22
+182,23,135
+183,135,14
+184,14,136
+185,136,23
+186,16,137
+187,137,15
+188,15,138
+189,138,16
+190,18,139
+191,139,15
+192,18,140
+193,140,15
+194,15,141
+195,141,18
+196,15,142
+197,142,22
+198,17,143
+199,143,16
+200,16,144
+201,144,17
+202,16,145
+203,145,22
+204,18,146
+205,146,17
+206,17,147
+207,147,18
+208,18,148
+209,148,22
+210,19,149
+211,149,23
+212,21,150
+213,150,23
+214,32,151
+215,151,22
+216,25,152
+217,152,24
+218,24,153
+219,153,25
+220,30,154
+221,154,25
+222,25,155
+223,155,30
+224,27,156
+225,156,26
+226,28,157
+227,157,26
