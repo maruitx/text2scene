@@ -539,7 +539,7 @@ bool TSScene::computeZForModel(int currModelId, int parentModelId, vec3 startPt,
 {
 	MetaModel &md = m_metaScene.m_metaModellList[currModelId];
 	double sceneMetric = params::inst()->globalSceneUnitScale;
-	if (md.catName == "tv")
+	if (md.catName == "tv" || md.catName=="speaker")
 	{
 		startPt.z = 1.5 / sceneMetric;
 	}

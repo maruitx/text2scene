@@ -68,9 +68,11 @@ public:
 	double findClosestSuppPlaneZ(TSScene *currScene, int metaModelId, const vec3 &newPos);
 
 	void collectConstraintsForModel(TSScene *currScene, int metaModelId);
+	PairwiseRelationModel* retrievePairModelFromGroup(TSScene *currScene, int anchorNodeId, int actNodeId, const QString &groupRelationName);
 	PairwiseRelationModel* retrievePairModelFromGroup(const QString &anchorObjName, const QString &actObjName, const QString &groupRelationName, const QString &conditionName="");
-	PairwiseRelationModel* retrievePairwiseModel(TSScene *currScene, const MetaModel &anchorMd, const MetaModel &actMd, const QString &relationName);
+	PairwiseRelationModel* retrievePairwiseModel(TSScene *currScene, int anchorNodeId, int actNodeId, const QString &relationName);
 	bool isAnchorFrontDirConsistent(const QString &currAnchorName, const QString &dbAnchorName);
+	QString getConditionType(TSScene *currScene, int anchorNodeId, int actNodeId);
 
 	void extractRelPosToAnchor(TSScene *currScene, const MetaModel &anchorMd, const Eigen::VectorXd &currPlacement, RelativePos *relPos);
 	void extractRelPosForModelPair(TSScene *currScene, const MetaModel &anchorMd, const MetaModel &actMd, RelativePos *relPos);

@@ -720,12 +720,28 @@ void RelationModelManager::adjustSamplingForSpecialModels(const QString &anchorO
 
 	if (anchorObjName == "bed" && actObjName == "nightstand")
 	{
-		if (relPos.y >-0.2)
+		if (relPos.y >-0.2 || relPos.y < -0.4)
 		{
 			relPos.y = -0.35;
 		}
 
 		relTheta = 0;
+	}
+
+	if (anchorObjName == "desk" && actObjName == "couch")
+	{
+		if (relPos.y < 3)
+		{
+			relPos.y = 4;
+		}
+	}
+
+	if (anchorObjName == "desk" && actObjName == "bookcase")
+	{
+		if (relPos.x > -0.8)
+		{
+			relPos.x = -1.5;
+		}
 	}
 
 
@@ -787,11 +803,28 @@ void RelationModelManager::adjustSamplingForSpecialModels(const QString &anchorO
 			relPos.x = -1;
 		}
 	}
+
+	if (anchorObjName == "table" && actObjName == "chair")
+	{
+		// right
+		if (relPos.x > 0 && (relTheta < 0.25 || relTheta >0.75))
+		{
+			relTheta = 0.5;
+		}
+
+		// left
+		if (relPos.x < 0 && (relTheta > -0.25 || relTheta < -0.75))
+		{
+			relTheta = -0.5;
+		}
+	}
 }
 
 double RelationModelManager::findClosestSuppPlaneZ(TSScene *currScene, int metaModelId, const vec3 &newPos)
 {
+	MetaModel &md = currScene->getMetaModel(metaModelId);
 	int parentNodeId = currScene->m_ssg->findParentNodeIdForModel(metaModelId);
+	double sceneMetric = params::inst()->globalSceneUnitScale;
 
 	// use z of parent's support plane if parent exists
 	if (parentNodeId != -1)
@@ -823,8 +856,7 @@ double RelationModelManager::findClosestSuppPlaneZ(TSScene *currScene, int metaM
 			double newZ;
 			if (currScene->computeZForModel(metaModelId, parentMetaModelId, vec3(newPos.x, newPos.y, closestSuppPlaneZ), newZ))
 			{
-				MetaModel &md = currScene->getMetaModel(metaModelId);
-				if (newZ > md.position.z || md.position.z - newZ > 0.05 / params::inst()->globalSceneUnitScale)
+				if (newZ > md.position.z || md.position.z - newZ > 0.05 / sceneMetric)
 				{
 					closestSuppPlaneZ = newZ;
 				}
@@ -838,26 +870,28 @@ double RelationModelManager::findClosestSuppPlaneZ(TSScene *currScene, int metaM
 		}
 	}
 
-	//// use z of anchor's position if parent does not exist
-	//int currNodeId = currScene->m_ssg->getNodeIdWithModelId(metaModelId);
-	//SemNode &currNode = currScene->m_ssg->m_nodes[currNodeId];
-	//for (int i=0; i<currNode.outEdgeNodeList.size(); i++)
-	//{
-	//	int relNodeId = currNode.outEdgeNodeList[i];
-	//	SemNode &relNode = currScene->m_ssg->m_nodes[relNodeId];
+	// use z of anchor's position if parent does not exist
+	int currNodeId = currScene->m_ssg->getNodeIdWithModelId(metaModelId);
+	SemNode &currNode = currScene->m_ssg->m_nodes[currNodeId];
+	for (int i=0; i<currNode.outEdgeNodeList.size(); i++)
+	{
+		int relNodeId = currNode.outEdgeNodeList[i];
+		SemNode &relNode = currScene->m_ssg->m_nodes[relNodeId];
 
-	//	if (relNode.anchorNodeList.size()>0)
-	//	{
-	//		int anchorNodeId = relNode.anchorNodeList[0];
-	//		int anchorModeId = currScene->m_ssg->m_graphNodeToModelListIdMap[anchorNodeId];
-	//		MetaModel &anchorModel = currScene->getMetaModel(anchorModeId);
-	//		
-	//		return anchorModel.position.z;
-	//	}
-	//}
+		if (relNode.anchorNodeList.size()>0)
+		{
+			int anchorNodeId = relNode.anchorNodeList[0];
+			int anchorModeId = currScene->m_ssg->m_graphNodeToModelListIdMap[anchorNodeId];
+			MetaModel &anchorModel = currScene->getMetaModel(anchorModeId);
+			
+			if (anchorModel.position.z - currScene->m_floorHeight < 0.25/ sceneMetric)
+			{
+				return anchorModel.position.z;
+			}
+		}
+	}
 
 	return currScene->m_floorHeight;
-	//return newPos.z;
 }
 
 void RelationModelManager::randomSampleOnParent(TSScene *currScene, int metaModelId, vec3 &newPos, int &parentMetaModelId)
@@ -873,13 +907,21 @@ void RelationModelManager::randomSampleOnParent(TSScene *currScene, int metaMode
 	{
 		parentMetaModelId = currScene->m_ssg->m_graphNodeToModelListIdMap[parentNodeId];
 		MetaModel &parentMd = currScene->getMetaModel(parentMetaModelId);
+		sampleType = " on parent-" + currScene->m_ssg->m_nodes[parentNodeId].nodeName;
 
-		SuppPlane &parentSuppPlane = parentMd.suppPlaneManager.getLargestAreaSuppPlane();
-		if (parentSuppPlane.m_isInited)
+		if (parentMd.suppPlaneManager.hasSuppPlane())
 		{
-			sampleType = " on parent-" + currScene->m_ssg->m_nodes[parentNodeId].nodeName;
+			SuppPlane &parentSuppPlane = parentMd.suppPlaneManager.getLargestAreaSuppPlane();
 			newPos = parentSuppPlane.randomSamplePoint(0.1);
 		}
+		else
+		{
+			SuppPlane &parentSuppPlane = parentMd.bbTopPlane;
+			newPos = parentSuppPlane.randomSamplePoint(0.1);
+		}
+
+		double newZ = findClosestSuppPlaneZ(currScene, metaModelId, newPos);
+		newPos.z = newZ;
 	}
 	else
 	{
@@ -933,13 +975,13 @@ void RelationModelManager::collectConstraintsForModel(TSScene *currScene, int me
 				QString groupKey;
 				if (relationNode.nodeType.contains("group"))
 				{
-					pairwiseModel = retrievePairModelFromGroup(toQString(anchorMd.catName), toQString(actMd.catName), relationNode.nodeName);
+					pairwiseModel = retrievePairModelFromGroup(currScene, anchorObjNodeId, currNodeId, relationNode.nodeName);
 					relationType = "group";
 					groupKey = relationNode.nodeName + "_" + toQString(anchorMd.catName);
 				}
 				else
 				{
-					pairwiseModel = retrievePairwiseModel(currScene, anchorMd, actMd, relationName);
+					pairwiseModel = retrievePairwiseModel(currScene, anchorObjNodeId, currNodeId, relationName);
 					relationType = "pairwise";
 				}
 
@@ -1035,10 +1077,17 @@ void RelationModelManager::collectConstraintsForModel(TSScene *currScene, int me
 	//}
 }
 
-PairwiseRelationModel* RelationModelManager::retrievePairwiseModel(TSScene *currScene, const MetaModel &anchorMd, const MetaModel &actMd, const QString &relationName)
+PairwiseRelationModel* RelationModelManager::retrievePairwiseModel(TSScene *currScene, int anchorNodeId, int actNodeId, const QString &relationName)
 {
+	SceneSemGraph *currSSG = currScene->m_ssg;
+	MetaModel &anchorMd = currScene->getMetaModel(currSSG->m_graphNodeToModelListIdMap[anchorNodeId]);
+	MetaModel &actMd = currScene->getMetaModel(currSSG->m_graphNodeToModelListIdMap[actNodeId]);
+
 	QString anchorObjName = toQString(anchorMd.catName);
 	QString actObjName = toQString(actMd.catName);
+
+	//QString conditionType;
+	QString conditionType = getConditionType(currScene, anchorNodeId, actNodeId);
 
 	for (auto iter = m_pairwiseRelModels.begin(); iter != m_pairwiseRelModels.end(); iter++)
 	{
@@ -1046,13 +1095,27 @@ PairwiseRelationModel* RelationModelManager::retrievePairwiseModel(TSScene *curr
 
 		if (relationKey.contains(anchorObjName + "_" + actObjName))
 		{
-			if (relationKey.contains(relationName))
+			if (!conditionType.isEmpty())
 			{
-				PairwiseRelationModel *pairModel = m_pairwiseRelModels[relationKey];
-				if (pairModel->hasCandiInstances())
+				if (relationKey.contains(relationName) && relationKey.contains(conditionType))
 				{
-					return pairModel;
-				}				
+					PairwiseRelationModel *pairModel = m_pairwiseRelModels[relationKey];
+					if (pairModel->hasCandiInstances())
+					{
+						return pairModel;
+					}
+				}
+			}
+			else
+			{
+				if (relationKey.contains(relationName))
+				{
+					PairwiseRelationModel *pairModel = m_pairwiseRelModels[relationKey];
+					if (pairModel->hasCandiInstances())
+					{
+						return pairModel;
+					}
+				}
 			}
 		}
 	}
@@ -1071,7 +1134,7 @@ PairwiseRelationModel* RelationModelManager::retrievePairwiseModel(TSScene *curr
 	for (auto iter = m_pairwiseRelModels.begin(); iter != m_pairwiseRelModels.end(); iter++)
 	{
 		QString relationKey = iter->first;
-		if (relationKey.contains(relationName))
+		if (relationKey.contains(relationName) && relationKey.contains(conditionType))
 		{
 			PairwiseRelationModel *dbPairModel = iter->second;
 
@@ -1148,7 +1211,45 @@ bool RelationModelManager::isAnchorFrontDirConsistent(const QString &currAnchorN
 	return true;
 }
 
-PairwiseRelationModel* RelationModelManager::retrievePairModelFromGroup(const QString &anchorObjName, const QString &actObjName, const QString &groupRelationName, const QString &conditionName)
+QString RelationModelManager::getConditionType(TSScene *currScene, int anchorNodeId, int actNodeId)
+{
+	QString conditionType="";
+	SceneSemGraph *currSSG = currScene->m_ssg;
+
+	if (currSSG->m_graphNodeToModelListIdMap.count(anchorNodeId) && currSSG->m_graphNodeToModelListIdMap.count(actNodeId))
+	{
+		int anchorModelId = currSSG->m_graphNodeToModelListIdMap[anchorNodeId];
+		int actModelId = currSSG->m_graphNodeToModelListIdMap[actNodeId];
+
+		if (currSSG->m_parentOfModel[anchorModelId] == currSSG->m_parentOfModel[actModelId])
+		{
+			return "sibling";
+		}
+
+		if (std::find(currSSG->m_childListOfModel[anchorModelId].begin(), currSSG->m_childListOfModel[anchorModelId].end(), actModelId)
+			!= currSSG->m_childListOfModel[anchorModelId].end())
+		{
+			return "parentchild";
+		}
+	}
+
+	return conditionType;
+}
+
+PairwiseRelationModel* RelationModelManager::retrievePairModelFromGroup(TSScene *currScene, int anchorNodeId, int actNodeId, const QString &groupRelationName)
+{
+	SceneSemGraph *currSSG = currScene->m_ssg;
+	MetaModel &anchorMd = currScene->getMetaModel(currSSG->m_graphNodeToModelListIdMap[anchorNodeId]);
+	MetaModel &actMd = currScene->getMetaModel(currSSG->m_graphNodeToModelListIdMap[actNodeId]);
+
+	QString anchorObjName = toQString(anchorMd.catName);
+	QString actObjName = toQString(actMd.catName);
+
+	QString conditionType = getConditionType(currScene, anchorNodeId, actNodeId);
+	return retrievePairModelFromGroup(anchorObjName, actObjName, groupRelationName, conditionType);
+}
+
+PairwiseRelationModel* RelationModelManager::retrievePairModelFromGroup(const QString &anchorObjName, const QString &actObjName, const QString &groupRelationName, const QString &conditionName/*=""*/)
 {
 	QString groupKey = groupRelationName + "_" + anchorObjName;
 
@@ -1167,7 +1268,6 @@ PairwiseRelationModel* RelationModelManager::retrievePairModelFromGroup(const QS
 	}
 
 	return NULL;
-
 }
 
 RelationConstraint::RelationConstraint(PairwiseRelationModel *m, const QString t, int anchorId, const QString &gK)

@@ -84,21 +84,25 @@ SemanticGraph* SceneGenerator::prepareQuerySG()
 
 void SceneGenerator::adjustTextSSGWithCurrSSG(TextSemGraph *textSSG, SceneSemGraph *currSSG)
 {
-	std::vector<QString> entityNames;
+	// collect entity that has determiner "each"
+	std::vector<QString> anchorEntityNames;
+	std::vector<QString> anchorDeterminers;
 	for (int i = 0; i < textSSG->m_sentence.entityCount; i++)
 	{
 		SelEntity &currEntity = textSSG->m_sentence.m_entities[i];
 		QString determiner = currEntity.m_determiner;
 
-		if (determiner == "each")
+		if (determiner == "each" || determiner =="the")
 		{
-			entityNames.push_back(textSSG->m_sentence.m_entities[i].nameString);
+			anchorEntityNames.push_back(textSSG->m_sentence.m_entities[i].nameString);
+			anchorDeterminers.push_back(determiner);
 		}
 	}
 
-	for (int i=0; i < entityNames.size(); i++)
+	// count instance number of anchor obj in current scene and add missing act and relation node
+	for (int i=0; i < anchorEntityNames.size(); i++)
 	{
-		QString objName = entityNames[i];
+		QString objName = anchorEntityNames[i];
 		int instanceCountInCurrSSG = 0;
 		int instanceCountInTextSSG = 0;
 		
@@ -133,25 +137,36 @@ void SceneGenerator::adjustTextSSGWithCurrSSG(TextSemGraph *textSSG, SceneSemGra
 			textSSG->addNode(currAnchorNode);
 			int newAnchoNodeId = textSSG->m_nodeNum - 1;
 
+
 			if (!currAnchorNode.inEdgeNodeList.empty())
 			{
-				int relNodeId = currAnchorNode.inEdgeNodeList[0];
-				SemNode relNode = textSSG->m_nodes[relNodeId];
-
-				textSSG->addNode(relNode);
-
-				int newRelNodeId = textSSG->m_nodeNum - 1;
-				textSSG->addEdge(newRelNodeId, newAnchoNodeId);
-
-				for (int k=0; k < relNode.activeNodeList.size(); k++)
+				for (int r=0; r < currAnchorNode.inEdgeNodeList.size(); r++)
 				{
-					int actNodeId = relNode.activeNodeList[k];
+					int relNodeId = currAnchorNode.inEdgeNodeList[r];
+					SemNode relNode = textSSG->m_nodes[relNodeId];
+
+					// find determiner of the act obj; add instance if the determiner is not "a" or specific number
+					int actNodeId = relNode.activeNodeList[0];
 					SemNode actNode = textSSG->m_nodes[actNodeId];
 
-					textSSG->addNode(actNode);
-					
-					int newActNodeId = textSSG->m_nodeNum - 1;
-					textSSG->addEdge(newActNodeId, newRelNodeId);
+					QString actDeterminer = textSSG->getDeterminerOfEntity(actNode.nodeName);
+					if (actDeterminer!="a" || anchorDeterminers[i] == "each")
+					{
+						textSSG->addNode(relNode);
+						int newRelNodeId = textSSG->m_nodeNum - 1;
+						textSSG->addEdge(newRelNodeId, newAnchoNodeId);
+
+						for (int k = 0; k < relNode.activeNodeList.size(); k++)
+						{
+							int actNodeId = relNode.activeNodeList[k];
+							SemNode actNode = textSSG->m_nodes[actNodeId];
+
+							textSSG->addNode(actNode);
+
+							int newActNodeId = textSSG->m_nodeNum - 1;
+							textSSG->addEdge(newActNodeId, newRelNodeId);
+						}
+					}
 				}
 			}
 		}

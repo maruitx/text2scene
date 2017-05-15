@@ -104,20 +104,20 @@ upDir 0 0 1
 bbTopPlane 198.049 134.974 34.7381 148.075 134.974 34.7381 148.075 85.0005 34.7381 198.049 85.0005 34.7381
 parentId 0
 parentPlaneUVH 0.715701 0.452623 -131.75
-nodeNum 67
+nodeNum 90
 0,object,room,17 18 29,
-1,object,rug,19 20 21 31 32 33,17 30 34 35
-2,object,table,13 14 22 23 24 25 26 27 28 30 36 37 38 56 57 58 59 60 61 65 66,19 39
-3,object,mug,40,22 41 59 60 61 62 63 64
-4,object,mug,42 43 45,23 36 44 46 59 60 61 62 63 64
-5,object,toyfigure,47,24 42 48 59 60 61 62 63 64
-6,object,diet,50,25 37 49 51 52 59 60 61 62 63 64
-7,object,cup,44 53,26 43 54 59 60 61 62 63 64
-8,object,bowl,,27 47 59 60 61 62 63 64
-9,object,laptop,62 63 64,28 55 59 60 61
-10,object,chair,15 49,20 56 57 58 65 66
-11,object,purse,51,21 31 50 65 66
-12,object,chair,16 34 35 39 41 46 48 52 54 55,18 29 32 33 38 40 45 53 56 57 58 65 66
+1,object,rug,19 20 21 31 33 34 36 37 38 39 40,17 30 32 35 41 42
+2,object,table,13 14 22 23 24 25 26 27 28 30 43 44 45 68 69 70 71 72 73 77 78 79 80 87 88 89,19 46
+3,object,mug,32 47,22 31 48 71 72 73 74 75 76 82
+4,object,mug,49 50 52,23 33 43 51 53 71 72 73 74 75 76 84
+5,object,toyfigure,35 54 55,24 34 49 56 57 71 72 73 74 75 76 85
+6,object,diet,59,25 44 58 60 61 71 72 73 74 75 76 81
+7,object,cup,51 62,26 36 50 63 71 72 73 74 75 76 83
+8,object,bowl,65,27 54 64 66 71 72 73 74 75 76 86
+9,object,laptop,74 75 76 81 82 83 84 85 86,28 37 67 71 72 73
+10,object,chair,15 56 58 64,20 55 68 69 70 77 78 80 89
+11,object,purse,60,21 38 59 77 78 87
+12,object,chair,16 41 42 46 48 53 57 61 63 66 67,18 29 39 40 45 47 52 62 65 68 69 70 77 78 79 88
 13,attribute,round,,2
 14,attribute,dining,,2
 15,attribute,sofa,,10
@@ -136,43 +136,66 @@ nodeNum 67
 28,pair_relation,vertsupport,9,2
 29,pair_relation,onleft,12,0
 30,pair_relation,under,1,2
-31,pair_relation,onright,11,1
-32,pair_relation,near,12,1
-33,pair_relation,back,12,1
-34,pair_relation,near,1,12
-35,pair_relation,front,1,12
-36,pair_relation,onright,4,2
-37,pair_relation,onleft,6,2
-38,pair_relation,front,12,2
-39,pair_relation,front,2,12
-40,pair_relation,front,12,3
-41,pair_relation,front,3,12
-42,pair_relation,leftside,5,4
-43,pair_relation,leftside,7,4
-44,pair_relation,rightside,4,7
-45,pair_relation,front,12,4
-46,pair_relation,front,4,12
-47,pair_relation,rightside,8,5
-48,pair_relation,front,5,12
-49,pair_relation,front,6,10
-50,pair_relation,front,11,6
-51,pair_relation,back,6,11
-52,pair_relation,front,6,12
-53,pair_relation,front,12,7
-54,pair_relation,front,7,12
-55,pair_relation,front,9,12
-56,group_relation_anno,casual,12 10,2
-57,group_relation_anno,surround,12 10,2
-58,group_relation_anno,similar,12 10,2
-59,group_relation_anno,messy,9 6 3 4 7 5 8,2
-60,group_relation_anno,disorganized,9 6 3 4 7 5 8,2
-61,group_relation_anno,scattered,9 6 3 4 7 5 8,2
-62,group_relation_anno,messy,6 3 7 4 5 8,9
-63,group_relation_anno,disorganized,6 3 7 4 5 8,9
-64,group_relation_anno,surround,6 3 7 4 5 8,9
-65,group_relation_anno,messy,11 12 10,2
-66,group_relation_anno,surround,11 12 10,2
-edgeNum 144
+31,pair_relation,back,3,1
+32,pair_relation,back,1,3
+33,pair_relation,back,4,1
+34,pair_relation,back,5,1
+35,pair_relation,back,1,5
+36,pair_relation,back,7,1
+37,pair_relation,back,9,1
+38,pair_relation,onright,11,1
+39,pair_relation,near,12,1
+40,pair_relation,back,12,1
+41,pair_relation,near,1,12
+42,pair_relation,front,1,12
+43,pair_relation,onright,4,2
+44,pair_relation,onleft,6,2
+45,pair_relation,front,12,2
+46,pair_relation,front,2,12
+47,pair_relation,front,12,3
+48,pair_relation,front,3,12
+49,pair_relation,leftside,5,4
+50,pair_relation,leftside,7,4
+51,pair_relation,rightside,4,7
+52,pair_relation,front,12,4
+53,pair_relation,front,4,12
+54,pair_relation,rightside,8,5
+55,pair_relation,back,10,5
+56,pair_relation,front,5,10
+57,pair_relation,front,5,12
+58,pair_relation,front,6,10
+59,pair_relation,front,11,6
+60,pair_relation,back,6,11
+61,pair_relation,front,6,12
+62,pair_relation,front,12,7
+63,pair_relation,front,7,12
+64,pair_relation,front,8,10
+65,pair_relation,front,12,8
+66,pair_relation,front,8,12
+67,pair_relation,front,9,12
+68,group_relation_anno,casual,12 10,2
+69,group_relation_anno,surround,12 10,2
+70,group_relation_anno,similar,12 10,2
+71,group_relation_anno,messy,9 6 3 4 7 5 8,2
+72,group_relation_anno,disorganized,9 6 3 4 7 5 8,2
+73,group_relation_anno,scattered,9 6 3 4 7 5 8,2
+74,group_relation_anno,messy,6 3 7 4 5 8,9
+75,group_relation_anno,disorganized,6 3 7 4 5 8,9
+76,group_relation_anno,surround,6 3 7 4 5 8,9
+77,group_relation_anno,messy,11 12 10,2
+78,group_relation_anno,surround,11 12 10,2
+79,pair_relation,pairaround,12,2
+80,pair_relation,pairaround,10,2
+81,pair_relation,pairaround,6,9
+82,pair_relation,pairaround,3,9
+83,pair_relation,pairaround,7,9
+84,pair_relation,pairaround,4,9
+85,pair_relation,pairaround,5,9
+86,pair_relation,pairaround,8,9
+87,pair_relation,pairaround,11,2
+88,pair_relation,pairaround,12,2
+89,pair_relation,pairaround,10,2
+edgeNum 190
 0,13,2
 1,14,2
 2,15,10
@@ -205,115 +228,161 @@ edgeNum 144
 29,29,0
 30,1,30
 31,30,2
-32,11,31
+32,3,31
 33,31,1
-34,12,32
-35,32,1
-36,12,33
+34,1,32
+35,32,3
+36,4,33
 37,33,1
-38,1,34
-39,34,12
+38,5,34
+39,34,1
 40,1,35
-41,35,12
-42,4,36
-43,36,2
-44,6,37
-45,37,2
-46,12,38
-47,38,2
-48,2,39
-49,39,12
+41,35,5
+42,7,36
+43,36,1
+44,9,37
+45,37,1
+46,11,38
+47,38,1
+48,12,39
+49,39,1
 50,12,40
-51,40,3
-52,3,41
+51,40,1
+52,1,41
 53,41,12
-54,5,42
-55,42,4
-56,7,43
-57,43,4
-58,4,44
-59,44,7
+54,1,42
+55,42,12
+56,4,43
+57,43,2
+58,6,44
+59,44,2
 60,12,45
-61,45,4
-62,4,46
+61,45,2
+62,2,46
 63,46,12
-64,8,47
-65,47,5
-66,5,48
+64,12,47
+65,47,3
+66,3,48
 67,48,12
-68,6,49
-69,49,10
-70,11,50
-71,50,6
-72,6,51
-73,51,11
-74,6,52
-75,52,12
-76,12,53
-77,53,7
-78,7,54
-79,54,12
-80,9,55
-81,55,12
-82,56,2
-83,12,56
-84,10,56
-85,57,2
-86,12,57
-87,10,57
-88,58,2
-89,12,58
-90,10,58
-91,59,2
-92,9,59
-93,6,59
-94,3,59
-95,4,59
-96,7,59
-97,5,59
-98,8,59
-99,60,2
-100,9,60
-101,6,60
-102,3,60
-103,4,60
-104,7,60
-105,5,60
-106,8,60
-107,61,2
-108,9,61
-109,6,61
-110,3,61
-111,4,61
-112,7,61
-113,5,61
-114,8,61
-115,62,9
-116,6,62
-117,3,62
-118,7,62
-119,4,62
-120,5,62
-121,8,62
-122,63,9
-123,6,63
-124,3,63
-125,7,63
-126,4,63
-127,5,63
-128,8,63
-129,64,9
-130,6,64
-131,3,64
-132,7,64
-133,4,64
-134,5,64
-135,8,64
-136,65,2
-137,11,65
-138,12,65
-139,10,65
-140,66,2
-141,11,66
-142,12,66
-143,10,66
+68,5,49
+69,49,4
+70,7,50
+71,50,4
+72,4,51
+73,51,7
+74,12,52
+75,52,4
+76,4,53
+77,53,12
+78,8,54
+79,54,5
+80,10,55
+81,55,5
+82,5,56
+83,56,10
+84,5,57
+85,57,12
+86,6,58
+87,58,10
+88,11,59
+89,59,6
+90,6,60
+91,60,11
+92,6,61
+93,61,12
+94,12,62
+95,62,7
+96,7,63
+97,63,12
+98,8,64
+99,64,10
+100,12,65
+101,65,8
+102,8,66
+103,66,12
+104,9,67
+105,67,12
+106,68,2
+107,12,68
+108,10,68
+109,69,2
+110,12,69
+111,10,69
+112,70,2
+113,12,70
+114,10,70
+115,71,2
+116,9,71
+117,6,71
+118,3,71
+119,4,71
+120,7,71
+121,5,71
+122,8,71
+123,72,2
+124,9,72
+125,6,72
+126,3,72
+127,4,72
+128,7,72
+129,5,72
+130,8,72
+131,73,2
+132,9,73
+133,6,73
+134,3,73
+135,4,73
+136,7,73
+137,5,73
+138,8,73
+139,74,9
+140,6,74
+141,3,74
+142,7,74
+143,4,74
+144,5,74
+145,8,74
+146,75,9
+147,6,75
+148,3,75
+149,7,75
+150,4,75
+151,5,75
+152,8,75
+153,76,9
+154,6,76
+155,3,76
+156,7,76
+157,4,76
+158,5,76
+159,8,76
+160,77,2
+161,11,77
+162,12,77
+163,10,77
+164,78,2
+165,11,78
+166,12,78
+167,10,78
+168,12,79
+169,79,2
+170,10,80
+171,80,2
+172,6,81
+173,81,9
+174,3,82
+175,82,9
+176,7,83
+177,83,9
+178,4,84
+179,84,9
+180,5,85
+181,85,9
+182,8,86
+183,86,9
+184,11,87
+185,87,2
+186,12,88
+187,88,2
+188,10,89
+189,89,2

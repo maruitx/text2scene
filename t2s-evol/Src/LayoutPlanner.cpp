@@ -209,7 +209,7 @@ void LayoutPlanner::initPlaceUsingSynthesizedRelations(TSScene *currScene)
 				Model *actModel = currScene->getModel(actMd.name);
 
 				// find relation model and sample from the model
-				PairwiseRelationModel *pairModel = m_relModelManager->retrievePairwiseModel(currScene, refMd, actMd, relNode.nodeName);
+				PairwiseRelationModel *pairModel = m_relModelManager->retrievePairwiseModel(currScene, refNodeId, activeNodeId, relNode.nodeName);
 
 				mat4 transMat;
 				if (pairModel != NULL)
@@ -533,6 +533,18 @@ void LayoutPlanner::adjustZForModel(TSScene *currScene, int metaModelId)
 			}
 		}
 	}
+
+	else
+	{
+		if (md.position.z < currScene->m_floorHeight)
+		{
+			md.zAdjusted = true;
+			vec3 translateVec;
+			translateVec = vec3(0, 0, currScene->m_floorHeight - md.position.z);
+			mat4 transMat = mat4::translate(translateVec);
+			updateMetaModelInScene(currScene, metaModelId, transMat);
+		}
+	}
 }
 
 bool LayoutPlanner::adjustInitTransfromSpecialModel(const MetaModel &anchorMd, MetaModel &actMd)
@@ -562,7 +574,6 @@ bool LayoutPlanner::adjustInitTransfromSpecialModel(const MetaModel &anchorMd, M
 
 	return isAdjusted;
 }
-
 
 std::vector<int> LayoutPlanner::makeToPlaceModelIds(TSScene *currScene)
 {

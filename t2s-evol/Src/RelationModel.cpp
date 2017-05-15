@@ -162,7 +162,7 @@ Eigen::VectorXd PairwiseRelationModel::sample()
 
 		if (m_relationName.contains("side"))
 		{
-			if (std::abs(relPos->pos.x > 3) || std::abs(relPos->pos.y > 3))
+			if (std::abs(relPos->pos.x > 2) || std::abs(relPos->pos.y > 2))
 			{
 				newSample[0] = 0;
 				newSample[1] = 0;
@@ -179,6 +179,19 @@ Eigen::VectorXd PairwiseRelationModel::sample()
 		}
 
 		m_lastSampleInstanceId = randInstId;
+	}
+
+	if (m_relationName == "under" && newSample[2] > -0.5)
+	{
+		newSample[2] = -0.5;
+	}
+
+	if (m_relationName == "pairaligned")
+	{
+		if(newSample[0] > 2) newSample[0] = 1.5;
+		if (newSample[0] < -2) newSample[0] = -1.5;		
+
+		newSample[2] = -0.5;
 	}
 
 	return newSample;

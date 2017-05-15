@@ -18,6 +18,7 @@ public:
 	void mapToFixedRelationSet(SemNode &currNode, QString &nodeName, QString &nodeType = QString(""));
 	void mapToFixedAttributeSet(QString &nodeName, QString &nodeType = QString(""));
 
+	void addImplicitAttributes(); // add implicit attributes of objects, e.g., dining to chair if a dining table is specified
 	void addImplicitRelations(); // add implicit relations if no relations specified in the input
 	void postProcessForSpecialRelations();
 
@@ -29,6 +30,7 @@ public:
 	bool isGoodAttribute(const QString &attriName);
 
 	SelSentence m_sentence;   // only handle one sentence per graph	
+	QString getDeterminerOfEntity(const QString &entityName);
 
 private:
 	int m_sentence_id;
@@ -39,5 +41,7 @@ private:
 
 	RelationModelManager *m_relModelManager;
 	std::vector<QString> m_goodAttriSets;
+
+	std::map<QString, QString> m_nodeNameToEntityNameMap;
 };
 

@@ -88,18 +88,18 @@ upDir 0 0 1
 bbTopPlane 91.7346 392.278 43.2917 110.263 392.278 43.2917 110.263 403.514 43.2917 91.7346 403.514 43.2917
 parentId 0
 parentPlaneUVH 0.084551 0.377209 -106.049
-nodeNum 39
+nodeNum 43
 0,object,room,11 12 21 22,
 1,object,cabinet,13 14 15 16 17 18 19 20 23 24 25 26 27 28 29,11 21 30
-2,object,flask,,13 23
+2,object,flask,31,13 23
 3,object,flask,,14 24
-4,object,holder,31 33 35,15 32 34 36
-5,object,glass,37,16 25 38
-6,object,glass,32 38,17 26 31 37
-7,object,glass,34,18 27 33
-8,object,vessel,36,19 35
+4,object,holder,32 34 36 38,15 33 35 37
+5,object,glass,39 41,16 25 40
+6,object,glass,33 40 42,17 26 32 39
+7,object,glass,35,18 27 34
+8,object,vessel,37,19 36
 9,object,bunsen burner,,20 28
-10,object,fire extinguisher,30,12 22 29
+10,object,fire extinguisher,30,12 22 29 31 38 41 42
 11,pair_relation,vertsupport,1,0
 12,pair_relation,vertsupport,10,0
 13,pair_relation,vertsupport,2,1
@@ -120,15 +120,19 @@ nodeNum 39
 28,pair_relation,onleft,9,1
 29,pair_relation,rightside,10,1
 30,pair_relation,rightside,1,10
-31,pair_relation,leftside,6,4
-32,pair_relation,rightside,4,6
-33,pair_relation,leftside,7,4
-34,pair_relation,rightside,4,7
-35,pair_relation,leftside,8,4
-36,pair_relation,rightside,4,8
-37,pair_relation,leftside,6,5
-38,pair_relation,rightside,5,6
-edgeNum 56
+31,pair_relation,back,10,2
+32,pair_relation,leftside,6,4
+33,pair_relation,rightside,4,6
+34,pair_relation,leftside,7,4
+35,pair_relation,rightside,4,7
+36,pair_relation,leftside,8,4
+37,pair_relation,rightside,4,8
+38,pair_relation,back,10,4
+39,pair_relation,leftside,6,5
+40,pair_relation,rightside,5,6
+41,pair_relation,back,10,5
+42,pair_relation,back,10,6
+edgeNum 64
 0,1,11
 1,11,0
 2,10,12
@@ -169,19 +173,27 @@ edgeNum 56
 37,29,1
 38,1,30
 39,30,10
-40,6,31
-41,31,4
-42,4,32
-43,32,6
-44,7,33
-45,33,4
-46,4,34
-47,34,7
-48,8,35
-49,35,4
-50,4,36
-51,36,8
-52,6,37
-53,37,5
-54,5,38
-55,38,6
+40,10,31
+41,31,2
+42,6,32
+43,32,4
+44,4,33
+45,33,6
+46,7,34
+47,34,4
+48,4,35
+49,35,7
+50,8,36
+51,36,4
+52,4,37
+53,37,8
+54,10,38
+55,38,4
+56,6,39
+57,39,5
+58,5,40
+59,40,6
+60,10,41
+61,41,5
+62,10,42
+63,42,6

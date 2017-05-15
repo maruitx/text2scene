@@ -20,7 +20,7 @@ void TextSemGraph::buildGraphFromSEL()
 	for (int i = 0; i < m_sentence.entityCount; i++)
 	{
 		QString nameString = QString(m_sentence.m_entities[i].nameString);
-		if (nameString.contains("room")) continue;  // do not consider room in current implementation
+		if (nameString.contains("room") || nameString.contains("wall")) continue;  // do not consider room in current implementation
 
 		std::vector<std::string> parts = PartitionString(nameString.toStdString(), "-");
 		QString entityName = toQString(parts[0]);
@@ -42,18 +42,38 @@ void TextSemGraph::buildGraphFromSEL()
 				if (instCount == 1)
 				{
 					instCount = GenRandomInt(2, 4);
+
+					if (entityName == "monitor")
+					{
+						instCount = 1;
+					}
+
+					if (entityName == "keyboard")
+					{
+						instCount = 1;
+					}
 				}
 			}
 			else
 			{
 				if (instanceCountString == "some")
 				{
-					instCount = GenRandomInt(2, 5);
+					instCount = GenRandomInt(2, 4);
 				}
 
 				if (instanceCountString == "many")
 				{
 					instCount = GenRandomInt(3, 6);
+				}
+
+				if (entityName == "monitor")
+				{
+					instCount = 1;
+				}
+
+				if (entityName == "keyboard")
+				{
+					instCount = 1;
 				}
 			}
 
@@ -72,6 +92,13 @@ void TextSemGraph::buildGraphFromSEL()
 					instCount = 1;
 				}				
 			}
+
+			// add one node if determiner is the, and adjust the actual count when binding with current scene
+			if (determiner == "the")
+			{
+				instCount = 1;
+			}
+
 
 			m_sentence.m_entities[i].instanceCount = instCount;
 			for (int j = 0; j < m_sentence.m_entities[i].instanceCount; j++)
@@ -121,12 +148,13 @@ void TextSemGraph::buildGraphFromSEL()
 	for (int i = 0; i < m_sentence.entityCount; i++)
 	{
 		QString nameString = QString(m_sentence.m_entities[i].nameString);
-		if (nameString.contains("room")) continue;  // do not consider room in current implementation
+		if (nameString.contains("room") || nameString.contains("wall")) continue;  // do not consider room in current implementation
 
 		int relationCount = m_sentence.m_entities[i].relationshipCount;
 
 		for (int j = 0; j < relationCount; j++)
 		{
+			QString relationName = m_sentence.m_entities[i].m_relationships[j].nameString;
 			for (int n = 0; n < m_sentence.m_entities[i].instanceCount; n++)
 			{
 				QString entityRawString = m_sentence.m_entities[i].m_relationships[j].entityString;
@@ -141,19 +169,40 @@ void TextSemGraph::buildGraphFromSEL()
 					if (isWithObj(anchorEntityName, "cabinet")) anchorEntityName = "stackbooks";
 				}
 
-				std::vector<int> refNodeIds = findNodeWithName(anchorEntityName);
-				for (int k = 0; k < refNodeIds.size(); k++)
+				if (!relationName.contains("aligned"))
 				{
-					addNode("relation", m_sentence.m_entities[i].m_relationships[j].nameString);
-
-					int instanceNodeId = m_sentence.m_entities[i].m_instanceNodeIds[n];
-					int currNodeId = m_nodeNum - 1;
-					addEdge(instanceNodeId, currNodeId);
-					addEdge(currNodeId, refNodeIds[k]);
-
-					if (anchorEntityName == "wall")
+					std::vector<int> refNodeIds = findNodeWithName(anchorEntityName);
+					for (int k = 0; k < refNodeIds.size(); k++)
 					{
-						m_nodes[currNodeId].nodeName= "horizonsupport";						
+						addNode("relation", relationName);
+
+						int instanceNodeId = m_sentence.m_entities[i].m_instanceNodeIds[n];
+						int currNodeId = m_nodeNum - 1;
+						addEdge(instanceNodeId, currNodeId);
+						addEdge(currNodeId, refNodeIds[k]);
+
+						if (anchorEntityName == "wall")
+						{
+							m_nodes[currNodeId].nodeName = "horizonsupport";
+						}
+					}
+				}
+			}
+
+			if (relationName.contains("aligned"))
+			{
+				std::vector<int> refNodeIds = findNodeWithName(nameString);
+
+				if (refNodeIds.size() > 1)
+				{
+					int anchorNodeId = refNodeIds[0];
+					for (int k = 1; k < refNodeIds.size(); k++)
+					{
+						addNode("relation", relationName);
+
+						int currNodeId = m_nodeNum - 1;
+						addEdge(refNodeIds[k], currNodeId);
+						addEdge(currNodeId, refNodeIds[0]);
 					}
 				}
 			}
@@ -186,6 +235,8 @@ void TextSemGraph::buildGraphFromSEL()
 	this->parseNodeNeighbors();
 
 	mapNodeNameToFixedNameSet();
+
+	addImplicitAttributes();
 	addImplicitRelations();
 	postProcessForSpecialRelations();
 }
@@ -304,53 +355,72 @@ bool TextSemGraph::isGoodAttribute(const QString &attriName)
 	return false;
 }
 
-void TextSemGraph::mapToFixedObjSet(QString &nodeName)
+QString TextSemGraph::getDeterminerOfEntity(const QString &entityName)
 {
-	if (nodeName == "wall")
+	QString determiner;
+
+	for (int i = 0; i < m_sentence.entityCount; i++)
 	{
-		nodeName = "room";
-		return;
+		QString nameString = QString(m_sentence.m_entities[i].nameString);
+		if (nameString == m_nodeNameToEntityNameMap[entityName])
+		{
+			determiner = m_sentence.m_entities[i].m_determiner;
+			return determiner;
+		}
 	}
 
+	return determiner;
+}
+
+void TextSemGraph::mapToFixedObjSet(QString &nodeName)
+{
 	if (nodeName == "sofa")
 	{
 		nodeName = "couch";
+		m_nodeNameToEntityNameMap["couch"] = "sofa";
 		return;
 	}
 
 	if (nodeName == "pc")
 	{
 		nodeName = "computer";
+		m_nodeNameToEntityNameMap["computer"] = "pc";
+
 		return;
 	}
 
 	if (nodeName == "mouse")
 	{
 		nodeName = "computermouse";
+		m_nodeNameToEntityNameMap["computermouse"] = "mouse";
 		return;
 	}
 
 	if (nodeName.contains("shelf"))
 	{
 		nodeName = "bookcase";
+		m_nodeNameToEntityNameMap["shelf"] = "bookcase";
 		return;
 	}
 
 	if (nodeName == "headphone")
 	{
 		nodeName = "headphones";
+		m_nodeNameToEntityNameMap["headphones"] = "headphone";
 		return;
 	}
 
 	if (nodeName == "socket")
 	{
 		nodeName = "powerstrip";
+		m_nodeNameToEntityNameMap["powerstrip"] = "socket";
 		return;
 	}
 
 	if (nodeName == "clock")
 	{
 		nodeName = "tableclock";
+		m_nodeNameToEntityNameMap["tableclock"] = "clock";
 		return;
 	}
 
@@ -358,25 +428,28 @@ void TextSemGraph::mapToFixedObjSet(QString &nodeName)
 	{
 		//nodeName = "picturefame";
 		nodeName = "framework";
+		m_nodeNameToEntityNameMap["framework"] = "frame";
 		return;
 	}
 
 	if (nodeName == "lamp")
 	{
 		nodeName = "desklamp";
+		m_nodeNameToEntityNameMap["desklamp"] = "lamp";
 		return;
 	}
 
 	if (nodeName == "cabinet")
 	{
 		nodeName = "filecabinet";
+		m_nodeNameToEntityNameMap["filecabinet"] = "cabinet";
 		return;
 	}
 }
 
 void TextSemGraph::mapToFixedRelationSet(SemNode &currNode, QString &nodeName, QString &nodeType /*= QString("")*/)
 {
-	if (nodeName.contains("on") && !nodeName.contains("front"))
+	if (nodeName.contains("on") && !nodeName.contains("front")&& !nodeName.contains("along"))
 	{
 		// TODO: infer for horizonsupport
 		if (nodeName.contains("right"))
@@ -506,13 +579,6 @@ void TextSemGraph::mapToFixedRelationSet(SemNode &currNode, QString &nodeName, Q
 		return;
 	}
 
-	if (nodeName.contains("align"))
-	{
-		nodeName = "aligned";
-		nodeType = SSGNodeType[SemNode::Group];
-		return;
-	}
-
 	if (nodeName.contains("stack"))
 	{
 		nodeName = "stacked";
@@ -529,7 +595,15 @@ void TextSemGraph::mapToFixedRelationSet(SemNode &currNode, QString &nodeName, Q
 
 	if (nodeName == "around")
 	{
-		nodeType = SSGNodeType[SemNode::Group];
+		nodeName = "pairaround";
+		nodeType = SSGNodeType[SemNode::Pair];
+		return;
+	}
+
+	if (nodeName.contains("align"))
+	{
+		nodeName = "pairaligned";
+		nodeType = SSGNodeType[SemNode::Pair];
 		return;
 	}
 }
@@ -614,6 +688,37 @@ void TextSemGraph::mapToFixedAttributeSet(QString &nodeName, QString &nodeType /
 	}
 }
 
+void TextSemGraph::addImplicitAttributes()
+{
+	if (m_sentence.textString.contains("dining table"))
+	{
+		for (int i = 0; i < m_nodes.size(); i++)
+		{
+			SemNode &currNode = m_nodes[i];
+			if (currNode.nodeName == "chair")
+			{
+				std::vector<QString> relNames;
+				for (int r=0; r< currNode.inEdgeNodeList.size(); r++)
+				{
+					int relNodeId = currNode.inEdgeNodeList[r];
+					SemNode &relNode = m_nodes[relNodeId];
+					relNames.push_back(relNode.nodeName);
+				}
+			
+				if (std::find(relNames.begin(), relNames.end(), "dining") == relNames.end())
+				{
+					addNode(SSGNodeType[SemNode::Attri], "dining");
+
+					int currNodeId = m_nodeNum - 1;
+					addEdge(currNodeId, i);
+				}
+			}
+		}
+	}
+
+	parseNodeNeighbors();
+}
+
 void TextSemGraph::addImplicitRelations()
 {
 	for (int i=0; i < m_nodes.size(); i++)
@@ -647,7 +752,7 @@ void TextSemGraph::postProcessForSpecialRelations()
 		std::vector<int> relNodelIds;
 		for (int i = 0; i < m_nodeNum; i++)
 		{
-			if (m_nodes[i].nodeName == "side")
+			if (m_nodes[i].nodeName.contains("side"))
 			{
 				relNodelIds.push_back(i);
 			}
@@ -656,13 +761,36 @@ void TextSemGraph::postProcessForSpecialRelations()
 		for (int i=0; i< relNodelIds.size()/2; i++)
 		{
 			int relNodeId = relNodelIds[i];
-			m_nodes[relNodeId].nodeName = "leftside";
+			SemNode &relNode = m_nodes[relNodeId];
+			
+			if (!relNode.anchorNodeList.empty())
+			{
+				int anchorNodeId = relNode.anchorNodeList[0];
+				SemNode &anchorNode = m_nodes[anchorNodeId];
+				if (anchorNode.nodeName != "table")
+				{
+					m_nodes[relNodeId].nodeName = "leftside";
+					m_nodes[relNodeId].nodeType = SSGNodeType[SemNode::Pair];
+				}
+			}
 		}
 
 		for (int i= relNodelIds.size()/2; i < relNodelIds.size(); i++)
 		{
+
 			int relNodeId = relNodelIds[i];
-			m_nodes[relNodeId].nodeName = "rightside";
+			SemNode &relNode = m_nodes[relNodeId];
+
+			if (!relNode.anchorNodeList.empty())
+			{
+				int anchorNodeId = relNode.anchorNodeList[0];
+				SemNode &anchorNode = m_nodes[anchorNodeId];
+				if (anchorNode.nodeName != "table")
+				{
+					m_nodes[relNodeId].nodeName = "rightside";
+					m_nodes[relNodeId].nodeType = SSGNodeType[SemNode::Pair];
+				}
+			}
 		}
 	}
 }

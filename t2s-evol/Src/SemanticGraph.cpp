@@ -115,6 +115,7 @@ void SemanticGraph::initStrictAttriSet()
 	m_strictAttriSet.push_back("rectangular");
 	m_strictAttriSet.push_back("queen");
 	m_strictAttriSet.push_back("coffee");
+	m_strictAttriSet.push_back("dining");
 }
 
 bool SemanticGraph::isStrictAttri(const QString &attriName)
@@ -242,6 +243,11 @@ void SemanticGraph::alignObjectNodesWithGraph(SemanticGraph *targetGraph, double
 						//  if all attribute nodes matched, then the node is matched
 						if (matchedAttNum == currSgAttNum)
 						{
+							if (currSgAttNum==2)
+							{
+								qDebug();
+							}
+
 							objNode.isAligned = true;
 							tarObjNode.isAligned = true;
 							tarObjNode.matchingStatus = objNode.matchingStatus;
@@ -272,7 +278,7 @@ void SemanticGraph::alignObjectNodesWithGraph(SemanticGraph *targetGraph, double
 											m_nodeAlignMap[attNodeId] = tarAttNodeId; // save aligned attribute node into map
 
 											if (isStrictAttri(attNode.nodeName))
-												alignScore += 5;  // attribute node does not contribute to matching score
+												alignScore += 5;  // 
 										}
 									}
 								}
