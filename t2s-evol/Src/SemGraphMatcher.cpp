@@ -638,6 +638,7 @@ void SemGraphMatcher::addSuppParentNodesToSubSSG(SceneSemGraph *matchedSubSSG, S
 			int dbActNodeParentNodeId = dbSSG->findParentNodeIdForNode(dbActNodeId);
 			int mActNodeParentNodeId = matchedSubSSG->findParentNodeIdForNode(i);
 
+
 			if (dbActNodeParentNodeId != -1 && dbActNodeParentNodeId!=0 && mActNodeParentNodeId == -1)
 			{
 				SemNode &dbActNode = dbSSG->m_nodes[dbActNodeId];

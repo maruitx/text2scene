@@ -116,6 +116,7 @@ void SemanticGraph::initStrictAttriSet()
 	m_strictAttriSet.push_back("queen");
 	m_strictAttriSet.push_back("coffee");
 	m_strictAttriSet.push_back("dining");
+	m_strictAttriSet.push_back("sauce");
 }
 
 bool SemanticGraph::isStrictAttri(const QString &attriName)

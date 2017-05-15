@@ -35,6 +35,7 @@ public:
 	bool findRefNodeForRelationNode(const SemNode &sgNode, int &refNodeId, int &activeNodeId);
 	int findParentNodeIdForModel(int modelId);
 	int findParentNodeIdForNode(int nodeId);
+	int findPotentialParentNodeIdForNode(int nodeId);
 
 	int getNodeIdWithModelId(int modelId);
 	MetaModel& getModelWithNodeId(int nodeId);

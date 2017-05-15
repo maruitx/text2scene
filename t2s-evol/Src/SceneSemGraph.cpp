@@ -553,6 +553,30 @@ void SceneSemGraph::restoreMissingSupportNodes()
 		//	}
 		//}
 	}
+
+	for (int i=0;  i<m_nodes.size(); i++)
+	{
+		SemNode &currNode = m_nodes[i];
+
+		if (currNode.nodeType =="object")
+		{
+			int actParentNodeId = findParentNodeIdForNode(i);
+			// try to find potential node in current scene
+			if (actParentNodeId == -1)
+			{
+				actParentNodeId = findPotentialParentNodeIdForNode(i);
+				if (actParentNodeId !=-1)
+				{
+					addNode(SSGNodeType[SemNode::Pair], "vertsupport");
+					int currNodeId = m_nodeNum - 1;
+
+					addEdge(i, currNodeId);
+					addEdge(currNodeId, actParentNodeId);
+				}
+			}
+		}	
+	}
+
 }
 
 bool SceneSemGraph::hasSupportNode(int actNodeId)
@@ -612,6 +636,24 @@ int SceneSemGraph::findParentNodeIdForNode(int currNodeId)
 		}
 		return -1;	
 	}
+}
+
+int SceneSemGraph::findPotentialParentNodeIdForNode(int nodeId)
+{
+	QString currNodeName = m_nodes[nodeId].nodeName;
+
+	for (int i=0; i < m_nodes.size(); i++)
+	{
+		SemNode &sgNode = m_nodes[i];
+
+		if ((currNodeName == "knife" || currNodeName=="fork" || currNodeName == "plate")
+			&&sgNode.nodeName == "table")
+		{
+			return i;
+		}
+	}
+
+	return -1;
 }
 
 int SceneSemGraph::getNodeIdWithModelId(int modelId)

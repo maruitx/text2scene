@@ -572,6 +572,39 @@ bool LayoutPlanner::adjustInitTransfromSpecialModel(const MetaModel &anchorMd, M
 		}
 	}
 
+	if (anchorMd.catName == "chair" && (actMd.catName == "fork" || actMd.catName=="plate" || actMd.catName=="knife"))
+	{
+		double currAngle = GetRotAngleR(anchorMd.frontDir, actMd.frontDir, vec3(0, 0, 1));
+		double targetAngle;
+		bool needAdjust = false;
+		if (currAngle > 0 && currAngle < 0.5*math_pi || currAngle < 0 && currAngle > -0.5*math_pi)
+		{
+			needAdjust = true;
+			targetAngle = 0;
+		}
+
+		if (needAdjust)
+		{
+			mat4 rotMat = GetRotationMatrix(vec3(0, 0, 1), targetAngle - currAngle);
+			mat4 adjustedMat = mat4::translate(actMd.position)*rotMat*mat4::translate(-actMd.position)*actMd.transformation;
+			actMd.updateWithTransform(adjustedMat);
+
+			isAdjusted = true;
+		}
+
+		double currXYDist = std::sqrt(std::pow(anchorMd.position.x - actMd.position.x, 2) + std::pow(anchorMd.position.y - actMd.position.y, 2));
+		double sceneMetric = params::inst()->globalSceneUnitScale;
+		if (currXYDist > 0.6/sceneMetric || currXYDist < 0.5/sceneMetric)
+		{
+			double transDist = 0.6/sceneMetric-currXYDist;
+			vec3 transVec = anchorMd.frontDir*transDist;
+			mat4 adjustedMat = mat4::translate(transVec);
+
+			actMd.updateWithTransform(adjustedMat);
+			isAdjusted = true;
+		}
+	}
+
 	return isAdjusted;
 }
 
@@ -886,6 +919,9 @@ void LayoutPlanner::updatePlacementOfParent(TSScene *currScene, int currModelID,
 
 	if (parentModelId!=-1)
 	{
+		MetaModel &parentMd = currScene->getMetaModel(parentModelId);
+		if (parentMd.catName == "table") return;
+
 		updateMetaModelInScene(currScene, parentModelId, transMat);
 
 		// update the rest children on current parent model

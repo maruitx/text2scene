@@ -818,6 +818,55 @@ void RelationModelManager::adjustSamplingForSpecialModels(const QString &anchorO
 			relTheta = -0.5;
 		}
 	}
+
+	if (anchorObjName =="chair")
+	{
+		if (actObjName == "plate")
+		{
+			if (relPos.y > 1.2 || relPos.y < 0.7)
+			{
+				relPos.y = 1.0;
+			}
+
+			if (std::abs(relPos.x) > 0.1)
+			{
+				relPos.x = GenRandomDouble(-0.1, 0.1);
+			}
+
+			relTheta = 0;
+		}
+
+		if (actObjName == "knife")
+		{
+			if (relPos.y > 1.2 || relPos.y < 0.7)
+			{
+				relPos.y = 1.0;
+			}
+
+			if (std::abs(relPos.x) < 0.1)
+			{
+				relPos.x = GenRandomDouble(-0.3, 0.1);
+			}
+
+			relTheta = 0;
+		}
+
+
+		if (actObjName == "fork")
+		{
+			if (relPos.y > 1.2 || relPos.y < 0.7)
+			{
+				relPos.y = 1.0;
+			}
+
+			if (std::abs(relPos.x) < 0.1)
+			{
+				relPos.x = GenRandomDouble(0.1, 0.3);
+			}
+
+			relTheta = 0;
+		}
+	}
 }
 
 double RelationModelManager::findClosestSuppPlaneZ(TSScene *currScene, int metaModelId, const vec3 &newPos)

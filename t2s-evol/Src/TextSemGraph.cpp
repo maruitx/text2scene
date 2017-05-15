@@ -152,9 +152,18 @@ void TextSemGraph::buildGraphFromSEL()
 
 		int relationCount = m_sentence.m_entities[i].relationshipCount;
 
+		std::vector<QString> currRelationStrings; // record current relation names; avoid duplicate
 		for (int j = 0; j < relationCount; j++)
 		{
 			QString relationName = m_sentence.m_entities[i].m_relationships[j].nameString;
+			QString relationRawString = m_sentence.m_entities[i].m_relationships[j].entityString;
+			if (std::find(currRelationStrings.begin(), currRelationStrings.end(), relationRawString) != currRelationStrings.end())
+			{
+				continue;
+			}
+
+			currRelationStrings.push_back(relationRawString);
+
 			for (int n = 0; n < m_sentence.m_entities[i].instanceCount; n++)
 			{
 				QString entityRawString = m_sentence.m_entities[i].m_relationships[j].entityString;
