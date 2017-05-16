@@ -101,6 +101,8 @@ struct GlobalObjectParams
 	bool isUseContext;
 	bool addSynthNode;
 	QString sceneDBType;
+	QString selectMethod;
+	double contextCoOccProb;
 
 	unordered_map<string, Texture *> textures;
 

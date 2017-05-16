@@ -34,6 +34,7 @@ void RelationModelManager::loadRelationModels()
 	loadPairwiseRelationModels();
 	loadGroupRelationModels();
 	loadSupportRelationModels();
+	loadCoOccurenceModels();
 }
 
 void RelationModelManager::loadRelativeRelationModels()
@@ -156,7 +157,7 @@ void RelationModelManager::loadGroupRelationModels()
 			} 
 		}
 
-		newGroupModel->normalizeOccurrenceProbs(0.2, 0.8);
+		//newGroupModel->normalizeOccurrenceProbs(0.2, 0.8);
 	}
 
 	inFile.close();
@@ -291,6 +292,39 @@ void RelationModelManager::loadSupportRelationModels()
 	inFile.close();
 }
 
+void RelationModelManager::loadCoOccurenceModels()
+{
+	QString sceneDBPath = "./SceneDB";
+	QString filename = sceneDBPath + QString("/CoOccOnParent_%1.model").arg(params::inst()->sceneDBType);
+
+	QFile inFile(filename);
+	QTextStream ifs(&inFile);
+
+	if (!inFile.open(QIODevice::ReadOnly | QIODevice::Text)) return;
+
+	while (!ifs.atEnd())
+	{
+		CoOccurrenceModel *newCoOccModel = new CoOccurrenceModel();
+		newCoOccModel->loadFromStream(ifs);
+		m_coOccModelsOnSameParent[newCoOccModel->m_coOccurKey] = newCoOccModel;
+	}
+
+
+	inFile.close();
+
+	filename = sceneDBPath + QString("/CoOccInGroup_%1.model").arg(params::inst()->sceneDBType);
+	inFile.setFileName(filename);
+	if (!inFile.open(QIODevice::ReadOnly | QIODevice::Text)) return;
+	while (!ifs.atEnd())
+	{
+		CoOccurrenceModel *newCoOccModel = new CoOccurrenceModel();
+		newCoOccModel->loadFromStream(ifs);
+		m_coOccModelsInSameGroup[newCoOccModel->m_coOccurKey] = newCoOccModel;
+	}
+
+	inFile.close();
+}
+
 bool RelationModelManager::isRelationsViolated(TSScene *currScene, int metaModelId)
 {
 	MetaModel &md = currScene->getMetaModel(metaModelId);
@@ -378,7 +412,8 @@ double RelationModelManager::computeLayoutPassScore(TSScene *currScene, int meta
 
 	return score;
 }
-double RelationModelManager::computeRelationScore(TSScene *currScene, int metaModelId, const Eigen::VectorXd &currPlacement)
+
+double RelationModelManager::computeRelationScore(TSScene *currScene, int metaModelId, const Eigen::VectorXd &currPlacement, const mat4 &currTransMat)
 {
 	MetaModel &md = currScene->getMetaModel(metaModelId);
 
@@ -399,10 +434,81 @@ double RelationModelManager::computeRelationScore(TSScene *currScene, int metaMo
 		score += (1-ExWeight)*computeScoreForConstraint(currScene, relConstraint, currPlacement);
 	}
 
+	score += computeOverHangScore(currScene, metaModelId, currTransMat);
+
 	return score;
 }
 
-double RelationModelManager::computeRelationScoreForGroup(TSScene *currScene, std::vector<int> metaModelIds, const std::vector<Eigen::VectorXd> &currPlacements)
+double RelationModelManager::computeOverHangScore(TSScene *currScene, int metaModelId, const mat4 &currTransMat)
+{
+	double overHangSore = 0;
+	SceneSemGraph *currSSG = currScene->m_ssg;
+	int parentModelId = currSSG->m_parentOfModel[metaModelId];
+
+	if (parentModelId == -1)
+	{
+		return 0;
+	}
+	else
+	{
+		MetaModel &currMd = currScene->getMetaModel(metaModelId);
+		MetaModel &parentMd = currScene->getMetaModel(parentModelId);
+		Model *parentModel = currScene->getModel(parentMd.name);
+
+		double newZ;
+		if (!currScene->computeZForModel(metaModelId, parentModelId, TransformPoint(currTransMat, currMd.position), newZ))
+		{
+			currScene->m_overHangPositions[metaModelId].push_back(TransformPoint(currTransMat, currMd.position));
+			return -10;
+		}
+
+		std::vector<vec3> bottomCorners(4);
+		vec3 minV(parentModel->m_bb.mi()), maxV(parentModel->m_bb.ma());
+		bottomCorners[0] = vec3(minV.x, minV.y, minV.z);
+		bottomCorners[1] = vec3(maxV.x, minV.y, minV.z);
+		bottomCorners[2] = vec3(maxV.x, maxV.y, minV.z);
+		bottomCorners[3] = vec3(minV.x, maxV.y, minV.z);
+
+		// compute intersection for transformed corners
+		std::vector<double> intersectZ(4, 0);
+		double maxZ(0), minZ(1e3);
+		int maxId(-1), minId(-1);
+		for (int i = 0; i < 4; i++)
+		{
+			bottomCorners[i] = TransformPoint(currTransMat, bottomCorners[i]);
+
+			double newZ;
+			if (currScene->computeZForModel(metaModelId, parentModelId, bottomCorners[i], newZ))
+			{
+				intersectZ[i] = newZ;
+			}
+
+			if (intersectZ[i] > maxZ)
+			{
+				maxZ = intersectZ[i];
+				maxId = i;
+			}
+			if (intersectZ[i] < minZ)
+			{
+				minZ = intersectZ[i];
+				minId = i;
+			}
+		}
+
+		double dist = maxZ - minZ;
+		if (dist > 0.1 / params::inst()->globalSceneUnitScale)
+		{
+			currScene->m_overHangPositions[metaModelId].push_back(TransformPoint(currTransMat, currMd.position));
+			return -10;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+}
+
+double RelationModelManager::computeRelationScoreForGroup(TSScene *currScene, std::vector<int> metaModelIds, const std::vector<Eigen::VectorXd> &currPlacements, const std::vector<mat4> &currTransforms)
 {
 	double groupScore = 0;
 
@@ -410,7 +516,7 @@ double RelationModelManager::computeRelationScoreForGroup(TSScene *currScene, st
 	{
 		int metaModelId = metaModelIds[i];
 		MetaModel &md = currScene->getMetaModel(metaModelId);
-		md.layoutScore = computeRelationScore(currScene, metaModelIds[i], currPlacements[i]);
+		md.layoutScore = computeRelationScore(currScene, metaModelIds[i], currPlacements[i], currTransforms[i]);
 		groupScore += md.layoutScore;
 	}
 
@@ -497,6 +603,12 @@ void RelationModelManager::updateCollisionPostions(const std::vector<std::vector
 	m_collisionPositions = collisionPositions;
 }
 
+void RelationModelManager::updateOverHangPostions(const std::vector<std::vector<vec3>> &overHangPositions)
+{
+	m_overHangPositions.clear();
+	m_overHangPositions = overHangPositions;
+}
+
 bool RelationModelManager::isPosValid(TSScene *currScene, const vec3 &pos, int metaModelId)
 {
 	if (isPosCloseToInvalidPos(pos, metaModelId))
@@ -520,6 +632,15 @@ bool RelationModelManager::isPosCloseToInvalidPos(const vec3 &pos, int metaModel
 	}
 
 	// test for over-hang positions
+	for (int i = 0; i < m_overHangPositions[metaModelId].size(); i++)
+	{
+		double d = (pos - m_overHangPositions[metaModelId][i]).length();
+
+		if (d < m_closeSampleTh / m_sceneMetric)
+		{
+			return true;
+		}
+	}
 
 	return false;
 }
@@ -556,6 +677,19 @@ bool RelationModelManager::isToSkipModelCats(const QString &objName)
 	}
 
 	return false;
+}
+
+double RelationModelManager::getCoOccProbOnParent(const QString &firstObjName, const QString &seondObjName, const QString &parentName)
+{
+	double coOccProb = 0;
+	QString coOccKey = QString("%1_%2_%3_%4").arg(firstObjName).arg(seondObjName).arg("sibling").arg(parentName);
+
+	if (m_coOccModelsOnSameParent.count(coOccKey))
+	{
+		coOccProb = m_coOccModelsOnSameParent[coOccKey]->m_prob;
+	}
+
+	return coOccProb;
 }
 
 Eigen::VectorXd RelationModelManager::sampleNewPosFromConstraints(TSScene *currScene, int metaModelId, int &anchorModelId)

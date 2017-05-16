@@ -216,6 +216,19 @@ void GLWidget::loadParams()
 				p->isUseContext = StringToIntegerList(paramLines[i], "UseContext=")[0];
 				continue;
 			}
+
+
+			if (paramLines[i].find("SelectMethod=") != string::npos)
+			{
+				p->selectMethod = toQString(PartitionString(paramLines[i], "SelectMethod=")[0]);
+				continue;
+			}
+
+			if (paramLines[i].find("ContextCoOccProb=") != string::npos)
+			{
+				p->contextCoOccProb = StringToFloat(PartitionString(paramLines[i], "ContextCoOccProb=")[0]);
+				continue;
+			}
 		}
 	}
 }

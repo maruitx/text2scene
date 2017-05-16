@@ -67,6 +67,8 @@ public:
 	std::vector<int> m_placedObjIds;
 	std::vector<int> m_toPlaceModelIds;
 
+	std::vector<std::vector<vec3>> m_overHangPositions;
+
 private:
 	unordered_map<string, Model*> &m_models;   // current loaded object DB
 	

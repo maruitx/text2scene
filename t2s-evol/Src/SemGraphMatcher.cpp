@@ -250,23 +250,23 @@ void SemGraphMatcher::addGroupActNodesToSubSSG(SceneSemGraph *matchedSubSSG, Sce
 					std::vector<int> actNodeList = dbNode.activeNodeList;
 
 					// insert act nodes based on occ prob and add support nodes
+					std::vector<int> insertedObjNodeIds;
 					for (int a = 0; a < actNodeList.size(); a++)
 					{
 						int dbActNodeId = actNodeList[a];
+						// skip if node is already inserted
+						if (dbSSG->m_dbNodeToSubNodeMap.count(dbActNodeId)) continue;
+
 						SemNode &dbActNode = dbSSG->m_nodes[dbActNodeId];
 						QString occKey = QString("%1_%2").arg(dbActNode.nodeName).arg(1);  // Temp, extend to multiple instances later
 
-						double randProb = GenRandomDouble(0, 1);
-
 						if (groupModel->m_occurModels.count(occKey))
 						{
+							double randProb = GenRandomDouble(0, groupModel->m_maxOccProb);
 							double probTh = groupModel->m_occurModels[occKey]->m_occurProb;
 
-							if (probTh > 0.1)
+							if (probTh > randProb)
 							{
-								// skip if node is already inserted
-								if(dbSSG->m_dbNodeToSubNodeMap.count(dbActNodeId)) continue;
-
 								dbActNode.isAnnotated = true;
 								dbActNode.isAligned = false;
 								matchedSubSSG->addNode(dbActNode);
@@ -274,56 +274,95 @@ void SemGraphMatcher::addGroupActNodesToSubSSG(SceneSemGraph *matchedSubSSG, Sce
 								insertDbObjList.push_back(dbActNodeId);
 								currSubSSGNodeNum++;
 
+								insertedObjNodeIds.push_back(dbActNodeId);
+
 								// add support node for current active object
-								bool reachBaseObj = false;
-								SemNode &currActNode = dbActNode;
-								while (!reachBaseObj)
-								{
-									bool hasSuppNode = false;
-									for (int r = 0; r < currActNode.outEdgeNodeList.size(); r++)
-									{
-										int suppNodeId = currActNode.outEdgeNodeList[r];
-										SemNode &suppNode = dbSSG->m_nodes[suppNodeId];
-										if (suppNode.nodeName.contains("support") && !suppNode.anchorNodeList.empty())
-										{
-											// to insert a support node, it's anchor object must be already in the scene
-											int dbAnchorId = suppNode.anchorNodeList[0];
-											if (!dbSSG->m_dbNodeToSubNodeMap.count(dbAnchorId))
-											{
-												SemNode &dbAnchorNode = dbSSG->m_nodes[dbAnchorId];
-												if (dbAnchorNode.nodeName == "room")
-												{
-													reachBaseObj = true;
-													break;
-												}
+								addSupportNodeForActNode(dbActNodeId, dbSSG, matchedSubSSG, currSubSSGNodeNum);
 
-												dbAnchorNode.isAnnotated = true;
-												dbAnchorNode.isAligned = false;
+								//bool reachBaseObj = false;
+								//SemNode &currActNode = dbActNode;
+								//while (!reachBaseObj)
+								//{
+								//	bool hasSuppNode = false;
+								//	for (int r = 0; r < currActNode.outEdgeNodeList.size(); r++)
+								//	{
+								//		int suppNodeId = currActNode.outEdgeNodeList[r];
+								//		SemNode &suppNode = dbSSG->m_nodes[suppNodeId];
+								//		if (suppNode.nodeName.contains("support") && !suppNode.anchorNodeList.empty())
+								//		{
+								//			// to insert a support node, it's anchor object must be already in the scene
+								//			int dbAnchorId = suppNode.anchorNodeList[0];
+								//			if (!dbSSG->m_dbNodeToSubNodeMap.count(dbAnchorId))
+								//			{
+								//				SemNode &dbAnchorNode = dbSSG->m_nodes[dbAnchorId];
+								//				if (dbAnchorNode.nodeName == "room")
+								//				{
+								//					reachBaseObj = true;
+								//					break;
+								//				}
 
-												matchedSubSSG->addNode(dbAnchorNode);
-												dbSSG->m_dbNodeToSubNodeMap[dbAnchorId] = currSubSSGNodeNum;
-												insertDbObjList.push_back(dbAnchorId);
-												currSubSSGNodeNum++;
-												currActNode = dbAnchorNode;
-											}
-											else
-											{
-												reachBaseObj = true;												
-											}
+								//				dbAnchorNode.isAnnotated = true;
+								//				dbAnchorNode.isAligned = false;
 
-											suppNode.isAnnotated = true;
-											suppNode.isAligned = false;
+								//				matchedSubSSG->addNode(dbAnchorNode);
+								//				dbSSG->m_dbNodeToSubNodeMap[dbAnchorId] = currSubSSGNodeNum;
+								//				insertDbObjList.push_back(dbAnchorId);
+								//				currSubSSGNodeNum++;
+								//				currActNode = dbAnchorNode;
+								//			}
+								//			else
+								//			{
+								//				reachBaseObj = true;												
+								//			}
 
-											matchedSubSSG->addNode(suppNode);
-											dbSSG->m_dbNodeToSubNodeMap[suppNodeId] = currSubSSGNodeNum;
-											currSubSSGNodeNum++;
+								//			suppNode.isAnnotated = true;
+								//			suppNode.isAligned = false;
 
-											hasSuppNode = true;
-										}
-									}
+								//			matchedSubSSG->addNode(suppNode);
+								//			dbSSG->m_dbNodeToSubNodeMap[suppNodeId] = currSubSSGNodeNum;
+								//			currSubSSGNodeNum++;
 
-									if (!hasSuppNode) reachBaseObj = true;										
-								}
+								//			hasSuppNode = true;
+								//		}
+								//	}
+
+								//	if (!hasSuppNode) reachBaseObj = true;										
+								//}
+							}
+						}
+					}
+
+					// TODO: add high co-occur objects to current inserted object
+					if (false)
+					{
+						for (int a = 0; a < actNodeList.size(); a++)
+						{
+							int dbActNodeId = actNodeList[a];
+							// skip if node is already inserted
+							if (dbSSG->m_dbNodeToSubNodeMap.count(dbActNodeId)) continue;
+
+							if (std::find(insertedObjNodeIds.begin(), insertedObjNodeIds.end(), dbActNodeId) != insertedObjNodeIds.end())
+								continue;
+
+							bool isCoOcc = false;
+							SemNode& dbActNode = dbSSG->m_nodes[dbActNodeId];
+							for (int k = 0; k < insertedObjNodeIds.size(); k++)
+							{
+								int insertedDbActNodeId = insertedObjNodeIds[k];
+								SemNode& insertedDbNode = dbSSG->m_nodes[insertedDbActNodeId];
+							}
+
+							if (isCoOcc)
+							{
+								dbActNode.isAnnotated = true;
+								dbActNode.isAligned = false;
+								matchedSubSSG->addNode(dbActNode);
+								dbSSG->m_dbNodeToSubNodeMap[dbActNodeId] = currSubSSGNodeNum;
+								insertDbObjList.push_back(dbActNodeId);
+								currSubSSGNodeNum++;
+
+								insertedObjNodeIds.push_back(dbActNodeId);
+								addSupportNodeForActNode(dbActNodeId, dbSSG, matchedSubSSG, currSubSSGNodeNum);
 							}
 						}
 					}
@@ -409,6 +448,59 @@ void SemGraphMatcher::addGroupActNodesToSubSSG(SceneSemGraph *matchedSubSSG, Sce
 	}
 
 	matchedSubSSG->parseNodeNeighbors();
+}
+
+void SemGraphMatcher::addSupportNodeForActNode(int dbActNodeId, SceneSemGraph *dbSSG, SceneSemGraph *matchedSubSSG, int &currSubSSGNodeNum)
+{
+	bool reachBaseObj = false;
+	SemNode &currActNode = dbSSG->m_nodes[dbActNodeId];
+	while (!reachBaseObj)
+	{
+		bool hasSuppNode = false;
+		for (int r = 0; r < currActNode.outEdgeNodeList.size(); r++)
+		{
+			int suppNodeId = currActNode.outEdgeNodeList[r];
+			SemNode &suppNode = dbSSG->m_nodes[suppNodeId];
+			if (suppNode.nodeName.contains("support") && !suppNode.anchorNodeList.empty())
+			{
+				// to insert a support node, it's anchor object must be already in the scene
+				int dbAnchorId = suppNode.anchorNodeList[0];
+				if (!dbSSG->m_dbNodeToSubNodeMap.count(dbAnchorId))
+				{
+					SemNode &dbAnchorNode = dbSSG->m_nodes[dbAnchorId];
+					if (dbAnchorNode.nodeName == "room")
+					{
+						reachBaseObj = true;
+						break;
+					}
+
+					dbAnchorNode.isAnnotated = true;
+					dbAnchorNode.isAligned = false;
+
+					matchedSubSSG->addNode(dbAnchorNode);
+					dbSSG->m_dbNodeToSubNodeMap[dbAnchorId] = currSubSSGNodeNum;
+
+					currSubSSGNodeNum++;
+					currActNode = dbAnchorNode;
+				}
+				else
+				{
+					reachBaseObj = true;
+				}
+
+				suppNode.isAnnotated = true;
+				suppNode.isAligned = false;
+
+				matchedSubSSG->addNode(suppNode);
+				dbSSG->m_dbNodeToSubNodeMap[suppNodeId] = currSubSSGNodeNum;
+				currSubSSGNodeNum++;
+
+				hasSuppNode = true;
+			}
+		}
+
+		if (!hasSuppNode) reachBaseObj = true;
+	}
 }
 
 double SemGraphMatcher::computeGeometrySimilarity(SceneSemGraph *testSSG, SceneSemGraph *refSSG)
@@ -608,6 +700,10 @@ void SemGraphMatcher::addSynthNodeToSubSSG(SceneSemGraph *matchedSubSSG, SceneSe
 	matchedSubSSG->parseNodeNeighbors();
 }
 
+
+
+
+
 // enrich subgraph with context
 void SemGraphMatcher::addSuppParentNodesToSubSSG(SceneSemGraph *matchedSubSSG, SceneSemGraph *dbSSG)
 {
@@ -692,7 +788,96 @@ void SemGraphMatcher::addSuppParentNodesToSubSSG(SceneSemGraph *matchedSubSSG, S
 
 void SemGraphMatcher::addContextNodesToSubSSG(SceneSemGraph *matchedSubSSG, SceneSemGraph *dbSSG)
 {
+	int subSSGNodeNum = matchedSubSSG->m_nodes.size();
+	for (int i = 0; i < subSSGNodeNum; i++)
+	{
+		SemNode &mActNode = matchedSubSSG->m_nodes[i];
+		QString mActObjName = mActNode.nodeName;
+		if (matchedSubSSG->m_nodes[i].nodeType == "object")
+		{
+			int mParentNodeId = matchedSubSSG->findParentNodeIdForNode(i);
+			if(mParentNodeId == -1) continue;
+			SemNode &mParentNode = matchedSubSSG->m_nodes[mParentNodeId];
+			QString mParentObjName = matchedSubSSG->m_nodes[mParentNodeId].nodeName;
 
+			for (int j=0; j < dbSSG->m_nodes.size(); j++)
+			{
+				int dbActNodeId = j;
+				// skip if node is already inserted
+				if (dbSSG->m_dbNodeToSubNodeMap.count(dbActNodeId)) continue;
+
+				SemNode &dbActNode = dbSSG->m_nodes[dbActNodeId];
+				if (dbActNode.nodeType == "object")
+				{
+					QString dbActObjName = dbActNode.nodeName;
+					if (matchedSubSSG->hasObj(dbActObjName)) continue; // do not insert repeatably
+
+					int dbParentNodeId = dbSSG->findParentNodeIdForNode(dbActNodeId);
+					// parent node must be already inserted in sub-scene
+					if (!dbSSG->m_dbNodeToSubNodeMap.count(dbParentNodeId)) continue;
+
+					if (mParentNodeId == dbSSG->m_dbNodeToSubNodeMap[dbParentNodeId])
+					{
+
+						double coOccProb = m_relModelManager->getCoOccProbOnParent(mActObjName, dbActObjName, mParentObjName);
+
+						if (coOccProb >= params::inst()->contextCoOccProb)
+						{
+							matchedSubSSG->addNode(dbActNode);
+							int currActNodeId = matchedSubSSG->m_nodeNum - 1;
+							matchedSubSSG->m_nodes[currActNodeId].inferedType = SemNode::InferByContext;
+							matchedSubSSG->m_nodes[currActNodeId].isInferred = true;
+							matchedSubSSG->m_nodes[currActNodeId].inferRefNodeId = i;
+							dbSSG->m_dbNodeToSubNodeMap[dbActNodeId] = currActNodeId;
+
+							// add meta model
+							MetaModel& newMd = dbSSG->getModelWithNodeId(dbActNodeId);
+							matchedSubSSG->m_metaScene.m_metaModellList.push_back(newMd);
+							matchedSubSSG->m_graphNodeToModelListIdMap[currActNodeId] = matchedSubSSG->m_metaScene.m_metaModellList.size() - 1;
+
+							// add support node and edges
+							for (int r=0; r < dbActNode.outEdgeNodeList.size(); r++)
+							{
+								int dbRelNodeId = dbActNode.outEdgeNodeList[r];
+								SemNode &dbRelNode = dbSSG->m_nodes[dbRelNodeId];
+								bool isFindParent = false;
+
+								if (dbRelNode.nodeName.contains("support"))
+								{
+									for (int k=0; k < dbRelNode.outEdgeNodeList.size(); k++)
+									{
+										int anchorNodeId = dbRelNode.outEdgeNodeList[k];
+										if (anchorNodeId == dbParentNodeId)
+										{
+											isFindParent = true;
+											break;
+										}
+									}
+
+									if (isFindParent)
+									{
+										// add support node
+										matchedSubSSG->addNode(dbRelNode);
+										int currRelNodeId = matchedSubSSG->m_nodeNum - 1;
+										matchedSubSSG->addEdge(currActNodeId, currRelNodeId); // e.g., (tv, support)
+										matchedSubSSG->addEdge(currRelNodeId, mParentNodeId); // e.g., (tv, support)
+
+
+										matchedSubSSG->m_nodes[currRelNodeId].isAligned = true;
+										matchedSubSSG->m_nodes[currRelNodeId].isSynthesized = false;
+										dbSSG->m_dbNodeToSubNodeMap[dbRelNodeId] = currRelNodeId;
+										break;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	matchedSubSSG->parseNodeNeighbors();
 }
 
 MetaModel& SemGraphMatcher::retrieveForModelInstance(const QString catName, const std::vector<QString> attriNames)

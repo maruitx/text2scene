@@ -6,6 +6,7 @@
 TextSemGraphManager::TextSemGraphManager()
 {
 	m_activeGraphId = 0;
+	m_textGraphNum = 0;
 }
 
 TextSemGraphManager::~TextSemGraphManager()
@@ -177,6 +178,7 @@ void TextSemGraphManager::loadSELFromOutput(const QString &filename, RelationMod
 
 		TextSemGraph* newTextSemGraph = new TextSemGraph(newSentence, relManager);
 		m_textSemGraphs.push_back(newTextSemGraph);
+		m_textGraphNum++;
 
 	} // end of loop for sentence
 

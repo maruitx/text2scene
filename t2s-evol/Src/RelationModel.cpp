@@ -229,11 +229,26 @@ GroupRelationModel::GroupRelationModel(const QString &anchorObjName, const QStri
 {
 	m_groupKey = m_relationName + "_" + m_anchorObjName;
 	m_numInstance = 0;
+	m_maxOccProb = 0;
 }
 
 GroupRelationModel::~GroupRelationModel()
 {
 
+}
+
+void GroupRelationModel::computeMaxOccProbs()
+{
+	m_maxOccProb = 0;
+
+	for (auto iter = m_occurModels.begin(); iter != m_occurModels.end(); iter++)
+	{
+		OccurrenceModel *occModel = iter->second;
+		if (occModel->m_occurProb > m_maxOccProb)
+		{
+			m_maxOccProb = occModel->m_occurProb;
+		}
+	}
 }
 
 void GroupRelationModel::normalizeOccurrenceProbs(double tarMax, double tarMin)
@@ -298,4 +313,45 @@ void SupportRelation::loadFromStream(QTextStream &ifs)
 	std::vector<float> floatList = StringToFloatList(currLine.toStdString(),"");
 	m_childProbGivenParent = (double)floatList[0];
 	m_parentProbGivenChild = (double)floatList[1];
+}
+
+CoOccurrenceModel::CoOccurrenceModel()
+{
+	m_firstObjNum = 0;
+	m_secondObjNum = 0;
+	m_coOccNum = 0;
+	m_prob = 0;
+}
+
+CoOccurrenceModel::CoOccurrenceModel(const QString &firstObjName, const QString &secondObjName, const QString &anchorObjName, const QString &conditionName)
+:m_firstObjName(firstObjName), m_secondObjName(secondObjName), m_conditionName(conditionName), m_anchorObjName(anchorObjName)
+{
+	m_coOccurKey = m_firstObjName + "_" + m_secondObjName + "_" + m_conditionName + "_" + m_anchorObjName;
+
+	m_firstObjNum = 0;
+	m_secondObjNum = 0;
+	m_coOccNum = 0;
+	m_prob = 0;
+}
+
+void CoOccurrenceModel::loadFromStream(QTextStream &ifs)
+{
+	QString currLine;
+
+	currLine = ifs.readLine();
+	std::vector<std::string> parts = PartitionString(currLine.toStdString(), ",");
+	m_coOccurKey = toQString(parts[0]);
+	m_prob = StringToFloat(parts[1]);
+
+	std::vector<std::string> subParts = PartitionString(parts[0], "_");
+	m_firstObjName = toQString(subParts[0]);
+	m_secondObjName = toQString(subParts[1]);
+	m_conditionName = toQString(subParts[2]);
+	m_anchorObjName = toQString(subParts[3]);
+
+	currLine = ifs.readLine();
+	std::vector<int> intList = StringToIntegerList(currLine.toStdString(), "", ",");
+	m_coOccNum = intList[0];
+	m_firstObjNum = intList[1];
+	m_secondObjNum = intList[2];
 }

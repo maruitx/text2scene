@@ -326,29 +326,19 @@ void LayoutPlanner::computeSingleObjLayout(TSScene *currScene, int metaModelId)
 	}
 	else
 	{
-		//bool isRelationVoilated = m_relModelManager->isRelationsViolated(currScene, metaModelId);
-
-		//if (isRelationVoilated && md.trialNum < m_trialNumLimit)
-		//{
-		//	adjustPlacement(currScene, metaModelId, currCM->m_collisionPositions);
-		//	md.trialNum++;
-		//}
-		//else
-		//{
-		//	md.isAlreadyPlaced = true;
-		//}
-
-
 		if (md.layoutScore == 0 && !md.isAlreadyPlaced)
 		{
-			md.layoutScore = m_relModelManager->computeRelationScore(currScene, metaModelId, makePlacementVec(md.position, md.theta));
+			md.layoutScore = m_relModelManager->computeRelationScore(currScene, metaModelId, makePlacementVec(md.position, md.theta), mat4::identitiy());
 		}
 
 		if (md.layoutScore < md.layoutPassScore && md.trialNum < m_trialNumLimit)
 		{
 			int anchorModelId;
-			Eigen::VectorXd newPlacement = computeNewPlacement(currScene, metaModelId, currCM->m_collisionPositions, anchorModelId);			
-			double newPlacementScore = m_relModelManager->computeRelationScore(currScene, metaModelId, newPlacement);			
+			Eigen::VectorXd newPlacement = computeNewPlacement(currScene, metaModelId, currCM->m_collisionPositions, anchorModelId);
+			mat4 newTransMat = computeTransMatFromPos(currScene, anchorModelId, metaModelId, 
+				vec3(newPlacement[0], newPlacement[1], newPlacement[2]), newPlacement[3]);
+
+			double newPlacementScore = m_relModelManager->computeRelationScore(currScene, metaModelId, newPlacement, newTransMat);			
 
 			if (newPlacementScore > md.layoutScore)
 			{				
@@ -422,15 +412,18 @@ void LayoutPlanner::computeGroupObjLayoutSeq(TSScene *currScene, const std::vect
 		{
 			tempPlacedModelIds.push_back(metaModelId);
 			std::vector<Eigen::VectorXd> currPlacements(tempPlacedModelIds.size());
+			std::vector<mat4> currTransforms(tempPlacedModelIds.size(), mat4::identitiy());
+
 			for (int ti = 0; ti < tempPlacedModelIds.size(); ti++)
 			{
 				int tempModelId = tempPlacedModelIds[ti];
 				MetaModel &tempMd = currScene->getMetaModel(tempModelId);
 				currPlacements[ti] = makePlacementVec(tempMd.position, tempMd.theta);
+
 				tempMd.tempPlacement = currPlacements[ti];
 			}
 
-			m_relModelManager->computeRelationScoreForGroup(currScene, tempPlacedModelIds, currPlacements);
+			m_relModelManager->computeRelationScoreForGroup(currScene, tempPlacedModelIds, currPlacements, currTransforms);
 		}
 
 		// compute current group score and layout pass score
@@ -452,19 +445,28 @@ void LayoutPlanner::computeGroupObjLayoutSeq(TSScene *currScene, const std::vect
 		{
 			int anchorId;
 			Eigen::VectorXd newPlacement = computeNewPlacement(currScene, metaModelId, currCM->m_collisionPositions, anchorId);
+			mat4 newTransMat = computeTransMatFromPos(currScene, anchorId, metaModelId,
+				vec3(newPlacement[0], newPlacement[1], newPlacement[2]), newPlacement[3]);
+
 			md.tempPlacement = newPlacement;
+			md.tempTransform = newTransMat;
 			md.trialNum++;
 
 			std::vector<Eigen::VectorXd> newPlacements(tempPlacedModelIds.size());
-			newPlacements.back() = newPlacement;
+			newPlacements.back() = newPlacement;  // set the last placement as the trial one
 
+			std::vector<mat4> newTransforms(tempPlacedModelIds.size());
+			newTransforms.back() = newTransMat;
+
+			// set the placement of rest objs as the settled one
 			for (int ti = 0; ti < tempPlacedModelIds.size() - 1; ti++)
 			{
 				MetaModel &tempMd = currScene->getMetaModel(tempPlacedModelIds[ti]);
 				newPlacements[ti] = makePlacementVec(tempMd.position, tempMd.theta);
+				newTransforms[ti] = tempMd.transformation;
 			}
 
-			double newGroupLayoutScore = m_relModelManager->computeRelationScoreForGroup(currScene, tempPlacedModelIds, newPlacements);
+			double newGroupLayoutScore = m_relModelManager->computeRelationScoreForGroup(currScene, tempPlacedModelIds, newPlacements, newTransforms);
 			if (newGroupLayoutScore > currGroupLayoutScore && md.trialNum < m_trialNumLimit)
 			{
 				updateWithNewPlacement(currScene, anchorId, metaModelId, newPlacements.back());
@@ -757,6 +759,7 @@ void LayoutPlanner::computeLayoutPassScoreForModels(TSScene *currScene, const st
 Eigen::VectorXd LayoutPlanner::computeNewPlacement(TSScene *currScene, int metaModelID, const std::vector<std::vector<vec3>> &collisonPositions, int &anchorModelId)
 {
 	m_relModelManager->updateCollisionPostions(collisonPositions);
+	m_relModelManager->updateOverHangPostions(currScene->m_overHangPositions);
 
 	// propose position from the explicit constraint
 	// candidate position is in world frame
@@ -770,6 +773,7 @@ void LayoutPlanner::updateWithNewPlacement(TSScene *currScene, int anchorModelId
 
 	vec3 newPos(newPlacement[0], newPlacement[1], newPlacement[2]);
 	mat4 transMat = computeTransMatFromPos(currScene, anchorModelId, currModelID, newPos, newPlacement[3]);
+
 	updateMetaModelInScene(currScene, currModelID, transMat);
 
 	// lift model in case the Z position is not accurate

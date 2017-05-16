@@ -2,3 +2,5 @@ SceneDBType=stanford
 PreviewNum=5
 AddSynthNode=1
 UseContext=1
+ContextCoOccProb=0.7
+SelectMethod=first

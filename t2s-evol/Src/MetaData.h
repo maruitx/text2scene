@@ -73,7 +73,8 @@ class MetaModel
 
 			int explicitAnchorId;
 
-			Eigen::VectorXd tempPlacement;
+			Eigen::VectorXd tempPlacement;  // temp data used for roll back
+			mat4 tempTransform;
 			double layoutPassScore;
 			double layoutScore;
 			int trialNum; // trialNum for re-location because of collision

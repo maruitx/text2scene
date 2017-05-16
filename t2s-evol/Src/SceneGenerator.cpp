@@ -110,7 +110,14 @@ void SceneGenerator::adjustTextSSGWithCurrSSG(TextSemGraph *textSSG, SceneSemGra
 		for (int j=0; j < currSSG->m_nodeNum; j++)
 		{
 			SemNode &objNode = currSSG->m_nodes[j];
-			if (objNode.nodeName == objName)
+			QString currNodeName = objNode.nodeName;
+
+			if (textSSG->m_entityNameToNodeNameMap.count(objName))
+			{
+				objName = textSSG->m_entityNameToNodeNameMap[currNodeName];
+			}
+
+			if (currNodeName == objName)
 			{
 				instanceCountInCurrSSG++;
 			}
@@ -120,7 +127,14 @@ void SceneGenerator::adjustTextSSGWithCurrSSG(TextSemGraph *textSSG, SceneSemGra
 		for (int j = 0; j < textSSG->m_nodeNum; j++)
 		{
 			SemNode &objNode = textSSG->m_nodes[j];
-			if (objNode.nodeName == objName)
+			QString currNodeName = objNode.nodeName;
+
+			if (textSSG->m_entityNameToNodeNameMap.count(objName))
+			{
+				objName = textSSG->m_entityNameToNodeNameMap[objName];
+			}
+
+			if (currNodeName == objName)
 			{
 				anchorObjNodeIds.push_back(j);
 				instanceCountInTextSSG++;

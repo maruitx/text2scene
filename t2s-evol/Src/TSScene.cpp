@@ -47,6 +47,7 @@ TSScene::TSScene(unordered_map<string, Model*> &models, const QString &fileName)
 	m_collisionManager = new CollisionManager(this);
 	m_explictConstraints.resize(m_modelNum);
 	m_implicitConstraints.resize(m_modelNum);
+	m_overHangPositions.resize(m_modelNum);
 }
 
 TSScene::TSScene(unordered_map<string, Model*> &models, SceneSemGraph *ssg)
@@ -70,6 +71,7 @@ TSScene::TSScene(unordered_map<string, Model*> &models, SceneSemGraph *ssg)
 
 	m_explictConstraints.resize(m_modelNum);
 	m_implicitConstraints.resize(m_modelNum);
+	m_overHangPositions.resize(m_modelNum);
 }
 
 TSScene::~TSScene()

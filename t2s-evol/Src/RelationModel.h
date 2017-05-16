@@ -80,12 +80,34 @@ public:
 	QString m_occurKey; // objName_objNum
 };
 
+class CoOccurrenceModel
+{
+public:
+	CoOccurrenceModel();
+	CoOccurrenceModel(const QString &firstObjName, const QString &secondObjName, const QString &anchorObjName, const QString &conditionName);
+	void loadFromStream(QTextStream &ifs);
+
+	int m_firstObjNum;  // observation of first Obj in a group or on an anchorObj
+	int m_secondObjNum; // 
+	int m_coOccNum;
+
+	double m_prob;
+
+	QString m_firstObjName;
+	QString m_secondObjName;
+	QString m_anchorObjName;
+
+	QString m_conditionName;  // sibling, or groupName, e.g., messy
+	QString m_coOccurKey; // firstObjName_secondObjName_conditionName_anchorName
+};
+
 class GroupRelationModel
 {
 public:
 	GroupRelationModel(const QString &anchorObjName, const QString &relationName);
 	~GroupRelationModel();
 
+	void computeMaxOccProbs();
 	void normalizeOccurrenceProbs(double tarMax, double tarMin); // normalize occ probs to 0.2 to 0.8
 
 public:
@@ -99,7 +121,7 @@ public:
 	QString m_groupKey;  // relationName_anchorObjName
 	int m_numInstance;
 
-
+	double m_maxOccProb;
 };
 
 class SupportRelation

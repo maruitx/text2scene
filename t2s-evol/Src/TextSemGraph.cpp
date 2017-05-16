@@ -371,7 +371,7 @@ QString TextSemGraph::getDeterminerOfEntity(const QString &entityName)
 	for (int i = 0; i < m_sentence.entityCount; i++)
 	{
 		QString nameString = QString(m_sentence.m_entities[i].nameString);
-		if (nameString == m_nodeNameToEntityNameMap[entityName])
+		if (nameString == m_entityNameToNodeNameMap[entityName])
 		{
 			determiner = m_sentence.m_entities[i].m_determiner;
 			return determiner;
@@ -386,14 +386,14 @@ void TextSemGraph::mapToFixedObjSet(QString &nodeName)
 	if (nodeName == "sofa")
 	{
 		nodeName = "couch";
-		m_nodeNameToEntityNameMap["couch"] = "sofa";
+		m_entityNameToNodeNameMap["sofa"] = "couch";
 		return;
 	}
 
 	if (nodeName == "pc")
 	{
 		nodeName = "computer";
-		m_nodeNameToEntityNameMap["computer"] = "pc";
+		m_entityNameToNodeNameMap["pc"] = "computer";
 
 		return;
 	}
@@ -401,35 +401,35 @@ void TextSemGraph::mapToFixedObjSet(QString &nodeName)
 	if (nodeName == "mouse")
 	{
 		nodeName = "computermouse";
-		m_nodeNameToEntityNameMap["computermouse"] = "mouse";
+		m_entityNameToNodeNameMap["mouse"] = "computermouse";
 		return;
 	}
 
 	if (nodeName.contains("shelf"))
 	{
 		nodeName = "bookcase";
-		m_nodeNameToEntityNameMap["shelf"] = "bookcase";
+		m_entityNameToNodeNameMap["shelf"] = "bookcase";
 		return;
 	}
 
 	if (nodeName == "headphone")
 	{
 		nodeName = "headphones";
-		m_nodeNameToEntityNameMap["headphones"] = "headphone";
+		m_entityNameToNodeNameMap["headphone"] = "headphones";
 		return;
 	}
 
 	if (nodeName == "socket")
 	{
 		nodeName = "powerstrip";
-		m_nodeNameToEntityNameMap["powerstrip"] = "socket";
+		m_entityNameToNodeNameMap["socket"] = "powerstrip";
 		return;
 	}
 
 	if (nodeName == "clock")
 	{
 		nodeName = "tableclock";
-		m_nodeNameToEntityNameMap["tableclock"] = "clock";
+		m_entityNameToNodeNameMap["clock"] = "tableclock";
 		return;
 	}
 
@@ -437,21 +437,21 @@ void TextSemGraph::mapToFixedObjSet(QString &nodeName)
 	{
 		//nodeName = "picturefame";
 		nodeName = "framework";
-		m_nodeNameToEntityNameMap["framework"] = "frame";
+		m_entityNameToNodeNameMap["frame"] = "framework";
 		return;
 	}
 
 	if (nodeName == "lamp")
 	{
 		nodeName = "desklamp";
-		m_nodeNameToEntityNameMap["desklamp"] = "lamp";
+		m_entityNameToNodeNameMap["lamp"] = "desklamp";
 		return;
 	}
 
 	if (nodeName == "cabinet")
 	{
 		nodeName = "filecabinet";
-		m_nodeNameToEntityNameMap["filecabinet"] = "cabinet";
+		m_entityNameToNodeNameMap["cabinet"] = "filecabinet";
 		return;
 	}
 }

@@ -443,6 +443,20 @@ std::vector<int> SceneSemGraph::findExistingInstanceIds(const QString &catName)
 	return ids;
 }
 
+bool SceneSemGraph::hasObj(const QString &catName)
+{
+	for (int i = 0; i < m_metaScene.m_metaModellList.size(); i++)
+	{
+		MetaModel &md = m_metaScene.m_metaModellList[i];
+
+		if (toQString(md.catName) == catName)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, RelationModelManager *relManager)
 {
 	SceneSemGraph *subGraph = new SceneSemGraph();

@@ -209,7 +209,7 @@ void Scene::runOneEvolutionStep()
 
 	m_sceneGenerator->updateCurrentTextGraph(activeTextSemGraph);
 	m_sceneGenerator->updateCurrentTSScene(m_variations[m_activeVarationId]);
-	
+
 	int topSSGNum = m_previewNum;
 
 	std::vector<TSScene*> tsscenes = m_sceneGenerator->generateTSScenes(topSSGNum);
@@ -223,6 +223,15 @@ void Scene::runOneEvolutionStep()
 
 		m_variations.push_back(tsscenes[i]);
 		m_variations[i]->m_previewId = i;
+	}
+
+	if (params::inst()->selectMethod == "rand")
+	{
+		m_activeVarationId = GenRandomInt(0, m_previewNum);
+	}
+	else
+	{
+		m_activeVarationId = 0;
 	}
 
 	m_resetPreview = true;

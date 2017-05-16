@@ -32,6 +32,9 @@ public:
 	SelSentence m_sentence;   // only handle one sentence per graph	
 	QString getDeterminerOfEntity(const QString &entityName);
 
+	std::map<QString, QString> m_entityNameToNodeNameMap;
+
+
 private:
 	int m_sentence_id;
 
@@ -42,6 +45,5 @@ private:
 	RelationModelManager *m_relModelManager;
 	std::vector<QString> m_goodAttriSets;
 
-	std::map<QString, QString> m_nodeNameToEntityNameMap;
 };
 

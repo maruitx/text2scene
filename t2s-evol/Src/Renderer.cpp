@@ -55,12 +55,12 @@ void Renderer::render(Transform &trans)
         }
     }
 
-	// reset to the first preview if right after evol
+	// reset to the preview after evol
 	if (m_scene->m_resetPreview)
 	{
-		m_prevYOffset = 0;
-		m_activePreview = 0;
-		m_scene->m_activeVarationId = 0;
+		m_activePreview = m_scene->m_activeVarationId;
+		Preview &p = m_previewFBOs[m_activePreview];	
+		//m_prevYOffset = p.y;
 	}
     
     renderIntoMainFBO(trans);

@@ -47,15 +47,16 @@ public:
 	void loadPairModelSim();
 	void loadGroupPariModelSim();
 	void loadSupportRelationModels();
+	void loadCoOccurenceModels();
 
 	bool isRelationsViolated(TSScene *currScene, int metaModelId);
 	bool isConstraintViolated(TSScene *currScene, const MetaModel &md, const RelationConstraint &relConstraint);
 
-	double computeRelationScore(TSScene *currScene, int metaModelId, const Eigen::VectorXd &currPlacement);
+	double computeRelationScore(TSScene *currScene, int metaModelId, const Eigen::VectorXd &currPlacement, const mat4 &currTransMat);
 	double computeScoreForConstraint(TSScene *currScene, const RelationConstraint &relConstraint, const Eigen::VectorXd &currPlacement);
+	double computeOverHangScore(TSScene *currScene, int metaModelId, const mat4 &currTransMat);
 
-	double computeRelationScoreForGroup(TSScene *currScene, std::vector<int> metaModelIds, const std::vector<Eigen::VectorXd> &currPlacements);
-
+	double computeRelationScoreForGroup(TSScene *currScene, std::vector<int> metaModelIds, const std::vector<Eigen::VectorXd> &currPlacements, const std::vector<mat4> &currTransforms);
 	double computeLayoutPassScore(TSScene *currScene, int metaModelId);
 
 	Eigen::VectorXd sampleNewPosFromConstraints(TSScene *currScene, int metaModelId, int &anchorModelId);
@@ -80,6 +81,8 @@ public:
 	mat4 getModelToUnitboxMat(Model *m, const MetaModel &md);
 
 	void updateCollisionPostions(const std::vector<std::vector<vec3>> &collisionPositions);
+	void updateOverHangPostions(const std::vector<std::vector<vec3>> &overHangPositions);
+
 	bool isPosValid(TSScene *currScene, const vec3 &pos, int metaModelId);
 	bool isPosCloseToInvalidPos(const vec3 &pos, int metaModelId);
 
@@ -88,18 +91,22 @@ public:
 
 	bool isToSkipModelCats(const QString &objName);
 
+	double getCoOccProbOnParent(const QString &firstObjName, const QString &seondObjName, const QString &parentName);
+
 public:
 	std::map<QString, PairwiseRelationModel*> m_relativeModels;  // all relative models with general relations
 	std::map<QString, PairwiseRelationModel*> m_pairwiseRelModels;  // all pairwise relation models
 	std::map<QString, GroupRelationModel*> m_groupRelModels;  // all group relations
 	std::map<QString, SupportRelation*> m_supportRelations;
 	std::map<QString, SupportProb> m_suppProbs; 
-
+	std::map<QString, CoOccurrenceModel*> m_coOccModelsOnSameParent;
+	std::map<QString, CoOccurrenceModel*> m_coOccModelsInSameGroup;
 
 	std::vector<QString> m_pairwiseModelKeys;
 
 	std::vector<std::vector<vec3>> m_collisionPositions;  // invalid positions including collision, over-hang
-	
+	std::vector<std::vector<vec3>> m_overHangPositions;
+
 	double m_closeSampleTh;  // threshold for avoiding close sample
 	double m_sceneMetric;
 
