@@ -900,6 +900,13 @@ void RelationModelManager::adjustSamplingForSpecialModels(const QString &anchorO
 		}
 	}
 
+	if (anchorObjName == "filecabinet" && actObjName == "printer")
+	{
+		relTheta = 0;
+		relPos.x = GenRandomDouble(-0.1, 0.1);
+		relPos.y = GenRandomDouble(-0.05, 0.05);
+	}
+
 
 	if (anchorObjName == "bed" && actObjName == "desk")
 	{

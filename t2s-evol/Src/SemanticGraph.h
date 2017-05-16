@@ -107,8 +107,9 @@ public:
 
 	bool isAnchor(int nodeId);
 
-	void initStrictAttriSet();
-	bool isStrictAttri(const QString &attriName);
+	void initAttributeSet();
+	bool isStrictAttribute(const QString &attriName);
+	bool isGroupAttribute(const QString &attriName);
 	std::vector<QString> getAttriNamesForNode(int nodeId);
 
 public:
@@ -118,5 +119,6 @@ public:
 
 	std::map<int, int> m_nodeAlignMap;  // current to target node id alignment map
 	std::vector<QString> m_strictAttriSet; // strict attribute that must be satisfied
+	std::vector<QString> m_groupAttriSet;
 };
 

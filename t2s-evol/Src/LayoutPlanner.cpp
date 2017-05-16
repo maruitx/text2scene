@@ -581,26 +581,26 @@ bool LayoutPlanner::adjustInitTransfromSpecialModel(const MetaModel &anchorMd, M
 		}
 	}
 
-	if (anchorMd.catName == "desk" && (actMd.catName == "monitor" || actMd.catName == "keyboard"))
-	{
-		double currAngle = GetRotAngleR(anchorMd.frontDir, actMd.frontDir, vec3(0, 0, 1));
-		double targetAngle;
-		bool needAdjust = false;
-		if (currAngle > 0 && currAngle < 0.6*math_pi || currAngle < 0 && currAngle > -0.6*math_pi)
-		{
-			needAdjust = true;
-			targetAngle = 0;
-		}
+	//if (anchorMd.catName == "desk" && (actMd.catName == "monitor" || actMd.catName == "keyboard"))
+	//{
+	//	double currAngle = GetRotAngleR(anchorMd.frontDir, actMd.frontDir, vec3(0, 0, 1));
+	//	double targetAngle;
+	//	bool needAdjust = false;
+	//	if (currAngle > 0 && currAngle < 0.6*math_pi || currAngle < 0 && currAngle > -0.6*math_pi)
+	//	{
+	//		needAdjust = true;
+	//		targetAngle = 0;
+	//	}
 
-		if (needAdjust)
-		{
-			mat4 rotMat = GetRotationMatrix(vec3(0, 0, 1), targetAngle - currAngle);
-			mat4 adjustedMat = mat4::translate(actMd.position)*rotMat*mat4::translate(-actMd.position)*actMd.transformation;
-			actMd.updateWithTransform(adjustedMat);
+	//	if (needAdjust)
+	//	{
+	//		mat4 rotMat = GetRotationMatrix(vec3(0, 0, 1), targetAngle - currAngle);
+	//		mat4 adjustedMat = mat4::translate(actMd.position)*rotMat*mat4::translate(-actMd.position)*actMd.transformation;
+	//		actMd.updateWithTransform(adjustedMat);
 
-			isAdjusted = true;
-		}
-	}
+	//		isAdjusted = true;
+	//	}
+	//}
 
 	if (anchorMd.catName == "desk" && (actMd.catName == "computermouse"))
 	{

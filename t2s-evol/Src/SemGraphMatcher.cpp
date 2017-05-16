@@ -282,57 +282,57 @@ void SemGraphMatcher::addGroupActNodesToSubSSG(SceneSemGraph *matchedSubSSG, Sce
 								insertedObjNodeIds.push_back(dbActNodeId);
 
 								// add support node for current active object
-								addSupportNodeForActNode(dbActNodeId, dbSSG, matchedSubSSG, currSubSSGNodeNum);
+								//addSupportNodeForActNode(dbActNodeId, dbSSG, matchedSubSSG, currSubSSGNodeNum);
 
-								//bool reachBaseObj = false;
-								//SemNode &currActNode = dbActNode;
-								//while (!reachBaseObj)
-								//{
-								//	bool hasSuppNode = false;
-								//	for (int r = 0; r < currActNode.outEdgeNodeList.size(); r++)
-								//	{
-								//		int suppNodeId = currActNode.outEdgeNodeList[r];
-								//		SemNode &suppNode = dbSSG->m_nodes[suppNodeId];
-								//		if (suppNode.nodeName.contains("support") && !suppNode.anchorNodeList.empty())
-								//		{
-								//			// to insert a support node, it's anchor object must be already in the scene
-								//			int dbAnchorId = suppNode.anchorNodeList[0];
-								//			if (!dbSSG->m_dbNodeToSubNodeMap.count(dbAnchorId))
-								//			{
-								//				SemNode &dbAnchorNode = dbSSG->m_nodes[dbAnchorId];
-								//				if (dbAnchorNode.nodeName == "room")
-								//				{
-								//					reachBaseObj = true;
-								//					break;
-								//				}
+								bool reachBaseObj = false;
+								SemNode &currActNode = dbActNode;
+								while (!reachBaseObj)
+								{
+									bool hasSuppNode = false;
+									for (int r = 0; r < currActNode.outEdgeNodeList.size(); r++)
+									{
+										int suppNodeId = currActNode.outEdgeNodeList[r];
+										SemNode &suppNode = dbSSG->m_nodes[suppNodeId];
+										if (suppNode.nodeName.contains("support") && !suppNode.anchorNodeList.empty())
+										{
+											// to insert a support node, it's anchor object must be already in the scene
+											int dbAnchorId = suppNode.anchorNodeList[0];
+											if (!dbSSG->m_dbNodeToSubNodeMap.count(dbAnchorId))
+											{
+												SemNode &dbAnchorNode = dbSSG->m_nodes[dbAnchorId];
+												if (dbAnchorNode.nodeName == "room")
+												{
+													reachBaseObj = true;
+													break;
+												}
 
-								//				dbAnchorNode.isAnnotated = true;
-								//				dbAnchorNode.isAligned = false;
+												dbAnchorNode.isAnnotated = true;
+												dbAnchorNode.isAligned = false;
 
-								//				matchedSubSSG->addNode(dbAnchorNode);
-								//				dbSSG->m_dbNodeToSubNodeMap[dbAnchorId] = currSubSSGNodeNum;
-								//				insertDbObjList.push_back(dbAnchorId);
-								//				currSubSSGNodeNum++;
-								//				currActNode = dbAnchorNode;
-								//			}
-								//			else
-								//			{
-								//				reachBaseObj = true;												
-								//			}
+												matchedSubSSG->addNode(dbAnchorNode);
+												dbSSG->m_dbNodeToSubNodeMap[dbAnchorId] = currSubSSGNodeNum;
+												insertDbObjList.push_back(dbAnchorId);
+												currSubSSGNodeNum++;
+												currActNode = dbAnchorNode;
+											}
+											else
+											{
+												reachBaseObj = true;												
+											}
 
-								//			suppNode.isAnnotated = true;
-								//			suppNode.isAligned = false;
+											suppNode.isAnnotated = true;
+											suppNode.isAligned = false;
 
-								//			matchedSubSSG->addNode(suppNode);
-								//			dbSSG->m_dbNodeToSubNodeMap[suppNodeId] = currSubSSGNodeNum;
-								//			currSubSSGNodeNum++;
+											matchedSubSSG->addNode(suppNode);
+											dbSSG->m_dbNodeToSubNodeMap[suppNodeId] = currSubSSGNodeNum;
+											currSubSSGNodeNum++;
 
-								//			hasSuppNode = true;
-								//		}
-								//	}
+											hasSuppNode = true;
+										}
+									}
 
-								//	if (!hasSuppNode) reachBaseObj = true;										
-								//}
+									if (!hasSuppNode) reachBaseObj = true;										
+								}
 							}
 						}
 					}

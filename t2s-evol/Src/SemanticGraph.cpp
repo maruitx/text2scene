@@ -16,7 +16,7 @@ SemanticGraph::SemanticGraph(SemanticGraph *sg)
 
 	m_nodeAlignMap = sg->m_nodeAlignMap;
 
-	initStrictAttriSet();
+	initAttributeSet();
 }
 
 
@@ -108,7 +108,7 @@ void SemanticGraph::parseNodeNeighbors()
 	}
 }
 
-void SemanticGraph::initStrictAttriSet()
+void SemanticGraph::initAttributeSet()
 {
 	m_strictAttriSet.push_back("sofa");
 	m_strictAttriSet.push_back("round");
@@ -117,11 +117,25 @@ void SemanticGraph::initStrictAttriSet()
 	m_strictAttriSet.push_back("coffee");
 	m_strictAttriSet.push_back("dining");
 	m_strictAttriSet.push_back("sauce");
+
+	m_groupAttriSet.push_back("messy");
+	m_groupAttriSet.push_back("organized");
+	m_groupAttriSet.push_back("formal");
 }
 
-bool SemanticGraph::isStrictAttri(const QString &attriName)
+bool SemanticGraph::isStrictAttribute(const QString &attriName)
 {
 	if (std::find(m_strictAttriSet.begin(), m_strictAttriSet.end(), attriName) != m_strictAttriSet.end())
+	{
+		return true;
+	}
+
+	return false;
+}
+
+bool SemanticGraph::isGroupAttribute(const QString &attriName)
+{
+	if (std::find(m_groupAttriSet.begin(), m_groupAttriSet.end(), attriName) != m_groupAttriSet.end())
 	{
 		return true;
 	}
@@ -217,7 +231,7 @@ void SemanticGraph::alignObjectNodesWithGraph(SemanticGraph *targetGraph, double
 							SemNode &attNode = this->m_nodes[attNodeId];
 
 							// only strict attribute counts
-							if (isStrictAttri(attNode.nodeName))
+							if (isStrictAttribute(attNode.nodeName))
 							{
 								currSgAttNum++;
 							}
@@ -235,7 +249,14 @@ void SemanticGraph::alignObjectNodesWithGraph(SemanticGraph *targetGraph, double
 
 									if (attNode.nodeType == tarAttNode.nodeType && attNode.nodeName == tarAttNode.nodeName)
 									{
-										matchedAttNum++;
+										if (!isGroupAttribute(tarAttNode.nodeName))
+										{
+											matchedAttNum++;
+										}
+										else if(tarAttNode.inEdgeNodeList.size()>5)  // only matched to the large group
+										{
+											matchedAttNum++;
+										}
 									}
 								}
 							}
@@ -278,7 +299,7 @@ void SemanticGraph::alignObjectNodesWithGraph(SemanticGraph *targetGraph, double
 
 											m_nodeAlignMap[attNodeId] = tarAttNodeId; // save aligned attribute node into map
 
-											if (isStrictAttri(attNode.nodeName))
+											if (isStrictAttribute(attNode.nodeName))
 												alignScore += 5;  // 
 										}
 									}
@@ -306,7 +327,7 @@ void SemanticGraph::alignObjectNodesWithGraph(SemanticGraph *targetGraph, double
 							{
 								int tarAttNodeId = tarObjNode.nodeLabels[tarAi]; // id of attribute node in dbssg
 								SemNode &tarAttNode = targetGraph->m_nodes[tarAttNodeId];
-								if (isStrictAttri(tarAttNode.nodeName))
+								if (isStrictAttribute(tarAttNode.nodeName))
 									alignScore -= 5;  // attribute node does not contribute to matching score
 							}
 						}
