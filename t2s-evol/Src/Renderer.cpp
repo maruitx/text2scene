@@ -59,7 +59,8 @@ void Renderer::render(Transform &trans)
 	if (m_scene->m_resetPreview)
 	{
 		m_activePreview = m_scene->m_activeVarationId;
-		Preview &p = m_previewFBOs[m_activePreview];	
+		Preview &p = m_previewFBOs[m_activePreview];
+		m_prevYOffset = 0;
 		//m_prevYOffset = p.y;
 	}
     

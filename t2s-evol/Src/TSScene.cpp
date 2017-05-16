@@ -201,6 +201,8 @@ void TSScene::render(const Transform &trans, bool applyShadow)
 				// if model exist
 				if (fileExists(md.path.c_str()) && md.name != "roomDefault")
 				{
+					if (!m_isRenderRoom && md.name.find("room") != std::string::npos) continue;
+
 					Model *model = new Model(md.path.c_str());
 					m_models.insert(make_pair(md.name, model));
 
@@ -546,7 +548,7 @@ bool TSScene::computeZForModel(int currModelId, int parentModelId, vec3 startPt,
 		startPt.z = 1.5 / sceneMetric;
 	}
 
-	double elevationVal = 0.05 / sceneMetric;
+	double elevationVal = 0.1 / sceneMetric;
 
 	float3 rayStartPt = make_float3(startPt.x, startPt.y, startPt.z + elevationVal);
 	float3 downDir = make_float3(0, 0, -1);

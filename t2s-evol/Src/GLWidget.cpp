@@ -68,7 +68,7 @@ void GLWidget::initParams()
 
     p->camPos              = vec3(0.0f, 0.0f, 0.0f);
 	//p->blur                = vec2(2.0f, 1.0f);
-	p->blur = vec2(4.0f, 1.0f);
+	p->blur = vec2(2.6f, 1.0f);  // BlurSigma
     p->shadowMapSize       = vec2(1024, 1024);
     p->applyShadow         = true;
     p->gridRenderMode      = 3;
@@ -96,9 +96,9 @@ void GLWidget::initParams()
     p->ncp                 = 0.0f;
     p->fcp                 = 0.0f;
     p->fov                 = 0.0f;
-    p->ncpLight            = 5.0f;
-    p->fcpLight            = 50.0f;
-    p->fovLight            = 90.0f;
+    p->ncpLight            = 15.0f;  // Light NCP
+    p->fcpLight            = 50.0f;  // Light FCP
+    p->fovLight            = 75.0f; // Light FOV
     p->lightIntensity      = 1.0f;
     
     p->polygonOffsetUnits  = 0.0f;

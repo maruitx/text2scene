@@ -72,8 +72,15 @@ void LayoutPlanner::initPlaceByAlignRelation(SceneSemGraph *matchedSg, SceneSemG
 				{
 					vec3 mUVH = mActiveMd.parentPlaneUVH;
 					SuppPlane& tarRefSuppPlane = currRefMd.bbTopPlane;
+					double u = mUVH.x, v = mUVH.y;
 
-					vec3 targetPosition = tarRefSuppPlane.getPointByUV(mUVH.x, mUVH.y); // position in the current scene, support plane is already transformed
+					if (mRefMd.catName == "desk" &&mActiveMd.catName == "computermouse")
+					{
+						if (u < 0.6 || u>0.8) u = 0.7;
+						if (v < 0.1 || v>0.5) v = 0.3;
+					}
+
+					vec3 targetPosition = tarRefSuppPlane.getPointByUV(u, v); // position in the current scene, support plane is already transformed
 
 					// TODO: adjust the Z value 
 					vec3 initPositionInScene = currActiveMd.position; // get the pos of model in current scene
@@ -565,6 +572,48 @@ bool LayoutPlanner::adjustInitTransfromSpecialModel(const MetaModel &anchorMd, M
 		}
 
 		if(needAdjust)
+		{
+			mat4 rotMat = GetRotationMatrix(vec3(0, 0, 1), targetAngle - currAngle);
+			mat4 adjustedMat = mat4::translate(actMd.position)*rotMat*mat4::translate(-actMd.position)*actMd.transformation;
+			actMd.updateWithTransform(adjustedMat);
+
+			isAdjusted = true;
+		}
+	}
+
+	if (anchorMd.catName == "desk" && (actMd.catName == "monitor" || actMd.catName == "keyboard"))
+	{
+		double currAngle = GetRotAngleR(anchorMd.frontDir, actMd.frontDir, vec3(0, 0, 1));
+		double targetAngle;
+		bool needAdjust = false;
+		if (currAngle > 0 && currAngle < 0.6*math_pi || currAngle < 0 && currAngle > -0.6*math_pi)
+		{
+			needAdjust = true;
+			targetAngle = 0;
+		}
+
+		if (needAdjust)
+		{
+			mat4 rotMat = GetRotationMatrix(vec3(0, 0, 1), targetAngle - currAngle);
+			mat4 adjustedMat = mat4::translate(actMd.position)*rotMat*mat4::translate(-actMd.position)*actMd.transformation;
+			actMd.updateWithTransform(adjustedMat);
+
+			isAdjusted = true;
+		}
+	}
+
+	if (anchorMd.catName == "desk" && (actMd.catName == "computermouse"))
+	{
+		double currAngle = GetRotAngleR(anchorMd.frontDir, actMd.frontDir, vec3(0, 0, 1));
+		double targetAngle;
+		bool needAdjust = false;
+		if (currAngle > 0 || currAngle < -0.8*math_pi)
+		{
+			needAdjust = true;
+			targetAngle = GenRandomDouble(-math_pi, -0.8*math_pi);
+		}
+
+		if (needAdjust)
 		{
 			mat4 rotMat = GetRotationMatrix(vec3(0, 0, 1), targetAngle - currAngle);
 			mat4 adjustedMat = mat4::translate(actMd.position)*rotMat*mat4::translate(-actMd.position)*actMd.transformation;

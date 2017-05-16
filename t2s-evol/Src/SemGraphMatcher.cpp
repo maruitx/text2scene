@@ -255,14 +255,19 @@ void SemGraphMatcher::addGroupActNodesToSubSSG(SceneSemGraph *matchedSubSSG, Sce
 					{
 						int dbActNodeId = actNodeList[a];
 						// skip if node is already inserted
-						if (dbSSG->m_dbNodeToSubNodeMap.count(dbActNodeId)) continue;
+						if (dbSSG->m_dbNodeToSubNodeMap.count(dbActNodeId)) continue;			
 
 						SemNode &dbActNode = dbSSG->m_nodes[dbActNodeId];
+
+						if (dbActNode.nodeName == "chair") continue;
+						if (dbActNode.nodeName == "desk") continue;
+						if (dbActNode.nodeName == "table") continue;
+
 						QString occKey = QString("%1_%2").arg(dbActNode.nodeName).arg(1);  // Temp, extend to multiple instances later
 
 						if (groupModel->m_occurModels.count(occKey))
 						{
-							double randProb = GenRandomDouble(0, groupModel->m_maxOccProb);
+							double randProb = GenRandomDouble(0, 0.9*groupModel->m_maxOccProb);
 							double probTh = groupModel->m_occurModels[occKey]->m_occurProb;
 
 							if (probTh > randProb)
@@ -699,10 +704,6 @@ void SemGraphMatcher::addSynthNodeToSubSSG(SceneSemGraph *matchedSubSSG, SceneSe
 
 	matchedSubSSG->parseNodeNeighbors();
 }
-
-
-
-
 
 // enrich subgraph with context
 void SemGraphMatcher::addSuppParentNodesToSubSSG(SceneSemGraph *matchedSubSSG, SceneSemGraph *dbSSG)

@@ -842,7 +842,7 @@ void RelationModelManager::sampleFromRelationModel(TSScene *currScene, PairwiseR
 
 void RelationModelManager::adjustSamplingForSpecialModels(const QString &anchorObjName, const QString &actObjName, vec3 &relPos, double &relTheta)
 {
-	if (anchorObjName == "bookcase" && actObjName == "standbooks")
+	if (anchorObjName == "bookcase" && (actObjName == "standbooks" || actObjName == "framework"))
 	{
 		relTheta = 0;
 	}
@@ -850,6 +850,28 @@ void RelationModelManager::adjustSamplingForSpecialModels(const QString &anchorO
 	if (anchorObjName == "couch" && actObjName == "table")
 	{
 		relTheta = 1;
+	}
+
+	if (anchorObjName == "desk" && (actObjName == "monitor" || actObjName =="keyboard"))
+	{
+		relTheta = GenRandomDouble(-0.1,0.1);
+	}
+
+	if (anchorObjName == "desk" && actObjName == "computermouse")
+	{
+		relTheta = GenRandomDouble(-0.8, -1);
+
+		if (relPos.y < 0)
+		{
+			relPos.y = GenRandomDouble(0, 0.3);
+		}
+
+		if (relPos.x >-0.1 || relPos.x <-0.2)
+		{
+			relPos.x = GenRandomDouble(-0.2, -0.1);
+		}
+
+		relPos.z = 0.5;
 	}
 
 	if (anchorObjName == "bed" && actObjName == "nightstand")
@@ -959,7 +981,7 @@ void RelationModelManager::adjustSamplingForSpecialModels(const QString &anchorO
 		{
 			if (relPos.y > 1.2 || relPos.y < 0.7)
 			{
-				relPos.y = 1.0;
+				relPos.y = 0.8;
 			}
 
 			if (std::abs(relPos.x) > 0.1)
@@ -974,7 +996,7 @@ void RelationModelManager::adjustSamplingForSpecialModels(const QString &anchorO
 		{
 			if (relPos.y > 1.2 || relPos.y < 0.7)
 			{
-				relPos.y = 1.0;
+				relPos.y = 0.9;
 			}
 
 			if (std::abs(relPos.x) < 0.1)
@@ -990,7 +1012,7 @@ void RelationModelManager::adjustSamplingForSpecialModels(const QString &anchorO
 		{
 			if (relPos.y > 1.2 || relPos.y < 0.7)
 			{
-				relPos.y = 1.0;
+				relPos.y = 0.8;
 			}
 
 			if (std::abs(relPos.x) < 0.1)

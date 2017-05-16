@@ -214,7 +214,7 @@ void TextDialog::onButtonProcess()
 					double s = 0.1 / 0.0254;  // snn use meter as metric
 					params::inst()->globalSceneViewScale = vec3(s, s, s);
 				}
-				else if (sceneName.contains(".user"))
+				else if (sceneName.contains(".user") && !sceneName.contains(".result"))
 				{
 					// user scenes saved in resultPath and use the stanfordDB models and textures
 					params::inst()->sceneDirectory = resultPath; 

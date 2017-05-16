@@ -30,7 +30,7 @@ public:
 	bool isGoodAttribute(const QString &attriName);
 
 	SelSentence m_sentence;   // only handle one sentence per graph	
-	QString getDeterminerOfEntity(const QString &entityName);
+	QString getDeterminerOfEntity(const QString &nodeName);
 
 	std::map<QString, QString> m_entityNameToNodeNameMap;
 

@@ -364,14 +364,14 @@ bool TextSemGraph::isGoodAttribute(const QString &attriName)
 	return false;
 }
 
-QString TextSemGraph::getDeterminerOfEntity(const QString &entityName)
+QString TextSemGraph::getDeterminerOfEntity(const QString &nodeName)
 {
 	QString determiner;
 
 	for (int i = 0; i < m_sentence.entityCount; i++)
 	{
 		QString nameString = QString(m_sentence.m_entities[i].nameString);
-		if (nameString == m_entityNameToNodeNameMap[entityName])
+		if (m_entityNameToNodeNameMap[nameString] == nodeName)
 		{
 			determiner = m_sentence.m_entities[i].m_determiner;
 			return determiner;

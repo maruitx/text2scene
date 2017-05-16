@@ -1,5 +1,5 @@
 StanfordSceneDatabase
-modelCount 12
+modelCount 11
 newModel 0 room02
 transform 1 0 0 0 0 1 0 0 0 0 1 0 -129.93748 -122.24999 0 1
 position 0 0 0
@@ -52,11 +52,6 @@ frontDir 1 0 0
 upDir 0 0 1
 newModel 10 f994caecd32d38ddc75ea4b124a227b
 transform -1.486795 -2.2188931e-7 -9.190955e-8 0 2.2188935e-7 -1.4867952 6.8582932e-15 0 -9.1909584e-8 -6.8582936e-15 1.4867955 0 58.742798 -92.98035 21.750854 1
-position 0 0 0
-frontDir 1 0 0
-upDir 0 0 1
-newModel 11 f994caecd32d38ddc75ea4b124a227b
-transform 1.486795 0 1.1746722e-28 0 0 1.486795 -1.2593643e-21 0 -1.1746725e-28 1.2593646e-21 1.4867953 0 4.3621216 -116.83826 21.750854 1
 position 0 0 0
 frontDir 1 0 0
 upDir 0 0 1
