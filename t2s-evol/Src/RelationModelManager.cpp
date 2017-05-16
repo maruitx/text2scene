@@ -915,14 +915,14 @@ void RelationModelManager::adjustSamplingForSpecialModels(const QString &anchorO
 			relPos.y = -0.35;
 		}
 
-		if (relPos.x > 0 && relPos.x < 0.6)
+		if (relPos.x > 0 && relPos.x < 1.1)
 		{
-			relPos.x = 1.1;
+			relPos.x = GenRandomDouble(1.1,1.5);
 		}
 
-		if (relPos.x < 0 && relPos.x > -0.6)
+		if (relPos.x < 0 && relPos.x > -1.1)
 		{
-			relPos.x = -1.1;
+			relPos.x = GenRandomDouble(-1.1, 1.5);
 		}
 
 		relTheta = 0;
