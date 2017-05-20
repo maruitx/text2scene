@@ -9,6 +9,7 @@ class GLWidget;
 class QPushButton;
 class QTextEdit;
 class Scene;
+class Renderer;
 
 class TextDialog : public QDialog
 {
@@ -24,6 +25,8 @@ private:
 	Scene *m_scene;
     QTimer m_timer;
 
+	Renderer *m_render;
+
     bool m_captureSpeech;
 
 public slots:
@@ -31,7 +34,7 @@ public slots:
     void checkSpeech();
 
 public:	
-	TextDialog(GLWidget *parent, Scene *s);
+	TextDialog(GLWidget *parent, Renderer *render, Scene *s);
 	~TextDialog();
 
 	void init();

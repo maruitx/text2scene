@@ -34,7 +34,7 @@ public:
 	RelationModelManager *getRelationManager() { return m_relModelManager; };
 
 private:
-	unordered_map<string, Model*> m_models;
+	unordered_map<string, Model*> &m_models;
 	SemGraphMatcher *m_semanticGraphMatcher;
 	SceneSemGraphManager *m_sceneSemGraphManager;
 

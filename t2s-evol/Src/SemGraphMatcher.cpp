@@ -852,7 +852,17 @@ void SemGraphMatcher::addContextNodesToSubSSG(SceneSemGraph *matchedSubSSG, Scen
 	int currSubSSGNodeNum = initSubSSGNodeNum;
 	int initSubSSGModelNum = matchedSubSSG->m_metaScene.m_metaModellList.size();
 
-	std::vector<int> dbActNodeInsertedTimes(dbSSG->m_nodes.size(), 0);
+	//std::vector<int> dbActNodeInsertedTimesForCurrAnchorNode(dbSSG->m_nodes.size(), 0);
+	std::map<int, std::vector<int>> dbActNodeInsertedTimesForCurrAnchorNode;
+
+	dbActNodeInsertedTimesForCurrAnchorNode[-1] = std::vector<int>(dbSSG->m_nodes.size(), 0);  // for room as anchor
+	for (int i = 0; i < initSubSSGNodeNum; i++)
+	{
+		if (matchedSubSSG->isAnchor(i))
+		{
+			dbActNodeInsertedTimesForCurrAnchorNode[i] = std::vector<int>(dbSSG->m_nodes.size(), 0);
+		}
+	}
 
 	for (int i = 0; i < initSubSSGNodeNum; i++)
 	{
@@ -879,7 +889,6 @@ void SemGraphMatcher::addContextNodesToSubSSG(SceneSemGraph *matchedSubSSG, Scen
 				int dbActNodeId = j;
 
 				//// skip if node is already inserted; find if there is another anchor 
-
 				//if (dbSSG->m_dbNodeToSubNodeMap.count(dbActNodeId) && dbActNodeInsertedTimes[dbActNodeId] >= mParentIds.size())
 
 				SemNode &dbActNode = dbSSG->m_nodes[dbActNodeId];
@@ -893,10 +902,16 @@ void SemGraphMatcher::addContextNodesToSubSSG(SceneSemGraph *matchedSubSSG, Scen
 
 					int dbParentNodeId = dbSSG->findParentNodeIdForNode(dbActNodeId);
 
-					if (dbActNodeInsertedTimes[dbActNodeId] >= mParentIds.size() && dbParentNodeId != -1)
-						continue;
+					// one each dbsg node can only be added to one anchor
+					if (dbActNodeInsertedTimesForCurrAnchorNode.count(mParentNodeId))
+					{
+						if (mParentNodeId != -1 &&dbActNodeInsertedTimesForCurrAnchorNode[mParentNodeId][dbActNodeId] > 0)
+						{
+							continue;
+						}
+					}
 
-					if(dbActObjName == "tableclock" && dbActNodeInsertedTimes[dbActNodeId] == 1) continue;
+					if(dbActObjName == "tableclock" && dbActNodeInsertedTimesForCurrAnchorNode[mParentNodeId][dbActNodeId] == 1) continue;
 
 					// parent node must be already inserted in sub-scene
 					if (!dbSSG->m_dbNodeToSubNodeMap.count(dbParentNodeId) && dbParentNodeId != -1) continue;
@@ -927,7 +942,7 @@ void SemGraphMatcher::addContextNodesToSubSSG(SceneSemGraph *matchedSubSSG, Scen
 							matchedSubSSG->m_metaScene.m_metaModellList.push_back(newMd);
 							matchedSubSSG->m_graphNodeToModelListIdMap[currActNodeId] = matchedSubSSG->m_metaScene.m_metaModellList.size() - 1;
 
-							dbActNodeInsertedTimes[dbActNodeId]++;
+							dbActNodeInsertedTimesForCurrAnchorNode[mParentNodeId][dbActNodeId]++;
 							matchedSubSSG->m_addedContextNodeIds.push_back(currActNodeId);
 
 							// add support node and edges

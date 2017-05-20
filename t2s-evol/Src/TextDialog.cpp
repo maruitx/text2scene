@@ -1,5 +1,6 @@
 #include "TextDialog.h"
 #include "GLWidget.h"
+#include "Renderer.h"
 #include "Scene.h"
 #include "SceneSemGraph.h"
 #include "Utility.h"
@@ -8,8 +9,9 @@
 #include <qboxlayout.h>
 #include <QProcess>
 
-TextDialog::TextDialog(GLWidget *parent, Scene *s)
+TextDialog::TextDialog(GLWidget *parent, Renderer *render, Scene *s)
  : m_parent(parent), 
+	m_render(render),
    m_scene(s),
    m_showState(false), 
    m_captureSpeech(false)
@@ -80,6 +82,8 @@ void TextDialog::onButtonProcess()
 
 	if (inputSentence == "clear")
 	{
+		m_parent->loadParams();
+		m_render->init();
 		m_scene->clearVariations();
 		m_scene->initSynScene();
 		m_scene->m_resetPreview = true;

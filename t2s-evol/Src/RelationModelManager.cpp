@@ -986,9 +986,9 @@ void RelationModelManager::adjustSamplingForSpecialModels(const QString &anchorO
 	{
 		if (actObjName == "plate")
 		{
-			if (relPos.y > 1.2 || relPos.y < 0.7)
+			if (relPos.y > 0.7 || relPos.y < 0.5)
 			{
-				relPos.y = 0.8;
+				relPos.y = GenRandomDouble(0.5, 0.7);
 			}
 
 			if (std::abs(relPos.x) > 0.1)
@@ -1001,9 +1001,9 @@ void RelationModelManager::adjustSamplingForSpecialModels(const QString &anchorO
 
 		if (actObjName == "knife")
 		{
-			if (relPos.y > 1.2 || relPos.y < 0.7)
+			if (relPos.y > 0.8 || relPos.y < 0.6)
 			{
-				relPos.y = 0.9;
+				relPos.y = GenRandomDouble(0.6, 0.7);
 			}
 
 			if (std::abs(relPos.x) < 0.1)
@@ -1017,9 +1017,9 @@ void RelationModelManager::adjustSamplingForSpecialModels(const QString &anchorO
 
 		if (actObjName == "fork")
 		{
-			if (relPos.y > 1.2 || relPos.y < 0.7)
+			if (relPos.y > 0.8 || relPos.y < 0.6)
 			{
-				relPos.y = 0.8;
+				relPos.y = GenRandomDouble(0.6, 0.8);
 			}
 
 			if (std::abs(relPos.x) < 0.1)
