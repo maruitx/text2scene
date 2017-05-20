@@ -85,10 +85,69 @@ vector<SceneSemGraph*> SemGraphMatcher::alignWithDatabaseSSGs(int targetMatchNum
 		matchedSubSSG->restoreMissingSupportNodes();
 		addSuppParentNodesToSubSSG(matchedSubSSG, dbSSG);
 
-		if (params::inst()->isUseContext)
+		//if (params::inst()->isUseContext)
+		//{
+		//	addContextNodesToSubSSG(matchedSubSSG, dbSSG);
+		//}
+	}
+
+	// still add scenes with synth node for comparison
+	std::vector<SceneSemGraph*> addedSubSSGs;
+	if (!params::inst()->addSynthNode)
+	{
+		for (int a=0; a<params::inst()->addSynthSceneNum; a++)
 		{
-			addContextNodesToSubSSG(matchedSubSSG, dbSSG);
+			SceneSemGraph *subSSGWithSynNode = new SceneSemGraph(matchedSubSSGs[a]);
+			SceneSemGraph *dbSSG = m_sceneSemGraphManager->getGraph(matchedSubSSGs[a]->m_dbSSGId);
+			addSynthNodeToSubSSG(subSSGWithSynNode, dbSSG);
+			subSSGWithSynNode->restoreMissingSupportNodes();
+			addedSubSSGs.push_back(subSSGWithSynNode);
 		}
+	}
+
+	// add extra scenes with context; add context to first specifed number of scenes in current result list
+	int addedSSGNum = addedSubSSGs.size();
+	if (params::inst()->isUseContext)
+	{
+		if (params::inst()->showBothOriginAndContextView)
+		{
+			// add context to new views
+			for (int a = 0; a < params::inst()->addContextSceneNum; a++)
+			{
+				// no scenes with syn node added
+				if (addedSSGNum == 0)
+				{
+					SceneSemGraph *subSSGWithContext = new SceneSemGraph(matchedSubSSGs[a]);
+					SceneSemGraph *dbSSG = m_sceneSemGraphManager->getGraph(matchedSubSSGs[a]->m_dbSSGId);
+					addContextNodesToSubSSG(subSSGWithContext, dbSSG);
+					addedSubSSGs.push_back(subSSGWithContext);
+				}
+				else
+				{
+					if (a < addedSSGNum)
+					{
+						SceneSemGraph *subSSGWithContext = new SceneSemGraph(addedSubSSGs[a]);
+						SceneSemGraph *dbSSG = m_sceneSemGraphManager->getGraph(addedSubSSGs[a]->m_dbSSGId);
+						addContextNodesToSubSSG(subSSGWithContext, dbSSG);
+						addedSubSSGs.push_back(subSSGWithContext);
+					}
+				}
+			}
+		}
+		// add context to the original views
+		else  
+		{
+			for (int a=0; a< matchedSubSSGs.size(); a++)
+			{
+				SceneSemGraph *dbSSG = m_sceneSemGraphManager->getGraph(matchedSubSSGs[a]->m_dbSSGId);
+				addContextNodesToSubSSG(matchedSubSSGs[a], dbSSG);
+			}
+		}
+	}
+
+	for (int a=0; a<addedSubSSGs.size(); a++)
+	{
+		matchedSubSSGs.push_back(addedSubSSGs[a]);
 	}
 
 	cout << "SemGraphMatcher: graph matching done, found instance num " << matchedSSGNum << 
@@ -222,7 +281,7 @@ void SemGraphMatcher::addGroupActNodesToSubSSG(SceneSemGraph *matchedSubSSG, Sce
 	int initNodeNum = matchedSubSSG->m_nodeNum;
 	int currSubSSGNodeNum = initNodeNum;
 
-	std::vector<int> insertDbObjList;
+	std::vector<int> insertDbObjNodeList;
 
 	// add active obj node for group node in subSSG
 	for (int i=0; i < initNodeNum; i++)
@@ -276,7 +335,7 @@ void SemGraphMatcher::addGroupActNodesToSubSSG(SceneSemGraph *matchedSubSSG, Sce
 								dbActNode.isAligned = false;
 								matchedSubSSG->addNode(dbActNode);
 								dbSSG->m_dbNodeToSubNodeMap[dbActNodeId] = currSubSSGNodeNum;
-								insertDbObjList.push_back(dbActNodeId);
+								insertDbObjNodeList.push_back(dbActNodeId);
 								currSubSSGNodeNum++;
 
 								insertedObjNodeIds.push_back(dbActNodeId);
@@ -311,7 +370,7 @@ void SemGraphMatcher::addGroupActNodesToSubSSG(SceneSemGraph *matchedSubSSG, Sce
 
 												matchedSubSSG->addNode(dbAnchorNode);
 												dbSSG->m_dbNodeToSubNodeMap[dbAnchorId] = currSubSSGNodeNum;
-												insertDbObjList.push_back(dbAnchorId);
+												insertDbObjNodeList.push_back(dbAnchorId);
 												currSubSSGNodeNum++;
 												currActNode = dbAnchorNode;
 											}
@@ -363,7 +422,7 @@ void SemGraphMatcher::addGroupActNodesToSubSSG(SceneSemGraph *matchedSubSSG, Sce
 								dbActNode.isAligned = false;
 								matchedSubSSG->addNode(dbActNode);
 								dbSSG->m_dbNodeToSubNodeMap[dbActNodeId] = currSubSSGNodeNum;
-								insertDbObjList.push_back(dbActNodeId);
+								insertDbObjNodeList.push_back(dbActNodeId);
 								currSubSSGNodeNum++;
 
 								insertedObjNodeIds.push_back(dbActNodeId);
@@ -432,9 +491,9 @@ void SemGraphMatcher::addGroupActNodesToSubSSG(SceneSemGraph *matchedSubSSG, Sce
 
 	// add active objs to meta scene
 	int modelInSceneId = matchedSubSSG->m_graphNodeToModelListIdMap.size();
-	for (int i = 0; i < insertDbObjList.size(); i++)
+	for (int i = 0; i < insertDbObjNodeList.size(); i++)
 	{
-		int dbActNodeId = insertDbObjList[i];
+		int dbActNodeId = insertDbObjNodeList[i];
 
 		// non-object node is not saved in the map
 		if (dbSSG->m_graphNodeToModelListIdMap.count(dbActNodeId))
@@ -789,17 +848,28 @@ void SemGraphMatcher::addSuppParentNodesToSubSSG(SceneSemGraph *matchedSubSSG, S
 
 void SemGraphMatcher::addContextNodesToSubSSG(SceneSemGraph *matchedSubSSG, SceneSemGraph *dbSSG)
 {
-	int subSSGNodeNum = matchedSubSSG->m_nodes.size();
-	for (int i = 0; i < subSSGNodeNum; i++)
+	int initSubSSGNodeNum = matchedSubSSG->m_nodes.size();
+	int currSubSSGNodeNum = initSubSSGNodeNum;
+	int initSubSSGModelNum = matchedSubSSG->m_metaScene.m_metaModellList.size();
+	std::vector<int> insertDbObjNodeList;
+
+	for (int i = 0; i < initSubSSGNodeNum; i++)
 	{
 		SemNode &mActNode = matchedSubSSG->m_nodes[i];
 		QString mActObjName = mActNode.nodeName;
 		if (matchedSubSSG->m_nodes[i].nodeType == "object")
 		{
 			int mParentNodeId = matchedSubSSG->findParentNodeIdForNode(i);
-			if(mParentNodeId == -1) continue;
-			SemNode &mParentNode = matchedSubSSG->m_nodes[mParentNodeId];
-			QString mParentObjName = matchedSubSSG->m_nodes[mParentNodeId].nodeName;
+			QString mParentObjName;
+			if (mParentNodeId == -1)
+			{
+				mParentObjName = "room";
+			}
+			else
+			{
+				SemNode &mParentNode = matchedSubSSG->m_nodes[mParentNodeId];
+				mParentObjName = matchedSubSSG->m_nodes[mParentNodeId].nodeName;
+			}
 
 			for (int j=0; j < dbSSG->m_nodes.size(); j++)
 			{
@@ -811,13 +881,15 @@ void SemGraphMatcher::addContextNodesToSubSSG(SceneSemGraph *matchedSubSSG, Scen
 				if (dbActNode.nodeType == "object")
 				{
 					QString dbActObjName = dbActNode.nodeName;
-					if (matchedSubSSG->hasObj(dbActObjName)) continue; // do not insert repeatably
+					if (matchedSubSSG->hasObj(dbActObjName, initSubSSGModelNum)) continue; // do not insert repeatably
 
 					int dbParentNodeId = dbSSG->findParentNodeIdForNode(dbActNodeId);
-					// parent node must be already inserted in sub-scene
-					if (!dbSSG->m_dbNodeToSubNodeMap.count(dbParentNodeId)) continue;
 
-					if (mParentNodeId == dbSSG->m_dbNodeToSubNodeMap[dbParentNodeId])
+					// parent node must be already inserted in sub-scene
+					if (!dbSSG->m_dbNodeToSubNodeMap.count(dbParentNodeId) && dbParentNodeId != -1) continue;
+
+					if ((dbParentNodeId != -1 && mParentNodeId == dbSSG->m_dbNodeToSubNodeMap[dbParentNodeId])
+						|| (mParentNodeId == dbParentNodeId && dbParentNodeId ==-1))
 					{
 
 						double coOccProb = m_relModelManager->getCoOccProbOnParent(mActObjName, dbActObjName, mParentObjName);
@@ -830,6 +902,9 @@ void SemGraphMatcher::addContextNodesToSubSSG(SceneSemGraph *matchedSubSSG, Scen
 							matchedSubSSG->m_nodes[currActNodeId].isInferred = true;
 							matchedSubSSG->m_nodes[currActNodeId].inferRefNodeId = i;
 							dbSSG->m_dbNodeToSubNodeMap[dbActNodeId] = currActNodeId;
+
+							//insertDbObjNodeList.push_back(dbActNodeId);
+
 
 							// add meta model
 							MetaModel& newMd = dbSSG->getModelWithNodeId(dbActNodeId);
@@ -871,6 +946,82 @@ void SemGraphMatcher::addContextNodesToSubSSG(SceneSemGraph *matchedSubSSG, Scen
 									}
 								}
 							}
+
+							//{
+							//	bool reachBaseObj = false;
+							//	SemNode &currActNode = dbActNode;
+							//	while (!reachBaseObj)
+							//	{
+							//		bool hasSuppNode = false;
+							//		for (int r = 0; r < currActNode.outEdgeNodeList.size(); r++)
+							//		{
+							//			int suppNodeId = currActNode.outEdgeNodeList[r];
+							//			SemNode &suppNode = dbSSG->m_nodes[suppNodeId];
+							//			if (suppNode.nodeName.contains("support") && !suppNode.anchorNodeList.empty())
+							//			{
+							//				// to insert a support node, it's anchor object must be already in the scene
+							//				int dbAnchorId = suppNode.anchorNodeList[0];
+							//				if (!dbSSG->m_dbNodeToSubNodeMap.count(dbAnchorId))
+							//				{
+							//					SemNode &dbAnchorNode = dbSSG->m_nodes[dbAnchorId];
+							//					if (dbAnchorNode.nodeName == "room")
+							//					{
+							//						reachBaseObj = true;
+							//						break;
+							//					}
+
+							//					dbAnchorNode.isAnnotated = true;
+							//					dbAnchorNode.isAligned = false;
+
+							//					matchedSubSSG->addNode(dbAnchorNode);
+							//					dbSSG->m_dbNodeToSubNodeMap[dbAnchorId] = currSubSSGNodeNum;
+							//					insertDbObjNodeList.push_back(dbAnchorId);
+							//					currSubSSGNodeNum++;
+							//					currActNode = dbAnchorNode;
+							//				}
+							//				else
+							//				{
+							//					reachBaseObj = true;
+							//				}
+
+							//				suppNode.isAnnotated = true;
+							//				suppNode.isAligned = false;
+
+							//				matchedSubSSG->addNode(suppNode);
+							//				dbSSG->m_dbNodeToSubNodeMap[suppNodeId] = currSubSSGNodeNum;
+							//				currSubSSGNodeNum++;
+
+							//				hasSuppNode = true;
+							//			}
+							//		}
+
+							//		if (!hasSuppNode) reachBaseObj = true;
+							//	}
+
+							//	// add edges
+							//	addEdgesToSubSSG(matchedSubSSG, dbSSG);
+
+							//	// add active objs to meta scene
+							//	int modelInSceneId = matchedSubSSG->m_graphNodeToModelListIdMap.size();
+							//	for (int i = 0; i < insertDbObjNodeList.size(); i++)
+							//	{
+							//		int dbActNodeId = insertDbObjNodeList[i];
+
+							//		// non-object node is not saved in the map
+							//		if (dbSSG->m_graphNodeToModelListIdMap.count(dbActNodeId))
+							//		{
+							//			int dbMetaModelId = dbSSG->m_graphNodeToModelListIdMap[dbActNodeId];
+
+							//			if (dbMetaModelId < dbSSG->m_modelNum)
+							//			{
+							//				matchedSubSSG->m_metaScene.m_metaModellList.push_back(dbSSG->m_metaScene.m_metaModellList[dbMetaModelId]);
+							//				int currNodeId = dbSSG->m_dbNodeToSubNodeMap[dbActNodeId];
+							//				matchedSubSSG->m_graphNodeToModelListIdMap[currNodeId] = modelInSceneId;
+							//				modelInSceneId++;
+							//			}
+							//		}
+							//	}
+							//}
 						}
 					}
 				}
@@ -879,6 +1030,7 @@ void SemGraphMatcher::addContextNodesToSubSSG(SceneSemGraph *matchedSubSSG, Scen
 	}
 
 	matchedSubSSG->parseNodeNeighbors();
+	matchedSubSSG->restoreMissingSupportNodes();
 }
 
 MetaModel& SemGraphMatcher::retrieveForModelInstance(const QString catName, const std::vector<QString> attriNames)

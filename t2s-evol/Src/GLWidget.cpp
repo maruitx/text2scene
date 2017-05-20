@@ -211,12 +211,29 @@ void GLWidget::loadParams()
 				continue;
 			}
 
+			if (paramLines[i].find("AddSynthSceneNum=") != string::npos)
+			{
+				p->addSynthSceneNum = StringToIntegerList(paramLines[i], "AddSynthSceneNum=")[0];
+				continue;
+			}
+
 			if (paramLines[i].find("UseContext=") != string::npos)
 			{
 				p->isUseContext = StringToIntegerList(paramLines[i], "UseContext=")[0];
 				continue;
 			}
 
+			if (paramLines[i].find("ShowBothOrignAndContextView=") != string::npos)
+			{
+				p->showBothOriginAndContextView = StringToIntegerList(paramLines[i], "ShowBothOrignAndContextView=")[0];
+				continue;
+			}
+
+			if (paramLines[i].find("AddContextSceneNum=") != string::npos)
+			{
+				p->addContextSceneNum = StringToIntegerList(paramLines[i], "AddContextSceneNum=")[0];
+				continue;
+			}
 
 			if (paramLines[i].find("SelectMethod=") != string::npos)
 			{

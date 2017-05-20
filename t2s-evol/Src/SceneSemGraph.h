@@ -44,7 +44,7 @@ public:
 	bool isBaseLevelObj(int nodeId);
 
 	std::vector<int> findExistingInstanceIds(const QString &catName);
-	bool hasObj(const QString &catName);
+	bool hasObj(const QString &catName, int initModelNum=0);
 
 public:
 	MetaScene m_metaScene;

@@ -99,7 +99,12 @@ struct GlobalObjectParams
 
 	int previewNum;
 	bool isUseContext;
+	bool showBothOriginAndContextView;
+	int addContextSceneNum;
+	
 	bool addSynthNode;
+	int addSynthSceneNum;
+	
 	QString sceneDBType;
 	QString selectMethod;
 	double contextCoOccProb;

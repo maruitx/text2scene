@@ -1,6 +1,9 @@
 SceneDBType=stanford
 PreviewNum=10
 AddSynthNode=1
-UseContext=0
-ContextCoOccProb=1
+AddSynthSceneNum=3
+UseContext=1
+ShowBothOrignAndContextView=0
+AddContextSceneNum=5
+ContextCoOccProb=0.5
 SelectMethod=first

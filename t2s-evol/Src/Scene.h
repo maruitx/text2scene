@@ -62,6 +62,7 @@ private:
 
     unordered_map<string, Model *> m_models;
 	int m_previewNum;
+	int m_initPreviewNum;
 
 
 };

@@ -148,6 +148,31 @@ void Scene::initSynScene()
 
 	
 	m_previewNum = params::inst()->previewNum;
+	m_initPreviewNum = m_previewNum;
+
+	// add previews if the add synth feature is NOT enabled; to show the scene with synth node for comparison
+	if (!params::inst()->addSynthNode && params::inst()->addSynthSceneNum <= m_previewNum)
+	{
+		m_previewNum += params::inst()->addSynthSceneNum;
+	}
+	else if (!params::inst()->addSynthNode&&params::inst()->addContextSceneNum > m_previewNum)
+	{
+		params::inst()->addSynthNode = 0;
+		qDebug() << "Specified add synth node scene number larger than preview number, no scenes with synth node are added.";
+	}
+
+
+	// add previews if the add context feature is enabled, each of them will be enriched scenes of the first given number of results
+	if (params::inst()->isUseContext && params::inst()->showBothOriginAndContextView && params::inst()->addContextSceneNum<=m_previewNum)
+	{
+		m_previewNum += params::inst()->addContextSceneNum;
+	}
+	else if(params::inst()->isUseContext&& params::inst()->showBothOriginAndContextView &&params::inst()->addContextSceneNum > m_previewNum)
+	{
+		params::inst()->isUseContext = 0;
+		qDebug() << "Specified add context scene number larger than preview number, no scenes with context are added.";
+	}
+
 	for (int i = 0; i < m_previewNum; ++i)
 	{
 		TSScene *s = new TSScene(m_models);
@@ -210,7 +235,7 @@ void Scene::runOneEvolutionStep()
 	m_sceneGenerator->updateCurrentTextGraph(activeTextSemGraph);
 	m_sceneGenerator->updateCurrentTSScene(m_variations[m_activeVarationId]);
 
-	int topSSGNum = m_previewNum;
+	int topSSGNum = m_initPreviewNum;
 
 	std::vector<TSScene*> tsscenes = m_sceneGenerator->generateTSScenes(topSSGNum);
 
@@ -227,7 +252,7 @@ void Scene::runOneEvolutionStep()
 
 	if (params::inst()->selectMethod == "rand")
 	{
-		m_activeVarationId = GenRandomInt(0, m_previewNum);
+		m_activeVarationId = GenRandomInt(0, tsscenes.size());
 	}
 	else
 	{

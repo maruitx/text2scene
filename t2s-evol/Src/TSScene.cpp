@@ -141,7 +141,8 @@ void TSScene::loadSceneFile(const QString &filename)
 				if (!fileExists(objPathName))
 				{
 					objPathName = params::inst()->shapeNetSemDirectory + "models-OBJ/models/" + parts[2] + ".obj";
-					string texDir = params::inst()->shapeNetSemDirectory + "models-textures/textures/";
+					//string texDir = params::inst()->shapeNetSemDirectory + "models-textures/textures/";
+					string texDir = params::inst()->shapeNetSemDirectory + "models-OBJ/models/";
 
 					// if exist in ShapeNetSem, update obje file, but the texture db is unchanged
 					if (fileExists(objPathName))
@@ -543,9 +544,18 @@ bool TSScene::computeZForModel(int currModelId, int parentModelId, vec3 startPt,
 {
 	MetaModel &md = m_metaScene.m_metaModellList[currModelId];
 	double sceneMetric = params::inst()->globalSceneUnitScale;
-	if (md.catName == "tv" || md.catName=="speaker")
+	if (md.catName == "tv")
 	{
 		startPt.z = 1.5 / sceneMetric;
+	}
+
+	if (md.catName == "speaker")
+	{
+		MetaModel &parentMd = m_metaScene.m_metaModellList[parentModelId];
+		if (parentMd.catName!="desk")
+		{
+			startPt.z = 1.5 / sceneMetric;  // for the case that spearker in on tv stand
+		}
 	}
 
 	double elevationVal = 0.1 / sceneMetric;

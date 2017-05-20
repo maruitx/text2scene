@@ -8,7 +8,9 @@
 
 SceneSemGraph::SceneSemGraph()
 {
-
+	m_allSynthNodesInited = false;
+	m_dbSSGId = -1;
+	m_alignedQuerySSG = NULL;
 }
 
 SceneSemGraph::SceneSemGraph(const QString &s)
@@ -32,8 +34,8 @@ SceneSemGraph::SceneSemGraph(SceneSemGraph *sg)
 	m_edges = sg->m_edges;
 
 	m_allSynthNodesInited = false;
-	m_dbSSGId = -1;
-	m_alignedQuerySSG = NULL;
+	m_dbSSGId = sg->m_dbSSGId;
+	m_alignedQuerySSG = sg->m_alignedQuerySSG;
 }
 
 SceneSemGraph::~SceneSemGraph()
@@ -443,9 +445,14 @@ std::vector<int> SceneSemGraph::findExistingInstanceIds(const QString &catName)
 	return ids;
 }
 
-bool SceneSemGraph::hasObj(const QString &catName)
+bool SceneSemGraph::hasObj(const QString &catName, int initModelNum)
 {
-	for (int i = 0; i < m_metaScene.m_metaModellList.size(); i++)
+	if (initModelNum == 0)
+	{
+		initModelNum = m_metaScene.m_metaModellList.size();
+	}
+
+	for (int i = 0; i < initModelNum; i++)
 	{
 		MetaModel &md = m_metaScene.m_metaModellList[i];
 

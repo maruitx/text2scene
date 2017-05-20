@@ -574,7 +574,10 @@ bool LayoutPlanner::adjustInitTransfromSpecialModel(const MetaModel &anchorMd, M
 		if(needAdjust)
 		{
 			mat4 rotMat = GetRotationMatrix(vec3(0, 0, 1), targetAngle - currAngle);
-			mat4 adjustedMat = mat4::translate(actMd.position)*rotMat*mat4::translate(-actMd.position)*actMd.transformation;
+			vec3 targetPosition = actMd.position; // save current position
+			vec3 translationVec = targetPosition - rotMat*actMd.position; // pull the model back after rotation
+			mat4 translateMat = mat4::translate(translationVec);
+			mat4 adjustedMat = translateMat*rotMat;
 			actMd.updateWithTransform(adjustedMat);
 
 			isAdjusted = true;
@@ -615,8 +618,12 @@ bool LayoutPlanner::adjustInitTransfromSpecialModel(const MetaModel &anchorMd, M
 
 		if (needAdjust)
 		{
+			// adjust angle
 			mat4 rotMat = GetRotationMatrix(vec3(0, 0, 1), targetAngle - currAngle);
-			mat4 adjustedMat = mat4::translate(actMd.position)*rotMat*mat4::translate(-actMd.position)*actMd.transformation;
+			vec3 targetPosition = actMd.position; // save current position
+			vec3 translationVec = targetPosition - rotMat*actMd.position; // pull the model back after rotation
+			mat4 translateMat = mat4::translate(translationVec);
+			mat4 adjustedMat = translateMat*rotMat;
 			actMd.updateWithTransform(adjustedMat);
 
 			isAdjusted = true;
@@ -636,8 +643,12 @@ bool LayoutPlanner::adjustInitTransfromSpecialModel(const MetaModel &anchorMd, M
 
 		if (needAdjust)
 		{
+			// adjust angle
 			mat4 rotMat = GetRotationMatrix(vec3(0, 0, 1), targetAngle - currAngle);
-			mat4 adjustedMat = mat4::translate(actMd.position)*rotMat*mat4::translate(-actMd.position)*actMd.transformation;
+			vec3 targetPosition = actMd.position; // save current position
+			vec3 translationVec = targetPosition - rotMat*actMd.position; // pull the model back after rotation
+			mat4 translateMat = mat4::translate(translationVec);
+			mat4 adjustedMat = translateMat*rotMat;
 			actMd.updateWithTransform(adjustedMat);
 
 			isAdjusted = true;
