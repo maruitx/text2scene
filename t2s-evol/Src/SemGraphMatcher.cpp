@@ -851,7 +851,8 @@ void SemGraphMatcher::addContextNodesToSubSSG(SceneSemGraph *matchedSubSSG, Scen
 	int initSubSSGNodeNum = matchedSubSSG->m_nodes.size();
 	int currSubSSGNodeNum = initSubSSGNodeNum;
 	int initSubSSGModelNum = matchedSubSSG->m_metaScene.m_metaModellList.size();
-	std::vector<int> insertDbObjNodeList;
+
+	std::vector<int> dbActNodeInsertedTimes(dbSSG->m_nodes.size(), 0);
 
 	for (int i = 0; i < initSubSSGNodeNum; i++)
 	{
@@ -871,27 +872,45 @@ void SemGraphMatcher::addContextNodesToSubSSG(SceneSemGraph *matchedSubSSG, Scen
 				mParentObjName = matchedSubSSG->m_nodes[mParentNodeId].nodeName;
 			}
 
+			std::vector<int> mParentIds = matchedSubSSG->findExistingInstanceIds(mParentObjName);
+
 			for (int j=0; j < dbSSG->m_nodes.size(); j++)
 			{
 				int dbActNodeId = j;
-				// skip if node is already inserted
-				if (dbSSG->m_dbNodeToSubNodeMap.count(dbActNodeId)) continue;
+
+				//// skip if node is already inserted; find if there is another anchor 
+
+				//if (dbSSG->m_dbNodeToSubNodeMap.count(dbActNodeId) && dbActNodeInsertedTimes[dbActNodeId] >= mParentIds.size())
 
 				SemNode &dbActNode = dbSSG->m_nodes[dbActNodeId];
 				if (dbActNode.nodeType == "object")
 				{
 					QString dbActObjName = dbActNode.nodeName;
+
+					if(dbActObjName == "desk" || dbActObjName == "table") continue; // do not insert table
+
 					if (matchedSubSSG->hasObj(dbActObjName, initSubSSGModelNum)) continue; // do not insert repeatably
 
 					int dbParentNodeId = dbSSG->findParentNodeIdForNode(dbActNodeId);
 
+					if (dbActNodeInsertedTimes[dbActNodeId] >= mParentIds.size() && dbParentNodeId != -1)
+						continue;
+
+					if(dbActObjName == "tableclock" && dbActNodeInsertedTimes[dbActNodeId] == 1) continue;
+
 					// parent node must be already inserted in sub-scene
 					if (!dbSSG->m_dbNodeToSubNodeMap.count(dbParentNodeId) && dbParentNodeId != -1) continue;
 
-					if ((dbParentNodeId != -1 && mParentNodeId == dbSSG->m_dbNodeToSubNodeMap[dbParentNodeId])
-						|| (mParentNodeId == dbParentNodeId && dbParentNodeId ==-1))
+					QString dbParentObjName;
+					if (dbParentNodeId != -1)
 					{
+						dbParentObjName = dbSSG->m_nodes[dbParentNodeId].nodeName;
+					}
 
+					if ((dbParentNodeId != -1 && mParentNodeId == dbSSG->m_dbNodeToSubNodeMap[dbParentNodeId])
+						|| (mParentNodeId == dbParentNodeId && dbParentNodeId ==-1) || 
+						dbParentObjName == mParentObjName)
+					{
 						double coOccProb = m_relModelManager->getCoOccProbOnParent(mActObjName, dbActObjName, mParentObjName);
 
 						if (coOccProb >= params::inst()->contextCoOccProb)
@@ -903,13 +922,13 @@ void SemGraphMatcher::addContextNodesToSubSSG(SceneSemGraph *matchedSubSSG, Scen
 							matchedSubSSG->m_nodes[currActNodeId].inferRefNodeId = i;
 							dbSSG->m_dbNodeToSubNodeMap[dbActNodeId] = currActNodeId;
 
-							//insertDbObjNodeList.push_back(dbActNodeId);
-
-
 							// add meta model
 							MetaModel& newMd = dbSSG->getModelWithNodeId(dbActNodeId);
 							matchedSubSSG->m_metaScene.m_metaModellList.push_back(newMd);
 							matchedSubSSG->m_graphNodeToModelListIdMap[currActNodeId] = matchedSubSSG->m_metaScene.m_metaModellList.size() - 1;
+
+							dbActNodeInsertedTimes[dbActNodeId]++;
+							matchedSubSSG->m_addedContextNodeIds.push_back(currActNodeId);
 
 							// add support node and edges
 							for (int r=0; r < dbActNode.outEdgeNodeList.size(); r++)
@@ -942,86 +961,21 @@ void SemGraphMatcher::addContextNodesToSubSSG(SceneSemGraph *matchedSubSSG, Scen
 										matchedSubSSG->m_nodes[currRelNodeId].isAligned = true;
 										matchedSubSSG->m_nodes[currRelNodeId].isSynthesized = false;
 										dbSSG->m_dbNodeToSubNodeMap[dbRelNodeId] = currRelNodeId;
+
 										break;
 									}
 								}
 							}
-
-							//{
-							//	bool reachBaseObj = false;
-							//	SemNode &currActNode = dbActNode;
-							//	while (!reachBaseObj)
-							//	{
-							//		bool hasSuppNode = false;
-							//		for (int r = 0; r < currActNode.outEdgeNodeList.size(); r++)
-							//		{
-							//			int suppNodeId = currActNode.outEdgeNodeList[r];
-							//			SemNode &suppNode = dbSSG->m_nodes[suppNodeId];
-							//			if (suppNode.nodeName.contains("support") && !suppNode.anchorNodeList.empty())
-							//			{
-							//				// to insert a support node, it's anchor object must be already in the scene
-							//				int dbAnchorId = suppNode.anchorNodeList[0];
-							//				if (!dbSSG->m_dbNodeToSubNodeMap.count(dbAnchorId))
-							//				{
-							//					SemNode &dbAnchorNode = dbSSG->m_nodes[dbAnchorId];
-							//					if (dbAnchorNode.nodeName == "room")
-							//					{
-							//						reachBaseObj = true;
-							//						break;
-							//					}
-
-							//					dbAnchorNode.isAnnotated = true;
-							//					dbAnchorNode.isAligned = false;
-
-							//					matchedSubSSG->addNode(dbAnchorNode);
-							//					dbSSG->m_dbNodeToSubNodeMap[dbAnchorId] = currSubSSGNodeNum;
-							//					insertDbObjNodeList.push_back(dbAnchorId);
-							//					currSubSSGNodeNum++;
-							//					currActNode = dbAnchorNode;
-							//				}
-							//				else
-							//				{
-							//					reachBaseObj = true;
-							//				}
-
-							//				suppNode.isAnnotated = true;
-							//				suppNode.isAligned = false;
-
-							//				matchedSubSSG->addNode(suppNode);
-							//				dbSSG->m_dbNodeToSubNodeMap[suppNodeId] = currSubSSGNodeNum;
-							//				currSubSSGNodeNum++;
-
-							//				hasSuppNode = true;
-							//			}
-							//		}
-
-							//		if (!hasSuppNode) reachBaseObj = true;
-							//	}
-
-							//	// add edges
-							//	addEdgesToSubSSG(matchedSubSSG, dbSSG);
-
-							//	// add active objs to meta scene
-							//	int modelInSceneId = matchedSubSSG->m_graphNodeToModelListIdMap.size();
-							//	for (int i = 0; i < insertDbObjNodeList.size(); i++)
-							//	{
-							//		int dbActNodeId = insertDbObjNodeList[i];
-
-							//		// non-object node is not saved in the map
-							//		if (dbSSG->m_graphNodeToModelListIdMap.count(dbActNodeId))
-							//		{
-							//			int dbMetaModelId = dbSSG->m_graphNodeToModelListIdMap[dbActNodeId];
-
-							//			if (dbMetaModelId < dbSSG->m_modelNum)
-							//			{
-							//				matchedSubSSG->m_metaScene.m_metaModellList.push_back(dbSSG->m_metaScene.m_metaModellList[dbMetaModelId]);
-							//				int currNodeId = dbSSG->m_dbNodeToSubNodeMap[dbActNodeId];
-							//				matchedSubSSG->m_graphNodeToModelListIdMap[currNodeId] = modelInSceneId;
-							//				modelInSceneId++;
-							//			}
-							//		}
-							//	}
-							//}
+							
+							//special handling for chair
+							if (mActObjName == "desk" && dbActObjName == "chair")
+							{
+								// add a near node
+								matchedSubSSG->addNode(SSGNodeType[SemNode::Pair], "near");
+								int currRelNodeId = matchedSubSSG->m_nodeNum - 1;
+								matchedSubSSG->addEdge(currActNodeId, currRelNodeId); // e.g., (tv, support)
+								matchedSubSSG->addEdge(currRelNodeId, i); // e.g., (tv, support)
+							}
 						}
 					}
 				}

@@ -146,17 +146,16 @@ void SceneGenerator::adjustTextSSGWithCurrSSG(TextSemGraph *textSSG, SceneSemGra
 		for (int j=0; j < addInstanceNum; j++)
 		{
 			int currAnchorNodeId = anchorObjNodeIds[0];  // use the first anchor node
-			SemNode currAnchorNode = textSSG->m_nodes[currAnchorNodeId];
+			SemNode currTSGAnchorNode = textSSG->m_nodes[currAnchorNodeId];
 
-			textSSG->addNode(currAnchorNode);
-			int newAnchoNodeId = textSSG->m_nodeNum - 1;
+			textSSG->addNode(currTSGAnchorNode);
+			int newAnchorNodeId = textSSG->m_nodeNum - 1;
 
-
-			if (!currAnchorNode.inEdgeNodeList.empty())
+			if (!currTSGAnchorNode.inEdgeNodeList.empty())
 			{
-				for (int r=0; r < currAnchorNode.inEdgeNodeList.size(); r++)
+				for (int r=0; r < currTSGAnchorNode.inEdgeNodeList.size(); r++)
 				{
-					int relNodeId = currAnchorNode.inEdgeNodeList[r];
+					int relNodeId = currTSGAnchorNode.inEdgeNodeList[r];
 					SemNode relNode = textSSG->m_nodes[relNodeId];
 
 					// find determiner of the act obj; add instance if the determiner is not "a" or specific number
@@ -168,7 +167,7 @@ void SceneGenerator::adjustTextSSGWithCurrSSG(TextSemGraph *textSSG, SceneSemGra
 					{
 						textSSG->addNode(relNode);
 						int newRelNodeId = textSSG->m_nodeNum - 1;
-						textSSG->addEdge(newRelNodeId, newAnchoNodeId);
+						textSSG->addEdge(newRelNodeId, newAnchorNodeId);
 
 						for (int k = 0; k < relNode.activeNodeList.size(); k++)
 						{
@@ -183,6 +182,35 @@ void SceneGenerator::adjustTextSSGWithCurrSSG(TextSemGraph *textSSG, SceneSemGra
 					}
 				}
 			}
+
+			//for (int a=0; a < currSSG->m_addedContextNodeIds.size(); a++)
+			//{
+			//	int addedActNodeId = currSSG->m_addedContextNodeIds[a];
+			//	SemNode &currSSGActNode = currSSG->m_nodes[addedActNodeId];
+
+			//	if (!currSSGActNode.outEdgeNodeList.empty())
+			//	{
+			//		int addedRelNodeId = currSSGActNode.outEdgeNodeList[0];
+			//		SemNode &currSSGRelNode = currSSG->m_nodes[addedRelNodeId];
+			//		if (!currSSGRelNode.outEdgeNodeList.empty())
+			//		{
+			//			int currSSGAnchorNodeId = currSSGRelNode.outEdgeNodeList[0];
+			//			SemNode &currSSGAnchorNode = currSSG->m_nodes[currSSGAnchorNodeId];
+
+			//			if (currSSGAnchorNode.nodeName == currTSGAnchorNode.nodeName)
+			//			{
+			//				textSSG->addNode(currSSG->m_nodes[addedActNodeId]);
+			//				int newActNodeId = textSSG->m_nodeNum - 1;
+
+			//				textSSG->addNode(currSSGRelNode);
+			//				int newRelNodeId = textSSG->m_nodeNum - 1;
+
+			//				textSSG->addEdge(newActNodeId, newRelNodeId);
+			//				textSSG->addEdge(newRelNodeId, newAnchorNodeId);
+			//			}
+			//		}
+			//	}		
+			//}
 		}
 	}
 

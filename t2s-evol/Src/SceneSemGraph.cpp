@@ -36,6 +36,8 @@ SceneSemGraph::SceneSemGraph(SceneSemGraph *sg)
 	m_allSynthNodesInited = false;
 	m_dbSSGId = sg->m_dbSSGId;
 	m_alignedQuerySSG = sg->m_alignedQuerySSG;
+
+	m_addedContextNodeIds = sg->m_addedContextNodeIds;
 }
 
 SceneSemGraph::~SceneSemGraph()

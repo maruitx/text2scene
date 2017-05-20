@@ -64,6 +64,8 @@ public:
 	int m_dbSSGId;  // id of matched dbSSG
 	SemanticGraph *m_alignedQuerySSG;
 
+	std::vector<int> m_addedContextNodeIds;
+
 private:
 	QString m_fullFilename;
 };

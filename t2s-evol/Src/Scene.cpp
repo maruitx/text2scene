@@ -156,7 +156,7 @@ void Scene::initSynScene()
 		m_previewNum += params::inst()->addSynthSceneNum;
 	}
 	else if (!params::inst()->addSynthNode&&params::inst()->addContextSceneNum > m_previewNum)
-	{
+	{ 
 		params::inst()->addSynthNode = 0;
 		qDebug() << "Specified add synth node scene number larger than preview number, no scenes with synth node are added.";
 	}
