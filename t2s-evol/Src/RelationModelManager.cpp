@@ -854,7 +854,7 @@ void RelationModelManager::adjustSamplingForSpecialModels(const QString &anchorO
 
 	if (anchorObjName == "desk" && (actObjName == "monitor" || actObjName =="keyboard"))
 	{
-		relTheta = GenRandomDouble(-0.1,0.1);
+		//relTheta = GenRandomDouble(-0.1,0.1);
 	}
 
 	if (anchorObjName == "desk" && actObjName == "computermouse")
@@ -879,6 +879,21 @@ void RelationModelManager::adjustSamplingForSpecialModels(const QString &anchorO
 		if (relPos.y >-0.2 || relPos.y < -0.4)
 		{
 			relPos.y = -0.35;
+		}
+
+		relTheta = 0;
+	}
+
+	if (anchorObjName == "desk" && actObjName == "bed")
+	{
+		if (relPos.y <1 || relPos.y > 1.2)
+		{
+			relPos.y = 0.8;
+		}
+
+		if (relPos.x< -1.2 || relPos.x > - 0.9)
+		{
+			relPos.x = -1;
 		}
 
 		relTheta = 0;
@@ -969,17 +984,17 @@ void RelationModelManager::adjustSamplingForSpecialModels(const QString &anchorO
 
 	if (anchorObjName == "table" && actObjName == "chair")
 	{
-		// right
-		if (relPos.x > 0 && (relTheta < 0.25 || relTheta >0.75))
-		{
-			relTheta = 0.5;
-		}
+		//// right
+		//if (relPos.x > 0 && (relTheta < 0.25 || relTheta >0.75))
+		//{
+		//	relTheta = 0.5;
+		//}
 
-		// left
-		if (relPos.x < 0 && (relTheta > -0.25 || relTheta < -0.75))
-		{
-			relTheta = -0.5;
-		}
+		//// left
+		//if (relPos.x < 0 && (relTheta > -0.25 || relTheta < -0.75))
+		//{
+		//	relTheta = -0.5;
+		//}
 	}
 
 	if (anchorObjName =="chair")

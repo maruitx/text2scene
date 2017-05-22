@@ -28,21 +28,25 @@ public:
 	void resetNodes(SemanticGraph *sg);
 
 	std::vector<TSScene*> generateTSScenes(int num);
+	void executeCommandsToCurrentScene();
 
 	// scene binding
 	SceneSemGraph* bindToCurrTSScene(SceneSemGraph *matchedSg);
 	RelationModelManager *getRelationManager() { return m_relModelManager; };
+
+	RelationModelManager *m_relModelManager;  // singleton, only one instance
+	LayoutPlanner *m_layoutPlanner; // singleton, only one instance
 
 private:
 	unordered_map<string, Model*> &m_models;
 	SemGraphMatcher *m_semanticGraphMatcher;
 	SceneSemGraphManager *m_sceneSemGraphManager;
 
+	TSScene *m_currScene;
 	SceneSemGraph *m_currUserSSG;
 	TextSemGraph *m_textSSG;
 
-	RelationModelManager *m_relModelManager;  // singleton, only one instance
-	LayoutPlanner *m_layoutPlanner; // singleton, only one instance
+
 
 	std::map<int, int> m_matchToNewUserSsgNodeMap;
 };

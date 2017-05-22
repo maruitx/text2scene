@@ -19,6 +19,8 @@ struct SelAttribute
 
 struct SelCommand
 {
+	SelCommand() : isApplied(0) {};
+
 	int id;
 	QString verbString;
 	bool isApplied;
@@ -32,7 +34,7 @@ struct SelCommand
 
 struct SelEntity
 {
-	SelEntity() : attributeCount(0), relationshipCount(0), commandCount(0){};
+	SelEntity() : attributeCount(0), relationshipCount(0){};
 
 	int id;
 	QString nameString;  // e.g. chair-4
@@ -43,11 +45,9 @@ struct SelEntity
 
 	int attributeCount;
 	int relationshipCount;
-	int commandCount;
 
 	vector<SelRelationship> m_relationships;
 	vector<SelAttribute> m_attributes;
-	vector<SelCommand> m_commands;
 
 	QString m_determiner;  // empty, a or the
 
@@ -60,7 +60,9 @@ struct SelSentence
 	QString textString;
 
 	int entityCount;
+	int commandCount;
 	vector<SelEntity> m_entities;
+	vector<SelCommand> m_commands;
 };
 
 class TextSemGraphManager

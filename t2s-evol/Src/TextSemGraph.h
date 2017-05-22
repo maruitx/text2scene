@@ -6,10 +6,23 @@
 
 class RelationModelManager;
 
+const QString CommandNames[] = { "replace", "replacewith", "moveto", "moveon", "movecloser", "moveapart", "delete", "rotate"};
+enum CommandType
+{
+	Replace=0,
+	ReplaceWith,
+	MoveTo,
+	MoveOn,
+	MoveCloser,
+	MoveApart,
+	Delete,
+	Rotate
+};
+
 class TextSemGraph : public SemanticGraph
 {
 public:
-	TextSemGraph(SelSentence s, RelationModelManager *relManager);
+	TextSemGraph(SelSentence s, RelationModelManager *relManager, bool isCommand=false);
 	~TextSemGraph();
 
 	void buildGraphFromSEL();
@@ -17,6 +30,7 @@ public:
 	void mapToFixedObjSet(QString &s);
 	void mapToFixedRelationSet(SemNode &currNode, QString &nodeName, QString &nodeType = QString(""));
 	void mapToFixedAttributeSet(QString &nodeName, QString &nodeType = QString(""));
+	void mapToFixedCommandSet(QString &nodeName, QString &nodeType = QString(""));
 
 	void addImplicitAttributes(); // add implicit attributes of objects, e.g., dining to chair if a dining table is specified
 	void addImplicitRelations(); // add implicit relations if no relations specified in the input
@@ -44,6 +58,5 @@ private:
 
 	RelationModelManager *m_relModelManager;
 	std::vector<QString> m_goodAttriSets;
-
 };
 

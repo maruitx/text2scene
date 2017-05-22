@@ -2,7 +2,7 @@
 
 #include "Headers.h"
 
-const QString SSGNodeType[] = { "object", "attribute", "pair_relation", "group_relation"};
+const QString SSGNodeType[] = { "object", "attribute", "pair_relation", "group_relation", "command"};
 
 class SemNode{
 public:
@@ -10,7 +10,8 @@ public:
 		Obj = 0,
 		Attri,
 		Pair,
-		Group
+		Group,
+		Command
 	};
 
 
@@ -120,5 +121,7 @@ public:
 	std::map<int, int> m_nodeAlignMap;  // current to target node id alignment map
 	std::vector<QString> m_strictAttriSet; // strict attribute that must be satisfied
 	std::vector<QString> m_groupAttriSet;
+
+	bool m_isCommand;
 };
 

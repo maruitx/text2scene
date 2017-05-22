@@ -2,7 +2,7 @@
 #include "Utility.h"
 
 SemanticGraph::SemanticGraph()
-	:m_nodeNum(0), m_edgeNum(0)
+	:m_nodeNum(0), m_edgeNum(0), m_isCommand(false)
 {
 }
 
@@ -16,6 +16,7 @@ SemanticGraph::SemanticGraph(SemanticGraph *sg)
 
 	m_nodeAlignMap = sg->m_nodeAlignMap;
 
+	m_isCommand = sg->m_isCommand;
 	initAttributeSet();
 }
 

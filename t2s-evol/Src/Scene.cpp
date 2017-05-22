@@ -10,6 +10,7 @@
 #include "TransformFeedback.h"
 #include "TSScene.h"
 #include "TextSemGraphManager.h"
+#include "TextSemGraph.h"
 #include "SceneGenerator.h"
 #include "Utility.h"
 
@@ -232,34 +233,42 @@ void Scene::runOneEvolutionStep()
 	TextSemGraph* activeTextSemGraph = m_textSemGraphManager->getActiveGraph();
 	m_textSemGraphManager->updateActiveGraphId();
 
+	m_variations[m_activeVarationId]->m_isLoadFromFile = false;
+
 	m_sceneGenerator->updateCurrentTextGraph(activeTextSemGraph);
 	m_sceneGenerator->updateCurrentTSScene(m_variations[m_activeVarationId]);
 
-	int topSSGNum = m_initPreviewNum;
-
-	std::vector<TSScene*> tsscenes = m_sceneGenerator->generateTSScenes(topSSGNum);
-
-	// clean previous variations
-	clearVariations();
-
-	for (int i = 0; i < tsscenes.size(); ++i)
+	if (!activeTextSemGraph->m_isCommand)
 	{
-		tsscenes[i]->updateRoomModel(roomModel);
+		int topSSGNum = m_initPreviewNum;
+		std::vector<TSScene*> tsscenes = m_sceneGenerator->generateTSScenes(topSSGNum);
 
-		m_variations.push_back(tsscenes[i]);
-		m_variations[i]->m_previewId = i;
-	}
+		// clean previous variations
+		clearVariations();
 
-	if (params::inst()->selectMethod == "rand")
-	{
-		m_activeVarationId = GenRandomInt(0, tsscenes.size());
+		for (int i = 0; i < tsscenes.size(); ++i)
+		{
+			tsscenes[i]->updateRoomModel(roomModel);
+
+			m_variations.push_back(tsscenes[i]);
+			m_variations[i]->m_previewId = i;
+		}
+
+		if (params::inst()->selectMethod == "rand")
+		{
+			m_activeVarationId = GenRandomInt(0, tsscenes.size());
+		}
+		else
+		{
+			m_activeVarationId = 0;
+		}
+
+		m_resetPreview = true;
 	}
 	else
 	{
-		m_activeVarationId = 0;
+		m_sceneGenerator->executeCommandsToCurrentScene();
 	}
-
-	m_resetPreview = true;
 }
 
 void Scene::toggleRenderMode()

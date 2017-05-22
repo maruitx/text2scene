@@ -28,6 +28,8 @@ void TextSemGraphManager::loadSELFromOutput(const QString &filename, RelationMod
 		return;
 	}
 
+	bool isCommand = false;
+
 	m_SEL_version = ifs.readLine();
 
 	QString currLine = ifs.readLine();
@@ -67,7 +69,8 @@ void TextSemGraphManager::loadSELFromOutput(const QString &filename, RelationMod
 
 				while (!currLine.contains("sentence-") &&
 					!currLine.contains("entity-") &&
-					!currLine.contains("***"))
+					!currLine.contains("***") &&
+					!currLine.contains("command"))
 				{
 					if (currLine.contains("id:"))
 					{
@@ -128,55 +131,63 @@ void TextSemGraphManager::loadSELFromOutput(const QString &filename, RelationMod
 						}
 					}
 
-					if (currLine.contains("command-count"))
-					{
-						newEntity.commandCount = StringToIntegerList(currLine.toStdString(), "command-count:")[0];
-
-						for (int ci = 0; ci < newEntity.commandCount; ci++)
-						{
-							currLine = ifs.readLine();
-							SelCommand newCommand;
-							newCommand.id = StringToIntegerList(currLine.toStdString(), "command-")[0];
-
-							currLine = ifs.readLine();
-							std::vector<std::string> parts = PartitionString(currLine.toStdString(), ":");
-							newCommand.verbString = QString(parts[1].c_str());
-
-							currLine = ifs.readLine();
-							newCommand.isApplied = StringToIntegerList(currLine.toStdString(), "applied:")[0];
-
-							currLine = ifs.readLine();
-							newCommand.attributeCount = StringToIntegerList(currLine.toStdString(), "attribute-count:")[0];
-
-							for (int cai = 0; cai < newCommand.attributeCount; cai++)
-							{
-								currLine = ifs.readLine();
-								newCommand.attributeStrings.push_back(currLine);
-							}
-
-							currLine = ifs.readLine();
-							newCommand.targetCount = StringToIntegerList(currLine.toStdString(), "target-count:")[0];
-
-							for (int ti = 0; ti < newCommand.targetCount; ti++)
-							{
-								currLine = ifs.readLine();
-								std::vector<std::string> parts = PartitionString(currLine.toStdString(), "|");
-								newCommand.targetStrings.push_back(QString(parts[1].c_str()));  // ignore the type for now
-							}
-
-							newEntity.m_commands.push_back(newCommand);
-						}
-					}
-
 					currLine = ifs.readLine();
-
 				}
 
 				newSentence.m_entities.push_back(newEntity);
 			}
 		}   // end of loop for entity
 
-		TextSemGraph* newTextSemGraph = new TextSemGraph(newSentence, relManager);
+		// parse for command
+		//currLine = ifs.readLine();
+		if (currLine.contains("command-count"))
+		{
+			int commandCount = StringToIntegerList(currLine.toStdString(), "command-count:")[0];
+			newSentence.commandCount = commandCount;
+
+			for (int ci = 0; ci < commandCount; ci++)
+			{
+				currLine = ifs.readLine();
+				SelCommand newCommand;
+				newCommand.id = StringToIntegerList(currLine.toStdString(), "command-")[0];
+
+				currLine = ifs.readLine();
+				std::vector<std::string> parts = PartitionString(currLine.toStdString(), ":");
+				newCommand.verbString = QString(parts[1].c_str());
+
+				currLine = ifs.readLine();
+				newCommand.isApplied = StringToIntegerList(currLine.toStdString(), "applied:")[0];
+
+				currLine = ifs.readLine();
+				newCommand.attributeCount = StringToIntegerList(currLine.toStdString(), "attribute-count:")[0];
+
+				for (int cai = 0; cai < newCommand.attributeCount; cai++)
+				{
+					currLine = ifs.readLine();
+					newCommand.attributeStrings.push_back(currLine);
+				}
+
+				currLine = ifs.readLine();
+				newCommand.targetCount = StringToIntegerList(currLine.toStdString(), "target-count:")[0];
+
+				for (int ti = 0; ti < newCommand.targetCount; ti++)
+				{
+					currLine = ifs.readLine();
+					//std::vector<std::string> parts = PartitionString(currLine.toStdString(), "|");
+					//newCommand.targetStrings.push_back(QString(parts[1].c_str()));  // ignore the type for now
+					newCommand.targetStrings.push_back(currLine);
+				}
+
+				// only consider the command that is not applied
+				if (newCommand.isApplied == false)
+				{
+					newSentence.m_commands.push_back(newCommand);
+					isCommand = true;
+				}
+			}
+		}
+
+		TextSemGraph* newTextSemGraph = new TextSemGraph(newSentence, relManager, isCommand);
 		m_textSemGraphs.push_back(newTextSemGraph);
 		m_textGraphNum++;
 

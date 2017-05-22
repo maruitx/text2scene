@@ -8,7 +8,6 @@
 SemGraphMatcher::SemGraphMatcher(SceneSemGraphManager *ssgManager, RelationModelManager *relManager)
 	:m_sceneSemGraphManager(ssgManager), m_relModelManager(relManager)
 {
-	loadModelBlackList();
 	cout << "\nSemGraphMatcher: loading semantic graphs number " << m_sceneSemGraphManager->m_ssgNum<<"\n";
 }
 
@@ -201,7 +200,7 @@ bool SemGraphMatcher::ssgContainsBlackListModel(SceneSemGraph *ssg)
 	for (int i=0; i < ssg->m_metaScene.m_metaModellList.size(); i++)
 	{
 		MetaModel &md = ssg->m_metaScene.m_metaModellList[i];
-		if (isModelInBlackList(toQString(md.name)))
+		if (m_sceneSemGraphManager->isModelInBlackList(toQString(md.name)))
 		{
 			return true;
 		}
@@ -326,10 +325,11 @@ void SemGraphMatcher::addGroupActNodesToSubSSG(SceneSemGraph *matchedSubSSG, Sce
 
 						if (groupModel->m_occurModels.count(occKey))
 						{
-							double randProb = GenRandomDouble(0, 0.9*groupModel->m_maxOccProb);
+							double groupCoOccTh = params::inst()->groupCoOccProb;
+							double randProb = GenRandomDouble(0, groupModel->m_maxOccProb/ groupCoOccTh);
 							double probTh = groupModel->m_occurModels[occKey]->m_occurProb;
 
-							if (probTh > randProb)
+							if (randProb < probTh)
 							{
 								dbActNode.isAnnotated = true;
 								dbActNode.isAligned = false;
@@ -612,35 +612,6 @@ double SemGraphMatcher::computeGeometrySimilarity(SceneSemGraph *testSSG, SceneS
 	return simVal;
 }
 
-void SemGraphMatcher::loadModelBlackList()
-{
-	QString filename = "./SceneDB/model_blacklist.txt";
-	QFile inFile(filename);
-	QTextStream ifs(&inFile);
-
-	if (!inFile.open(QIODevice::ReadOnly | QIODevice::Text)) return;
-
-	while (!ifs.atEnd())
-	{
-		QString currLine = ifs.readLine();
-		QStringList parts = currLine.split(",");
-		m_modelBlackList.insert(parts[0]);
-	}
-	inFile.close();
-}
-
-bool SemGraphMatcher::isModelInBlackList(const QString &s)
-{
-	if (m_modelBlackList.count(s))
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
-
 void SemGraphMatcher::addSynthNodeToSubSSG(SceneSemGraph *matchedSubSSG, SceneSemGraph *dbSSG)
 {
 	std::map<int, int> &dbNodeToSubNodeMap = dbSSG->m_dbNodeToSubNodeMap;
@@ -689,7 +660,7 @@ void SemGraphMatcher::addSynthNodeToSubSSG(SceneSemGraph *matchedSubSSG, SceneSe
 				else
 				{
 					std::vector<QString> attriNames = querySSG->getAttriNamesForNode(ni);
-					MetaModel& newMd = retrieveForModelInstance(sgNode.nodeName, attriNames);
+					MetaModel& newMd = m_sceneSemGraphManager->retrieveForModelInstance(sgNode.nodeName, attriNames);
 					if (!newMd.name.empty())
 					{
 						matchedSubSSG->m_metaScene.m_metaModellList.push_back(newMd);
@@ -1000,80 +971,6 @@ void SemGraphMatcher::addContextNodesToSubSSG(SceneSemGraph *matchedSubSSG, Scen
 
 	matchedSubSSG->parseNodeNeighbors();
 	matchedSubSSG->restoreMissingSupportNodes();
-}
-
-MetaModel& SemGraphMatcher::retrieveForModelInstance(const QString catName, const std::vector<QString> attriNames)
-{
-	std::vector<std::pair<int, int>> exactMatchMdIds;
-	std::vector<std::pair<int, int>> otherCandiMdIds;
-
-	for (int i = 0; i < m_sceneSemGraphManager->m_ssgNum; i++)
-	{
-		SceneSemGraph *currDBSSG = m_sceneSemGraphManager->getGraph(i);
-
-		for (int qNi = 0; qNi < currDBSSG->m_nodeNum; qNi++)
-		{
-			SemNode& sgNode = currDBSSG->m_nodes[qNi];
-			if (sgNode.nodeType == "object" && sgNode.nodeName == catName)
-			{
-				int modelId = currDBSSG->m_graphNodeToModelListIdMap[qNi];
-				MetaModel &md = currDBSSG->m_metaScene.m_metaModellList[modelId];
-
-				// test front dir for book to filter stand book
-				if (catName == "book" && md.frontDir.dot(vec3(0, 0, 1)) < 0.5)
-				{
-					continue;
-				}
-
-				if (!isModelInBlackList(toQString(md.name)))
-				{
-					// collect attri names for current node
-					std::vector<QString> currAttriNames = currDBSSG->getAttriNamesForNode(qNi);
-
-					// match attributes
-					int mAttriNum = 0;
-					for (int t=0; t<attriNames.size(); t++)
-					{
-						if (std::find(currAttriNames.begin(), currAttriNames.end(), attriNames[t])!=currAttriNames.end())
-						{
-							mAttriNum++;
-						}
-					}
-
-					if (mAttriNum == attriNames.size())
-					{
-						exactMatchMdIds.push_back(std::make_pair(i, modelId));  // (graphId, modelId)
-					}
-					else
-					{
-						otherCandiMdIds.push_back(std::make_pair(i, modelId));
-					}
-				}				
-			}
-		}
-	}
-
-	if (!exactMatchMdIds.empty())
-	{
-		int randId = GenRandomInt(0, exactMatchMdIds.size());
-		std::pair<int, int> selectPair = exactMatchMdIds[randId];
-
-		SceneSemGraph *currDBSSG = m_sceneSemGraphManager->getGraph(selectPair.first);
-		return currDBSSG->m_metaScene.m_metaModellList[selectPair.second];
-	}
-	else if(!otherCandiMdIds.empty())
-	{
-		int randId = GenRandomInt(0, otherCandiMdIds.size());
-		std::pair<int, int> selectPair = otherCandiMdIds[randId];
-
-		SceneSemGraph *currDBSSG = m_sceneSemGraphManager->getGraph(selectPair.first);
-		return currDBSSG->m_metaScene.m_metaModellList[selectPair.second];
-	}
-	else
-	{
-		// Failure case: return a room for debug
-		return MetaModel();
-	}
 }
 
 

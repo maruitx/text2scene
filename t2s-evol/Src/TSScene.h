@@ -69,10 +69,12 @@ public:
 
 	std::vector<std::vector<vec3>> m_overHangPositions;
 
-private:
-	unordered_map<string, Model*> &m_models;   // current loaded object DB
-	
 	MetaScene m_metaScene;
+
+	bool m_sceneLoadingDone;
+	bool m_sceneLayoutDone;
+private:
+	unordered_map<string, Model*> &m_models;   // current loaded object DB	
 
 	BoundingBox m_sceneBB;
     vec3 m_camTrans;
@@ -81,9 +83,7 @@ private:
 	int m_frameCount;
 
 	int m_loadedModelNum;
-	bool m_sceneLoadingDone;
 
-	bool m_sceneLayoutDone;
 
     int m_renderMode;    
 };

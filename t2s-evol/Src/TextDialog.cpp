@@ -3,6 +3,10 @@
 #include "Renderer.h"
 #include "Scene.h"
 #include "SceneSemGraph.h"
+#include "SceneGenerator.h"
+#include "LayoutPlanner.h"
+#include "RelationModelManager.h"
+#include "CollisionManager.h"
 #include "Utility.h"
 #include <qtextedit.h>
 #include <qpushbutton.h>
@@ -271,18 +275,51 @@ void TextDialog::onButtonProcess()
 					m_scene->m_variations[i]->loadSceneFile(sceneFileName);
 					m_scene->m_variations[i]->m_isRenderRoom = isRenderRoom;
 
+					m_scene->m_variations[i]->m_layoutPlanner = m_scene->m_sceneGenerator->m_layoutPlanner;
+					m_scene->m_variations[i]->m_relModelManager = m_scene->m_sceneGenerator->m_relModelManager;
+
+					m_scene->m_variations[i]->m_collisionManager->init();
+
 					QString sceneBaseName =toQString(PartitionString(sceneNameList[i].toStdString(), ".")[0]);
 					QString ssgFileName = QString(params::inst()->sceneDirectory.c_str()) + sceneBaseName + ".ssg";
 					if (fileExists(ssgFileName.toStdString()))
 					{
+						std::vector<int> renderModes;
+						for (int m = 0; m < m_scene->m_variations[i]->m_metaScene.m_metaModellList.size(); m++)
+						{
+							int renderMode = m_scene->m_variations[i]->m_metaScene.m_metaModellList[m].isSelected;
+							renderModes.push_back(renderMode);
+						}
+
 						m_scene->m_variations[i]->m_ssg = new SceneSemGraph(ssgFileName);
+						m_scene->m_variations[i]->m_metaScene = m_scene->m_variations[i]->m_ssg->m_metaScene;   // update the metaScene in TSScene
+
+						for (int m = 0; m < m_scene->m_variations[i]->m_metaScene.m_metaModellList.size(); m++)
+						{
+							m_scene->m_variations[i]->m_metaScene.m_metaModellList[m].isAlreadyPlaced = true;
+							m_scene->m_variations[i]->m_metaScene.m_metaModellList[m].isSelected = renderModes[m];
+						}
 					}
 					else
 					{
 						ssgFileName = "./SceneDB/SSGs/" + sceneBaseName + ".ssg";
 						if (fileExists(ssgFileName.toStdString()))
 						{
+							std::vector<int> renderModes;
+							for (int m = 0; m < m_scene->m_variations[i]->m_metaScene.m_metaModellList.size(); m++)
+							{
+								int renderMode = m_scene->m_variations[i]->m_metaScene.m_metaModellList[m].isSelected;
+								renderModes.push_back(renderMode);
+							}
+
 							m_scene->m_variations[i]->m_ssg = new SceneSemGraph(ssgFileName);
+							m_scene->m_variations[i]->m_metaScene = m_scene->m_variations[i]->m_ssg->m_metaScene;   // update the metaScene in TSScene
+
+							for (int m=0; m < m_scene->m_variations[i]->m_metaScene.m_metaModellList.size(); m++)
+							{
+								m_scene->m_variations[i]->m_metaScene.m_metaModellList[m].isAlreadyPlaced = true;
+								m_scene->m_variations[i]->m_metaScene.m_metaModellList[m].isSelected = renderModes[m];
+							}
 						}
 					}
 				}
@@ -296,7 +333,7 @@ void TextDialog::onButtonProcess()
 		return;
 	}
 
-	if (inputSentence.contains("ss "))
+	if (inputSentence.left(3)=="ss ")
 	{
 
 		//save scene name with no extention, default extention of ".result" will be added

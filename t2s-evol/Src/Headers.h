@@ -108,6 +108,7 @@ struct GlobalObjectParams
 	QString sceneDBType;
 	QString selectMethod;
 	double contextCoOccProb;
+	double groupCoOccProb;
 
 	unordered_map<string, Texture *> textures;
 

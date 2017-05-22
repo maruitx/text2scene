@@ -38,9 +38,7 @@ bool TriangleTrianglePredicate::operator()(const SimpleBoxNodeData &a, const Sim
 CollisionManager::CollisionManager(TSScene *s)
 	:m_scene(s)
 {
-	// build BVH
-	m_boxBVHs.resize(m_scene->modelNum());
-	m_collisionPositions.resize(m_scene->modelNum());
+	init();
 }
 
 CollisionManager::~CollisionManager()
@@ -61,6 +59,13 @@ CollisionManager::~CollisionManager()
 	}
 
 	m_collisionPositions.clear();
+}
+
+void CollisionManager::init()
+{
+	// build BVH
+	m_boxBVHs.resize(m_scene->modelNum());
+	m_collisionPositions.resize(m_scene->modelNum());
 }
 
 bool CollisionManager::checkCollisionBVH(Model *testModel, int testMetaModelIdx)

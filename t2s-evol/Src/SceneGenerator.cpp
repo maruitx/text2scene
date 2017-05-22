@@ -17,7 +17,7 @@ SceneGenerator::SceneGenerator(unordered_map<string, Model*> &models)
 	m_sceneSemGraphManager = new SceneSemGraphManager();
 	m_semanticGraphMatcher = new SemGraphMatcher(m_sceneSemGraphManager, m_relModelManager);
 
-	m_layoutPlanner = new LayoutPlanner(m_relModelManager);
+	m_layoutPlanner = new LayoutPlanner(m_relModelManager, m_sceneSemGraphManager);
 }
 
 SceneGenerator::~SceneGenerator()
@@ -32,6 +32,7 @@ void SceneGenerator::updateCurrentTextGraph(TextSemGraph *tsg)
 
 void SceneGenerator::updateCurrentTSScene(TSScene *ts)
 {
+	m_currScene = ts;
 	m_currUserSSG = ts->m_ssg;
 
 	if (m_currUserSSG != NULL)
@@ -44,38 +45,42 @@ SemanticGraph* SceneGenerator::prepareQuerySG()
 {
 	SemanticGraph *querySG;
 
-	if (m_currUserSSG != NULL)
+	if (!m_textSSG->m_isCommand)
 	{
-		//resetNodes(querySG);
-		m_currUserSSG->m_nodeAlignMap.clear();
-		adjustTextSSGWithCurrSSG(m_textSSG, m_currUserSSG);
-
-		querySG = new SemanticGraph(m_currUserSSG);
-		// update current UserSSG with textSSG for retrieval
-		querySG->alignAndMergeWithGraph(m_textSSG);
-
-		// set node matching status
-		for (int i = 0; i < querySG->m_nodeNum; i++)
+		// binding to current scene
+		if (m_currUserSSG != NULL)
 		{
-			SemNode& sgNode = querySG->m_nodes[i];
+			//resetNodes(querySG);
+			m_currUserSSG->m_nodeAlignMap.clear();
+			adjustTextSSGWithCurrSSG(m_textSSG, m_currUserSSG);
 
-			if (isMapContainsValue(m_textSSG->m_nodeAlignMap, i))
+			querySG = new SemanticGraph(m_currUserSSG);
+			// update current UserSSG with textSSG for retrieval
+			querySG->alignAndMergeWithGraph(m_textSSG);
+
+			// set node matching status
+			for (int i = 0; i < querySG->m_nodeNum; i++)
 			{
+				SemNode& sgNode = querySG->m_nodes[i];
+
+				if (isMapContainsValue(m_textSSG->m_nodeAlignMap, i))
+				{
+					sgNode.matchingStatus = SemNode::ExplicitNode;
+				}
+				else
+					sgNode.matchingStatus = SemNode::ContextNode;
+			}
+		}
+		// init a new scene with the text
+		else
+		{
+			querySG = new SemanticGraph(m_textSSG);
+
+			for (int i = 0; i < querySG->m_nodeNum; i++)
+			{
+				SemNode &sgNode = querySG->m_nodes[i];
 				sgNode.matchingStatus = SemNode::ExplicitNode;
 			}
-			else
-				sgNode.matchingStatus = SemNode::ContextNode;
-		}
-	}
-
-	else
-	{
-		querySG = new SemanticGraph(m_textSSG);
-		
-		for (int i = 0; i < querySG->m_nodeNum; i++)
-		{
-			SemNode &sgNode = querySG->m_nodes[i];
-			sgNode.matchingStatus = SemNode::ExplicitNode;
 		}
 	}
 
@@ -226,24 +231,86 @@ void SceneGenerator::resetNodes(SemanticGraph *sg)
 std::vector<TSScene*> SceneGenerator::generateTSScenes(int num)
 {
 	SemanticGraph *querySG = prepareQuerySG();
-	m_semanticGraphMatcher->updateQuerySG(querySG);
 
-	std::vector<SceneSemGraph*> matchedSSGs = m_semanticGraphMatcher->alignWithDatabaseSSGs(num);
-
-	std::vector<TSScene*> tsscenes;
-	for (int i = 0; i < matchedSSGs.size(); i++)
+	if (querySG == NULL)
 	{
-		SceneSemGraph *newUserSsg = bindToCurrTSScene(matchedSSGs[i]);
-		TSScene *s = newUserSsg->covertToTSScene(m_models);
-
-		s->m_layoutPlanner = m_layoutPlanner;
-		s->m_relModelManager = m_relModelManager;
-		tsscenes.push_back(s);
+		qDebug() << "No command could be executed";
 	}
 
-	delete querySG;
+	std::vector<TSScene*> tsscenes;
+
+	if (!querySG->m_isCommand)
+	{
+		m_semanticGraphMatcher->updateQuerySG(querySG);
+
+		std::vector<SceneSemGraph*> matchedSSGs = m_semanticGraphMatcher->alignWithDatabaseSSGs(num);
+
+		for (int i = 0; i < matchedSSGs.size(); i++)
+		{
+			SceneSemGraph *newUserSsg = bindToCurrTSScene(matchedSSGs[i]);
+			TSScene *s = newUserSsg->covertToTSScene(m_models);
+
+			s->m_layoutPlanner = m_layoutPlanner;
+			s->m_relModelManager = m_relModelManager;
+			tsscenes.push_back(s);
+		}
+	}
+
+	if (querySG!=NULL)
+	{
+		delete querySG;
+	}
 
 	return tsscenes;
+}
+
+void SceneGenerator::executeCommandsToCurrentScene()
+{	
+	if (m_currUserSSG == NULL) return;
+
+	m_currScene->m_toPlaceModelIds.clear();
+
+	for (int i=0; i < m_currUserSSG->m_nodes.size(); i++)
+	{
+		SemNode &objNode = m_currUserSSG->m_nodes[i];
+
+		if (objNode.nodeType == "object")
+		{
+			int metaModelId = m_currUserSSG->m_graphNodeToModelListIdMap[i];
+			MetaModel &md = m_currUserSSG->m_metaScene.m_metaModellList[metaModelId];
+			if (md.isJustReplaced)
+			{
+				md.isJustReplaced = false;
+			}
+		}
+	}
+
+	for (int i=0; i < m_textSSG->m_nodes.size(); i++)
+	{
+		SemNode &commandNode = m_textSSG->m_nodes[i];
+
+		if (commandNode.nodeType == "command")
+		{
+			if (!commandNode.inEdgeNodeList.empty())
+			{
+				for (int j=0; j < commandNode.inEdgeNodeList.size(); j++)
+				{
+					int directObjNodeId = commandNode.inEdgeNodeList[j];
+					SemNode &dirObjNode = m_textSSG->m_nodes[directObjNodeId];
+
+					// collect all direct objs
+					for (int j = 0; j < m_currUserSSG->m_nodes.size(); j++)
+					{
+						SemNode &objNode = m_currUserSSG->m_nodes[j];
+						if (objNode.nodeType == "object" && objNode.nodeName == dirObjNode.nodeName)
+						{
+							m_layoutPlanner->executeCommand(m_currScene, commandNode.nodeName, j);
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
 SceneSemGraph* SceneGenerator::bindToCurrTSScene(SceneSemGraph *matchedSg)

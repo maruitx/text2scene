@@ -246,6 +246,12 @@ void GLWidget::loadParams()
 				p->contextCoOccProb = StringToFloat(PartitionString(paramLines[i], "ContextCoOccProb=")[0]);
 				continue;
 			}
+
+			if (paramLines[i].find("GroupCoOccProb=") != string::npos)
+			{
+				p->groupCoOccProb = StringToFloat(PartitionString(paramLines[i], "GroupCoOccProb=")[0]);
+				continue;
+			}
 		}
 	}
 }

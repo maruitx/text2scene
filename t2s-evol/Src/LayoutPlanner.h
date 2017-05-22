@@ -7,11 +7,12 @@ class SceneSemGraph;
 class TSScene;
 class RelationModelManager;
 class CollisionManager;
+class SceneSemGraphManager;
 
 class LayoutPlanner
 {
 public:
-	LayoutPlanner(RelationModelManager *relManager);
+	LayoutPlanner(RelationModelManager *relManager, SceneSemGraphManager *ssgManager);
 	~LayoutPlanner();
 
 	void loadSpecialModels();
@@ -41,17 +42,25 @@ public:
 	void updatePlacementOfParent(TSScene *currScene, int currModelID, mat4 transMat, std::vector<int> &ignoreModelList);
 
 	void initAlignmentOfChildren(SceneSemGraph *currSSG, int currModelId, mat4 transMat);
-	void updateMetaModelInScene(TSScene *currScene, int currModelID, mat4 transMat);
+	void updateMetaModelTransformInScene(TSScene *currScene, int currModelID, mat4 transMat);
+
+	void updateMetaModelInstanceInScene(TSScene *currScene, int currModelID, MetaModel newMd);
 
 	mat4 computeTransMatFromPos(TSScene *currScene, int anchorModelId, int currModelID, vec3 newPos, double newTheta);
+	mat4 computeTransMatFromPos(TSScene *currScene, MetaModel &anchorMd, MetaModel &currMd, vec3 newPos, double newTheta);
+
 
 	mat4 computeModelAlignTransMat(const MetaModel &fromModel, const MetaModel &toModel);
 
 	Eigen::VectorXd makePlacementVec(vec3 pos, double theta);
 
+	void executeCommand(TSScene *currScene, const QString &commandName, int directObjNodeId, int targetObjNodeId=-1);
+
 public:
 
 	RelationModelManager *m_relModelManager;  // pointer to the singleton; instance saved in SceneGenerator
+	SceneSemGraphManager *m_sceneSemGraphManager;
+
 	std::map<QString, double> m_specialModels; // special models that need adjust Z values
 	int m_trialNumLimit;
 

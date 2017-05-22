@@ -2,9 +2,10 @@
 #include "RelationModelManager.h"
 #include "Utility.h"
 
-TextSemGraph::TextSemGraph(SelSentence s, RelationModelManager *relManager):
+TextSemGraph::TextSemGraph(SelSentence s, RelationModelManager *relManager, bool isCommand):
 m_sentence(s), m_relModelManager(relManager)
 {
+	m_isCommand = isCommand;
 	initAttriSets();
 	buildGraphFromSEL();
 }
@@ -15,33 +16,58 @@ TextSemGraph::~TextSemGraph()
 
 void TextSemGraph::buildGraphFromSEL()
 {
-	// add object node
-	std::vector<QString> addedObjNames;
-	for (int i = 0; i < m_sentence.entityCount; i++)
+	if (!m_isCommand)
 	{
-		QString nameString = QString(m_sentence.m_entities[i].nameString);
-		if (nameString.contains("room") || nameString.contains("wall")) continue;  // do not consider room in current implementation
-
-		std::vector<std::string> parts = PartitionString(nameString.toStdString(), "-");
-		QString entityName = toQString(parts[0]);
-		m_sentence.m_entities[i].nameString = entityName;
-		QString determiner = m_sentence.m_entities[i].m_determiner;
-
-		// for plural form
-		if (m_sentence.m_entities[i].isPlural)
+		// add object node
+		std::vector<QString> addedObjNames;
+		for (int i = 0; i < m_sentence.entityCount; i++)
 		{
-			entityName = convertToSinglarForm(entityName);
+			QString nameString = QString(m_sentence.m_entities[i].nameString);
+			if (nameString.contains("room") || nameString.contains("wall")) continue;  // do not consider room in current implementation
 
-			QString instanceCountString = m_sentence.m_entities[i].instanceCountString;
-			bool isNumber;
-			int instCount = instanceCountString.toInt(&isNumber);   // no specified instance count is also counted 1
+			std::vector<std::string> parts = PartitionString(nameString.toStdString(), "-");
+			QString entityName = toQString(parts[0]);
+			m_sentence.m_entities[i].nameString = entityName;
+			QString determiner = m_sentence.m_entities[i].m_determiner;
 
-			if (isNumber)
+			// for plural form
+			if (m_sentence.m_entities[i].isPlural)
 			{
-				// since isPlural is true, add more instances; otherwise, use the given number
-				if (instCount == 1)
+				entityName = convertToSinglarForm(entityName);
+
+				QString instanceCountString = m_sentence.m_entities[i].instanceCountString;
+				bool isNumber;
+				int instCount = instanceCountString.toInt(&isNumber);   // no specified instance count is also counted 1
+
+				if (isNumber)
 				{
-					instCount = GenRandomInt(2, 4);
+					// since isPlural is true, add more instances; otherwise, use the given number
+					if (instCount == 1)
+					{
+						instCount = GenRandomInt(2, 4);
+
+						if (entityName == "monitor")
+						{
+							instCount = 1;
+						}
+
+						if (entityName == "keyboard")
+						{
+							instCount = 1;
+						}
+					}
+				}
+				else
+				{
+					if (instanceCountString == "some")
+					{
+						instCount = GenRandomInt(2, 4);
+					}
+
+					if (instanceCountString == "many")
+					{
+						instCount = GenRandomInt(3, 6);
+					}
 
 					if (entityName == "monitor")
 					{
@@ -53,201 +79,219 @@ void TextSemGraph::buildGraphFromSEL()
 						instCount = 1;
 					}
 				}
+
+				// special handling for books on shelf or cabinet
+				if (entityName == "book")
+				{
+					if (isOnObj(i, "shelf") || isWithObj(entityName, "shelf"))
+					{
+						entityName = "standbooks";
+						instCount = GenRandomInt(2, 4);
+					}
+
+					if (isOnObj(i, "cabinet") || isWithObj(entityName, "cabinet"))
+					{
+						entityName = "stackbooks";
+						instCount = 1;
+					}
+				}
+
+				// add one node if determiner is the, and adjust the actual count when binding with current scene
+				if (determiner == "the")
+				{
+					instCount = 1;
+				}
+
+
+				m_sentence.m_entities[i].instanceCount = instCount;
+				for (int j = 0; j < m_sentence.m_entities[i].instanceCount; j++)
+				{
+					addNode("object", entityName);
+					m_isNodeCertain.push_back(0);
+
+					int currNodeId = m_nodeNum - 1;
+					m_sentence.m_entities[i].m_instanceNodeIds.push_back(currNodeId);
+
+					SemNode &currNode = m_nodes[currNodeId];
+					if (determiner != "the")
+					{
+						currNode.useNewInst = true;
+					}
+				}
+
+				// update entity name
+				m_sentence.m_entities[i].nameString = entityName;
+				addedObjNames.push_back(entityName);
 			}
+			// for single form
 			else
 			{
-				if (instanceCountString == "some")
-				{
-					instCount = GenRandomInt(2, 4);
-				}
+				// if an entity appear multiple times, and some of them has determiner "the", then only insert one node for this instance
+				if (determiner == "the" &&
+					std::find(addedObjNames.begin(), addedObjNames.end(), entityName) != addedObjNames.end())
+					continue;
 
-				if (instanceCountString == "many")
-				{
-					instCount = GenRandomInt(3, 6);
-				}
-
-				if (entityName == "monitor")
-				{
-					instCount = 1;
-				}
-
-				if (entityName == "keyboard")
-				{
-					instCount = 1;
-				}
-			}
-
-			// special handling for books on shelf or cabinet
-			if (entityName == "book")
-			{
-				if (isOnObj(i, "shelf") || isWithObj(entityName, "shelf"))
-				{
-					entityName = "standbooks";
-					instCount = GenRandomInt(2, 4);
-				}
-					
-				if (isOnObj(i, "cabinet") || isWithObj(entityName, "cabinet"))
-				{
-					entityName = "stackbooks";
-					instCount = 1;
-				}				
-			}
-
-			// add one node if determiner is the, and adjust the actual count when binding with current scene
-			if (determiner == "the")
-			{
-				instCount = 1;
-			}
-
-
-			m_sentence.m_entities[i].instanceCount = instCount;
-			for (int j = 0; j < m_sentence.m_entities[i].instanceCount; j++)
-			{
 				addNode("object", entityName);
-				m_isNodeCertain.push_back(0);
+				m_isNodeCertain.push_back(1);
 
 				int currNodeId = m_nodeNum - 1;
-				m_sentence.m_entities[i].m_instanceNodeIds.push_back(currNodeId);
-
 				SemNode &currNode = m_nodes[currNodeId];
-				if (determiner != "the")
+				if (determiner == "a")
 				{
 					currNode.useNewInst = true;
 				}
-			}
 
-			// update entity name
-			m_sentence.m_entities[i].nameString = entityName;
-			addedObjNames.push_back(entityName);
+				m_sentence.m_entities[i].m_instanceNodeIds.push_back(m_nodeNum - 1);
+				m_sentence.m_entities[i].instanceCount = 1;
+				addedObjNames.push_back(entityName);
+			}
 		}
-		// for single form
-		else
+
+		// add relationship node
+		for (int i = 0; i < m_sentence.entityCount; i++)
 		{
-			// if an entity appear multiple times, and some of them has determiner "the", then only insert one node for this instance
-			if (determiner == "the" && 
-				std::find(addedObjNames.begin(), addedObjNames.end(), entityName) != addedObjNames.end())
-				continue;
+			QString nameString = QString(m_sentence.m_entities[i].nameString);
+			if (nameString.contains("room") || nameString.contains("wall")) continue;  // do not consider room in current implementation
 
-			addNode("object", entityName);
-			m_isNodeCertain.push_back(1);
+			int relationCount = m_sentence.m_entities[i].relationshipCount;
 
-			int currNodeId = m_nodeNum - 1;
-			SemNode &currNode = m_nodes[currNodeId];
-			if (determiner == "a")
+			std::vector<QString> currRelationStrings; // record current relation names; avoid duplicate
+			for (int j = 0; j < relationCount; j++)
 			{
-				currNode.useNewInst = true;
-			}
-
-			m_sentence.m_entities[i].m_instanceNodeIds.push_back(m_nodeNum - 1);
-			m_sentence.m_entities[i].instanceCount = 1;
-			addedObjNames.push_back(entityName);
-		}
-	}
-
-	// add relationship node
-	for (int i = 0; i < m_sentence.entityCount; i++)
-	{
-		QString nameString = QString(m_sentence.m_entities[i].nameString);
-		if (nameString.contains("room") || nameString.contains("wall")) continue;  // do not consider room in current implementation
-
-		int relationCount = m_sentence.m_entities[i].relationshipCount;
-
-		std::vector<QString> currRelationStrings; // record current relation names; avoid duplicate
-		for (int j = 0; j < relationCount; j++)
-		{
-			QString relationName = m_sentence.m_entities[i].m_relationships[j].nameString;
-			QString relationRawString = m_sentence.m_entities[i].m_relationships[j].entityString;
-			if (std::find(currRelationStrings.begin(), currRelationStrings.end(), relationRawString) != currRelationStrings.end())
-			{
-				continue;
-			}
-
-			currRelationStrings.push_back(relationRawString);
-
-			for (int n = 0; n < m_sentence.m_entities[i].instanceCount; n++)
-			{
-				QString entityRawString = m_sentence.m_entities[i].m_relationships[j].entityString;
-				std::vector<std::string> parts = PartitionString(entityRawString.toStdString(), "-");
-				QString anchorEntityName = toQString(parts[0]);
-				anchorEntityName = convertToSinglarForm(anchorEntityName);
-
-				// special handling for books on shelf or cabinet
-				if (anchorEntityName == "book")
+				QString relationName = m_sentence.m_entities[i].m_relationships[j].nameString;
+				QString relationRawString = m_sentence.m_entities[i].m_relationships[j].entityString;
+				if (std::find(currRelationStrings.begin(), currRelationStrings.end(), relationRawString) != currRelationStrings.end())
 				{
-					if (isWithObj(anchorEntityName, "shelf")) anchorEntityName = "standbooks";
-					if (isWithObj(anchorEntityName, "cabinet")) anchorEntityName = "stackbooks";
+					continue;
 				}
 
-				if (!relationName.contains("aligned"))
+				currRelationStrings.push_back(relationRawString);
+
+				for (int n = 0; n < m_sentence.m_entities[i].instanceCount; n++)
 				{
-					std::vector<int> refNodeIds = findNodeWithName(anchorEntityName);
-					for (int k = 0; k < refNodeIds.size(); k++)
+					QString entityRawString = m_sentence.m_entities[i].m_relationships[j].entityString;
+					std::vector<std::string> parts = PartitionString(entityRawString.toStdString(), "-");
+					QString anchorEntityName = toQString(parts[0]);
+					anchorEntityName = convertToSinglarForm(anchorEntityName);
+
+					// special handling for books on shelf or cabinet
+					if (anchorEntityName == "book")
 					{
-						addNode("relation", relationName);
+						if (isWithObj(anchorEntityName, "shelf")) anchorEntityName = "standbooks";
+						if (isWithObj(anchorEntityName, "cabinet")) anchorEntityName = "stackbooks";
+					}
 
-						int instanceNodeId = m_sentence.m_entities[i].m_instanceNodeIds[n];
-						int currNodeId = m_nodeNum - 1;
-						addEdge(instanceNodeId, currNodeId);
-						addEdge(currNodeId, refNodeIds[k]);
-
-						if (anchorEntityName == "wall")
+					if (!relationName.contains("aligned"))
+					{
+						std::vector<int> refNodeIds = findNodeWithName(anchorEntityName);
+						for (int k = 0; k < refNodeIds.size(); k++)
 						{
-							m_nodes[currNodeId].nodeName = "horizonsupport";
+							addNode("relation", relationName);
+
+							int instanceNodeId = m_sentence.m_entities[i].m_instanceNodeIds[n];
+							int currNodeId = m_nodeNum - 1;
+							addEdge(instanceNodeId, currNodeId);
+							addEdge(currNodeId, refNodeIds[k]);
+
+							if (anchorEntityName == "wall")
+							{
+								m_nodes[currNodeId].nodeName = "horizonsupport";
+							}
+						}
+					}
+				}
+
+				if (relationName.contains("aligned"))
+				{
+					std::vector<int> refNodeIds = findNodeWithName(nameString);
+
+					if (refNodeIds.size() > 1)
+					{
+						int anchorNodeId = refNodeIds[0];
+						for (int k = 1; k < refNodeIds.size(); k++)
+						{
+							addNode("relation", relationName);
+
+							int currNodeId = m_nodeNum - 1;
+							addEdge(refNodeIds[k], currNodeId);
+							addEdge(currNodeId, refNodeIds[0]);
 						}
 					}
 				}
 			}
+		}
 
-			if (relationName.contains("aligned"))
+		// add attribute node
+		for (int i = 0; i < m_sentence.entityCount; i++)
+		{
+			int attributeCount = m_sentence.m_entities[i].attributeCount;
+			QString entityName = QString(m_sentence.m_entities[i].nameString);
+
+			for (int j = 0; j < attributeCount; j++)
 			{
-				std::vector<int> refNodeIds = findNodeWithName(nameString);
 
-				if (refNodeIds.size() > 1)
+				QString attriName = m_sentence.m_entities[i].m_attributes[j].nameString;
+
+				if (isGoodAttribute(attriName))
 				{
-					int anchorNodeId = refNodeIds[0];
-					for (int k = 1; k < refNodeIds.size(); k++)
+					std::vector<int> nodeIds = findNodeWithName(entityName);
+					for (int k = 0; k < nodeIds.size(); k++)
 					{
-						addNode("relation", relationName);
-
-						int currNodeId = m_nodeNum - 1;
-						addEdge(refNodeIds[k], currNodeId);
-						addEdge(currNodeId, refNodeIds[0]);
+						addNode("attribute", m_sentence.m_entities[i].m_attributes[j].nameString);
+						addEdge(m_nodeNum - 1, nodeIds[k]);
 					}
 				}
 			}
 		}
+
+		this->parseNodeNeighbors();
+
+		mapNodeNameToFixedNameSet();
+
+		addImplicitAttributes();
+		addImplicitRelations();
+		postProcessForSpecialRelations();
 	}
-
-	// add attribute node
-	for (int i = 0; i < m_sentence.entityCount; i++)
+	else
 	{
-		int attributeCount = m_sentence.m_entities[i].attributeCount;
-		QString entityName = QString(m_sentence.m_entities[i].nameString);
-
-		for (int j = 0; j < attributeCount; j++)
+		// add command
+		for (int i = 0; i < m_sentence.commandCount; i++)
 		{
-
-			QString attriName = m_sentence.m_entities[i].m_attributes[j].nameString;
-
-			if(isGoodAttribute(attriName))
+			QString commandName = m_sentence.m_commands[i].verbString;
+			if (m_sentence.m_commands[i].attributeCount > 0)
 			{
-				std::vector<int> nodeIds = findNodeWithName(entityName);
-				for (int k = 0; k < nodeIds.size(); k++)
+				commandName += m_sentence.m_commands[i].attributeStrings[0];
+			}
+
+			addNode("command", commandName);
+			int commandNodeId = m_nodeNum - 1;
+
+			for (int j=0; j < m_sentence.m_commands[i].targetCount; j++)
+			{
+				QString &currTargetString = m_sentence.m_commands[i].targetStrings[j];
+				if (currTargetString.contains("dobj"))
 				{
-					addNode("attribute", m_sentence.m_entities[i].m_attributes[j].nameString);
-					addEdge(m_nodeNum - 1, nodeIds[k]);
+					QString directObjName = toQString(PartitionString(currTargetString.toStdString(), "dobj|")[0]);
+					directObjName = directObjName.split("-")[0];
+
+					addNode("object", directObjName);
+					int directObjId = m_nodeNum - 1;
+					addEdge(directObjId, commandNodeId);
+				}
+				else
+				{
+					QString targetObjName = toQString(PartitionString(currTargetString.toStdString(), "|")[1]);
+					targetObjName = targetObjName.split("-")[0];
+
+					addNode("object", targetObjName);
+					int targetObjId = m_nodeNum - 1;
+					addEdge(commandNodeId, targetObjId);
 				}
 			}
 		}
+
+		mapNodeNameToFixedNameSet();
 	}
-
-	this->parseNodeNeighbors();
-
-	mapNodeNameToFixedNameSet();
-
-	addImplicitAttributes();
-	addImplicitRelations();
-	postProcessForSpecialRelations();
 }
 
 void TextSemGraph::mapNodeNameToFixedNameSet()
@@ -267,6 +311,11 @@ void TextSemGraph::mapNodeNameToFixedNameSet()
 		if (m_nodes[i].nodeType == "attribute")
 		{
 			mapToFixedAttributeSet(m_nodes[i].nodeName, m_nodes[i].nodeType);
+		}
+
+		if (m_nodes[i].nodeType == "command")
+		{
+			mapToFixedCommandSet(m_nodes[i].nodeName, m_nodes[i].nodeType);
 		}
 	}
 
@@ -695,6 +744,11 @@ void TextSemGraph::mapToFixedAttributeSet(QString &nodeName, QString &nodeType /
 		nodeName = "clean";
 		return;
 	}
+}
+
+void TextSemGraph::mapToFixedCommandSet(QString &nodeName, QString &nodeType /*= QString("")*/)
+{
+
 }
 
 void TextSemGraph::addImplicitAttributes()

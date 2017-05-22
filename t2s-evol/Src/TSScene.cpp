@@ -176,6 +176,12 @@ void TSScene::loadSceneFile(const QString &filename)
 		}
 	}
 
+	m_modelNum = m_metaScene.m_metaModellList.size();
+
+	m_explictConstraints.resize(m_modelNum);
+	m_implicitConstraints.resize(m_modelNum);
+	m_overHangPositions.resize(m_modelNum);
+
 	m_isLoadFromFile = true;
 	m_sceneLoadingDone = false;
 	m_floorHeight = 0;
@@ -558,7 +564,7 @@ bool TSScene::computeZForModel(int currModelId, int parentModelId, vec3 startPt,
 		}
 	}
 
-	double elevationVal = 0.1 / sceneMetric;
+	double elevationVal = 0.2 / sceneMetric;
 
 	float3 rayStartPt = make_float3(startPt.x, startPt.y, startPt.z + elevationVal);
 	float3 downDir = make_float3(0, 0, -1);

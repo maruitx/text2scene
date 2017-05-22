@@ -20,6 +20,8 @@ public:
 	CollisionManager(TSScene *s);
 	~CollisionManager();
 
+	void init();
+
 	bool checkCollision(Model *testModel, int testModelIdx);
 	bool intersectAABB(const vec3 &miA, const vec3 &maA, const vec3 &miB, const vec3 &maB, double delta = 0);
 
