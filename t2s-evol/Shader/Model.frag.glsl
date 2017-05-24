@@ -82,6 +82,9 @@ void main()
 		   
 	   if(isSelected == 4)
 		   color.rgb *= vec3(1,0.5,0);
+		   
+		if(isSelected == 5)
+		   color.rgb *= vec3(1,0.5,0.9);
    }
 
    FragColor = vec4(color.rgb, 1);

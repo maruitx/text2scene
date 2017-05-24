@@ -55,6 +55,8 @@ vector<SceneSemGraph*> SemGraphMatcher::alignWithDatabaseSSGs(int targetMatchNum
 	int matchedSSGNum = scoredDBSubSSGs.size();
 	vector<SceneSemGraph*> matchedSubSSGs;
 
+	std::vector<int> videoIdList(3);
+
 	std::vector<int> nonRepeatSSGIds = findNonRepeatSSGs(scoredDBSubSSGs, targetMatchNum);
 
 	for (int i = 0; i < nonRepeatSSGIds.size(); i++)
@@ -65,7 +67,54 @@ vector<SceneSemGraph*> SemGraphMatcher::alignWithDatabaseSSGs(int targetMatchNum
 		if (ssg != NULL)
 		{
 			matchedSubSSGs.push_back(ssg);
+
+			//if (params::inst()->doVideo)
+			//{
+			//	if (ssg->m_dbSSGId == 36)
+			//	{
+			//		videoIdList[0] = sgId;			
+			//	}
+
+			//	if (ssg->m_dbSSGId == 31)
+			//	{
+			//		videoIdList[1] = sgId;
+			//	}
+
+			//	if (ssg->m_dbSSGId == 105)
+			//	{
+			//		videoIdList[2] = sgId;
+			//	}
+			//}
 		}
+	}
+
+	if (params::inst()->doVideo)
+	{
+		//// set fixed order for video
+		//std::vector<int> idInList;
+
+		//for (int i = 0; i < scoredDBSubSSGs.size(); i++)
+		//{
+		//	SceneSemGraph *subSSG = scoredDBSubSSGs[i].second;
+		//	if (subSSG->m_dbSSGId == 37)  // desk
+		//	{
+		//		idInList.push_back(subSSG->m_dbSSGId); break;
+		//	}
+
+		//	if (subSSG->m_dbSSGId == 43)  // bed
+		//	{
+		//		idInList.push_back(subSSG->m_dbSSGId); break;
+		//	}
+		//}
+
+		//if (!idInList.empty())
+		//{
+		//	matchedSubSSGs[0] = scoredDBSubSSGs[idInList[0]].second;
+		//}
+
+		//matchedSubSSGs[0] = scoredDBSubSSGs[videoIdList[0]].second;
+		//matchedSubSSGs[1] = scoredDBSubSSGs[videoIdList[1]].second;
+		//matchedSubSSGs[2] = scoredDBSubSSGs[videoIdList[2]].second;
 	}
 
 	// enrich subSSG
@@ -142,6 +191,12 @@ vector<SceneSemGraph*> SemGraphMatcher::alignWithDatabaseSSGs(int targetMatchNum
 				addContextNodesToSubSSG(matchedSubSSGs[a], dbSSG);
 			}
 		}
+	}
+	else if(params::inst()->isUseContext == 0 && params::inst()->doVideo)
+	{
+		int currSubSSGNum = matchedSubSSGs.size();
+		SceneSemGraph *dbSSG = m_sceneSemGraphManager->getGraph(matchedSubSSGs[currSubSSGNum - 1]->m_dbSSGId);
+		addContextNodesToSubSSG(matchedSubSSGs[currSubSSGNum-1], dbSSG);  // add to last subSSG
 	}
 
 	for (int a=0; a<addedSubSSGs.size(); a++)

@@ -252,6 +252,12 @@ void GLWidget::loadParams()
 				p->groupCoOccProb = StringToFloat(PartitionString(paramLines[i], "GroupCoOccProb=")[0]);
 				continue;
 			}
+
+			if (paramLines[i].find("doVideo=") != string::npos)
+			{
+				p->doVideo = StringToFloat(PartitionString(paramLines[i], "doVideo=")[0]);
+				continue;
+			}
 		}
 	}
 }

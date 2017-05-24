@@ -108,7 +108,16 @@ MetaModel& SceneSemGraphManager::retrieveForModelInstance(const QString catName,
 					{
 						return md;
 					}
+				}
 
+				if (md.catName == "bed")
+				{
+					// 5ce562e0632b7e81d8e3889d90601dd1					
+					// 6d67f92d6e11f29e5792b99b8245d225
+					if (md.name == "b32ad01b13c6739daaddabe471cbd38e")
+					{
+						return md;
+					}
 				}
 
 				if (md.catName == "monitor")

@@ -201,7 +201,7 @@ void TextDialog::onButtonProcess()
 		// input scenes number as the variation number each time for now, otherwise will not be shown
 		for (int i = 0; i < sceneNum; i++)
 		{
-			if (sceneNum < m_scene->m_variations.size())
+			if (sceneNum <= m_scene->m_variations.size())
 			{
 				QString sceneName = sceneNameList[i];
 

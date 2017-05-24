@@ -633,6 +633,32 @@ bool LayoutPlanner::adjustInitTransfromSpecialModel(const MetaModel &anchorMd, M
 		}
 	}
 
+	if (anchorMd.catName == "bed" && (actMd.catName == "nightstand"))
+	{
+		double currAngle = GetRotAngleR(anchorMd.frontDir, actMd.frontDir, vec3(0, 0, 1));
+		double targetAngle;
+		bool needAdjust = false;
+		if (currAngle > 0.1*math_pi || currAngle < -0.8*math_pi)
+		{
+			needAdjust = true;
+			//targetAngle = GenRandomDouble(-math_pi, -0.8*math_pi);
+			targetAngle = 0;
+		}
+
+		if (needAdjust)
+		{
+			// adjust angle
+			mat4 rotMat = GetRotationMatrix(vec3(0, 0, 1), targetAngle - currAngle);
+			vec3 targetPosition = actMd.position; // save current position
+			vec3 translationVec = targetPosition - rotMat*actMd.position; // pull the model back after rotation
+			mat4 translateMat = mat4::translate(translationVec);
+			mat4 adjustedMat = translateMat*rotMat;
+			actMd.updateWithTransform(adjustedMat);
+
+			isAdjusted = true;
+		}
+	}
+
 	if (anchorMd.catName == "chair" && (actMd.catName == "fork" || actMd.catName=="plate" || actMd.catName=="knife"))
 	{
 		double currAngle = GetRotAngleR(anchorMd.frontDir, actMd.frontDir, vec3(0, 0, 1));
@@ -1136,8 +1162,8 @@ mat4 LayoutPlanner::computeTransMatFromPos(TSScene *currScene, MetaModel &anchor
 	//double initTheta = GetRotAngleR(anchorFront, initModelDir, vec3(0, 0, 1));
 	//double rotTheta = newTheta - initTheta;
 
-	double rotTheta = newTheta - GetRotAngleR(anchorFront, currMd.frontDir, vec3(0, 0, 1));
-	rotMat = GetRotationMatrix(vec3(0, 0, 1), rotTheta);
+	//double rotTheta = newTheta - GetRotAngleR(anchorFront, currMd.frontDir, vec3(0, 0, 1));
+	//rotMat = GetRotationMatrix(vec3(0, 0, 1), rotTheta);
 
 	if (isnan(rotMat.a11))
 	{
@@ -1250,7 +1276,7 @@ void LayoutPlanner::executeCommand(TSScene *currScene, const QString &commandNam
 
 	if (commandName == CommandNames[CommandType::MoveApart])
 	{
-		double dist = 0.1 / params::inst()->globalSceneUnitScale;
+		double dist = 0.2 / params::inst()->globalSceneUnitScale;
 		int directModelId = currSSG->m_graphNodeToModelListIdMap[directObjNodeId];
 		MetaModel &dirMd = currScene->getMetaModel(directModelId);
 

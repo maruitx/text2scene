@@ -122,6 +122,7 @@ void SemanticGraph::initAttributeSet()
 	m_groupAttriSet.push_back("messy");
 	m_groupAttriSet.push_back("organized");
 	m_groupAttriSet.push_back("formal");
+	m_groupAttriSet.push_back("casual");
 }
 
 bool SemanticGraph::isStrictAttribute(const QString &attriName)
@@ -254,7 +255,7 @@ void SemanticGraph::alignObjectNodesWithGraph(SemanticGraph *targetGraph, double
 										{
 											matchedAttNum++;
 										}
-										else if(tarAttNode.inEdgeNodeList.size()>5)  // only matched to the large group
+										else if(tarAttNode.inEdgeNodeList.size()>8)  // only matched to the large group
 										{
 											matchedAttNum++;
 										}

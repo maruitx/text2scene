@@ -359,38 +359,44 @@ void Model::render(const Transform &trans, const mat4 &initTrans, bool applyShad
 		glEnable(GL_CULL_FACE);
 	}
 
-    //mat4 matCollision = mat4::translate(m_collisionTrans);
-	mat4 viewTrans = mat4::scale(params::inst()->globalSceneViewScale) * mat4::rotateX(-90);
-	//mat4 m = matCollision * viewTrans * initTrans;
-	mat4 m = viewTrans * initTrans;
 
-	Shader *shader = shaders::inst()->model;
-	shader->bind();
-		shader->setMatrices(trans, m, true, true, true, true, true);
 
-		shader->set3f("lightPos", params::inst()->lights[0]->position());
-		shader->setTexture("shadowMap", params::inst()->lights[0]->shadowMapBlurredId());
-		shader->seti("applyShadow", params::inst()->applyShadow && applyShadow ? 1 : 0);
-        shader->seti("renderMode", renderMode);
-        shader->seti("isSelected", isSelected);
+		//mat4 matCollision = mat4::translate(m_collisionTrans);
+		mat4 viewTrans = mat4::scale(params::inst()->globalSceneViewScale) * mat4::rotateX(-90);
+		//mat4 m = matCollision * viewTrans * initTrans;
+		mat4 m = viewTrans * initTrans;
 
-		//for (auto &i : m_meshes)
-		//{
-		//	i.render(trans, shader, textureDir);
-		//}
-
-		for (int i=0; i <m_meshes.size(); i++)
+		Shader *shader = shaders::inst()->model;
+		if (params::inst()->renderMesh)
 		{
-			m_meshes[i].render(trans, shader, textureDir);
+			shader->bind();
+			shader->setMatrices(trans, m, true, true, true, true, true);
+
+			shader->set3f("lightPos", params::inst()->lights[0]->position());
+			shader->setTexture("shadowMap", params::inst()->lights[0]->shadowMapBlurredId());
+			shader->seti("applyShadow", params::inst()->applyShadow && applyShadow ? 1 : 0);
+			shader->seti("renderMode", renderMode);
+			shader->seti("isSelected", isSelected);
+
+			//for (auto &i : m_meshes)
+			//{
+			//	i.render(trans, shader, textureDir);
+			//}
+
+
+			for (int i = 0; i < m_meshes.size(); i++)
+			{
+				m_meshes[i].render(trans, shader, textureDir);
+			}
+
+			shader->release();
 		}
 
-	shader->release();
 
-
-    if(m_vboBB && params::inst()->renderObjectBB)
-    {
-	    shader = shaders::inst()->default;
-	    shader->bind();
+		if (m_vboBB && params::inst()->renderObjectBB)
+		{
+			shader = shaders::inst()->default;
+			shader->bind();
 		    shader->setMatrices(trans, m, true, true, true, true, true);
        
 		    m_vboBB->render();
@@ -403,6 +409,8 @@ void Model::render(const Transform &trans, const mat4 &initTrans, bool applyShad
 
 void Model::renderDepth(const Transform &trans, const mat4 &initTrans)
 {
+	if (!params::inst()->renderMesh) return;
+
     //mat4 matCollision = mat4::translate(m_collisionTrans);
 	mat4 viewTrans = mat4::scale(params::inst()->globalSceneViewScale) * mat4::rotateX(-90);
     //mat4 m = matCollision * viewTrans * initTrans;

@@ -345,7 +345,7 @@ void TSScene::renderDepth(const Transform &trans)
 		MetaModel &md = m_metaScene.m_metaModellList[i];
 		auto &iter = m_models.find(md.name);
 
-		if (iter != m_models.end())
+		if (iter != m_models.end() && md.isAlreadyPlaced)
 		{
 			iter->second->renderDepth(tt, md.transformation);
 		}

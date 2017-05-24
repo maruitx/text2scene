@@ -109,6 +109,7 @@ struct GlobalObjectParams
 	QString selectMethod;
 	double contextCoOccProb;
 	double groupCoOccProb;
+	bool doVideo;
 
 	unordered_map<string, Texture *> textures;
 
