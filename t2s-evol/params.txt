@@ -1,5 +1,5 @@
 SceneDBType=stanford
-PreviewNum=10
+PreviewNum=5
 AddSynthNode=1
 AddSynthSceneNum=3
 UseContext=1

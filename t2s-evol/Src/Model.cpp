@@ -237,28 +237,73 @@ void ModelThread::load(const string &fileName)
 		}
 		if (curLine[0] == 'f' && curLine[1] == ' ')
 		{
+			// ref: https://en.wikipedia.org/wiki/Wavefront_.obj_file
+			// f v1 v2 v3
+			// f v1/vt1 v2/vt2 v3/vt3
+			// f v1/vt1/vn1 v2/vt2/vn2 v3/vt3/vn3
+			// f v1//vn1 v2//vn2 v3//vn3
+
 			std::stringstream stream(std::stringstream::in | std::stringstream::out);
 
 			unsigned int index0, index1, index2;
-			if (curLine.find('/') == std::string::npos)
+			std::size_t pos = curLine.find('/');
+			if (pos == std::string::npos)    // f v1 v2 v3
 			{
 				stream << curLine.substr(2);
 				stream >> index0 >> index1 >> index2;
 			}
 			else
 			{
-				std::string curLineCopy = curLine.substr(2);
-				for (unsigned int charIndex = 0; charIndex < curLineCopy.size(); charIndex++)
+				if (std::count(curLine.begin(), curLine.end(), '/') == 6)
 				{
-					if (curLineCopy[charIndex] == '/')
+					if (curLine[pos +1] == '/')    // f v1//vn1 v2//vn2 v3//vn3
 					{
-						curLineCopy[charIndex] = ' ';
+						std::string curLineCopy = curLine.substr(2);
+						for (unsigned int charIndex = 0; charIndex < curLineCopy.size(); charIndex++)
+						{
+							if (curLineCopy[charIndex] == '/')
+							{
+								curLineCopy[charIndex] = ' ';
+							}
+						}
+						stream << curLineCopy;
+						unsigned int temp0, temp1, temp2;
+						stream >> index0 >> temp0 >> index1 >> temp1 >> index2 >> temp2;
+					}
+					else    // f v1/vt1/vn1 v2/vt2/vn2 v3/vt3/vn3
+					{
+						std::string curLineCopy = curLine.substr(2);
+						for (unsigned int charIndex = 0; charIndex < curLineCopy.size(); charIndex++)
+						{
+							if (curLineCopy[charIndex] == '/')
+							{
+								curLineCopy[charIndex] = ' ';
+							}
+						}
+
+						unsigned int tempVt0, tempVt1, tempVt2;
+						unsigned int tempVn0, tempVn1, tempVn2;
+
+						stream << curLineCopy;
+						stream >> index0 >> tempVt0 >> tempVn0 >> index1 >> tempVt1 >> tempVn1 >> index2 >> tempVt2 >> tempVn2;
 					}
 				}
-				stream << curLineCopy;
-				unsigned int temp0, temp1, temp2;
-				stream >> index0 >> temp0 >> index1 >> temp1 >> index2 >> temp2;
+				else    // f v1/vt1 v2/vt2 v3/vt3
+				{
+					std::string curLineCopy = curLine.substr(2);
+					for (unsigned int charIndex = 0; charIndex < curLineCopy.size(); charIndex++)
+					{
+						if (curLineCopy[charIndex] == '/')
+						{
+							curLineCopy[charIndex] = ' ';
+						}
+					}
+					stream << curLineCopy;
+					unsigned int temp0, temp1, temp2;
+					stream >> index0 >> temp0 >> index1 >> temp1 >> index2 >> temp2;
+				}
 			}
+
 			indices.push_back(index0 - 1);
 			indices.push_back(index1 - 1);
 			indices.push_back(index2 - 1);
@@ -272,12 +317,14 @@ void ModelThread::load(const string &fileName)
 			{
 				std::vector<VertexBufferObject::DATA> tmpVerts;
 				std::vector<uint> tmpIndices;
-				uint startIdx = indices[0];
+				//uint startIdx = indices[0];
+				uint tempVertId = 0;
 
 				for (int i = 0; i < indices.size(); ++i)
 				{
 					tmpVerts.push_back(vertices[indices[i]]);
-					tmpIndices.push_back(indices[i] - startIdx);
+					//tmpIndices.push_back(indices[i] - startIdx);
+					tmpIndices.push_back(tempVertId++);
 				}
 
 				ModelMesh m = ModelMesh(tmpVerts, tmpIndices, *activeMaterial);
@@ -294,12 +341,14 @@ void ModelThread::load(const string &fileName)
 	{
 		std::vector<VertexBufferObject::DATA> tmpVerts;
 		std::vector<uint> tmpIndices;
-		uint startIdx = indices[0];
+		//uint startIdx = indices[0];
+		uint tempVertId = 0;
 
 		for (int i = 0; i < indices.size(); ++i)
 		{
 			tmpVerts.push_back(vertices[indices[i]]);
-			tmpIndices.push_back(indices[i] - startIdx);
+			//tmpIndices.push_back(indices[i] - startIdx);
+			tmpIndices.push_back(tempVertId++);
 		}
 
 		ModelMesh m = ModelMesh(tmpVerts, tmpIndices, *activeMaterial);
@@ -308,13 +357,6 @@ void ModelThread::load(const string &fileName)
 		m_meshes.push_back(m);		
 		indices.clear();
 	}
-
-
-
-
-	
-
-
 }
 
 void ModelThread::buildBVH()

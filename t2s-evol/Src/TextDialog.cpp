@@ -112,6 +112,7 @@ void TextDialog::onButtonProcess()
 		transMat.setToIdentity();
 		m.transformation = transMat;
 		m.isInitLoaded = true;
+		m.isAlreadyPlaced = true;
 
 		m_scene->roomModel = m;
 
@@ -120,6 +121,33 @@ void TextDialog::onButtonProcess()
 		{
 			m_scene->m_variations[i]->updateRoomModel(m);
 		}
+
+		return;
+	}
+
+	// load scene model downloaded from 3D warehouse
+
+	if (inputSentence.contains("lweb "))
+	{
+		QStringList stringList = inputSentence.split(" ");
+		QString modelName = stringList[1];
+
+		params::inst()->modelDirectory = "../../SceneDB/Warehouse/";
+		params::inst()->textureDirectory = "../../SceneDB/Warehouse/textures/";
+
+		MetaModel m;
+		m.name = modelName.toStdString();
+		m.path = params::inst()->modelDirectory + modelName.toStdString() + ".obj";
+		mat4 transMat;
+		transMat.setToIdentity();
+		m.transformation = transMat;
+		m.isInitLoaded = true;
+		m.isAlreadyPlaced = true;
+
+		m_scene->roomModel = m;
+
+		m_scene->m_variations[0]->updateRoomModel(m);
+
 
 		return;
 	}
