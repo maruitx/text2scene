@@ -155,7 +155,13 @@ void ModelThread::load(const string &fileName)
 
 	for (unsigned int lineIndex = 0; lineIndex < mtlLines.size(); lineIndex++)
 	{
-		const std::string &curLine = mtlLines[lineIndex];
+		std::string &curLine = mtlLines[lineIndex];
+
+		if (curLine[0] == '\t' )
+		{
+			curLine = curLine.substr(1);
+		}
+
 		if (curLine.find("newmtl ") == 0)
 		{
 			const std::string materialName = curLine.substr(7);
