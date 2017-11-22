@@ -132,7 +132,7 @@ void TextDialog::onButtonProcess()
 		QStringList stringList = inputSentence.split(" ");
 		QString modelName = stringList[1];
 
-		params::inst()->modelDirectory = "../../SceneDB/Warehouse/";
+		params::inst()->modelDirectory = "../../SceneDB/Warehouse/scenes/";
 		params::inst()->textureDirectory = "../../SceneDB/Warehouse/textures/";
 
 		MetaModel m;

@@ -184,7 +184,16 @@ void ModelThread::load(const string &fileName)
 		{
 			const std::string textureName = curLine.substr(7);
 			QString tmpStr = toQString(textureName).replace("../textures/", "");
-			tmpStr.chop(4);
+			
+			if (tmpStr.contains("jpg"))
+			{
+				tmpStr.chop(4);
+			}
+			else if (tmpStr.contains("jpeg"))
+			{
+				tmpStr.chop(5);
+			}
+
 			activeMaterial->texName = tmpStr.toStdString();
 		}
 	}
