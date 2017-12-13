@@ -247,8 +247,8 @@ void TextDialog::onButtonProcess()
 					params::inst()->modelDirectory = stanfordDBPath + "models/";
 					params::inst()->textureDirectory = stanfordDBPath + "textures/";
 
-					double s = 0.1 / 0.0254;  // snn use meter as metric
-					params::inst()->globalSceneViewScale = vec3(s, s, s);
+					//double s = 0.1 / 0.0254;  // snn use meter as metric
+					//params::inst()->globalSceneViewScale = vec3(s, s, s);
 				}
 				else if (sceneName.contains(".user") && !sceneName.contains(".result"))
 				{
@@ -310,7 +310,23 @@ void TextDialog::onButtonProcess()
 
 					QString sceneBaseName =toQString(PartitionString(sceneNameList[i].toStdString(), ".")[0]);
 					QString ssgFileName = QString(params::inst()->sceneDirectory.c_str()) + sceneBaseName + ".ssg";
+					bool ssgFileExist = false;
+
 					if (fileExists(ssgFileName.toStdString()))
+					{
+						ssgFileExist = true;
+					}
+					else
+					{
+						// try another ssg file name
+						ssgFileName = "./SceneDB/SSGs/" + sceneBaseName + ".ssg";
+						if (fileExists(ssgFileName.toStdString()))
+						{
+							ssgFileExist = true;
+						}
+					}
+
+					if (ssgFileExist)
 					{
 						std::vector<int> renderModes;
 						for (int m = 0; m < m_scene->m_variations[i]->m_metaScene.m_metaModellList.size(); m++)
@@ -322,32 +338,10 @@ void TextDialog::onButtonProcess()
 						m_scene->m_variations[i]->m_ssg = new SceneSemGraph(ssgFileName);
 						m_scene->m_variations[i]->m_metaScene = m_scene->m_variations[i]->m_ssg->m_metaScene;   // update the metaScene in TSScene
 
-						for (int m = 0; m < m_scene->m_variations[i]->m_metaScene.m_metaModellList.size(); m++)
+						for (int m=0; m < m_scene->m_variations[i]->m_metaScene.m_metaModellList.size(); m++)
 						{
 							m_scene->m_variations[i]->m_metaScene.m_metaModellList[m].isAlreadyPlaced = true;
 							m_scene->m_variations[i]->m_metaScene.m_metaModellList[m].isSelected = renderModes[m];
-						}
-					}
-					else
-					{
-						ssgFileName = "./SceneDB/SSGs/" + sceneBaseName + ".ssg";
-						if (fileExists(ssgFileName.toStdString()))
-						{
-							std::vector<int> renderModes;
-							for (int m = 0; m < m_scene->m_variations[i]->m_metaScene.m_metaModellList.size(); m++)
-							{
-								int renderMode = m_scene->m_variations[i]->m_metaScene.m_metaModellList[m].isSelected;
-								renderModes.push_back(renderMode);
-							}
-
-							m_scene->m_variations[i]->m_ssg = new SceneSemGraph(ssgFileName);
-							m_scene->m_variations[i]->m_metaScene = m_scene->m_variations[i]->m_ssg->m_metaScene;   // update the metaScene in TSScene
-
-							for (int m=0; m < m_scene->m_variations[i]->m_metaScene.m_metaModellList.size(); m++)
-							{
-								m_scene->m_variations[i]->m_metaScene.m_metaModellList[m].isAlreadyPlaced = true;
-								m_scene->m_variations[i]->m_metaScene.m_metaModellList[m].isSelected = renderModes[m];
-							}
 						}
 					}
 				}
