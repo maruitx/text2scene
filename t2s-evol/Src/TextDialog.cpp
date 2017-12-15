@@ -336,7 +336,7 @@ void TextDialog::onButtonProcess()
 						}
 
 						m_scene->m_variations[i]->m_ssg = new SceneSemGraph(ssgFileName);
-						m_scene->m_variations[i]->m_metaScene = m_scene->m_variations[i]->m_ssg->m_metaScene;   // update the metaScene in TSScene
+						m_scene->m_variations[i]->m_metaScene = m_scene->m_variations[i]->m_ssg->m_graphMetaScene;   // update the metaScene in TSScene
 
 						for (int m=0; m < m_scene->m_variations[i]->m_metaScene.m_metaModellList.size(); m++)
 						{

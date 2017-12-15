@@ -47,7 +47,7 @@ public:
 	bool hasObj(const QString &catName, int initModelNum=0);
 
 public:
-	MetaScene m_metaScene;
+	MetaScene m_graphMetaScene; // meta scene corresponding to the scene graph
 	std::map<int, int> m_graphNodeToModelListIdMap;	
 
 	// for matching

@@ -92,7 +92,7 @@ MetaModel& SceneSemGraphManager::retrieveForModelInstance(const QString catName,
 			if (sgNode.nodeType == "object" && sgNode.nodeName == catName)
 			{
 				int modelId = currDBSSG->m_graphNodeToModelListIdMap[qNi];
-				MetaModel &md = currDBSSG->m_metaScene.m_metaModellList[modelId];
+				MetaModel &md = currDBSSG->m_graphMetaScene.m_metaModellList[modelId];
 
 				// test front dir for book to filter stand book
 				if (catName == "book" && md.frontDir.dot(vec3(0, 0, 1)) < 0.5)
@@ -191,7 +191,7 @@ MetaModel& SceneSemGraphManager::retrieveForModelInstance(const QString catName,
 		std::pair<int, int> selectPair = exactMatchMdIds[randId];
 
 		SceneSemGraph *currDBSSG = this->getGraph(selectPair.first);
-		return currDBSSG->m_metaScene.m_metaModellList[selectPair.second];
+		return currDBSSG->m_graphMetaScene.m_metaModellList[selectPair.second];
 	}
 	else if (!otherCandiMdIds.empty())
 	{
@@ -199,7 +199,7 @@ MetaModel& SceneSemGraphManager::retrieveForModelInstance(const QString catName,
 		std::pair<int, int> selectPair = otherCandiMdIds[randId];
 
 		SceneSemGraph *currDBSSG = this->getGraph(selectPair.first);
-		return currDBSSG->m_metaScene.m_metaModellList[selectPair.second];
+		return currDBSSG->m_graphMetaScene.m_metaModellList[selectPair.second];
 	}
 	else
 	{

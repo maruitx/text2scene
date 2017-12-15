@@ -100,8 +100,8 @@ public:
 
 	void setNodesUnAligned();
 
-	void alignObjectNodesWithGraph(SemanticGraph *targetGraph, double &alignScore, bool userDeterminer =false);
-	void alignRelationNodesWithGraph(SemanticGraph *targetGraph, double &alignScore);
+	void alignObjectNodesToGraph(SemanticGraph *targetGraph, double &alignScore, bool userDeterminer =false);
+	void alignRelationNodesToGraph(SemanticGraph *targetGraph, double &alignScore);
 
 	void mergeWithGraph(SemanticGraph *inputGraph);
 	SemanticGraph* alignAndMergeWithGraph(SemanticGraph *sg);

@@ -52,9 +52,13 @@ SemanticGraph* SceneGenerator::prepareQuerySG()
 		{
 			//resetNodes(querySG);
 			m_currUserSSG->m_nodeAlignMap.clear();
+
+			// enrich or modify textSSG based on current scene; clarify determiners etc.
 			adjustTextSSGWithCurrSSG(m_textSSG, m_currUserSSG);
 
+			// init query graph with current scene
 			querySG = new SemanticGraph(m_currUserSSG);
+
 			// update current UserSSG with textSSG for retrieval
 			querySG->alignAndMergeWithGraph(m_textSSG);
 
@@ -243,11 +247,11 @@ std::vector<TSScene*> SceneGenerator::generateTSScenes(int num)
 	{
 		m_semanticGraphMatcher->updateQuerySG(querySG);
 
-		std::vector<SceneSemGraph*> matchedSSGs = m_semanticGraphMatcher->alignWithDatabaseSSGs(num);
+		std::vector<SceneSemGraph*> matchedSSGs = m_semanticGraphMatcher->retrieveDatabaseSSGs(num);
 
 		for (int i = 0; i < matchedSSGs.size(); i++)
 		{
-			SceneSemGraph *newUserSsg = bindToCurrTSScene(matchedSSGs[i]);
+			SceneSemGraph *newUserSsg = accommodateToCurrTSScene(matchedSSGs[i]);
 			TSScene *s = newUserSsg->covertToTSScene(m_models);
 
 			s->m_layoutPlanner = m_layoutPlanner;
@@ -277,7 +281,7 @@ void SceneGenerator::executeCommandsToCurrentScene()
 		if (objNode.nodeType == "object")
 		{
 			int metaModelId = m_currUserSSG->m_graphNodeToModelListIdMap[i];
-			MetaModel &md = m_currUserSSG->m_metaScene.m_metaModellList[metaModelId];
+			MetaModel &md = m_currUserSSG->m_graphMetaScene.m_metaModellList[metaModelId];
 			if (md.isJustReplaced)
 			{
 				md.isJustReplaced = false;
@@ -313,7 +317,7 @@ void SceneGenerator::executeCommandsToCurrentScene()
 	}
 }
 
-SceneSemGraph* SceneGenerator::bindToCurrTSScene(SceneSemGraph *matchedSg)
+SceneSemGraph* SceneGenerator::accommodateToCurrTSScene(SceneSemGraph *matchedSg)
 {
 	SceneSemGraph *newUserSsg;
 
@@ -326,15 +330,15 @@ SceneSemGraph* SceneGenerator::bindToCurrTSScene(SceneSemGraph *matchedSg)
 		newUserSsg->initMetaModelSuppPlanes(m_models);
 
 		// set scene file name that current match comes from
-		newUserSsg->m_metaScene.m_sceneFileName = matchedSg->m_metaScene.m_sceneFileName;
+		newUserSsg->m_graphMetaScene.m_sceneFileName = matchedSg->m_graphMetaScene.m_sceneFileName;
 		return newUserSsg;
 	}
 
 	// set status for object already in current ssg
-	for (int i = 0; i < m_currUserSSG->m_metaScene.m_metaModellList.size(); i++)
+	for (int i = 0; i < m_currUserSSG->m_graphMetaScene.m_metaModellList.size(); i++)
 	{
-		m_currUserSSG->m_metaScene.m_metaModellList[i].isAlreadyPlaced = true;
-		m_currUserSSG->m_metaScene.m_metaModellList[i].isBvhReady = false;  // update BVH before each evolution
+		m_currUserSSG->m_graphMetaScene.m_metaModellList[i].isAlreadyPlaced = true;
+		m_currUserSSG->m_graphMetaScene.m_metaModellList[i].isBvhReady = false;  // update BVH before each evolution
 	}
 
 	// copy from current sg
@@ -343,8 +347,8 @@ SceneSemGraph* SceneGenerator::bindToCurrTSScene(SceneSemGraph *matchedSg)
 	// align object node and relationship node
 	double alignScore = 0;
 	matchedSg->m_nodeAlignMap.clear();
-	matchedSg->alignObjectNodesWithGraph(newUserSsg, alignScore);
-	matchedSg->alignRelationNodesWithGraph(newUserSsg, alignScore);
+	matchedSg->alignObjectNodesToGraph(newUserSsg, alignScore);
+	matchedSg->alignRelationNodesToGraph(newUserSsg, alignScore);
 
 	// merge matched ssg to current scene ssg
 	newUserSsg->mergeWithMatchedSSG(matchedSg);
@@ -354,7 +358,7 @@ SceneSemGraph* SceneGenerator::bindToCurrTSScene(SceneSemGraph *matchedSg)
 	m_layoutPlanner->initPlaceByAlignRelation(matchedSg, newUserSsg);
 
 	// set scene file name that current match comes from
-	newUserSsg->m_metaScene.m_sceneFileName = matchedSg->m_metaScene.m_sceneFileName;
+	newUserSsg->m_graphMetaScene.m_sceneFileName = matchedSg->m_graphMetaScene.m_sceneFileName;
 	return newUserSsg;
 }
 

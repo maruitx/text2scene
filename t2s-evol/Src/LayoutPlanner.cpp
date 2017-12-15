@@ -964,14 +964,14 @@ void LayoutPlanner::initAlignmentOfChildren(SceneSemGraph *currSSG, int currMode
 {
 	// update support children
 	std::vector<int> childrenList = currSSG->m_childListOfModel[currModelId];
-	MetaModel &currMd = currSSG->m_metaScene.m_metaModellList[currModelId];
+	MetaModel &currMd = currSSG->m_graphMetaScene.m_metaModellList[currModelId];
 
 	if (!childrenList.empty())
 	{
 		for (int i = 0; i < childrenList.size(); i++)
 		{
 			int childId = childrenList[i];
-			MetaModel &childMd = currSSG->m_metaScene.m_metaModellList[childId];			
+			MetaModel &childMd = currSSG->m_graphMetaScene.m_metaModellList[childId];			
 			childMd.updateWithTransform(transMat);
 		}
 	}
@@ -1030,7 +1030,7 @@ void LayoutPlanner::updateMetaModelTransformInScene(TSScene * currScene, int cur
 	md.updateWithTransform(transMat);
 
 	// also need to update meta model in SSG
-	currScene->m_ssg->m_metaScene.m_metaModellList[currModelID] = md;
+	currScene->m_ssg->m_graphMetaScene.m_metaModellList[currModelID] = md;
 }
 
 void LayoutPlanner::updateMetaModelInstanceInScene(TSScene *currScene, int currModelID, MetaModel newMd)
@@ -1096,7 +1096,7 @@ void LayoutPlanner::updateMetaModelInstanceInScene(TSScene *currScene, int currM
 	currScene->m_sceneLoadingDone = false;
 
 	currScene->m_metaScene.m_metaModellList[currModelID] = newMd;
-	currScene->m_ssg->m_metaScene.m_metaModellList[currModelID] = newMd;
+	currScene->m_ssg->m_graphMetaScene.m_metaModellList[currModelID] = newMd;
 }
 
 mat4 LayoutPlanner::computeTransMatFromPos(TSScene *currScene, int anchorModelId, int currModelID, vec3 newPos, double newTheta)
@@ -1229,7 +1229,7 @@ void LayoutPlanner::executeCommand(TSScene *currScene, const QString &commandNam
 		for (int i=0; i < instanceIds.size(); i++)
 		{
 			int modelId = instanceIds[i];
-			MetaModel &currMd = currSSG->m_metaScene.m_metaModellList[modelId];
+			MetaModel &currMd = currSSG->m_graphMetaScene.m_metaModellList[modelId];
 
 			if (currMd.isJustReplaced)
 			{
@@ -1240,7 +1240,7 @@ void LayoutPlanner::executeCommand(TSScene *currScene, const QString &commandNam
 
 		if (justReplacedModelId!=-1)
 		{
-			MetaModel& newMd = currSSG->m_metaScene.m_metaModellList[justReplacedModelId];
+			MetaModel& newMd = currSSG->m_graphMetaScene.m_metaModellList[justReplacedModelId];
 
 			// move newMd to the position of current direct object, and rotate its front dir
 			vec3 tarPos = dirMd.position;

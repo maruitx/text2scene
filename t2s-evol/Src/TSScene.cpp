@@ -62,7 +62,7 @@ TSScene::TSScene(unordered_map<string, Model*> &models, SceneSemGraph *ssg)
 	m_floorHeight(0),
 	m_allConstraintsExtracted(false),
 	m_ssg(ssg), 
-	m_metaScene(ssg->m_metaScene),
+	m_metaScene(ssg->m_graphMetaScene),
     m_camTrans(0.0f, 0.0f, 0.0f), 
     m_renderMode(0)
 {
@@ -222,7 +222,8 @@ void TSScene::render(const Transform &trans, bool applyShadow)
 		countLoadedModelNum();
 	}
 
-	// compute layout if layout is not done
+	// start computing layout after all models are loaded
+	// keep computing layout if layout is not done
 	if (!m_isLoadFromFile && !m_sceneLayoutDone && m_sceneLoadingDone)
 	{
 		m_layoutPlanner->computeLayout(this);
@@ -246,6 +247,7 @@ void TSScene::render(const Transform &trans, bool applyShadow)
 
 		Model *currModel = getModel(md.name);
 
+		// only render model that passes the layout algorithm
 		if (currModel!= NULL && currModel->m_loadingDone && md.isAlreadyPlaced)
 		{
 			currModel->render(tt, md.transformation, applyShadow, md.textureDir, m_renderMode, md.isSelected);
@@ -392,7 +394,7 @@ void TSScene::countLoadedModelNum()
 
 		if (m_ssg != NULL)
 		{
-			sceneType = " from Matched DBSSG:" + m_ssg->m_metaScene.m_sceneFileName;			
+			sceneType = " from Matched DBSSG:" + m_ssg->m_graphMetaScene.m_sceneFileName;			
 		}
 		else
 		{
@@ -518,7 +520,7 @@ void TSScene::updateRoomModel(MetaModel m)
 				m_metaScene.m_metaModellList[i] = m;
 				if (m_ssg != NULL)
 				{
-					m_ssg->m_metaScene.m_metaModellList[i] = m;
+					m_ssg->m_graphMetaScene.m_metaModellList[i] = m;
 				}
 
 				return;

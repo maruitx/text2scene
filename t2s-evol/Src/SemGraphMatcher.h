@@ -16,15 +16,15 @@ public:
 
 	void updateQuerySG(SemanticGraph *sg);
 
-	vector<SceneSemGraph*> alignWithDatabaseSSGs(int targetMatchNum);
+	vector<SceneSemGraph*> retrieveDatabaseSSGs(int targetMatchNum);
 
-	SceneSemGraph* alignSSGWithDBSSG(SemanticGraph *querySSG, SceneSemGraph *dbSSG, double &matchingScore);
+	SceneSemGraph* alignQuerySSGWithDBSSG(SemanticGraph *querySSG, SceneSemGraph *dbSSG, double &matchingScore);
 
 	void addEdgesToSubSSG(SceneSemGraph *matchedSubSSG, SceneSemGraph *dbSSG);
 	void addGroupActNodesToSubSSG(SceneSemGraph *matchedSubSSG, SceneSemGraph *dbSSG);
 	void addSynthNodeToSubSSG(SceneSemGraph *matchedSubSSG, SceneSemGraph *dbSSG);  // add unmatched nodes as synth nodes to Sub-SSG
 	void addSuppParentNodesToSubSSG(SceneSemGraph *matchedSubSSG, SceneSemGraph *dbSSG);
-	void addContextNodesToSubSSG(SceneSemGraph *matchedSubSSG, SceneSemGraph *dbSSG);  	// add high co-occur objects with probability
+	void addContextNodesFromDbSSGToSubSSG(SceneSemGraph *matchedSubSSG, SceneSemGraph *dbSSG);  	// add high co-occur objects with probability
 
 	void addSupportNodeForActNode(int dbActNodeId, SceneSemGraph *dbSSG, SceneSemGraph *matchedSubSSG, int &currSubSSGNodeNum);
 

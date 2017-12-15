@@ -23,7 +23,7 @@ SceneSemGraph::SceneSemGraph(const QString &s)
 }
 
 SceneSemGraph::SceneSemGraph(SceneSemGraph *sg)
-	: m_metaScene(sg->m_metaScene),
+	: m_graphMetaScene(sg->m_graphMetaScene),
 	m_graphNodeToModelListIdMap(sg->m_graphNodeToModelListIdMap),
 	m_modelNum(sg->m_modelNum)
 {
@@ -62,16 +62,16 @@ void SceneSemGraph::loadGraph(const QString &filename)
 	}
 
 	QFileInfo sceneFileInfo(inFile.fileName());
-	m_metaScene.m_sceneFileName = sceneFileInfo.baseName();   // scene_01.txt
+	m_graphMetaScene.m_sceneFileName = sceneFileInfo.baseName();   // scene_01.txt
 
-	ifs >> m_metaScene.m_sceneFormat;
+	ifs >> m_graphMetaScene.m_sceneFormat;
 
 	// set DB path for the SSG
-	if (m_metaScene.m_sceneFormat == "StanfordSceneDatabase" || m_metaScene.m_sceneFormat == "SceneNNConversionOutput")
+	if (m_graphMetaScene.m_sceneFormat == "StanfordSceneDatabase" || m_graphMetaScene.m_sceneFormat == "SceneNNConversionOutput")
 	{
-		m_metaScene.m_sceneDBPath = toQString(params::inst()->localSceneDBDirectory);
-		m_metaScene.m_sceneFilePath = m_metaScene.m_sceneDBPath + "/scenes";
-		m_metaScene.m_modelRepository = m_metaScene.m_sceneDBPath + "/models";
+		m_graphMetaScene.m_sceneDBPath = toQString(params::inst()->localSceneDBDirectory);
+		m_graphMetaScene.m_sceneFilePath = m_graphMetaScene.m_sceneDBPath + "/scenes";
+		m_graphMetaScene.m_modelRepository = m_graphMetaScene.m_sceneDBPath + "/models";
 	}
 
 	int currModelID = -1;
@@ -84,7 +84,7 @@ void SceneSemGraph::loadGraph(const QString &filename)
 		if (currLine.contains("modelCount "))
 		{
 			m_modelNum = StringToIntegerList(currLine.toStdString(), "modelCount ")[0];
-			m_metaScene.m_metaModellList.resize(m_modelNum);
+			m_graphMetaScene.m_metaModellList.resize(m_modelNum);
 		}
 
 		if (currLine.contains("newModel "))
@@ -94,9 +94,9 @@ void SceneSemGraph::loadGraph(const QString &filename)
 			std::vector<std::string> parts = PartitionString(currLine.toStdString(), " ");
 			int modelIndex = StringToInt(parts[1]);
 
-			m_metaScene.m_metaModellList[currModelID].id = modelIndex;
-			m_metaScene.m_metaModellList[currModelID].name = parts[2];
-			m_metaScene.m_metaModellList[currModelID].path = m_metaScene.m_modelRepository.toStdString() + "/" + parts[2] + ".obj";
+			m_graphMetaScene.m_metaModellList[currModelID].id = modelIndex;
+			m_graphMetaScene.m_metaModellList[currModelID].name = parts[2];
+			m_graphMetaScene.m_metaModellList[currModelID].path = m_graphMetaScene.m_modelRepository.toStdString() + "/" + parts[2] + ".obj";
 		}
 
 		if (currLine.contains("transform "))
@@ -104,14 +104,14 @@ void SceneSemGraph::loadGraph(const QString &filename)
 			std::vector<float> transformVec = StringToFloatList(currLine.toStdString(), "transform ");  // transformation vector in stanford scene file is column-wise
 			mat4 transMat(transformVec.data());
 			transMat = transMat.transpose();
-			m_metaScene.m_metaModellList[currModelID].transformation = transMat;
+			m_graphMetaScene.m_metaModellList[currModelID].transformation = transMat;
 		}
 
 		if (currLine.contains("position "))
 		{
 			// position saves models init position before transformed
 			std::vector<float> elementList = StringToFloatList(currLine.toStdString(), "position ");
-			m_metaScene.m_metaModellList[currModelID].position = vec3(elementList[0], elementList[1], elementList[2]);
+			m_graphMetaScene.m_metaModellList[currModelID].position = vec3(elementList[0], elementList[1], elementList[2]);
 		}
 
 		if (currLine.contains("frontDir "))
@@ -119,8 +119,8 @@ void SceneSemGraph::loadGraph(const QString &filename)
 			// position saves model OBB bottom center which is already transformed
 			std::vector<int> dirElementList = StringToIntegerList(currLine.toStdString(), "frontDir ");
 			vec3 initFrontDir(dirElementList[0], dirElementList[1], dirElementList[2]);
-			m_metaScene.m_metaModellList[currModelID].frontDir = TransformVector(m_metaScene.m_metaModellList[currModelID].transformation, initFrontDir);
-			m_metaScene.m_metaModellList[currModelID].frontDir.normalize();
+			m_graphMetaScene.m_metaModellList[currModelID].frontDir = TransformVector(m_graphMetaScene.m_metaModellList[currModelID].transformation, initFrontDir);
+			m_graphMetaScene.m_metaModellList[currModelID].frontDir.normalize();
 		}
 
 		if (currLine.contains("upDir "))
@@ -128,8 +128,8 @@ void SceneSemGraph::loadGraph(const QString &filename)
 			// upDir saves models init upDir before transformed
 			std::vector<int> dirElementList = StringToIntegerList(currLine.toStdString(), "upDir ");
 			vec3 initUpDir(dirElementList[0], dirElementList[1], dirElementList[2]);
-			m_metaScene.m_metaModellList[currModelID].upDir = TransformVector(m_metaScene.m_metaModellList[currModelID].transformation, initUpDir);
-			m_metaScene.m_metaModellList[currModelID].upDir.normalize();
+			m_graphMetaScene.m_metaModellList[currModelID].upDir = TransformVector(m_graphMetaScene.m_metaModellList[currModelID].transformation, initUpDir);
+			m_graphMetaScene.m_metaModellList[currModelID].upDir.normalize();
 		}
 
 		if (currLine.contains("bbTopPlane "))
@@ -142,8 +142,8 @@ void SceneSemGraph::loadGraph(const QString &filename)
 				corners[v] = vec3(floatElementList[3 * v], floatElementList[3 * v + 1], floatElementList[3 * v + 2]);
 			}
 
-			m_metaScene.m_metaModellList[currModelID].bbTopPlane = SuppPlane(corners);
-			m_metaScene.m_metaModellList[currModelID].bbTopPlane.m_sceneMetric = 0.0254;
+			m_graphMetaScene.m_metaModellList[currModelID].bbTopPlane = SuppPlane(corners);
+			m_graphMetaScene.m_metaModellList[currModelID].bbTopPlane.m_sceneMetric = 0.0254;
 		}
 
 
@@ -152,7 +152,7 @@ void SceneSemGraph::loadGraph(const QString &filename)
 			std::vector<float> floatElementList = StringToFloatList(currLine.toStdString(), "parentPlaneUVH ");
 			vec3 uvh(floatElementList[0], floatElementList[1], floatElementList[2]);
 
-			m_metaScene.m_metaModellList[currModelID].parentPlaneUVH = uvh;
+			m_graphMetaScene.m_metaModellList[currModelID].parentPlaneUVH = uvh;
 		}
 	}
 
@@ -174,7 +174,7 @@ void SceneSemGraph::loadGraph(const QString &filename)
 					addNode(toQString(parts[1]), toQString(parts[2]));
 
 					// set model catgory in meta model
-					m_metaScene.m_metaModellList[metaModelId].catName = (parts[2].c_str());
+					m_graphMetaScene.m_metaModellList[metaModelId].catName = (parts[2].c_str());
 				}
 				else
 				{
@@ -212,7 +212,7 @@ void SceneSemGraph::loadGraph(const QString &filename)
 
 TSScene* SceneSemGraph::covertToTSScene(unordered_map<string, Model*> &models)
 {
-	m_modelNum = m_metaScene.m_metaModellList.size();
+	m_modelNum = m_graphMetaScene.m_metaModellList.size();
 	buildSupportHierarchy();
 
 	TSScene* newScene = new TSScene(models, this);
@@ -230,12 +230,12 @@ void SceneSemGraph::saveGraph(const QString &filename)
 		ofs << "StanfordSceneDatabase\n";
 
 		// save scene meta data
-		int modelNum = m_metaScene.m_metaModellList.size();
+		int modelNum = m_graphMetaScene.m_metaModellList.size();
 		ofs << "modelCount " << modelNum << "\n";
 
 		for (int i = 0; i < modelNum; i++)
 		{
-			MetaModel &md = m_metaScene.m_metaModellList[i];
+			MetaModel &md = m_graphMetaScene.m_metaModellList[i];
 			ofs << "newModel " << i << " " << toQString(md.name) << "\n";
 			ofs << "transform " << QString("%1").arg(md.transformation.a11, 0, 'f') << " " << QString("%1").arg(md.transformation.a21, 0, 'f') << " " << QString("%1").arg(md.transformation.a31, 0, 'f') << " " << QString("%1").arg(md.transformation.a41, 0, 'f') << " "
 				<< QString("%1").arg(md.transformation.a12, 0, 'f') << " " << QString("%1").arg(md.transformation.a22, 0, 'f') << " " << QString("%1").arg(md.transformation.a32, 0, 'f') << " " << QString("%1").arg(md.transformation.a42, 0, 'f') << " "
@@ -294,9 +294,9 @@ void SceneSemGraph::saveGraph(const QString &filename)
 
 void SceneSemGraph::initMetaModelSuppPlanes(unordered_map<string, Model*> &models)
 {
-	for (int i = 0; i < m_metaScene.m_metaModellList.size(); i++)
+	for (int i = 0; i < m_graphMetaScene.m_metaModellList.size(); i++)
 	{
-		MetaModel &md = m_metaScene.m_metaModellList[i];
+		MetaModel &md = m_graphMetaScene.m_metaModellList[i];
 		if (models.count(md.name))
 		{
 			Model *currModel = models[md.name];
@@ -434,9 +434,9 @@ bool SceneSemGraph::isBaseLevelObj(int nodeId)
 std::vector<int> SceneSemGraph::findExistingInstanceIds(const QString &catName)
 {
 	std::vector<int> ids;
-	for (int i=0; i< m_metaScene.m_metaModellList.size(); i++)
+	for (int i=0; i< m_graphMetaScene.m_metaModellList.size(); i++)
 	{
-		MetaModel &md = m_metaScene.m_metaModellList[i];
+		MetaModel &md = m_graphMetaScene.m_metaModellList[i];
 
 		if (toQString(md.catName) == catName)
 		{
@@ -451,12 +451,12 @@ bool SceneSemGraph::hasObj(const QString &catName, int initModelNum)
 {
 	if (initModelNum == 0)
 	{
-		initModelNum = m_metaScene.m_metaModellList.size();
+		initModelNum = m_graphMetaScene.m_metaModellList.size();
 	}
 
 	for (int i = 0; i < initModelNum; i++)
 	{
-		MetaModel &md = m_metaScene.m_metaModellList[i];
+		MetaModel &md = m_graphMetaScene.m_metaModellList[i];
 
 		if (toQString(md.catName) == catName)
 		{
@@ -518,10 +518,10 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, RelationM
 
 			if (dbMetaModelId < m_modelNum)
 			{
-				MetaModel &dbMd = m_metaScene.m_metaModellList[dbMetaModelId];
+				MetaModel &dbMd = m_graphMetaScene.m_metaModellList[dbMetaModelId];
 				dbMd.isSelected = m_nodes[dbNodeId].isAnnotated;
 
-				subGraph->m_metaScene.m_metaModellList.push_back(dbMd);
+				subGraph->m_graphMetaScene.m_metaModellList.push_back(dbMd);
 				int currNodeId = m_dbNodeToSubNodeMap[dbNodeId];
 				subGraph->m_graphNodeToModelListIdMap[currNodeId] = modelInSceneId;
 				modelInSceneId++;
@@ -529,7 +529,7 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, RelationM
 		}
 	}
 
-	subGraph->m_metaScene.m_sceneFileName = m_metaScene.m_sceneFileName;
+	subGraph->m_graphMetaScene.m_sceneFileName = m_graphMetaScene.m_sceneFileName;
 
 	subGraph->parseNodeNeighbors();
 
@@ -699,7 +699,7 @@ int SceneSemGraph::getNodeIdWithModelId(int modelId)
 MetaModel& SceneSemGraph::getModelWithNodeId(int nodeId)
 {
 	int modelId = m_graphNodeToModelListIdMap[nodeId];
-	return m_metaScene.m_metaModellList[modelId];
+	return m_graphMetaScene.m_metaModellList[modelId];
 }
 
 void SceneSemGraph::mergeWithMatchedSSG(SceneSemGraph *matchedSg)
@@ -718,16 +718,16 @@ void SceneSemGraph::insertUnAlignedObjsFromGraph(SceneSemGraph *matchedSg)
 		if (!matchedSgNode.isAligned && matchedSgNode.nodeType == "object")
 		{
 			int mModelId = matchedSg->m_graphNodeToModelListIdMap[mi];
-			MetaModel modelToInsert = matchedSg->m_metaScene.m_metaModellList[mModelId];
-			this->m_metaScene.m_metaModellList.push_back(modelToInsert);
+			MetaModel modelToInsert = matchedSg->m_graphMetaScene.m_metaModellList[mModelId];
+			this->m_graphMetaScene.m_metaModellList.push_back(modelToInsert);
 
-			int currMetaModelNum = this->m_metaScene.m_metaModellList.size();
+			int currMetaModelNum = this->m_graphMetaScene.m_metaModellList.size();
 			int ci = matchedSg->m_nodeAlignMap[mi];
 			this->m_graphNodeToModelListIdMap[ci] = currMetaModelNum - 1;
 		}
 	}
 
-	m_modelNum = m_metaScene.m_metaModellList.size();
+	m_modelNum = m_graphMetaScene.m_metaModellList.size();
 }
 
 bool SceneSemGraph::findRefNodeForRelationNode(const SemNode &sgNode, int &refNodeId, int &activeNodeId)

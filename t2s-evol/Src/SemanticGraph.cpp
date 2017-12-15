@@ -199,7 +199,7 @@ SemEdge& SemanticGraph::getEdge(int s, int t)
 	}
 }
 
-void SemanticGraph::alignObjectNodesWithGraph(SemanticGraph *targetGraph, double &alignScore, bool userDeterminer/*= false*/)
+void SemanticGraph::alignObjectNodesToGraph(SemanticGraph *targetGraph, double &alignScore, bool userDeterminer/*= false*/)
 {
 	double NodeScore[] = { 0, 0, 10};
 
@@ -342,7 +342,7 @@ void SemanticGraph::alignObjectNodesWithGraph(SemanticGraph *targetGraph, double
 	}
 }
 
-void SemanticGraph::alignRelationNodesWithGraph(SemanticGraph *targetGraph, double &alignScore)
+void SemanticGraph::alignRelationNodesToGraph(SemanticGraph *targetGraph, double &alignScore)
 {
 	double NodeScore[] = { 0, 0, 10 };
 
@@ -431,6 +431,7 @@ void SemanticGraph::setNodesUnAligned()
 	}
 }
 
+// merge input graph to current graph
 void SemanticGraph::mergeWithGraph(SemanticGraph *inputGraph)
 {
 	// insert all unaligned nodes
@@ -462,11 +463,12 @@ void SemanticGraph::mergeWithGraph(SemanticGraph *inputGraph)
 	this->parseNodeNeighbors();
 }
 
+// merge input graph to current graph
 SemanticGraph* SemanticGraph::alignAndMergeWithGraph(SemanticGraph *sg)
 {
 	double alignScore;
-	sg->alignObjectNodesWithGraph(this, alignScore, true);
-	sg->alignRelationNodesWithGraph(this, alignScore);
+	sg->alignObjectNodesToGraph(this, alignScore, true);
+	sg->alignRelationNodesToGraph(this, alignScore);
 
 	this->mergeWithGraph(sg);
 

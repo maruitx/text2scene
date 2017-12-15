@@ -31,7 +31,7 @@ public:
 	void executeCommandsToCurrentScene();
 
 	// scene binding
-	SceneSemGraph* bindToCurrTSScene(SceneSemGraph *matchedSg);
+	SceneSemGraph* accommodateToCurrTSScene(SceneSemGraph *matchedSg);
 	RelationModelManager *getRelationManager() { return m_relModelManager; };
 
 	RelationModelManager *m_relModelManager;  // singleton, only one instance
