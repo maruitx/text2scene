@@ -31,16 +31,29 @@ void SceneSemGraphManager::loadGraphs()
 	if (currLine.contains("SceneNum"))
 	{
 		int sceneNum = StringToIntegerList(currLine.toStdString(), "SceneNum ")[0];
+		m_sceneSemGraphs.resize(sceneNum);
 
+		std::chrono::high_resolution_clock::time_point start = GetCurrentClockTime();
+
+		std::vector<QString> allSSGFileNames(sceneNum);
+		
+		// load all file names
 		for (int i = 0; i < sceneNum; i++)
 		{
 			currLine = ifs.readLine();
 
 			QString ssgFileName = "./SceneDB/SSGs/" + currLine + ".ssg";
-
-			SceneSemGraph *newSceneSemGraph = new SceneSemGraph(ssgFileName);
-			m_sceneSemGraphs.push_back(newSceneSemGraph);
+			allSSGFileNames[i] = ssgFileName;
 		}
+
+		//#pragma omp parallel for
+		for (int i = 0; i < sceneNum; i++)
+		{
+			SceneSemGraph *newSceneSemGraph = new SceneSemGraph(allSSGFileNames[i]);
+			m_sceneSemGraphs[i] = newSceneSemGraph;
+		}
+
+		std::cout << sceneNum << " graphs loaded in " << GetElapsedTime(start) << " s\n";
 	}
 
 	m_ssgNum = m_sceneSemGraphs.size();

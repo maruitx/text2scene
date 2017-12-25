@@ -310,6 +310,17 @@ static QString toQString(std::string s)
 	return QString(s.c_str());
 }
 
+static std::chrono::high_resolution_clock::time_point GetCurrentClockTime()
+{
+	return std::chrono::high_resolution_clock::now();
+}
+
+static double GetElapsedTime(std::chrono::high_resolution_clock::time_point start)
+{
+	std::chrono::duration<double> time_elapsed = std::chrono::duration_cast<std::chrono::duration<double>>(std::chrono::high_resolution_clock::now() - start);
+	return time_elapsed.count();	  
+}
+
 // math utility
 //////////////////////////////////////////////
 typedef struct

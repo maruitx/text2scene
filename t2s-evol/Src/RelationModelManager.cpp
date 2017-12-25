@@ -30,11 +30,16 @@ RelationModelManager::~RelationModelManager()
 
 void RelationModelManager::loadRelationModels()
 {
+	std::chrono::high_resolution_clock::time_point start = GetCurrentClockTime();
+
+	// TODO: speed up loading and initializing relational models
 	loadRelativeRelationModels();
 	loadPairwiseRelationModels();
 	loadGroupRelationModels();
 	loadSupportRelationModels();
 	loadCoOccurenceModels();
+
+	std::cout << "Relational models loaded in " << GetElapsedTime(start) << " s\n";
 }
 
 void RelationModelManager::loadRelativeRelationModels()
