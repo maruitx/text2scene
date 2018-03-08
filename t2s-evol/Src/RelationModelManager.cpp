@@ -4,14 +4,14 @@
 #include "Model.h"
 #include "SceneSemGraph.h"
 #include <Eigen/Dense>
+#include <thread>
 
-const double ExWeight = 0.7;
 
 RelationModelManager::RelationModelManager()
 {
 	loadRelationModels();
 
-	m_closeSampleTh = 0.03;
+	m_closeSampleTh = 0.05;
 	m_sceneMetric = params::inst()->globalSceneUnitScale;
 
 	m_adjustFrontObjs.push_back("desk");
@@ -38,6 +38,19 @@ void RelationModelManager::loadRelationModels()
 	loadGroupRelationModels();
 	loadSupportRelationModels();
 	loadCoOccurenceModels();
+
+
+	//std::thread load_relative_thread(loadRelativeRelationModels);
+	//std::thread load_pairwise_thread(loadPairwiseRelationModels);
+	//std::thread load_group_thread(loadGroupRelationModels);
+	//std::thread load_support_thread(loadSupportRelationModels);
+	//std::thread load_occur_thread(loadCoOccurenceModels);
+
+	//load_relative_thread.join();
+	//load_pairwise_thread.join();
+	//load_group_thread.join();
+	//load_support_thread.join();
+	//load_occur_thread.join();
 
 	std::cout << "Relational models loaded in " << GetElapsedTime(start) << " s\n";
 }
@@ -388,35 +401,6 @@ bool RelationModelManager::isConstraintViolated(TSScene *currScene, const MetaMo
 	return false;
 }
 
-double RelationModelManager::computeLayoutPassScore(TSScene *currScene, int metaModelId)
-{
-	MetaModel &md = currScene->getMetaModel(metaModelId);
-
-	std::vector<RelationConstraint> &exConstraints = currScene->m_explictConstraints[metaModelId];
-	std::vector<RelationConstraint> &imConstraints = currScene->m_implicitConstraints[metaModelId];
-
-	double score = 0;
-
-	for (int i = 0; i < exConstraints.size(); i++)
-	{
-		RelationConstraint &relConstraint = exConstraints[i];
-		if (relConstraint.relModel->m_GMM != NULL)
-		{
-			score += ExWeight*relConstraint.relModel->m_GMM->m_probTh[0]; // use 20% percentile
-		}
-	}
-
-	for (int i = 0; i < imConstraints.size(); i++)
-	{
-		RelationConstraint &relConstraint = imConstraints[i];
-		if (relConstraint.relModel->m_GMM != NULL)
-		{
-			score += (1 - ExWeight)*relConstraint.relModel->m_GMM->m_probTh[0]; // use 20% percentile
-		}
-	}
-
-	return score;
-}
 
 double RelationModelManager::computeRelationScore(TSScene *currScene, int metaModelId, const Eigen::VectorXd &currPlacement, const mat4 &currTransMat)
 {
@@ -648,6 +632,13 @@ bool RelationModelManager::isPosCloseToInvalidPos(const vec3 &pos, int metaModel
 	}
 
 	return false;
+}
+
+bool RelationModelManager::isPosOccupiedForModel(TSScene *currScene, const vec3 &pos, int metaModelId)
+{
+	// check whether pos is occupied on current model's supporter model
+
+	// supporter Model could be the parent model, e.g., desk, or could be the floor which the id is -1
 }
 
 PairwiseRelationModel* RelationModelManager::getPairModelById(int id)
@@ -1189,11 +1180,11 @@ void RelationModelManager::collectConstraintsForModel(TSScene *currScene, int me
 			if (relationNode.matchingStatus == SemNode::ExplicitNode)
 			{
 				if (relationNode.anchorNodeList.empty()) return;
+				QString relationName = relationNode.nodeName;
 
 				int anchorObjNodeId = relationNode.anchorNodeList[0];
 				SemNode &anchorObjNode = currSSG->m_nodes[anchorObjNodeId];
 
-				QString relationName = relationNode.nodeName;
 				MetaModel &anchorMd = currScene->getMetaModel(currSSG->m_graphNodeToModelListIdMap[anchorObjNodeId]);
 				MetaModel &actMd = currScene->getMetaModel(currSSG->m_graphNodeToModelListIdMap[currNodeId]);
 
@@ -1307,6 +1298,66 @@ void RelationModelManager::collectConstraintsForModel(TSScene *currScene, int me
 	//		}
 	//	}
 	//}
+}
+
+void RelationModelManager::addConstraintToModel(TSScene *currScene, int metaModelId, int refModelId)
+{
+	// check whether the current model and the ref model are sibling or parent
+	SceneSemGraph *currSSG = currScene->m_ssg;
+
+	int currNodeId = currSSG->getNodeIdWithModelId(metaModelId);
+
+	SemNode &currNode = currSSG->m_nodes[currNodeId];
+
+	if (currNode.nodeType == "object" && !currNode.outEdgeNodeList.empty())
+	{
+		for (int r = 0; r < currNode.outEdgeNodeList.size(); r++)
+		{
+			int relationNodeId = currNode.outEdgeNodeList[r];
+			SemNode &relationNode = currSSG->m_nodes[relationNodeId];
+			QString relationName = relationNode.nodeName;
+
+			int anchorObjNodeId = relationNode.anchorNodeList[0];
+			SemNode &anchorObjNode = currSSG->m_nodes[anchorObjNodeId];
+
+			MetaModel &anchorMd = currScene->getMetaModel(currSSG->m_graphNodeToModelListIdMap[anchorObjNodeId]);
+			MetaModel &actMd = currScene->getMetaModel(currSSG->m_graphNodeToModelListIdMap[currNodeId]);
+
+			// find condition type
+			if (relationName.contains("support") || relationName.contains("on") || relationName.contains("with"))
+			{
+				// find sibling objs supported by the same parent
+				for (int i = 0; i < anchorObjNode.inEdgeNodeList.size(); i++)
+				{
+					int anchorRelNodeId = anchorObjNode.inEdgeNodeList[i];
+
+					// find other relation nodes that connects to the sibling objs
+					if (anchorRelNodeId == relationNodeId) continue;
+
+					SemNode &anchorRelNode = currSSG->m_nodes[anchorRelNodeId];
+					if (anchorRelNode.nodeName == relationName)
+					{
+						int sibActNodeId = anchorRelNode.activeNodeList[0];
+						SemNode &sibActNode = currSSG->m_nodes[sibActNodeId];
+
+						// use sibling obj as anchor in relative constraints if the sibling has been placed
+						int sibModelId = currSSG->m_graphNodeToModelListIdMap[sibActNodeId];
+						MetaModel& sibModel = currScene->getMetaModel(sibModelId);
+
+						if (!sibModel.isAlreadyPlaced) continue;
+
+						QString imRelationKey = sibActNode.nodeName + "_" + currNode.nodeName + "_" + "sibling" + "_general";
+						if (m_relativeModels.count(imRelationKey))
+						{
+							currScene->m_implicitConstraints[metaModelId].push_back(RelationConstraint(m_relativeModels[imRelationKey], "relative", sibModelId));
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// add the constraint to ref model
 }
 
 PairwiseRelationModel* RelationModelManager::retrievePairwiseModel(TSScene *currScene, int anchorNodeId, int actNodeId, const QString &relationName)

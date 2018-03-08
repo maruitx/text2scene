@@ -290,14 +290,17 @@ void LayoutPlanner::computeLayout(TSScene *currScene)
 		currScene->m_toPlaceModelIds = makeToPlaceModelIds(currScene);
 	}
 
-	if (currScene->m_allConstraintsExtracted)
+	// extract constrains once
+	if (!currScene->m_allConstraintsExtracted)
+	{
+		computeConstraintsForModels(currScene, currScene->m_toPlaceModelIds);
+	}
+
+	// compute layout pass score once
+	if (!currScene->m_layoutPassScoreComputed)
 	{
 		computeLayoutPassScoreForModels(currScene, currScene->m_toPlaceModelIds);
 	}
-	else
-	{
-		computeConstraintsForModels(currScene, currScene->m_toPlaceModelIds);
-	}		
 
 	if (currScene->m_toPlaceModelIds.size() == 1)
 	{
@@ -330,17 +333,23 @@ void LayoutPlanner::computeSingleObjLayout(TSScene *currScene, int metaModelId)
 	if (isModelCollideWithScene)
 	{
 		int anchorModelId;
+
+		// sample a new position if collision happens
+		// the new position will be tested for collision in next trial
 		Eigen::VectorXd newPlacement = computeNewPlacement(currScene, metaModelId, currCM->m_collisionPositions, anchorModelId);
 		updateWithNewPlacement(currScene, anchorModelId, metaModelId, newPlacement);
 		md.trialNum++;
 	}
 	else
 	{
+		// compute an initial layout score for current object
 		if (md.layoutScore == 0 && !md.isAlreadyPlaced)
 		{
 			md.layoutScore = m_relModelManager->computeRelationScore(currScene, metaModelId, makePlacementVec(md.position, md.theta), mat4::identitiy());
 		}
 
+		// if the current layout is not good enough (not passing the threshold), sampling a new position and keep this new position if the layout score increases
+		// the new position will be tested for collision in next trial
 		if (md.layoutScore < md.layoutPassScore && md.trialNum < m_trialNumLimit)
 		{
 			int anchorModelId;
@@ -350,6 +359,7 @@ void LayoutPlanner::computeSingleObjLayout(TSScene *currScene, int metaModelId)
 
 			double newPlacementScore = m_relModelManager->computeRelationScore(currScene, metaModelId, newPlacement, newTransMat);			
 
+			// TODO: do a while loop and search a new position that will increase the layout score
 			if (newPlacementScore > md.layoutScore)
 			{				
 				updateWithNewPlacement(currScene, anchorModelId, metaModelId, newPlacement);
@@ -411,7 +421,8 @@ void LayoutPlanner::computeGroupObjLayoutSeq(TSScene *currScene, const std::vect
 			if (md.isJustRollbacked || !doRollback(currScene, tempPlacedModelIds, metaModelId))
 			{
 				qDebug() << QString("   Preview %1 %2 reach test trial limit for collision; collision may exist").arg(currScene->m_previewId).arg(toQString(md.catName));
-				md.isAlreadyPlaced = true; // reach trial limit, although collision happens still set it to be placed		
+				md.isAlreadyPlaced = true; // reach trial limit, although collision happens still set it to be placed	
+				updateStatesForRestModels(currScene, restToPlaceModelIds);
 			}	
 		}
 	}
@@ -450,6 +461,7 @@ void LayoutPlanner::computeGroupObjLayoutSeq(TSScene *currScene, const std::vect
 		if (currGroupLayoutScore >= groupLayoutPassScore)
 		{
 			md.isAlreadyPlaced = true;
+			updateStatesForRestModels(currScene, restToPlaceModelIds);
 		}
 		else
 		{
@@ -487,7 +499,9 @@ void LayoutPlanner::computeGroupObjLayoutSeq(TSScene *currScene, const std::vect
 				{
 					qDebug() << QString("   Preview %1 %2 reach test trial limit for relationship; relation may violate").arg(currScene->m_previewId).arg(toQString(md.catName));
 					updateWithNewPlacement(currScene, anchorId, metaModelId, newPlacements.back());
-					md.isAlreadyPlaced = true; // reach trial limit, although collision happens still set it to be placed		
+					
+					md.isAlreadyPlaced = true; // reach trial limit, although collision happens still set it to be placed
+					updateStatesForRestModels(currScene, restToPlaceModelIds);
 				}
 			}
 		}
@@ -520,6 +534,8 @@ bool LayoutPlanner::doRollback(TSScene *currScene, std::vector<int> &tempPlacedI
 
 	MetaModel &md = currScene->getMetaModel(currModelId);
 	md.trialNum = 0;
+
+	// TODO: pop the implicit constraints to the last placed model
 
 	return true;
 }
@@ -840,13 +856,73 @@ void LayoutPlanner::computeLayoutPassScoreForModels(TSScene *currScene, const st
 	for (int i = 0; i < toPlaceModelIds.size(); i++)
 	{
 		int metaModelId = toPlaceModelIds[i];
-		MetaModel &md = currScene->getMetaModel(metaModelId);
-		md.layoutPassScore = m_relModelManager->computeLayoutPassScore(currScene, metaModelId);
+		computeLayoutPassScoreForModel(currScene, metaModelId);
+	}
+
+	currScene->m_layoutPassScoreComputed = true;
+}
+
+void LayoutPlanner::computeLayoutPassScoreForModel(TSScene *currScene, int metaModelId)
+{
+	MetaModel &md = currScene->getMetaModel(metaModelId);
+
+	std::vector<RelationConstraint> &exConstraints = currScene->m_explictConstraints[metaModelId];
+	std::vector<RelationConstraint> &imConstraints = currScene->m_implicitConstraints[metaModelId];
+
+	double score = 0;
+	double ExWeight = m_relModelManager->ExWeight;
+
+	for (int i = 0; i < exConstraints.size(); i++)
+	{
+		RelationConstraint &relConstraint = exConstraints[i];
+		if (relConstraint.relModel->m_GMM != NULL)
+		{
+			score += ExWeight*relConstraint.relModel->m_GMM->m_probTh[0]; // use 20% percentile
+		}
+	}
+
+	for (int i = 0; i < imConstraints.size(); i++)
+	{
+		RelationConstraint &relConstraint = imConstraints[i];
+		if (relConstraint.relModel->m_GMM != NULL)
+		{
+			score += (1 - ExWeight)*relConstraint.relModel->m_GMM->m_probTh[0]; // use 20% percentile
+		}
+	}
+
+	md.layoutPassScore = score;
+}
+
+void LayoutPlanner::updateStatesForRestModels(TSScene *currScene, const std::vector<int> &restModelIds)
+{
+	// the first model in the vector of restModelIds is the just placed model
+
+	int refModelId = restModelIds[0];
+	MetaModel &refMetaModel = currScene->getMetaModel(refModelId);
+
+	// return if refMetaModel has been placed before; meaning the constraint and the pass scores has been re-computed
+	// this will happen in the roll-back case
+	if (refMetaModel.isJustRollbacked)
+		return;
+
+	// updates states of the rest models to the first model
+	for (int i = 1; i < restModelIds.size(); i++)
+	{
+		int metaModelId = restModelIds[i];
+
+		// update the constraint for the rest model
+		m_relModelManager->addConstraintToModel(currScene, metaModelId, refModelId);
+
+		// re-compute the pass score using new constraints
+		computeLayoutPassScoreForModel(currScene, metaModelId);
 	}
 }
 
 Eigen::VectorXd LayoutPlanner::computeNewPlacement(TSScene *currScene, int metaModelID, const std::vector<std::vector<vec3>> &collisonPositions, int &anchorModelId)
 {
+	// TODO: improve position sampling by permute near observed locations
+
+
 	m_relModelManager->updateCollisionPostions(collisonPositions);
 	m_relModelManager->updateOverHangPostions(currScene->m_overHangPositions);
 

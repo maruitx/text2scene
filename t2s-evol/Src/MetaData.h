@@ -24,7 +24,8 @@ class MetaModel
 				name = md.name; catName = md.catName; id = md.id; transformation = md.transformation; material = md.material; visible = md.visible; path = md.path; textureDir = md.textureDir;
 				frontDir = md.frontDir; upDir = md.upDir; position = md.position; theta = md.theta;
 				bbTopPlane = md.bbTopPlane; suppPlaneManager = md.suppPlaneManager; parentPlaneUVH = md.parentPlaneUVH;
-				isInitLoaded = md.isInitLoaded; isAlreadyPlaced = md.isAlreadyPlaced; isConstraintExtracted = md.isConstraintExtracted; isJustReplaced = md.isJustReplaced;
+				isInitLoaded = md.isInitLoaded; isAlreadyPlaced = md.isAlreadyPlaced; 
+				isConstraintExtracted = md.isConstraintExtracted; isJustReplaced = md.isJustReplaced;
 				isJustRollbacked = md.isJustRollbacked;
 				isBvhReady = md.isBvhReady; zAdjusted = md.zAdjusted; isSelected = md.isSelected; renderMode = md.renderMode;
 				explicitAnchorId = md.explicitAnchorId; layoutPassScore = md.layoutPassScore; layoutScore = md.layoutScore; trialNum = md.trialNum;
@@ -34,7 +35,8 @@ class MetaModel
 				material = md.material; visible = md.visible; path = md.path; textureDir = md.textureDir;
 				frontDir = md.frontDir; upDir = md.upDir; position = md.position; theta = md.theta;
 				bbTopPlane = md.bbTopPlane; suppPlaneManager = md.suppPlaneManager; parentPlaneUVH = md.parentPlaneUVH;
-				isInitLoaded = md.isInitLoaded; isAlreadyPlaced = md.isAlreadyPlaced; isConstraintExtracted = md.isConstraintExtracted; isJustReplaced = md.isJustReplaced;
+				isInitLoaded = md.isInitLoaded; isAlreadyPlaced = md.isAlreadyPlaced; 
+				isConstraintExtracted = md.isConstraintExtracted; isJustReplaced = md.isJustReplaced;
 				isJustRollbacked = md.isJustRollbacked; isBvhReady = md.isBvhReady;  zAdjusted = md.zAdjusted;
 				isSelected = md.isSelected; renderMode = md.renderMode; 
 				explicitAnchorId = md.explicitAnchorId; layoutPassScore = md.layoutPassScore; layoutScore = md.layoutScore; trialNum = md.trialNum; return *this;
@@ -62,6 +64,7 @@ class MetaModel
 
 			bool isInitLoaded; // whether the model is loaded at the beginning
 			bool isAlreadyPlaced; // whether the model is already placed in the scene
+
 			bool isJustRollbacked; // whether the model is just rollback for placement
 			bool isConstraintExtracted;
 			bool isJustReplaced; // whether the model is just replaced by another instance

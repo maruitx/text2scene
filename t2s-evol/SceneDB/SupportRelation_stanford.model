@@ -1,2764 +1,1778 @@
-air conditioner_walllamp_vertsupport
-1 0.0454545
-arch_arch_vertsupport
-1 0.166667
-arch_cabinet_vertsupport
-0.125 0.00884956
-arch_column_vertsupport
-0.428571 0.0952381
-arch_frame_vertsupport
-0.5 0.00847458
-arch_plant_vertsupport
-0.25 0.00704225
-arch_playstation_vertsupport
-0.125 0.0120482
-arch_shelf_vertsupport
-0.25 0.0126582
-arch_table_vertsupport
-0.5 0.00729927
-arch_unknown_vertsupport
-0.333333 0.00515464
-arch_window_vertsupport
-0.272727 0.0146341
-atm_mirror_vertsupport
-1 0.111111
-atm_walllamp_vertsupport
-1 0.125
-atm_window_vertsupport
-1 0.0263158
-basketball hoop_partition_vertsupport
-1 0.027027
-bathtub_bottle_vertsupport
-0.25 0.166667
-bathtub_column_vertsupport
-0.125 0.0434783
-bathtub_curtain_vertsupport
-0.5 0.025641
-bathtub_frame_vertsupport
-0.1 0.00613497
-bathtub_glass_vertsupport
-0.25 0.0555556
-bathtub_person_vertsupport
-0.166667 0.00374532
-bathtub_rug_vertsupport
-0.0909091 0.00934579
-bathtub_shower_vertsupport
-0.0833333 0.142857
-bathtub_switch_vertsupport
-0.142857 0.0208333
-bathtub_toilet_vertsupport
-0.2 0.0769231
-bathtub_toy_vertsupport
-0.4375 0.0786517
-bathtub_unknown_vertsupport
-0.333333 0.00549451
-bed_arch_vertsupport
-0.00961538 0.1
-bed_bed_vertsupport
-0.0104167 0.0232558
-bed_book_vertsupport
-0.0113636 0.00806452
-bed_books_vertsupport
-0.00507614 0.00296736
-bed_cabinet_vertsupport
-0.0192308 0.0212766
-bed_candle_vertsupport
-0.0192308 0.0555556
-bed_computer set_vertsupport
-0.0123457 0.00571429
-bed_couch_vertsupport
-0.0142857 0.0285714
-bed_curtain_vertsupport
-0.0386473 0.0390244
-bed_desklamp_vertsupport
-0.00840336 0.00724638
-bed_door_vertsupport
-0.0240964 0.0526316
-bed_fence_vertsupport
-0.00719424 0.0666667
-bed_fireplace_vertsupport
-0.0192308 0.166667
-bed_floorlamp_vertsupport
-0.0196078 0.0634921
-bed_frame_vertsupport
-0.0412844 0.0311419
-bed_heater_vertsupport
-0.0192308 0.04
-bed_laptop_vertsupport
-0.17284 0.107417
-bed_mirror_vertsupport
-0.0833333 0.5
-bed_motorcycle_vertsupport
-0.0123457 1
-bed_partition_vertsupport
-0.0384615 0.0338983
-bed_person_vertsupport
-0.563492 0.17596
-bed_pet_vertsupport
-0.1 0.13089
-bed_rug_vertsupport
-0.0614754 0.0931677
-bed_switch_vertsupport
-0.0371901 0.0782609
-bed_toy_vertsupport
-0.00462963 0.0123457
-bed_tv_vertsupport
-0.0307692 0.0186916
-bed_tvstand_vertsupport
-0.00892857 0.0434783
-bed_unknown_vertsupport
-0.0520833 0.015528
-bed_walllamp_vertsupport
-0.00606061 0.0294118
-bed_window_vertsupport
-0.021164 0.0232558
-bench_chair_vertsupport
-0.4 0.00233645
-bench_computer set_vertsupport
-1 0.0243902
-bench_kitchen cabinet_vertsupport
-0.333333 0.0106383
-bench_shelf_vertsupport
-0.2 0.00609756
-bench_speaker_vertsupport
-0.2 0.016129
-bench_trashbin_vertsupport
-0.5 0.0625
-bench_unknown_vertsupport
-1 0.0140845
-book_book_vertsupport
-0.962963 0.0952381
-book_plant_vertsupport
-0.111111 0.00649351
-books_books_vertsupport
-0.65625 0.102689
-books_cabinet_vertsupport
-0.130435 0.0428571
-books_clock_vertsupport
-0.166667 0.5
-books_frame_vertsupport
-0.0357143 0.00677966
-books_plant_vertsupport
-0.0172414 0.00230947
-books_shelf_vertsupport
-0.138462 0.0340909
-books_stereo set_vertsupport
-0.0454545 0.0333333
-books_tv_vertsupport
-0.05 0.0102041
-books_unknown_vertsupport
-0.0545455 0.00398406
-books_vase_vertsupport
-0.111111 0.0416667
-bottle_bottle_vertsupport
-0.142857 0.047619
-bottle_cup_vertsupport
-0.5 0.0243902
-bottle_kettle_vertsupport
-0.666667 0.0625
-bottle_shelf_vertsupport
-0.5 0.0208333
-bowl_bowl_vertsupport
-0.75 0.0405405
-bowl_cup_vertsupport
-0.2 0.0175439
-bowl_shelf_vertsupport
-1 0.0172414
-cabinet_air conditioner_vertsupport
-0.0125 0.125
-cabinet_bathtub_vertsupport
-0.0185185 0.333333
-cabinet_bed_vertsupport
-0.0213904 0.039604
-cabinet_beer_vertsupport
-0.00757576 0.0222222
-cabinet_book_vertsupport
-0.0340136 0.0193798
-cabinet_books_vertsupport
-0.0351759 0.0170316
-cabinet_cabinet_vertsupport
-0.328283 0.380117
-cabinet_candle_vertsupport
-0.0208333 0.0714286
-cabinet_chair_vertsupport
-0.027027 0.004329
-cabinet_chandelier_vertsupport
-0.00769231 0.0625
-cabinet_clock_vertsupport
-0.0117647 0.1
-cabinet_column_vertsupport
-0.0291262 0.0833333
-cabinet_computer set_vertsupport
-0.00606061 0.00211416
-cabinet_cup_vertsupport
-0.00757576 0.0232558
-cabinet_curtain_vertsupport
-0.02 0.0161943
-cabinet_desk_vertsupport
-0.0162162 0.03125
-cabinet_door_vertsupport
-0.0310078 0.0571429
-cabinet_dresser_vertsupport
-0.0231214 0.0952381
-cabinet_fan_vertsupport
-0.00645161 0.0909091
-cabinet_fence_vertsupport
-0.0120482 0.1
-cabinet_fireplace_vertsupport
-0.0208333 0.2
-cabinet_fishbowl_vertsupport
-0.03125 0.166667
-cabinet_floorlamp_vertsupport
-0.0127389 0.03125
-cabinet_frame_vertsupport
-0.0378378 0.0229508
-cabinet_hanger_vertsupport
-0.0243902 0.0869565
-cabinet_heater_vertsupport
-0.0208333 0.0454545
-cabinet_iron_vertsupport
-0.0107527 0.0588235
-cabinet_kitchen cabinet_vertsupport
-0.0140845 0.015625
-cabinet_mirror_vertsupport
-0.0555556 0.236842
-cabinet_pan_vertsupport
-0.00757576 0.047619
-cabinet_partition_vertsupport
-0.0994475 0.131387
-cabinet_person_vertsupport
-0.0416667 0.0104348
-cabinet_pet_vertsupport
-0.0192308 0.0253165
-cabinet_plant_vertsupport
-0.0632184 0.0272277
-cabinet_playstation_vertsupport
-0.026455 0.0387597
-cabinet_refrigerator_vertsupport
-0.0185185 0.333333
-cabinet_rug_vertsupport
-0.0307692 0.0353982
-cabinet_shelf_vertsupport
-0.037037 0.0340909
-cabinet_shower_vertsupport
-0.2 0.333333
-cabinet_speaker_vertsupport
-0.0271739 0.0568182
-cabinet_stand_vertsupport
-0.0192308 0.0375
-cabinet_stereo set_vertsupport
-0.0136986 0.0277778
-cabinet_switch_vertsupport
-0.0447761 0.075
-cabinet_table_vertsupport
-0.016129 0.00524934
-cabinet_toilet_vertsupport
-0.0070922 0.0322581
-cabinet_toy_vertsupport
-0.0222222 0.0555556
-cabinet_tv_vertsupport
-0.0761421 0.0420168
-cabinet_tvstand_vertsupport
-0.0152284 0.0491803
-cabinet_unknown_vertsupport
-0.0338983 0.00827586
-cabinet_vase_vertsupport
-0.0217391 0.0174419
-cabinet_walllamp_vertsupport
-0.0103627 0.0444444
-cabinet_washer_vertsupport
-0.0185185 0.25
-cabinet_window_vertsupport
-0.0306748 0.0239234
-cabinet_xbox360_vertsupport
-0.0273973 0.0645161
-candle_book_vertsupport
-0.5 0.00806452
-candle_candle_vertsupport
-1 0.142857
-candle_dresser_vertsupport
-0.333333 0.0769231
-car_garage door_vertsupport
-1 0.5
-ceilingfan_chandelier_vertsupport
-0.6 0.136364
-ceilingfan_person_vertsupport
-0.25 0.00136986
-ceilingfan_pet_vertsupport
-1 0.25
-chair_beer_vertsupport
-0.0227273 0.1
-chair_book_vertsupport
-0.0833333 0.0357143
-chair_books_vertsupport
-0.027027 0.0127877
-chair_bowl_vertsupport
-0.00729927 0.0166667
-chair_cabinet_vertsupport
-0.0133333 0.0155039
-chair_chair_vertsupport
-0.17341 0.0270027
-chair_computer set_vertsupport
-0.00543478 0.00191571
-chair_cup_vertsupport
-0.0536913 0.163265
-chair_curtain_vertsupport
-0.011236 0.00884956
-chair_cutting board_vertsupport
-0.00729927 0.0333333
-chair_desk_vertsupport
-0.0164835 0.0319149
-chair_floorlamp_vertsupport
-0.0350877 0.0869565
-chair_frame_vertsupport
-0.0295858 0.0171233
-chair_glass_vertsupport
-0.0512821 0.153846
-chair_hanger_vertsupport
-0.00909091 0.0333333
-chair_heater_vertsupport
-0.15 0.375
-chair_kettle_vertsupport
-0.0232558 0.111111
-chair_kitchen cabinet_vertsupport
-0.0116959 0.0136054
-chair_laptop_vertsupport
-0.0949721 0.0473538
-chair_partition_vertsupport
-0.0153846 0.02
-chair_person_vertsupport
-0.389744 0.0930233
-chair_pet_vertsupport
-0.038674 0.0421687
-chair_plant_vertsupport
-0.0144928 0.00692042
-chair_plate_vertsupport
-0.0227273 0.2
-chair_rug_vertsupport
-0.0220588 0.0263158
-chair_shelf_vertsupport
-0.0421053 0.0314961
-chair_speaker_vertsupport
-0.00564972 0.0126582
-chair_table_vertsupport
-0.185629 0.0615079
-chair_umbrella_vertsupport
-0.030303 1
-chair_unknown_vertsupport
-0.0360825 0.00842359
-chair_vase_vertsupport
-0.0135135 0.0169492
-chair_window_vertsupport
-1 0.333333
-chandelier_bowl_vertsupport
-0.117647 0.0224719
-chandelier_ceilingfan_vertsupport
-0.5 0.6
-chandelier_chandelier_vertsupport
-0.307692 0.235294
-chandelier_table_vertsupport
-0.3 0.010989
-chessboard_vase_vertsupport
-1 0.0044843
-coffee maker_trashbin_vertsupport
-1 0.037037
-column_bed_vertsupport
-0.0333333 0.015625
-column_bottle_vertsupport
-0.0232558 0.0454545
-column_bowl_vertsupport
-0.0526316 0.05
-column_cabinet_vertsupport
-0.0454545 0.015625
-column_column_vertsupport
-0.325581 0.202899
-column_cup_vertsupport
-0.0204082 0.0178571
-column_curtain_vertsupport
-0.12766 0.0266667
-column_dresser_vertsupport
-0.115385 0.157895
-column_floorlamp_vertsupport
-0.0212766 0.0147059
-column_glass_vertsupport
-0.0392157 0.0444444
-column_kitchen cabinet_vertsupport
-0.047619 0.0227273
-column_pan_vertsupport
-0.0208333 0.0322581
-column_partition_vertsupport
-0.107143 0.0402685
-column_plate_vertsupport
-0.02 0.0384615
-column_rug_vertsupport
-0.0294118 0.00757576
-column_shelf_vertsupport
-0.2 0.025641
-column_speaker_vertsupport
-0.05 0.0588235
-column_unknown_vertsupport
-0.361111 0.019697
-column_vase_vertsupport
-0.0697674 0.014218
-column_window_vertsupport
-0.0571429 0.01
-computer set_book_vertsupport
-0.181818 0.00819672
-computer set_computer set_vertsupport
-0.125 0.00316456
-computer set_cup_vertsupport
-0.333333 0.0769231
-computer set_desklamp_vertsupport
-0.333333 0.0240964
-computer set_frame_vertsupport
-0.133333 0.00675676
-computer set_motorcycle_vertsupport
-0.0769231 0.166667
-computer set_plant_vertsupport
-0.0714286 0.00239808
-computer set_plate_vertsupport
-0.2 0.125
-computer set_shelf_vertsupport
-0.285714 0.0169492
-computer set_unknown_vertsupport
-0.111111 0.00191571
-computer set_window_vertsupport
-1 0.0588235
-couch_arch_vertsupport
-0.0425532 0.666667
-couch_book_vertsupport
-0.0205761 0.0233645
-couch_books_vertsupport
-0.0165289 0.0144928
-couch_cabinet_vertsupport
-0.0133333 0.0217391
-couch_candle_vertsupport
-0.00970874 0.0689655
-couch_chair_vertsupport
-0.00947867 0.00301659
-couch_chessboard_vertsupport
-0.0113636 0.0857143
-couch_computer set_vertsupport
-0.0243902 0.0173697
-couch_couch_vertsupport
-0.0141243 0.0409836
-couch_curtain_vertsupport
-0.0188679 0.027668
-couch_desk_vertsupport
-0.00298507 0.0111111
-couch_desklamp_vertsupport
-0.00647249 0.00869565
-couch_door_vertsupport
-0.00699301 0.025641
-couch_fireplace_vertsupport
-0.0133333 0.25
-couch_floorlamp_vertsupport
-0.0263158 0.128571
-couch_frame_vertsupport
-0.0299625 0.0430108
-couch_heater_vertsupport
-0.0188679 0.105263
-couch_kitchen cabinet_vertsupport
-0.00546448 0.0114943
-couch_laptop_vertsupport
-0.0446927 0.0410256
-couch_ottoman_vertsupport
-0.0119048 0.0232558
-couch_partition_vertsupport
-0.0133333 0.0181818
-couch_person_vertsupport
-0.556452 0.253676
-couch_pet_vertsupport
-0.0882353 0.170103
-couch_plant_vertsupport
-0.0283019 0.0230179
-couch_playstation_vertsupport
-0.00296736 0.00833333
-couch_rug_vertsupport
-0.0972973 0.219512
-couch_shelf_vertsupport
-0.00510204 0.00952381
-couch_speaker_vertsupport
-0.0117647 0.05
-couch_switch_vertsupport
-0.0295858 0.0980392
-couch_table_vertsupport
-0.211796 0.129296
-couch_toy_vertsupport
-0.00320513 0.0136986
-couch_tv_vertsupport
-0.00835655 0.00859599
-couch_tvstand_vertsupport
-0.002849 0.0185185
-couch_unknown_vertsupport
-0.0301205 0.0140056
-couch_vase_vertsupport
-0.0268657 0.0418605
-couch_window_vertsupport
-0.0314465 0.049505
-cup_cup_vertsupport
-1 0.272727
-cup_frame_vertsupport
-0.25 0.0384615
-curtain_cabinet_vertsupport
-0.0121212 0.0114943
-curtain_candle_vertsupport
-0.0232558 0.0625
-curtain_chandelier_vertsupport
-0.00862069 0.0526316
-curtain_column_vertsupport
-0.0357143 0.0930233
-curtain_curtain_vertsupport
-0.160494 0.105691
-curtain_desk_vertsupport
-0.0296296 0.05
-curtain_door_vertsupport
-0.02 0.0298507
-curtain_floorlamp_vertsupport
-0.012987 0.027027
-curtain_frame_vertsupport
-0.00909091 0.00568182
-curtain_hanger_vertsupport
-0.0322581 0.142857
-curtain_heater_vertsupport
-0.0779221 0.2
-curtain_kitchen cabinet_vertsupport
-0.0117647 0.0103093
-curtain_ottoman_vertsupport
-0.0123457 0.00917431
-curtain_outdoor seating_vertsupport
-0.00840336 1
-curtain_oven_vertsupport
-0.0117647 1
-curtain_partition_vertsupport
-0.035461 0.0409836
-curtain_plant_vertsupport
-0.02 0.00722892
-curtain_shelf_vertsupport
-0.0131579 0.00851064
-curtain_speaker_vertsupport
-0.0444444 0.105263
-curtain_stand_vertsupport
-0.00724638 0.0128205
-curtain_stereo set_vertsupport
-0.0169492 0.025641
-curtain_switch_vertsupport
-0.0258065 0.0350877
-curtain_table_vertsupport
-0.0422535 0.0111524
-curtain_trashbin_vertsupport
-0.0113636 0.0526316
-curtain_tv_vertsupport
-0.0465116 0.025
-curtain_unknown_vertsupport
-0.0896552 0.0185449
-curtain_window_vertsupport
-0.5 0.343096
-cutting board_kettle_vertsupport
-1 0.5
-decoration_clock_vertsupport
-1 0.1
-desk_bed_vertsupport
-0.00268817 0.025
-desk_beer_vertsupport
-0.00280899 0.0434783
-desk_book_vertsupport
-0.125926 0.409639
-desk_books_vertsupport
-0.12037 0.305164
-desk_bowl_vertsupport
-0.00480307 0.0574713
-desk_cabinet_vertsupport
-0.00413223 0.0248447
-desk_candle_vertsupport
-0.00105042 0.0243902
-desk_chair_vertsupport
-0.359519 0.299231
-desk_chessboard_vertsupport
-0.00867679 0.186047
-desk_coffee maker_vertsupport
-0.00925926 0.25
-desk_column_vertsupport
-0.002331 0.0384615
-desk_computer set_vertsupport
-0.367985 0.70922
-desk_cup_vertsupport
-0.0122616 0.1875
-desk_curtain_vertsupport
-0.0116732 0.05
-desk_desk_vertsupport
-0.0111008 0.111111
-desk_desklamp_vertsupport
-0.114232 0.412162
-desk_dishwasher_vertsupport
-0.00101626 0.142857
-desk_fan_vertsupport
-0.00205973 0.142857
-desk_fishbowl_vertsupport
-0.0153509 0.538462
-desk_floorlamp_vertsupport
-0.00292683 0.0394737
-desk_frame_vertsupport
-0.0436433 0.14375
-desk_grill_vertsupport
-0.00214133 0.2
-desk_heater_vertsupport
-0.0115789 0.186441
-desk_kettle_vertsupport
-0.00101626 0.0212766
-desk_kitchen cabinet_vertsupport
-0.014756 0.0909091
-desk_laptop_vertsupport
-0.187672 0.493947
-desk_microwave_vertsupport
-0.00323974 0.0526316
-desk_mirror_vertsupport
-0.00484027 0.121951
-desk_monitor_vertsupport
-0.0102857 0.204545
-desk_motorcycle_vertsupport
-0.00110619 0.142857
-desk_ottoman_vertsupport
-0.00780488 0.0372093
-desk_pan_vertsupport
-0.00280899 0.0909091
-desk_partition_vertsupport
-0.00394089 0.0277778
-desk_person_vertsupport
-0.138476 0.182822
-desk_plant_vertsupport
-0.0252182 0.0579065
-desk_playstation_vertsupport
-0.0113529 0.0869565
-desk_refrigerator_vertsupport
-0.00110742 0.1
-desk_rug_vertsupport
-0.0121723 0.0787879
-desk_shelf_vertsupport
-0.01069 0.042471
-desk_speaker_vertsupport
-0.0105769 0.117021
-desk_stairs_vertsupport
-0.00255754 0.333333
-desk_stand_vertsupport
-0.00592885 0.0659341
-desk_stereo set_vertsupport
-0.0255152 0.273684
-desk_switch_vertsupport
-0.020202 0.178571
-desk_table_vertsupport
-0.00381316 0.00670017
-desk_toy_vertsupport
-0.00472255 0.0571429
-desk_trashbin_vertsupport
-0.0103359 0.32
-desk_tv_vertsupport
-0.0235405 0.0673854
-desk_tvstand_vertsupport
-0.00157729 0.0322581
-desk_unknown_vertsupport
-0.0393627 0.0501193
-desk_vase_vertsupport
-0.0386064 0.175966
-desk_walllamp_vertsupport
-0.00196078 0.03125
-desk_window_vertsupport
-0.0122066 0.0534979
-desk_xbox360_vertsupport
-0.0114723 0.114286
-desklamp_book_vertsupport
-0.307692 0.0261438
-desklamp_books_vertsupport
-0.142857 0.016129
-desklamp_computer set_vertsupport
-0.0625 0.00362319
-desklamp_desklamp_vertsupport
-0.206897 0.0226415
-desklamp_frame_vertsupport
-0.0588235 0.00574713
-desklamp_hanger_vertsupport
-0.2 0.2
-desklamp_laptop_vertsupport
-0.142857 0.0110497
-desklamp_person_vertsupport
-0.0526316 0.0019305
-desklamp_plant_vertsupport
-0.0869565 0.00574713
-desklamp_shelf_vertsupport
-0.136364 0.0171429
-desklamp_speaker_vertsupport
-0.166667 0.111111
-desklamp_switch_vertsupport
-0.111111 0.0280374
-desklamp_unknown_vertsupport
-0.133333 0.00483092
-desklamp_vase_vertsupport
-0.272727 0.0454545
-dishwasher_bottle_vertsupport
-0.142857 0.0416667
-dishwasher_coffee maker_vertsupport
-0.333333 0.0714286
-dishwasher_microwave_vertsupport
-0.333333 0.0434783
-dishwasher_shelf_vertsupport
-1 0.0240964
-dishwasher_vase_vertsupport
-0.2 0.00598802
-door_air conditioner_vertsupport
-0.0185185 0.166667
-door_arch_vertsupport
-0.0297619 0.357143
-door_cabinet_vertsupport
-0.025974 0.0245399
-door_candle_vertsupport
-0.047619 0.105263
-door_chair_vertsupport
-0.0294118 0.00391236
-door_clock_vertsupport
-0.0223881 0.157895
-door_column_vertsupport
-0.0363636 0.125
-door_couch_vertsupport
-0.0571429 0.08
-door_curtain_vertsupport
-0.0509554 0.0336134
-door_door_vertsupport
-0.20915 0.323232
-door_fan_vertsupport
-0.018018 0.25
-door_fireplace_vertsupport
-0.047619 0.285714
-door_frame_vertsupport
-0.0576923 0.0361446
-door_hanger_vertsupport
-0.0212766 0.0769231
-door_heater_vertsupport
-0.0377358 0.0816327
-door_kitchen cabinet_vertsupport
-0.0217391 0.0243902
-door_ottoman_vertsupport
-0.0191083 0.0141509
-door_outdoor lamp_vertsupport
-0.0204082 0.5
-door_partition_vertsupport
-0.257669 0.272727
-door_person_vertsupport
-0.0363636 0.00750939
-door_pet_vertsupport
-0.015873 0.016129
-door_plant_vertsupport
-0.0473373 0.017316
-door_refrigerator_vertsupport
-0.0133333 0.25
-door_rug_vertsupport
-0.0955414 0.0943396
-door_shelf_vertsupport
-0.0173913 0.0118343
-door_speaker_vertsupport
-0.00892857 0.0163934
-door_switch_vertsupport
-0.0359281 0.0504202
-door_table_vertsupport
-0.00588235 0.00164474
-door_toilet_vertsupport
-0.0362319 0.135135
-door_towel ring_vertsupport
-0.0131579 0.5
-door_tv_vertsupport
-0.0666667 0.0340909
-door_unknown_vertsupport
-0.0331126 0.00645995
-door_walllamp_vertsupport
-0.0123457 0.04
-door_washer_vertsupport
-0.010101 0.166667
-door_window_vertsupport
-0.046875 0.0340909
-door_xbox360_vertsupport
-0.0188679 0.0434783
-dresser_book_vertsupport
-0.0869565 0.0318471
-dresser_books_vertsupport
-0.0806452 0.0240385
-dresser_bottle_vertsupport
-0.016129 0.0833333
-dresser_bowl_vertsupport
-0.015625 0.0217391
-dresser_cabinet_vertsupport
-0.0125 0.0105263
-dresser_candle_vertsupport
-0.0217391 0.0384615
-dresser_chair_vertsupport
-0.0253165 0.00280899
-dresser_chessboard_vertsupport
-0.0416667 0.111111
-dresser_column_vertsupport
-0.0294118 0.0606061
-dresser_computer set_vertsupport
-0.0322581 0.00625
-dresser_curtain_vertsupport
-0.0338983 0.017094
-dresser_desklamp_vertsupport
-0.108333 0.0448276
-dresser_dresser_vertsupport
-0.0555556 0.155556
-dresser_frame_vertsupport
-0.0909091 0.0334448
-dresser_glass_vertsupport
-0.016129 0.0357143
-dresser_hanger_vertsupport
-0.0266667 0.0714286
-dresser_household appliance_vertsupport
-0.00943396 0.5
-dresser_kitchen cabinet_vertsupport
-0.00943396 0.00694444
-dresser_laptop_vertsupport
-0.0166667 0.00505051
-dresser_microwave_vertsupport
-0.00952381 0.0192308
-dresser_mirror_vertsupport
-0.0515464 0.135135
-dresser_monitor_vertsupport
-0.0208333 0.0444444
-dresser_person_vertsupport
-0.25 0.0909091
-dresser_plant_vertsupport
-0.132231 0.0350109
-dresser_playstation_vertsupport
-0.0327869 0.0296296
-dresser_refrigerator_vertsupport
-0.00943396 0.111111
-dresser_rug_vertsupport
-0.0666667 0.0454545
-dresser_speaker_vertsupport
-0.0172414 0.0232558
-dresser_stand_vertsupport
-0.0625 0.0625
-dresser_stereo set_vertsupport
-0.0352941 0.0454545
-dresser_table_vertsupport
-0.0833333 0.0136986
-dresser_toy_vertsupport
-0.0535714 0.0769231
-dresser_tv_vertsupport
-0.155738 0.0523416
-dresser_unknown_vertsupport
-0.064 0.00956938
-dresser_vase_vertsupport
-0.056 0.030303
-dresser_washer_vertsupport
-0.0107527 0.142857
-dresser_window_vertsupport
-0.0192308 0.010101
-dresser_xbox360_vertsupport
-0.0240964 0.0333333
-fan_atm_vertsupport
+1shelves_bottle_vertsupport
 1 1
-fence_cabinet_vertsupport
-0.0555556 0.00961538
-fence_computer set_vertsupport
-0.2 0.0104603
-fence_fence_vertsupport
-0.428571 0.461538
-fence_frame_vertsupport
-1 0.333333
-fence_hanger_vertsupport
-0.333333 0.142857
-fence_outdoor lamp_vertsupport
-0.470588 0.615385
-fence_plant_vertsupport
-0.0526316 0.00314465
-fence_walllamp_vertsupport
-0.333333 0.25
-fireplace_beer_vertsupport
-0.05 0.0185185
-fireplace_book_vertsupport
-0.1 0.00628931
-fireplace_books_vertsupport
-0.0588235 0.0030581
-fireplace_cabinet_vertsupport
-0.0526316 0.00729927
-fireplace_candle_vertsupport
-0.136364 0.075
-fireplace_curtain_vertsupport
-0.111111 0.0104712
-fireplace_frame_vertsupport
-0.173913 0.0128205
-fireplace_hanger_vertsupport
-0.0909091 0.0322581
-fireplace_heater_vertsupport
-0.142857 0.0555556
-fireplace_partition_vertsupport
-0.142857 0.02
-fireplace_pet_vertsupport
-0.0833333 0.0108696
-fireplace_plant_vertsupport
-0.166667 0.00877193
-fireplace_speaker_vertsupport
-0.0416667 0.0105263
-fireplace_stand_vertsupport
-0.0666667 0.015625
-fireplace_tv_vertsupport
-0.190476 0.0138889
-fireplace_unknown_vertsupport
-0.125 0.00353357
-fireplace_vase_vertsupport
-0.3 0.0227273
-fireplace_window_vertsupport
-0.142857 0.0212766
-fish tank_beer_vertsupport
-0.2 0.0416667
-fish tank_book_vertsupport
-0.25 0.0107527
-fish tank_chair_vertsupport
-0.2 0.00192308
-fish tank_column_vertsupport
+1shelves_box_vertsupport
+0.333333 1
+1shelves_cap_vertsupport
 0.5 0.142857
-fish tank_desklamp_vertsupport
-0.25 0.011236
-fish tank_plant_vertsupport
-0.5 0.00911854
-fishbowl_book_vertsupport
-0.333333 0.00315457
-fishbowl_plant_vertsupport
-0.5 0.00258398
-fishbowl_shelf_vertsupport
-1 0.00884956
-floorlamp_books_vertsupport
-0.333333 0.00934579
-floorlamp_chair_vertsupport
-0.166667 0.0042735
-floorlamp_ottoman_vertsupport
-0.142857 0.011976
-floorlamp_partition_vertsupport
-1 0.142857
-floorlamp_plant_vertsupport
-0.444444 0.0152091
-floorlamp_shelf_vertsupport
-0.0833333 0.00606061
-floorlamp_table_vertsupport
-0.551724 0.0304183
-floorlamp_walllamp_vertsupport
-0.25 0.0588235
-frame_books_vertsupport
-0.0178571 0.00304878
-frame_cabinet_vertsupport
-0.0181818 0.00793651
-frame_candle_vertsupport
-0.333333 1
-frame_clock_vertsupport
-0.0555556 0.166667
-frame_column_vertsupport
-0.0652174 0.0714286
-frame_cup_vertsupport
-0.333333 1
-frame_dresser_vertsupport
-0.0408163 0.0540541
-frame_frame_vertsupport
-0.677966 0.265781
-frame_kitchen cabinet_vertsupport
-0.0638298 0.0245902
-frame_partition_vertsupport
-0.0333333 0.0125
-frame_shelf_vertsupport
-0.05 0.0240964
-frame_tv_vertsupport
-0.00854701 0.0031348
-frame_unknown_vertsupport
-0.243902 0.0231481
-frame_walllamp_vertsupport
-0.0603448 0.170732
-frame_window_vertsupport
-0.0208333 0.00617284
-garage door_book_vertsupport
-1 0.0909091
-garage door_car_vertsupport
-0.4 1
-garage door_chair_vertsupport
-0.166667 0.00210748
-garage door_chandelier_vertsupport
-0.3 0.2
-garage door_couch_vertsupport
-0.111111 0.0114943
-garage door_curtain_vertsupport
-0.0833333 0.00561798
-garage door_desk_vertsupport
-0.0833333 0.0131579
-garage door_fence_vertsupport
-0.5 0.25
-garage door_garage door_vertsupport
-0.1 1
-garage door_grill_vertsupport
-0.25 0.25
-garage door_gym equipment_vertsupport
-0.125 0.1
-garage door_kitchen cabinet_vertsupport
-0.125 0.00884956
-garage door_motorcycle_vertsupport
-0.0909091 0.333333
-garage door_ottoman_vertsupport
-0.0833333 0.00694444
-garage door_outdoor lamp_vertsupport
+1shelves_dustpan_vertsupport
+1 1
+1shelves_papertowel_vertsupport
 0.5 1
-garage door_partition_vertsupport
-0.166667 0.010989
-garage door_person_vertsupport
-0.333333 0.00682594
-garage door_rug_vertsupport
-0.2 0.0181818
-garage door_shelf_vertsupport
-0.25 0.0153846
-garage door_stairs_vertsupport
-0.2 0.25
-garage door_table_vertsupport
-0.4 0.0102828
-garage door_tv_vertsupport
-0.2 0.00930233
-glass_cup_vertsupport
-1 0.166667
-goal post_bed_vertsupport
-0.5 0.0106383
-goal post_cabinet_vertsupport
-0.5 0.00653595
-goal post_curtain_vertsupport
-1 0.0046729
-goal post_shelf_vertsupport
-1 0.00478469
-goal post_unknown_vertsupport
-1 0.00144509
-gym equipment_book_vertsupport
-0.4 0.0392157
-gym equipment_books_vertsupport
-0.0833333 0.00468384
-gym equipment_bottle_vertsupport
-0.0555556 0.05
-gym equipment_frame_vertsupport
-0.0434783 0.00326797
-gym equipment_glass_vertsupport
-0.0555556 0.0277778
-gym equipment_gym equipment_vertsupport
-0.117647 0.181818
-gym equipment_person_vertsupport
-0.0909091 0.00284495
-gym equipment_plant_vertsupport
-0.25 0.0130719
-gym equipment_playstation_vertsupport
-0.142857 0.027027
-gym equipment_rug_vertsupport
-0.142857 0.0202703
-gym equipment_shelf_vertsupport
-0.333333 0.0217391
-gym equipment_speaker_vertsupport
-0.222222 0.0666667
-gym equipment_table_vertsupport
-0.5 0.015873
-gym equipment_tv_vertsupport
-0.4 0.0273973
-gym equipment_unknown_vertsupport
-0.214286 0.00634249
-gym equipment_vase_vertsupport
-0.0526316 0.00510204
-gym equipment_window_vertsupport
-0.0833333 0.00900901
-hanger_bed_vertsupport
-0.047619 0.016129
-hanger_book_vertsupport
-0.0384615 0.003125
-hanger_books_vertsupport
-0.037037 0.00252525
-hanger_bottle_vertsupport
-0.0555556 0.0769231
-hanger_bowl_vertsupport
-0.0909091 0.0338983
-hanger_cabinet_vertsupport
-0.166667 0.0434783
-hanger_chair_vertsupport
-0.111111 0.00411523
-hanger_chessboard_vertsupport
-0.115385 0.0652174
-hanger_coffee maker_vertsupport
-0.0434783 0.0454545
-hanger_curtain_vertsupport
-0.142857 0.0263158
-hanger_floorlamp_vertsupport
-0.04 0.0153846
-hanger_frame_vertsupport
-0.0689655 0.00628931
-hanger_gym equipment_vertsupport
-0.04 0.0666667
-hanger_hanger_vertsupport
-0.0666667 0.0454545
-hanger_laptop_vertsupport
-0.0555556 0.00497512
-hanger_ottoman_vertsupport
-0.181818 0.0487805
-hanger_person_vertsupport
-0.206897 0.00759494
-hanger_pet_vertsupport
-0.333333 0.0588235
-hanger_plant_vertsupport
-0.181818 0.0178571
-hanger_rug_vertsupport
-0.137931 0.0246914
-hanger_stand_vertsupport
-0.0714286 0.0277778
-hanger_stereo set_vertsupport
-0.0357143 0.0102041
-hanger_switch_vertsupport
-0.25 0.0952381
-hanger_table_vertsupport
-0.3 0.0148515
-hanger_trashbin_vertsupport
-1 0.5
-hanger_tv_vertsupport
-0.0625 0.00662252
-hanger_unknown_vertsupport
-0.210526 0.00890869
-hanger_vase_vertsupport
-0.08 0.0101523
-hanger_walllamp_vertsupport
-0.166667 0.166667
-hanger_window_vertsupport
-0.2 0.0344828
-heater_candle_vertsupport
-0.25 0.111111
-heater_curtain_vertsupport
-0.142857 0.00558659
-heater_partition_vertsupport
-0.25 0.0196078
-heater_plant_vertsupport
-0.0909091 0.00226244
-heater_shelf_vertsupport
-0.272727 0.0121951
-heater_tv_vertsupport
-0.25 0.0133333
-heater_unknown_vertsupport
-1 0.0517241
-heater_window_vertsupport
-0.444444 0.0188679
-holder_holder_vertsupport
-1 0.0714286
-ironing board_iron_vertsupport
-1 0.666667
-ironing board_switch_vertsupport
-0.0526316 0.0119048
-kettle_cutting board_vertsupport
-1 0.0526316
-kitchen cabinet_air conditioner_vertsupport
-0.0136054 0.2
-kitchen cabinet_beer_vertsupport
-0.0766423 0.362069
-kitchen cabinet_book_vertsupport
-0.0033557 0.00311526
-kitchen cabinet_bottle_vertsupport
-0.013245 0.133333
-kitchen cabinet_bowl_vertsupport
-0.0292208 0.102273
-kitchen cabinet_cabinet_vertsupport
-0.142857 1
-kitchen cabinet_chair_vertsupport
-0.022508 0.00550747
-kitchen cabinet_coffee maker_vertsupport
-0.0482315 0.416667
-kitchen cabinet_computer set_vertsupport
-0.00352113 0.0019685
-kitchen cabinet_cup_vertsupport
-0.0283688 0.117647
-kitchen cabinet_cutting board_vertsupport
-0.0970874 0.625
-kitchen cabinet_dishwasher_vertsupport
-0.0128205 0.4
-kitchen cabinet_door_vertsupport
-0.0208333 0.0833333
-kitchen cabinet_dresser_vertsupport
-0.00947867 0.0555556
-kitchen cabinet_food processor_vertsupport
-0.0449827 0.8125
-kitchen cabinet_frame_vertsupport
-0.0169492 0.0175439
-kitchen cabinet_glass_vertsupport
-0.0291971 0.170213
-kitchen cabinet_hanger_vertsupport
-0.0049505 0.030303
-kitchen cabinet_holder_vertsupport
-0.0448718 0.518519
-kitchen cabinet_iron_vertsupport
-0.0105263 0.0952381
-kitchen cabinet_kettle_vertsupport
-0.0694444 0.408163
-kitchen cabinet_kitchen cabinet_vertsupport
-0.178808 0.319527
-kitchen cabinet_knife rack_vertsupport
-0.0498339 0.6
-kitchen cabinet_laptop_vertsupport
-0.0204918 0.0151057
-kitchen cabinet_microwave_vertsupport
-0.148387 0.613333
-kitchen cabinet_monitor_vertsupport
-0.00983607 0.0588235
-kitchen cabinet_pan_vertsupport
-0.0294118 0.257143
-kitchen cabinet_partition_vertsupport
-0.0117188 0.0229008
-kitchen cabinet_person_vertsupport
-0.0526316 0.0188172
-kitchen cabinet_plant_vertsupport
-0.0360656 0.0243902
-kitchen cabinet_plate_vertsupport
-0.029304 0.296296
-kitchen cabinet_range hood_vertsupport
-0.00568182 0.5
-kitchen cabinet_refrigerator_vertsupport
-0.00381679 0.0833333
-kitchen cabinet_rug_vertsupport
-0.0134529 0.0215827
-kitchen cabinet_shelf_vertsupport
-0.0904255 0.10828
-kitchen cabinet_shower_vertsupport
-0.0133333 0.2
-kitchen cabinet_sink_vertsupport
-0.00334448 0.111111
-kitchen cabinet_speaker_vertsupport
-0.00754717 0.0240964
-kitchen cabinet_switch_vertsupport
-0.021645 0.0537634
-kitchen cabinet_table_vertsupport
-0.00896861 0.00422833
-kitchen cabinet_toy_vertsupport
-0.00833333 0.03125
-kitchen cabinet_trashbin_vertsupport
-0.0179856 0.178571
-kitchen cabinet_tv_vertsupport
-0.0140845 0.0122449
-kitchen cabinet_unknown_vertsupport
-0.0248963 0.0089153
-kitchen cabinet_walllamp_vertsupport
-0.00854701 0.0555556
-kitchen cabinet_water dispenser_vertsupport
-0.0333333 1
-kitchen cabinet_window_vertsupport
-0.0178571 0.021164
-microwave_holder_vertsupport
-0.25 0.04
-microwave_kitchen cabinet_vertsupport
-0.333333 0.00892857
-microwave_plate_vertsupport
-0.5 0.0833333
-microwave_unknown_vertsupport
-1 0.00617284
-mirror_cabinet_vertsupport
-0.111111 0.0106383
-mirror_hanger_vertsupport
-0.25 0.0833333
-mirror_kitchen cabinet_vertsupport
-1 0.0416667
-mirror_mirror_vertsupport
-0.272727 0.1
-mirror_shelf_vertsupport
-0.1 0.00813008
-mirror_switch_vertsupport
-0.2 0.025
-mirror_table_vertsupport
-0.285714 0.00749064
-mirror_toy_vertsupport
-0.125 0.0232558
-motorcycle_person_vertsupport
-1 0.00546448
-motorcycle_shelf_vertsupport
-0.25 0.0045045
-ottoman_book_vertsupport
-0.0888889 0.0253165
-ottoman_books_vertsupport
-0.030303 0.00536193
-ottoman_bottle_vertsupport
-0.0666667 0.142857
-ottoman_cabinet_vertsupport
-0.0625 0.0172414
-ottoman_chair_vertsupport
-0.0675676 0.00412882
-ottoman_computer set_vertsupport
-0.0204082 0.00308642
-ottoman_cup_vertsupport
-0.0714286 0.0384615
-ottoman_curtain_vertsupport
-0.0909091 0.0336134
-ottoman_cutting board_vertsupport
-0.0666667 0.0555556
-ottoman_desklamp_vertsupport
-0.0689655 0.0172414
-ottoman_door_vertsupport
-0.0142857 0.0103093
-ottoman_fishbowl_vertsupport
-0.015625 0.037037
-ottoman_floorlamp_vertsupport
-0.05 0.0454545
-ottoman_frame_vertsupport
-0.0357143 0.00952381
-ottoman_laptop_vertsupport
-0.0322581 0.00569801
-ottoman_ottoman_vertsupport
-0.285714 0.114286
-ottoman_person_vertsupport
-0.0615385 0.00542005
-ottoman_pet_vertsupport
-0.134328 0.0520231
-ottoman_plant_vertsupport
-0.0806452 0.012285
-ottoman_playstation_vertsupport
-0.0131579 0.00714286
-ottoman_shelf_vertsupport
-0.0142857 0.00411523
-ottoman_sink_vertsupport
-0.125 0.5
-ottoman_stand_vertsupport
-0.037037 0.0238095
-ottoman_switch_vertsupport
-0.0163934 0.00990099
-ottoman_table_vertsupport
-0.0533333 0.00684932
-ottoman_toy_vertsupport
-0.0144928 0.0119048
-ottoman_unknown_vertsupport
-0.25 0.0222222
-ottoman_vase_vertsupport
-0.107143 0.0326087
-ottoman_xbox360_vertsupport
-0.0185185 0.012987
-outdoor lamp_outdoor lamp_vertsupport
-1 0.222222
-outdoor seating_door_vertsupport
-0.333333 0.0222222
-outdoor seating_dresser_vertsupport
-0.666667 0.171429
-outdoor seating_frame_vertsupport
-1 0.0108696
-outdoor seating_playstation_vertsupport
-1 0.0212766
-outdoor seating_speaker_vertsupport
-1 0.0357143
-outdoor seating_tv_vertsupport
-1 0.0140845
-outdoor seating_washer_vertsupport
-0.1 0.111111
-oven_kettle_vertsupport
-0.0666667 0.0208333
-oven_pan_vertsupport
-0.8125 0.382353
-oven_toy_vertsupport
-0.111111 0.0263158
-oven_tvstand_vertsupport
-0.2 0.1
-pan_bottle_vertsupport
-0.333333 0.0714286
-pan_kettle_vertsupport
-0.714286 0.116279
-pan_pan_vertsupport
-0.2 0.0357143
-partition_bed_vertsupport
-0.0447761 0.0491803
-partition_book_vertsupport
-0.03125 0.0138889
-partition_cabinet_vertsupport
-0.0897436 0.0526316
-partition_candle_vertsupport
-0.0357143 0.0666667
-partition_chair_vertsupport
-0.0987654 0.00733272
-partition_coffee maker_vertsupport
-0.1 1
-partition_column_vertsupport
-0.0235294 0.0285714
-partition_computer set_vertsupport
-0.0277778 0.00536193
-partition_couch_vertsupport
-0.0666667 0.0666667
-partition_cup_vertsupport
-0.0138889 0.0217391
-partition_curtain_vertsupport
-0.05 0.0217391
-partition_cutting board_vertsupport
-0.0175439 0.04
-partition_desk_vertsupport
-0.04 0.0405405
-partition_door_vertsupport
-0.0465116 0.0416667
-partition_grill_vertsupport
-0.0196078 0.333333
-partition_gym equipment_vertsupport
-0.016129 0.125
-partition_hanger_vertsupport
-0.030303 0.0689655
-partition_kettle_vertsupport
-0.0344828 0.0625
-partition_kitchen cabinet_vertsupport
-0.134615 0.0823529
-partition_laptop_vertsupport
-0.0625 0.021978
-partition_microwave_vertsupport
-0.02 0.0357143
-partition_mirror_vertsupport
-0.0465116 0.117647
-partition_ottoman_vertsupport
-0.0131579 0.00689655
-partition_partition_vertsupport
-0.333333 0.205882
-partition_person_vertsupport
-0.1125 0.0133333
-partition_pet_vertsupport
-0.0126582 0.00671141
-partition_plant_vertsupport
-0.0277778 0.00664452
-partition_refrigerator_vertsupport
-0.027027 0.285714
-partition_rug_vertsupport
-0.131579 0.0763359
-partition_shelf_vertsupport
-0.113636 0.0574713
-partition_shower_vertsupport
-0.5 0.5
-partition_sink_vertsupport
-0.0410959 0.428571
-partition_stand_vertsupport
-0.0232558 0.027027
-partition_switch_vertsupport
-0.0694444 0.0609756
-partition_table_vertsupport
-0.103448 0.0154374
-partition_toilet_vertsupport
-0.0363636 0.0909091
-partition_unknown_vertsupport
-0.0574713 0.00615006
-partition_vacuum_vertsupport
-0.030303 1
-partition_vase_vertsupport
-0.04 0.0222222
-partition_washer_vertsupport
-0.0714286 0.333333
-partition_water dispenser_vertsupport
-0.0655738 0.5
-partition_window_vertsupport
-0.0606061 0.0338983
-partition_workplace_vertsupport
-0.025641 0.333333
-person_bathtub_vertsupport
-0.0222222 0.5
-person_book_vertsupport
-0.00550964 0.00714286
-person_cabinet_vertsupport
-0.00746269 0.015873
-person_chair_vertsupport
-0.883227 0.322981
-person_computer set_vertsupport
-0.00721154 0.00610998
-person_couch_vertsupport
-0.0909091 0.333333
-person_desk_vertsupport
-0.0165017 0.0714286
-person_kitchen cabinet_vertsupport
-0.0202532 0.056338
-person_laptop_vertsupport
-0.0142857 0.0166205
-person_ottoman_vertsupport
-0.0310263 0.0656566
-person_person_vertsupport
-0.0121951 0.00714286
-person_pet_vertsupport
-0.00475059 0.011976
-person_plant_vertsupport
-0.00252525 0.00257069
-person_shelf_vertsupport
-0.00488998 0.00904977
-person_stand_vertsupport
-0.00507614 0.0243902
-person_toilet_vertsupport
-0.0286533 0.277778
-person_toy_vertsupport
-0.00446429 0.0208333
-person_whiteboard_vertsupport
-0.0027933 0.142857
-person_workplace_vertsupport
-0.0030303 0.111111
-pet_person_vertsupport
-1 0.00877193
-pet_pet_vertsupport
-0.2 0.0157895
-pet_toilet_vertsupport
-0.333333 0.111111
-pet_toy_vertsupport
-0.714286 0.125
-piano_curtain_vertsupport
-1 0.0588235
-piano_pet_vertsupport
-0.25 0.00632911
-piano_unknown_vertsupport
-0.333333 0.00276243
-piano_window_vertsupport
-0.5 0.0123457
-plant_air conditioner_vertsupport
-0.125 1
-plant_bench_vertsupport
-0.00534759 1
-plant_book_vertsupport
-0.00671141 0.00416667
-plant_books_vertsupport
-0.0255102 0.0146628
-plant_cabinet_vertsupport
-0.017094 0.0243902
-plant_candle_vertsupport
-0.0114943 0.0606061
-plant_chair_vertsupport
-0.0287081 0.0053286
-plant_chandelier_vertsupport
-0.0344828 0.333333
-plant_clock_vertsupport
-0.0128205 0.125
-plant_column_vertsupport
-0.0115607 0.0408163
-plant_cup_vertsupport
-0.0181818 0.0625
-plant_curtain_vertsupport
-0.0223214 0.0199203
-plant_desklamp_vertsupport
-0.0121951 0.0104167
-plant_door_vertsupport
-0.0208333 0.0441176
-plant_dresser_vertsupport
-0.00990099 0.05
-plant_fence_vertsupport
-0.030303 0.333333
-plant_floorlamp_vertsupport
-0.0280374 0.0810811
-plant_frame_vertsupport
-0.0319635 0.022508
-plant_glass_vertsupport
-0.00746269 0.0333333
-plant_grill_vertsupport
-0.00458716 0.166667
-plant_gym equipment_vertsupport
-0.00917431 0.25
-plant_hanger_vertsupport
-0.0666667 1
-plant_heater_vertsupport
-0.00689655 0.0196078
-plant_iron_vertsupport
-0.0047619 0.0333333
-plant_ironing board_vertsupport
-0.0047619 0.333333
-plant_kettle_vertsupport
-0.0243902 0.0769231
-plant_kitchen cabinet_vertsupport
-0.0405405 0.0495868
-plant_mirror_vertsupport
-0.05 0.333333
-plant_ottoman_vertsupport
-0.0248756 0.0306748
-plant_outdoor lamp_vertsupport
-0.0228571 0.285714
-plant_partition_vertsupport
-0.0189573 0.0285714
-plant_person_vertsupport
-0.0287081 0.00826446
-plant_pet_vertsupport
-0.00666667 0.00961538
-plant_plant_vertsupport
-0.337778 0.164147
-plant_shelf_vertsupport
-0.0773196 0.0753769
-plant_speaker_vertsupport
-0.0238095 0.0649351
-plant_stand_vertsupport
-0.0322581 0.0714286
-plant_switch_vertsupport
-0.0185185 0.0352941
-plant_table_vertsupport
-0.0322581 0.0121107
-plant_toy_vertsupport
-0.0177778 0.0454545
-plant_trashbin_vertsupport
-0.0512821 0.333333
-plant_tv_vertsupport
-0.166667 0.125
-plant_unknown_vertsupport
-0.13964 0.0395913
-plant_vacuum_vertsupport
-0.0142857 0.428571
-plant_vase_vertsupport
-0.0392157 0.0382775
-plant_walllamp_vertsupport
-0.00813008 0.0322581
-plant_window_vertsupport
-0.0497738 0.0474138
-plant_xbox360_vertsupport
-0.025641 0.0625
-plate_cup_vertsupport
-0.5 0.0714286
-plate_plate_vertsupport
-0.875 0.28
-playstation_monitor_vertsupport
-0.6 0.0625
-playstation_tv_vertsupport
-0.666667 0.0141844
-pool_beer_vertsupport
-1 0.166667
-pool_cabinet_vertsupport
-0.142857 0.00684932
-pool_chandelier_vertsupport
-1 0.5
-pool_desk_vertsupport
-0.142857 0.0116279
-pool_door_vertsupport
-0.142857 0.0111111
-pool_floorlamp_vertsupport
-1 0.2
-pool_frame_vertsupport
-0.142857 0.0035461
-pool_grill_vertsupport
-1 0.5
-pool_laptop_vertsupport
-0.142857 0.00301205
-pool_person_vertsupport
-1 0.0217391
-pool_plant_vertsupport
-0.285714 0.00510204
-pool_rug_vertsupport
-0.142857 0.00684932
-pool_table_vertsupport
-0.142857 0.00201207
-pool_toy_vertsupport
-1 0.2
-pool_tv_vertsupport
-0.5 0.00925926
-pool_unknown_vertsupport
-0.571429 0.00589102
-refrigerator_beer_vertsupport
-0.2 0.06
-refrigerator_coffee maker_vertsupport
-0.0714286 0.0434783
-refrigerator_cutting board_vertsupport
-0.2 0.0714286
-refrigerator_dresser_vertsupport
-0.0588235 0.0243902
-refrigerator_kitchen cabinet_vertsupport
-0.6 0.0923077
-refrigerator_microwave_vertsupport
-0.166667 0.0666667
-refrigerator_monitor_vertsupport
-0.166667 0.0625
-refrigerator_speaker_vertsupport
-0.0909091 0.030303
-refrigerator_unknown_vertsupport
-0.0625 0.0015748
-roof_book_vertsupport
-0.5 0.01
-roof_books_vertsupport
-0.333333 0.00609756
-roof_chandelier_vertsupport
-0.5 0.2
-roof_plant_vertsupport
-0.5 0.00645161
-roof_unknown_vertsupport
-1 0.125
-rug_arch_vertsupport
-0.00101729 0.0769231
-rug_bathtub_vertsupport
-0.00535906 0.714286
-rug_bed_vertsupport
-0.0934394 0.831858
-rug_beer_vertsupport
-0.00898204 0.147541
-rug_bottle_vertsupport
-0.00816327 0.4
-rug_bowl_vertsupport
-0.0909091 1
-rug_cabinet_vertsupport
-0.0479042 0.274286
-rug_candle_vertsupport
-0.0163265 0.190476
-rug_ceilingfan_vertsupport
-0.0045819 0.285714
-rug_chair_vertsupport
-0.232072 0.179093
-rug_chandelier_vertsupport
-0.002002 0.0869565
-rug_chessboard_vertsupport
-0.00787402 0.125
-rug_column_vertsupport
-0.0121803 0.175439
-rug_couch_vertsupport
-0.099 0.767442
-rug_curtain_vertsupport
-0.012 0.047619
-rug_desk_vertsupport
-0.0678643 0.635514
-rug_desklamp_vertsupport
-0.00518672 0.0175439
-rug_dishwasher_vertsupport
-0.0021097 0.25
-rug_door_vertsupport
-0.0355691 0.336538
-rug_dresser_vertsupport
-0.0147368 0.318182
-rug_fan_vertsupport
-0.00652174 0.4
-rug_fence_vertsupport
-0.00176991 0.0625
-rug_fireplace_vertsupport
-0.00421053 0.333333
-rug_fish tank_vertsupport
-0.0093985 1
-rug_fishbowl_vertsupport
-0.00124378 0.04
-rug_floorlamp_vertsupport
-0.0333681 0.426667
-rug_frame_vertsupport
-0.00282486 0.00980392
-rug_gametable_vertsupport
-0.00326087 1
-rug_glass_vertsupport
-0.00816327 0.117647
-rug_grill_vertsupport
-0.0833333 1
-rug_gym equipment_vertsupport
-0.010978 0.611111
-rug_hanger_vertsupport
-0.0107066 0.238095
-rug_heater_vertsupport
-0.0105042 0.116279
-rug_household appliance_vertsupport
-0.00146199 1
-rug_iron_vertsupport
-0.00429799 0.103448
-rug_ironing board_vertsupport
-0.00344037 0.75
-rug_kitchen cabinet_vertsupport
-0.033195 0.191617
-rug_laptop_vertsupport
-0.00352941 0.00869565
-rug_mirror_vertsupport
-0.00380711 0.0857143
-rug_monitor_vertsupport
-0.00242131 0.0416667
-rug_ottoman_vertsupport
-0.128673 0.579909
-rug_oven_vertsupport
-0.00226757 0.666667
-rug_partition_vertsupport
-0.0178947 0.119718
-rug_person_vertsupport
-0.0776993 0.0958904
-rug_pet_vertsupport
-0.0895522 0.466321
-rug_piano_vertsupport
-0.00955414 0.9
-rug_plant_vertsupport
-0.0640496 0.137778
-rug_playstation_vertsupport
-0.0028777 0.0215054
-rug_refrigerator_vertsupport
-0.00644468 0.428571
-rug_rug_vertsupport
-0.0257787 0.152866
-rug_shelf_vertsupport
-0.0213415 0.0804598
-rug_shower_vertsupport
-0.00455581 0.333333
-rug_sink_vertsupport
-0.00554017 0.5
-rug_speaker_vertsupport
-0.022082 0.228261
-rug_stairs_vertsupport
-0.00332226 0.4
-rug_stand_vertsupport
-0.0499002 0.537634
-rug_stereo set_vertsupport
-0.00584795 0.0519481
-rug_table_vertsupport
-0.3801 0.623165
-rug_toilet_vertsupport
-0.0114226 0.261905
-rug_towel ring_vertsupport
-0.0021575 0.666667
-rug_toy_vertsupport
-0.0211055 0.241379
-rug_trashbin_vertsupport
-0.00449102 0.125
-rug_tv_vertsupport
-0.00438596 0.0124481
-rug_tvstand_vertsupport
-0.044164 0.724138
-rug_unknown_vertsupport
-0.0879676 0.105455
-rug_vacuum_vertsupport
-0.00458716 0.5
-rug_vase_vertsupport
-0.00917431 0.0368664
-rug_washer_vertsupport
-0.00207684 0.2
-rug_water dispenser_vertsupport
-0.00438596 0.3
-rug_whiteboard_vertsupport
-0.00717949 0.7
-rug_window_vertsupport
-0.00346021 0.0143885
-rug_workplace_vertsupport
-0.00508647 0.416667
-rug_xbox360_vertsupport
-0.00615006 0.0568182
-shelf_air conditioner_vertsupport
-0.00959233 0.235294
-shelf_bed_vertsupport
-0.00829876 0.0307692
-shelf_beer_vertsupport
-0.016317 0.116667
-shelf_book_vertsupport
-0.0358852 0.0482315
-shelf_books_vertsupport
-0.314286 0.338061
-shelf_bottle_vertsupport
-0.0131291 0.214286
-shelf_bowl_vertsupport
-0.0200501 0.106667
-shelf_cabinet_vertsupport
-0.00662252 0.0178571
-shelf_candle_vertsupport
-0.0277008 0.25641
-shelf_car_vertsupport
-0.0027933 0.333333
-shelf_chair_vertsupport
-0.0215385 0.00778643
-shelf_chessboard_vertsupport
-0.00558659 0.0526316
-shelf_clock_vertsupport
-0.00581395 0.0909091
-shelf_coffee maker_vertsupport
-0.00888889 0.114286
-shelf_computer set_vertsupport
-0.0131926 0.0111111
-shelf_couch_vertsupport
-0.002849 0.01
-shelf_cup_vertsupport
-0.00490196 0.030303
-shelf_cutting board_vertsupport
-0.00932401 0.097561
-shelf_desk_vertsupport
-0.0117647 0.0714286
-shelf_desklamp_vertsupport
-0.0173611 0.0280899
-shelf_dishwasher_vertsupport
-0.0117647 1
-shelf_door_vertsupport
-0.0352941 0.176471
-shelf_fireplace_vertsupport
-0.00530504 0.181818
-shelf_fishbowl_vertsupport
-0.0106007 0.142857
-shelf_food processor_vertsupport
-0.00392157 0.0769231
-shelf_frame_vertsupport
-0.0784753 0.110759
-shelf_glass_vertsupport
-0.019802 0.176471
-shelf_holder_vertsupport
-0.00481928 0.0869565
-shelf_iron_vertsupport
-0.00308642 0.0416667
-shelf_kettle_vertsupport
-0.0254237 0.157895
-shelf_kitchen cabinet_vertsupport
-0.0155211 0.0411765
-shelf_knife rack_vertsupport
-0.021978 0.333333
-shelf_laptop_vertsupport
-0.0216802 0.0253165
-shelf_microwave_vertsupport
-0.00961538 0.0677966
-shelf_mirror_vertsupport
-0.00696056 0.075
-shelf_monitor_vertsupport
-0.0144231 0.122449
-shelf_motorcycle_vertsupport
-0.00555556 0.5
-shelf_ottoman_vertsupport
-0.00304878 0.00729927
-shelf_pan_vertsupport
-0.04 0.2
-shelf_partition_vertsupport
-0.00609756 0.0181818
-shelf_person_vertsupport
-0.00712589 0.00400534
-shelf_pet_vertsupport
-0.00295858 0.00840336
-shelf_plant_vertsupport
-0.0896861 0.0881057
-shelf_plate_vertsupport
-0.00330033 0.05
-shelf_playstation_vertsupport
-0.0266344 0.0873016
-shelf_refrigerator_vertsupport
-0.00387597 0.2
-shelf_rug_vertsupport
-0.0117647 0.027027
-shelf_shelf_vertsupport
-0.150562 0.257692
-shelf_shower_vertsupport
-0.0117647 0.25
-shelf_sink_vertsupport
-0.00222222 0.1
-shelf_speaker_vertsupport
-0.0336538 0.164706
-shelf_stairs_vertsupport
-0.00697674 0.333333
-shelf_stand_vertsupport
-0.00568182 0.0285714
-shelf_stereo set_vertsupport
-0.0183908 0.0851064
-shelf_table_vertsupport
-0.00568182 0.00446429
-shelf_toy_vertsupport
-0.0158228 0.0833333
-shelf_trashbin_vertsupport
-0.00389105 0.05
-shelf_tv_vertsupport
-0.0361991 0.0463768
-shelf_unknown_vertsupport
-0.0767544 0.0416667
-shelf_vase_vertsupport
-0.0698795 0.130631
-shelf_walllamp_vertsupport
-0.0382514 0.291667
-shelf_window_vertsupport
-0.0155556 0.0289256
-shelf_xbox360_vertsupport
-0.00802139 0.0361446
-shower_cabinet_vertsupport
-0.333333 0.04
-shower_chandelier_vertsupport
-0.0909091 0.047619
-shower_hanger_vertsupport
-0.5 0.333333
-shower_person_vertsupport
-0.5 0.0117647
-shower_rug_vertsupport
-0.166667 0.0147059
-shower_shower_vertsupport
-0.1 0.125
-shower_toilet_vertsupport
-0.333333 0.0789474
-shower_toy_vertsupport
-0.2 0.0416667
-shower_unknown_vertsupport
-0.25 0.0029985
-shower_window_vertsupport
-0.0833333 0.00446429
-sink_glass_vertsupport
-0.5 0.0909091
-sink_hanger_vertsupport
-0.375 0.176471
-sink_kettle_vertsupport
-0.166667 0.0714286
-sink_mirror_vertsupport
-0.1875 0.0666667
-sink_partition_vertsupport
-0.166667 0.020202
-sink_switch_vertsupport
-0.333333 0.0588235
-sink_toilet_vertsupport
-0.0909091 0.037037
-sink_toy_vertsupport
-0.1 0.0227273
-sink_tv_vertsupport
-0.222222 0.0149254
-sink_unknown_vertsupport
-0.0588235 0.0011919
-sink_vase_vertsupport
-0.153846 0.0117647
-speaker_frame_vertsupport
-0.333333 0.0416667
-speaker_plant_vertsupport
-0.555556 0.0168919
-speaker_shelf_vertsupport
-0.166667 0.00877193
-speaker_speaker_vertsupport
-0.25 0.0555556
-speaker_table_vertsupport
-0.142857 0.00314465
-speaker_tv_vertsupport
-0.1 0.00406504
-speaker_window_vertsupport
-0.2 0.0133333
-stairs_air conditioner_vertsupport
-0.037037 0.0909091
-stairs_books_vertsupport
-0.5 0.037037
-stairs_cabinet_vertsupport
-0.2 0.0454545
-stairs_chair_vertsupport
-0.105263 0.00429185
-stairs_column_vertsupport
-0.16129 0.1
-stairs_couch_vertsupport
-0.142857 0.05
-stairs_desk_vertsupport
-1 0.333333
-stairs_dishwasher_vertsupport
-0.0625 0.5
-stairs_door_vertsupport
-0.142857 0.0625
-stairs_dresser_vertsupport
-0.0625 0.0833333
-stairs_fish tank_vertsupport
-0.0526316 0.25
-stairs_floorlamp_vertsupport
-0.153846 0.1
-stairs_frame_vertsupport
-0.0588235 0.0103093
-stairs_kitchen cabinet_vertsupport
-0.0384615 0.00900901
-stairs_ottoman_vertsupport
-0.0526316 0.00917431
-stairs_partition_vertsupport
-0.111111 0.0322581
-stairs_person_vertsupport
-0.133333 0.00676819
-stairs_piano_vertsupport
-0.030303 0.111111
-stairs_plant_vertsupport
-0.0810811 0.00659341
-stairs_rug_vertsupport
-0.0555556 0.0149254
-stairs_shelf_vertsupport
-0.114286 0.0178571
-stairs_speaker_vertsupport
-0.0416667 0.0238095
-stairs_stairs_vertsupport
-0.0588235 0.285714
-stairs_stand_vertsupport
-0.05 0.0222222
-stairs_table_vertsupport
-0.0263158 0.0016835
-stairs_tvstand_vertsupport
-0.0740741 0.0740741
-stairs_unknown_vertsupport
-0.0833333 0.00387097
-stairs_vase_vertsupport
-0.0789474 0.0131004
-stairs_window_vertsupport
-0.166667 0.0285714
-stand_book_vertsupport
-0.0956938 0.0619195
-stand_books_vertsupport
-0.0414508 0.0216802
-stand_cabinet_vertsupport
-0.5 0.333333
-stand_chair_vertsupport
-0.00724638 0.00120337
-stand_coffee maker_vertsupport
-0.0049505 0.030303
-stand_computer set_vertsupport
-0.0252525 0.010101
-stand_couch_vertsupport
-0.00598802 0.010101
-stand_desklamp_vertsupport
-0.352381 0.25256
-stand_fan_vertsupport
-0.0187793 0.25
-stand_fishbowl_vertsupport
-0.0325203 0.210526
-stand_floorlamp_vertsupport
-0.0124224 0.0338983
-stand_frame_vertsupport
-0.0310559 0.0247525
-stand_iron_vertsupport
-0.00884956 0.0625
-stand_laptop_vertsupport
-0.0338164 0.0177215
-stand_microwave_vertsupport
-0.012987 0.03125
-stand_mirror_vertsupport
-0.0141509 0.0652174
-stand_monitor_vertsupport
-0.00985222 0.04
-stand_plant_vertsupport
-0.134328 0.0636792
-stand_playstation_vertsupport
-0.0240964 0.0416667
-stand_roof_vertsupport
-0.333333 1
-stand_rug_vertsupport
-0.0229885 0.025974
-stand_shelf_vertsupport
-0.0494505 0.0441176
-stand_speaker_vertsupport
-0.0117647 0.0263158
-stand_stand_vertsupport
-0.0591398 0.13253
-stand_stereo set_vertsupport
-0.021164 0.0470588
-stand_toilet_vertsupport
-0.1 0.333333
-stand_tv_vertsupport
-0.0184332 0.0107239
-stand_unknown_vertsupport
-0.0883721 0.0228916
-stand_vase_vertsupport
-0.0555556 0.0510638
-stand_xbox360_vertsupport
-0.0196078 0.0425532
-stereo set_books_vertsupport
-0.5 0.010274
-stereo set_computer set_vertsupport
-0.125 0.00215054
-stereo set_fishbowl_vertsupport
-0.2 0.0454545
-stereo set_frame_vertsupport
-0.111111 0.00324675
-stereo set_playstation_vertsupport
-0.25 0.016129
-stereo set_stereo set_vertsupport
-0.142857 0.0138889
-stereo set_tvstand_vertsupport
-0.333333 0.0454545
-switch_curtain_vertsupport
-0.04 0.00403226
-switch_desklamp_vertsupport
-1 0.0909091
-switch_frame_vertsupport
-0.0714286 0.00518135
-switch_switch_vertsupport
-0.208333 0.0458716
-switch_tv_vertsupport
-0.333333 0.0190476
-switch_unknown_vertsupport
-0.333333 0.00558659
-switch_walllamp_vertsupport
-0.133333 0.0555556
-switch_window_vertsupport
-0.521739 0.0603015
-table_bed_vertsupport
-0.00414079 0.0229885
-table_beer_vertsupport
-0.0266667 0.263158
-table_bench_vertsupport
-0.00170648 0.5
-table_book_vertsupport
-0.0877863 0.152824
-table_books_vertsupport
-0.0333333 0.04914
-table_bottle_vertsupport
-0.010989 0.26087
-table_bowl_vertsupport
-0.0779661 0.541176
-table_cabinet_vertsupport
-0.00650759 0.0234375
-table_candle_vertsupport
-0.00461894 0.0645161
-table_ceilingfan_vertsupport
-0.142857 1
-table_chair_vertsupport
-0.194847 0.0932922
-table_chessboard_vertsupport
-0.0404722 0.510638
-table_coffee maker_vertsupport
-0.00393701 0.0689655
-table_column_vertsupport
-0.00714286 0.0714286
-table_computer set_vertsupport
-0.0298507 0.032967
-table_couch_vertsupport
-0.00621118 0.04
-table_cup_vertsupport
-0.022541 0.2
-table_curtain_vertsupport
-0.00985222 0.024
-table_cutting board_vertsupport
-0.00716846 0.1
-table_desklamp_vertsupport
-0.0456081 0.0934256
-table_door_vertsupport
-0.0021692 0.0131579
-table_fence_vertsupport
-0.142857 0.5
-table_fishbowl_vertsupport
-0.0100503 0.2
-table_floorlamp_vertsupport
-0.00441501 0.0333333
-table_food processor_vertsupport
-0.0046729 0.142857
-table_frame_vertsupport
-0.0248566 0.0454545
-table_glass_vertsupport
-0.0387324 0.458333
-table_gym equipment_vertsupport
-0.142857 1
-table_hanger_vertsupport
-0.01 0.166667
-table_heater_vertsupport
-0.0118577 0.107143
-table_iron_vertsupport
-0.0017094 0.0285714
-table_kettle_vertsupport
-0.0118343 0.153846
-table_kitchen cabinet_vertsupport
-0.00653595 0.0357143
-table_knife rack_vertsupport
-0.005 0.125
-table_laptop_vertsupport
-0.0691928 0.105263
-table_microwave_vertsupport
-0.00590551 0.0588235
-table_mirror_vertsupport
-0.00166667 0.0238095
-table_monitor_vertsupport
-0.00996678 0.115385
-table_motorcycle_vertsupport
-0.00189753 0.2
-table_ottoman_vertsupport
-0.0104895 0.0289855
-table_pan_vertsupport
-0.00316456 0.0625
-table_partition_vertsupport
-0.0204082 0.0454545
-table_person_vertsupport
-0.0232945 0.0176545
-table_pet_vertsupport
-0.00422833 0.0153846
-table_plant_vertsupport
-0.0756579 0.1
-table_plate_vertsupport
-0.0106007 0.214286
-table_playstation_vertsupport
-0.0310966 0.136691
-table_roof_vertsupport
-0.00458716 0.333333
-table_rug_vertsupport
-0.0119048 0.0416667
-table_shelf_vertsupport
-0.0159046 0.0390244
-table_speaker_vertsupport
-0.00672646 0.0447761
-table_stand_vertsupport
-0.00634249 0.0416667
-table_stereo set_vertsupport
-0.0243112 0.15
-table_switch_vertsupport
-0.0186757 0.0948276
-table_table_vertsupport
-0.0223048 0.0221402
-table_toy_vertsupport
-0.0250522 0.179104
-table_trashbin_vertsupport
-0.00436681 0.1
-table_tv_vertsupport
-0.0537459 0.0894309
-table_tvstand_vertsupport
-0.00162866 0.016129
-table_umbrella_vertsupport
-0.00163132 0.25
-table_unknown_vertsupport
-0.0735294 0.0540865
-table_vase_vertsupport
-0.0726979 0.190678
-table_walllamp_vertsupport
-0.00339559 0.0434783
-table_water dispenser_vertsupport
-0.00487013 0.25
-table_window_vertsupport
-0.00383877 0.00934579
-table_xbox360_vertsupport
-0.0209677 0.122642
-toilet_book_vertsupport
-0.333333 0.0285714
-toilet_curtain_vertsupport
-0.0740741 0.0083682
-toilet_door_vertsupport
-0.0769231 0.0194175
-toilet_floorlamp_vertsupport
-0.0833333 0.0333333
-toilet_hanger_vertsupport
-0.181818 0.111111
-toilet_kitchen cabinet_vertsupport
-0.04 0.00606061
-toilet_laptop_vertsupport
-0.0952381 0.00696864
-toilet_mirror_vertsupport
-0.111111 0.0833333
-toilet_partition_vertsupport
-0.0588235 0.0113636
-toilet_person_vertsupport
-0.166667 0.00545703
-toilet_pet_vertsupport
-0.217391 0.0333333
-toilet_shelf_vertsupport
-0.0769231 0.00775194
-toilet_shower_vertsupport
-0.0769231 0.2
-toilet_switch_vertsupport
-0.0454545 0.0113636
-toilet_toilet_vertsupport
-0.0384615 0.0243902
-toilet_toy_vertsupport
-0.0666667 0.0243902
-toilet_trashbin_vertsupport
-0.04 0.0344828
-toilet_unknown_vertsupport
-0.227273 0.00881834
-toilet_vase_vertsupport
-0.105263 0.0125
-toilet_window_vertsupport
-0.0740741 0.00851064
-toy_chair_vertsupport
-0.333333 0.00352113
-toy_door_vertsupport
-0.0909091 0.0125
-toy_dresser_vertsupport
-1 0.125
-toy_person_vertsupport
-0.25 0.00381679
-toy_pet_vertsupport
-0.125 0.0125
-toy_plant_vertsupport
-0.111111 0.0031348
-toy_playstation_vertsupport
-0.142857 0.0142857
-toy_speaker_vertsupport
-0.166667 0.0222222
-toy_table_vertsupport
-0.125 0.0025974
-toy_toy_vertsupport
-0.266667 0.0512821
-toy_unknown_vertsupport
-0.2 0.00353982
-tv_candle_vertsupport
-0.2 0.1
-tv_clock_vertsupport
-0.142857 0.0952381
-tv_frame_vertsupport
-0.125 0.00673401
-tv_partition_vertsupport
-0.2 0.0192308
-tv_playstation_vertsupport
-0.333333 0.0437956
-tv_roof_vertsupport
-0.111111 0.25
-tv_tv_vertsupport
-0.4 0.0215054
-tv_walllamp_vertsupport
-0.142857 0.0666667
-tv_xbox360_vertsupport
-0.0909091 0.0142857
-tvstand_beer_vertsupport
-0.00546448 0.03125
-tvstand_book_vertsupport
-0.03207 0.0361842
-tvstand_books_vertsupport
-0.0328467 0.0286624
-tvstand_bottle_vertsupport
-0.00584795 0.0909091
-tvstand_bowl_vertsupport
-0.00537634 0.0232558
-tvstand_cabinet_vertsupport
-0.0132013 0.0289855
-tvstand_candle_vertsupport
-0.00536193 0.047619
-tvstand_chessboard_vertsupport
-0.00970874 0.0645161
-tvstand_clock_vertsupport
-0.0128205 0.142857
-tvstand_coffee maker_vertsupport
-0.00653595 0.0740741
-tvstand_computer set_vertsupport
-0.0299003 0.0207373
-tvstand_couch_vertsupport
-0.00409836 0.010989
-tvstand_curtain_vertsupport
-0.00555556 0.00858369
-tvstand_cutting board_vertsupport
-0.0140845 0.0833333
-tvstand_desklamp_vertsupport
-0.0156863 0.0203046
-tvstand_fishbowl_vertsupport
-0.00527704 0.0645161
-tvstand_floorlamp_vertsupport
-0.00409836 0.0181818
-tvstand_frame_vertsupport
-0.0546875 0.0654206
-tvstand_holder_vertsupport
-0.0140845 0.111111
-tvstand_kitchen cabinet_vertsupport
-0.0175439 0.0434783
-tvstand_laptop_vertsupport
-0.0183727 0.0174129
-tvstand_mirror_vertsupport
-0.00727273 0.0645161
-tvstand_monitor_vertsupport
-0.0427807 0.301887
-tvstand_motorcycle_vertsupport
-0.00342466 0.25
-tvstand_ottoman_vertsupport
-0.00409836 0.00757576
-tvstand_person_vertsupport
-0.00732601 0.00347222
-tvstand_plant_vertsupport
-0.0549738 0.0455531
-tvstand_playstation_vertsupport
-0.169399 0.469697
-tvstand_rug_vertsupport
-0.00409836 0.00862069
-tvstand_shelf_vertsupport
-0.0122951 0.0178571
-tvstand_speaker_vertsupport
-0.0434783 0.175676
-tvstand_stand_vertsupport
-0.00813008 0.025
-tvstand_stereo set_vertsupport
-0.0833333 0.319588
-tvstand_switch_vertsupport
-0.00653595 0.0210526
-tvstand_table_vertsupport
-0.00380228 0.002331
-tvstand_tv_vertsupport
-0.490909 0.505348
-tvstand_tvstand_vertsupport
-0.0264026 0.170213
-tvstand_unknown_vertsupport
-0.0342679 0.0161765
-tvstand_vase_vertsupport
-0.0548303 0.0905172
-tvstand_walllamp_vertsupport
-0.00873362 0.0571429
-tvstand_xbox360_vertsupport
-0.148936 0.538462
-umbrella_chandelier_vertsupport
-0.5 0.125
-umbrella_column_vertsupport
-0.5 0.0344828
-umbrella_floorlamp_vertsupport
-1 0.03125
-umbrella_kitchen cabinet_vertsupport
-0.5 0.0126582
-umbrella_partition_vertsupport
-1 0.012987
-umbrella_speaker_vertsupport
-1 0.03125
-umbrella_table_vertsupport
-1 0.00460829
-unknown_air conditioner_vertsupport
-0.00520833 0.166667
-unknown_arch_vertsupport
-0.0135593 0.363636
-unknown_bed_vertsupport
-0.0052356 0.0298507
-unknown_beer_vertsupport
-0.00453172 0.0508475
-unknown_book_vertsupport
-0.0231293 0.0513595
-unknown_books_vertsupport
-0.0164159 0.0287081
-unknown_bottle_vertsupport
-0.00295858 0.0769231
-unknown_bowl_vertsupport
-0.012987 0.0909091
-unknown_cabinet_vertsupport
-0.0136364 0.05625
-unknown_candle_vertsupport
-0.00823045 0.108108
-unknown_chair_vertsupport
-0.0363636 0.0197133
-unknown_chandelier_vertsupport
-0.00335008 0.1
-unknown_clock_vertsupport
-0.00409836 0.136364
-unknown_coffee maker_vertsupport
-0.00982318 0.192308
-unknown_column_vertsupport
-0.0204082 0.2
-unknown_computer set_vertsupport
-0.0357143 0.0465116
-unknown_couch_vertsupport
-0.00909091 0.0504202
-unknown_cup_vertsupport
-0.0135397 0.12963
-unknown_curtain_vertsupport
-0.0109689 0.0294118
-unknown_cutting board_vertsupport
-0.00792079 0.114286
-unknown_desk_vertsupport
-0.00757576 0.0526316
-unknown_desklamp_vertsupport
-0.0192593 0.0467626
-unknown_dishwasher_vertsupport
-0.00185874 0.166667
-unknown_door_vertsupport
-0.00606061 0.0421053
-unknown_dresser_vertsupport
-0.0125 0.25
-unknown_fan_vertsupport
-0.00166667 0.0769231
-unknown_fence_vertsupport
-0.00925926 0.181818
-unknown_fireplace_vertsupport
-0.00225225 0.125
-unknown_fish tank_vertsupport
-0.00148148 0.142857
-unknown_fishbowl_vertsupport
-0.00166945 0.0384615
-unknown_food processor_vertsupport
-0.030303 1
-unknown_frame_vertsupport
-0.0325926 0.0702875
-unknown_glass_vertsupport
-0.00358423 0.0384615
-unknown_hanger_vertsupport
-0.00931677 0.115385
-unknown_heater_vertsupport
-0.00938967 0.08
-unknown_holder_vertsupport
-0.0118343 0.307692
-unknown_kettle_vertsupport
-0.00959693 0.131579
-unknown_kitchen cabinet_vertsupport
-0.0166667 0.06875
-unknown_knife rack_vertsupport
-0.00739645 0.208333
-unknown_laptop_vertsupport
-0.0223464 0.0403023
-unknown_microwave_vertsupport
-0.0164384 0.162162
-unknown_mirror_vertsupport
-0.00421941 0.0697674
-unknown_monitor_vertsupport
-0.00196464 0.025641
-unknown_ottoman_vertsupport
-0.0424242 0.136585
-unknown_outdoor lamp_vertsupport
-0.0040568 0.1
-unknown_pan_vertsupport
-0.0115385 0.222222
-unknown_partition_vertsupport
-0.00961538 0.0277778
-unknown_person_vertsupport
-0.046832 0.0422886
-unknown_pet_vertsupport
-0.0030303 0.0116959
-unknown_plant_vertsupport
-0.0611961 0.0960699
-unknown_plate_vertsupport
-0.00862069 0.25
-unknown_playstation_vertsupport
-0.00838926 0.042735
-unknown_pool_vertsupport
-0.5 1
-unknown_rug_vertsupport
-0.0197628 0.0729927
-unknown_shelf_vertsupport
-0.0394558 0.109023
-unknown_speaker_vertsupport
-0.00305344 0.0238095
-unknown_stand_vertsupport
-0.0135747 0.0857143
-unknown_stereo set_vertsupport
-0.0041841 0.030303
-unknown_switch_vertsupport
-0.0106667 0.0571429
-unknown_table_vertsupport
-0.0302613 0.0364842
-unknown_toilet_vertsupport
-0.00697674 0.1
-unknown_toy_vertsupport
-0.00676819 0.0487805
-unknown_trashbin_vertsupport
-0.00552486 0.142857
-unknown_tv_vertsupport
-0.0286885 0.0564516
-unknown_tvstand_vertsupport
-0.00497512 0.0526316
-unknown_umbrella_vertsupport
-0.00225734 0.333333
-unknown_unknown_vertsupport
-0.562244 0.491039
-unknown_vase_vertsupport
-0.0204918 0.0641026
-unknown_walllamp_vertsupport
-0.0125 0.151515
-unknown_washer_vertsupport
-0.00171527 0.125
-unknown_window_vertsupport
-0.00713012 0.0192308
-unknown_xbox360_vertsupport
-0.0056338 0.0392157
-vase_books_vertsupport
-0.222222 0.0075188
-vase_fishbowl_vertsupport
-0.0666667 0.0344828
-vase_frame_vertsupport
-1 0.125
-vase_hanger_vertsupport
-0.333333 0.047619
-vase_kettle_vertsupport
-0.0625 0.0222222
-vase_plant_vertsupport
-0.2 0.00682594
-vase_shelf_vertsupport
-0.25 0.0152284
-vase_tv_vertsupport
-0.0769231 0.00374532
-vase_vase_vertsupport
-0.357143 0.0231481
-walllamp_ceilingfan_vertsupport
-0.0588235 0.0769231
-walllamp_column_vertsupport
-0.25 0.0588235
-walllamp_frame_vertsupport
-0.166667 0.010929
-walllamp_shelf_vertsupport
-0.6 0.0666667
-walllamp_switch_vertsupport
-0.1 0.0128205
-walllamp_table_vertsupport
-0.444444 0.0151515
-walllamp_unknown_vertsupport
-0.333333 0.0151515
-walllamp_walllamp_vertsupport
-0.111111 0.047619
-washer_iron_vertsupport
-0.25 0.166667
-washer_kitchen cabinet_vertsupport
+1shelves_scissors_vertsupport
+0.333333 0.166667
+1shelves_shampoo_vertsupport
+0.25 1
+1shelves_soap dispenser_vertsupport
+1 1
+1shelves_soapbar_vertsupport
+0.25 1
+1shelves_spray paint_vertsupport
+1 1
+1shelves_toiletpaper_vertsupport
+0.333333 0.333333
+1shelves_towel_vertsupport
+1 1
+1shelves_zebra_vertsupport
+1 1
+4shelves_cup_vertsupport
 0.5 0.0588235
-washer_knife rack_vertsupport
-0.142857 0.0588235
-washer_plate_vertsupport
-0.142857 0.0454545
-washer_shelf_vertsupport
-0.333333 0.027027
-washer_toilet_vertsupport
-0.166667 0.0344828
-washer_washer_vertsupport
-0.4 0.4
-water dispenser_switch_vertsupport
-1 0.0285714
-water dispenser_toilet_vertsupport
-0.5 0.0384615
-window_air conditioner_vertsupport
-0.021164 0.266667
-window_cabinet_vertsupport
-0.00858369 0.0115607
-window_candle_vertsupport
-0.0188679 0.0588235
-window_column_vertsupport
-0.0131579 0.0422535
-window_curtain_vertsupport
-0.565217 0.530612
-window_door_vertsupport
-0.010101 0.0196078
-window_frame_vertsupport
-0.0406977 0.0336538
-window_hanger_vertsupport
-0.028169 0.105263
-window_heater_vertsupport
-0.0310078 0.0833333
-window_kitchen cabinet_vertsupport
-0.00578035 0.00757576
-window_partition_vertsupport
-0.0138889 0.0223881
-window_plant_vertsupport
-0.0309735 0.0159091
-window_range hood_vertsupport
-0.0208333 1
-window_rug_vertsupport
-0.0188679 0.0212766
-window_shelf_vertsupport
-0.0909091 0.0833333
-window_switch_vertsupport
-0.03125 0.0619469
-window_table_vertsupport
-0.0543478 0.0185185
-window_tv_vertsupport
-0.0377358 0.0246914
-window_unknown_vertsupport
-0.0130719 0.00369686
-window_vase_vertsupport
-0.0119048 0.0105263
-window_walllamp_vertsupport
-0.0138249 0.0697674
-window_window_vertsupport
-0.232759 0.225
-window_workplace_vertsupport
-0.0149254 0.25
-workplace_air conditioner_vertsupport
-0.0833333 0.333333
-workplace_book_vertsupport
-0.136842 0.0430464
-workplace_books_vertsupport
-0.133333 0.0330189
-workplace_bowl_vertsupport
-0.125 0.0909091
-workplace_chair_vertsupport
-0.285714 0.0236686
-workplace_chandelier_vertsupport
-0.0285714 0.181818
-workplace_chessboard_vertsupport
-0.015873 0.0333333
-workplace_clock_vertsupport
-0.0428571 0.214286
-workplace_computer set_vertsupport
-0.737864 0.137432
-workplace_curtain_vertsupport
-0.333333 0.2
-workplace_desklamp_vertsupport
-0.165049 0.0578231
-workplace_fishbowl_vertsupport
-0.0483871 0.166667
-workplace_frame_vertsupport
-0.06 0.0190476
-workplace_heater_vertsupport
-0.0114943 0.0185185
-workplace_kitchen cabinet_vertsupport
-0.03 0.0178571
-workplace_knife rack_vertsupport
-0.0625 0.142857
-workplace_laptop_vertsupport
-0.269231 0.0693069
-workplace_monitor_vertsupport
-0.6 1
-workplace_ottoman_vertsupport
-0.0333333 0.017094
-workplace_partition_vertsupport
-0.25 0.5
-workplace_person_vertsupport
-0.329897 0.0441379
-workplace_pet_vertsupport
-0.0333333 0.0205479
-workplace_plant_vertsupport
-0.0515464 0.0121065
-workplace_playstation_vertsupport
-0.030303 0.0225564
-workplace_rug_vertsupport
-0.0967742 0.0638298
-workplace_shelf_vertsupport
-1 0.833333
-workplace_stand_vertsupport
-0.6 1
-workplace_stereo set_vertsupport
-0.0192308 0.0192308
-workplace_switch_vertsupport
-0.111111 0.0985915
-workplace_toy_vertsupport
-0.0444444 0.0588235
-workplace_trashbin_vertsupport
-0.130435 0.333333
-workplace_tv_vertsupport
-0.0294118 0.00847458
-workplace_unknown_vertsupport
-0.0493827 0.00715564
-workplace_vase_vertsupport
-0.04 0.0175439
-workplace_walllamp_vertsupport
-0.0357143 0.0625
-workplace_whiteboard_vertsupport
-0.333333 1
-workplace_window_vertsupport
+4shelves_desklamp_vertsupport
+0.5 0.0666667
+4shelves_glass_vertsupport
+0.5 0.0833333
+4shelves_lamp_vertsupport
+0.666667 0.153846
+4shelves_noble metal_vertsupport
 0.666667 1
-workplace_workplace_vertsupport
-0.0888889 0.666667
-workplace_xbox360_vertsupport
-0.0315789 0.0322581
+4shelves_noname_vertsupport
+0.666667 0.105263
+4shelves_ship_vertsupport
+0.5 0.5
+4shelves_toyfigure_vertsupport
+1 0.0857143
+4shelves_unknown_vertsupport
+0.5 0.166667
+4shelves_vase_vertsupport
+0.666667 0.166667
+auxiliary storage_erlenmeyer flask_vertsupport
+1 0.5
+basket_book_vertsupport
+0.166667 0.016129
+basket_bread_vertsupport
+0.5 0.5
+basket_shirt_vertsupport
+0.571429 0.5
+bed_bear_vertsupport
+0.166667 1
+bed_book_vertsupport
+0.25 0.0163934
+bed_cabling_vertsupport
+0.2 0.2
+bed_hat_vertsupport
+0.2 0.5
+bed_headphones_vertsupport
+0.25 0.04
+bed_laptop_vertsupport
+0.5 0.1
+bed_openbook_vertsupport
+0.4 0.0666667
+bed_pants_vertsupport
+0.166667 1
+bed_pillow_horizonsupport
+1 0.333333
+bed_pillow_vertsupport
+0.5 0.4
+bed_shirt_vertsupport
+0.333333 0.285714
+bed_stackbooks_vertsupport
+0.25 0.05
+bed_tissuebox_vertsupport
+0.2 0.0833333
+bed_toyfigure_vertsupport
+0.142857 0.025
+bin_bottle_vertsupport
+1 0.117647
+bin_sodacan_vertsupport
+1 0.285714
+book_book_vertsupport
+0.55 0.183333
+book_bottle_vertsupport
+0.0625 0.0384615
+book_cellphone_vertsupport
+0.25 0.5
+book_globe_vertsupport
+0.181818 0.333333
+book_ipod_horizonsupport
+1 1
+book_key_vertsupport
+0.1 0.2
+book_knife_vertsupport
+0.25 0.333333
+book_notepad_vertsupport
+0.0769231 0.027027
+book_pen_vertsupport
+0.142857 0.0714286
+book_standbook_vertsupport
+0.142857 0.214286
+bookcase_airplane_vertsupport
+0.0909091 0.5
+bookcase_ball_vertsupport
+0.142857 0.5
+bookcase_battery_vertsupport
+0.0714286 0.125
+bookcase_book_vertsupport
+0.470588 0.137931
+bookcase_bookcase_vertsupport
+0.0952381 0.125
+bookcase_bookend_vertsupport
+0.125 0.666667
+bookcase_bottle_vertsupport
+0.0714286 0.037037
+bookcase_cage_vertsupport
+0.0714286 1
+bookcase_calculator_vertsupport
+0.0625 0.0625
+bookcase_camera_vertsupport
+0.111111 0.133333
+bookcase_cap_vertsupport
+0.2 0.5
+bookcase_car_vertsupport
+0.0666667 1
+bookcase_cassette_vertsupport
+0.0833333 0.333333
+bookcase_chain_vertsupport
+0.0666667 1
+bookcase_chair_vertsupport
+0.117647 0.03125
+bookcase_chestofdrawers_vertsupport
+0.136364 0.333333
+bookcase_child_vertsupport
+0.0666667 1
+bookcase_collection_vertsupport
+0.0666667 0.25
+bookcase_compass_vertsupport
+0.0666667 1
+bookcase_cup_vertsupport
+1 1
+bookcase_decorativeaccessory_vertsupport
+0.125 0.333333
+bookcase_disccase_vertsupport
+0.0833333 0.142857
+bookcase_elephant_vertsupport
+0.0666667 1
+bookcase_file folder_vertsupport
+0.1 0.5
+bookcase_frame_vertsupport
+0.1 0.666667
+bookcase_framework_vertsupport
+0.117647 0.5
+bookcase_guitar_vertsupport
+0.0625 1
+bookcase_gun_vertsupport
+1 1
+bookcase_headphones_vertsupport
+0.0833333 0.0416667
+bookcase_helmet_vertsupport
+0.0769231 0.5
+bookcase_holder_vertsupport
+0.2 0.108108
+bookcase_lamp_vertsupport
+0.117647 0.142857
+bookcase_light_vertsupport
+0.1 1
+bookcase_mediaplayer_vertsupport
+0.0833333 0.0416667
+bookcase_mug_vertsupport
+0.0666667 0.027027
+bookcase_need_vertsupport
+0.0666667 0.5
+bookcase_noname_vertsupport
+1 1
+bookcase_notepad_vertsupport
+0.1 0.0526316
+bookcase_openbook_vertsupport
+0.117647 0.0689655
+bookcase_pack_vertsupport
+0.0666667 1
+bookcase_perfume_vertsupport
+0.0714286 1
+bookcase_personstanding_vertsupport
+0.0666667 0.25
+bookcase_pianokeyboard_vertsupport
+0.0833333 0.333333
+bookcase_pictureframe_vertsupport
+0.125 0.222222
+bookcase_player_vertsupport
+0.0833333 1
+bookcase_pottedplant_vertsupport
+0.5 0.188679
+bookcase_printer_vertsupport
+0.111111 0.181818
+bookcase_projector_vertsupport
+0.105263 1
+bookcase_purse_vertsupport
+0.105263 0.4
+bookcase_remote control_vertsupport
+0.0833333 0.0625
+bookcase_rubikscube_vertsupport
+0.136364 0.272727
+bookcase_shoes_vertsupport
+0.0666667 0.333333
+bookcase_smokestack_vertsupport
+0.0666667 1
+bookcase_speaker_vertsupport
+0.0833333 0.0185185
+bookcase_stackbooks_vertsupport
+0.368421 0.368421
+bookcase_standbook_vertsupport
+0.136364 0.230769
+bookcase_standbooks_horizonsupport
+1 1
+bookcase_standbooks_vertsupport
+0.636364 0.7
+bookcase_statue_vertsupport
+0.1 1
+bookcase_tableclock_vertsupport
+0.105263 0.117647
+bookcase_tank_vertsupport
+0.0666667 1
+bookcase_teapot_vertsupport
+0.0666667 0.5
+bookcase_telephone_vertsupport
+0.15 0.1875
+bookcase_tolkien_vertsupport
+0.0909091 1
+bookcase_toy_vertsupport
+0.125 0.5
+bookcase_toyfigure_vertsupport
+0.5 0.289474
+bookcase_usbstick_vertsupport
+0.0833333 0.0714286
+bookcase_vase_vertsupport
+0.176471 0.230769
+bookcase_videodisk_vertsupport
+0.0833333 0.125
+bookcase_videogameconsole_vertsupport
+0.0833333 0.0666667
+bookcase_videogamecontroller_vertsupport
+0.0833333 0.047619
+bookcase_wine_vertsupport
+1 1
+bowl_banana_vertsupport
+0.5 1
+bowl_fruit_vertsupport
+1 0.285714
+bowl_vase_vertsupport
+0.333333 0.0714286
+bucket_swab_vertsupport
+1 1
+burner_flask_vertsupport
+1 0.166667
+cabinet_beaker_vertsupport
+0.333333 0.2
+cabinet_book_vertsupport
+0.2 0.0588235
+cabinet_bottle_vertsupport
+0.25 0.0625
+cabinet_bunsen burner_vertsupport
+0.571429 0.285714
+cabinet_burner_vertsupport
+0.25 1
+cabinet_calculator_vertsupport
+0.2 0.0769231
+cabinet_candle_vertsupport
+0.166667 0.142857
+cabinet_disccase_vertsupport
+0.272727 0.75
+cabinet_erlenmeyer flask_vertsupport
+0.2 0.125
+cabinet_flask_vertsupport
+0.416667 0.454545
+cabinet_glass_vertsupport
+0.333333 0.235294
+cabinet_globe_vertsupport
+1 1
+cabinet_grill_vertsupport
+0.166667 1
+cabinet_holder_vertsupport
+0.25 0.0833333
+cabinet_knife_vertsupport
+1 0.5
+cabinet_mediadiscs_vertsupport
+0.2 0.222222
+cabinet_mediaplayer_vertsupport
+0.454545 0.227273
+cabinet_noname_vertsupport
+0.272727 0.2
+cabinet_openbook_vertsupport
+0.2 0.04
+cabinet_remote control_vertsupport
+0.2 0.166667
+cabinet_rifle_vertsupport
+1 1
+cabinet_speaker_vertsupport
+0.181818 0.0666667
+cabinet_thymine_vertsupport
+0.166667 1
+cabinet_tube_vertsupport
+0.4 0.5
+cabinet_tv_vertsupport
+0.454545 0.294118
+cabinet_vase_vertsupport
+0.333333 0.2
+cabinet_vessel_vertsupport
+0.166667 0.5
+cabinet_videodisk_vertsupport
+0.2 0.4
+cabinet_videogameconsole_vertsupport
+0.272727 0.230769
+case_book_vertsupport
+0.5 0.0196078
+case_calculator_vertsupport
+0.5 0.0714286
+case_disccase_vertsupport
+1 1
+case_erlenmeyer flask_vertsupport
+0.5 0.111111
+cassette_cassette_vertsupport
+1 1
+cerealbox_toyfigure_vertsupport
+1 0.333333
+chair_hat_horizonsupport
+0.333333 1
+chair_headphones_horizonsupport
+1 1
+chair_wallet_horizonsupport
+0.5 1
+chestofdrawers_bottle_vertsupport
+0.666667 0.08
+chestofdrawers_bunsen burner_vertsupport
+0.666667 0.133333
+chestofdrawers_cellphone_vertsupport
+0.5 0.0909091
+chestofdrawers_dial_vertsupport
+0.666667 1
+chestofdrawers_switch_vertsupport
+0.666667 1
+chopping board_bread_vertsupport
+0.25 0.333333
+chopping board_food_vertsupport
+0.285714 0.25
+chopping board_fruit_vertsupport
+0.333333 0.5
+chopping board_knife_vertsupport
+0.571429 0.266667
+chopping board_loaf of bread_vertsupport
+0.4 1
+coaster_coaster_vertsupport
+0.5 0.666667
+coaster_coffee mug_vertsupport
+0.5 1
+coaster_cup_vertsupport
+0.166667 0.0645161
+coaster_mug_vertsupport
+0.636364 0.2
+computer_computer_vertsupport
+1 0.25
+computer_radio_vertsupport
+0.6 0.6
+couch_book_vertsupport
+0.333333 0.025
+couch_laptop_vertsupport
+1 0.0952381
+couch_man_vertsupport
+0.5 1
+couch_pillow_horizonsupport
+1 0.5
+couch_pillow_vertsupport
+0.5 0.5
+counter_auxiliary storage_vertsupport
+0.222222 1
+counter_battery_vertsupport
+0.222222 0.285714
+counter_beaker_vertsupport
+0.5 0.2
+counter_bottle_vertsupport
+0.416667 0.15625
+counter_bowl_vertsupport
+0.272727 0.107143
+counter_bunsen burner_vertsupport
+0.5 0.166667
+counter_calculator_vertsupport
+1 0.285714
+counter_camera_vertsupport
+0.222222 0.142857
+counter_cerealbox_vertsupport
+0.3 0.428571
+counter_chopping board_vertsupport
+0.333333 0.5
+counter_coaster_vertsupport
+0.166667 0.222222
+counter_erlenmeyer flask_vertsupport
+0.5 0.25
+counter_food_vertsupport
+0.125 0.5
+counter_foodplate_vertsupport
+0.2 0.222222
+counter_glass_vertsupport
+0.2 0.111111
+counter_guanine_vertsupport
+0.5 1
+counter_holder_vertsupport
+0.272727 0.0769231
+counter_kitchen appliance_vertsupport
+0.333333 1
+counter_laptop_vertsupport
+0.333333 0.107143
+counter_microwave_vertsupport
+0.2 0.4
+counter_milkcarton_vertsupport
+0.3 0.428571
+counter_notepad_vertsupport
+0.5 0.0454545
+counter_openbook_vertsupport
+0.333333 0.107143
+counter_pan_vertsupport
+0.125 0.5
+counter_pen_vertsupport
+0.5 0.0625
+counter_pencil_vertsupport
+0.222222 0.08
+counter_pillbottle_vertsupport
+0.5 0.2
+counter_plate_vertsupport
+0.5 0.4
+counter_plug_vertsupport
+0.222222 1
+counter_pot_vertsupport
+0.125 0.2
+counter_rack_vertsupport
+0.25 0.6
+counter_spatula_vertsupport
+0.125 0.5
+counter_tissuebox_vertsupport
+0.333333 0.3
+counter_toaster_vertsupport
+0.125 1
+counter_toiletpaper_vertsupport
+0.222222 1
+counter_usbstick_vertsupport
+0.222222 0.153846
+credenza_camera_vertsupport
+1 0.166667
+credenza_candle_vertsupport
+1 0.333333
+credenza_ceramic_vertsupport
+1 1
+credenza_decorativeaccessory_vertsupport
+1 0.333333
+credenza_notepad_vertsupport
+1 0.047619
+credenza_pottedplant_vertsupport
+1 0.0625
+credenza_telephone_vertsupport
+1 0.111111
+cupboard_bowl_vertsupport
+1 0.0833333
+cupboard_knife_vertsupport
+1 0.1
+cupboard_pottedplant_vertsupport
+1 0.05
+dartboard_dart_horizonsupport
+1 1
+desk_aaabattery_vertsupport
+0.0833333 1
+desk_airplane_vertsupport
+0.285714 1
+desk_apple_vertsupport
+0.0545455 1
+desk_battery_vertsupport
+0.181818 1
+desk_beaker_vertsupport
+0.0714286 0.285714
+desk_binder_vertsupport
+0.363636 0.666667
+desk_book_horizonsupport
+1 0.5
+desk_book_vertsupport
+0.285714 0.326531
+desk_bookend_vertsupport
+1 1
+desk_bottle_vertsupport
+0.0588235 0.125
+desk_bowl_vertsupport
+0.145833 0.304348
+desk_bunsen burner_vertsupport
+0.137931 0.4
+desk_cabling_horizonsupport
+0.5 1
+desk_cabling_vertsupport
+0.0740741 1
+desk_cadmium_vertsupport
+0.0350877 1
+desk_calculator_vertsupport
+0.166667 0.416667
+desk_camera_vertsupport
+0.125 0.5
+desk_case_vertsupport
+0.2 1
+desk_cellphone_vertsupport
+0.362069 0.724138
+desk_cellulose tape_vertsupport
+0.103448 1
+desk_cerealbox_vertsupport
+0.2 1
+desk_chemistry_vertsupport
+0.0714286 1
+desk_clock_vertsupport
+1 1
+desk_compact disk_horizonsupport
+0.5 0.333333
+desk_compact disk_vertsupport
+0.157895 1
+desk_computer_vertsupport
+0.233333 0.451613
+desk_computermouse_vertsupport
+0.298246 0.472222
+desk_cradle_vertsupport
+0.0243902 1
+desk_cup_vertsupport
+0.176471 0.310345
+desk_desklamp_vertsupport
+0.293103 0.809524
+desk_dish_vertsupport
+0.0645161 1
+desk_dispenser_vertsupport
+0.263158 1
+desk_envelope_vertsupport
+0.0454545 1
+desk_eraser_vertsupport
+0.25 0.6
+desk_erlenmeyer flask_vertsupport
+0.09375 0.428571
+desk_file folder_vertsupport
+0.166667 1
+desk_flask_vertsupport
+0.09375 0.6
+desk_frame_vertsupport
+1 1
+desk_framework_vertsupport
+0.0869565 0.666667
+desk_glass_vertsupport
+0.193548 1
+desk_glasses_vertsupport
+0.0727273 0.4
+desk_headphones_vertsupport
+0.396552 1
+desk_heart_vertsupport
+0.0526316 1
+desk_holder_vertsupport
+0.288136 0.447368
+desk_ipod_vertsupport
+0.0566038 0.75
+desk_key_vertsupport
+0.12069 0.636364
+desk_keyboard_vertsupport
+0.655172 1
+desk_lamp_vertsupport
+0.206897 0.75
+desk_laptop_vertsupport
+0.289474 0.423077
+desk_magnetic disk_vertsupport
+0.0869565 1
+desk_mediadiscs_vertsupport
+0.241379 0.823529
+desk_microscope_vertsupport
+0.129032 0.8
+desk_monitor_vertsupport
+0.6 1
+desk_mousepad_vertsupport
+0.344828 1
+desk_mug_vertsupport
+0.0909091 0.15625
+desk_noname_vertsupport
+0.157895 0.5
+desk_notepad_vertsupport
+0.5 0.805556
+desk_openbook_vertsupport
+0.375 0.5
+desk_orange toast_vertsupport
+0.037037 1
+desk_organ_vertsupport
+0.210526 1
+desk_paper_horizonsupport
+0.6 0.6
+desk_paper_vertsupport
+0.163636 0.529412
+desk_paperclip_vertsupport
+0.210526 1
+desk_pen_vertsupport
+0.21875 0.35
+desk_pencil sharpener_vertsupport
+0.125 0.5
+desk_pencil_vertsupport
+0.241379 0.388889
+desk_picture frame_horizonsupport
+0.4 1
+desk_picture_horizonsupport
+0.6 0.75
+desk_picture_vertsupport
+0.030303 1
+desk_pictureframe_horizonsupport
+0.8 1
+desk_pictureframe_vertsupport
+0.0714286 0.571429
+desk_pot_vertsupport
+0.0645161 0.666667
+desk_pottedplant_vertsupport
+0.0943396 0.116279
+desk_powerstrip_horizonsupport
+0.6 1
+desk_powerstrip_vertsupport
+0.0535714 0.2
+desk_printer_vertsupport
+0.169811 0.9
+desk_punch_vertsupport
+0.227273 1
+desk_radio receiver_vertsupport
+0.047619 1
+desk_rifle_vertsupport
+0.0625 0.75
+desk_router_horizonsupport
+0.5 1
+desk_router_vertsupport
+0.0869565 1
+desk_rubikscube_vertsupport
+0.150943 0.8
+desk_scissors_vertsupport
+0.130435 0.6
+desk_ship_vertsupport
+0.0833333 1
+desk_sodacan_vertsupport
+0.25 0.777778
+desk_speaker_horizonsupport
+0.25 1
+desk_speaker_vertsupport
+0.5 0.557692
+desk_stackbooks_vertsupport
+0.131579 0.357143
+desk_standbook_vertsupport
+0.105263 0.444444
+desk_standbooks_vertsupport
+0.130435 0.333333
+desk_stapler_vertsupport
+0.254237 1
+desk_tableclock_vertsupport
+0.304348 0.538462
+desk_teacup_vertsupport
+0.0576923 0.5
+desk_telecommunication_vertsupport
+0.0576923 0.75
+desk_telephone_vertsupport
+0.113208 0.461538
+desk_tissuebox_vertsupport
+0.09375 0.5
+desk_toyfigure_vertsupport
+0.148148 0.285714
+desk_tv_vertsupport
+0.030303 0.333333
+desk_usbstick_vertsupport
+0.12069 0.583333
+desk_vase_vertsupport
+1 0.5
+desk_videogamecontroller_vertsupport
+0.0294118 0.2
+desk_wallet_vertsupport
+0.0862069 0.454545
+desk_webcam_vertsupport
+0.0869565 0.333333
+desk_xbox360_vertsupport
+0.0588235 1
+desk_yttrium_vertsupport
+0.157895 1
+disccase_disccase_vertsupport
+1 0.2
+disccase_mediadiscs_vertsupport
+0.5 0.0555556
+dish_dish_vertsupport
+1 0.4
+disk_videogamecontroller_vertsupport
+1 0.0555556
+display_collection_vertsupport
+1 0.666667
+display_pottedplant_vertsupport
+1 0.0645161
+display_toyfigure_vertsupport
+1 0.0869565
+dresser_aerosol_vertsupport
+0.333333 0.666667
+dresser_book_vertsupport
+0.333333 0.047619
+dresser_bottle_vertsupport
+0.5 0.157895
+dresser_candle_vertsupport
+0.4 0.333333
+dresser_canister_vertsupport
+0.1 1
+dresser_cap_vertsupport
+0.2 0.5
+dresser_cellphone_vertsupport
+0.2 0.0588235
+dresser_cube_vertsupport
+0.333333 0.5
+dresser_dart_vertsupport
+0.25 1
+dresser_desklamp_vertsupport
+0.25 0.0714286
+dresser_dog_vertsupport
+0.111111 0.5
+dresser_hat_vertsupport
+0.142857 1
+dresser_lamp_vertsupport
+0.333333 0.111111
+dresser_laptop_vertsupport
+0.375 0.0967742
+dresser_mirror_vertsupport
+0.1 1
+dresser_pictureframe_vertsupport
+0.4 0.5
+dresser_rule_vertsupport
+0.333333 1
+dresser_stackbooks_vertsupport
+0.333333 0.153846
+dresser_statue_vertsupport
+0.1 0.5
+dresser_tableclock_vertsupport
+0.25 0.0666667
+dresser_tape_vertsupport
+0.333333 0.5
+dresser_tissuebox_vertsupport
+0.428571 0.375
+dresser_toyfigure_vertsupport
+0.5 0.102564
+dresser_unknown_vertsupport
+0.4 0.181818
+dresser_vase_vertsupport
+0.333333 0.166667
+dresser_wallet_vertsupport
+0.4 0.4
+dresserwithmirror_bag_vertsupport
+1 0.5
+dresserwithmirror_book_vertsupport
+1 0.0192308
+dresserwithmirror_bowl_vertsupport
+1 0.0384615
+dresserwithmirror_calculator_vertsupport
+1 0.0666667
+dresserwithmirror_candle_vertsupport
+1 0.0666667
+dresserwithmirror_cellphone_vertsupport
+1 0.0322581
+dresserwithmirror_comb_vertsupport
+1 1
+dresserwithmirror_decoration_vertsupport
+1 1
+dresserwithmirror_horse_vertsupport
+1 1
+dresserwithmirror_pen_vertsupport
+1 0.0384615
+dresserwithmirror_plant_vertsupport
+1 0.333333
+dresserwithmirror_potrack_vertsupport
+1 1
+dresserwithmirror_pottedplant_vertsupport
+1 0.0217391
+dresserwithmirror_purse_vertsupport
+1 0.25
+dresserwithmirror_ring_vertsupport
+1 0.333333
+dresserwithmirror_toyfigure_vertsupport
+1 0.0333333
+dresserwithmirror_vase_vertsupport
+1 0.0909091
+dresserwithmirror_videogamecontroller_vertsupport
+1 0.05
+endtable_aquarium_vertsupport
+0.5 1
+endtable_beaker_vertsupport
+0.333333 0.25
+endtable_book_vertsupport
+0.333333 0.037037
+endtable_calculator_vertsupport
+1 0.4
+endtable_cellphone_vertsupport
+0.333333 0.1
+endtable_key_vertsupport
+1 0.333333
+endtable_laptop_vertsupport
+0.75 0.157895
+endtable_noname_vertsupport
+0.333333 0.111111
+endtable_notepad_vertsupport
+1 0.05
+endtable_openbook_vertsupport
+0.333333 0.0588235
+endtable_paper_vertsupport
+0.5 0.142857
+endtable_pen_vertsupport
+1 0.0909091
+endtable_pencil_vertsupport
+0.5 0.117647
+endtable_radio_vertsupport
+1 0.5
+endtable_telephone_vertsupport
+1 0.125
+espresso maker_mug_vertsupport
+1 0.2
+filecabinet_binder_vertsupport
+0.5 0.4
+filecabinet_book_vertsupport
+0.2 0.1
+filecabinet_globe_vertsupport
+1 0.333333
+filecabinet_notepad_vertsupport
+0.5 0.125
+filecabinet_pottedplant_vertsupport
+0.166667 0.0833333
+grill_pan_vertsupport
+1 0.2
+grill_spatula_vertsupport
+1 0.25
+magazine_cellphone_vertsupport
+0.333333 0.0714286
+magazine_mug_vertsupport
+1 0.08
+mediaplayer_camera_vertsupport
+0.222222 0.2
+mediaplayer_mediaplayer_vertsupport
+0.666667 0.347826
+mediaplayer_mug_vertsupport
+0.2 0.105263
+mediastorage_battery_vertsupport
+0.428571 0.5
+mediastorage_candle_vertsupport
+0.333333 0.4
+mediastorage_cart_vertsupport
+0.333333 1
+mediastorage_case_vertsupport
+0.428571 0.6
+mediastorage_collection_vertsupport
+0.333333 0.5
+mediastorage_controller_vertsupport
+0.428571 0.6
+mediastorage_game_vertsupport
+0.333333 0.5
+mediastorage_mediadiscs_vertsupport
+0.2 0.125
+mediastorage_mediaplayer_vertsupport
+0.714286 0.25
+mediastorage_mouse_vertsupport
+0.333333 1
+mediastorage_noname_vertsupport
+0.333333 0.142857
+mediastorage_pottedplant_vertsupport
+0.6 0.103448
+mediastorage_psp_vertsupport
+0.333333 1
+mediastorage_remote control_vertsupport
+0.5 0.230769
+mediastorage_telephone_vertsupport
+0.571429 0.333333
+mediastorage_toyfigure_vertsupport
+0.333333 0.0909091
+mediastorage_tv_vertsupport
+1 0.4375
+mediastorage_unknown_vertsupport
+0.428571 0.3
+mediastorage_vase_vertsupport
+0.666667 0.222222
+mediastorage_videodisk_vertsupport
+0.428571 0.428571
+mediastorage_videogameconsole_vertsupport
+0.857143 0.5
+mediastorage_videogamecontroller_vertsupport
+0.857143 0.4
+mediastorage_webcam_vertsupport
+0.428571 0.3
+mediastorage_wheel_vertsupport
+0.428571 1
+mediastorage_work_vertsupport
+0.333333 1
+mediastorage_xbox360_vertsupport
+0.333333 0.333333
+microwave_beaker_vertsupport
+1 1
+microwave_pot_vertsupport
+1 1
+money_coin_vertsupport
+1 1
+monitor_paper_horizonsupport
+1 0.5
+monitor_webcam_vertsupport
+1 0.416667
+mousepad_computermouse_vertsupport
+1 0.540541
+nightstand_atomizer_vertsupport
+1 0.5
+nightstand_biscuit_vertsupport
+1 1
+nightstand_book_vertsupport
+0.571429 0.0909091
+nightstand_bottle_vertsupport
+0.111111 0.0333333
+nightstand_cellphone_vertsupport
+1 0.2
+nightstand_cube_vertsupport
+1 1
+nightstand_cup_vertsupport
+0.833333 0.357143
+nightstand_desklamp_vertsupport
+0.4 0.222222
+nightstand_duct tape_vertsupport
+0.285714 1
+nightstand_flashlight_vertsupport
+0.285714 1
+nightstand_glasses_vertsupport
+0.111111 0.0909091
+nightstand_hammer_vertsupport
+0.285714 1
+nightstand_lamp_vertsupport
+0.111111 0.0666667
+nightstand_openbook_vertsupport
+0.4 0.181818
+nightstand_pillbottle_vertsupport
+0.222222 0.25
+nightstand_screwdriver_vertsupport
+0.285714 1
+nightstand_standbook_vertsupport
+0.333333 0.4
+nightstand_standbooks_vertsupport
+1 0.333333
+nightstand_tableclock_vertsupport
+1 0.473684
+nightstand_tape_vertsupport
+0.285714 0.5
+nightstand_videogamecontroller_vertsupport
+0.125 0.0454545
+nightstand_watch_vertsupport
+0.285714 1
+nightstand_wineglass_vertsupport
+0.111111 1
+nightstand_wrench_vertsupport
+0.285714 1
+notepad_book_vertsupport
+0.2 0.0952381
+notepad_cellphone_vertsupport
+0.153846 0.222222
+notepad_eraser_vertsupport
+0.166667 0.166667
+notepad_glasses_vertsupport
+0.166667 1
+notepad_key_vertsupport
+0.153846 1
+notepad_pen_vertsupport
+0.45 0.36
+notepad_pencil_vertsupport
+0.388889 0.304348
+notepad_usbstick_vertsupport
+0.272727 0.75
+notepad_wallet_vertsupport
+0.153846 0.5
+openbook_calculator_horizonsupport
+0.272727 1
+openbook_chocolate_horizonsupport
+0.0769231 1
+openbook_compact disk_horizonsupport
+0.5 1
+openbook_notepad_horizonsupport
+0.0769231 1
+openbook_pen_horizonsupport
+0.583333 1
+openbook_pencil_horizonsupport
+0.230769 1
+openbook_pencil_vertsupport
+1 0.05
+organ_eraser_vertsupport
+1 0.285714
+organ_notepad_vertsupport
+1 0.142857
+organ_scissors_vertsupport
+1 0.5
+ottoman_helmet_vertsupport
+1 1
+ottoman_remote control_vertsupport
+0.5 0.333333
+oven_bottle_vertsupport
+1 0.142857
+oven_pan_vertsupport
+1 0.5
+oven_spatula_vertsupport
+1 0.666667
+pan_basin_vertsupport
+1 1
+paper_eraser_vertsupport
+0.5 0.5
+paper_paper_vertsupport
+0.8 0.444444
+paper_pencil sharpener_vertsupport
+0.5 1
+paper_pencil_vertsupport
+0.5 0.166667
+paper_videogamecontroller_vertsupport
+0.5 1
+paperbox_stackbooks_vertsupport
+0.666667 0.166667
+paperbox_standbook_vertsupport
+0.5 0.142857
+pillow_hat_horizonsupport
+1 0.5
+pillow_openbook_horizonsupport
+0.5 1
+plate_banana_horizonsupport
+0.333333 1
+plate_bowl_vertsupport
+0.0666667 0.0666667
+plate_breadslice_horizonsupport
+1 1
+plate_breadslice_vertsupport
+0.214286 0.75
+plate_carrot_vertsupport
+0.0555556 1
+plate_cookie_vertsupport
+0.444444 0.8
+plate_donut_horizonsupport
+0.333333 1
+plate_donut_vertsupport
+0.0833333 1
+plate_food_horizonsupport
+0.5 1
+plate_food_vertsupport
+0.0555556 0.2
+plate_foodplate_vertsupport
+0.157895 0.5
+plate_fork_vertsupport
+0.0952381 0.5
+plate_fruit_horizonsupport
+0.333333 1
+plate_fruit_vertsupport
+0.25 0.5
+plate_hamburger_vertsupport
+0.1 1
+plate_knife_vertsupport
+0.142857 0.214286
+plate_mug_vertsupport
+0.4 0.166667
+plate_plate_vertsupport
+0.333333 0.5
+plate_pottedplant_horizonsupport
+0.25 0.5
+plate_sandwich_vertsupport
+0.181818 0.666667
+plate_unknown_vertsupport
+0.0769231 0.0833333
+platter_sandwich_vertsupport
+1 0.2
+rack_aerosol_vertsupport
+0.5 0.5
+rack_basket_vertsupport
+1 1
+rack_bottle_vertsupport
+0.5 0.166667
+rack_brush_vertsupport
+1 0.5
+rack_holder_vertsupport
+1 0.25
+rack_marker_vertsupport
+1 1
+rack_pen_vertsupport
+1 0.333333
+rack_pencil_vertsupport
+1 0.25
+rack_purse_vertsupport
+0.25 0.166667
+rack_radio_vertsupport
+1 1
+rack_shoes_vertsupport
+0.25 0.25
+rack_suitcase_vertsupport
+0.333333 1
+radio_ipod_vertsupport
+1 1
+refrigerator_bottle_vertsupport
+0.333333 0.030303
+refrigerator_bowl_vertsupport
+0.333333 0.0333333
+refrigerator_coffee maker_vertsupport
+1 1
+refrigerator_magnet_horizonsupport
+1 1
+refrigerator_microwave_vertsupport
+0.5 0.25
+refrigerator_pot_vertsupport
+1 0.25
+refrigerator_vase_vertsupport
+0.5 0.142857
+room_1shelves_horizonsupport
+0.0379747 1
+room_4shelves_vertsupport
+0.0254237 1
+room_art_vertsupport
+0.0384615 1
+room_artwork_horizonsupport
+0.0246914 1
+room_ashcan_vertsupport
+0.0446429 1
+room_backpack_vertsupport
+0.0344828 1
+room_bag_vertsupport
+0.0163934 0.666667
+room_ball_vertsupport
+0.0188679 0.5
+room_basket_vertsupport
+0.0687023 0.75
+room_bathtub_vertsupport
+0.00793651 1
+room_battery_horizonsupport
+0.0263158 1
+room_bed_vertsupport
+0.0687023 1
+room_bench_vertsupport
+0.00763359 1
+room_bin_vertsupport
+0.0327869 1
+room_board_horizonsupport
+0.075 1
+room_book_horizonsupport
+0.0327869 0.666667
+room_book_vertsupport
+0.0277778 0.0384615
+room_bookcase_horizonsupport
+0.027027 1
+room_bookcase_vertsupport
+0.123967 0.882353
+room_bottle_vertsupport
+0.0173913 0.0714286
+room_brake shoe_vertsupport
+0.0322581 1
+room_broom_vertsupport
+0.00819672 1
+room_brown bear_horizonsupport
+0.5 1
+room_bucket_vertsupport
+0.0606061 1
+room_cabinet_horizonsupport
+0.0243902 1
+room_cabinet_vertsupport
+0.107143 1
+room_camera tripod_vertsupport
+0.0241935 1
+room_candle_vertsupport
+0.00757576 0.0625
+room_case_vertsupport
+0.0267857 0.428571
+room_cat_vertsupport
+0.015873 1
+room_ceilingfan_horizonsupport
+0.08 1
+room_chair_vertsupport
+0.465116 0.923077
+room_chestofdrawers_vertsupport
+0.0307692 0.4
+room_classroom_vertsupport
+0.111111 1
+room_clock_horizonsupport
+0.03125 1
+room_coat hanger_horizonsupport
+0.0454545 1
+room_coatrack_vertsupport
+0.0434783 1
+room_coffee table_vertsupport
+0.0222222 1
+room_component_horizonsupport
+0.0416667 1
+room_computer_vertsupport
+0.138889 0.5
+room_copier_vertsupport
+0.0357143 1
+room_couch_vertsupport
+0.125 0.928571
+room_counter_vertsupport
+0.0606061 1
+room_crate_vertsupport
+0.0243902 1
+room_cupboard_horizonsupport
+0.0322581 1
+room_cupboard_vertsupport
+0.0192308 1
+room_curtain_horizonsupport
+0.02 1
+room_dartboard_horizonsupport
+0.0263158 1
+room_decoration_horizonsupport
+0.0555556 1
+room_decorativeaccessory_vertsupport
+0.0266667 0.5
+room_deer_horizonsupport
+0.5 1
+room_desk_vertsupport
+0.398438 1
+room_desktop_vertsupport
+0.0357143 1
+room_detector_horizonsupport
+0.0416667 1
+room_display_vertsupport
+0.027027 1
+room_dog_vertsupport
+0.0151515 0.666667
+room_dome_vertsupport
+0.0192308 1
+room_dresser_vertsupport
+0.0610687 1
+room_dresserwithmirror_vertsupport
+0.00884956 1
+room_dryer_horizonsupport
+0.0441176 1
+room_easel_vertsupport
+0.111111 1
+room_endtable_vertsupport
+0.0888889 1
+room_fan_horizonsupport
+0.0408163 1
+room_fan_vertsupport
+0.0192308 1
+room_filecabinet_vertsupport
+0.214286 1
+room_fire alarm_horizonsupport
+0.0882353 1
+room_fire extinguisher_vertsupport
+0.0535714 1
+room_fireplace_vertsupport
+0.00757576 1
+room_floorlamp_vertsupport
+0.132743 0.882353
+room_game_vertsupport
+0.0188679 1
+room_gametable_vertsupport
+0.0108696 1
+room_garbage_vertsupport
+0.0217391 1
+room_grill_vertsupport
+0.0163934 0.5
+room_guitarstand_vertsupport
+0.0350877 1
+room_hair_vertsupport
+0.111111 1
+room_head_horizonsupport
+0.03125 1
+room_holder_horizonsupport
+0.0126582 1
+room_holder_vertsupport
+0.04 0.103448
+room_lamp_horizonsupport
+0.129032 1
+room_lamp_vertsupport
+0.010989 0.0833333
+room_leg_vertsupport
+0.030303 1
+room_lightswitch_horizonsupport
+0.222222 1
+room_lightswitch_vertsupport
+0.0869565 1
+room_mediastorage_vertsupport
+0.0810811 0.857143
+room_milkcarton_vertsupport
+0.00813008 0.166667
+room_mirror_horizonsupport
+0.0864198 1
+room_monkey_horizonsupport
+0.5 1
+room_need_vertsupport
+0.016129 0.666667
+room_network_vertsupport
+0.010989 0.5
+room_nightstand_vertsupport
+0.0687023 1
+room_noname_horizonsupport
+0.0540541 1
+room_ottoman_vertsupport
+0.0322581 1
+room_oven_vertsupport
+0.0384615 1
+room_paper towel_horizonsupport
+0.0277778 1
+room_paperbox_vertsupport
+0.0869565 1
+room_personstanding_vertsupport
+0.030303 0.8
+room_pianokeyboard_vertsupport
+0.021978 1
+room_picture_horizonsupport
+0.142857 1
+room_plant_vertsupport
+0.0322581 1
+room_plotter_vertsupport
+0.0357143 1
+room_post horse_horizonsupport
+0.03125 1
+room_poster_horizonsupport
+0.0125 1
+room_pot_vertsupport
+0.010989 0.142857
+room_pottedplant_horizonsupport
+0.0714286 1
+room_pottedplant_vertsupport
+0.121212 0.290909
+room_powersocket_horizonsupport
+0.3875 1
+room_powerstrip_vertsupport
+0.12037 0.8125
+room_print_horizonsupport
+0.0465116 1
+room_push broom_vertsupport
+1 1
+room_rack_horizonsupport
+0.0266667 1
+room_rack_vertsupport
+0.0163934 0.5
+room_radio receiver_horizonsupport
+0.0133333 1
+room_railing_horizonsupport
+0.0263158 1
+room_refrigerator_vertsupport
+0.030303 1
+room_rug_vertsupport
+0.126984 1
+room_shackle_vertsupport
+0.0188679 1
+room_shelf_horizonsupport
+0.03125 1
+room_shelf_vertsupport
+0.0434783 1
+room_shoes_vertsupport
+0.0111111 1
+room_showerhead_horizonsupport
+0.0379747 1
+room_sink_horizonsupport
+1 1
+room_sink_vertsupport
+0.0327869 1
+room_speaker_vertsupport
+0.175926 0.358491
+room_stained-glass window_horizonsupport
+0.025 1
+room_statue_vertsupport
+0.00763359 0.333333
+room_stool_vertsupport
+0.0923077 1
+room_stove_horizonsupport
+0.0121951 1
+room_subwoofer_vertsupport
+0.016129 1
+room_suitcase_vertsupport
+0.00819672 0.5
+room_support_horizonsupport
+0.0277778 1
+room_swab_vertsupport
+0.030303 0.5
+room_sword_vertsupport
+0.0192308 1
+room_table_vertsupport
+0.287879 0.863636
+room_tape_vertsupport
+0.0188679 0.333333
+room_thermostat_horizonsupport
+0.0246914 1
+room_tissuebox_vertsupport
+0.00813008 0.0909091
+room_toilet_vertsupport
+0.00793651 1
+room_toiletpaper_horizonsupport
+0.0126582 1
+room_towel ring_horizonsupport
+0.0294118 1
+room_towel_horizonsupport
+0.0379747 1
+room_trashbin_vertsupport
+0.214286 1
+room_tvstand_vertsupport
+0.043956 0.8
+room_unknown_vertsupport
+0.5 1
+room_vacuum_vertsupport
+0.0409836 1
+room_vanity_vertsupport
+0.00793651 1
+room_vase_vertsupport
+0.0151515 0.125
+room_wall clock_horizonsupport
+0.0123457 1
+room_wall socket_horizonsupport
+0.0416667 1
+room_wallart_horizonsupport
+0.617284 1
+room_wallclock_horizonsupport
+0.36 1
+room_walldecoration_horizonsupport
+0.0365854 1
+room_washer_vertsupport
+0.0245902 1
+room_water cooler_vertsupport
+0.0434783 1
+rug_chair_horizonsupport
+0.5 1
+rug_chair_vertsupport
+0.375 0.0697674
+rug_couch_vertsupport
+0.166667 0.111111
+rug_credenza_vertsupport
+0.333333 1
+rug_floorlamp_vertsupport
+0.333333 0.0909091
+rug_mediastorage_vertsupport
+0.2 0.166667
+rug_pillow_horizonsupport
+1 1
+rug_pillow_vertsupport
+0.25 0.5
+rug_purse_vertsupport
+0.5 0.5
+rug_shoes_vertsupport
+0.111111 0.5
+rug_speaker_vertsupport
+0.166667 0.0344828
+rug_table_vertsupport
+0.5 0.111111
+rug_tvstand_vertsupport
+0.166667 0.25
+shelf_ball_vertsupport
+0.5 1
+shelf_coca cola_vertsupport
+0.5 1
+shelf_launcher_vertsupport
+0.5 1
+shelf_openbook_vertsupport
+1 0.125
+shelf_pillbottle_vertsupport
+0.5 0.166667
+shelf_stackbooks_vertsupport
+1 0.333333
+shelf_standbooks_vertsupport
+1 0.25
+shelf_toyfigure_vertsupport
+1 0.142857
+sink_blender_vertsupport
+0.666667 0.5
+sink_bottle_vertsupport
+0.25 0.0344828
+sink_bowl_vertsupport
+0.666667 0.153846
+sink_bread_vertsupport
+0.666667 0.4
+sink_cerealbox_vertsupport
+0.666667 0.4
+sink_chopping board_vertsupport
+0.666667 0.333333
+sink_coffee mill_vertsupport
+0.666667 1
+sink_dish_vertsupport
+0.666667 0.333333
+sink_flatware_vertsupport
+0.666667 1
+sink_milkcarton_vertsupport
+0.666667 0.5
+sink_mug_vertsupport
+0.666667 0.125
+sink_pan_vertsupport
+0.666667 0.333333
+sink_plate_vertsupport
+0.666667 0.181818
+sink_ring_vertsupport
+0.666667 1
+sink_soap dispenser_vertsupport
+1 0.5
+speaker_central processing unit_horizonsupport
+1 1
+speaker_pottedplant_vertsupport
+1 0.111111
+stackbooks_book_vertsupport
+1 0.0526316
+standbook_glasses_vertsupport
+1 0.166667
+stool_book_vertsupport
+1 0.0357143
+table_ashtray_vertsupport
+0.0222222 1
+table_basket_vertsupport
+0.0740741 0.333333
+table_beaker_vertsupport
+0.107143 0.333333
+table_blender_vertsupport
+0.0869565 0.666667
+table_book_vertsupport
+0.132075 0.14
+table_bottle_vertsupport
+0.119048 0.227273
+table_bowl_vertsupport
+0.254545 0.482759
+table_brush_vertsupport
+0.333333 1
+table_bunsen burner_vertsupport
+0.266667 0.5
+table_calculator_vertsupport
+0.0666667 0.125
+table_camera_vertsupport
+0.0377358 0.153846
+table_candle_vertsupport
+0.132075 0.538462
+table_canopener_vertsupport
+0.0217391 1
+table_cap_vertsupport
+0.0540541 0.666667
+table_cellphone_vertsupport
+0.0377358 0.0666667
+table_cerealbox_vertsupport
+0.0192308 0.166667
+table_chess_vertsupport
+0.04 1
+table_chessboard_vertsupport
+0.0833333 1
+table_chessman_vertsupport
+0.0333333 1
+table_chestofdrawers_vertsupport
+0.0188679 0.166667
+table_chocolate_vertsupport
+0.0344828 1
+table_chopping board_vertsupport
+0.0740741 0.4
+table_coaster_vertsupport
+0.0961538 0.625
+table_cocktail_vertsupport
+0.0232558 1
+table_coffee maker_vertsupport
+0.0188679 0.5
+table_coin_vertsupport
+0.025641 0.333333
+table_controller_vertsupport
+0.0204082 0.166667
+table_cream pitcher_vertsupport
+0.0238095 1
+table_cup_vertsupport
+0.255319 0.461538
+table_decorativeaccessory_vertsupport
+0.0188679 0.2
+table_diet_vertsupport
+0.1 1
+table_donutbox_vertsupport
+0.0188679 1
+table_erlenmeyer flask_vertsupport
+0.133333 0.4
+table_espresso maker_vertsupport
+0.105263 1
+table_espresso_vertsupport
+0.0869565 1
+table_flask_vertsupport
+0.142857 0.666667
+table_floorlamp_vertsupport
+1 1
+table_food processor_vertsupport
+0.105263 1
+table_food_vertsupport
+0.0851064 0.571429
+table_foodplate_vertsupport
+0.0909091 0.5
+table_fork_vertsupport
+0.0769231 1
+table_glass_vertsupport
+0.178571 0.384615
+table_glasses_vertsupport
+0.0652174 0.428571
+table_globe_vertsupport
+0.133333 0.4
+table_guy_vertsupport
+0.030303 1
+table_hand glass_vertsupport
+0.5 1
+table_holder_vertsupport
+0.156863 0.228571
+table_knife_vertsupport
+0.185185 0.555556
+table_lamp_vertsupport
+0.0625 0.181818
+table_laptop_vertsupport
+0.136364 0.24
+table_magazine_vertsupport
+0.134615 1
+table_microscope_vertsupport
+0.0714286 0.333333
+table_microwave_vertsupport
+0.125 1
+table_milk_vertsupport
+0.0588235 1
+table_milkcarton_vertsupport
+0.0217391 0.2
+table_money_vertsupport
+0.025641 1
+table_mug_vertsupport
+0.264151 0.388889
+table_noname_vertsupport
+0.0344828 0.0909091
+table_openbook_vertsupport
+0.136364 0.222222
+table_paper_vertsupport
+0.133333 0.153846
+table_paperbox_vertsupport
+0.0188679 0.111111
+table_pen_vertsupport
+0.102041 0.217391
+table_pencil_vertsupport
+0.333333 0.333333
+table_pepper mill_vertsupport
+0.025641 1
+table_pepper_vertsupport
+0.0243902 1
+table_pictureframe_vertsupport
+0.0196078 0.125
+table_pillbottle_vertsupport
+1 1
+table_pizza_vertsupport
+0.0545455 1
+table_plate_vertsupport
+0.288462 0.681818
+table_platter_vertsupport
+0.025 1
+table_pot_vertsupport
+0.025641 0.166667
+table_pottedplant_vertsupport
+0.245283 0.288889
+table_purse_vertsupport
+0.0188679 0.333333
+table_remote control_vertsupport
+0.147059 0.333333
+table_salad_vertsupport
+0.0243902 1
+table_sodacan_vertsupport
+0.0434783 0.222222
+table_stackbooks_vertsupport
+0.0377358 0.125
+table_standbook_vertsupport
+0.0238095 0.125
+table_standbooks_vertsupport
+0.0188679 0.0714286
+table_table_vertsupport
+0.0740741 0.111111
+table_teacup_vertsupport
+0.0769231 0.75
+table_teapot_vertsupport
+0.0416667 1
+table_telephone_vertsupport
+0.0196078 0.0714286
+table_tissuebox_vertsupport
+0.0188679 0.111111
+table_tongs_vertsupport
+0.0243902 1
+table_toy_vertsupport
+0.0384615 1
+table_toyfigure_vertsupport
+0.0566038 0.103448
+table_tray_vertsupport
+0.0540541 1
+table_tube_vertsupport
+0.142857 1
+table_unknown_vertsupport
+0.0666667 0.230769
+table_usbstick_vertsupport
+0.0222222 0.142857
+table_vase_vertsupport
+0.0181818 0.0666667
+table_vessel_vertsupport
+0.142857 1
+table_videogamecontroller_vertsupport
+0.138889 0.294118
+table_wallet_vertsupport
+0.05 0.285714
+tableclock_pillbottle_vertsupport
+1 0.5
+tray_breadslice_vertsupport
+0.333333 0.333333
+tray_cookie_vertsupport
+1 1
+tray_plate_vertsupport
+0.5 1
+tray_sandwich_vertsupport
+0.333333 0.333333
+tvstand_chestofdrawers_vertsupport
+0.666667 0.4
+tvstand_controller_vertsupport
+0.5 0.5
+tvstand_disccase_vertsupport
+0.2 0.166667
+tvstand_disk_vertsupport
+0.2 1
+tvstand_mediaplayer_vertsupport
+0.5 0.111111
+tvstand_network_vertsupport
+0.2 1
+tvstand_pottedplant_vertsupport
+1 0.0384615
+tvstand_remote control_vertsupport
+1 0.285714
+tvstand_speaker_vertsupport
+0.666667 0.0740741
+tvstand_telecommunication_vertsupport
+0.2 0.5
+tvstand_toyfigure_vertsupport
+0.666667 0.0952381
+tvstand_tv_vertsupport
+1 0.277778
+tvstand_unknown_vertsupport
+0.5 0.222222
+tvstand_videodisk_vertsupport
+0.5 0.333333
+tvstand_videogameconsole_vertsupport
+1 0.357143
+tvstand_videogamecontroller_vertsupport
+0.6 0.157895
+tvstand_webcam_vertsupport
+0.5 0.222222
+vanity_cellphone_vertsupport
+1 0.03125
+vanity_comb_vertsupport
+1 0.5
+vanity_cup_vertsupport
+1 0.0333333
+vanity_mug_vertsupport
+1 0.0263158
+vanity_pillbottle_vertsupport
+1 0.142857
+vanity_plate_vertsupport
+1 0.0434783
+vanity_scrub brush_vertsupport
+1 1
+vanity_shampoo_vertsupport
+1 0.5
+vanity_soap dispenser_vertsupport
+1 0.333333
+vanity_soapbar_vertsupport
+1 0.5
+vanity_toothbrush_vertsupport
+1 1
+vanity_toothpaste_vertsupport
+1 1
+vase_plant_vertsupport
+1 0.5
+videogameconsole_mediaplayer_vertsupport
+0.6 0.157895
+videogameconsole_videogamecontroller_vertsupport
+0.5 0.166667
+wallet_key_horizonsupport
+1 1
+washer_atomizer_vertsupport
+1 1
+washer_bottle_horizonsupport
+1 1
+washer_bottle_vertsupport
+1 0.5
+washer_hanger_horizonsupport
+1 1
+washer_hanger_vertsupport
+0.25 1
+washer_jersey_vertsupport
+0.333333 1
+washer_shirt_vertsupport
+1 0.5
+washer_taw_vertsupport
+0.333333 1
+washer_towel_vertsupport
+1 0.5
+xbox360_videogamecontroller_horizonsupport
+1 1

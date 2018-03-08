@@ -124,6 +124,7 @@ vector<SceneSemGraph*> SemGraphMatcher::retrieveDatabaseSSGs(int targetMatchNum)
 		SceneSemGraph *matchedSubSSG = matchedSubSSGs[i];
 		SceneSemGraph *dbSSG = m_sceneSemGraphManager->getGraph(matchedSubSSG->m_dbSSGId);
 
+		// add the active objects for group relations since we have only added the group relation node to SSG
 		addGroupActNodesToSubSSG(matchedSubSSG, dbSSG);
 
 		if (params::inst()->addSynthNode)
@@ -133,14 +134,10 @@ vector<SceneSemGraph*> SemGraphMatcher::retrieveDatabaseSSGs(int targetMatchNum)
 
 		matchedSubSSG->restoreMissingSupportNodes();
 		addSuppParentNodesToSubSSG(matchedSubSSG, dbSSG);
-
-		//if (params::inst()->isUseContext)
-		//{
-		//	addContextNodesToSubSSG(matchedSubSSG, dbSSG);
-		//}
 	}
 
-	// still add scenes with synth node for comparison
+	// Following settings are to create more types of results for comparison
+	// 1. when input is not adding synth nodes, but addSynthSceneNum is larger than 0, will add scenes with synth node to compare with or without synth nodes
 	std::vector<SceneSemGraph*> addedSubSSGs;
 	if (!params::inst()->addSynthNode)
 	{
@@ -154,7 +151,7 @@ vector<SceneSemGraph*> SemGraphMatcher::retrieveDatabaseSSGs(int targetMatchNum)
 		}
 	}
 
-	// add extra scenes with context; add context to first specifed number of scenes in current result list
+	// 2. add extra scenes with context; add context to first specifed number of scenes in current result list
 	int addedSSGNum = addedSubSSGs.size();
 	if (params::inst()->isUseContext)
 	{
@@ -163,7 +160,7 @@ vector<SceneSemGraph*> SemGraphMatcher::retrieveDatabaseSSGs(int targetMatchNum)
 			// add context to new views
 			for (int a = 0; a < params::inst()->addContextSceneNum; a++)
 			{
-				// no scenes with syn node added
+				// if no extra scenes with syn node added, add context nodes to original matched ssgs
 				if (addedSSGNum == 0)
 				{
 					SceneSemGraph *subSSGWithContext = new SceneSemGraph(matchedSubSSGs[a]);
@@ -171,19 +168,18 @@ vector<SceneSemGraph*> SemGraphMatcher::retrieveDatabaseSSGs(int targetMatchNum)
 					addContextNodesFromDbSSGToSubSSG(subSSGWithContext, dbSSG);
 					addedSubSSGs.push_back(subSSGWithContext);
 				}
-				else
+				else if (a < addedSSGNum)
 				{
-					if (a < addedSSGNum)
-					{
-						SceneSemGraph *subSSGWithContext = new SceneSemGraph(addedSubSSGs[a]);
-						SceneSemGraph *dbSSG = m_sceneSemGraphManager->getGraph(addedSubSSGs[a]->m_dbSSGId);
-						addContextNodesFromDbSSGToSubSSG(subSSGWithContext, dbSSG);
-						addedSubSSGs.push_back(subSSGWithContext);
-					}
+					// add context nodes to ssgs with synth nodes
+					SceneSemGraph *subSSGWithContext = new SceneSemGraph(addedSubSSGs[a]);
+					SceneSemGraph *dbSSG = m_sceneSemGraphManager->getGraph(addedSubSSGs[a]->m_dbSSGId);
+					addContextNodesFromDbSSGToSubSSG(subSSGWithContext, dbSSG);
+					addedSubSSGs.push_back(subSSGWithContext);
 				}
 			}
 		}
-		// add context to the original views
+		// directly add context to the original views
+		// will be the default setting for producing most results with context 
 		else  
 		{
 			for (int a=0; a< matchedSubSSGs.size(); a++)
@@ -195,6 +191,7 @@ vector<SceneSemGraph*> SemGraphMatcher::retrieveDatabaseSSGs(int targetMatchNum)
 	}
 	else if(params::inst()->isUseContext == 0 && params::inst()->doVideo)
 	{
+		// add context nodes to the last matched ssg when doing video
 		int currSubSSGNum = matchedSubSSGs.size();
 		SceneSemGraph *dbSSG = m_sceneSemGraphManager->getGraph(matchedSubSSGs[currSubSSGNum - 1]->m_dbSSGId);
 		addContextNodesFromDbSSGToSubSSG(matchedSubSSGs[currSubSSGNum-1], dbSSG);  // add to last subSSG
@@ -333,6 +330,12 @@ void SemGraphMatcher::addEdgesToSubSSG(SceneSemGraph *matchedSubSSG, SceneSemGra
 
 void SemGraphMatcher::addGroupActNodesToSubSSG(SceneSemGraph *matchedSubSSG, SceneSemGraph *dbSSG)
 {
+	if (m_relModelManager->m_groupRelModels.empty())
+	{
+		std::cout << "No group relation models loaded from DB\n";
+		return;
+	}
+
 	int initNodeNum = matchedSubSSG->m_nodeNum;
 	int currSubSSGNodeNum = initNodeNum;
 

@@ -57,7 +57,6 @@ public:
 	double computeOverHangScore(TSScene *currScene, int metaModelId, const mat4 &currTransMat);
 
 	double computeRelationScoreForGroup(TSScene *currScene, std::vector<int> metaModelIds, const std::vector<Eigen::VectorXd> &currPlacements, const std::vector<mat4> &currTransforms);
-	double computeLayoutPassScore(TSScene *currScene, int metaModelId);
 
 	Eigen::VectorXd sampleNewPosFromConstraints(TSScene *currScene, int metaModelId, int &anchorModelId);
 	PairwiseRelationModel* findAvailablePairModels(TSScene *currScene, const RelationConstraint &relConstraint, bool &isPairModelAvailable);
@@ -69,6 +68,8 @@ public:
 	double findClosestSuppPlaneZ(TSScene *currScene, int metaModelId, const vec3 &newPos);
 
 	void collectConstraintsForModel(TSScene *currScene, int metaModelId);
+	void addConstraintToModel(TSScene *currScene, int metaModelId, int refModelId); // update the constraints for current model by adding its implicit constraint to the ref model
+
 	PairwiseRelationModel* retrievePairModelFromGroup(TSScene *currScene, int anchorNodeId, int actNodeId, const QString &groupRelationName);
 	PairwiseRelationModel* retrievePairModelFromGroup(const QString &anchorObjName, const QString &actObjName, const QString &groupRelationName, const QString &conditionName="");
 	PairwiseRelationModel* retrievePairwiseModel(TSScene *currScene, int anchorNodeId, int actNodeId, const QString &relationName);
@@ -85,6 +86,8 @@ public:
 
 	bool isPosValid(TSScene *currScene, const vec3 &pos, int metaModelId);
 	bool isPosCloseToInvalidPos(const vec3 &pos, int metaModelId);
+
+	bool isPosOccupiedForModel(TSScene *currScene, const vec3 &pos, int metaModelId);
 
 	PairwiseRelationModel* getPairModelById(int id);
 	PairwiseRelationModel* getPairModelInGroupById(GroupRelationModel *groupModel, int id);
@@ -111,4 +114,6 @@ public:
 	double m_sceneMetric;
 
 	std::vector<QString> m_adjustFrontObjs;
+
+	const double ExWeight = 0.7;
 };

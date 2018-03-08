@@ -17,7 +17,6 @@
     <ClInclude Include="mLibInclude.h" />
     <ClInclude Include="parsedSentence.h" />
     <ClInclude Include="patternMatcher.h" />
-    <ClInclude Include="scene.h" />
     <ClInclude Include="sceneCommand.h" />
     <ClInclude Include="sceneEntity.h" />
     <ClInclude Include="SELParser.h" />
@@ -31,7 +30,6 @@
     </ClCompile>
     <ClCompile Include="mLibSource.cpp" />
     <ClCompile Include="parsedSentence.cpp" />
-    <ClCompile Include="scene.cpp" />
     <ClCompile Include="SELParser.cpp" />
   </ItemGroup>
   <ItemGroup>

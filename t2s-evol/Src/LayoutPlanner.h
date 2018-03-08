@@ -9,6 +9,7 @@ class RelationModelManager;
 class CollisionManager;
 class SceneSemGraphManager;
 
+
 class LayoutPlanner
 {
 public:
@@ -33,6 +34,9 @@ public:
 
 	void computeConstraintsForModels(TSScene *currScene, const std::vector<int> &toPlaceModelIds);
 	void computeLayoutPassScoreForModels(TSScene *currScene, const std::vector<int> &toPlaceModelIds);
+	void computeLayoutPassScoreForModel(TSScene *currScene, int modelId);
+
+	void updateStatesForRestModels(TSScene *currScene, const std::vector<int> &restModelIds);
 
 	Eigen::VectorXd computeNewPlacement(TSScene *currScene, int metaModelID, const std::vector<std::vector<vec3>> &collisonPositions, int &anchorModelId);
 

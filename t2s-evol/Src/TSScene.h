@@ -11,6 +11,28 @@ class SceneSemGraph;
 class CollisionManager;
 class LayoutPlanner;
 
+class OccupancyMap {
+	OccupancyMap()
+	{
+		start_pt = vec3(0, 0, 0);
+		x_axis = vec3(1, 0, 0);
+		y_axis = vec3(0, 1, 0);
+	}
+
+	~OccupancyMap()
+	{
+
+	}
+
+	std::vector<std::vector<int>> grids;
+	vec3 start_pt;
+	vec3 x_axis;
+	vec3 y_axis;
+
+	float x_length;
+	float y_length;
+	float resolution;
+};
 
 class TSScene
 {
@@ -63,6 +85,8 @@ public:
 	bool m_allConstraintsExtracted;
 	std::vector<std::vector<RelationConstraint>> m_explictConstraints;  // semantic pairwise or group constraint
 	std::vector<std::vector<RelationConstraint>> m_implicitConstraints;  // implicit relative constraints
+
+	bool m_layoutPassScoreComputed = false;
 	
 	std::vector<int> m_placedObjIds;
 	std::vector<int> m_toPlaceModelIds;
@@ -86,5 +110,8 @@ private:
 
 
     int m_renderMode;    
+
+	std::map<int, OccupancyMap> m_OccupancyMaps;
+
 };
 
