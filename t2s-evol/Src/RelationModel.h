@@ -2,6 +2,8 @@
 #include "Headers.h"
 #include "GaussianMixtureModel.h"
 
+const double ParentBoundWidthRatio = 0.15;
+
 class RelativePos
 {
 public:
@@ -144,3 +146,13 @@ public:
 
 
 };
+
+static vec3 PermutePosInXY(const vec3 &input_pos, float xy_range)
+{
+	vec3 new_pos;
+	new_pos.x = input_pos.x + GenRandomDouble(-xy_range, xy_range);
+	new_pos.y = input_pos.y + GenRandomDouble(-xy_range, xy_range);
+	new_pos.z = input_pos.z;
+
+	return new_pos;
+}

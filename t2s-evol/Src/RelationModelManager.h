@@ -52,17 +52,20 @@ public:
 	bool isRelationsViolated(TSScene *currScene, int metaModelId);
 	bool isConstraintViolated(TSScene *currScene, const MetaModel &md, const RelationConstraint &relConstraint);
 
-	double computeRelationScore(TSScene *currScene, int metaModelId, const Eigen::VectorXd &currPlacement, const mat4 &currTransMat);
+	double computeRelationScore(TSScene *currScene, int metaModelId, const Eigen::VectorXd &currPlacement, const mat4 &deltaTransMat);
 	double computeScoreForConstraint(TSScene *currScene, const RelationConstraint &relConstraint, const Eigen::VectorXd &currPlacement);
-	double computeOverHangScore(TSScene *currScene, int metaModelId, const mat4 &currTransMat);
+	double computeOverHangScore(TSScene *currScene, int metaModelId, const mat4 &deltaTransMat);
 
-	double computeRelationScoreForGroup(TSScene *currScene, std::vector<int> metaModelIds, const std::vector<Eigen::VectorXd> &currPlacements, const std::vector<mat4> &currTransforms);
+	double computeRelationScoreForGroup(TSScene *currScene, std::vector<int> metaModelIds, const std::vector<Eigen::VectorXd> &currPlacements, const std::vector<mat4> &deltaTransforms);
 
 	Eigen::VectorXd sampleNewPosFromConstraints(TSScene *currScene, int metaModelId, int &anchorModelId);
 	PairwiseRelationModel* findAvailablePairModels(TSScene *currScene, const RelationConstraint &relConstraint, bool &isPairModelAvailable);
 
 	void sampleFromRelationModel(TSScene *currScene, PairwiseRelationModel *pairModel, const int metaModelId, const int anchorModelId, vec3 &newPos, double &newTheta);
 	void adjustSamplingForSpecialModels(const QString &anchorObj, const QString &actObj, vec3 &newPos, double &newTheta);
+
+	void convertLocalToWorldPos(TSScene *currScene, PairwiseRelationModel *pairModel, const int metaModelId, const int anchorModelId, const Eigen::VectorXd &newSample,
+		vec3 &newWorldPos, double &newWolrdTheta);
 
 	void randomSampleOnParent(TSScene *currScene, int metaModelId, vec3 &newPos, int &parentMetaModelId);
 	double findClosestSuppPlaneZ(TSScene *currScene, int metaModelId, const vec3 &newPos);
@@ -86,8 +89,6 @@ public:
 
 	bool isPosValid(TSScene *currScene, const vec3 &pos, int metaModelId);
 	bool isPosCloseToInvalidPos(const vec3 &pos, int metaModelId);
-
-	bool isPosOccupiedForModel(TSScene *currScene, const vec3 &pos, int metaModelId);
 
 	PairwiseRelationModel* getPairModelById(int id);
 	PairwiseRelationModel* getPairModelInGroupById(GroupRelationModel *groupModel, int id);

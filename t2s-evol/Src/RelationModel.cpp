@@ -106,14 +106,13 @@ Eigen::VectorXd PairwiseRelationModel::sample()
 	newSample[1] = 0;
 	newSample[2] = 0;
 	newSample[3] = 0.5;
-
+	
 	if (m_GMM != NULL)
 	{
 		if (m_conditionName.contains("parent"))
 		{
-			double boundWidth = 0.05;
-			double minB = -0.5 + boundWidth;
-			double maxB = 0.5 - boundWidth;
+			double minB = -0.5 + ParentBoundWidthRatio;
+			double maxB = 0.5 - ParentBoundWidthRatio;
 
 			// make sure no overhang when sampling
 			int count = 0;
@@ -172,10 +171,10 @@ Eigen::VectorXd PairwiseRelationModel::sample()
 		if (m_relationName == "near")
 		{
 			if (relPos->pos.x > 2) newSample[0] = GenRandomDouble(0.8, 1);
-			if (relPos->pos.y > 2) newSample[0] = GenRandomDouble(0.8, 1);
+			if (relPos->pos.y > 2) newSample[1] = GenRandomDouble(0.8, 1);
 
 			if (relPos->pos.x <-2) newSample[0] = GenRandomDouble(-1, -0.8);
-			if (relPos->pos.y <-2) newSample[0] = GenRandomDouble(-1, -0.8);
+			if (relPos->pos.y <-2) newSample[1] = GenRandomDouble(-1, -0.8);
 		}
 
 		m_lastSampleInstanceId = randInstId;

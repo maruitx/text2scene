@@ -111,7 +111,7 @@ private:
 
     int m_renderMode;    
 
-	std::map<int, OccupancyMap> m_OccupancyMaps;
+	//std::map<int, OccupancyMap> m_OccupancyMaps;
 
 };
 

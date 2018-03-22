@@ -11,8 +11,8 @@ RelationModelManager::RelationModelManager()
 {
 	loadRelationModels();
 
-	m_closeSampleTh = 0.05;
 	m_sceneMetric = params::inst()->globalSceneUnitScale;
+	m_closeSampleTh = 0.05/ m_sceneMetric;
 
 	m_adjustFrontObjs.push_back("desk");
 	m_adjustFrontObjs.push_back("bookcase");
@@ -402,7 +402,7 @@ bool RelationModelManager::isConstraintViolated(TSScene *currScene, const MetaMo
 }
 
 
-double RelationModelManager::computeRelationScore(TSScene *currScene, int metaModelId, const Eigen::VectorXd &currPlacement, const mat4 &currTransMat)
+double RelationModelManager::computeRelationScore(TSScene *currScene, int metaModelId, const Eigen::VectorXd &currPlacement, const mat4 &deltaTransMat)
 {
 	MetaModel &md = currScene->getMetaModel(metaModelId);
 
@@ -423,12 +423,12 @@ double RelationModelManager::computeRelationScore(TSScene *currScene, int metaMo
 		score += (1-ExWeight)*computeScoreForConstraint(currScene, relConstraint, currPlacement);
 	}
 
-	score += computeOverHangScore(currScene, metaModelId, currTransMat);
+	score += computeOverHangScore(currScene, metaModelId, deltaTransMat);
 
 	return score;
 }
 
-double RelationModelManager::computeOverHangScore(TSScene *currScene, int metaModelId, const mat4 &currTransMat)
+double RelationModelManager::computeOverHangScore(TSScene *currScene, int metaModelId, const mat4 &deltaTransMat)
 {
 	double overHangSore = 0;
 	SceneSemGraph *currSSG = currScene->m_ssg;
@@ -444,22 +444,27 @@ double RelationModelManager::computeOverHangScore(TSScene *currScene, int metaMo
 		MetaModel &parentMd = currScene->getMetaModel(parentModelId);
 		Model *parentModel = currScene->getModel(parentMd.name);
 
+		vec3 newPos = TransformPoint(deltaTransMat, currMd.position);
+
 		double newZ;
-		if (!currScene->computeZForModel(metaModelId, parentModelId, TransformPoint(currTransMat, currMd.position), newZ))
+		if (!currScene->computeZForModel(metaModelId, parentModelId, newPos, newZ))
 		{
-			currScene->m_overHangPositions[metaModelId].push_back(TransformPoint(currTransMat, currMd.position));
+			currScene->m_overHangPositions[metaModelId].push_back(newPos);
 			return -10;
 		}
 
 		std::vector<vec3> bottomCorners(4);
-		vec3 minV(parentModel->m_bb.mi()), maxV(parentModel->m_bb.ma());
+		//vec3 minV(parentModel->m_bb.mi()), maxV(parentModel->m_bb.ma());
+		Model *currModel = currScene->getModel(currMd.name);
+		vec3 minV(currModel->m_bb.mi()), maxV(currModel->m_bb.ma());
+
 		bottomCorners[0] = vec3(minV.x, minV.y, minV.z);
 		bottomCorners[1] = vec3(maxV.x, minV.y, minV.z);
 		bottomCorners[2] = vec3(maxV.x, maxV.y, minV.z);
 		bottomCorners[3] = vec3(minV.x, maxV.y, minV.z);
 
 		// compute intersection for transformed corners
-		std::vector<double> intersectZ(4, 0);
+	/*	std::vector<double> intersectZ(4, 0);
 		double maxZ(0), minZ(1e3);
 		int maxId(-1), minId(-1);
 		for (int i = 0; i < 4; i++)
@@ -485,9 +490,32 @@ double RelationModelManager::computeOverHangScore(TSScene *currScene, int metaMo
 		}
 
 		double dist = maxZ - minZ;
-		if (dist > 0.1 / params::inst()->globalSceneUnitScale)
+		if (dist > 0.1 / m_sceneMetric)
 		{
-			currScene->m_overHangPositions[metaModelId].push_back(TransformPoint(currTransMat, currMd.position));
+			currScene->m_overHangPositions[metaModelId].push_back(newPos);
+			return -10;
+		}
+		else
+		{
+			return 0;
+		}*/
+
+		bool is_corner_supported = true;
+		mat4 toWorldTransMat = deltaTransMat*currMd.transformation;
+		for (int i = 0; i < 4; i++)
+		{
+			bottomCorners[i] = TransformPoint(toWorldTransMat, bottomCorners[i]);
+
+			double newZ;
+			if (!currScene->computeZForModel(metaModelId, parentModelId, bottomCorners[i], newZ))
+			{
+				is_corner_supported = false;
+				break;
+			}
+		}
+		if (!is_corner_supported)
+		{
+			currScene->m_overHangPositions[metaModelId].push_back(newPos);
 			return -10;
 		}
 		else
@@ -497,7 +525,7 @@ double RelationModelManager::computeOverHangScore(TSScene *currScene, int metaMo
 	}
 }
 
-double RelationModelManager::computeRelationScoreForGroup(TSScene *currScene, std::vector<int> metaModelIds, const std::vector<Eigen::VectorXd> &currPlacements, const std::vector<mat4> &currTransforms)
+double RelationModelManager::computeRelationScoreForGroup(TSScene *currScene, std::vector<int> metaModelIds, const std::vector<Eigen::VectorXd> &currPlacements, const std::vector<mat4> &deltaTransforms)
 {
 	double groupScore = 0;
 
@@ -505,7 +533,7 @@ double RelationModelManager::computeRelationScoreForGroup(TSScene *currScene, st
 	{
 		int metaModelId = metaModelIds[i];
 		MetaModel &md = currScene->getMetaModel(metaModelId);
-		md.layoutScore = computeRelationScore(currScene, metaModelIds[i], currPlacements[i], currTransforms[i]);
+		md.layoutScore = computeRelationScore(currScene, metaModelIds[i], currPlacements[i], deltaTransforms[i]);
 		groupScore += md.layoutScore;
 	}
 
@@ -614,7 +642,7 @@ bool RelationModelManager::isPosCloseToInvalidPos(const vec3 &pos, int metaModel
 	{
 		double d = (pos - m_collisionPositions[metaModelId][i]).length();
 
-		if (d < m_closeSampleTh / m_sceneMetric)
+		if (d < m_closeSampleTh)
 		{
 			return true;
 		}
@@ -625,20 +653,13 @@ bool RelationModelManager::isPosCloseToInvalidPos(const vec3 &pos, int metaModel
 	{
 		double d = (pos - m_overHangPositions[metaModelId][i]).length();
 
-		if (d < m_closeSampleTh / m_sceneMetric)
+		if (d < m_closeSampleTh)
 		{
 			return true;
 		}
 	}
 
 	return false;
-}
-
-bool RelationModelManager::isPosOccupiedForModel(TSScene *currScene, const vec3 &pos, int metaModelId)
-{
-	// check whether pos is occupied on current model's supporter model
-
-	// supporter Model could be the parent model, e.g., desk, or could be the floor which the id is -1
 }
 
 PairwiseRelationModel* RelationModelManager::getPairModelById(int id)
@@ -696,51 +717,67 @@ Eigen::VectorXd RelationModelManager::sampleNewPosFromConstraints(TSScene *currS
 
 	QString constraintType;
 
-	int count = 0; 
-
+	int count = 0;
 	while (count < 1000)
 	{
+		count++;
+
 		PairwiseRelationModel *currPairModel = NULL;
 		bool isPairModelAvailable = false;
-		if (!currScene->m_explictConstraints[metaModelId].empty())
+		if (!currScene->m_explictConstraints[metaModelId].empty() && md.trialNum < 30)
 		{
-			currPairModel = findAvailablePairModels(currScene, currScene->m_explictConstraints[metaModelId][0], isPairModelAvailable);
-		}
-			
-		if (!isPairModelAvailable)
-		{
-				randomSampleOnParent(currScene, metaModelId, newWorldPos, anchorModelId);
-				newWorldTheta = 0;
-				constraintType = "random";
+			RelationConstraint &exConstraint = currScene->m_explictConstraints[metaModelId][0];
+			currPairModel = findAvailablePairModels(currScene, exConstraint, isPairModelAvailable);
+			anchorModelId = exConstraint.anchorObjId;
+
+			if (!isPairModelAvailable)
+			{
+				// use the permutation of the instance pos
+				currPairModel = exConstraint.relModel;
+			}
+
+			sampleFromRelationModel(currScene, currPairModel, metaModelId, anchorModelId, newWorldPos, newWorldTheta);
+			constraintType = "explicit";
 		}
 		else
 		{
+			randomSampleOnParent(currScene, metaModelId, newWorldPos, anchorModelId);
+			newWorldTheta = 0;
+			constraintType = "random";
+		}
+
+		if ((newWorldPos - md.position).length() < 0.05 / m_sceneMetric) continue;
+
+		if (isPosValid(currScene, newWorldPos, metaModelId)) break;
+	}
+
+	/*
+	// use permutation if no instance pos available
+	int count = 0;
+	while (count < 1000)
+	{
+		PairwiseRelationModel *currPairModel = NULL;
+		if (!currScene->m_explictConstraints[metaModelId].empty())
+		{
 			RelationConstraint &exConstraint = currScene->m_explictConstraints[metaModelId][0];
+			currPairModel = exConstraint.relModel;
 			anchorModelId = exConstraint.anchorObjId;
 
 			sampleFromRelationModel(currScene, currPairModel, metaModelId, anchorModelId, newWorldPos, newWorldTheta);
 			constraintType = "explicit";
-
-			//if ((newWorldPos - md.position).length() < 1.0 / m_sceneMetric)
-			//{
-			//	continue;
-			//}
-		}
-
-		if (isPosValid(currScene, newWorldPos, metaModelId))
-		{
-			break;
 		}
 		else
 		{
-			if (constraintType == "explicit" &&currPairModel->m_lastSampleInstanceId != -1)
-			{
-				currPairModel->updateCandiInstanceIds();
-			}
+			randomSampleOnParent(currScene, metaModelId, newWorldPos, anchorModelId);
+			newWorldTheta = 0;
+			constraintType = "random";
 		}
+
+		if (isPosValid(currScene, newWorldPos, metaModelId)) break;
 
 		count++;
 	}
+	*/
 
 	// convert to world frame
 	Eigen::VectorXd  worldPos(4);
@@ -804,31 +841,15 @@ void RelationModelManager::sampleFromRelationModel(TSScene *currScene, PairwiseR
 {
 	// sample in the unit frame
 	Eigen::VectorXd newSample = pairModel->sample();
-	vec3 relPos = vec3(newSample[0], newSample[1], newSample[2]);
-	double relTheta = newSample[3];
-
-	// anchor obj																					 
-	MetaModel &anchorMd = currScene->getMetaModel(anchorModelId);
-	Model *anchorModel = currScene->getModel(anchorMd.name);
-
-	if (!isAnchorFrontDirConsistent(toQString(anchorMd.catName), pairModel->m_anchorObjName))
-	{
-		relPos.x *= -1;
-	}
-
+	convertLocalToWorldPos(currScene, pairModel, metaModelId, anchorModelId, newSample,newWorldPos, newWolrdTheta);
+	
+	// permute model if trial num is large
 	MetaModel &actMd = currScene->getMetaModel(metaModelId);
-	adjustSamplingForSpecialModels(toQString(anchorMd.catName), toQString(actMd.catName), relPos, relTheta);
-
-	mat4 alignMat = getModelToUnitboxMat(anchorModel, anchorMd);
-	mat4 transMat = alignMat.inverse();  // transform from unit frame to world frame
-
-	newWorldPos = TransformPoint(transMat, relPos);
-
-	// update sampled position 
-	double newZ = findClosestSuppPlaneZ(currScene, metaModelId, newWorldPos);
-	newWorldPos.z = newZ;
-
-	newWolrdTheta = relTheta* math_pi;  // theta in relational model is normalized by pi
+	if (actMd.trialNum > 5)
+	{
+		newWorldPos = PermutePosInXY(newWorldPos, 0.2/m_sceneMetric);
+		newWolrdTheta += GenRandomDouble(-math_pi / 12, math_pi / 12);
+	}
 
 	if (isnan(newWorldPos.x))
 	{
@@ -1043,11 +1064,39 @@ void RelationModelManager::adjustSamplingForSpecialModels(const QString &anchorO
 	}
 }
 
+void RelationModelManager::convertLocalToWorldPos(TSScene *currScene, PairwiseRelationModel *pairModel, const int metaModelId, const int anchorModelId, const Eigen::VectorXd &newSample, vec3 &newWorldPos, double &newWolrdTheta)
+{
+	vec3 relPos = vec3(newSample[0], newSample[1], newSample[2]);
+	double relTheta = newSample[3];
+
+	MetaModel &actMd = currScene->getMetaModel(metaModelId);
+
+	// anchor obj																					 
+	MetaModel &anchorMd = currScene->getMetaModel(anchorModelId);
+	Model *anchorModel = currScene->getModel(anchorMd.name);
+
+	if (!isAnchorFrontDirConsistent(toQString(anchorMd.catName), pairModel->m_anchorObjName))
+	{
+		relPos.x *= -1;
+	}
+
+	adjustSamplingForSpecialModels(toQString(anchorMd.catName), toQString(actMd.catName), relPos, relTheta);
+
+	mat4 alignMat = getModelToUnitboxMat(anchorModel, anchorMd);
+	mat4 transMat = alignMat.inverse();  // transform from unit frame to world frame
+
+	newWorldPos = TransformPoint(transMat, relPos);
+
+	// update sampled position 
+	double newZ = findClosestSuppPlaneZ(currScene, metaModelId, newWorldPos);
+	newWorldPos.z = newZ;
+	newWolrdTheta = relTheta* math_pi;  // theta in relational model is normalized by pi
+}
+
 double RelationModelManager::findClosestSuppPlaneZ(TSScene *currScene, int metaModelId, const vec3 &newPos)
 {
 	MetaModel &md = currScene->getMetaModel(metaModelId);
 	int parentNodeId = currScene->m_ssg->findParentNodeIdForModel(metaModelId);
-	double sceneMetric = params::inst()->globalSceneUnitScale;
 
 	// use z of parent's support plane if parent exists
 	if (parentNodeId != -1)
@@ -1079,7 +1128,7 @@ double RelationModelManager::findClosestSuppPlaneZ(TSScene *currScene, int metaM
 			double newZ;
 			if (currScene->computeZForModel(metaModelId, parentMetaModelId, vec3(newPos.x, newPos.y, closestSuppPlaneZ), newZ))
 			{
-				if (newZ > md.position.z || md.position.z - newZ > 0.05 / sceneMetric)
+				if (newZ > md.position.z || md.position.z - newZ > 0.05 / m_sceneMetric)
 				{
 					closestSuppPlaneZ = newZ;
 				}
@@ -1107,7 +1156,7 @@ double RelationModelManager::findClosestSuppPlaneZ(TSScene *currScene, int metaM
 			int anchorModeId = currScene->m_ssg->m_graphNodeToModelListIdMap[anchorNodeId];
 			MetaModel &anchorModel = currScene->getMetaModel(anchorModeId);
 			
-			if (anchorModel.position.z - currScene->m_floorHeight < 0.25/ sceneMetric)
+			if (anchorModel.position.z - currScene->m_floorHeight < 0.25/ m_sceneMetric)
 			{
 				return anchorModel.position.z;
 			}
@@ -1119,7 +1168,6 @@ double RelationModelManager::findClosestSuppPlaneZ(TSScene *currScene, int metaM
 
 void RelationModelManager::randomSampleOnParent(TSScene *currScene, int metaModelId, vec3 &newPos, int &parentMetaModelId)
 {
-	double m_sceneMetric = params::inst()->globalSceneUnitScale;
 	MetaModel &md = currScene->getMetaModel(metaModelId);
 
 	int parentNodeId = currScene->m_ssg->findParentNodeIdForModel(metaModelId);
@@ -1135,12 +1183,12 @@ void RelationModelManager::randomSampleOnParent(TSScene *currScene, int metaMode
 		if (parentMd.suppPlaneManager.hasSuppPlane())
 		{
 			SuppPlane &parentSuppPlane = parentMd.suppPlaneManager.getLargestAreaSuppPlane();
-			newPos = parentSuppPlane.randomSamplePoint(0.1);
+			newPos = parentSuppPlane.randomSamplePoint(ParentBoundWidthRatio);
 		}
 		else
 		{
 			SuppPlane &parentSuppPlane = parentMd.bbTopPlane;
-			newPos = parentSuppPlane.randomSamplePoint(0.1);
+			newPos = parentSuppPlane.randomSamplePoint(ParentBoundWidthRatio);
 		}
 
 		double newZ = findClosestSuppPlaneZ(currScene, metaModelId, newPos);

@@ -50,6 +50,8 @@ SemanticGraph* SceneGenerator::prepareQuerySG()
 		// binding to current scene
 		if (m_currUserSSG != NULL)
 		{
+			// TODO: remove the skipped objects nodes and their connecting relation nodes; restores the node ids and edge ids
+
 			//resetNodes(querySG);
 			m_currUserSSG->m_nodeAlignMap.clear();
 

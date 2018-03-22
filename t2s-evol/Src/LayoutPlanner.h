@@ -39,6 +39,7 @@ public:
 	void updateStatesForRestModels(TSScene *currScene, const std::vector<int> &restModelIds);
 
 	Eigen::VectorXd computeNewPlacement(TSScene *currScene, int metaModelID, const std::vector<std::vector<vec3>> &collisonPositions, int &anchorModelId);
+	Eigen::VectorXd samplePosWithHigherRelScore(TSScene *currScene, int metaModelId, int relTrialNum, int &anchorModelId);
 
 	void updateWithNewPlacement(TSScene *currScene, int anchorModelId, int currModelID, const Eigen::VectorXd &newPlacement);
 	void updatePlacementOfChildren(TSScene *currScene, int currModelId, mat4 transMat, int ignoreChildId =-1);

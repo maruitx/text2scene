@@ -265,7 +265,7 @@ bool TSScene::isLayoutDone()
 	for (int i = 0; i < m_metaScene.m_metaModellList.size(); i++)
 	{
 		MetaModel &md = m_metaScene.m_metaModellList[i];
-		if (md.isAlreadyPlaced)
+		if (md.isAlreadyPlaced || md.isSkipped)
 		{
 			count++;
 		}
