@@ -430,6 +430,8 @@ double RelationModelManager::computeRelationScore(TSScene *currScene, int metaMo
 
 double RelationModelManager::computeOverHangScore(TSScene *currScene, int metaModelId, const mat4 &deltaTransMat)
 {
+	//TODO: improve overhang score
+	return 0;
 	double overHangSore = 0;
 	SceneSemGraph *currSSG = currScene->m_ssg;
 	int parentModelId = currSSG->m_parentOfModel[metaModelId];
@@ -501,6 +503,7 @@ double RelationModelManager::computeOverHangScore(TSScene *currScene, int metaMo
 		}*/
 
 		bool is_corner_supported = true;
+		int overhang_corner_num = 0;
 		mat4 toWorldTransMat = deltaTransMat*currMd.transformation;
 		for (int i = 0; i < 4; i++)
 		{
@@ -509,11 +512,14 @@ double RelationModelManager::computeOverHangScore(TSScene *currScene, int metaMo
 			double newZ;
 			if (!currScene->computeZForModel(metaModelId, parentModelId, bottomCorners[i], newZ))
 			{
-				is_corner_supported = false;
-				break;
+				//is_corner_supported = false;
+				//break;
+				if(abs(bottomCorners[i].z - newZ) > 0.01/m_sceneMetric)
+					overhang_corner_num++;
 			}
 		}
-		if (!is_corner_supported)
+		//if (!is_corner_supported)
+		if(overhang_corner_num >= 2)
 		{
 			currScene->m_overHangPositions[metaModelId].push_back(newPos);
 			return -10;
@@ -565,6 +571,12 @@ double RelationModelManager::computeScoreForConstraint(TSScene *currScene, const
 	double prob = pairModel->m_GMM->probability(observation);
 	
 	delete newRelPos;
+
+	if (isnan(prob))
+	{
+		qDebug();
+	}
+
 	return prob;
 }
 
@@ -606,6 +618,13 @@ mat4 RelationModelManager::getModelToUnitboxMat(Model *m, const MetaModel &md)
 
 	mat4 translateMat, scaleMat, rotMat;
 	translateMat = mat4::translate(vec3(0, 0, -0.5*bbRange.z) - initPos);
+
+	double min_size = 0.005 / m_sceneMetric;
+	
+	if (bbRange.x < min_size) bbRange.x = 1;
+	if (bbRange.y < min_size) bbRange.y = 1;
+	if (bbRange.z < min_size) bbRange.z = 1;
+
 	scaleMat = mat4::scale(1 / bbRange.x, 1 / bbRange.y, 1 / bbRange.z);
 	rotMat = GetRotationMatrix(initFront, vec3(0, 1, 0));
 

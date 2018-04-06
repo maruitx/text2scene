@@ -414,20 +414,22 @@ void LayoutPlanner::computeGroupObjLayoutSeq(TSScene *currScene, const std::vect
 	// initialize layout score for all temporary placed objects from the group
 	if (md.layoutScore == -100 && !md.isAlreadyPlaced)
 	{
-		tempPlacedModelIds.push_back(metaModelId);
-		std::vector<Eigen::VectorXd> currPlacements(tempPlacedModelIds.size());
-		std::vector<mat4> currTransforms(tempPlacedModelIds.size(), mat4::identitiy());
+		//tempPlacedModelIds.push_back(metaModelId);
+		//std::vector<Eigen::VectorXd> currPlacements(tempPlacedModelIds.size());
+		//std::vector<mat4> currTransforms(tempPlacedModelIds.size(), mat4::identitiy());
 
-		for (int ti = 0; ti < tempPlacedModelIds.size(); ti++)
-		{
-			int tempModelId = tempPlacedModelIds[ti];
-			MetaModel &tempMd = currScene->getMetaModel(tempModelId);
-			currPlacements[ti] = makePlacementVec(tempMd.position, tempMd.theta);
+		//for (int ti = 0; ti < tempPlacedModelIds.size(); ti++)
+		//{
+		//	int tempModelId = tempPlacedModelIds[ti];
+		//	MetaModel &tempMd = currScene->getMetaModel(tempModelId);
+		//	currPlacements[ti] = makePlacementVec(tempMd.position, tempMd.theta);
 
-			tempMd.tempPlacement = currPlacements[ti];
-		}
+		//	tempMd.tempPlacement = currPlacements[ti];
+		//}
 
-		m_relModelManager->computeRelationScoreForGroup(currScene, tempPlacedModelIds, currPlacements, currTransforms);
+		//m_relModelManager->computeRelationScoreForGroup(currScene, tempPlacedModelIds, currPlacements, currTransforms);
+
+		md.layoutScore = m_relModelManager->computeRelationScore(currScene, metaModelId, makePlacementVec(md.position, md.theta), mat4::identitiy());
 	}
 	
 	isModelCollideWithScene = currCM->checkCollisionBVH(currModel, metaModelId);
@@ -882,7 +884,7 @@ void LayoutPlanner::computeLayoutPassScoreForModel(TSScene *currScene, int metaM
 
 	double score = 0;
 	double ExWeight = m_relModelManager->ExWeight;
-	double ratio = 0.5;
+	double ratio = 0.2;
 
 	// TODO: sample a point with 20% percentile; adjust its Z value and compute its probability
 	for (int i = 0; i < exConstraints.size(); i++)
@@ -966,12 +968,27 @@ Eigen::VectorXd LayoutPlanner::samplePosWithHigherRelScore(TSScene *currScene, i
 		// for object with only a few observations, the layout pass score will be zero
 		if (newPlacementScore >= 0 && md.layoutPassScore == 0)
 		{
+			qDebug() << QString("Resample-new score! Preview %1, %2, curr_score:%3, new_score:%4, pass_score:%5").arg(currScene->m_previewId)
+				.arg(QString(md.catName.c_str())).arg(md.layoutScore).arg(newPlacementScore).arg(md.layoutPassScore);
+
 			newPlacement = tempNewPlacement;
 			anchorModelId = tempAnchorModelId;
 			md.layoutScore = newPlacementScore;
 			is_pos_sampled = true;
+			break;
+		}
 
-			std::cout << "Resample, use higher score: " << md.layoutScore << ", Pass score: " << md.layoutPassScore << endl;
+		// keep the placement with higher relation score
+		if (newPlacementScore > md.layoutScore)
+		{
+			qDebug() << QString("Resample-higher score! Preview %1, %2, curr_score:%3, higher_score:%4, pass_score:%5").arg(currScene->m_previewId)
+				.arg(QString(md.catName.c_str())).arg(md.layoutScore).arg(newPlacementScore).arg(md.layoutPassScore);
+
+			newPlacement = tempNewPlacement;
+			anchorModelId = tempAnchorModelId;
+			md.layoutScore = newPlacementScore;
+
+			is_pos_sampled = true;
 			break;
 		}
 
@@ -983,28 +1000,17 @@ Eigen::VectorXd LayoutPlanner::samplePosWithHigherRelScore(TSScene *currScene, i
 			maxLayoutScore = newPlacementScore;
 		}
 
-		// keep the placement with higher relation score
-		if (newPlacementScore > md.layoutScore || newPlacementScore > md.layoutPassScore)
-		{
-			newPlacement = tempNewPlacement;
-			anchorModelId = tempAnchorModelId;
-			md.layoutScore = newPlacementScore;
-
-			is_pos_sampled = true;
-			std::cout << "Resample, use higher score: " << md.layoutScore << ", Pass score: " << md.layoutPassScore << endl;
-			break;
-		}
-
 		relation_trial_num++;
 	}
 
 	if (!is_pos_sampled)
 	{
+		qDebug() << QString("Resample-local max! Preview %1, %2, curr_score:%3, local_max_score:%4, pass_score:%5").arg(currScene->m_previewId)
+			.arg(QString(md.catName.c_str())).arg(md.layoutScore).arg(maxLayoutScore).arg(md.layoutPassScore);
+
 		newPlacement = maxPlacement;
 		anchorModelId = maxAnchorModelId;
 		md.layoutScore = maxLayoutScore;
-
-		std::cout << "Resample, use max score: " << md.layoutScore << ", Pass score: " << md.layoutPassScore << endl;
 	}
 
 	return newPlacement;

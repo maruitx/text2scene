@@ -109,9 +109,10 @@ bool CollisionManager::checkCollisionBVH(Model *testModel, int testMetaModelIdx)
 
 				if (isCollide)
 				{
-					qDebug() << QString(" Preview:%1 %6:%7 Type:%2 %3:%8 DBSSG:%4 TrialNum:%5").
-						arg(m_scene->m_previewId).arg("BVH").arg(toQString(refMd.catName)).arg(m_scene->m_ssg->m_graphMetaScene.m_sceneFileName)
-						.arg(testMd.trialNum).arg(toQString(testMd.catName)).arg(toQString(testMd.name)).arg(toQString(refMd.name));
+					qDebug() << QString("Collision! Preview %1, %2:%3 Type:%4 %5:%6 DBSSG:%7 TrialNum:%8").
+						arg(m_scene->m_previewId).arg(toQString(testMd.catName)).arg(toQString(testMd.name)).arg("BVH")
+						.arg(toQString(refMd.catName)).arg(toQString(refMd.name)).arg(m_scene->m_ssg->m_graphMetaScene.m_sceneFileName)
+						.arg(testMd.trialNum);
 
 					testMd.isBvhReady = false;
 
