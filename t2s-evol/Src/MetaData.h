@@ -20,27 +20,27 @@ class MetaModel
                 //replace for proper selection rendering;
                // isSelected = rand() % 2;
             }
-			MetaModel(const MetaModel &md) { 
-				name = md.name; catName = md.catName; id = md.id; transformation = md.transformation; material = md.material; visible = md.visible; path = md.path; textureDir = md.textureDir;
-				frontDir = md.frontDir; upDir = md.upDir; position = md.position; theta = md.theta;
-				bbTopPlane = md.bbTopPlane; suppPlaneManager = md.suppPlaneManager; parentPlaneUVH = md.parentPlaneUVH;
-				isInitLoaded = md.isInitLoaded; isAlreadyPlaced = md.isAlreadyPlaced; isSkipped = md.isSkipped;
-				isConstraintExtracted = md.isConstraintExtracted; isJustReplaced = md.isJustReplaced;
-				isJustRollbacked = md.isJustRollbacked;
-				isBvhReady = md.isBvhReady; zAdjusted = md.zAdjusted; isSelected = md.isSelected; renderMode = md.renderMode;
-				explicitAnchorId = md.explicitAnchorId; layoutPassScore = md.layoutPassScore; layoutScore = md.layoutScore; trialNum = md.trialNum;
-			};
-			MetaModel &operator = (const MetaModel &md) { 
-				name = md.name; catName = md.catName; id = md.id; transformation = md.transformation; 
-				material = md.material; visible = md.visible; path = md.path; textureDir = md.textureDir;
-				frontDir = md.frontDir; upDir = md.upDir; position = md.position; theta = md.theta;
-				bbTopPlane = md.bbTopPlane; suppPlaneManager = md.suppPlaneManager; parentPlaneUVH = md.parentPlaneUVH;
-				isInitLoaded = md.isInitLoaded; isAlreadyPlaced = md.isAlreadyPlaced; isSkipped = md.isSkipped;
-				isConstraintExtracted = md.isConstraintExtracted; isJustReplaced = md.isJustReplaced;
-				isJustRollbacked = md.isJustRollbacked; isBvhReady = md.isBvhReady;  zAdjusted = md.zAdjusted;
-				isSelected = md.isSelected; renderMode = md.renderMode; 
-				explicitAnchorId = md.explicitAnchorId; layoutPassScore = md.layoutPassScore; layoutScore = md.layoutScore; trialNum = md.trialNum; return *this;
-			}
+			//MetaModel(const MetaModel &md) { 
+			//	name = md.name; catName = md.catName; id = md.id; transformation = md.transformation; material = md.material; visible = md.visible; path = md.path; textureDir = md.textureDir;
+			//	frontDir = md.frontDir; upDir = md.upDir; position = md.position; theta = md.theta;
+			//	bbTopPlane = md.bbTopPlane; suppPlaneManager = md.suppPlaneManager; parentPlaneUVH = md.parentPlaneUVH;
+			//	isInitLoaded = md.isInitLoaded; isAlreadyPlaced = md.isAlreadyPlaced; isSkipped = md.isSkipped;
+			//	isConstraintExtracted = md.isConstraintExtracted; isJustReplaced = md.isJustReplaced;
+			//	isJustRollbacked = md.isJustRollbacked;
+			//	isBvhReady = md.isBvhReady; zAdjusted = md.zAdjusted; isSelected = md.isSelected; renderMode = md.renderMode;
+			//	explicitAnchorId = md.explicitAnchorId; layoutPassScore = md.layoutPassScore; layoutScore = md.layoutScore; trialNum = md.trialNum;
+			//};
+			//MetaModel &operator = (const MetaModel &md) { 
+			//	name = md.name; catName = md.catName; id = md.id; transformation = md.transformation; 
+			//	material = md.material; visible = md.visible; path = md.path; textureDir = md.textureDir;
+			//	frontDir = md.frontDir; upDir = md.upDir; position = md.position; theta = md.theta;
+			//	bbTopPlane = md.bbTopPlane; suppPlaneManager = md.suppPlaneManager; parentPlaneUVH = md.parentPlaneUVH;
+			//	isInitLoaded = md.isInitLoaded; isAlreadyPlaced = md.isAlreadyPlaced; isSkipped = md.isSkipped;
+			//	isConstraintExtracted = md.isConstraintExtracted; isJustReplaced = md.isJustReplaced;
+			//	isJustRollbacked = md.isJustRollbacked; isBvhReady = md.isBvhReady;  zAdjusted = md.zAdjusted;
+			//	isSelected = md.isSelected; renderMode = md.renderMode; 
+			//	explicitAnchorId = md.explicitAnchorId; layoutPassScore = md.layoutPassScore; layoutScore = md.layoutScore; trialNum = md.trialNum; return *this;
+			//}
 
 			string name;  // file name (hash string) of the model
 			string catName; // category of model

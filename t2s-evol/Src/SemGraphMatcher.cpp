@@ -363,6 +363,11 @@ void SemGraphMatcher::addGroupActNodesToSubSSG(SceneSemGraph *matchedSubSSG, Sce
 					{
 						groupModel = m_relModelManager->m_groupRelModels[groupKey];
 					}
+					else
+					{
+						qDebug() << QString("Group model %1 not exist").arg(groupKey);
+						return;
+					}
 
 					std::vector<int> actNodeList = dbNode.activeNodeList;
 
