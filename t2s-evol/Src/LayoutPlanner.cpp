@@ -321,11 +321,9 @@ void LayoutPlanner::computeSingleObjLayout(TSScene *currScene, int metaModelId)
 
 	CollisionManager *currCM = currScene->m_collisionManager;
 
-	if (md.trialNum > m_trialNumLimit)
+	if (md.trialNum >= m_trialNumLimit)
 	{
-		//qDebug() << QString("   Preview %1 Reach test trial limit; Place model anyway; Collision may exist").arg(currScene->m_previewId);
-		//md.isAlreadyPlaced = true; // reach trial limit, although collision happens still set it to be placed
-		QString("   Preview %1 %2 Reach test trial limit; Model will be skipped for placement").arg(currScene->m_previewId).arg(toQString(md.catName));
+		cout << QString("   Preview %1 %2 Reach test trial limit; Model will be skipped for placement").arg(currScene->m_previewId).arg(toQString(md.catName)).toStdString();
 		md.isSkipped = true;
 		return;
 	}
@@ -352,6 +350,8 @@ void LayoutPlanner::computeSingleObjLayout(TSScene *currScene, int metaModelId)
 		if (md.layoutPassScore == 0 || md.layoutScore > md.layoutPassScore)
 		{
 			md.isAlreadyPlaced = true;
+			int parentId = currScene->m_ssg->m_parentOfModel[metaModelId];
+			currScene->m_placedObjIdsOnParent[parentId].push_back(metaModelId); // update the occupied region if the object is placed
 		}
 		else
 		{			
@@ -397,12 +397,12 @@ void LayoutPlanner::computeGroupObjLayoutSeq(TSScene *currScene, const std::vect
 	MetaModel &md = currScene->getMetaModel(metaModelId);
 	Model *currModel = currScene->getModel(md.name);
 
-	if (md.trialNum > m_trialNumLimit)
+	if (md.trialNum >= m_trialNumLimit)
 	{
 		if (md.isJustRollbacked || !doRollback(currScene, tempPlacedModelIds, metaModelId))
 		{
 			qDebug() << QString("   Preview %1 %2 Reach test trial limit; Model will be skipped for placement").arg(currScene->m_previewId).arg(toQString(md.catName));
-			md.isSkipped = true;
+			md.isSkipped = true; 
 			updateStatesForRestModels(currScene, restToPlaceModelIds);
 			return;
 		}
@@ -436,79 +436,18 @@ void LayoutPlanner::computeGroupObjLayoutSeq(TSScene *currScene, const std::vect
 	if (isModelCollideWithScene)
 	{
 		int anchorModelId;
-		//Eigen::VectorXd newPlacement = computeNewPlacement(currScene, metaModelId, currCM->m_collisionPositions, anchorModelId);
 		Eigen::VectorXd newPlacement = samplePosWithHigherRelScore(currScene, metaModelId, 10, anchorModelId);
 		updateWithNewPlacement(currScene, anchorModelId, metaModelId, newPlacement);
 		md.trialNum++;
 	}
 	else
 	{
-		/*
-		// compute current group score and layout pass score
-		double currGroupLayoutScore = 0;
-		double groupLayoutPassScore = 0;
-		for (int ti = 0; ti < tempPlacedModelIds.size(); ti++)
-		{
-			int tempModelId = tempPlacedModelIds[ti];
-			MetaModel &tempMd = currScene->getMetaModel(tempModelId);
-			currGroupLayoutScore += tempMd.layoutScore;
-			groupLayoutPassScore += tempMd.layoutPassScore;
-		}
-
-		if (currGroupLayoutScore >= groupLayoutPassScore || groupLayoutPassScore == 0)
-		{
-			md.isAlreadyPlaced = true;
-			updateStatesForRestModels(currScene, restToPlaceModelIds);
-		}
-		else
-		{
-			int anchorId;
-			Eigen::VectorXd newPlacement = computeNewPlacement(currScene, metaModelId, currCM->m_collisionPositions, anchorId);
-			mat4 newTransMat = computeTransMatFromPos(currScene, anchorId, metaModelId,
-				vec3(newPlacement[0], newPlacement[1], newPlacement[2]), newPlacement[3]);
-
-			md.tempPlacement = newPlacement;
-			md.tempTransform = newTransMat;
-			md.trialNum++;
-
-			std::vector<Eigen::VectorXd> newPlacements(tempPlacedModelIds.size());
-			newPlacements.back() = newPlacement;  // set the last placement as the trial one
-
-			std::vector<mat4> newTransforms(tempPlacedModelIds.size());
-			newTransforms.back() = newTransMat;
-
-			// set the placement of rest objs as the settled one
-			for (int ti = 0; ti < tempPlacedModelIds.size() - 1; ti++)
-			{
-				MetaModel &tempMd = currScene->getMetaModel(tempPlacedModelIds[ti]);
-				newPlacements[ti] = makePlacementVec(tempMd.position, tempMd.theta);
-				newTransforms[ti] = tempMd.transformation;
-			}
-
-			// TODO: do while loop as in single placement
-
-			double newGroupLayoutScore = m_relModelManager->computeRelationScoreForGroup(currScene, tempPlacedModelIds, newPlacements, newTransforms);
-			if (newGroupLayoutScore > currGroupLayoutScore && md.trialNum < m_trialNumLimit)
-			{
-				updateWithNewPlacement(currScene, anchorId, metaModelId, newPlacements.back());
-			}
-			else if(md.trialNum == m_trialNumLimit)
-			{
-				if (md.isJustRollbacked || !doRollback(currScene, tempPlacedModelIds, metaModelId))
-				{
-					qDebug() << QString("   Preview %1 %2 reach test trial limit for relationship; relation may violate").arg(currScene->m_previewId).arg(toQString(md.catName));
-					updateWithNewPlacement(currScene, anchorId, metaModelId, newPlacements.back());
-					
-					md.isAlreadyPlaced = true; // reach trial limit, although collision happens still set it to be placed
-					updateStatesForRestModels(currScene, restToPlaceModelIds);
-				}
-			}
-		}
-		*/
-
 		if (md.layoutPassScore == 0 || md.layoutScore > md.layoutPassScore)
 		{
 			md.isAlreadyPlaced = true;
+			int parentId = currScene->m_ssg->m_parentOfModel[metaModelId];
+			currScene->m_placedObjIdsOnParent[parentId].push_back(metaModelId); // update the occupied region if the object is placed
+
 			updateStatesForRestModels(currScene, restToPlaceModelIds);
 		}
 		else if(md.trialNum < m_trialNumLimit)
@@ -542,7 +481,7 @@ bool LayoutPlanner::doRollback(TSScene *currScene, std::vector<int> &tempPlacedI
 	CollisionManager *currCM = currScene->m_collisionManager;
 	currCM->m_collisionPositions[lastPlaceModelId].push_back(lastMd.position);
 	int anchorModelId;
-	Eigen::VectorXd newPlacement = computeNewPlacement(currScene, lastPlaceModelId, currCM->m_collisionPositions, anchorModelId);
+	Eigen::VectorXd newPlacement = computeNewPlacement(currScene, lastPlaceModelId, anchorModelId);
 	updateWithNewPlacement(currScene, anchorModelId, lastPlaceModelId, newPlacement);
 
 	MetaModel &md = currScene->getMetaModel(currModelId);
@@ -932,11 +871,8 @@ void LayoutPlanner::updateStatesForRestModels(TSScene *currScene, const std::vec
 	}
 }
 
-Eigen::VectorXd LayoutPlanner::computeNewPlacement(TSScene *currScene, int metaModelID, const std::vector<std::vector<vec3>> &collisonPositions, int &anchorModelId)
+Eigen::VectorXd LayoutPlanner::computeNewPlacement(TSScene *currScene, int metaModelID, int &anchorModelId)
 {
-	m_relModelManager->updateCollisionPostions(collisonPositions);
-	m_relModelManager->updateOverHangPostions(currScene->m_overHangPositions);
-
 	// propose position from the explicit constraint
 	// candidate position is in world frame
 	return m_relModelManager->sampleNewPosFromConstraints(currScene, metaModelID, anchorModelId);
@@ -949,7 +885,6 @@ Eigen::VectorXd LayoutPlanner::samplePosWithHigherRelScore(TSScene *currScene, i
 	bool is_pos_sampled = false;
 
 	MetaModel &md = currScene->getMetaModel(metaModelId);
-	CollisionManager *currCM = currScene->m_collisionManager;
 
 	float maxLayoutScore = -1e6;
 	Eigen::VectorXd maxPlacement;
@@ -959,7 +894,7 @@ Eigen::VectorXd LayoutPlanner::samplePosWithHigherRelScore(TSScene *currScene, i
 	while (relation_trial_num < relTrialNum)
 	{
 		int tempAnchorModelId;
-		Eigen::VectorXd tempNewPlacement = computeNewPlacement(currScene, metaModelId, currCM->m_collisionPositions, tempAnchorModelId);
+		Eigen::VectorXd tempNewPlacement = computeNewPlacement(currScene, metaModelId, tempAnchorModelId);
 		mat4 newTransMat = computeTransMatFromPos(currScene, tempAnchorModelId, metaModelId,
 			vec3(tempNewPlacement[0], tempNewPlacement[1], tempNewPlacement[2]), tempNewPlacement[3]);
 
@@ -968,8 +903,8 @@ Eigen::VectorXd LayoutPlanner::samplePosWithHigherRelScore(TSScene *currScene, i
 		// for object with only a few observations, the layout pass score will be zero
 		if (newPlacementScore >= 0 && md.layoutPassScore == 0)
 		{
-			qDebug() << QString("Resample-new score! Preview %1, %2, curr_score:%3, new_score:%4, pass_score:%5").arg(currScene->m_previewId)
-				.arg(QString(md.catName.c_str())).arg(md.layoutScore).arg(newPlacementScore).arg(md.layoutPassScore);
+			//qDebug() << QString("Resample-new score! Preview %1, %2, curr_score:%3, new_score:%4, pass_score:%5").arg(currScene->m_previewId)
+			//	.arg(QString(md.catName.c_str())).arg(md.layoutScore).arg(newPlacementScore).arg(md.layoutPassScore);
 
 			newPlacement = tempNewPlacement;
 			anchorModelId = tempAnchorModelId;
@@ -981,8 +916,8 @@ Eigen::VectorXd LayoutPlanner::samplePosWithHigherRelScore(TSScene *currScene, i
 		// keep the placement with higher relation score
 		if (newPlacementScore > md.layoutScore)
 		{
-			qDebug() << QString("Resample-higher score! Preview %1, %2, curr_score:%3, higher_score:%4, pass_score:%5").arg(currScene->m_previewId)
-				.arg(QString(md.catName.c_str())).arg(md.layoutScore).arg(newPlacementScore).arg(md.layoutPassScore);
+			//qDebug() << QString("Resample-higher score! Preview %1, %2, curr_score:%3, higher_score:%4, pass_score:%5").arg(currScene->m_previewId)
+			//	.arg(QString(md.catName.c_str())).arg(md.layoutScore).arg(newPlacementScore).arg(md.layoutPassScore);
 
 			newPlacement = tempNewPlacement;
 			anchorModelId = tempAnchorModelId;
@@ -1190,12 +1125,13 @@ void LayoutPlanner::updateMetaModelTransformInScene(TSScene * currScene, int cur
 	MetaModel &md = currScene->getMetaModel(currModelID);
 	
 	// do not relocate already placed object
-	if (md.isAlreadyPlaced) return; 
+	if (md.isAlreadyPlaced && !md.isTransformedByCommand) return; 
 
 	md.updateWithTransform(transMat);
 
 	// also need to update meta model in SSG
 	currScene->m_ssg->m_graphMetaScene.m_metaModellList[currModelID] = md;
+	md.isTransformedByCommand = false;
 }
 
 void LayoutPlanner::updateMetaModelInstanceInScene(TSScene *currScene, int currModelID, MetaModel newMd)
@@ -1447,6 +1383,7 @@ void LayoutPlanner::executeCommand(TSScene *currScene, const QString &commandNam
 
 		vec3 transVec = -dirMd.frontDir*dist;
 		mat4 transMat = mat4::translate(transVec);
+		dirMd.isTransformedByCommand = true;
 
 		updateMetaModelTransformInScene(currScene, directModelId, transMat);
 	}
@@ -1459,6 +1396,7 @@ void LayoutPlanner::executeCommand(TSScene *currScene, const QString &commandNam
 
 		vec3 transVec = -dirMd.frontDir*dist;
 		mat4 transMat = mat4::translate(transVec);
+		dirMd.isTransformedByCommand = true;
 
 		updateMetaModelTransformInScene(currScene, directModelId, transMat);
 	}

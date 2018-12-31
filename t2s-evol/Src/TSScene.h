@@ -88,10 +88,11 @@ public:
 
 	bool m_layoutPassScoreComputed = false;
 	
-	std::vector<int> m_placedObjIds;
 	std::vector<int> m_toPlaceModelIds;
 
+	std::map<int, std::vector<int>> m_placedObjIdsOnParent; // place objects on the same parent
 	std::vector<std::vector<vec3>> m_overHangPositions;
+
 
 	MetaScene m_metaScene;
 

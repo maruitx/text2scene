@@ -273,6 +273,7 @@ bool TSScene::isLayoutDone()
 
 	if (count == m_metaScene.m_metaModellList.size())
 	{
+		cout << "Preview " << m_previewId << ": layout finished." << endl;
 		return true;
 	}
 	else
@@ -591,16 +592,6 @@ bool TSScene::computeZForModel(int currModelId, int parentModelId, vec3 startPt,
 
 void TSScene::adjustZForSpecificModel(const MetaModel &currMd, double &z)
 {
-	//if (currMd.catName == "headphones")
-	//{
-	//	Model *m = this->getModel(currMd.name);
-	//	vec3 bbRange = m->getBBRange(currMd.transformation);
-
-	//	// headphone is not aligned consistently
-	//	double zOffset = 0.5*min(bbRange.x, bbRange.y);
-	//	z += zOffset;
-	//}
-
 	if (m_layoutPlanner->m_specialModels.count(toQString(currMd.name)))
 	{
 		z += m_layoutPlanner->m_specialModels[toQString(currMd.name)] / params::inst()->globalSceneUnitScale;

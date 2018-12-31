@@ -414,7 +414,16 @@ void SemanticGraph::alignRelationNodesToGraph(SemanticGraph *targetGraph, double
 						m_nodeAlignMap[qNi] = tarNi;  // save aligned pairwise relationship node map
 						m_nodeAlignMap[refNodeIdInQuery] = tarRefId;  // update the ref node id in the map, since multiple instances may exist in the scene and we use the one connected to the relation node
 
-						alignScore += NodeScore[relNode.matchingStatus]+20;
+						// set higher score for group node with more active objects
+						if (tarRelNode.activeNodeList.size() >= 5)
+						{
+							alignScore += NodeScore[relNode.matchingStatus] + 30;
+						}
+						else
+						{
+							alignScore += NodeScore[relNode.matchingStatus] + 10;
+						}
+
 						break;
 					}
 				}

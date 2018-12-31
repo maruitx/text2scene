@@ -536,7 +536,8 @@ SceneSemGraph* SceneSemGraph::getSubGraph(const vector<int> &nodeList, RelationM
 	return subGraph;
 }
 
-void SceneSemGraph::restoreMissingSupportNodes()
+// some act objects might be 
+void SceneSemGraph::restoreMissingSupportRelationNodes()
 {
 	for (int i=0; i<m_nodes.size(); i++)
 	{
@@ -715,7 +716,7 @@ void SceneSemGraph::insertUnAlignedObjsFromGraph(SceneSemGraph *matchedSg)
 	for (int mi = 0; mi < matchedSg->m_nodeNum; mi++)
 	{
 		SemNode& matchedSgNode = matchedSg->m_nodes[mi];
-		if (!matchedSgNode.isAligned && matchedSgNode.nodeType == "object")
+		if (!matchedSgNode.isAligned && matchedSgNode.nodeType == "object" && matchedSg->m_graphNodeToModelListIdMap.count(mi)!= 0)
 		{
 			int mModelId = matchedSg->m_graphNodeToModelListIdMap[mi];
 			MetaModel modelToInsert = matchedSg->m_graphMetaScene.m_metaModellList[mModelId];

@@ -117,10 +117,10 @@ MetaModel& SceneSemGraphManager::retrieveForModelInstance(const QString catName,
 				{
 					// 5ce562e0632b7e81d8e3889d90601dd1					
 					// 6d67f92d6e11f29e5792b99b8245d225
-					if (md.name == "6d67f92d6e11f29e5792b99b8245d225")
-					{
-						return md;
-					}
+					//if (md.name == "6d67f92d6e11f29e5792b99b8245d225")
+					//{
+					//	return md;
+					//}
 				}
 
 				if (md.catName == "bed")
@@ -164,10 +164,10 @@ MetaModel& SceneSemGraphManager::retrieveForModelInstance(const QString catName,
 
 				if (md.catName == "table")
 				{
-					if (md.name == "97ac69442e657fcd7a968eef090b6698")
-					{
-						return md;
-					}
+					//if (md.name == "97ac69442e657fcd7a968eef090b6698")
+					//{
+					//	return md;
+					//}
 				}
 
 				if (!isModelInBlackList(toQString(md.name)))

@@ -26,7 +26,7 @@ public:
 	void initMetaModelSuppPlanes(unordered_map<string, Model*> &models);
 
 	SceneSemGraph* getSubGraph(const vector<int> &nodeList, RelationModelManager *relManager);
-	void restoreMissingSupportNodes();
+	void restoreMissingSupportRelationNodes();
 	bool hasSupportNode(int actNodeId);
 
 	void mergeWithMatchedSSG(SceneSemGraph *matchedSg); // update current USserSSG with retrieved subSSG

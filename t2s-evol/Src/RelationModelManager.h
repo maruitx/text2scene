@@ -84,11 +84,7 @@ public:
 
 	mat4 getModelToUnitboxMat(Model *m, const MetaModel &md);
 
-	void updateCollisionPostions(const std::vector<std::vector<vec3>> &collisionPositions);
-	void updateOverHangPostions(const std::vector<std::vector<vec3>> &overHangPositions);
-
 	bool isPosValid(TSScene *currScene, const vec3 &pos, int metaModelId);
-	bool isPosCloseToInvalidPos(const vec3 &pos, int metaModelId);
 
 	PairwiseRelationModel* getPairModelById(int id);
 	PairwiseRelationModel* getPairModelInGroupById(GroupRelationModel *groupModel, int id);
@@ -107,9 +103,6 @@ public:
 	std::map<QString, CoOccurrenceModel*> m_coOccModelsInSameGroup;
 
 	std::vector<QString> m_pairwiseModelKeys;
-
-	std::vector<std::vector<vec3>> m_collisionPositions;  // invalid positions including collision, over-hang
-	std::vector<std::vector<vec3>> m_overHangPositions;
 
 	double m_closeSampleTh;  // threshold for avoiding close sample
 	double m_sceneMetric;

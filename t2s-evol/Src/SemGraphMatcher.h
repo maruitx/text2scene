@@ -23,10 +23,10 @@ public:
 	void addEdgesToSubSSG(SceneSemGraph *matchedSubSSG, SceneSemGraph *dbSSG);
 	void addGroupActNodesToSubSSG(SceneSemGraph *matchedSubSSG, SceneSemGraph *dbSSG);
 	void addSynthNodeToSubSSG(SceneSemGraph *matchedSubSSG, SceneSemGraph *dbSSG);  // add unmatched nodes as synth nodes to Sub-SSG
-	void addSuppParentNodesToSubSSG(SceneSemGraph *matchedSubSSG, SceneSemGraph *dbSSG);
+	void addInferredSuppParentNodesToSubSSG(SceneSemGraph *matchedSubSSG, SceneSemGraph *dbSSG);
 	void addContextNodesFromDbSSGToSubSSG(SceneSemGraph *matchedSubSSG, SceneSemGraph *dbSSG);  	// add high co-occur objects with probability
 
-	void addSupportNodeForActNode(int dbActNodeId, SceneSemGraph *dbSSG, SceneSemGraph *matchedSubSSG, int &currSubSSGNodeNum);
+	void addSupportParentNodesForGroupActNode(int dbActNodeId, SceneSemGraph *dbSSG, SceneSemGraph *matchedSubSSG, int &currSubSSGNodeNum, std::vector<int> &insertDbObjNodeList);
 
 	vector<int> findNonRepeatSSGs(const vector<pair<double, SceneSemGraph *>> &scoredDBSubSSGs, int targetNum);
 	bool ssgContainsBlackListModel(SceneSemGraph *ssg);

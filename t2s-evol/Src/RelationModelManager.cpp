@@ -12,7 +12,7 @@ RelationModelManager::RelationModelManager()
 	loadRelationModels();
 
 	m_sceneMetric = params::inst()->globalSceneUnitScale;
-	m_closeSampleTh = 0.05/ m_sceneMetric;
+	m_closeSampleTh = 0.1/ m_sceneMetric;
 
 	m_adjustFrontObjs.push_back("desk");
 	m_adjustFrontObjs.push_back("bookcase");
@@ -176,6 +176,7 @@ void RelationModelManager::loadGroupRelationModels()
 		}
 
 		//newGroupModel->normalizeOccurrenceProbs(0.2, 0.8);
+		newGroupModel->computeMaxOccProbs();
 	}
 
 	inFile.close();
@@ -431,7 +432,7 @@ double RelationModelManager::computeRelationScore(TSScene *currScene, int metaMo
 double RelationModelManager::computeOverHangScore(TSScene *currScene, int metaModelId, const mat4 &deltaTransMat)
 {
 	//TODO: improve overhang score
-	return 0;
+	//return 0;
 	double overHangSore = 0;
 	SceneSemGraph *currSSG = currScene->m_ssg;
 	int parentModelId = currSSG->m_parentOfModel[metaModelId];
@@ -464,43 +465,6 @@ double RelationModelManager::computeOverHangScore(TSScene *currScene, int metaMo
 		bottomCorners[1] = vec3(maxV.x, minV.y, minV.z);
 		bottomCorners[2] = vec3(maxV.x, maxV.y, minV.z);
 		bottomCorners[3] = vec3(minV.x, maxV.y, minV.z);
-
-		// compute intersection for transformed corners
-	/*	std::vector<double> intersectZ(4, 0);
-		double maxZ(0), minZ(1e3);
-		int maxId(-1), minId(-1);
-		for (int i = 0; i < 4; i++)
-		{
-			bottomCorners[i] = TransformPoint(currTransMat, bottomCorners[i]);
-
-			double newZ;
-			if (currScene->computeZForModel(metaModelId, parentModelId, bottomCorners[i], newZ))
-			{
-				intersectZ[i] = newZ;
-			}
-
-			if (intersectZ[i] > maxZ)
-			{
-				maxZ = intersectZ[i];
-				maxId = i;
-			}
-			if (intersectZ[i] < minZ)
-			{
-				minZ = intersectZ[i];
-				minId = i;
-			}
-		}
-
-		double dist = maxZ - minZ;
-		if (dist > 0.1 / m_sceneMetric)
-		{
-			currScene->m_overHangPositions[metaModelId].push_back(newPos);
-			return -10;
-		}
-		else
-		{
-			return 0;
-		}*/
 
 		bool is_corner_supported = true;
 		int overhang_corner_num = 0;
@@ -633,52 +597,51 @@ mat4 RelationModelManager::getModelToUnitboxMat(Model *m, const MetaModel &md)
 	return alignMat;
 }
 
-void RelationModelManager::updateCollisionPostions(const std::vector<std::vector<vec3>> &collisionPositions)
-{
-	m_collisionPositions.clear();
-	m_collisionPositions = collisionPositions;
-}
-
-void RelationModelManager::updateOverHangPostions(const std::vector<std::vector<vec3>> &overHangPositions)
-{
-	m_overHangPositions.clear();
-	m_overHangPositions = overHangPositions;
-}
 
 bool RelationModelManager::isPosValid(TSScene *currScene, const vec3 &pos, int metaModelId)
 {
-	if (isPosCloseToInvalidPos(pos, metaModelId))
+	// return false if it is close to already placed objects on the same parent
+	int parentId = currScene->m_ssg->m_parentOfModel[metaModelId];
+	if (currScene->m_placedObjIdsOnParent.count(parentId) != 0)
 	{
-		return false;
+		for (auto it=currScene->m_placedObjIdsOnParent.begin(); it!=currScene->m_placedObjIdsOnParent.end(); it++)
+		{
+			std::vector<int>& siblingIds = it->second;
+			for (int i=0; i < siblingIds.size(); i++)
+			{
+				MetaModel& siblingMd = currScene->getMetaModel(siblingIds[i]);
+				double d = (pos - siblingMd.position).length();
+				if (d < m_closeSampleTh)
+				{
+					return false;
+				}
+			}
+		}
+	}
+
+	// return false if close to saved collision position
+	for (int i = 0; i < currScene->m_collisionManager->m_collisionPositions[metaModelId].size(); i++)
+	{
+		double d = (pos - currScene->m_collisionManager->m_collisionPositions[metaModelId][i]).length();
+
+		if (d < m_closeSampleTh)
+		{
+			return false;
+		}
+	}
+
+	// return false if close to saved over-hang positions
+	for (int i = 0; i < currScene->m_overHangPositions[metaModelId].size(); i++)
+	{
+		double d = (pos - currScene->m_overHangPositions[metaModelId][i]).length();
+
+		if (d < m_closeSampleTh)
+		{
+			return false;
+		}
 	}
 
 	return true;
-}
-
-bool RelationModelManager::isPosCloseToInvalidPos(const vec3 &pos, int metaModelId)
-{
-	for (int i = 0; i < m_collisionPositions[metaModelId].size(); i++)
-	{
-		double d = (pos - m_collisionPositions[metaModelId][i]).length();
-
-		if (d < m_closeSampleTh)
-		{
-			return true;
-		}
-	}
-
-	// test for over-hang positions
-	for (int i = 0; i < m_overHangPositions[metaModelId].size(); i++)
-	{
-		double d = (pos - m_overHangPositions[metaModelId][i]).length();
-
-		if (d < m_closeSampleTh)
-		{
-			return true;
-		}
-	}
-
-	return false;
 }
 
 PairwiseRelationModel* RelationModelManager::getPairModelById(int id)
@@ -765,38 +728,11 @@ Eigen::VectorXd RelationModelManager::sampleNewPosFromConstraints(TSScene *currS
 			constraintType = "random";
 		}
 
-		if ((newWorldPos - md.position).length() < 0.05 / m_sceneMetric) continue;
+		// do re-sampling if the new position is close to a previously sampled position
+		if ((newWorldPos - md.position).length() < m_closeSampleTh) continue;
 
 		if (isPosValid(currScene, newWorldPos, metaModelId)) break;
 	}
-
-	/*
-	// use permutation if no instance pos available
-	int count = 0;
-	while (count < 1000)
-	{
-		PairwiseRelationModel *currPairModel = NULL;
-		if (!currScene->m_explictConstraints[metaModelId].empty())
-		{
-			RelationConstraint &exConstraint = currScene->m_explictConstraints[metaModelId][0];
-			currPairModel = exConstraint.relModel;
-			anchorModelId = exConstraint.anchorObjId;
-
-			sampleFromRelationModel(currScene, currPairModel, metaModelId, anchorModelId, newWorldPos, newWorldTheta);
-			constraintType = "explicit";
-		}
-		else
-		{
-			randomSampleOnParent(currScene, metaModelId, newWorldPos, anchorModelId);
-			newWorldTheta = 0;
-			constraintType = "random";
-		}
-
-		if (isPosValid(currScene, newWorldPos, metaModelId)) break;
-
-		count++;
-	}
-	*/
 
 	// convert to world frame
 	Eigen::VectorXd  worldPos(4);
