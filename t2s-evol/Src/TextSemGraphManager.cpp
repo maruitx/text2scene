@@ -173,8 +173,6 @@ void TextSemGraphManager::loadSELFromOutput(const QString &filename, RelationMod
 				for (int ti = 0; ti < newCommand.targetCount; ti++)
 				{
 					currLine = ifs.readLine();
-					//std::vector<std::string> parts = PartitionString(currLine.toStdString(), "|");
-					//newCommand.targetStrings.push_back(QString(parts[1].c_str()));  // ignore the type for now
 					newCommand.targetStrings.push_back(currLine);
 				}
 

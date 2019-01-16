@@ -108,7 +108,7 @@ struct GlobalObjectParams
 	QString sceneDBType;
 	QString selectMethod;
 	double contextCoOccProb;
-	double groupCoOccProb;
+	double groupOccProb;
 	bool doVideo;
 
 	unordered_map<string, Texture *> textures;

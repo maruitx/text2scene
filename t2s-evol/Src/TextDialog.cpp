@@ -173,7 +173,7 @@ void TextDialog::onButtonProcess()
 		if (sceneNum < 0) return;
 
 		// load local sceneDB path
-		vector<string> localSceneDBPaths = getFileLines("./SceneDB/LocalSceneDBPath.txt", 3);
+		vector<string> localSceneDBPaths = getFileLines("./LocalSceneDBPath.txt", 3);
 		string stanfordDBPath, shapeNetSemDBPath, scenennDBPath, changScenePath, resultPath;
 
 		for (int i = 0; i < localSceneDBPaths.size(); i++)
@@ -215,7 +215,7 @@ void TextDialog::onButtonProcess()
 
 		if (!dirExists(stanfordDBPath))
 		{
-			cout << "Please set your local StanfordSceneDB in SceneDB/LocalSceneDBPath.txt\n";
+			cout << "Please set your local StanfordSceneDB in LocalSceneDBPath.txt\n";
 			return;
 		}
 		{
@@ -363,7 +363,7 @@ void TextDialog::onButtonProcess()
 		inputSentence.remove("ss ");
 
 		// load local sceneDB path
-		vector<string> localSceneDBPaths = getFileLines("./SceneDB/LocalSceneDBPath.txt", 3);
+		vector<string> localSceneDBPaths = getFileLines("./LocalSceneDBPath.txt", 3);
 		string resultPath;
 
 		for (int i = 0; i < localSceneDBPaths.size(); i++)
@@ -380,7 +380,7 @@ void TextDialog::onButtonProcess()
 
 		if (!dirExists(resultPath))
 		{
-			cout << "Please set your result path in SceneDB/LocalSceneDBPath.txt\n";
+			cout << "Please set your result path in LocalSceneDBPath.txt\n";
 			return;
 		}
 

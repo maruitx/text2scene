@@ -1,13 +1,3 @@
-SceneDBType=stanford
-PreviewNum=5
-AddSynthNode=1
-AddSynthSceneNum=0
 UseContext=0
-ShowBothOrignAndContextView=0
-AddContextSceneNum=3
 ContextCoOccProb=0.5
-DoPermutation=0
-PermuteProb=0.5
-GroupCoOccProb=0.5
-SelectMethod=first
-doVideo=0
+GroupOccProb=0.5

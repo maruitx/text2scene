@@ -189,6 +189,19 @@ void GLWidget::loadParams()
 
 	vector<string> paramLines = getFileLines("./params.txt", 3);
 
+	// default values of params
+	p->sceneDBType = "release";
+	p->previewNum = 5;
+	p->addSynthNode = true;
+	p->addSynthSceneNum = 0;
+	p->isUseContext = false;
+	p->addContextSceneNum = 3;
+	p->showBothOriginAndContextView = false;
+	p->contextCoOccProb = 0.5;
+	p->groupOccProb = 0.5;
+	p->selectMethod = "first";
+	p->doVideo = false;
+
 	for (int i = 0; i < paramLines.size(); i++)
 	{
 		if (paramLines[i][0] != '#')
@@ -199,63 +212,31 @@ void GLWidget::loadParams()
 				continue;
 			}
 
-			if (paramLines[i].find("PreviewNum=") != string::npos)
-			{
-				p->previewNum = StringToIntegerList(paramLines[i], "PreviewNum=")[0];
-				continue;
-			}
-
-			if (paramLines[i].find("AddSynthNode=") != string::npos)
-			{
-				p->addSynthNode = StringToIntegerList(paramLines[i], "AddSynthNode=")[0];
-				continue;
-			}
-
-			if (paramLines[i].find("AddSynthSceneNum=") != string::npos)
-			{
-				p->addSynthSceneNum = StringToIntegerList(paramLines[i], "AddSynthSceneNum=")[0];
-				continue;
-			}
-
 			if (paramLines[i].find("UseContext=") != string::npos)
 			{
 				p->isUseContext = StringToIntegerList(paramLines[i], "UseContext=")[0];
 				continue;
 			}
 
-			if (paramLines[i].find("ShowBothOrignAndContextView=") != string::npos)
-			{
-				p->showBothOriginAndContextView = StringToIntegerList(paramLines[i], "ShowBothOrignAndContextView=")[0];
-				continue;
-			}
-
-			if (paramLines[i].find("AddContextSceneNum=") != string::npos)
-			{
-				p->addContextSceneNum = StringToIntegerList(paramLines[i], "AddContextSceneNum=")[0];
-				continue;
-			}
-
-			if (paramLines[i].find("SelectMethod=") != string::npos)
-			{
-				p->selectMethod = toQString(PartitionString(paramLines[i], "SelectMethod=")[0]);
-				continue;
-			}
-
 			if (paramLines[i].find("ContextCoOccProb=") != string::npos)
 			{
 				p->contextCoOccProb = StringToFloat(PartitionString(paramLines[i], "ContextCoOccProb=")[0]);
+				if (p->contextCoOccProb < 0.1)
+				{
+					p->contextCoOccProb = 0.1;
+					cout << "Set context co-occurance too small might introduce many less relavant objects; reset the value to 0.1" << endl;
+				}
 				continue;
 			}
 
-			if (paramLines[i].find("GroupCoOccProb=") != string::npos)
+			if (paramLines[i].find("GroupOccProb=") != string::npos)
 			{
-				p->groupCoOccProb = StringToFloat(PartitionString(paramLines[i], "GroupCoOccProb=")[0]);
-				continue;
-			}
-
-			if (paramLines[i].find("doVideo=") != string::npos)
-			{
-				p->doVideo = StringToFloat(PartitionString(paramLines[i], "doVideo=")[0]);
+				p->groupOccProb = StringToFloat(PartitionString(paramLines[i], "GroupOccProb=")[0]);
+				if (p->groupOccProb < 0.1)
+				{
+					p->groupOccProb = 0.1;
+					cout << "Set group coccurance too small might introduce many less relavant objects; reset the value to 0.1" << endl;
+				}
 				continue;
 			}
 		}

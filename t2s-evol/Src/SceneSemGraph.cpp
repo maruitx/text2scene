@@ -558,24 +558,6 @@ void SceneSemGraph::restoreMissingSupportRelationNodes()
 				addEdge(currNodeId, anchorNodeId);
 			}
 		}
-
-		//// restore for objects in a group relation
-		//if (relNode.nodeType == "group_relation")
-		//{
-		//	for (int t=0; t < relNode.activeNodeList.size(); t++)
-		//	{
-		//		int actNodeId = relNode.activeNodeList[t];
-		//		if (!hasSupportNode(actNodeId))
-		//		{
-		//			int anchorNodeId = relNode.anchorNodeList[0];
-		//			addNode(SSGNodeType[2], "vertsupport");
-		//			int currNodeId = m_nodeNum - 1;
-
-		//			addEdge(actNodeId, currNodeId);
-		//			addEdge(currNodeId, anchorNodeId);
-		//		}
-		//	}
-		//}
 	}
 
 	for (int i=0;  i<m_nodes.size(); i++)
@@ -672,6 +654,12 @@ int SceneSemGraph::findPotentialParentNodeIdForNode(int nodeId)
 
 		if ((currNodeName == "knife" || currNodeName=="fork" || currNodeName == "plate")
 			&&sgNode.nodeName == "table")
+		{
+			return i;
+		}
+
+		if ((currNodeName == "speaker" || currNodeName == "monitor")
+			&& (sgNode.nodeName == "desk"))
 		{
 			return i;
 		}

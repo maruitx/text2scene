@@ -1,0 +1,2 @@
+StanfordDB=D:/Graphics/T2S/T2S_Code_Release/SceneDB/StanfordSceneDB/
+ResultPath=./SceneDB/Results/

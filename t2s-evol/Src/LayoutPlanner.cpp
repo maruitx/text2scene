@@ -14,7 +14,7 @@ LayoutPlanner::LayoutPlanner(RelationModelManager *relManager, SceneSemGraphMana
 	:m_relModelManager(relManager), m_sceneSemGraphManager(ssgManager)
 {
 	loadSpecialModels();
-	m_trialNumLimit = 200;
+	m_trialNumLimit = 100;
 }
 
 LayoutPlanner::~LayoutPlanner()
@@ -85,7 +85,6 @@ void LayoutPlanner::initPlaceByAlignRelation(SceneSemGraph *matchedSg, SceneSemG
 
 					vec3 targetPosition = tarRefSuppPlane.getPointByUV(u, v); // position in the current scene, support plane is already transformed
 
-					// TODO: adjust the Z value 
 					vec3 initPositionInScene = currActiveMd.position; // get the pos of model in current scene
 					vec3 translationVec = targetPosition - dirRotMat*initPositionInScene;
 					translateMat = translateMat.translate(translationVec);
@@ -101,7 +100,6 @@ void LayoutPlanner::initPlaceByAlignRelation(SceneSemGraph *matchedSg, SceneSemG
 							SuppPlane& tarRefSuppPlane = currRefMd.bbTopPlane;
 							vec3 targetPosition = tarRefSuppPlane.getPointByUV(mUVH.x, mUVH.y); // position in the current scene, support plane is already transformed
 
-							// TODO: adjust the Z value 
 							vec3 initPositionInScene = currActiveMd.position; // get the pos of model in current scene
 							vec3 translationVec = targetPosition - dirRotMat*initPositionInScene;
 							translateMat = translateMat.translate(translationVec);
@@ -237,7 +235,6 @@ void LayoutPlanner::initPlaceUsingSynthesizedRelations(TSScene *currScene)
 					vec3 uvh = actMd.parentPlaneUVH;
 					vec3 newPos = suppPlane.getPointByUV(uvh.x, uvh.y);
 
-					// TODO: adjust the Z value
 					vec3 translateVec;
 					translateVec = newPos - actMd.position;
 					transMat = transMat.translate(translateVec);
@@ -321,6 +318,7 @@ void LayoutPlanner::computeSingleObjLayout(TSScene *currScene, int metaModelId)
 
 	CollisionManager *currCM = currScene->m_collisionManager;
 
+
 	if (md.trialNum >= m_trialNumLimit)
 	{
 		cout << QString("   Preview %1 %2 Reach test trial limit; Model will be skipped for placement").arg(currScene->m_previewId).arg(toQString(md.catName)).toStdString();
@@ -340,6 +338,17 @@ void LayoutPlanner::computeSingleObjLayout(TSScene *currScene, int metaModelId)
 	bool isModelCollideWithScene = currCM->checkCollisionBVH(currModel, metaModelId);
 	if (isModelCollideWithScene)
 	{
+		// test if the parent support plane is too crowd
+		int parentId = currScene->m_ssg->m_parentOfModel[metaModelId];
+		int placedObjNum = currScene->m_placedObjIdsOnParent[parentId].size();
+		if (placedObjNum >= 10 && md.trialNum >= 20)
+		{
+			cout << QString("   Parent plane is too crowd; Model will be skipped for placement").arg(currScene->m_previewId).arg(toQString(md.catName)).toStdString();
+			md.isSkipped = true;
+			return;
+		}
+
+		// sample another position based on the relational model
 		int anchorModelId;
 		Eigen::VectorXd newPlacement = samplePosWithHigherRelScore(currScene, metaModelId, 10, anchorModelId);
 		updateWithNewPlacement(currScene, anchorModelId, metaModelId, newPlacement);
@@ -414,27 +423,22 @@ void LayoutPlanner::computeGroupObjLayoutSeq(TSScene *currScene, const std::vect
 	// initialize layout score for all temporary placed objects from the group
 	if (md.layoutScore == -100 && !md.isAlreadyPlaced)
 	{
-		//tempPlacedModelIds.push_back(metaModelId);
-		//std::vector<Eigen::VectorXd> currPlacements(tempPlacedModelIds.size());
-		//std::vector<mat4> currTransforms(tempPlacedModelIds.size(), mat4::identitiy());
-
-		//for (int ti = 0; ti < tempPlacedModelIds.size(); ti++)
-		//{
-		//	int tempModelId = tempPlacedModelIds[ti];
-		//	MetaModel &tempMd = currScene->getMetaModel(tempModelId);
-		//	currPlacements[ti] = makePlacementVec(tempMd.position, tempMd.theta);
-
-		//	tempMd.tempPlacement = currPlacements[ti];
-		//}
-
-		//m_relModelManager->computeRelationScoreForGroup(currScene, tempPlacedModelIds, currPlacements, currTransforms);
-
 		md.layoutScore = m_relModelManager->computeRelationScore(currScene, metaModelId, makePlacementVec(md.position, md.theta), mat4::identitiy());
 	}
 	
 	isModelCollideWithScene = currCM->checkCollisionBVH(currModel, metaModelId);
 	if (isModelCollideWithScene)
 	{
+		// test if the parent support plane is too crowd
+		int parentId = currScene->m_ssg->m_parentOfModel[metaModelId];
+		int placedObjNum = currScene->m_placedObjIdsOnParent[parentId].size();
+		if (placedObjNum >= 10 && md.trialNum >= 20)
+		{
+			cout << QString("   Parent plane is too crowd; Model will be skipped for placement").arg(currScene->m_previewId).arg(toQString(md.catName)).toStdString();
+			md.isSkipped = true;
+			return;
+		}
+
 		int anchorModelId;
 		Eigen::VectorXd newPlacement = samplePosWithHigherRelScore(currScene, metaModelId, 10, anchorModelId);
 		updateWithNewPlacement(currScene, anchorModelId, metaModelId, newPlacement);
@@ -486,8 +490,6 @@ bool LayoutPlanner::doRollback(TSScene *currScene, std::vector<int> &tempPlacedI
 
 	MetaModel &md = currScene->getMetaModel(currModelId);
 	md.trialNum = 0;
-
-	// TODO: pop the implicit constraints to the last placed model
 
 	return true;
 }
@@ -555,27 +557,6 @@ bool LayoutPlanner::adjustInitTransfromSpecialModel(const MetaModel &anchorMd, M
 		}
 	}
 
-	//if (anchorMd.catName == "desk" && (actMd.catName == "monitor" || actMd.catName == "keyboard"))
-	//{
-	//	double currAngle = GetRotAngleR(anchorMd.frontDir, actMd.frontDir, vec3(0, 0, 1));
-	//	double targetAngle;
-	//	bool needAdjust = false;
-	//	if (currAngle > 0 && currAngle < 0.6*math_pi || currAngle < 0 && currAngle > -0.6*math_pi)
-	//	{
-	//		needAdjust = true;
-	//		targetAngle = 0;
-	//	}
-
-	//	if (needAdjust)
-	//	{
-	//		mat4 rotMat = GetRotationMatrix(vec3(0, 0, 1), targetAngle - currAngle);
-	//		mat4 adjustedMat = mat4::translate(actMd.position)*rotMat*mat4::translate(-actMd.position)*actMd.transformation;
-	//		actMd.updateWithTransform(adjustedMat);
-
-	//		isAdjusted = true;
-	//	}
-	//}
-
 	if (anchorMd.catName == "desk" && (actMd.catName == "computermouse"))
 	{
 		double currAngle = GetRotAngleR(anchorMd.frontDir, actMd.frontDir, vec3(0, 0, 1));
@@ -609,7 +590,6 @@ bool LayoutPlanner::adjustInitTransfromSpecialModel(const MetaModel &anchorMd, M
 		if (currAngle > 0.1*math_pi || currAngle < -0.8*math_pi)
 		{
 			needAdjust = true;
-			//targetAngle = GenRandomDouble(-math_pi, -0.8*math_pi);
 			targetAngle = 0;
 		}
 
@@ -823,15 +803,14 @@ void LayoutPlanner::computeLayoutPassScoreForModel(TSScene *currScene, int metaM
 
 	double score = 0;
 	double ExWeight = m_relModelManager->ExWeight;
-	double ratio = 0.2;
+	double ratio = 0.1;
 
-	// TODO: sample a point with 20% percentile; adjust its Z value and compute its probability
 	for (int i = 0; i < exConstraints.size(); i++)
 	{
 		RelationConstraint &relConstraint = exConstraints[i];
 		if (relConstraint.relModel->m_GMM != NULL)
 		{
-			score += ExWeight*relConstraint.relModel->m_GMM->m_probTh[0]* ratio; // use 20% percentile
+			score += ExWeight*relConstraint.relModel->m_GMM->m_probTh[0]* ratio; 
 		}
 	}
 
@@ -840,8 +819,13 @@ void LayoutPlanner::computeLayoutPassScoreForModel(TSScene *currScene, int metaM
 		RelationConstraint &relConstraint = imConstraints[i];
 		if (relConstraint.relModel->m_GMM != NULL)
 		{
-			score += (1 - ExWeight)*relConstraint.relModel->m_GMM->m_probTh[0]* ratio; // use 20% percentile
+			score += (1 - ExWeight)*relConstraint.relModel->m_GMM->m_probTh[0]* ratio;
 		}
+	}
+
+	if (score < 1e-3)
+	{
+		score = 0;
 	}
 
 	md.layoutPassScore = score;
@@ -1212,11 +1196,6 @@ mat4 LayoutPlanner::computeTransMatFromPos(TSScene *currScene, int anchorModelId
 		MetaModel &anchorMd = currScene->getMetaModel(anchorModelId);
 		vec3 anchorFront = anchorMd.frontDir;
 
-		//mat4 invMat = currMd.transformation.inverse();
-		//vec3 initModelDir = TransformVector(invMat, currMd.frontDir);
-		//double initTheta = GetRotAngleR(anchorFront, initModelDir, vec3(0, 0, 1));
-		//double rotTheta = newTheta - initTheta;
-
 		double rotTheta = newTheta - GetRotAngleR(anchorFront, currMd.frontDir, vec3(0, 0, 1));
 		rotMat = GetRotationMatrix(vec3(0, 0, 1), rotTheta);
 
@@ -1257,20 +1236,6 @@ mat4 LayoutPlanner::computeTransMatFromPos(TSScene *currScene, MetaModel &anchor
 	mat4 rotMat = mat4::identitiy();
 
 	vec3 anchorFront = anchorMd.frontDir;
-
-	//mat4 invMat = currMd.transformation.inverse();
-	//vec3 initModelDir = TransformVector(invMat, currMd.frontDir);
-	//double initTheta = GetRotAngleR(anchorFront, initModelDir, vec3(0, 0, 1));
-	//double rotTheta = newTheta - initTheta;
-
-	//double rotTheta = newTheta - GetRotAngleR(anchorFront, currMd.frontDir, vec3(0, 0, 1));
-	//rotMat = GetRotationMatrix(vec3(0, 0, 1), rotTheta);
-
-	if (isnan(rotMat.a11))
-	{
-		qDebug();
-	}
-
 
 	// test whether candidate pos is valid for all implicit constraint
 

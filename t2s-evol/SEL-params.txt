@@ -1,8 +1,0 @@
-#Rui's git root
-gitRoot=D:\Graphics\T2S\text2scene\
-
-#Soeren's git root
-#gitRoot=F:\_Projects\2016_TextToScene\code\
-
-inputFile=in.txt
-outputFile=out.txt

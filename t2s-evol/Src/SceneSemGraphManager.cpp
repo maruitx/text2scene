@@ -113,6 +113,7 @@ MetaModel& SceneSemGraphManager::retrieveForModelInstance(const QString catName,
 					continue;
 				}
 
+				// debug
 				if (md.catName == "desk")
 				{
 					// 5ce562e0632b7e81d8e3889d90601dd1					
@@ -140,7 +141,6 @@ MetaModel& SceneSemGraphManager::retrieveForModelInstance(const QString catName,
 						return md;
 					}
 				}
-
 				
 				if (md.catName == "computermouse")
 				{
@@ -149,8 +149,6 @@ MetaModel& SceneSemGraphManager::retrieveForModelInstance(const QString catName,
 						return md;
 					}
 				}
-
-				
 
 				if (md.catName == "chair")
 				{

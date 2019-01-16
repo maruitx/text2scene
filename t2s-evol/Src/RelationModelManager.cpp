@@ -32,7 +32,6 @@ void RelationModelManager::loadRelationModels()
 {
 	std::chrono::high_resolution_clock::time_point start = GetCurrentClockTime();
 
-	// TODO: speed up loading and initializing relational models
 	loadRelativeRelationModels();
 	loadPairwiseRelationModels();
 	loadGroupRelationModels();
@@ -431,8 +430,6 @@ double RelationModelManager::computeRelationScore(TSScene *currScene, int metaMo
 
 double RelationModelManager::computeOverHangScore(TSScene *currScene, int metaModelId, const mat4 &deltaTransMat)
 {
-	//TODO: improve overhang score
-	//return 0;
 	double overHangSore = 0;
 	SceneSemGraph *currSSG = currScene->m_ssg;
 	int parentModelId = currSSG->m_parentOfModel[metaModelId];
@@ -812,6 +809,7 @@ void RelationModelManager::sampleFromRelationModel(TSScene *currScene, PairwiseR
 	}
 }
 
+// re-adjust the sampled relative positions to reduce implausible layout results
 void RelationModelManager::adjustSamplingForSpecialModels(const QString &anchorObjName, const QString &actObjName, vec3 &relPos, double &relTheta)
 {
 	if (anchorObjName == "bookcase" && (actObjName == "standbooks" || actObjName == "framework"))
@@ -819,15 +817,6 @@ void RelationModelManager::adjustSamplingForSpecialModels(const QString &anchorO
 		relTheta = 0;
 	}
 
-	if (anchorObjName == "couch" && actObjName == "table")
-	{
-		relTheta = 1;
-	}
-
-	if (anchorObjName == "desk" && (actObjName == "monitor" || actObjName =="keyboard"))
-	{
-		//relTheta = GenRandomDouble(-0.1,0.1);
-	}
 
 	if (anchorObjName == "desk" && actObjName == "computermouse")
 	{
@@ -853,6 +842,11 @@ void RelationModelManager::adjustSamplingForSpecialModels(const QString &anchorO
 			relPos.y = -0.35;
 		}
 
+		if (abs(relPos.x) > 1)
+		{
+			relPos.x = GenRandomDouble(1,1.5);
+		}
+
 		relTheta = 0;
 	}
 
@@ -875,7 +869,38 @@ void RelationModelManager::adjustSamplingForSpecialModels(const QString &anchorO
 	{
 		if (relPos.y < 3)
 		{
-			relPos.y = 4;
+			relPos.y = GenRandomDouble(3, 4);
+		}
+
+		if (relTheta >=0)
+		{
+			if (abs(relTheta - 0.5) < 0.3)
+			{
+				relTheta = 0.5;
+			}
+			else if(relTheta >=0.8)
+			{
+				relTheta = 1;
+			}
+			else
+			{
+				relTheta = 0;
+			}
+		}
+		else
+		{
+			if (abs(relTheta + 0.5) < 0.3)
+			{
+				relTheta = -0.5;
+			}
+			else if(relTheta <=-0.8)
+			{
+				relTheta = -1;
+			}
+			else
+			{
+				relTheta = 0;
+			}
 		}
 	}
 
@@ -894,32 +919,141 @@ void RelationModelManager::adjustSamplingForSpecialModels(const QString &anchorO
 		relPos.y = GenRandomDouble(-0.05, 0.05);
 	}
 
-
-	if (anchorObjName == "bed" && actObjName == "desk")
+	if (anchorObjName == "bed" && (actObjName == "desk" || actObjName == "dresser"))
 	{
-		if (relPos.y > -0.2)
+		if (relPos.y > -0.2 || relPos.y < -0.5)
 		{
-			relPos.y = -0.35;
+			relPos.y = GenRandomDouble(-0.4, -0.3);
 		}
 
-		if (relPos.x > 0 && relPos.x < 1.1)
+		if (relPos.x > 0 && relPos.x < 1.2)
 		{
-			relPos.x = GenRandomDouble(1.1,1.5);
+			relPos.x = GenRandomDouble(1.2,1.5);
 		}
-
-		if (relPos.x < 0 && relPos.x > -1.1)
+		else if (relPos.x < 0 && relPos.x > -1.2)
 		{
-			relPos.x = GenRandomDouble(-1.1, 1.5);
+			relPos.x = GenRandomDouble(-1.2, -1.5);
 		}
 
 		relTheta = 0;
 	}
 
-	if (anchorObjName == "bed" && actObjName == "dresser")
+	if (anchorObjName == "dresser" && actObjName.contains("tv"))
 	{
-		if (relPos.y > -0.2)
+		relTheta = 0;
+
+		if (relPos.y > 0.2 || relPos.y < -0.2)
 		{
-			relPos.y = -0.3;
+			relPos.y = 0;
+		}
+
+		if (relPos.x > 0 && relPos.x < 1.5)
+		{
+			relPos.x = GenRandomDouble(1.5, 2);
+		}
+		else if (relPos.x < 0 && relPos.x > -1.5)
+		{
+			relPos.x = GenRandomDouble(-2, -1.5);
+		}
+	}
+
+	if (anchorObjName == "dresser" && actObjName.contains("bed"))
+	{
+
+		if (relPos.y > 5)
+		{
+			relPos.y = GenRandomDouble(3, 4);
+		}
+
+		if (relPos.y < -1 || relPos.y < 1.5)
+		{
+			if (relPos.x > 0 && relPos.x < 1.5)
+			{
+				relPos.x = GenRandomDouble(1.5,2);
+			}
+			else if (relPos.x < 0 && relPos.x > -1.5)
+			{
+				relPos.x = GenRandomDouble(-2,-1.5);
+			}
+
+			relPos.y = GenRandomDouble(1.5,2.5);
+		}
+
+		if (abs(relTheta) <= 0.3)
+		{
+			relTheta = 0;
+		}
+		else if(relTheta > 0.3)
+		{
+			relTheta = 0.5;
+		}
+		else if (relTheta < -0.3)
+		{
+			relTheta = -0.5;
+		}
+
+
+	}
+
+	if (anchorObjName == "dresser" && actObjName == "mirror")
+	{
+		relTheta = 0;
+
+		if (abs(relPos.x ) > 0.2)
+		{
+			relPos.x = GenRandomDouble(-0.2, 0.2);
+		}
+	}
+
+	if (anchorObjName == "tvstand" && actObjName == "tv")
+	{
+		relTheta = 0;
+	}
+
+	if (anchorObjName == "tvstand" && actObjName.contains("table"))
+	{
+		relTheta = 0;
+
+		if (relPos.y < 3)
+		{
+			relPos.y = GenRandomDouble(3, 5);
+		}
+
+		if (abs(relPos.x > 0.3))
+		{
+			relPos.x = GenRandomDouble(-0.3, 0.3);
+		}
+	}
+
+	if (anchorObjName == "tvstand" && actObjName.contains("couch"))
+	{
+		relTheta = 1;
+
+		if (relPos.y < 4)
+		{
+			relPos.y = GenRandomDouble(4, 6);
+		}
+
+		if (abs(relPos.x > 0.3))
+		{
+			relPos.x = GenRandomDouble(-0.3, 0.3);
+		}
+	}
+
+	if (anchorObjName.contains("tv") && actObjName == "dresser")
+	{
+		if (relPos.y > 0.2 || relPos.y < -0.2)
+		{
+			relPos.y = 0;
+		}
+
+		if (relPos.x > 0 && relPos.x < 1.5)
+		{
+			relPos.x = GenRandomDouble(1.5, 2);
+		}
+		else if (relPos.x < 0 && relPos.x > -1.5)
+		{
+			relPos.x = GenRandomDouble(-2, -1.5);
 		}
 	}
 
@@ -954,28 +1088,73 @@ void RelationModelManager::adjustSamplingForSpecialModels(const QString &anchorO
 		}
 	}
 
-	if (anchorObjName == "table" && actObjName == "chair")
+	if (anchorObjName == "couch" && actObjName == "table")
 	{
-		//// right
-		//if (relPos.x > 0 && (relTheta < 0.25 || relTheta >0.75))
-		//{
-		//	relTheta = 0.5;
-		//}
+		relTheta = 1;
 
-		//// left
-		//if (relPos.x < 0 && (relTheta > -0.25 || relTheta < -0.75))
-		//{
-		//	relTheta = -0.5;
-		//}
+		if (relPos.x > 0.1 || relPos.x < -0.1)
+		{
+			relPos.x = GenRandomDouble(-0.1, 0.1);
+		}
+
+		if (relPos.y > 2)
+		{
+			relPos.y = GenRandomDouble(1.2, 2);
+		}
+	}
+
+	if (anchorObjName == "couch" && actObjName == "tv")
+	{
+		relTheta = 1;
+
+		if (relPos.x > 0.1 || relPos.x < -0.1)
+		{
+			relPos.x = GenRandomDouble(-0.1, 0.1);
+		}
+
+		if (relPos.y < 3)
+		{
+			relPos.y = GenRandomDouble(3, 5);
+		}
+	}
+
+	if (anchorObjName == "table" && actObjName == "tv")
+	{
+		relTheta = 0;
+
+		if (relPos.x > 0.1 || relPos.x < -0.1)
+		{
+			relPos.x = GenRandomDouble(-0.1, 0.1);
+		}
+
+		if (relPos.y > -2)
+		{
+			relPos.y = GenRandomDouble(-3.5, -2);
+		}
+	}
+
+	if (anchorObjName == "table" && actObjName == "couch")
+	{
+		relTheta = 1;
+
+		if (relPos.x > 0.1 || relPos.x < -0.1)
+		{
+			relPos.x = GenRandomDouble(-0.1, 0.1);
+		}
+
+		if (relPos.y > 2.5)
+		{
+			relPos.y = GenRandomDouble(1.5, 2);
+		}
 	}
 
 	if (anchorObjName =="chair")
 	{
 		if (actObjName == "plate")
 		{
-			if (relPos.y > 0.7 || relPos.y < 0.5)
+			if (relPos.y > 1.2 || relPos.y < 0.7)
 			{
-				relPos.y = GenRandomDouble(0.5, 0.7);
+				relPos.y = GenRandomDouble(0.7, 1.2);
 			}
 
 			if (std::abs(relPos.x) > 0.1)
@@ -988,9 +1167,9 @@ void RelationModelManager::adjustSamplingForSpecialModels(const QString &anchorO
 
 		if (actObjName == "knife")
 		{
-			if (relPos.y > 0.8 || relPos.y < 0.6)
+			if (relPos.y > 1.2 || relPos.y < 0.7)
 			{
-				relPos.y = GenRandomDouble(0.6, 0.7);
+				relPos.y = GenRandomDouble(0.7, 1.2);
 			}
 
 			if (std::abs(relPos.x) < 0.1)
@@ -1004,9 +1183,9 @@ void RelationModelManager::adjustSamplingForSpecialModels(const QString &anchorO
 
 		if (actObjName == "fork")
 		{
-			if (relPos.y > 0.8 || relPos.y < 0.6)
+			if (relPos.y > 1.2 || relPos.y < 0.7)
 			{
-				relPos.y = GenRandomDouble(0.6, 0.8);
+				relPos.y = GenRandomDouble(0.7, 1.2);
 			}
 
 			if (std::abs(relPos.x) < 0.1)
@@ -1253,54 +1432,6 @@ void RelationModelManager::collectConstraintsForModel(TSScene *currScene, int me
 			}
 		}
 	}
-	//// add near if there is no relation specified
-	//else if(currNode.nodeType == "object" && currNode.outEdgeNodeList.empty() && currNode.matchingStatus == SemNode::ExplicitNode)
-	//{
-	//	if (currScene->m_explictConstraints[metaModelId].empty())
-	//	{
-	//		// find another object which has diff cat and use it as anchor
-	//		int anchorObjNodeId = -1;
-	//		for (int j = 0; j < currSSG->m_nodes.size(); j++)
-	//		{
-	//			SemNode &anchorNode = currSSG->m_nodes[j];
-	//			if (anchorNode.nodeType == "object" && anchorNode.matchingStatus == SemNode::ExplicitNode
-	//				&& anchorNode.nodeName != currNode.nodeName)
-	//			{
-	//				anchorObjNodeId = j;
-	//				break;
-	//			}
-	//		}
-
-	//		if (anchorObjNodeId != -1)
-	//		{
-	//			SemNode &anchorObjNode = currSSG->m_nodes[anchorObjNodeId];
-
-	//			QString relationName = "near";
-	//			MetaModel &anchorMd = currScene->getMetaModel(currSSG->m_graphNodeToModelListIdMap[anchorObjNodeId]);
-	//			MetaModel &actMd = currScene->getMetaModel(currSSG->m_graphNodeToModelListIdMap[currNodeId]);
-
-	//			Model *refModel = currScene->getModel(anchorMd.name);
-	//			Model *actModel = currScene->getModel(actMd.name);
-	//			if (!refModel->m_loadingDone || !actModel->m_loadingDone) return;
-
-	//			// find explicit constraints specified in the SSG
-	//			PairwiseRelationModel *pairwiseModel;
-	//			QString relationType;
-
-	//			pairwiseModel = retrievePairwiseModel(currScene, anchorMd, actMd, relationName);
-	//			relationType = "pairwise";
-
-	//			if (pairwiseModel != NULL)
-	//			{
-	//				int anchorModelId = currSSG->m_graphNodeToModelListIdMap[anchorObjNodeId];
-	//				currScene->m_explictConstraints[metaModelId].push_back(RelationConstraint(pairwiseModel, relationType, anchorModelId, ""));
-
-	//				MetaModel &md = currScene->getMetaModel(metaModelId);
-	//				md.explicitAnchorId = anchorModelId;
-	//			}
-	//		}
-	//	}
-	//}
 }
 
 void RelationModelManager::addConstraintToModel(TSScene *currScene, int metaModelId, int refModelId)
@@ -1359,8 +1490,6 @@ void RelationModelManager::addConstraintToModel(TSScene *currScene, int metaMode
 			}
 		}
 	}
-
-	// add the constraint to ref model
 }
 
 PairwiseRelationModel* RelationModelManager::retrievePairwiseModel(TSScene *currScene, int anchorNodeId, int actNodeId, const QString &relationName)

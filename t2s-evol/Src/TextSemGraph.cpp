@@ -274,6 +274,11 @@ void TextSemGraph::buildGraphFromSEL()
 					QString directObjName = toQString(PartitionString(currTargetString.toStdString(), "dobj|")[0]);
 					directObjName = directObjName.split("-")[0];
 
+					if (directObjName.endsWith('s'))
+					{
+						directObjName = directObjName.left(directObjName.size() - 1);
+					}
+
 					addNode("object", directObjName);
 					int directObjId = m_nodeNum - 1;
 					addEdge(directObjId, commandNodeId);
@@ -282,6 +287,11 @@ void TextSemGraph::buildGraphFromSEL()
 				{
 					QString targetObjName = toQString(PartitionString(currTargetString.toStdString(), "|")[1]);
 					targetObjName = targetObjName.split("-")[0];
+
+					if (targetObjName.endsWith('s'))
+					{
+						targetObjName = targetObjName.left(targetObjName.size() - 1);
+					}
 
 					addNode("object", targetObjName);
 					int targetObjId = m_nodeNum - 1;
@@ -400,7 +410,10 @@ void TextSemGraph::initAttriSets()
 	m_goodAttriSets.push_back("formal");
 	m_goodAttriSets.push_back("casual");
 	m_goodAttriSets.push_back("organized");
+	m_goodAttriSets.push_back("disorganized");
 	m_goodAttriSets.push_back("clean");
+	m_goodAttriSets.push_back("work");
+	m_goodAttriSets.push_back("study");
 }
 
 bool TextSemGraph::isGoodAttribute(const QString &attriName)
@@ -731,10 +744,17 @@ void TextSemGraph::mapToFixedAttributeSet(QString &nodeName, QString &nodeType /
 		return;
 	}
 
-	if (nodeName.contains("organize"))
+	if (nodeName.contains("organize") && !nodeName.contains("dis"))
 	{
 		nodeType = SSGNodeType[SemNode::Group];
 		nodeName = "organized";
+		return;
+	}
+
+	if (nodeName.contains("disorganize"))
+	{
+		nodeType = SSGNodeType[SemNode::Group];
+		nodeName = "messy";
 		return;
 	}
 
@@ -742,6 +762,20 @@ void TextSemGraph::mapToFixedAttributeSet(QString &nodeName, QString &nodeType /
 	{
 		nodeType = SSGNodeType[SemNode::Group];
 		nodeName = "clean";
+		return;
+	}
+
+	if (nodeName.contains("work"))
+	{
+		nodeType = SSGNodeType[SemNode::Group];
+		nodeName = "work";
+		return;
+	}
+
+	if (nodeName.contains("study"))
+	{
+		nodeType = SSGNodeType[SemNode::Group];
+		nodeName = "study";
 		return;
 	}
 }

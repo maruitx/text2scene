@@ -67,55 +67,7 @@ vector<SceneSemGraph*> SemGraphMatcher::retrieveDatabaseSSGs(int targetMatchNum)
 		if (ssg != NULL)
 		{
 			matchedSubSSGs.push_back(ssg);
-
-			// reduce randomness by setting fix model ids when recording video
-			//if (params::inst()->doVideo)
-			//{
-			//	if (ssg->m_dbSSGId == 36)
-			//	{
-			//		videoIdList[0] = sgId;			
-			//	}
-
-			//	if (ssg->m_dbSSGId == 31)
-			//	{
-			//		videoIdList[1] = sgId;
-			//	}
-
-			//	if (ssg->m_dbSSGId == 105)
-			//	{
-			//		videoIdList[2] = sgId;
-			//	}
-			//}
 		}
-	}
-
-	if (params::inst()->doVideo)
-	{
-		//// set fixed scene order when recording video
-		//std::vector<int> idInList;
-
-		//for (int i = 0; i < scoredDBSubSSGs.size(); i++)
-		//{
-		//	SceneSemGraph *subSSG = scoredDBSubSSGs[i].second;
-		//	if (subSSG->m_dbSSGId == 37)  // desk
-		//	{
-		//		idInList.push_back(subSSG->m_dbSSGId); break;
-		//	}
-
-		//	if (subSSG->m_dbSSGId == 43)  // bed
-		//	{
-		//		idInList.push_back(subSSG->m_dbSSGId); break;
-		//	}
-		//}
-
-		//if (!idInList.empty())
-		//{
-		//	matchedSubSSGs[0] = scoredDBSubSSGs[idInList[0]].second;
-		//}
-
-		//matchedSubSSGs[0] = scoredDBSubSSGs[videoIdList[0]].second;
-		//matchedSubSSGs[1] = scoredDBSubSSGs[videoIdList[1]].second;
-		//matchedSubSSGs[2] = scoredDBSubSSGs[videoIdList[2]].second;
 	}
 
 	// enrich subSSG
@@ -189,13 +141,6 @@ vector<SceneSemGraph*> SemGraphMatcher::retrieveDatabaseSSGs(int targetMatchNum)
 				addContextNodesFromDbSSGToSubSSG(matchedSubSSGs[a], dbSSG);
 			}
 		}
-	}
-	else if(params::inst()->isUseContext == 0 && params::inst()->doVideo)
-	{
-		// add context nodes to the last matched ssg when doing video
-		int currSubSSGNum = matchedSubSSGs.size();
-		SceneSemGraph *dbSSG = m_sceneSemGraphManager->getGraph(matchedSubSSGs[currSubSSGNum - 1]->m_dbSSGId);
-		addContextNodesFromDbSSGToSubSSG(matchedSubSSGs[currSubSSGNum-1], dbSSG);  // add to last subSSG
 	}
 
 	for (int a=0; a<addedSubSSGs.size(); a++)
@@ -395,8 +340,8 @@ void SemGraphMatcher::addGroupActNodesToSubSSG(SceneSemGraph *matchedSubSSG, Sce
 
 						if (groupModel->m_occurModels.count(occKey))
 						{
-							double groupCoOccTh = params::inst()->groupCoOccProb;
-							double randProb = GenRandomDouble(0, groupModel->m_maxOccProb * groupCoOccTh*0.5);
+							double groupOccTh = params::inst()->groupOccProb*0.3; // reduce the threshold to bring in more active objects
+							double randProb = GenRandomDouble(0, groupModel->m_maxOccProb * groupOccTh);
 							double probTh = groupModel->m_occurModels[occKey]->m_occurProb;
 
 							if (probTh > randProb)
@@ -409,41 +354,6 @@ void SemGraphMatcher::addGroupActNodesToSubSSG(SceneSemGraph *matchedSubSSG, Sce
 								currSubSSGNodeNum++;
 
 								// add support node for current active object
-								addSupportParentNodesForGroupActNode(dbActNodeId, dbSSG, matchedSubSSG, currSubSSGNodeNum, insertDbObjNodeList);
-							}
-						}
-					}
-
-					// add high co-occur objects to current inserted object
-					if (false)
-					{
-						for (int a = 0; a < actNodeList.size(); a++)
-						{
-							int dbActNodeId = actNodeList[a];
-							// skip if node is already inserted
-							if (dbSSG->m_dbNodeToSubNodeMap.count(dbActNodeId)) continue;
-
-							if (std::find(insertedObjNodeIds.begin(), insertedObjNodeIds.end(), dbActNodeId) != insertedObjNodeIds.end())
-								continue;
-
-							bool isCoOcc = false;
-							SemNode& dbActNode = dbSSG->m_nodes[dbActNodeId];
-							for (int k = 0; k < insertedObjNodeIds.size(); k++)
-							{
-								int insertedDbActNodeId = insertedObjNodeIds[k];
-								SemNode& insertedDbNode = dbSSG->m_nodes[insertedDbActNodeId];
-							}
-
-							if (isCoOcc)
-							{
-								dbActNode.isAnnotated = true;
-								dbActNode.isAligned = false;
-								matchedSubSSG->addNode(dbActNode);
-								dbSSG->m_dbNodeToSubNodeMap[dbActNodeId] = currSubSSGNodeNum;
-								insertDbObjNodeList.push_back(dbActNodeId);
-								currSubSSGNodeNum++;
-
-								insertedObjNodeIds.push_back(dbActNodeId);
 								addSupportParentNodesForGroupActNode(dbActNodeId, dbSSG, matchedSubSSG, currSubSSGNodeNum, insertDbObjNodeList);
 							}
 						}
@@ -677,10 +587,10 @@ void SemGraphMatcher::addSynthNodeToSubSSG(SceneSemGraph *matchedSubSSG, SceneSe
 						QString subSSGRefNodeName = matchedSubSSG->m_nodes[subSSGRefNodeId].nodeName;
 						QString groupKey = sgNode.nodeName + "_" + subSSGRefNodeName;
 						GroupRelationModel *groupModel;
+
 						if (m_relModelManager->m_groupRelModels.count(groupKey))
 						{
 							groupModel = m_relModelManager->m_groupRelModels[groupKey];
-							double groupCoOccTh = params::inst()->groupCoOccProb;
 
 							int insertedActObjNum = 0;
 							for (auto it = groupModel->m_occurModels.begin(); it!= groupModel->m_occurModels.end(); it++)
@@ -696,8 +606,8 @@ void SemGraphMatcher::addSynthNodeToSubSSG(SceneSemGraph *matchedSubSSG, SceneSe
 								if (m_relModelManager->m_pairwiseRelModels.count(supportRelKey) == 0) continue; // only insert object that has appeared on the ref object
 								if(m_relModelManager->m_pairwiseRelModels[supportRelKey]->m_numInstance < 5) continue;  // only insert objects with more than a few occurrences
 
-								double groupCoOccTh = params::inst()->groupCoOccProb;
-								double randProb = GenRandomDouble(0, groupModel->m_maxOccProb *groupCoOccTh);
+								double groupOccTh = params::inst()->groupOccProb; // use the loaded threshold for synthesized act objects
+								double randProb = GenRandomDouble(0, groupModel->m_maxOccProb *groupOccTh);
 								double probTh = it->second->m_occurProb;
 
 								if (probTh > randProb)
@@ -781,7 +691,7 @@ void SemGraphMatcher::addInferredSuppParentNodesToSubSSG(SceneSemGraph *matchedS
 	{
 		SemNode &mActNode = matchedSubSSG->m_nodes[i];
 
-		if (mActNode.nodeType == "object")// && mActNode.nodeName == "tv")
+		if (mActNode.nodeType == "object")
 		{
 			bool isInSpecialRelation = false;
 			for (int r = 0; r < mActNode.outEdgeNodeList.size(); r++)
@@ -800,10 +710,10 @@ void SemGraphMatcher::addInferredSuppParentNodesToSubSSG(SceneSemGraph *matchedS
 			int dbActNodeParentNodeId = dbSSG->findParentNodeIdForNode(dbActNodeId);
 			int mActNodeParentNodeId = matchedSubSSG->findParentNodeIdForNode(i);
 
-
 			if (dbActNodeParentNodeId != -1 && dbActNodeParentNodeId!=0 && mActNodeParentNodeId == -1)
 			{
 				SemNode &dbActNode = dbSSG->m_nodes[dbActNodeId];
+				MetaModel &dbActNodeParentMd = dbSSG->getModelWithNodeId(dbActNodeParentNodeId);
 
 				for (int j = 0; j < dbActNode.outEdgeNodeList.size(); j++)
 				{
@@ -819,11 +729,17 @@ void SemGraphMatcher::addInferredSuppParentNodesToSubSSG(SceneSemGraph *matchedS
 						matchedSubSSG->m_nodes[currRelNodeId].isAligned = true;
 						matchedSubSSG->m_nodes[currRelNodeId].isSynthesized = false;
 
+						std::vector<int> parentNodeIds = matchedSubSSG->findNodeWithName(QString(dbActNodeParentMd.catName.c_str()));
+
 						// add parent node
 						int currAnchorNodeId;
 						if (std::find(insertedParentNodeIds.begin(), insertedParentNodeIds.end(), dbActNodeParentNodeId) != insertedParentNodeIds.end())
 						{
 							currAnchorNodeId = dbSSG->m_dbNodeToSubNodeMap[dbActNodeParentNodeId];
+						}
+						else if (!parentNodeIds.empty())
+						{
+							currAnchorNodeId = parentNodeIds[0];
 						}
 						else
 						{

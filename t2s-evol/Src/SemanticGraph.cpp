@@ -121,8 +121,12 @@ void SemanticGraph::initAttributeSet()
 
 	m_groupAttriSet.push_back("messy");
 	m_groupAttriSet.push_back("organized");
+	m_groupAttriSet.push_back("disorganized");
 	m_groupAttriSet.push_back("formal");
 	m_groupAttriSet.push_back("casual");
+	m_groupAttriSet.push_back("clean");
+	m_groupAttriSet.push_back("work");
+	m_groupAttriSet.push_back("study");
 }
 
 bool SemanticGraph::isStrictAttribute(const QString &attriName)

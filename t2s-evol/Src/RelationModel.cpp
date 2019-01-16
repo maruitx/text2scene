@@ -148,7 +148,8 @@ Eigen::VectorXd PairwiseRelationModel::sample()
 		if (std::abs(relPos->pos.x > 10)) newSample[0] = 0;
 		if (std::abs(relPos->pos.y > 10)) newSample[1] = 0;
 		if (std::abs(relPos->pos.z > 10)) newSample[2] = -0.5;
-
+		
+		// adjust the sampled pos for certain relationships
 		if (m_relationName == "under")
 		{
 			if (relPos->pos.z > 0 || std::abs(relPos->pos.x) > 0.5 || std::abs(relPos->pos.y) > 0.5)

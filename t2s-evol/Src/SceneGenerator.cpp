@@ -50,8 +50,6 @@ SemanticGraph* SceneGenerator::prepareQuerySG()
 		// binding to current scene
 		if (m_currUserSSG != NULL)
 		{
-			// TODO: remove the skipped objects nodes and their connecting relation nodes; restores the node ids and edge ids
-
 			//resetNodes(querySG);
 			m_currUserSSG->m_nodeAlignMap.clear();
 
@@ -193,35 +191,6 @@ void SceneGenerator::adjustTextSSGWithCurrSSG(TextSemGraph *textSSG, SceneSemGra
 					}
 				}
 			}
-
-			//for (int a=0; a < currSSG->m_addedContextNodeIds.size(); a++)
-			//{
-			//	int addedActNodeId = currSSG->m_addedContextNodeIds[a];
-			//	SemNode &currSSGActNode = currSSG->m_nodes[addedActNodeId];
-
-			//	if (!currSSGActNode.outEdgeNodeList.empty())
-			//	{
-			//		int addedRelNodeId = currSSGActNode.outEdgeNodeList[0];
-			//		SemNode &currSSGRelNode = currSSG->m_nodes[addedRelNodeId];
-			//		if (!currSSGRelNode.outEdgeNodeList.empty())
-			//		{
-			//			int currSSGAnchorNodeId = currSSGRelNode.outEdgeNodeList[0];
-			//			SemNode &currSSGAnchorNode = currSSG->m_nodes[currSSGAnchorNodeId];
-
-			//			if (currSSGAnchorNode.nodeName == currTSGAnchorNode.nodeName)
-			//			{
-			//				textSSG->addNode(currSSG->m_nodes[addedActNodeId]);
-			//				int newActNodeId = textSSG->m_nodeNum - 1;
-
-			//				textSSG->addNode(currSSGRelNode);
-			//				int newRelNodeId = textSSG->m_nodeNum - 1;
-
-			//				textSSG->addEdge(newActNodeId, newRelNodeId);
-			//				textSSG->addEdge(newRelNodeId, newAnchorNodeId);
-			//			}
-			//		}
-			//	}		
-			//}
 		}
 	}
 
