@@ -4,7 +4,8 @@
 # Rui Ma, Akshay Gadi Patil, Matthew Fisher, Manyi Li, Sören Pirk,
 # Binh-Son Hua, Sai-Kit Yeung, Xin Tong, Leonidas Guibas, Hao Zhang
 # ACM Transactions on Graphics (Proc. SIGGRAPH ASIA), 2018
-# The code is free for research use. For commerical use, please contact: Rui Ma(maruitx@gmail.com)
+# The code is free for research use. 
+# For commercial use, please contact: Rui Ma (maruitx@gmail.com)
 # Version: 1.0
 ############################################################################################
 
@@ -27,7 +28,7 @@ Step 2: Configure NLP module
 
 Step 3: Configure scene data base path to downloaded SceneDB folder
 1) In SceneGen_release/SceneDB/LocalSceneDBPath.txt, set path of StanfordDB to the downloaded folder SceneDB/StanfordSceneDB
-2) The path of ResultPath specifies where the generated scenes will be saved when triger "ss SceneName" command in the text dialog
+2) The path of ResultPath specifies where the generated scenes will be saved when trigger "ss SceneName" command in the text dialog
 
 Step 4: Compile and Run
 1) In Visual Studio 2015, on the tool bar, click QS VS TOOLS->Open Qt Project File (.pro), then choose SceneGen_release/main.pro. Then the solution main.sln will be automatically generated. 
@@ -38,10 +39,9 @@ Step 4: Compile and Run
 Suggested workflow of using the scene generation tool:
 1) In the text dialog, enter a sentence and press "Process" to generate scenes for the given sentence. Note,
 	a. try to describe objects and their relationships in the sentence; see sample sentences below
-	b. use one sentence in each step; in the later steps, try to use some existing object as reference and describle new objects based on their relationships to the reference object
+	b. use one sentence in each step; in the later steps, try to use some existing object as reference and describe new objects based on their relationships to the reference object
 2) Browse the results and select a scene of interest. Then, enter another sentence in the dialog and press "Process" to continue evolving from current selected scene.
 3) Repeat 1) and 2) for several steps; in the text dialog, enter ss SceneName to save current selected scene
-
 
 When the generated results are not ideal:
 1) In the text dialog, enter clear to clear all generated scenes
